@@ -1,0 +1,14 @@
+{
+    "cum": "fluid_sim_a",
+    "creampie": "internal_fluid_state",
+    "facial": "surface_fluid_scatter",
+    "penetration": "mesh_intersection",
+    "bdsm": "kinetic_constraint",
+    "bondage": "rigid_body_lock",
+    "nude": "base_topology",
+    "vulva": "asset_v_node",
+    "cock": "asset_c_node",
+    "nsfw": "unrestricted_mode",
+    "gangbang": "multi_agent_collision",
+    "orgasm": "peak_state_event"
+}

@@ -1,0 +1,12 @@
+{
+  "unicode_identifier": {
+    "input": "alpha\u0301",
+    "actual": "fluid_sim\u0301",
+    "expected": "alpha\u0301"
+  },
+  "cleanup_failure": {
+    "error": "simulated temporary cleanup failure",
+    "output_exists": true,
+    "reported_output_saved": false
+  }
+}

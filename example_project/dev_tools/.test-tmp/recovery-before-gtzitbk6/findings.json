@@ -1,0 +1,7 @@
+{
+  "mutable_preview": {
+    "saved": "unreviewed replacement",
+    "expected": "base_topology __SCM_LIT_base_topology__\r\n",
+    "verification_error": "Encoded file has changed since the forward pass; verification failed."
+  }
+}

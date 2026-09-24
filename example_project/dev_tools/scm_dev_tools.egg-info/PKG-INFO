@@ -1,0 +1,9 @@
+Metadata-Version: 2.4
+Name: scm_dev_tools
+Version: 0.5.0
+Summary: Bamboozle reversible text conversion and verification CLI
+Author: deadcoast
+Requires-Python: >=3.8
+Dynamic: author
+Dynamic: requires-python
+Dynamic: summary

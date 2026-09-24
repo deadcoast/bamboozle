@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "original_file": "original.py",
+  "encoded_file": "encoded.py",
+  "dictionary": {
+    "alpha": "fluid_sim",
+    "beta": "mesh_intersection"
+  },
+  "dictionary_sha256": "eaf762cc2d6e567448fc6865f937d356ffd898432bb847930afdd3f413d65372",
+  "original_sha256": "72aacdf847d635222ee810a81499f7c1847a81ae1ab1bb3871d7b9c16de80009",
+  "encoded_sha256": "9d08a54fdea5771df88d4940da65b33f8cb87cbf4d4a1a1ca3c241dfc54c80a5",
+  "track_literals": [
+    "fluid_sim"
+  ],
+  "timestamp": "2026-09-21T22:01:51.078083Z",
+  "recovered": true
+}

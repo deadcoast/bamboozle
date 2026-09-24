@@ -1,0 +1,3 @@
+[console_scripts]
+bamboozle = bamboozle.cli:main
+scm-cipher = bamboozle.cipher:main

@@ -1,0 +1,8 @@
+{
+  "automatic_ledger_mapping": "Ledger does not match this file and dictionary; left untouched.",
+  "destination_ledger": {
+    "output": "alpha fluid_sim\n",
+    "ledger": "unrelated metadata"
+  },
+  "cr_diff": "--- before\n+++ after\n@@ -1 +1 @@\n-alpha\r\n\\ No newline at end of file\n+fluid_sim\r\n\\ No newline at end of file\n"
+}

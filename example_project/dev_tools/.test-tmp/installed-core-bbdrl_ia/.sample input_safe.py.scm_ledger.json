@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "original_file": "sample input.py",
+  "encoded_file": "sample input_safe.py",
+  "dictionary": {
+    "cum": "fluid_sim_a",
+    "creampie": "internal_fluid_state",
+    "facial": "surface_fluid_scatter",
+    "penetration": "mesh_intersection",
+    "bdsm": "kinetic_constraint",
+    "bondage": "rigid_body_lock",
+    "nude": "base_topology",
+    "vulva": "asset_v_node",
+    "cock": "asset_c_node",
+    "nsfw": "unrestricted_mode",
+    "gangbang": "multi_agent_collision",
+    "orgasm": "peak_state_event"
+  },
+  "dictionary_sha256": "2dbdd479c2b79d6b6994617390b6bff39f1fc72c8bf7f5d672ee50dcc0ea26ed",
+  "original_sha256": "3d12835164f3ff6b3cf2da90a64e29a32ff9621d65fc0626e9f7a8cee7f3b52b",
+  "encoded_sha256": "39641a286f1ca212ee6b76d09e43eb5a3a92a5a6458d69348928b87532eaabd0",
+  "track_literals": [
+    "base_topology"
+  ],
+  "timestamp": "2026-09-21T20:27:29.941503Z"
+}

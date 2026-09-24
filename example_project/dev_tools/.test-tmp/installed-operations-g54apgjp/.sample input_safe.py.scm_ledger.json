@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "original_file": "sample input.py",
+  "encoded_file": "sample input_safe.py",
+  "dictionary": {
+    "alpha": "fluid_sim"
+  },
+  "dictionary_sha256": "184d6087cd56ae32df66561cb5c66ea3c9c54adaaad4984aee5dd5c86a719987",
+  "original_sha256": "fe8a8f043adce83266d10ff7fbc567806dd5c62832786985ba450de204975140",
+  "encoded_sha256": "8b7ed21117260583d4ce2644d62a541f193a01da670f745c40ee3784eb816799",
+  "track_literals": [
+    "fluid_sim"
+  ],
+  "timestamp": "2026-09-21T21:41:03.524501Z"
+}
