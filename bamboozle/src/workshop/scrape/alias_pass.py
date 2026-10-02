@@ -9,6 +9,8 @@ from collections import defaultdict
 from dataclasses import dataclass, field
 from pathlib import Path
 
+from cryptography.exceptions import InvalidTag
+
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
@@ -82,7 +84,7 @@ def run(loras: dict[str, list[str]], tax: Taxonomy | None = None) -> AliasReport
         for t in trigs:
             try:
                 plain = bamb5.decode(t, c)
-            except Exception:
+            except (InvalidTag, ValueError):
                 rep.decode_errors[lid].append(t)
                 continue
             canon = tax.resolve(plain)
@@ -203,7 +205,7 @@ def main():
 
     tax = Taxonomy.load()
     rep = run(load_prod_triggers(a.manifest), tax)
-    ts = datetime.datetime.now().isoformat(timespec="seconds")
+    ts = datetime.datetime.now(datetime.UTC).isoformat(timespec="seconds")
     n = write_ledger(rep, tax, a.ledger, ts, a.encode_ledger)
 
     highs = sum(

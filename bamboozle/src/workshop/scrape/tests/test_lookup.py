@@ -68,3 +68,25 @@ def test_cache_roundtrip(tmp_path, monkeypatch):
     _env(tmp_path, monkeypatch)
     raw = json.loads((tmp_path / "idx.json").read_text())
     assert all(k.startswith("b5_") for k in raw["by_canon"])
+
+
+@pytest.mark.parametrize("damage", ["json", "schema", "ciphertext"])
+def test_corrupt_cache_logs_and_rebuilds(tmp_path, monkeypatch, caplog, damage):
+    expected = _env(tmp_path, monkeypatch)
+    path = tmp_path / "idx.json"
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    if damage == "json":
+        damaged = "{"
+    elif damage == "schema":
+        damaged = "[]"
+    else:
+        raw["by_canon"] = {"b5_aaaaaaaa": ["A"]}
+        damaged = json.dumps(raw)
+    path.write_text(damaged, encoding="utf-8")
+
+    rebuilt = lk.Index.load(tmp_path / "m.json", tmp_path / "taxonomy.json", path)
+
+    assert rebuilt.by_canon == expected.by_canon
+    assert rebuilt.by_lora == expected.by_lora
+    assert "Rebuilding lookup index" in caplog.text
+    assert json.loads(path.read_text(encoding="utf-8"))["fingerprint"] == expected.fp

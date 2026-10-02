@@ -66,6 +66,7 @@ def _run(script: str, *args: str, timeout: int = 900) -> dict:
         capture_output=True,
         text=True,
         timeout=timeout,
+        check=False,
     )
     return {
         "returncode": r.returncode,

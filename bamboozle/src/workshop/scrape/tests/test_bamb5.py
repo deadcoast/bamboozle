@@ -1,5 +1,6 @@
 # tests/test_bamb5.py
 import pytest
+from cryptography.exceptions import InvalidTag
 
 from workshop.scrape import bamb5
 
@@ -18,5 +19,5 @@ def test_tamper(tmp_path, monkeypatch):
     bamb5.init_key()
     t = bamb5.encode("x")
     bad = t[:-2] + ("a" if t[-2] != "a" else "b") + t[-1]
-    with pytest.raises(Exception):
+    with pytest.raises(InvalidTag):
         bamb5.decode(bad)

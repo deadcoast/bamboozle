@@ -5,11 +5,14 @@ import datetime
 import difflib
 import hashlib
 import json
+import logging
 import os
 import sys
 import tempfile
 from collections import defaultdict
 from pathlib import Path
+
+from cryptography.exceptions import InvalidTag
 
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
@@ -21,6 +24,7 @@ ROOT = ap.ROOT
 MANIFEST = ROOT / "_lora_manifest.json"
 INDEX = ROOT / "_lookup_index.json"
 VERSION = 1
+logger = logging.getLogger(__name__)
 
 
 def _fingerprint(*paths: Path) -> str:
@@ -79,7 +83,9 @@ class Index:
             {
                 "version": VERSION,
                 "fingerprint": self.fp,
-                "built": datetime.datetime.now().isoformat(timespec="seconds"),
+                "built": datetime.datetime.now(datetime.UTC).isoformat(
+                    timespec="seconds"
+                ),
                 "by_canon": {e(k): v for k, v in self.by_canon.items()},
                 "by_lora": {k: [e(x) for x in v] for k, v in self.by_lora.items()},
             },
@@ -106,8 +112,17 @@ class Index:
                         ap.Taxonomy.load(tax_path),
                         fp,
                     )
-            except Exception:
-                pass  # stale key, corrupt file, schema drift -> rebuild
+            except (
+                OSError,
+                ValueError,
+                KeyError,
+                TypeError,
+                AttributeError,
+                InvalidTag,
+            ) as exc:
+                logger.warning(
+                    "Rebuilding lookup index %s after cache read failed: %s", path, exc
+                )
         idx = cls.build(manifest, tax_path)
         idx.save(path)
         return idx
@@ -117,7 +132,7 @@ class Index:
     def _canon(self, q: str) -> str | None:
         try:
             plain = bamb5.decode(q)
-        except Exception:
+        except (InvalidTag, ValueError):
             return None
         return self.tax.resolve(plain)
 

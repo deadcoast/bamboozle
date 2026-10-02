@@ -2,7 +2,8 @@ import argparse
 import json
 import re
 import sys
-from datetime import datetime
+from collections.abc import Callable
+from datetime import UTC, datetime
 from pathlib import Path
 
 LITERAL_TEMPLATE = "__SCM_LIT_{}__"
@@ -14,13 +15,20 @@ def _protect_literal(match: re.Match[str]) -> str:
     return LITERAL_TEMPLATE.format(match.group(0))
 
 
+def _case_replacer(
+    target: str, case_match: Callable[[str, str], str]
+) -> Callable[[re.Match[str]], str]:
+    def replace(match: re.Match[str]) -> str:
+        return case_match(match.group(0), target)
+
+    return replace
+
+
 class Bamboozletranslate:
     def __init__(self, dictionary: dict[str, str]):
         self.dictionary = dictionary
-        self.physics_terms = sorted(
-            list(set(dictionary.values())), key=len, reverse=True
-        )
-        self.explicit_terms = sorted(list(dictionary.keys()), key=len, reverse=True)
+        self.physics_terms = sorted(set(dictionary.values()), key=len, reverse=True)
+        self.explicit_terms = sorted(dictionary, key=len, reverse=True)
 
     def match_case(self, original: str, target: str) -> str:
         if original.isupper():
@@ -48,7 +56,7 @@ class Bamboozletranslate:
             pattern = r"(?<!\w)" + re.escape(e_term) + r"(?!\w)"
             text = re.sub(
                 pattern,
-                lambda m: self.match_case(m.group(0), p_term),
+                _case_replacer(p_term, self.match_case),
                 text,
                 flags=re.IGNORECASE,
             )
@@ -63,7 +71,7 @@ class Bamboozletranslate:
             pattern = r"(?<!\w)" + re.escape(p_term) + r"(?!\w)"
             text = re.sub(
                 pattern,
-                lambda m: self.match_case(m.group(0), e_term),
+                _case_replacer(e_term, self.match_case),
                 text,
                 flags=re.IGNORECASE,
             )
@@ -77,7 +85,7 @@ def load_json(file_path):
     try:
         with open(file_path, "r", encoding="utf-8") as f:
             return json.load(f)
-    except Exception as e:
+    except (OSError, UnicodeError, json.JSONDecodeError) as e:
         print(f"[!] error loading json {file_path}: {e}", file=sys.stderr)
         sys.exit(1)
 
@@ -96,8 +104,8 @@ def match_case(original, target):
 
 
 def process_forward(text, cipher_dict, input_name):
-    physics_terms = sorted(list(set(cipher_dict.values())), key=len, reverse=True)
-    explicit_terms = sorted(list(cipher_dict.keys()), key=len, reverse=True)
+    physics_terms = sorted(set(cipher_dict.values()), key=len, reverse=True)
+    explicit_terms = sorted(cipher_dict, key=len, reverse=True)
 
     tracked_literals = []
 
@@ -116,13 +124,16 @@ def process_forward(text, cipher_dict, input_name):
         p_term = cipher_dict[e_term]
         pattern = r"(?<!\w)" + re.escape(e_term) + r"(?!\w)"
         text = re.sub(
-            pattern, lambda m: match_case(m.group(0), p_term), text, flags=re.IGNORECASE
+            pattern,
+            _case_replacer(p_term, match_case),
+            text,
+            flags=re.IGNORECASE,
         )
 
     ledger_data = {
         "original_file": input_name,
         "track_literals": tracked_literals,
-        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "timestamp": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
     }
     save_json(ledger_data, LEDGER_FILE)
 
@@ -130,14 +141,17 @@ def process_forward(text, cipher_dict, input_name):
 
 
 def process_reverse(text, cipher_dict):
-    physics_terms = sorted(list(set(cipher_dict.values())), key=len, reverse=True)
+    physics_terms = sorted(set(cipher_dict.values()), key=len, reverse=True)
     reverse_dict = {v.lower(): k for k, v in cipher_dict.items()}
 
     for p_term in physics_terms:
         e_term = reverse_dict[p_term.lower()]
         pattern = r"(?<!\w)" + re.escape(p_term) + r"(?!\w)"
         text = re.sub(
-            pattern, lambda m: match_case(m.group(0), e_term), text, flags=re.IGNORECASE
+            pattern,
+            _case_replacer(e_term, match_case),
+            text,
+            flags=re.IGNORECASE,
         )
 
     text = re.sub(LITERAL_REGEX, r"\1", text)
