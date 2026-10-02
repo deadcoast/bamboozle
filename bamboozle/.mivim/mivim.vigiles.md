@@ -14,7 +14,7 @@
 
 ## Renaming the Core Functions
 
-Map your agent's four main responsibilities:
+> Map your agent's four main responsibilities:
 
 - Profile Enforcement ➔ Lex Custodia (Law Custody / State Guard)
   - :vigiles: actively steers data to match the repository's native specifications. It acts as the immutable standard of structural integrity, forcing all incoming and middleware traffic to conform to its own internal template.
