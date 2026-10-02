@@ -6,7 +6,7 @@ from pathlib import Path
 DEV_TOOLS_DIR = Path(__file__).parent.parent / "dev_tools"
 sys.path.append(str(DEV_TOOLS_DIR))
 
-from src.dev_tools.translate import process_forward, load_json
+from dev_tools.translate import process_forward, load_json
 
 CIPHER_DICT_PATH = DEV_TOOLS_DIR / "cipher_dict.json"
 LEDGER_PATH = DEV_TOOLS_DIR / ".scm_ledger.json"
