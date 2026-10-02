@@ -1,4 +1,7 @@
-import json, bamb5, lookup as lk
+import json
+
+import bamb5
+import lookup as lk
 
 
 def _env(tmp_path, monkeypatch):

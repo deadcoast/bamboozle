@@ -1,4 +1,5 @@
-from alias_pass import run as alias_run, Taxonomy, load_prod_triggers, pairwise_overlap
+from alias_pass import Taxonomy, load_prod_triggers, pairwise_overlap
+from alias_pass import run as alias_run
 
 tax = Taxonomy.load()
 alias_rep = alias_run(load_prod_triggers(MANIFEST), tax)

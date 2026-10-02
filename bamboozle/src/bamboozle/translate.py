@@ -1,4 +1,3 @@
-import re
 import argparse
 import json
 import re
@@ -9,6 +8,7 @@ from pathlib import Path
 LITERAL_TEMPLATE = "__SCM_LIT_{}__"
 LITERAL_REGEX = r"__SCM_LIT_(.*?)__"
 LEDGER_FILE = ".scm_ledger.json"
+
 
 class Bamboozletranslate:
     def __init__(self, dictionary: dict[str, str]):
@@ -67,6 +67,7 @@ class Bamboozletranslate:
         text = re.sub(r"__SCM_LIT_(.*?)__", r"\1", text)
 
         return text
+
 
 def load_json(file_path):
     try:
