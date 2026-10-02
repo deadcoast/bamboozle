@@ -108,6 +108,51 @@ def compatibility(lora_a: str, lora_b: str) -> dict:
     key = "|".join(sorted([lora_a, lora_b]))
     return m.get("pairs", {}).get(key, {"status": "untested", "pair": key})
 
+from lookup import Index
+
+_idx: Index | None = None
+
+
+def _get() -> Index:
+    global _idx
+    _idx = Index.load()  # cheap: fingerprint check, rebuild only on change
+    return _idx
+
+
+@mcp.tool()
+def lora_who(trigger: str) -> dict:
+    """Which prod LoRAs use this trigger (alias/b5_/weighted ok)."""
+    return _get().who(trigger)
+
+
+@mcp.tool()
+def lora_triggers(lora_id: str) -> dict:
+    """Canonical triggers of a LoRA plus which LoRAs share each."""
+    return _get().of(lora_id)
+
+
+@mcp.tool()
+def lora_category(category: str) -> dict:
+    """All canonical terms in a category -> LoRAs."""
+    return _get().cat(category)
+
+
+@mcp.tool()
+def lora_suggest(term: str, n: int = 5) -> list[str]:
+    """Fuzzy canonical matches for a term."""
+    return _get().suggest(term, n)
+
+
+@mcp.tool()
+def lora_stack_check(lora_ids: list[str], threshold: float = 0.5) -> dict:
+    """Pre-flight trigger collision check for a LoRA stack."""
+    return _get().stack(lora_ids, threshold)
+
+
+@mcp.tool()
+def lora_orphans() -> list[str]:
+    """Taxonomy terms no prod LoRA uses."""
+    return _get().orphans()
 
 @mcp.tool()
 def promote_lora(candidate: str, dry_run: bool = True) -> dict:

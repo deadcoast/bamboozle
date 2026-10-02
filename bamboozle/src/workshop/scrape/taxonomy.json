@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "canonical": {
+    "red hair": {
+      "category": "anatomy",
+      "aliases": ["redhead", "ginger hair", "red_hair"]
+    },
+    "film grain": {
+      "category": "style",
+      "aliases": ["grainy", "35mm grain"]
+    }
+  },
+"ignore": ["masterpiece", "best quality", "highres"]
+}

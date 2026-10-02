@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "fingerprint": "3f9a1c0be2d47a18",
+  "built": "2026-10-02T14:00:00",
+  "by_canon": { "b5_k3j...": ["lora_a", "lora_b"] },
+  "by_lora":  { "lora_a": ["b5_k3j...", "b5_q7m..."] }
+}

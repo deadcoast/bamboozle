@@ -1,5 +1,3 @@
-import os
-
 # 1. The main Python Cipher script
 cipher_py_content = """import json
 import re
@@ -100,27 +98,31 @@ echo [SCM] Decrypted file created: %OUTPUT%
 pause
 """
 
+
 # Write all files to the current directory
 def create_files():
     print("Building SCM Toolset...")
-    
+
     with open("cipher.py", "w", encoding="utf-8") as f:
         f.write(cipher_py_content)
     print(" -> Created cipher.py")
-    
+
     with open("cipher_dict.json", "w", encoding="utf-8") as f:
         f.write(cipher_dict_content)
     print(" -> Created cipher_dict.json")
-    
+
     with open("1_ENCRYPT_FOR_CLAUDE.bat", "w", encoding="utf-8") as f:
         f.write(bat_forward_content)
     print(" -> Created 1_ENCRYPT_FOR_CLAUDE.bat")
-    
+
     with open("2_DECRYPT_FROM_CLAUDE.bat", "w", encoding="utf-8") as f:
         f.write(bat_reverse_content)
     print(" -> Created 2_DECRYPT_FROM_CLAUDE.bat")
-    
-    print("\nDONE. You can now drag and drop your Python or JSON files onto the .bat files.")
+
+    print(
+        "\nDONE. You can now drag and drop your Python or JSON files onto the .bat files."
+    )
+
 
 if __name__ == "__main__":
     create_files()

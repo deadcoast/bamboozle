@@ -6,12 +6,13 @@ Complete Vigenère encrypt/decrypt in Python that preserves case and passes non-
 def _shift_char(c, k, decrypt=False):
     if not c.isalpha():
         return c
-    base = ord('A') if c.isupper() else ord('a')
+    base = ord("A") if c.isupper() else ord("a")
     s = -k if decrypt else k
     return chr((ord(c) - base + s) % 26 + base)
 
+
 def vigenere(text: str, key: str, decrypt: bool = False) -> str:
-    key = [ord(k.lower()) - ord('a') for k in key if k.isalpha()]
+    key = [ord(k.lower()) - ord("a") for k in key if k.isalpha()]
     if not key:
         raise ValueError("Key must contain at least one letter")
     out, i = [], 0
@@ -23,12 +24,18 @@ def vigenere(text: str, key: str, decrypt: bool = False) -> str:
             out.append(c)
     return "".join(out)
 
-def encrypt(text, key): return vigenere(text, key)
-def decrypt(text, key): return vigenere(text, key, decrypt=True)
+
+def encrypt(text, key):
+    return vigenere(text, key)
+
+
+def decrypt(text, key):
+    return vigenere(text, key, decrypt=True)
+
 
 if __name__ == "__main__":
     ct = encrypt("Attack at dawn!", "LEMON")
-    print(ct)               # Lxfopv ef rnhr!
+    print(ct)  # Lxfopv ef rnhr!
     print(decrypt(ct, "LEMON"))
 ```
 
@@ -60,6 +67,7 @@ KEY_PATH = ROOT / "_bamb5.key"
 PREFIX = "b5_"
 AD = b"bamb5-v1"
 
+
 # ---------- key ----------
 def init_key(force: bool = False) -> None:
     if KEY_PATH.exists() and not force:
@@ -67,18 +75,22 @@ def init_key(force: bool = False) -> None:
     KEY_PATH.write_bytes(AESSIV.generate_key(512))
     print(f"Wrote {KEY_PATH}")
 
+
 def _cipher() -> AESSIV:
     if not KEY_PATH.exists():
         raise SystemExit("No key. Run: python bamb5.py init")
     return AESSIV(KEY_PATH.read_bytes())
 
+
 # ---------- core ----------
 def _b32e(b: bytes) -> str:
     return base64.b32encode(b).decode().rstrip("=").lower()
 
+
 def _b32d(s: str) -> bytes:
     s = s.upper()
     return base64.b32decode(s + "=" * (-len(s) % 8))
+
 
 def encode(term: str, c: AESSIV | None = None) -> str:
     if term.startswith(PREFIX):
@@ -86,31 +98,43 @@ def encode(term: str, c: AESSIV | None = None) -> str:
     c = c or _cipher()
     return PREFIX + _b32e(c.encrypt(term.encode("utf-8"), [AD]))
 
+
 def decode(token: str, c: AESSIV | None = None) -> str:
     if not token.startswith(PREFIX):
         return token  # passthrough plaintext
     c = c or _cipher()
-    return c.decrypt(_b32d(token[len(PREFIX):]), [AD]).decode("utf-8")
+    return c.decrypt(_b32d(token[len(PREFIX) :]), [AD]).decode("utf-8")
+
 
 def encode_list(terms, c=None):
-    c = c or _cipher(); return [encode(t, c) for t in terms]
+    c = c or _cipher()
+    return [encode(t, c) for t in terms]
+
 
 def decode_list(tokens, c=None):
-    c = c or _cipher(); return [decode(t, c) for t in tokens]
+    c = c or _cipher()
+    return [decode(t, c) for t in tokens]
+
 
 # ---------- bulk JSON ----------
 def _walk(obj, keys, fn):
     if isinstance(obj, dict):
-        return {k: (_apply(v, fn) if k in keys else _walk(v, keys, fn))
-                for k, v in obj.items()}
+        return {
+            k: (_apply(v, fn) if k in keys else _walk(v, keys, fn))
+            for k, v in obj.items()
+        }
     if isinstance(obj, list):
         return [_walk(v, keys, fn) for v in obj]
     return obj
 
+
 def _apply(v, fn):
-    if isinstance(v, str): return fn(v)
-    if isinstance(v, list): return [fn(x) if isinstance(x, str) else x for x in v]
+    if isinstance(v, str):
+        return fn(v)
+    if isinstance(v, list):
+        return [fn(x) if isinstance(x, str) else x for x in v]
     return v
+
 
 def process_json(path: Path, keys: set[str], mode: str) -> None:
     c = _cipher()
@@ -123,25 +147,35 @@ def process_json(path: Path, keys: set[str], mode: str) -> None:
     os.replace(tmp, path)
     print(f"{mode}d {path} keys={sorted(keys)}")
 
+
 # ---------- CLI ----------
 def main():
     p = argparse.ArgumentParser(prog="bamb5")
     sub = p.add_subparsers(dest="cmd", required=True)
-    i = sub.add_parser("init"); i.add_argument("--force", action="store_true")
+    i = sub.add_parser("init")
+    i.add_argument("--force", action="store_true")
     for name in ("enc", "dec"):
-        s = sub.add_parser(name); s.add_argument("terms", nargs="+")
+        s = sub.add_parser(name)
+        s.add_argument("terms", nargs="+")
     for name in ("enc-json", "dec-json"):
         s = sub.add_parser(name)
         s.add_argument("file", type=Path)
         s.add_argument("--keys", default="triggers,tags,trained_words")
     a = p.parse_args()
 
-    if a.cmd == "init": init_key(a.force)
-    elif a.cmd == "enc": print("\n".join(encode_list(a.terms)))
-    elif a.cmd == "dec": print("\n".join(decode_list(a.terms)))
+    if a.cmd == "init":
+        init_key(a.force)
+    elif a.cmd == "enc":
+        print("\n".join(encode_list(a.terms)))
+    elif a.cmd == "dec":
+        print("\n".join(decode_list(a.terms)))
     else:
-        process_json(a.file, set(a.keys.split(",")),
-                     "encode" if a.cmd == "enc-json" else "decode")
+        process_json(
+            a.file,
+            set(a.keys.split(",")),
+            "encode" if a.cmd == "enc-json" else "decode",
+        )
+
 
 if __name__ == "__main__":
     main()
@@ -154,13 +188,15 @@ translateTeststranslate
 import bamb5, pytest
 from cryptography.exceptions import InvalidTag
 
+
 def test_roundtrip(tmp_path, monkeypatch):
     monkeypatch.setattr(bamb5, "KEY_PATH", tmp_path / "k")
     bamb5.init_key()
     t = bamb5.encode("some trigger")
     assert t.startswith("b5_") and bamb5.decode(t) == "some trigger"
-    assert bamb5.encode("some trigger") == t       # deterministic
-    assert bamb5.encode(t) == t                    # idempotent
+    assert bamb5.encode("some trigger") == t  # deterministic
+    assert bamb5.encode(t) == t  # idempotent
+
 
 def test_tamper(tmp_path, monkeypatch):
     monkeypatch.setattr(bamb5, "KEY_PATH", tmp_path / "k")

@@ -56,12 +56,14 @@ TAXONOMY = ROOT / "taxonomy.json"
 _WEIGHT = re.compile(r"^\((.+?)(?::[\d.]+)?\)$")
 _WS = re.compile(r"[\s_]+")
 
+
 def normalize(t: str) -> str:
     t = unicodedata.normalize("NFKC", t).strip()
-    while (m := _WEIGHT.match(t)):
+    while m := _WEIGHT.match(t):
         t = m.group(1).strip()
     t = t.strip("[]{}").lower()
     return _WS.sub(" ", t).strip(" ,.")
+
 
 @dataclass
 class Taxonomy:
@@ -93,12 +95,16 @@ class Taxonomy:
     def known(self, canon: str) -> bool:
         return canon in self.canon_cat
 
+
 @dataclass
 class AliasReport:
     canon_by_lora: dict[str, set[str]] = field(default_factory=dict)
     conflicts: dict[str, list[str]] = field(default_factory=dict)  # canon -> loras
     unknown: dict[str, set[str]] = field(default_factory=lambda: defaultdict(set))
-    decode_errors: dict[str, list[str]] = field(default_factory=lambda: defaultdict(list))
+    decode_errors: dict[str, list[str]] = field(
+        default_factory=lambda: defaultdict(list)
+    )
+```
 
 You're right, it cut off mid-loop. Here's the full Part 10 from `run()` onward, plus the hook, tests, runbook, and failure modes.
 
@@ -106,6 +112,7 @@ Part 10 (cont.): `alias_pass.py`, completed
 
 ```python
 # alias_pass.py  (continued from AliasReport)
+
 
 def run(loras: dict[str, list[str]], tax: Taxonomy | None = None) -> AliasReport:
     """loras: {lora_id: [triggers, possibly b5_ encoded]}"""
@@ -140,7 +147,7 @@ def run(loras: dict[str, list[str]], tax: Taxonomy | None = None) -> AliasReport
 def conflict_severity(canon: str, loras: list[str], tax: Taxonomy) -> str:
     """Same category + shared canonical trigger = likely real collision."""
     if not tax.known(canon):
-        return "low"          # unknown term, can't judge yet
+        return "low"  # unknown term, can't judge yet
     return "high" if len(loras) >= 3 else "medium"
 
 
@@ -150,7 +157,7 @@ def pairwise_overlap(rep: AliasReport) -> dict[tuple[str, str], float]:
     out = {}
     for i, a in enumerate(ids):
         sa = rep.canon_by_lora[a]
-        for b in ids[i + 1:]:
+        for b in ids[i + 1 :]:
             sb = rep.canon_by_lora[b]
             if not sa or not sb:
                 continue
@@ -177,16 +184,31 @@ def load_prod_triggers(manifest: Path) -> dict[str, list[str]]:
 # ---------- ledger ----------
 LEDGER_FIELDS = ["run_ts", "kind", "canon", "loras", "severity", "detail"]
 
-def write_ledger(rep: AliasReport, tax: Taxonomy, path: Path,
-                 run_ts: str, encode_ledger: bool = False) -> int:
+
+def write_ledger(
+    rep: AliasReport,
+    tax: Taxonomy,
+    path: Path,
+    run_ts: str,
+    encode_ledger: bool = False,
+) -> int:
     import csv, os, tempfile
+
     c = bamb5._cipher() if encode_ledger else None
     enc = (lambda s: bamb5.encode(s, c)) if encode_ledger else (lambda s: s)
 
     rows = []
     for cn, ids in sorted(rep.conflicts.items()):
-        rows.append([run_ts, "conflict", enc(cn), ";".join(ids),
-                     conflict_severity(cn, ids, tax), tax.canon_cat.get(cn, "")])
+        rows.append(
+            [
+                run_ts,
+                "conflict",
+                enc(cn),
+                ";".join(ids),
+                conflict_severity(cn, ids, tax),
+                tax.canon_cat.get(cn, ""),
+            ]
+        )
     for cn, ids in sorted(rep.unknown.items()):
         rows.append([run_ts, "unknown", enc(cn), ";".join(sorted(ids)), "info", ""])
     for lid, toks in sorted(rep.decode_errors.items()):
@@ -209,6 +231,7 @@ def write_ledger(rep: AliasReport, tax: Taxonomy, path: Path,
 # ---------- CLI ----------
 def main():
     import argparse, datetime, sys
+
     p = argparse.ArgumentParser(prog="alias_pass")
     p.add_argument("--manifest", type=Path, default=ROOT / "_lora_manifest.json")
     p.add_argument("--ledger", type=Path, default=ROOT / "audit_ledger.csv")
@@ -221,14 +244,20 @@ def main():
     ts = datetime.datetime.now().isoformat(timespec="seconds")
     n = write_ledger(rep, tax, a.ledger, ts, a.encode_ledger)
 
-    highs = sum(conflict_severity(cn, ids, tax) == "high"
-                for cn, ids in rep.conflicts.items())
-    print(f"loras={len(rep.canon_by_lora)} conflicts={len(rep.conflicts)} "
-          f"high={highs} unknown={len(rep.unknown)} "
-          f"decode_errors={sum(map(len, rep.decode_errors.values()))} rows={n}")
+    highs = sum(
+        conflict_severity(cn, ids, tax) == "high" for cn, ids in rep.conflicts.items()
+    )
+    print(
+        f"loras={len(rep.canon_by_lora)} conflicts={len(rep.conflicts)} "
+        f"high={highs} unknown={len(rep.unknown)} "
+        f"decode_errors={sum(map(len, rep.decode_errors.values()))} rows={n}"
+    )
 
-    if a.fail_on == "decode" and rep.decode_errors: sys.exit(2)
-    if a.fail_on == "high" and (rep.decode_errors or highs): sys.exit(3)
+    if a.fail_on == "decode" and rep.decode_errors:
+        sys.exit(2)
+    if a.fail_on == "high" and (rep.decode_errors or highs):
+        sys.exit(3)
+
 
 if __name__ == "__main__":
     main()
@@ -249,7 +278,7 @@ for (a, b), j in overlap.items():
     key = f"{a}|{b}"
     entry = matrix.setdefault(key, {})
     entry["trigger_overlap"] = j
-    entry["trigger_conflict"] = j >= 0.5      # tune threshold
+    entry["trigger_conflict"] = j >= 0.5  # tune threshold
 ```
 
 This replaces string-equality conflicts with canonical overlap, so the `audit_ledger.csv` stops filling with false flags.
@@ -259,24 +288,40 @@ Tests (`tests/test_alias_pass.py`)
 ```python
 import json, bamb5, alias_pass as ap
 
+
 def _setup(tmp_path, monkeypatch):
-    monkeypatch.setattr(bamb5, "KEY_PATH", tmp_path / "k"); bamb5.init_key()
+    monkeypatch.setattr(bamb5, "KEY_PATH", tmp_path / "k")
+    bamb5.init_key()
     tx = tmp_path / "taxonomy.json"
-    tx.write_text(json.dumps({"canonical": {
-        "red hair": {"category": "anatomy", "aliases": ["redhead", "red_hair"]}},
-        "ignore": ["masterpiece"]}))
+    tx.write_text(
+        json.dumps(
+            {
+                "canonical": {
+                    "red hair": {
+                        "category": "anatomy",
+                        "aliases": ["redhead", "red_hair"],
+                    }
+                },
+                "ignore": ["masterpiece"],
+            }
+        )
+    )
     return ap.Taxonomy.load(tx)
+
 
 def test_normalize():
     assert ap.normalize("(Red_Hair:1.2)") == "red hair"
     assert ap.normalize("  [film  grain] ") == "film grain"
 
+
 def test_alias_conflict(tmp_path, monkeypatch):
     tax = _setup(tmp_path, monkeypatch)
-    rep = ap.run({"A": [bamb5.encode("redhead")],
-                  "B": ["(red_hair:1.1)", "masterpiece"]}, tax)
+    rep = ap.run(
+        {"A": [bamb5.encode("redhead")], "B": ["(red_hair:1.1)", "masterpiece"]}, tax
+    )
     assert rep.conflicts == {"red hair": ["A", "B"]}
     assert not rep.unknown
+
 
 def test_unknown_and_decode_error(tmp_path, monkeypatch):
     tax = _setup(tmp_path, monkeypatch)

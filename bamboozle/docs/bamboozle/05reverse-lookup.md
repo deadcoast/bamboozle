@@ -75,8 +75,13 @@ def _atomic_write(path: Path, data: dict) -> None:
 
 
 class Index:
-    def __init__(self, by_canon: dict[str, list[str]], by_lora: dict[str, list[str]],
-                 tax: ap.Taxonomy, fp: str):
+    def __init__(
+        self,
+        by_canon: dict[str, list[str]],
+        by_lora: dict[str, list[str]],
+        tax: ap.Taxonomy,
+        fp: str,
+    ):
         self.by_canon = by_canon
         self.by_lora = by_lora
         self.tax = tax
@@ -95,23 +100,35 @@ class Index:
         for lid, cs in by_lora.items():
             for cn in cs:
                 by_canon[cn].append(lid)
-        return cls({k: sorted(v) for k, v in by_canon.items()}, by_lora, tax,
-                   _fingerprint(manifest, tax_path))
+        return cls(
+            {k: sorted(v) for k, v in by_canon.items()},
+            by_lora,
+            tax,
+            _fingerprint(manifest, tax_path),
+        )
 
     def save(self, path: Path = INDEX) -> None:
         c = bamb5._cipher()
         e = lambda s: bamb5.encode(s, c)
-        _atomic_write(path, {
-            "version": VERSION,
-            "fingerprint": self.fp,
-            "built": datetime.datetime.now().isoformat(timespec="seconds"),
-            "by_canon": {e(k): v for k, v in self.by_canon.items()},
-            "by_lora": {k: [e(x) for x in v] for k, v in self.by_lora.items()},
-        })
+        _atomic_write(
+            path,
+            {
+                "version": VERSION,
+                "fingerprint": self.fp,
+                "built": datetime.datetime.now().isoformat(timespec="seconds"),
+                "by_canon": {e(k): v for k, v in self.by_canon.items()},
+                "by_lora": {k: [e(x) for x in v] for k, v in self.by_lora.items()},
+            },
+        )
 
     @classmethod
-    def load(cls, manifest: Path = MANIFEST, tax_path: Path = ap.TAXONOMY,
-             path: Path = INDEX, force: bool = False) -> "Index":
+    def load(
+        cls,
+        manifest: Path = MANIFEST,
+        tax_path: Path = ap.TAXONOMY,
+        path: Path = INDEX,
+        force: bool = False,
+    ) -> "Index":
         fp = _fingerprint(manifest, tax_path)
         if not force and path.exists():
             try:
@@ -119,11 +136,14 @@ class Index:
                 if raw.get("version") == VERSION and raw.get("fingerprint") == fp:
                     c = bamb5._cipher()
                     d = lambda s: bamb5.decode(s, c)
-                    return cls({d(k): v for k, v in raw["by_canon"].items()},
-                               {k: [d(x) for x in v] for k, v in raw["by_lora"].items()},
-                               ap.Taxonomy.load(tax_path), fp)
+                    return cls(
+                        {d(k): v for k, v in raw["by_canon"].items()},
+                        {k: [d(x) for x in v] for k, v in raw["by_lora"].items()},
+                        ap.Taxonomy.load(tax_path),
+                        fp,
+                    )
             except Exception:
-                pass   # stale key, corrupt file, schema drift -> rebuild
+                pass  # stale key, corrupt file, schema drift -> rebuild
         idx = cls.build(manifest, tax_path)
         idx.save(path)
         return idx
@@ -339,35 +359,43 @@ This assumes the FastMCP-style server from the `mcp` SDK. If your file uses a di
 from lookup import Index
 
 _idx: Index | None = None
+
+
 def _get() -> Index:
     global _idx
-    _idx = Index.load()          # cheap: fingerprint check, rebuild only on change
+    _idx = Index.load()  # cheap: fingerprint check, rebuild only on change
     return _idx
+
 
 @mcp.tool()
 def lora_who(trigger: str) -> dict:
     """Which prod LoRAs use this trigger (alias/b5_/weighted ok)."""
     return _get().who(trigger)
 
+
 @mcp.tool()
 def lora_triggers(lora_id: str) -> dict:
     """Canonical triggers of a LoRA plus which LoRAs share each."""
     return _get().of(lora_id)
+
 
 @mcp.tool()
 def lora_category(category: str) -> dict:
     """All canonical terms in a category -> LoRAs."""
     return _get().cat(category)
 
+
 @mcp.tool()
 def lora_suggest(term: str, n: int = 5) -> list[str]:
     """Fuzzy canonical matches for a term."""
     return _get().suggest(term, n)
 
+
 @mcp.tool()
 def lora_stack_check(lora_ids: list[str], threshold: float = 0.5) -> dict:
     """Pre-flight trigger collision check for a LoRA stack."""
     return _get().stack(lora_ids, threshold)
+
 
 @mcp.tool()
 def lora_orphans() -> list[str]:
@@ -381,9 +409,11 @@ Run this check before a rotation stack is queued, so colliding stacks get reroll
 
 ```python
 from lookup import Index
+
 chk = Index.load().stack([l["id"] for l in stack])
 if chk["verdict"] == "conflict":
-    log.warning("reroll: %s", chk["pairs"][0]); continue
+    log.warning("reroll: %s", chk["pairs"][0])
+    continue
 ```
 
 Tests (`tests/test_lookup.py`)
@@ -391,28 +421,47 @@ Tests (`tests/test_lookup.py`)
 ```python
 import json, bamb5, lookup as lk
 
+
 def _env(tmp_path, monkeypatch):
-    monkeypatch.setattr(bamb5, "KEY_PATH", tmp_path / "k"); bamb5.init_key()
+    monkeypatch.setattr(bamb5, "KEY_PATH", tmp_path / "k")
+    bamb5.init_key()
     tx = tmp_path / "taxonomy.json"
-    tx.write_text(json.dumps({"canonical": {
-        "red hair": {"category": "anatomy", "aliases": ["redhead"]},
-        "film grain": {"category": "style", "aliases": []}}}))
+    tx.write_text(
+        json.dumps(
+            {
+                "canonical": {
+                    "red hair": {"category": "anatomy", "aliases": ["redhead"]},
+                    "film grain": {"category": "style", "aliases": []},
+                }
+            }
+        )
+    )
     mf = tmp_path / "m.json"
-    mf.write_text(json.dumps({"loras": {
-        "A": {"triggers": [bamb5.encode("redhead")]},
-        "B": {"triggers": ["(red_hair:1.1)", "neon"]}}}))
+    mf.write_text(
+        json.dumps(
+            {
+                "loras": {
+                    "A": {"triggers": [bamb5.encode("redhead")]},
+                    "B": {"triggers": ["(red_hair:1.1)", "neon"]},
+                }
+            }
+        )
+    )
     return lk.Index.load(mf, tx, tmp_path / "idx.json")
+
 
 def test_who_alias_and_token(tmp_path, monkeypatch):
     idx = _env(tmp_path, monkeypatch)
     assert idx.who("Redhead")["loras"] == ["A", "B"]
     assert idx.who(bamb5.encode("red hair"))["canon"] == "red hair"
 
+
 def test_stack_flags_and_orphans(tmp_path, monkeypatch):
     idx = _env(tmp_path, monkeypatch)
     r = idx.stack(["A", "B", "Z"])
     assert r["missing"] == ["Z"] and "red hair" in r["collisions"]
     assert idx.orphans() == ["film grain"]
+
 
 def test_cache_roundtrip(tmp_path, monkeypatch):
     _env(tmp_path, monkeypatch)
@@ -547,13 +596,156 @@ if __name__ == "__main__":
 **Directory anchor**
 ```
 D:\AI\ComfyUI_portable\workshop\
-├── mcp\workshop_mcp.py          # +7 tools, replaces old query_manifest / conflict tools
+├── mcp\workshop_mcp.py          # +7 tools
 └── scrape\
-    ├── promote_trigger.ps1      # gains test gate + index rebuild stage
+    ├── promote_trigger.ps1      # test gate + index rebuild stage
     ├── lookup.py
     ├── alias_pass.py
-    └── _pipeline_status.json    # new: last-run summary for the MCP status tool
+    └── _pipeline_status.json    # last-run summary
 ```
 
 **What it does**
-1. Exposes `lookup.Index` to Claude Code and other
+1. Exposes the lookup index as MCP tools. The query logic lives in the MCP file and only reads `by_canon`, `by_lora`, `by_cat`, and `_canon`.
+2. Adds a pytest gate and an index rebuild to the 04:00 job.
+3. Writes `_pipeline_status.json` so `pipeline_status()` can report the last run.
+
+**`workshop_mcp.py` additions**
+
+Paste these below your existing tools, above `if __name__ == "__main__":`.
+
+```python
+import difflib, sys
+sys.path.insert(0, str(SCRAPE))
+import lookup  # noqa: E402
+
+STATUS = SCRAPE / "_pipeline_status.json"
+_IDX: "lookup.Index | None" = None
+
+
+def _idx(force: bool = False) -> "lookup.Index":
+    global _IDX
+    fp = lookup._fingerprint(lookup.MANIFEST, lookup.ap.TAXONOMY)
+    if force or _IDX is None or _IDX.fp != fp:
+        _IDX = lookup.Index.load(force=force)
+    return _IDX
+
+
+@mcp.tool()
+def who_uses(trigger: str) -> dict:
+    """LoRAs using a trigger. Accepts alias, b5_ token, or (term:1.2)."""
+    ix = _idx()
+    cn = ix._canon(trigger)
+    if cn is None:
+        return ored or undecodable"}
+    return ax.canon_cat.get(cn, "uncategorized"),
+            "known": ix.tax.known(cn), "loras": ix.by_canon.get(cn, [])}
+
+
+@mcp.tool()
+def triggers_of(lora_id: str) -> dict:
+    """Canonical triggers for one LoRA, grouped by category."""
+    ix = _idx()
+    grouped: dict[str, list[str]] = {}
+    for cn in ix.by_lora.get(lora_id, []):
+        grouped.setdefault(ix.tax.canon_cat.get(cn, "uncategorized"), []).append(cn)
+    return {"lora": lora_id, "found": lora_id in ix.by_lora, "triggers": grouped}
+
+
+@mcp.tool()
+def category_view(category: str) -> dict:
+    """Every canonical tag in a category and the LoRAs using it."""
+    ix = _idx()
+    return {"category": category,
+            "tags": {cn: ix.by_canon.get(cn, []) for cn in ix.by_cat.get(category, [])}}
+
+
+@mcp.tool()
+def suggest_trigger(term: str, n: int = 8) -> list[dict]:
+    """Fuzzy matches against canon + aliases."""
+    ix = _idx()
+    q = lookup.ap.normalize(term)
+    hits = difflib.get_close_matches(q, list(ix.tax.alias_to_canon), n=n, cutoff=0.6)
+    seen, out = set(), []
+    for h in hits:
+        cn = ix.tax.alias_to_canon[h]
+        if cn not in seen:
+            seen.add(cn)
+            out.append({"match": h, "canon": cn, "loras": len(ix.by_canon.get(cn, []))})
+    return out
+
+
+@mcp.tool()
+def stack_check(loras: list[str], threshold: float = 0.5) -> dict:
+    """Pre-flight collision check for a LoRA stack."""
+    ix = _idx()
+    missing = [l for l in loras if l not in ix.by_lora]
+    pairs = []
+    for i, a in enumerate(loras):
+        sa = set(ix.by_lora.get(a, []))
+        for b in loras[i + 1:]:
+            sb = set(ix.by_lora.get(b, []))
+            shared = sa sb
+            if shared:
+                j = round(len(shared) / len(sa | sb), 3)
+                m = compatibility(a, b)
+                pairs.append({"a": a, "b": b, "overlap": j, "shared": sorted(shared),
+                              "flag": j >= threshold, "matrix": m.get("score", m.get("status"))})
+    return {"ok": not missing and not any(p["flag"] for p in pairs),
+            "missing": missing, "pairs": sorted(pairs, key=lambda p: -p["overlap"])}
+
+
+@mcp.tool()
+def orphan_tags() -> list[str]:
+    """Taxonomy entries no prod LoRA uses (prune candidates)."""
+    ix = _idx()
+    return sorted(cn for cn in ix.tax.canon_cat if cn not in ix.by_canon)
+
+
+@mcp.tool()
+def pipeline_status(rebuild_index: bool = False) -> dict:
+    """Last scheduled run summary; optionally force an index rebuild."""
+    if rebuild_index:
+        _idx(force=True)
+    return _load(STATUS) or {"status": "no run recorded"}
+```
+
+**`promote_trigger.ps1` gate + rebuild stage**
+
+Replace the tail of the script after the `audit_matrix.py` step with this:
+
+```powershell
+$Py      = "D:\AI\ComfyUI_portable\python_embeded\python.exe"
+$Scrape  = "D:\AI\ComfyUI_portable\workshop\scrape"
+$Status  = Join-Path $Scrape "_pipeline_status.json"
+$stages  = [ordered]@{}
+
+function Stage($name, [scriptblock]$cmd) {
+    $t = Get-Date
+    & $cmd
+    $code = $LASTEXITCODE
+    $stages[$name] = @{ exit = $code; secs = [int]((Get-Date) - $t).TotalSeconds }
+    if ($code -ne 0) {
+        Write-Status "failed:$name"
+        Write-Error "$name failed ($code)"; exit $code
+    }
+}
+
+function Write-Status($state) {
+    @{ state = $state; ts = (Get-Date -Format s); stages = $stages } |
+        ConvertTo-Json -Depth 4 | Set-Content -Encoding utf8 "$Status.tmp"
+    Move-Item -Force "$Status.tmp" $Status
+}
+
+Set-Location $Scrape
+Stage "tests"      { & $Py -m pytest tests -q --maxfail=1 }
+Stage "alias_pass" { & $Py alias_pass.py --fail-on decode }
+Stage "index"      { & $Py -c "import lookup; lookup.Index.load(force=True)" }
+Write-Status "ok"
+```
+
+**Runbook**
+1. Restart the MCP server. Then call `pipeline_status()`. It should return `no run recorded` until the next job runs.
+2. Smoke-test with `who_uses("(redhead:1.2)")`. It should return canon `red hair`.
+3. Before a render batch, run `stack_check(["lora_a","lora_b","lora_c"])`. Drop any pair with `flag: true`.
+4. Each week, review `orphan_tags()` and prune or keep those entries in `taxonomy.json`.
+5. Trigger the scheduled task by hand once: `schtasks /run /tn scrape_task`. Then confirm `_pipeline

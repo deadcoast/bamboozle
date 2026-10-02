@@ -66,10 +66,13 @@ bamboozle/
 import re
 from typing import Dict, List
 
+
 class Bamboozletranslate:
     def __init__(self, dictionary: Dict[str, str]):
         self.dictionary = dictionary
-        self.physics_terms = sorted(list(set(dictionary.values())), key=len, reverse=True)
+        self.physics_terms = sorted(
+            list(set(dictionary.values())), key=len, reverse=True
+        )
         self.explicit_terms = sorted(list(dictionary.keys()), key=len, reverse=True)
 
     def match_case(self, original: str, target: str) -> str:
@@ -83,15 +86,25 @@ class Bamboozletranslate:
         tracked_literals = []
 
         for p_term in self.physics_terms:
-            pattern = r'(?<!\w)' + re.escape(p_term) + r'(?!\w)'
+            pattern = r"(?<!\w)" + re.escape(p_term) + r"(?!\w)"
             if re.search(pattern, text, flags=re.IGNORECASE):
                 tracked_literals.append(p_term)
-                text = re.sub(pattern, lambda m: f"__SCM_LIT_{m.group(0)}__", text, flags=re.IGNORECASE)
+                text = re.sub(
+                    pattern,
+                    lambda m: f"__SCM_LIT_{m.group(0)}__",
+                    text,
+                    flags=re.IGNORECASE,
+                )
 
         for e_term in self.explicit_terms:
             p_term = self.dictionary[e_term]
-            pattern = r'(?<!\w)' + re.escape(e_term) + r'(?!\w)'
-            text = re.sub(pattern, lambda m: self.match_case(m.group(0), p_term), text, flags=re.IGNORECASE)
+            pattern = r"(?<!\w)" + re.escape(e_term) + r"(?!\w)"
+            text = re.sub(
+                pattern,
+                lambda m: self.match_case(m.group(0), p_term),
+                text,
+                flags=re.IGNORECASE,
+            )
 
         return text
 
@@ -100,8 +113,13 @@ class Bamboozletranslate:
 
         for p_term in self.physics_terms:
             e_term = reverse_dict[p_term.lower()]
-            pattern = r'(?<!\w)' + re.escape(p_term) + r'(?!\w)'
-            text = re.sub(pattern, lambda m: self.match_case(m.group(0), e_term), text, flags=re.IGNORECASE)
+            pattern = r"(?<!\w)" + re.escape(p_term) + r"(?!\w)"
+            text = re.sub(
+                pattern,
+                lambda m: self.match_case(m.group(0), e_term),
+                text,
+                flags=re.IGNORECASE,
+            )
 
         text = re.sub(r"__SCM_LIT_(.*?)__", r"\1", text)
 
@@ -117,12 +135,12 @@ class Bamboozletranslate:
 import unittest
 from bamboozle.translate import Bamboozletranslate
 
+
 class TestBamboozletranslate(unittest.TestCase):
     def setUp(self):
-        self.translate = Bamboozletranslate({
-            "creampie": "internal_fluid_state",
-            "gangbang": "multi_agent_collision"
-        })
+        self.translate = Bamboozletranslate(
+            {"creampie": "internal_fluid_state", "gangbang": "multi_agent_collision"}
+        )
 
     def test_forward(self):
         text = "She loves a good creampie and gangbang."
@@ -133,6 +151,7 @@ class TestBamboozletranslate(unittest.TestCase):
         text = "She loves a good internal_fluid_state and multi_agent_collision."
         expected = "She loves a good creampie and gangbang."
         self.assertEqual(self.translate.reverse(text), expected)
+
 
 if __name__ == "__main__":
     unittest.main()
