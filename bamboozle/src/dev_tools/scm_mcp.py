@@ -1,7 +1,7 @@
 from fastmcp import FastMCP
 from pathlib import Path
 import json
-from cipher import process_forward, process_reverse, load_json
+from src.dev_tools.translate import process_forward, process_reverse, load_json
 
 # initialize the mcp server
 mcp = FastMCP("semantic_cipher_middleware")
