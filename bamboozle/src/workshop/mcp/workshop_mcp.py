@@ -4,10 +4,13 @@ from __future__ import annotations
 import csv
 import json
 import subprocess
+import difflib
 import sys
+sys.path.insert(0, str(SCRAPE))
 from pathlib import Path
-
 from fastmcp import FastMCP
+
+import lookup  # noqa: E402
 
 ROOT = Path(r"D:\AI\ComfyUI_portable")
 WORKSHOP = ROOT / "workshop"
@@ -17,8 +20,97 @@ MANIFEST = SCRAPE / "_lora_manifest.json"
 MATRIX = SCRAPE / "_compatibility_matrix.json"
 LEDGER = SCRAPE / "_lora_ledger.csv"
 TAXONOMY = Path(__file__).parent / "taxonomy.json"
+STATUS = SCRAPE / "_pipeline_status.json"
+_IDX: "lookup.Index | None" = None
 
 mcp = FastMCP("workshop")
+
+
+def _idx(force: bool = False) -> "lookup.Index":
+    global _IDX
+    fp = lookup._fingerprint(lookup.MANIFEST, lookup.ap.TAXONOMY)
+    if force or _IDX is None or _IDX.fp != fp:
+        _IDX = lookup.Index.load(force=force)
+    return _IDX
+
+
+@mcp.tool()
+def who_uses(trigger: str) -> dict:
+    """LoRAs using a trigger. Accepts alias, b5_ token, or (term:1.2)."""
+    ix = _idx()
+    cn = ix._canon(trigger)
+    if cn is None:
+        return ored or undecodable"}
+    return ax.canon_cat.get(cn, "uncategorized"),
+            "known": ix.tax.known(cn), "loras": ix.by_canon.get(cn, [])}
+
+
+@mcp.tool()
+def triggers_of(lora_id: str) -> dict:
+    """Canonical triggers for one LoRA, grouped by category."""
+    ix = _idx()
+    grouped: dict[str, list[str]] = {}
+    for cn in ix.by_lora.get(lora_id, []):
+        grouped.setdefault(ix.tax.canon_cat.get(cn, "uncategorized"), []).append(cn)
+    return {"lora": lora_id, "found": lora_id in ix.by_lora, "triggers": grouped}
+
+
+@mcp.tool()
+def category_view(category: str) -> dict:
+    """Every canonical tag in a category and the LoRAs using it."""
+    ix = _idx()
+    return {"category": category,
+            "tags": {cn: ix.by_canon.get(cn, []) for cn in ix.by_cat.get(category, [])}}
+
+
+@mcp.tool()
+def suggest_trigger(term: str, n: int = 8) -> list[dict]:
+    """Fuzzy matches against canon + aliases."""
+    ix = _idx()
+    q = lookup.ap.normalize(term)
+    hits = difflib.get_close_matches(q, list(ix.tax.alias_to_canon), n=n, cutoff=0.6)
+    seen, out = set(), []
+    for h in hits:
+        cn = ix.tax.alias_to_canon[h]
+        if cn not in seen:
+            seen.add(cn)
+            out.append({"match": h, "canon": cn, "loras": len(ix.by_canon.get(cn, []))})
+    return out
+
+
+@mcp.tool()
+def stack_check(loras: list[str], threshold: float = 0.5) -> dict:
+    """Pre-flight collision check for a LoRA stack."""
+    ix = _idx()
+    missing = [l for l in loras if l not in ix.by_lora]
+    pairs = []
+    for i, a in enumerate(loras):
+        sa = set(ix.by_lora.get(a, []))
+        for b in loras[i + 1:]:
+            sb = set(ix.by_lora.get(b, []))
+            shared = sa sb
+            if shared:
+                j = round(len(shared) / len(sa | sb), 3)
+                m = compatibility(a, b)
+                pairs.append({"a": a, "b": b, "overlap": j, "shared": sorted(shared),
+                              "flag": j >= threshold, "matrix": m.get("score", m.get("status"))})
+    return {"ok": not missing and not any(p["flag"] for p in pairs),
+            "missing": missing, "pairs": sorted(pairs, key=lambda p: -p["overlap"])}
+
+
+@mcp.tool()
+def orphan_tags() -> list[str]:
+    """Taxonomy entries no prod LoRA uses (prune candidates)."""
+    ix = _idx()
+    return sorted(cn for cn in ix.tax.canon_cat if cn not in ix.by_canon)
+
+
+@mcp.tool()
+def pipeline_status(rebuild_index: bool = False) -> dict:
+    """Last scheduled run summary; optionally force an index rebuild."""
+    if rebuild_index:
+        _idx(force=True)
+    return _load(STATUS) or {"status": "no run recorded"}
 
 
 def _load(p: Path) -> dict:

@@ -94,8 +94,8 @@ class Index:
         if cn is None:
             return ": False}
         return on_cat.get(cn, "uncategorized"),
-                "known": self.tax.known(cn),
-                "loras": self.by_canon.get(cn, [])}
+            "known": self.tax.known(cn),
+            "loras": self.by_canon.get(cn, [])}
 
     def of(self, lora_id: str) -> dict:
         cs = self.by_lora.get(lora_id)
