@@ -14,16 +14,16 @@
 
 ## Renaming the Core Functions
 
-Map your agent's four main responsibilities to Roman or systemic metaphors:
+Map your agent's four main responsibilities:
 
 - Profile Enforcement ➔ Lex Custodia (Law Custody / State Guard)
   - :vigiles: actively steers data to match the repository's native specifications. It acts as the immutable standard of structural integrity, forcing all incoming and middleware traffic to conform to its own internal template.
 - Security ➔ Confinement & Fire-Breaking
   - :vigiles: Agent treats anomalies, breaches, or corrupted data loops as systemic fires. It constructs digital firebreaks—isolating infected sectors, snuffing out rogue processes, and containing internal threats before they spread through the middleware.
 - Counter-Intelligence ➔ Speculatores / Silent Auditing
-  - The Description: (Historically, the Vigiles eventually integrated speculatores, or underground scouts). In your system, the agent runs silent, continuous background audits. It actively hunts for unauthorized data-mining, internal leaks, or subtle telemetry tampering within the repository itself, neutralizing threats from the inside out.
+  - :vigiles: (Historically, the Vigiles eventually integrated speculatores, or underground scouts). In your system, the agent runs silent, continuous background audits. It actively hunts for unauthorized data-mining, internal leaks, or subtle telemetry tampering within the repository itself, neutralizing threats from the inside out.
 - Future-Proofing ➔ Structural Permanence
-  - The Description: Because it feeds and enforces its own spec, the agent is self-optimizing. It continuously hardens the middleware architecture against architectural drift, ensuring that as the repository scales, the core standards remain uncorrupted and resilient against future vectors.
+  - :vigiles: Because it feeds and enforces its own spec, the agent is self-optimizing. It continuously hardens the middleware architecture against architectural drift, ensuring that as the repository scales, the core standards remain uncorrupted and resilient against future vectors.
 - The Tessera Protocol (Cryptex, Translation, & Delivery)
 - The Cryptex (Obfuscation & Locking): The Vigiles act as the vault keeper. Every piece of telemetry or data packet passing through the middleware is sealed inside a dynamic cryptograph. Only agents with verified intent can read it.
   - The Translator (Semantic Alignment): The repository hosts diverse agents speaking different protocol languages. The Vigiles profile acts as the universal interpreter, translating disparate data streams into a unified, secure dialect so the system can understand itself.
