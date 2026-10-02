@@ -1,8 +1,8 @@
 {
     "mcpServers": {
-      "scm_file_system": {
+      "vigiles": {
         "command": "uv",
-        "args": ["run", "scm_mcp.py"]
+        "args": ["run", "--locked", "vigiles", "--root", ".", "serve"]
       }
     }
   }

@@ -7,25 +7,31 @@ import argparse
 import base64
 import csv
 import json
-import os
 import subprocess
-import tempfile
+import sys
 from pathlib import Path
 
+from cryptography.exceptions import InvalidTag
 from cryptography.hazmat.primitives.ciphers.aead import AESSIV
 from fastmcp import FastMCP
 
-ROOT = Path(r"D:\AI\ComfyUI_portable\workshop\scrape")
-KEY_PATH = ROOT / "_bamb5.key"
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
+from bamboozle.utils import atomic_write, json_bytes, parse_json, read_bytes, sha256
+from workshop import config
+
+ROOT = config.SCRAPE
+KEY_PATH = config.KEY
 PREFIX = "b5_"
 AD = b"bamb5-v1"
-WORKSHOP = ROOT / "workshop"
-SCRAPE = WORKSHOP / "scrape"
-PY = ROOT / "python_embeded" / "python.exe"
-MANIFEST = SCRAPE / "_lora_manifest.json"
-MATRIX = SCRAPE / "_compatibility_matrix.json"
-LEDGER = SCRAPE / "_lora_ledger.csv"
-TAXONOMY = Path(__file__).parent / "taxonomy.json"
+WORKSHOP = config.WORKSHOP
+SCRAPE = config.SCRAPE
+PY = config.PYTHON
+MANIFEST = config.MANIFEST
+MATRIX = config.MATRIX
+LEDGER = config.LEDGER
+TAXONOMY = config.TAXONOMY
 
 mcp = FastMCP("workshop")
 
@@ -33,15 +39,25 @@ mcp = FastMCP("workshop")
 # ---------- key ----------
 def init_key(force: bool = False) -> None:
     if KEY_PATH.exists() and not force:
-        raise SystemExit(f"Key exists: {KEY_PATH} (use --force to overwrite)")
-    KEY_PATH.write_bytes(AESSIV.generate_key(512))
+        raise FileExistsError(
+            f"Key exists: {KEY_PATH} (use --force to rotate with a backup)"
+        )
+    KEY_PATH.parent.mkdir(parents=True, exist_ok=True)
+    if KEY_PATH.exists():
+        previous = KEY_PATH.read_bytes()
+        backup = KEY_PATH.with_name(f"{KEY_PATH.name}.{sha256(previous)[:16]}.bak")
+        if not backup.exists():
+            atomic_write(backup, previous)
+        elif backup.read_bytes() != previous:
+            raise ValueError("Key backup does not match; refusing rotation")
+    atomic_write(KEY_PATH, AESSIV.generate_key(512), overwrite=force)
     print(f"Wrote {KEY_PATH}")
 
 
 def _cipher() -> AESSIV:
     if not KEY_PATH.exists():
-        raise SystemExit("No key. Run: python bamb5.py init")
-    return AESSIV(KEY_PATH.read_bytes())
+        raise FileNotFoundError("No key. Run: python -m workshop.scrape.bamb5 init")
+    return AESSIV(read_bytes(KEY_PATH, 64))
 
 
 def _load(p: Path) -> dict:
@@ -50,16 +66,26 @@ def _load(p: Path) -> dict:
 
 def _alias_index() -> dict[str, tuple[str, str]]:
     """Build an index of alias -> (category, canonical_tag)."""
-    idx = {}
-    for cat, tags in _load(TAXONOMY).get("categories", {}).items():
-        for canon, aliases in tags.items():
-            for a in aliases + [canon]:
-                idx[a.lower().replace(" ", "_")] = (cat, canon)
-    return idx
+    from workshop.scrape.alias_pass import Taxonomy
+
+    tax = Taxonomy.load(TAXONOMY)
+    return {
+        alias: (tax.canon_cat[canon], canon)
+        for alias, canon in tax.alias_to_canon.items()
+    }
 
 
 def _run(script: str, *args: str, timeout: int = 900) -> dict:
     """Run a pipeline script with the embedded Python."""
+    if script not in {"promote.py", "audit_matrix.py"}:
+        raise ValueError("Unsupported workshop script")
+    if not (SCRAPE / script).is_file() or not PY.is_file():
+        return {
+            "returncode": 127,
+            "stdout": "",
+            "stderr": f"Workshop dependency unavailable: {script}",
+            "status": "unavailable",
+        }
     r = subprocess.run(
         [str(PY), str(SCRAPE / script), *args],
         cwd=SCRAPE,
@@ -79,11 +105,13 @@ def _run(script: str, *args: str, timeout: int = 900) -> dict:
 def normalize_triggers(triggers: list[str]) -> dict:
     """Map raw Civitai trigger words to canonical taxonomy tags.
     Return any unknown triggers so the taxonomy can be extended."""
+    from workshop.scrape.alias_pass import normalize
+
     idx = _alias_index()
     mapped: dict[str, set[str]] = {}
     unknown: list[str] = []
     for t in triggers:
-        key = t.strip().lower().replace(" ", "_")
+        key = normalize(t)
         if key in idx:
             cat, canon = idx[key]
             mapped.setdefault(cat, set()).add(canon)
@@ -177,6 +205,7 @@ def _b32d(s: str) -> bytes:
 
 def encode(term: str, c: AESSIV | None = None) -> str:
     if term.startswith(PREFIX):
+        decode(term, c)
         return term  # idempotent
     c = c or _cipher()
     return PREFIX + _b32e(c.encrypt(term.encode("utf-8"), [AD]))
@@ -220,14 +249,13 @@ def _apply(v, fn):
 
 
 def process_json(path: Path, keys: set[str], mode: str) -> None:
+    if mode not in {"encode", "decode"}:
+        raise ValueError("JSON mode must be encode or decode")
     c = _cipher()
     fn = (lambda s: encode(s, c)) if mode == "encode" else (lambda s: decode(s, c))
-    data = json.loads(path.read_text(encoding="utf-8"))
+    data = parse_json(read_bytes(path))
     out = _walk(data, keys, fn)
-    fd, tmp = tempfile.mkstemp(dir=path.parent, suffix=".tmp")
-    with os.fdopen(fd, "w", encoding="utf-8") as f:
-        json.dump(out, f, indent=2, ensure_ascii=False)
-    os.replace(tmp, path)
+    atomic_write(path, json_bytes(out), overwrite=True)
     print(f"{mode}d {path} keys={sorted(keys)}")
 
 
@@ -261,4 +289,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except (OSError, ValueError, TypeError, InvalidTag) as exc:
+        print(f"bamb5 failed: {exc}", file=sys.stderr)
+        raise SystemExit(1) from exc

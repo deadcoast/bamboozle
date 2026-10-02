@@ -17,12 +17,14 @@ from cryptography.exceptions import InvalidTag
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
+from bamboozle.utils import read_bytes
+from workshop import config
 from workshop.scrape import alias_pass as ap
 from workshop.scrape import bamb5
 
 ROOT = ap.ROOT
 MANIFEST = ROOT / "_lora_manifest.json"
-INDEX = ROOT / "_lookup_index.json"
+INDEX = config.INDEX
 VERSION = 1
 logger = logging.getLogger(__name__)
 
@@ -30,8 +32,8 @@ logger = logging.getLogger(__name__)
 def _fingerprint(*paths: Path) -> str:
     h = hashlib.sha256()
     for p in paths:
-        st = p.stat()
-        h.update(f"{p.name}:{st.st_mtime_ns}:{st.st_size}".encode())
+        h.update(p.name.encode("utf-8"))
+        h.update(hashlib.sha256(read_bytes(p)).digest())
     return h.hexdigest()[:16]
 
 
@@ -63,6 +65,10 @@ class Index:
     def build(cls, manifest: Path = MANIFEST, tax_path: Path = ap.TAXONOMY) -> Index:
         tax = ap.Taxonomy.load(tax_path)
         rep = ap.run(ap.load_prod_triggers(manifest), tax)
+        if rep.decode_errors:
+            raise ValueError(
+                "Manifest contains undecodable triggers; restore the correct key before rebuilding"
+            )
         by_lora = {lid: sorted(cs) for lid, cs in rep.canon_by_lora.items()}
         by_canon: dict[str, list[str]] = defaultdict(list)
         for lid, cs in by_lora.items():
@@ -72,7 +78,7 @@ class Index:
             {k: sorted(v) for k, v in by_canon.items()},
             by_lora,
             tax,
-            _fingerprint(manifest, tax_path),
+            _fingerprint(manifest, tax_path, bamb5.KEY_PATH),
         )
 
     def save(self, path: Path = INDEX) -> None:
@@ -99,7 +105,7 @@ class Index:
         path: Path = INDEX,
         force: bool = False,
     ) -> Index:
-        fp = _fingerprint(manifest, tax_path)
+        fp = _fingerprint(manifest, tax_path, bamb5.KEY_PATH)
         if not force and path.exists():
             try:
                 raw = json.loads(path.read_text(encoding="utf-8"))

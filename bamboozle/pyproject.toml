@@ -1,15 +1,34 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "bamboozle"
-version = "0.1.0"
-description = "Add your description here"
+version = "0.2.0"
+description = "Vigiles local translation, authenticated exchange, and repository audit framework"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "cryptography>=50.0.2",
     "fastmcp>=4.0.10",
-    "pytest>=9.1.1",
-    "ruff>=0.16.10",
 ]
+
+[project.scripts]
+bamboozle = "bamboozle.cli:main"
+vigiles = "bamboozle.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=9.1.1", "ruff>=0.16.10", "mypy", "pyright"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["bamboozle*", "workshop*"]
+exclude = ["*.tests", "*.tests.*"]
+
+[tool.setuptools.package-data]
+bamboozle = ["cipher_dict.json"]
+"workshop.scrape" = ["taxonomy.json"]
+"workshop.mcp" = ["taxonomy.json"]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]

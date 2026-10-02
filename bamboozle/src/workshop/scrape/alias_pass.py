@@ -14,10 +14,12 @@ from cryptography.exceptions import InvalidTag
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
+from bamboozle.utils import parse_json, read_bytes
+from workshop import config
 from workshop.scrape import bamb5
 
-ROOT = Path(r"D:\AI\ComfyUI_portable\workshop\scrape")
-TAXONOMY = ROOT / "taxonomy.json"
+ROOT = config.SCRAPE
+TAXONOMY = config.TAXONOMY
 
 _WEIGHT = re.compile(r"^\((.+?)(?::[\d.]+)?\)$")
 _WS = re.compile(r"[\s_]+")
@@ -39,18 +41,57 @@ class Taxonomy:
 
     @classmethod
     def load(cls, path: Path = TAXONOMY) -> Taxonomy:
-        raw = json.loads(path.read_text(encoding="utf-8"))
-        a2c, cat = {}, {}
-        for canon, spec in raw.get("canonical", {}).items():
+        raw = parse_json(read_bytes(path))
+        if not isinstance(raw, dict):
+            raise TypeError("Taxonomy must be an object")
+        if type(raw.get("version", 1)) is not int or raw.get("version", 1) != 1:
+            raise ValueError("Unsupported taxonomy version")
+        ignored = raw.get("ignore", [])
+        if not isinstance(ignored, list) or any(
+            not isinstance(term, str) for term in ignored
+        ):
+            raise TypeError("Ignored taxonomy terms must be a list of strings")
+        canonical = raw.get("canonical")
+        if canonical is None and isinstance(raw.get("categories"), dict):
+            canonical = {}
+            for category, tags in raw["categories"].items():
+                if not isinstance(tags, dict):
+                    raise TypeError("Taxonomy categories must contain tag objects")
+                for name, aliases in tags.items():
+                    if name in canonical:
+                        raise ValueError(
+                            "Canonical taxonomy term appears in multiple categories"
+                        )
+                    canonical[name] = {"category": category, "aliases": aliases}
+        if not isinstance(canonical, dict):
+            raise TypeError("Taxonomy requires canonical terms or categories")
+        a2c: dict[str, str] = {}
+        cat: dict[str, str] = {}
+        for canon, spec in canonical.items():
+            if not isinstance(spec, dict) or not isinstance(
+                spec.get("aliases", []), list
+            ):
+                raise TypeError("Invalid canonical taxonomy entry")
             c = normalize(canon)
-            cat[c] = spec.get("category", "uncategorized")
+            if not c or c in cat or (c in a2c and a2c[c] != c):
+                raise ValueError(
+                    "Canonical taxonomy term collides with another term or alias"
+                )
+            category = spec.get("category", "uncategorized")
+            if not isinstance(category, str) or not category.strip():
+                raise ValueError("Taxonomy category must be a nonempty string")
+            cat[c] = category
             a2c[c] = c
             for al in spec.get("aliases", []):
+                if not isinstance(al, str):
+                    raise TypeError("Taxonomy aliases must be strings")
                 n = normalize(al)
+                if not n:
+                    raise ValueError("Taxonomy aliases cannot be empty")
                 if n in a2c and a2c[n] != c:
                     raise ValueError(f"alias '{n}' maps to both '{a2c[n]}' and '{c}'")
                 a2c[n] = c
-        return cls(a2c, cat, {normalize(x) for x in raw.get("ignore", [])})
+        return cls(a2c, cat, {normalize(x) for x in ignored})
 
     def resolve(self, term: str) -> str | None:
         n = normalize(term)
@@ -77,12 +118,14 @@ def run(loras: dict[str, list[str]], tax: Taxonomy | None = None) -> AliasReport
     tax = tax or Taxonomy.load()
     rep = AliasReport()
     owners: dict[str, list[str]] = defaultdict(list)
-    c = bamb5._cipher()
+    c = None
 
     for lid, trigs in loras.items():
         canon_set: set[str] = set()
         for t in trigs:
             try:
+                if t.startswith(bamb5.PREFIX) and c is None:
+                    c = bamb5._cipher()
                 plain = bamb5.decode(t, c)
             except (InvalidTag, ValueError):
                 rep.decode_errors[lid].append(t)

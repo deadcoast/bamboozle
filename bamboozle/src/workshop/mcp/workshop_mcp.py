@@ -14,17 +14,17 @@ from fastmcp import FastMCP
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
+from workshop import config
 from workshop.scrape import lookup
 
-ROOT = Path(r"D:\AI\ComfyUI_portable")
-WORKSHOP = ROOT / "workshop"
-SCRAPE = WORKSHOP / "scrape"
-PY = ROOT / "python_embeded" / "python.exe"
-MANIFEST = SCRAPE / "_lora_manifest.json"
-MATRIX = SCRAPE / "_compatibility_matrix.json"
-LEDGER = SCRAPE / "_lora_ledger.csv"
-TAXONOMY = Path(__file__).parent / "taxonomy.json"
-STATUS = SCRAPE / "_pipeline_status.json"
+WORKSHOP = config.WORKSHOP
+SCRAPE = config.SCRAPE
+PY = config.PYTHON
+MANIFEST = config.MANIFEST
+MATRIX = config.MATRIX
+LEDGER = config.LEDGER
+TAXONOMY = config.TAXONOMY
+STATUS = config.STATUS
 _IDX: lookup.Index | None = None
 
 mcp = FastMCP("workshop")
@@ -32,7 +32,7 @@ mcp = FastMCP("workshop")
 
 def _idx(force: bool = False) -> lookup.Index:
     global _IDX
-    fp = lookup._fingerprint(lookup.MANIFEST, lookup.ap.TAXONOMY)
+    fp = lookup._fingerprint(lookup.MANIFEST, lookup.ap.TAXONOMY, lookup.bamb5.KEY_PATH)
     if force or _IDX is None or _IDX.fp != fp:
         _IDX = lookup.Index.load(force=force)
     return _IDX
@@ -145,16 +145,24 @@ def _load(p: Path) -> dict:
 
 def _alias_index() -> dict[str, tuple[str, str]]:
     """Build an index of alias -> (category, canonical_tag)."""
-    idx = {}
-    for cat, tags in _load(TAXONOMY).get("categories", {}).items():
-        for canon, aliases in tags.items():
-            for a in aliases + [canon]:
-                idx[a.lower().replace(" ", "_")] = (cat, canon)
-    return idx
+    tax = lookup.ap.Taxonomy.load(TAXONOMY)
+    return {
+        alias: (tax.canon_cat[canon], canon)
+        for alias, canon in tax.alias_to_canon.items()
+    }
 
 
 def _run(script: str, *args: str, timeout: int = 900) -> dict:
     """Run a pipeline script with the embedded Python."""
+    if script not in {"promote.py", "audit_matrix.py"}:
+        raise ValueError("Unsupported workshop script")
+    if not (SCRAPE / script).is_file() or not PY.is_file():
+        return {
+            "returncode": 127,
+            "stdout": "",
+            "stderr": f"Workshop dependency unavailable: {script}",
+            "status": "unavailable",
+        }
     r = subprocess.run(
         [str(PY), str(SCRAPE / script), *args],
         cwd=SCRAPE,
@@ -178,7 +186,7 @@ def normalize_triggers(triggers: list[str]) -> dict:
     mapped: dict[str, set[str]] = {}
     unknown: list[str] = []
     for t in triggers:
-        key = t.strip().lower().replace(" ", "_")
+        key = lookup.ap.normalize(t)
         if key in idx:
             cat, canon = idx[key]
             mapped.setdefault(cat, set()).add(canon)

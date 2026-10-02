@@ -1,207 +1,104 @@
+"""Compatibility API and legacy flags over the shared translation engine."""
+
+from __future__ import annotations
+
 import argparse
 import json
-import re
 import sys
-from collections.abc import Callable
-from datetime import UTC, datetime
+from collections.abc import Mapping
 from pathlib import Path
+from typing import Any
+
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from bamboozle.dictionary import Dictionary
+from bamboozle.engine import Translator, match_case
+from bamboozle.service import prepare
+from bamboozle.utils import atomic_write, json_bytes, parse_json, read_bytes
+from bamboozle.workspace import Workspace
 
 LITERAL_TEMPLATE = "__SCM_LIT_{}__"
 LITERAL_REGEX = r"__SCM_LIT_(.*?)__"
-LEDGER_FILE = ".scm_ledger.json"
+LEDGER_FILE = (
+    ".scm_ledger.json"  # Historical name; new operations use per-file ledgers.
+)
 
 
-def _protect_literal(match: re.Match[str]) -> str:
-    return LITERAL_TEMPLATE.format(match.group(0))
+class Bamboozletranslate(Translator):
+    """Backward-compatible name for the shared, round-trip-checked translator."""
 
-
-def _case_replacer(
-    target: str, case_match: Callable[[str, str], str]
-) -> Callable[[re.Match[str]], str]:
-    def replace(match: re.Match[str]) -> str:
-        return case_match(match.group(0), target)
-
-    return replace
-
-
-class Bamboozletranslate:
-    def __init__(self, dictionary: dict[str, str]):
-        self.dictionary = dictionary
+    def __init__(self, dictionary: Mapping[str, str]):
+        super().__init__(dictionary)
         self.physics_terms = sorted(set(dictionary.values()), key=len, reverse=True)
         self.explicit_terms = sorted(dictionary, key=len, reverse=True)
 
-    def match_case(self, original: str, target: str) -> str:
-        if original.isupper():
-            return target.upper()
-        elif original.istitle():
-            return target.title()
-        return target.lower()
-
-    def forward(self, text: str) -> str:
-        tracked_literals = []
-
-        for p_term in self.physics_terms:
-            pattern = r"(?<!\w)" + re.escape(p_term) + r"(?!\w)"
-            if re.search(pattern, text, flags=re.IGNORECASE):
-                tracked_literals.append(p_term)
-                text = re.sub(
-                    pattern,
-                    _protect_literal,
-                    text,
-                    flags=re.IGNORECASE,
-                )
-
-        for e_term in self.explicit_terms:
-            p_term = self.dictionary[e_term]
-            pattern = r"(?<!\w)" + re.escape(e_term) + r"(?!\w)"
-            text = re.sub(
-                pattern,
-                _case_replacer(p_term, self.match_case),
-                text,
-                flags=re.IGNORECASE,
-            )
-
-        return text
-
-    def reverse(self, text: str) -> str:
-        reverse_dict = {v.lower(): k for k, v in self.dictionary.items()}
-
-        for p_term in self.physics_terms:
-            e_term = reverse_dict[p_term.lower()]
-            pattern = r"(?<!\w)" + re.escape(p_term) + r"(?!\w)"
-            text = re.sub(
-                pattern,
-                _case_replacer(e_term, self.match_case),
-                text,
-                flags=re.IGNORECASE,
-            )
-
-        text = re.sub(r"__SCM_LIT_(.*?)__", r"\1", text)
-
-        return text
+    @staticmethod
+    def match_case(original: str, target: str) -> str:
+        return match_case(original, target)
 
 
-def load_json(file_path):
-    try:
-        with open(file_path, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except (OSError, UnicodeError, json.JSONDecodeError) as e:
-        print(f"[!] error loading json {file_path}: {e}", file=sys.stderr)
-        sys.exit(1)
+def load_json(file_path: str | Path) -> Any:
+    return parse_json(read_bytes(Path(file_path)))
 
 
-def save_json(data, file_path):
-    with open(file_path, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=2)
+def save_json(data: Any, file_path: str | Path) -> None:
+    atomic_write(Path(file_path), json_bytes(data))
 
 
-def match_case(original, target):
-    if original.isupper():
-        return target.upper()
-    elif original.istitle():
-        return target.title()
-    return target.lower()
+def process_forward(
+    text: str, cipher_dict: Mapping[str, str], input_name: str | None = None
+) -> str:
+    """Translate text without shared ledger side effects; input_name is legacy metadata."""
+    return Translator(cipher_dict).forward(text)
 
 
-def process_forward(text, cipher_dict, input_name):
-    physics_terms = sorted(set(cipher_dict.values()), key=len, reverse=True)
-    explicit_terms = sorted(cipher_dict, key=len, reverse=True)
-
-    tracked_literals = []
-
-    for p_term in physics_terms:
-        pattern = r"(?<!\w)" + re.escape(p_term) + r"(?!\w)"
-        if re.search(pattern, text, flags=re.IGNORECASE):
-            tracked_literals.append(p_term)
-            text = re.sub(
-                pattern,
-                _protect_literal,
-                text,
-                flags=re.IGNORECASE,
-            )
-
-    for e_term in explicit_terms:
-        p_term = cipher_dict[e_term]
-        pattern = r"(?<!\w)" + re.escape(e_term) + r"(?!\w)"
-        text = re.sub(
-            pattern,
-            _case_replacer(p_term, match_case),
-            text,
-            flags=re.IGNORECASE,
-        )
-
-    ledger_data = {
-        "original_file": input_name,
-        "track_literals": tracked_literals,
-        "timestamp": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
-    }
-    save_json(ledger_data, LEDGER_FILE)
-
-    return text
+def process_reverse(text: str, cipher_dict: Mapping[str, str]) -> str:
+    return Translator(cipher_dict).reverse(text)
 
 
-def process_reverse(text, cipher_dict):
-    physics_terms = sorted(set(cipher_dict.values()), key=len, reverse=True)
-    reverse_dict = {v.lower(): k for k, v in cipher_dict.items()}
-
-    for p_term in physics_terms:
-        e_term = reverse_dict[p_term.lower()]
-        pattern = r"(?<!\w)" + re.escape(p_term) + r"(?!\w)"
-        text = re.sub(
-            pattern,
-            _case_replacer(e_term, match_case),
-            text,
-            flags=re.IGNORECASE,
-        )
-
-    text = re.sub(LITERAL_REGEX, r"\1", text)
-
-    if Path(LEDGER_FILE).exists():
-        Path(LEDGER_FILE).unlink()
-
-    return text
-
-
-def main():
-    parser = argparse.ArgumentParser(description="semantic cipher middleware (scm)")
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(
+        description="Legacy translation flags; prefer vigiles encode/decode"
+    )
     parser.add_argument("--mode", choices=["forward", "reverse"], required=True)
-    parser.add_argument("--input", required=True, help="input file or '-' for stdin")
-    parser.add_argument("--output", required=True, help="output file or '-' for stdout")
-    parser.add_argument("--dict", default="cipher_dict.json")
-
-    args = parser.parse_args()
-    cipher_dict = load_json(args.dict)
-
-    if args.input == "-":
-        text = sys.stdin.read()
-        input_name = "stdin"
-    else:
-        input_path = Path(args.input)
-        if not input_path.exists():
-            print(f"[!] input file not found: {args.input}", file=sys.stderr)
-            sys.exit(1)
-        with open(input_path, "r", encoding="utf-8") as f:
-            text = f.read()
-        input_name = input_path.name
-
-    if args.mode == "forward":
-        result = process_forward(text, cipher_dict, input_name)
-        print(
-            f"[*] forward pass: obfuscated {input_name}. ledger created.",
-            file=sys.stderr,
+    parser.add_argument("--input", required=True)
+    parser.add_argument("--output", required=True)
+    parser.add_argument("--dict", dest="dictionary", type=Path)
+    parser.add_argument("--root", type=Path, default=Path.cwd())
+    args = parser.parse_args(argv)
+    try:
+        workspace = Workspace(args.root)
+        dictionary = Dictionary.load(
+            workspace.resolve(args.dictionary) if args.dictionary else None
         )
-    else:
-        result = process_reverse(text, cipher_dict)
-        print(
-            f"[*] reverse pass: restored {input_name}. ledger cleared.", file=sys.stderr
+        if args.input != "-" and args.output != "-":
+            report = prepare(
+                workspace,
+                args.input,
+                mode=args.mode,
+                output=args.output,
+                dictionary=dictionary,
+            ).apply()
+            print(json.dumps(report), file=sys.stderr)
+            return 0
+        original = (
+            sys.stdin.read()
+            if args.input == "-"
+            else workspace.read(args.input).decode("utf-8")
         )
-
-    if args.output == "-":
-        sys.stdout.write(result)
-    else:
-        with open(args.output, "w", encoding="utf-8") as f:
-            f.write(result)
+        converted = Translator(dictionary).transform(original, args.mode).text
+        if args.output == "-":
+            sys.stdout.write(converted)
+        else:
+            atomic_write(
+                workspace.resolve(args.output, write=True), converted.encode("utf-8")
+            )
+        return 0
+    except (OSError, ValueError, TypeError) as exc:
+        print(f"Translation failed: {exc}", file=sys.stderr)
+        return 1
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
