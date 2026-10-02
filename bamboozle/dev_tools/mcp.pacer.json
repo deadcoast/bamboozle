@@ -1,0 +1,8 @@
+{
+    "mcpServers": {
+      "scm_file_system": {
+        "command": "uv",
+        "args": ["run", "scm_mcp.py"]
+      }
+    }
+  }

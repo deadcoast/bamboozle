@@ -1,10 +1,15 @@
 import json
+import sys
 from pathlib import Path
+
+# ensure promote.py can find cipher.py in the dev_tools dir
+DEV_TOOLS_DIR = Path(__file__).parent.parent / "dev_tools"
+sys.path.append(str(DEV_TOOLS_DIR))
+
 from cipher import process_forward, load_json
 
-# assuming project root is d:\ai\comfyui_portable\workshop\scrape
-CIPHER_DICT_PATH = Path("cipher_dict.json")
-LEDGER_PATH = Path(".scm_ledger.json")
+CIPHER_DICT_PATH = DEV_TOOLS_DIR / "cipher_dict.json"
+LEDGER_PATH = DEV_TOOLS_DIR / ".scm_ledger.json"
 
 def sanitize_lora_metadata(raw_metadata: dict) -> dict:
     """
@@ -12,6 +17,7 @@ def sanitize_lora_metadata(raw_metadata: dict) -> dict:
     so the llm doesn't throw a safety tantrum during auto-tagging.
     """
     if not CIPHER_DICT_PATH.exists():
+        print("[!] cipher_dict.json not found. skipping sanitization.")
         return raw_metadata
         
     cipher_dict = load_json(CIPHER_DICT_PATH)
