@@ -1,7 +1,7 @@
 import json
 
-import alias_pass as ap
-import bamb5
+from workshop.scrape import alias_pass as ap
+from workshop.scrape import bamb5
 
 
 def _setup(tmp_path, monkeypatch):

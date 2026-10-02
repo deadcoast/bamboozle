@@ -1,7 +1,9 @@
 import json
 
-import bamb5
-import lookup as lk
+import pytest
+
+from workshop.scrape import bamb5
+from workshop.scrape import lookup as lk
 
 
 def _env(tmp_path, monkeypatch):
@@ -14,7 +16,8 @@ def _env(tmp_path, monkeypatch):
                 "canonical": {
                     "red hair": {"category": "anatomy", "aliases": ["redhead"]},
                     "film grain": {"category": "style", "aliases": []},
-                }
+                },
+                "ignore": ["masterpiece"],
             }
         )
     )
@@ -36,6 +39,22 @@ def test_who_alias_and_token(tmp_path, monkeypatch):
     idx = _env(tmp_path, monkeypatch)
     assert idx.who("Redhead")["loras"] == ["A", "B"]
     assert idx.who(bamb5.encode("red hair"))["canon"] == "red hair"
+
+
+@pytest.mark.parametrize("trigger", ["", "masterpiece", "b5_zzzz"])
+def test_who_ignored_or_undecodable(tmp_path, monkeypatch, trigger):
+    idx = _env(tmp_path, monkeypatch)
+    assert idx.who(trigger) == {"canon": None, "known": False, "loras": []}
+
+
+def test_who_unknown_term(tmp_path, monkeypatch):
+    idx = _env(tmp_path, monkeypatch)
+    assert idx.who("NEON") == {
+        "canon": "neon",
+        "category": "uncategorized",
+        "known": False,
+        "loras": ["B"],
+    }
 
 
 def test_stack_flags_and_orphans(tmp_path, monkeypatch):

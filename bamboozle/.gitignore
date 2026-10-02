@@ -1,3 +1,12 @@
 # .legacy files
 .legacy/
 .dev_tools/
+
+# Local Python environments and validation artifacts
+.venv/
+.uv-cache/
+.test-tmp/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+__pycache__/

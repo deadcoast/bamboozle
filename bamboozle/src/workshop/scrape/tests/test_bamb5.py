@@ -1,6 +1,7 @@
 # tests/test_bamb5.py
-import bamb5
 import pytest
+
+from workshop.scrape import bamb5
 
 
 def test_roundtrip(tmp_path, monkeypatch):

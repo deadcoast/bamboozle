@@ -1,12 +1,22 @@
-from alias_pass import Taxonomy, load_prod_triggers, pairwise_overlap
-from alias_pass import run as alias_run
+"""Canonical trigger overlap for an existing compatibility matrix."""
 
-tax = Taxonomy.load()
-alias_rep = alias_run(load_prod_triggers(MANIFEST), tax)
-overlap = pairwise_overlap(alias_rep)
+from pathlib import Path
+from typing import Any
 
-for (a, b), j in overlap.items():
-    key = f"{a}|{b}"
-    entry = matrix.setdefault(key, {})
-    entry["trigger_overlap"] = j
-    entry["trigger_conflict"] = j >= 0.5  # tune threshold
+from workshop.scrape.alias_pass import Taxonomy, load_prod_triggers, pairwise_overlap
+from workshop.scrape.alias_pass import run as alias_run
+
+
+def update_trigger_overlap(
+    matrix: dict[str, dict[str, Any]],
+    manifest: Path,
+    tax: Taxonomy | None = None,
+    threshold: float = 0.5,
+) -> dict[str, dict[str, Any]]:
+    """Update pair entries in place, preserving existing scores and notes."""
+    alias_rep = alias_run(load_prod_triggers(manifest), tax)
+    for (a, b), overlap in pairwise_overlap(alias_rep).items():
+        entry = matrix.setdefault(f"{a}|{b}", {})
+        entry["trigger_overlap"] = overlap
+        entry["trigger_conflict"] = overlap >= threshold
+    return matrix

@@ -3,12 +3,16 @@ from __future__ import annotations
 
 import json
 import re
+import sys
 import unicodedata
 from collections import defaultdict
 from dataclasses import dataclass, field
 from pathlib import Path
 
-import bamb5
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
+from workshop.scrape import bamb5
 
 ROOT = Path(r"D:\AI\ComfyUI_portable\workshop\scrape")
 TAXONOMY = ROOT / "taxonomy.json"
@@ -163,8 +167,10 @@ def write_ledger(
                 tax.canon_cat.get(cn, ""),
             ]
         )
-    for cn, ids in sorted(rep.unknown.items()):
-        rows.append([run_ts, "unknown", enc(cn), ";".join(sorted(ids)), "info", ""])
+    for cn, unknown_ids in sorted(rep.unknown.items()):
+        rows.append(
+            [run_ts, "unknown", enc(cn), ";".join(sorted(unknown_ids)), "info", ""]
+        )
     for lid, toks in sorted(rep.decode_errors.items()):
         rows.append([run_ts, "decode_error", "", lid, "high", f"{len(toks)} tokens"])
 

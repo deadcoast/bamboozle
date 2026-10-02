@@ -10,6 +10,10 @@ LITERAL_REGEX = r"__SCM_LIT_(.*?)__"
 LEDGER_FILE = ".scm_ledger.json"
 
 
+def _protect_literal(match: re.Match[str]) -> str:
+    return LITERAL_TEMPLATE.format(match.group(0))
+
+
 class Bamboozletranslate:
     def __init__(self, dictionary: dict[str, str]):
         self.dictionary = dictionary
@@ -34,7 +38,7 @@ class Bamboozletranslate:
                 tracked_literals.append(p_term)
                 text = re.sub(
                     pattern,
-                    lambda m: f"__SCM_LIT_{m.group(0)}__",
+                    _protect_literal,
                     text,
                     flags=re.IGNORECASE,
                 )
@@ -103,7 +107,7 @@ def process_forward(text, cipher_dict, input_name):
             tracked_literals.append(p_term)
             text = re.sub(
                 pattern,
-                lambda m: LITERAL_TEMPLATE.format(m.group(0)),
+                _protect_literal,
                 text,
                 flags=re.IGNORECASE,
             )

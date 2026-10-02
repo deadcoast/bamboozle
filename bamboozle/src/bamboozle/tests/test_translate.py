@@ -19,6 +19,13 @@ class TestBamboozletranslate(unittest.TestCase):
         expected = "She loves a good creampie and gangbang."
         self.assertEqual(self.translate.reverse(text), expected)
 
+    def test_literal_protection_preserves_unicode_and_case(self):
+        translate = Bamboozletranslate({"source": "énergie"})
+        text = "ÉNERGIE and source"
+        encoded = translate.forward(text)
+        self.assertEqual(encoded, "__SCM_LIT_ÉNERGIE__ and énergie")
+        self.assertEqual(translate.reverse(encoded), text)
+
 
 if __name__ == "__main__":
     unittest.main()

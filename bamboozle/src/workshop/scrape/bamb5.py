@@ -1,19 +1,19 @@
 """workshop_mcp — MCP tools over the LoRA promote/audit pipeline."""
+
 # bamb5.py
 from __future__ import annotations
-import base64, json, os, sys, tempfile, argparse
 
+import argparse
+import base64
 import csv
 import json
 import os
 import subprocess
-import sys
-import temptfile
-import argparse
+import tempfile
 from pathlib import Path
 
-from fastmcp import FastMCP
 from cryptography.hazmat.primitives.ciphers.aead import AESSIV
+from fastmcp import FastMCP
 
 ROOT = Path(r"D:\AI\ComfyUI_portable\workshop\scrape")
 KEY_PATH = ROOT / "_bamb5.key"
@@ -29,6 +29,7 @@ TAXONOMY = Path(__file__).parent / "taxonomy.json"
 
 mcp = FastMCP("workshop")
 
+
 # ---------- key ----------
 def init_key(force: bool = False) -> None:
     if KEY_PATH.exists() and not force:
@@ -36,10 +37,12 @@ def init_key(force: bool = False) -> None:
     KEY_PATH.write_bytes(AESSIV.generate_key(512))
     print(f"Wrote {KEY_PATH}")
 
+
 def _cipher() -> AESSIV:
     if not KEY_PATH.exists():
         raise SystemExit("No key. Run: python bamb5.py init")
     return AESSIV(KEY_PATH.read_bytes())
+
 
 def _load(p: Path) -> dict:
     return json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
@@ -59,7 +62,10 @@ def _run(script: str, *args: str, timeout: int = 900) -> dict:
     """Run a pipeline script with the embedded Python."""
     r = subprocess.run(
         [str(PY), str(SCRAPE / script), *args],
-        cwd=SCRAPE, capture_output=True, text=True, timeout=timeout,
+        cwd=SCRAPE,
+        capture_output=True,
+        text=True,
+        timeout=timeout,
     )
     return {
         "returncode": r.returncode,
@@ -73,7 +79,8 @@ def normalize_triggers(triggers: list[str]) -> dict:
     """Map raw Civitai trigger words to canonical taxonomy tags.
     Return any unknown triggers so the taxonomy can be extended."""
     idx = _alias_index()
-    mapped, unknown = {}, []
+    mapped: dict[str, set[str]] = {}
+    unknown: list[str] = []
     for t in triggers:
         key = t.strip().lower().replace(" ", "_")
         if key in idx:
@@ -102,7 +109,7 @@ def query_manifest(
             continue
         if base_model and e.get("base_model") != base_model:
             continue
-        out.append({"name": name, e})
+        out.append({**e, "name": name})
     return out
 
 
@@ -155,13 +162,17 @@ def ledger_tail(n: int = 25) -> list[dict]:
         return []
     with LEDGER.open(encoding="utf-8", newline="") as f:
         return list(csv.DictReader(f))[-n:]
+
+
 # ---------- core ----------
 def _b32e(b: bytes) -> str:
     return base64.b32encode(b).decode().rstrip("=").lower()
 
+
 def _b32d(s: str) -> bytes:
     s = s.upper()
     return base64.b32decode(s + "=" * (-len(s) % 8))
+
 
 def encode(term: str, c: AESSIV | None = None) -> str:
     if term.startswith(PREFIX):
@@ -169,31 +180,43 @@ def encode(term: str, c: AESSIV | None = None) -> str:
     c = c or _cipher()
     return PREFIX + _b32e(c.encrypt(term.encode("utf-8"), [AD]))
 
+
 def decode(token: str, c: AESSIV | None = None) -> str:
     if not token.startswith(PREFIX):
         return token  # passthrough plaintext
     c = c or _cipher()
-    return c.decrypt(_b32d(token[len(PREFIX):]), [AD]).decode("utf-8")
+    return c.decrypt(_b32d(token[len(PREFIX) :]), [AD]).decode("utf-8")
+
 
 def encode_list(terms, c=None):
-    c = c or _cipher(); return [encode(t, c) for t in terms]
+    c = c or _cipher()
+    return [encode(t, c) for t in terms]
+
 
 def decode_list(tokens, c=None):
-    c = c or _cipher(); return [decode(t, c) for t in tokens]
+    c = c or _cipher()
+    return [decode(t, c) for t in tokens]
+
 
 # ---------- bulk JSON ----------
 def _walk(obj, keys, fn):
     if isinstance(obj, dict):
-        return {k: (_apply(v, fn) if k in keys else _walk(v, keys, fn))
-                for k, v in obj.items()}
+        return {
+            k: (_apply(v, fn) if k in keys else _walk(v, keys, fn))
+            for k, v in obj.items()
+        }
     if isinstance(obj, list):
         return [_walk(v, keys, fn) for v in obj]
     return obj
 
+
 def _apply(v, fn):
-    if isinstance(v, str): return fn(v)
-    if isinstance(v, list): return [fn(x) if isinstance(x, str) else x for x in v]
+    if isinstance(v, str):
+        return fn(v)
+    if isinstance(v, list):
+        return [fn(x) if isinstance(x, str) else x for x in v]
     return v
+
 
 def process_json(path: Path, keys: set[str], mode: str) -> None:
     c = _cipher()
@@ -206,28 +229,35 @@ def process_json(path: Path, keys: set[str], mode: str) -> None:
     os.replace(tmp, path)
     print(f"{mode}d {path} keys={sorted(keys)}")
 
+
 # ---------- CLI ----------
 def main():
     p = argparse.ArgumentParser(prog="bamb5")
     sub = p.add_subparsers(dest="cmd", required=True)
-    i = sub.add_parser("init"); i.add_argument("--force", action="store_true")
+    i = sub.add_parser("init")
+    i.add_argument("--force", action="store_true")
     for name in ("enc", "dec"):
-        s = sub.add_parser(name); s.add_argument("terms", nargs="+")
+        s = sub.add_parser(name)
+        s.add_argument("terms", nargs="+")
     for name in ("enc-json", "dec-json"):
         s = sub.add_parser(name)
         s.add_argument("file", type=Path)
         s.add_argument("--keys", default="triggers,tags,trained_words")
     a = p.parse_args()
 
-    if a.cmd == "init": init_key(a.force)
-    elif a.cmd == "enc": print("\n".join(encode_list(a.terms)))
-    elif a.cmd == "dec": print("\n".join(decode_list(a.terms)))
+    if a.cmd == "init":
+        init_key(a.force)
+    elif a.cmd == "enc":
+        print("\n".join(encode_list(a.terms)))
+    elif a.cmd == "dec":
+        print("\n".join(decode_list(a.terms)))
     else:
-        process_json(a.file, set(a.keys.split(",")),
-                     "encode" if a.cmd == "enc-json" else "decode")
+        process_json(
+            a.file,
+            set(a.keys.split(",")),
+            "encode" if a.cmd == "enc-json" else "decode",
+        )
+
 
 if __name__ == "__main__":
     main()
-
-if __name__ == "__main__":
-    mcp.run()

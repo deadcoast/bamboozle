@@ -1,16 +1,20 @@
 """workshop_mcp — MCP tools over the LoRA promote/audit pipeline."""
+
 from __future__ import annotations
 
 import csv
+import difflib
 import json
 import subprocess
-import difflib
 import sys
-sys.path.insert(0, str(SCRAPE))
 from pathlib import Path
+
 from fastmcp import FastMCP
 
-import lookup  # noqa: E402
+if __package__ in (None, ""):
+    sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
+from workshop.scrape import lookup
 
 ROOT = Path(r"D:\AI\ComfyUI_portable")
 WORKSHOP = ROOT / "workshop"
@@ -21,12 +25,12 @@ MATRIX = SCRAPE / "_compatibility_matrix.json"
 LEDGER = SCRAPE / "_lora_ledger.csv"
 TAXONOMY = Path(__file__).parent / "taxonomy.json"
 STATUS = SCRAPE / "_pipeline_status.json"
-_IDX: "lookup.Index | None" = None
+_IDX: lookup.Index | None = None
 
 mcp = FastMCP("workshop")
 
 
-def _idx(force: bool = False) -> "lookup.Index":
+def _idx(force: bool = False) -> lookup.Index:
     global _IDX
     fp = lookup._fingerprint(lookup.MANIFEST, lookup.ap.TAXONOMY)
     if force or _IDX is None or _IDX.fp != fp:
@@ -40,9 +44,18 @@ def who_uses(trigger: str) -> dict:
     ix = _idx()
     cn = ix._canon(trigger)
     if cn is None:
-        return ored or undecodable"}
-    return ax.canon_cat.get(cn, "uncategorized"),
-            "known": ix.tax.known(cn), "loras": ix.by_canon.get(cn, [])}
+        return {
+            "canon": None,
+            "known": False,
+            "loras": [],
+            "error": "ignored or undecodable",
+        }
+    return {
+        "canon": cn,
+        "category": ix.tax.canon_cat.get(cn, "uncategorized"),
+        "known": ix.tax.known(cn),
+        "loras": ix.by_canon.get(cn, []),
+    }
 
 
 @mcp.tool()
@@ -59,8 +72,10 @@ def triggers_of(lora_id: str) -> dict:
 def category_view(category: str) -> dict:
     """Every canonical tag in a category and the LoRAs using it."""
     ix = _idx()
-    return {"category": category,
-            "tags": {cn: ix.by_canon.get(cn, []) for cn in ix.by_cat.get(category, [])}}
+    return {
+        "category": category,
+        "tags": {cn: ix.by_canon.get(cn, []) for cn in ix.by_cat.get(category, [])},
+    }
 
 
 @mcp.tool()
@@ -86,16 +101,27 @@ def stack_check(loras: list[str], threshold: float = 0.5) -> dict:
     pairs = []
     for i, a in enumerate(loras):
         sa = set(ix.by_lora.get(a, []))
-        for b in loras[i + 1:]:
+        for b in loras[i + 1 :]:
             sb = set(ix.by_lora.get(b, []))
-            shared = sa sb
+            shared = sa & sb
             if shared:
                 j = round(len(shared) / len(sa | sb), 3)
                 m = compatibility(a, b)
-                pairs.append({"a": a, "b": b, "overlap": j, "shared": sorted(shared),
-                              "flag": j >= threshold, "matrix": m.get("score", m.get("status"))})
-    return {"ok": not missing and not any(p["flag"] for p in pairs),
-            "missing": missing, "pairs": sorted(pairs, key=lambda p: -p["overlap"])}
+                pairs.append(
+                    {
+                        "a": a,
+                        "b": b,
+                        "overlap": j,
+                        "shared": sorted(shared),
+                        "flag": j >= threshold,
+                        "matrix": m.get("score", m.get("status")),
+                    }
+                )
+    return {
+        "ok": not missing and not any(p["flag"] for p in pairs),
+        "missing": missing,
+        "pairs": sorted(pairs, key=lambda p: -p["overlap"]),
+    }
 
 
 @mcp.tool()
@@ -131,7 +157,10 @@ def _run(script: str, *args: str, timeout: int = 900) -> dict:
     """Run a pipeline script with the embedded Python."""
     r = subprocess.run(
         [str(PY), str(SCRAPE / script), *args],
-        cwd=SCRAPE, capture_output=True, text=True, timeout=timeout,
+        cwd=SCRAPE,
+        capture_output=True,
+        text=True,
+        timeout=timeout,
     )
     return {
         "returncode": r.returncode,
@@ -145,7 +174,8 @@ def normalize_triggers(triggers: list[str]) -> dict:
     """Map raw Civitai trigger words to canonical taxonomy tags.
     Return any unknown triggers so the taxonomy can be extended."""
     idx = _alias_index()
-    mapped, unknown = {}, []
+    mapped: dict[str, set[str]] = {}
+    unknown: list[str] = []
     for t in triggers:
         key = t.strip().lower().replace(" ", "_")
         if key in idx:
@@ -174,7 +204,7 @@ def query_manifest(
             continue
         if base_model and e.get("base_model") != base_model:
             continue
-        out.append({"name": name, e})
+        out.append({**e, "name": name})
     return out
 
 
@@ -200,51 +230,42 @@ def compatibility(lora_a: str, lora_b: str) -> dict:
     key = "|".join(sorted([lora_a, lora_b]))
     return m.get("pairs", {}).get(key, {"status": "untested", "pair": key})
 
-from lookup import Index
-
-_idx: Index | None = None
-
-
-def _get() -> Index:
-    global _idx
-    _idx = Index.load()  # cheap: fingerprint check, rebuild only on change
-    return _idx
-
 
 @mcp.tool()
 def lora_who(trigger: str) -> dict:
     """Which prod LoRAs use this trigger (alias/b5_/weighted ok)."""
-    return _get().who(trigger)
+    return _idx().who(trigger)
 
 
 @mcp.tool()
 def lora_triggers(lora_id: str) -> dict:
     """Canonical triggers of a LoRA plus which LoRAs share each."""
-    return _get().of(lora_id)
+    return _idx().of(lora_id)
 
 
 @mcp.tool()
 def lora_category(category: str) -> dict:
     """All canonical terms in a category -> LoRAs."""
-    return _get().cat(category)
+    return _idx().cat(category)
 
 
 @mcp.tool()
-def lora_suggest(term: str, n: int = 5) -> list[str]:
+def lora_suggest(term: str, n: int = 5) -> list[dict]:
     """Fuzzy canonical matches for a term."""
-    return _get().suggest(term, n)
+    return _idx().suggest(term, n)
 
 
 @mcp.tool()
 def lora_stack_check(lora_ids: list[str], threshold: float = 0.5) -> dict:
     """Pre-flight trigger collision check for a LoRA stack."""
-    return _get().stack(lora_ids, threshold)
+    return _idx().stack(lora_ids, threshold)
 
 
 @mcp.tool()
 def lora_orphans() -> list[str]:
     """Taxonomy terms no prod LoRA uses."""
-    return _get().orphans()
+    return _idx().orphans()
+
 
 @mcp.tool()
 def promote_lora(candidate: str, dry_run: bool = True) -> dict:
