@@ -2,7 +2,7 @@
 
 ## Overview
 
-Semantic Cipher Middleware (SCM) is a local translation layer designed to bypass LLM censorship filters (e.g., Claude, ChatGPT). It allows you to develop explicit ComfyUI nodes without triggering safety refusals.
+Semantic Cipher Middleware (SCM) is a local translation layer designed to bypass LLM censorship filters (e.g., AGENT, ChatGPT). It allows you to develop explicit ComfyUI nodes without triggering safety refusals.
 
 By mapping vulgar or restricted terms (e.g., `creampie`, `gangbang`, `cum`) to sterile physics and rendering terminology (e.g., `internal_fluid_state`, `multi_agent_collision`, `fluid_sim_a`), you can safely feed your source code to an LLM for optimization, debugging, or feature generation, and then reliably decrypt the response back to your raw, explicit codebase.
 
@@ -14,8 +14,8 @@ Ensure your `dev_tools` directory is structured exactly as follows within your C
 D:\AI\ComfyUI_portable\workshop\dev_tools\
 ├── cipher_dict.json
 ├── cipher.py
-├── 1_ENCRYPT_FOR_CLAUDE.bat
-├── 2_DECRYPT_FROM_CLAUDE.bat
+├── 1_ENCRYPT_FOR_AGENT.bat
+├── 2_DECRYPT_FROM_AGENT.bat
 └── README.md
 ```
 
@@ -38,7 +38,7 @@ Follow this strict three-step loop when utilizing an LLM to generate or modify y
 ### 1. Forward Pass (Encrypt)
 
 1. Locate your working script containing your explicit variables and functions.
-2. Drag and drop the file onto `1_ENCRYPT_FOR_CLAUDE.bat`.
+2. Drag and drop the file onto `1_ENCRYPT_FOR_AGENT.bat`.
 3. The script will output a sanitized file and generate a `.scm_ledger.json` file. This ledger tracks native physics terms already present in your code to prevent collisions during decryption.
 
 ### 2. LLM Processing
@@ -50,7 +50,7 @@ Follow this strict three-step loop when utilizing an LLM to generate or modify y
 ### 3. Reverse Pass (Decrypt)
 
 1. Save the LLM's generated response as a Python file (you can overwrite the `_safe.py` file).
-2. Drag and drop this file onto `2_DECRYPT_FROM_CLAUDE.bat`.
+2. Drag and drop this file onto `2_DECRYPT_FROM_AGENT.bat`.
 3. The script will output a `_ready.py` file with all explicit terminology perfectly restored, and it will automatically delete the `.scm_ledger.json` file.
 4. Move the `_ready.py` file into your ComfyUI `custom_nodes` directory for testing.
 

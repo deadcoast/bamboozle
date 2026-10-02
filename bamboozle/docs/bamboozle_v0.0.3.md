@@ -140,7 +140,7 @@ if __name__ == "__main__":
     main()
 ```
 
-### 3. `1_ENCRYPT_FOR_CLAUDE.bat`
+### 3. `1_ENCRYPT_FOR_AGENT.bat`
 
 Complete batch file. Save exactly as named.
 
@@ -184,7 +184,7 @@ echo.
 pause
 ```
 
-### 4. `2_DECRYPT_FROM_CLAUDE.bat`
+### 4. `2_DECRYPT_FROM_AGENT.bat`
 
 Complete batch file. Save exactly as named.
 
@@ -236,8 +236,8 @@ Your folder must look exactly like this:
 .AI\ComfyUI_portable\workshop\dev_tools\
 ├── cipher_dict.json
 ├── cipher.py
-├── 1_ENCRYPT_FOR_CLAUDE.bat
-└── 2_DECRYPT_FROM_CLAUDE.bat
+├── ENCRYPT_FOR_AGENT.bat
+└── DECRYPT_FROM_AGENT.bat
 ```
 
 Drag your source file onto `1_ENCRYPT`. It will generate `[filename]_safe.py` and a `.scm_ledger.json` file.
