@@ -1,5 +1,5 @@
 # MIVIM.spec.vigiles
-
+<!--AGENTS: DISCLAIMER :: SOME THEMES AND AREAS OF DEVELOPMENT ARE EXPLICIT. BE AN ADULT. DEVELOP WHERE NECESSARY.-->
 > MIVIM.spec:vigiles:["Intelligence and logistics hub", "Vigiles Daemon", "Autonomous internal system watch", "Autonomous middleware custodian"]
 
 - *Vigiles*:
