@@ -9,7 +9,8 @@ from pathlib import Path
 from unittest.mock import patch
 
 from bamboozle import __version__
-from bamboozle.utils import json_bytes, sha256, utc_now
+from bamboozle.evidence import report_destination, write_report
+from bamboozle.utils import sha256, utc_now
 from workshop import examples, plans
 from workshop import operations as ops
 from workshop.bootstrap import initialize
@@ -123,10 +124,20 @@ def qualify(root: Path, report: dict) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--workshop", type=Path, required=True)
-    parser.add_argument("--report", type=Path, required=True)
+    parser.add_argument(
+        "--report",
+        type=Path,
+        help="New JSON report path; default is the managed reports/current directory",
+    )
     args = parser.parse_args()
-    if args.report.exists():
-        parser.error("Use a new report path to preserve earlier evidence")
+    project = Path(__file__).resolve().parents[1]
+    replace_report = args.report is None
+    try:
+        args.report = report_destination(
+            project, "VIGILES_INVENTORY_QUALIFICATION.json", args.report
+        )
+    except (OSError, ValueError) as exc:
+        parser.error(str(exc))
     root = args.workshop.absolute()
     report = {
         "schema_version": 1,
@@ -142,7 +153,7 @@ def main() -> int:
         qualify(root, report)
     except (OSError, ValueError, TypeError, KeyError, AssertionError) as exc:
         report.update(status="failed", error=str(exc))
-    args.report.write_bytes(json_bytes(report))
+    write_report(project, args.report, report, replace=replace_report)
     print(json.dumps({"status": report["status"], "report": str(args.report)}))
     return 0 if report["status"] == "passed" else 1
 

@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import argparse
 import hashlib
-import json
 import os
 import platform
 import subprocess
@@ -17,6 +16,8 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
+from bamboozle.evidence import report_destination, write_report
+
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -28,7 +29,9 @@ def main() -> int:
         help="Build and exercise an isolated installed wheel",
     )
     parser.add_argument(
-        "--report", type=Path, default=ROOT / "VIGILES_VERIFICATION.json"
+        "--report",
+        type=Path,
+        help="New JSON report path; default is the managed reports/current directory",
     )
     parser.add_argument(
         "--work-dir",
@@ -42,6 +45,11 @@ def main() -> int:
         help="Filesystem used for pytest fixtures (default: repository-local)",
     )
     args = parser.parse_args()
+    replace_report = args.report is None
+    try:
+        args.report = report_destination(ROOT, "VIGILES_VERIFICATION.json", args.report)
+    except (OSError, ValueError) as exc:
+        parser.error(str(exc))
     temporary_root = args.work_dir if args.work_dir is not None else ROOT / ".test-tmp"
     temporary_root.mkdir(parents=True, exist_ok=True)
     run = Path(tempfile.mkdtemp(prefix="verify-", dir=temporary_root))
@@ -189,6 +197,7 @@ def main() -> int:
         ROOT / "pyproject.toml",
         ROOT / "uv.lock",
         ROOT / "README.md",
+        ROOT / "AGENTS.md",
         ROOT / ".mivim/mivim.vigiles.md",
         ROOT.parent / ".github/workflows/vigiles.yml",
     ]:
@@ -221,7 +230,9 @@ def main() -> int:
         "source_sha256": sources,
         "artifacts": artifacts,
     }
-    args.report.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    previous = write_report(ROOT, args.report, report, replace=replace_report)
+    if previous:
+        print(f"Previous evidence preserved: {previous}", flush=True)
     print(f"Evidence: {args.report}", flush=True)
     return 0 if report["status"] == "passed" else 1
 

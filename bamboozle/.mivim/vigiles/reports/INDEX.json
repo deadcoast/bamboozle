@@ -1,0 +1,263 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-10-03T22:42:22.8207746Z",
+  "purpose": "Lossless relocation of root-level Vigiles evidence; active planning remains in VIGILES_STATUS.json.",
+  "original_application_root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle",
+  "path_base": "All index paths are relative to the application root.",
+  "historical_path_rule": "Archived bytes are unchanged. Embedded relative paths retain their original application-root meaning. Resolve former root report names through records[].original_path to archived_path; do not rewrite historical hashes or claims.",
+  "original_record_count": 42,
+  "records": [
+    {
+      "original_path": "VIGILES_CAPTURE_QUALIFICATION.capture-0.3.2.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_CAPTURE_QUALIFICATION.capture-0.3.2.json",
+      "sha256": "6bd95490b1a13ae43358e20c59552325b0b03a0f1384105eb336c2f7ea485ab9",
+      "bytes": 3305
+    },
+    {
+      "original_path": "VIGILES_CAPTURE_QUALIFICATION.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_CAPTURE_QUALIFICATION.json",
+      "sha256": "eaa83999e1dacf1c7f3fd169ce96c238dcb9583daf9f49e2400de5921ee3bf5b",
+      "bytes": 3305
+    },
+    {
+      "original_path": "VIGILES_CAPTURE_QUALIFICATION.plans-0.3.3.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_CAPTURE_QUALIFICATION.plans-0.3.3.json",
+      "sha256": "83beeabe7f52e603bc50653519b5695c5175c487c2eeb27f5368ca8dfe61f928",
+      "bytes": 3305
+    },
+    {
+      "original_path": "VIGILES_INVENTORY_QUALIFICATION.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_INVENTORY_QUALIFICATION.json",
+      "sha256": "04e7cd1947b9067ac80ff1a40612f2ec97920b7d5098fb36a0ff1e177e95b9a7",
+      "bytes": 24039
+    },
+    {
+      "original_path": "VIGILES_INVENTORY_QUALIFICATION.pre-marker-budget-0.3.4.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_INVENTORY_QUALIFICATION.pre-marker-budget-0.3.4.json",
+      "sha256": "9baabd6d0a705e7f0aba7caa0c8c3d8bfb22bd056b25c1b4d66cfae58befb1d5",
+      "bytes": 24031
+    },
+    {
+      "original_path": "VIGILES_INVENTORY_QUALIFICATION.v0.3.4-final.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_INVENTORY_QUALIFICATION.v0.3.4-final.json",
+      "sha256": "04e7cd1947b9067ac80ff1a40612f2ec97920b7d5098fb36a0ff1e177e95b9a7",
+      "bytes": 24039
+    },
+    {
+      "original_path": "VIGILES_INVENTORY_QUALIFICATION.v0.3.4.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_INVENTORY_QUALIFICATION.v0.3.4.json",
+      "sha256": "9baabd6d0a705e7f0aba7caa0c8c3d8bfb22bd056b25c1b4d66cfae58befb1d5",
+      "bytes": 24031
+    },
+    {
+      "original_path": "VIGILES_PIPELINE_QUALIFICATION.foundation-0.3.0.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_PIPELINE_QUALIFICATION.foundation-0.3.0.json",
+      "sha256": "d86c3bb203241f4616f85ca3118223aa0ea836d3602ee9003ce9cebffaf91cb1",
+      "bytes": 12001
+    },
+    {
+      "original_path": "VIGILES_PIPELINE_QUALIFICATION.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_PIPELINE_QUALIFICATION.json",
+      "sha256": "8687f97058fc828f06d89d8b45997184252b7a02e2b5beedff0124550f205ef6",
+      "bytes": 12201
+    },
+    {
+      "original_path": "VIGILES_PIPELINE_QUALIFICATION.v0.3.1.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_PIPELINE_QUALIFICATION.v0.3.1.json",
+      "sha256": "b0543319de932067c5fb603055c06e30fb0dd7ee76573f9c9e02701a1791485b",
+      "bytes": 12201
+    },
+    {
+      "original_path": "VIGILES_PIPELINE_QUALIFICATION.v0.3.2.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_PIPELINE_QUALIFICATION.v0.3.2.json",
+      "sha256": "21e1c1dfed503a226aa7cd57da0142d8a96643115f98a3a4bd470283683d1e57",
+      "bytes": 12201
+    },
+    {
+      "original_path": "VIGILES_PIPELINE_QUALIFICATION.v0.3.3.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_PIPELINE_QUALIFICATION.v0.3.3.json",
+      "sha256": "993ca32bdb45dd30e51c141ebf96705193cb66cea1bb6342eb5588c7e30cdb57",
+      "bytes": 12201
+    },
+    {
+      "original_path": "VIGILES_PIPELINE_QUALIFICATION.v0.3.4.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_PIPELINE_QUALIFICATION.v0.3.4.json",
+      "sha256": "8687f97058fc828f06d89d8b45997184252b7a02e2b5beedff0124550f205ef6",
+      "bytes": 12201
+    },
+    {
+      "original_path": "VIGILES_PIPELINE_READINESS.capture-0.3.2.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_PIPELINE_READINESS.capture-0.3.2.json",
+      "sha256": "7a4a9c9e59b0e8f0c95ff9ce7e3e03f72bf4fffea3821282448629ac0df7d064",
+      "bytes": 1569
+    },
+    {
+      "original_path": "VIGILES_PIPELINE_READINESS.consumers-0.3.1.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_PIPELINE_READINESS.consumers-0.3.1.json",
+      "sha256": "5430731e7e7f64d2fa476970ba0f56c5b11118cbdf1b04d6fde56a83b52a519f",
+      "bytes": 1569
+    },
+    {
+      "original_path": "VIGILES_PIPELINE_READINESS.external-missing.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_PIPELINE_READINESS.external-missing.json",
+      "sha256": "2f4ca7076cb09ff3e0dcc89a9b8dfbf7e19b7f2b25ab90bb7cb0674ffb8e104d",
+      "bytes": 1355
+    },
+    {
+      "original_path": "VIGILES_PIPELINE_READINESS.foundation-0.3.0.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_PIPELINE_READINESS.foundation-0.3.0.json",
+      "sha256": "827f9020102ceb3c9a5c66efe0e5522b575f4eaffa520b4f1e65f599a163862f",
+      "bytes": 1562
+    },
+    {
+      "original_path": "VIGILES_PIPELINE_READINESS.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_PIPELINE_READINESS.json",
+      "sha256": "20458d987f63f00050f8f401f0be6ad18220f3051849cdb5cf1be7aec9c91b56",
+      "bytes": 1569
+    },
+    {
+      "original_path": "VIGILES_PIPELINE_READINESS.plans-0.3.3.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_PIPELINE_READINESS.plans-0.3.3.json",
+      "sha256": "4d3e873c1bc5057c8075784082d6f56db72290a84a7246314314719ea4e3aee1",
+      "bytes": 1569
+    },
+    {
+      "original_path": "VIGILES_PLAN_QUALIFICATION.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_PLAN_QUALIFICATION.json",
+      "sha256": "19d62be3a9f64365edb45cebfd0e60603a79cc2bcd05c7bc3b3ad09f3668dbcf",
+      "bytes": 38748
+    },
+    {
+      "original_path": "VIGILES_PLAN_QUALIFICATION.v0.3.3.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_PLAN_QUALIFICATION.v0.3.3.json",
+      "sha256": "cabd1e1dfdebf6de5dd26f4cbabfe3e8d5d9e9b59d8f25c04d1d72d9871cb8d5",
+      "bytes": 38748
+    },
+    {
+      "original_path": "VIGILES_PLAN_QUALIFICATION.v0.3.4.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_PLAN_QUALIFICATION.v0.3.4.json",
+      "sha256": "19d62be3a9f64365edb45cebfd0e60603a79cc2bcd05c7bc3b3ad09f3668dbcf",
+      "bytes": 38748
+    },
+    {
+      "original_path": "VIGILES_STATUS.capture-0.3.2.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_STATUS.capture-0.3.2.json",
+      "sha256": "4a0ba763e759271ca44aad39b79850b1adfd2610b54c09584bbc4cca55e8143b",
+      "bytes": 27521
+    },
+    {
+      "original_path": "VIGILES_STATUS.consumers-0.3.1.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_STATUS.consumers-0.3.1.json",
+      "sha256": "3334f55aa4ce4dc219968cf8f73a2390539fd995123524cfd2f461d309958bbc",
+      "bytes": 24613
+    },
+    {
+      "original_path": "VIGILES_STATUS.foundation-0.3.0.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_STATUS.foundation-0.3.0.json",
+      "sha256": "be7a62aeade21a70b107d88ea1c18a9c6a90468b60edba7187c4f99f0db1b83b",
+      "bytes": 20552
+    },
+    {
+      "original_path": "VIGILES_STATUS.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_STATUS.json",
+      "sha256": "820d240253e0dde745e96831f7b6ecfc63f44c00620599ec797c5d914edfffe4",
+      "bytes": 37761
+    },
+    {
+      "original_path": "VIGILES_STATUS.plans-0.3.3.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_STATUS.plans-0.3.3.json",
+      "sha256": "5473b40d39f529ad31fb0c8fc8bbf6105b943e4a6dae53abbc0d33a75fb42371",
+      "bytes": 32984
+    },
+    {
+      "original_path": "VIGILES_VERIFICATION.adapter-0.2.1.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_VERIFICATION.adapter-0.2.1.json",
+      "sha256": "9b3894f6e87de07942a94b7d5edf543320a5f55f6da1845b230875f7b5adb562",
+      "bytes": 26978
+    },
+    {
+      "original_path": "VIGILES_VERIFICATION.capture-0.3.2.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_VERIFICATION.capture-0.3.2.json",
+      "sha256": "32955d3221d5f2317a47ab23b824d1cfa76ba48f6185a02c48f779b9a05709f5",
+      "bytes": 32239
+    },
+    {
+      "original_path": "VIGILES_VERIFICATION.consumers-0.3.1.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_VERIFICATION.consumers-0.3.1.json",
+      "sha256": "40cd2514fedc287148232970661c00db90cba167c15c12723f8928e371797187",
+      "bytes": 31705
+    },
+    {
+      "original_path": "VIGILES_VERIFICATION.failed-20261002.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_VERIFICATION.failed-20261002.json",
+      "sha256": "a1cc96243a9a41d1afcc6346f9b9744aa48f30b3e33843f4fa97c723d3e7da8c",
+      "bytes": 21050
+    },
+    {
+      "original_path": "VIGILES_VERIFICATION.failed-bamb5-launch-0.3.3.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_VERIFICATION.failed-bamb5-launch-0.3.3.json",
+      "sha256": "3bcccec66eeebf9a1565cbe469a85d1b0b6e5490bdfb1e42fcb41dd445d02edb",
+      "bytes": 33022
+    },
+    {
+      "original_path": "VIGILES_VERIFICATION.failed-filesystem-20261002.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_VERIFICATION.failed-filesystem-20261002.json",
+      "sha256": "ff3f881226016ce365a8ec4fce3e82558f019f16483a2ad01218e57b2bd1f454",
+      "bytes": 14120
+    },
+    {
+      "original_path": "VIGILES_VERIFICATION.failed-native-disk-20261002.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_VERIFICATION.failed-native-disk-20261002.json",
+      "sha256": "a8978a6379479f2a3194b460e9a5eeca9c059ada3793a26a28bd9d1ba20398ea",
+      "bytes": 15910
+    },
+    {
+      "original_path": "VIGILES_VERIFICATION.failed-pipeline-20261002.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_VERIFICATION.failed-pipeline-20261002.json",
+      "sha256": "4629a271650ff95fc84df0f522a339e2d5b9309c55e5624f35e39bfc7ba0d462",
+      "bytes": 10575
+    },
+    {
+      "original_path": "VIGILES_VERIFICATION.failed-relative-snapshot-0.3.1.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_VERIFICATION.failed-relative-snapshot-0.3.1.json",
+      "sha256": "59e89fb0fe0774a43c60e9fb2af6c0b7f8af9c354e9869f3d5a74f5ee52a94eb",
+      "bytes": 27710
+    },
+    {
+      "original_path": "VIGILES_VERIFICATION.foundation-0.3.0.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_VERIFICATION.foundation-0.3.0.json",
+      "sha256": "241df93cbb2a7d5be1422e78326416d4a5f2458659da2dfd22e84798418deffd",
+      "bytes": 28067
+    },
+    {
+      "original_path": "VIGILES_VERIFICATION.framework-0.2.0.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_VERIFICATION.framework-0.2.0.json",
+      "sha256": "db6378c67fa4aeaf34ea63492aca5f309aecc26a8a11027069386e118cb3d953",
+      "bytes": 26614
+    },
+    {
+      "original_path": "VIGILES_VERIFICATION.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_VERIFICATION.json",
+      "sha256": "719330fe64d051cb0b04a586c17513c5f74d01e1e6bbf458cf3c8638230c3eb0",
+      "bytes": 33570
+    },
+    {
+      "original_path": "VIGILES_VERIFICATION.plans-0.3.3.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_VERIFICATION.plans-0.3.3.json",
+      "sha256": "ff5493f96ece0a1894c5f9affbba6fd3168080d8b775a5c43164f86f625f314b",
+      "bytes": 32865
+    },
+    {
+      "original_path": "VIGILES_VERIFICATION.pre-conflict-check-0.3.4.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_VERIFICATION.pre-conflict-check-0.3.4.json",
+      "sha256": "e4380815013f8ee9acbec55251f9b840c4b626325aef141859aee8e56ad4f372",
+      "bytes": 33571
+    },
+    {
+      "original_path": "VIGILES_VERIFICATION.pre-marker-budget-0.3.4.json",
+      "archived_path": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_VERIFICATION.pre-marker-budget-0.3.4.json",
+      "sha256": "ba858939b975c496a83938255942b78bde234f5be549053b1cf61f19f95f89ec",
+      "bytes": 33569
+    }
+  ]
+}

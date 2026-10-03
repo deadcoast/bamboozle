@@ -12,6 +12,35 @@
   - Operates at a foundational AGENT repository interaction level, it acts as an internal watch, forcing alignment with native structural specifications. Rather than reacting to external threats, the Vigiles profile maintains systemic health through containment, internal auditing, and structural hardening.
   - Through its Tessera Protocol, the profile serves as the system's cryptex, translator, and deployment conduit—safeguarding data through deep encryption, translating disparate agent dialects into a unified tongue, and securely routing operational forces to their target sectors while maintaining absolute structural permanence.
 
+## Repository organization contract
+
+The role description does not require evidence at repository root. The root is
+for normal project/steering files and active planning or tasks. `VIGILES_STATUS.json`
+is the compact active plan: current stage, next action, open gates, and evidence
+pointers. Completed findings, detailed qualification data, failed runs and versioned
+status snapshots belong under `.mivim/vigiles/reports/`, never at either the
+application root or its parent Git root.
+
+- `current/` holds the latest evidence for each report type.
+- `archive/` retains exact previous bytes, including failures. Development writers
+  automatically archive a current report under `archive/runs/<run-id>/` before
+  replacing it. Explicit output paths must be new JSON files below a directory;
+  root-level outputs are refused before executing checks or workshop operations.
+- `archive/legacy-layout/` preserves all original root records byte-for-byte;
+  `INDEX.json` maps their former names to retained paths and SHA-256 hashes.
+  Historical embedded paths keep their original application-root meaning. Resolve
+  relocated report references through the index; do not rewrite historical evidence.
+- `.vigiles/` remains separate ignored runtime/fixture storage, not the retained
+  development-report archive. Logs and relevant artifacts remain at their recorded
+  locations; report relocation does not delete or relocate them.
+
+These paths are relative to the application root. Follow the same policy in
+`AGENTS.md`, documentation examples, development scripts, and handoffs. Retaining
+evidence must not produce new root dumps. Runtime workspace protection of `.mivim`
+remains intact; intentional specification edits and the development report writer
+are separate development operations. This organization correction does not advance
+the feature stage or qualify a new release.
+
 ## Renaming the Core Functions
 
 > Map your agent's four main responsibilities:
@@ -116,15 +145,16 @@ specification/evidence update.
 
 ### Completion gates
 
-`VIGILES_VERIFICATION.json` is the execution record. `VIGILES_STATUS.json` records
-closed findings and actionable remaining work. A green local run qualifies only
+`.mivim/vigiles/reports/current/VIGILES_VERIFICATION.json` is the execution record. `VIGILES_STATUS.json` records
+the active plan and actionable remaining work; completed findings stay in archived
+status records. A green local run qualifies only
 the tested source/runtime/package paths and operating system.
 
 The package check installs the built wheel into a fresh environment outside the
 source tree, exercises byte-exact CLI round trips, and starts a real MCP stdio
 child process. This is local protocol evidence; it does not establish adoption by
-an external agent client. Failed qualification records remain beside the current
-record, with their remediation described in the status file.
+an external agent client. Failed qualification records and historical remediation
+notes remain in the report archive. Active unresolved work stays in root status.
 
 Open global gates:
 
@@ -162,7 +192,7 @@ preservation of interrupted copies, and explicit fixture recovery. These fixture
 are not authoritative pipeline implementations or live model evidence. The actual
 `promote.py`, external `audit_matrix.py`, representative manifest/matrix, and
 operator-selected workshop were the remaining dependencies at 0.2.1.
-`VIGILES_PIPELINE_READINESS.json` records local discovery;
+`.mivim/vigiles/reports/current/VIGILES_PIPELINE_READINESS.json` records local discovery;
 `VIGILES_STATUS.json` tracks adapter preparation separately from that open gate.
 
 ### Native pipeline authority — 0.3.0
@@ -196,7 +226,7 @@ is a metadata helper, not the promotion/quarantine pipeline.
 
 `scripts/qualify_pipeline.py` executes the native scripts with representative
 manifest/matrix fixtures and a controlled post-copy ledger failure, then resumes
-through the real CLI. `VIGILES_PIPELINE_QUALIFICATION.json` retains those results.
+through the real CLI. `.mivim/vigiles/reports/current/VIGILES_PIPELINE_QUALIFICATION.json` retains those results.
 This completes the missing implementation and local file-operation qualification.
 Live model evaluation, ComfyUI acceptance, cross-platform CI, and host isolation
 retain separate open gates. No fixture result closes those acceptance gates.

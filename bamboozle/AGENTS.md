@@ -1,0 +1,163 @@
+# Bamboozle / MIVIM Vigiles
+
+## Scope and authority
+
+This directory is the Python application root. Run application and verification
+commands here; the Git repository and CI workflow are one level above.
+
+Before changing implementation, read:
+
+- `.mivim/mivim.vigiles.md` for the native development contract. Its opening role
+  language is design direction; the versioned contracts define implemented behavior.
+- `VIGILES_STATUS.json` for the current stage, next step, evidence, and open gates.
+- `README.md` for supported commands and operational boundaries.
+- `pyproject.toml` and `uv.lock` for packaging, Python, and dependency constraints.
+
+Check the working tree and preserve existing edits. Follow review → design →
+implementation → verification → specification/evidence update. When asked to
+continue development, start with the current `next_step` rather than repeating a
+completed stage. Keep work within the user's requested scope.
+
+## Planning and evidence placement
+
+The application and Git roots are not report directories. Keep only active
+planning/task files there, such as the compact `VIGILES_STATUS.json` or a current
+TODO/feature plan, alongside normal source/configuration files and steering docs.
+Do not accumulate completed plans, qualification dumps, versioned status copies,
+failed-run reports, or handoff bundles at either root.
+
+| Content | Application-relative location |
+| --- | --- |
+| Active stage, next task, open gates, evidence pointers | `VIGILES_STATUS.json` |
+| Vigiles authority | `.mivim/mivim.vigiles.md` |
+| Latest development evidence by report type | `.mivim/vigiles/reports/current/` |
+| Completed/superseded/failed records and status snapshots | `.mivim/vigiles/reports/archive/` |
+| Original root-record relocation map and hashes | `.mivim/vigiles/reports/INDEX.json` |
+| Disposable test/build scratch and synthetic runtime workshops | `.test-tmp/`, `.vigiles/`, or explicit scratch paths |
+
+Preservation means retaining records in the archive, not keeping them at the root.
+Archive exact bytes before replacing current evidence; retain failures and logs.
+Keep root status concise: completed findings, detailed results and history belong
+in reports, with pointers from status. Historical embedded paths are interpreted
+from their original application root; use `INDEX.json` to resolve relocated report
+names without rewriting their contents or hashes. See the reports `README.md`.
+Apply this repository's layout even when an unrelated project previously requested
+a root-level handoff. Do not generate extra tracking documents without a task need.
+
+## Code map
+
+| Area | Source |
+| --- | --- |
+| Dictionary validation and reversible translation | `src/bamboozle/dictionary.py`, `engine.py`, `service.py` |
+| Confined file access and publication | `src/bamboozle/workspace.py`, `utils.py` |
+| Tessera authenticated exchange and repository audits | `src/bamboozle/tessera.py`, `audit.py` |
+| Main CLI and MCP tools | `src/bamboozle/cli.py`, `mcp.py` |
+| Native workshop initialization and journaled operations | `src/workshop/bootstrap.py`, `operations.py` |
+| Durable plans, discovery, and consumer consistency | `src/workshop/plans.py`, `inventory.py`, `snapshot.py` |
+| External pipeline adapter and bounded output capture | `src/workshop/pipeline.py`, `process.py` |
+| Native script entry points | `src/workshop/scrape/promote.py`, `audit_matrix.py` |
+| Workshop MCP interfaces | `src/workshop/mcp/workshop_mcp.py`, `src/workshop/scrape/bamb5.py` |
+| Taxonomy and lookup | `src/workshop/scrape/alias_pass.py`, `lookup.py` |
+
+Tests live under `src/bamboozle/tests`, `src/workshop/tests`,
+`src/workshop/scrape/tests`, and `src/workshop/mcp/tests`. Use package-qualified
+imports; do not restore bare sibling imports or ad hoc `sys.path` modifications.
+Keep CLI/MCP interfaces thin and share behavior through the service modules.
+For workshop tool changes, update and exercise both MCP interfaces.
+
+## Environment and verification
+
+Use Python 3.13+ and the existing uv environment. Preserve the lockfile and avoid
+unrelated dependency upgrades or replacing the environment.
+
+```powershell
+uv sync --locked --dev
+uv run --locked python -m ruff check .
+uv run --locked python -m ruff format --check src scripts
+uv run --locked python -m mypy src scripts
+uv run --locked python -m pyright src scripts
+```
+
+Run focused pytest cases while developing. Use a fresh repository-local
+`--basetemp` under `.test-tmp`; pytest can clean a reused base directory. Windows
+junction/link fixtures need a filesystem that supports them.
+
+For feature and release qualification:
+
+```powershell
+uv run --locked python scripts/verify.py --package
+```
+
+The verifier runs lint, formatting, types, tests, compilation, wheel/sdist builds,
+and an isolated installed-wheel smoke test. Read its actual result and logs.
+It writes `.mivim/vigiles/reports/current/VIGILES_VERIFICATION.json` by default and
+automatically archives the previous report under `archive/runs/`. Qualifiers use
+the same storage policy. An explicit `--report` must be a new nested JSON path;
+outputs directly in the application/Git root and existing explicit files are
+refused before checks or workshop operations start. Keep failed and superseded
+evidence, including its logs and relevant artifacts.
+
+If disk or temporary-directory problems occur, use `UV_CACHE_DIR`,
+`MYPY_CACHE_DIR`, `TEMP`/`TMP`, and the verifier's `--work-dir` option as documented
+in the README. Do not delete retained evidence or replace an existing cache
+junction to work around a failure.
+
+For documentation-only changes, verify content, referenced paths, and whitespace.
+Do not regenerate release evidence or claim a fresh runtime qualification.
+
+## Workshop and MCP conventions
+
+- Select workshops with `VIGILES_WORKSHOP_ROOT` or the native CLI's `--root`.
+  `VIGILES_WORKSHOP_PYTHON` selects the adapter interpreter; configuration lives in
+  `src/workshop/config.py`. Never hardcode a developer's workshop path.
+- Use synthetic fixtures from `workshop.examples`. The qualifiers
+  `scripts/qualify_pipeline.py`, `scripts/qualify_plans.py`, and
+  `scripts/qualify_inventory.py` require new or empty workshop paths. Omit `--report`
+  for managed current/archive storage, or select a new explicit nested report path.
+  Existing fixtures may intentionally contain corruption; preserve them.
+- `python -m workshop.mcp.workshop_mcp` starts the primary stdio server.
+  `python -m workshop.scrape.bamb5` starts the translation CLI. To test its MCP
+  server, launch `python -c "from workshop.scrape.bamb5 import mcp; mcp.run()"`.
+  Installed smoke tests must import the wheel from outside the source checkout.
+- Keep new native options explicit. External scripts must not silently receive
+  unsupported native flags.
+
+## Invariants to preserve
+
+- Preserve original bytes, no-clobber publication, bounded reads, strict JSON
+  parsing, and workspace path confinement. Use the shared file utilities.
+  Application writes cannot overwrite `.mivim`; deliberate specification edits and
+  development report publication through `bamboozle.evidence` are scoped development
+  operations. Do not weaken runtime workspace protection to implement reporting.
+- Publish journals before asset/control changes and bind completion to journal
+  bytes. Retain partial writes and report recovery requirements truthfully.
+  Recovery is explicit; do not add automatic rollback, retry, or history deletion.
+- Prepared application requires the reviewed ID/digest and fresh input, control,
+  and asset checks. Apply the saved bytes unchanged. Reject consumed/cancelled
+  plans and retain cancellation evidence.
+- Native consumers must use the snapshot boundary. Do not expose partial
+  publication or rebuild an index from pending state.
+- Inventory is read-only and checks metadata, not model hashes or global apply
+  readiness. Preserve bounded responses/reads, cursor invalidation, and visibility
+  of corrupt, unavailable, and changing records. Inspection/apply retains full
+  validation.
+- Keep subprocess output capture bounded while draining both streams. Preserve
+  partial files and distinguish child exit from complete capture. Direct-child
+  cleanup does not establish process-tree isolation.
+- Translation is obfuscation, not encryption. Local digests establish consistency,
+  not authenticated approval. Do not include keys or real model assets in source,
+  reports, or package artifacts.
+
+## Handoff and completion
+
+For completed development stages, update the specification, README, and
+`VIGILES_STATUS.json` with actual evidence and remaining work. For a versioned
+release, keep `pyproject.toml`, `src/bamboozle/__init__.py`, and `uv.lock` aligned.
+Do not invent test counts, change source hashes to conceal edits, or treat old
+reports as qualification of new code.
+
+Separate source, installed-package, synthetic fixture, remote CI, and live
+acceptance evidence. The CI workflow is `../.github/workflows/vigiles.yml`.
+Local success does not close live deployment, remote CI, identity/key governance,
+restore migration, or host/process-tree-isolation gates. Consult current status
+before making any completion claim.

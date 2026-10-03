@@ -1,0 +1,2 @@
+# Archived evidence hashes cover exact bytes, including original line endings.
+archive/** -text

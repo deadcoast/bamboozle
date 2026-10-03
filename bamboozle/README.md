@@ -9,9 +9,12 @@ authenticated file exchange, and repository integrity checks. The application is
 packaged as `bamboozle`; `vigiles`, `bamboozle`, and `python -m bamboozle` share one CLI.
 
 The native development contract is [.mivim/mivim.vigiles.md](.mivim/mivim.vigiles.md).
-[VIGILES_STATUS.json](VIGILES_STATUS.json) tracks implementation and open deployment
-gates. [VIGILES_VERIFICATION.json](VIGILES_VERIFICATION.json) records actual checks,
-test results, and source hashes.
+[VIGILES_STATUS.json](VIGILES_STATUS.json) holds the active plan, next task and open
+deployment gates. [Verification](.mivim/vigiles/reports/current/VIGILES_VERIFICATION.json)
+records actual checks, test results, and source hashes. Retained evidence belongs
+under [.mivim/vigiles/reports/](.mivim/vigiles/reports/README.md), with latest records
+in `current/` and historical/failed records in `archive/`. Keep only active planning
+and task files at the root alongside normal project and steering files.
 
 ## Start
 
@@ -265,7 +268,8 @@ script-validation allocation.
 The subprocess fixtures in `src/workshop/mcp/tests/fixtures` exercise the adapter
 contract, including interrupted publication and explicit fixture recovery. They
 are synthetic, are excluded from the wheel, and do not implement or qualify LoRA
-promotion. `VIGILES_PIPELINE_READINESS.json` records the checked local dependencies.
+promotion. [Pipeline readiness](.mivim/vigiles/reports/current/VIGILES_PIPELINE_READINESS.json)
+records the checked local dependencies.
 
 ## Native pipeline
 
@@ -394,10 +398,11 @@ Local digests establish consistency, not authenticated human approval. Changes b
 uncoordinated or hostile processes remain outside native writer serialization.
 
 ```powershell
-uv run --locked python scripts/qualify_plans.py --workshop ".vigiles/new-plan-qualification" --report "new-plan-qualification.json"
+uv run --locked python scripts/qualify_plans.py --workshop ".vigiles/new-plan-qualification"
 ```
 
-`VIGILES_PLAN_QUALIFICATION.json` records actual CLI preparation, stale rejection,
+[Plan qualification](.mivim/vigiles/reports/current/VIGILES_PLAN_QUALIFICATION.json)
+records actual CLI preparation, stale rejection,
 controlled interrupted application, exact-byte recovery, replay rejection, and
 quarantine/cancellation using synthetic assets at `.vigiles/plans-v0.3.4`.
 
@@ -452,10 +457,11 @@ that page. Existing rows' states are observed anew on each request; this is not 
 transactional snapshot across pages. No history is cancelled or deleted by listing.
 
 ```powershell
-uv run --locked python scripts/qualify_inventory.py --workshop ".vigiles/new-inventory-qualification" --report "new-inventory-qualification.json"
+uv run --locked python scripts/qualify_inventory.py --workshop ".vigiles/new-inventory-qualification"
 ```
 
-`VIGILES_INVENTORY_QUALIFICATION.json` records real CLI paging, damaged-record
+[Inventory qualification](.mivim/vigiles/reports/current/VIGILES_INVENTORY_QUALIFICATION.json)
+records real CLI paging, damaged-record
 visibility, cursor invalidation, and discovery during interrupted publication.
 Its synthetic workspace, `.vigiles/inventory-v0.3.4-final`, deliberately retains a
 corrupt plan fixture as evidence; use the separate pipeline fixture for normal work.
@@ -463,14 +469,17 @@ corrupt plan fixture as evidence; use the separate pipeline fixture for normal w
 Reproduce qualification with explicitly synthetic byte assets in a new directory:
 
 ```powershell
-uv run --locked python scripts/qualify_pipeline.py --workshop ".vigiles/new-qualification" --report "new-qualification.json"
+uv run --locked python scripts/qualify_pipeline.py --workshop ".vigiles/new-qualification"
 ```
 
-The qualifier refuses existing workshop contents/report paths, exercises the actual
-scripts, injects a controlled ledger failure, and recovers through the CLI. This
+The qualifiers require new or empty workshops and use managed current/archive
+report storage by default. An explicit `--report` must name a new nested JSON path.
+The pipeline qualifier exercises the actual scripts, injects a controlled ledger
+failure, and recovers through the CLI. This
 checkout's current target is `.vigiles/workshop-v0.3.4`; prior targets remain
 at `.vigiles/workshop` and the `.vigiles/workshop-v0.3.1` through `v0.3.3` paths. See
-`VIGILES_PIPELINE_QUALIFICATION.json` for representative manifest/matrix data and
+[Pipeline qualification](.mivim/vigiles/reports/current/VIGILES_PIPELINE_QUALIFICATION.json)
+for representative manifest/matrix data and
 execution evidence. Fixture success does not establish live LoRA/ComfyUI acceptance.
 
 The installed-wheel smoke test also checks pending-read rejection and recovery
@@ -478,9 +487,11 @@ through a real workshop MCP stdio process, and noisy external-script success,
 failure, and timeout using the installed adapter. Both workshop MCP stdio servers
 also exercise prepared promotion/quarantine, inspection, preview, replay rejection,
 and cancellation, plus read-only paged discovery of valid, stale, and corrupt
-records. Historical reports remain as `VIGILES_*.foundation-0.3.0.json`,
-`VIGILES_*.consumers-0.3.1.json`, `VIGILES_*.capture-0.3.2.json`, and
-`VIGILES_*.plans-0.3.3.json`.
+records. Historical reports, including versioned status snapshots and failed runs,
+are retained under `.mivim/vigiles/reports/archive/`. The
+[relocation index](.mivim/vigiles/reports/INDEX.json) maps former root filenames to
+unchanged archived bytes and their hashes. Embedded paths in historical records
+retain their original application-root meaning; use the index for relocated reports.
 
 ## Development and verification
 
@@ -491,8 +502,18 @@ uv run --locked python scripts/verify.py --package
 This runs full Ruff lint/format checks, Mypy, Pyright, pytest, compilation, wheel
 and sdist builds, and an isolated wheel installation constrained by `uv.lock`.
 The installed package is exercised from another directory through its CLI and an
-MCP stdio child process. Results and source digests go to `VIGILES_VERIFICATION.json`; detailed
-logs remain in a unique `.test-tmp/verify-*` directory.
+MCP stdio child process. Results and source digests go to
+`.mivim/vigiles/reports/current/VIGILES_VERIFICATION.json`; detailed logs remain in a
+unique `.test-tmp/verify-*` directory. Omit `--package` for source-only checks; the
+report records which scope ran. A source-only pass does not refresh package evidence.
+
+Before a default report is replaced, its exact previous bytes are retained under
+`.mivim/vigiles/reports/archive/runs/<run-id>/`. Failed results are retained too;
+archival failure prevents replacement. To select a separate report, use a new path
+such as `--report ".mivim/vigiles/reports/archive/manual-check.json"`. Existing
+explicit report files and output directly at the application or Git root are
+rejected before checks or workshop operations start. Do not create root backups
+or versioned report copies.
 
 If the project drive is low on space, put the dependency cache, build temporary
 files, and isolated wheel environment on another volume:
@@ -510,8 +531,8 @@ Pytest fixtures stay in the repository's `.test-tmp` by default. Use `--test-dir
 to select another filesystem supporting symlinks or Windows junctions. Windows
 exclusive publication uses native no-overwrite rename, so ordinary output does
 not require hard-link support. Initial disk-space and filesystem failures are
-retained in `VIGILES_VERIFICATION.failed-*.json`; a later passing run does not erase
-that history.
+retained in `.mivim/vigiles/reports/archive/legacy-layout/VIGILES_VERIFICATION.failed-*.json`;
+a later passing run does not erase that history.
 
 The GitHub workflow lives at `../.github/workflows/vigiles.yml`, with Windows/Linux
 and Python 3.13/3.14 jobs. Local success does not imply those remote jobs have run.

@@ -1,0 +1,214 @@
+{
+  "schema_version": 1,
+  "created": "2026-10-02T21:49:11.438712+00:00",
+  "status": "failed",
+  "python": "3.13.9 (main, Oct 14 2025, 21:22:32) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "package_requested": true,
+  "tests": {
+    "tests": 95,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "steps": [
+    {
+      "name": "ruff",
+      "command": [
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "check",
+        "."
+      ],
+      "returncode": 0,
+      "seconds": 0.067,
+      "log": ".test-tmp\\verify-52t4bcf1\\ruff.log",
+      "output": "All checks passed!\n"
+    },
+    {
+      "name": "format",
+      "command": [
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "src",
+        "scripts"
+      ],
+      "returncode": 0,
+      "seconds": 0.065,
+      "log": ".test-tmp\\verify-52t4bcf1\\format.log",
+      "output": "37 files already formatted\n"
+    },
+    {
+      "name": "mypy",
+      "command": [
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.venv\\Scripts\\python.exe",
+        "-m",
+        "mypy",
+        "src",
+        "scripts"
+      ],
+      "returncode": 0,
+      "seconds": 0.658,
+      "log": ".test-tmp\\verify-52t4bcf1\\mypy.log",
+      "output": "Success: no issues found in 37 source files\n"
+    },
+    {
+      "name": "pyright",
+      "command": [
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pyright",
+        "src",
+        "scripts"
+      ],
+      "returncode": 0,
+      "seconds": 1.941,
+      "log": ".test-tmp\\verify-52t4bcf1\\pyright.log",
+      "output": "0 errors, 0 warnings, 0 informations\n"
+    },
+    {
+      "name": "pytest",
+      "command": [
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "-q",
+        "--tb=short",
+        "-p",
+        "no:cacheprovider",
+        "--basetemp",
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-52t4bcf1\\pytest",
+        "--junitxml",
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-52t4bcf1\\pytest.xml"
+      ],
+      "returncode": 0,
+      "seconds": 3.781,
+      "log": ".test-tmp\\verify-52t4bcf1\\pytest.log",
+      "output": "........................................................................ [ 75%]\n.......................                                                  [100%]\n95 passed in 3.36s\n"
+    },
+    {
+      "name": "compile",
+      "command": [
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.venv\\Scripts\\python.exe",
+        "-m",
+        "compileall",
+        "-q",
+        "src",
+        "scripts"
+      ],
+      "returncode": 0,
+      "seconds": 0.078,
+      "log": ".test-tmp\\verify-52t4bcf1\\compile.log",
+      "output": ""
+    },
+    {
+      "name": "build",
+      "command": [
+        "uv",
+        "build"
+      ],
+      "returncode": 0,
+      "seconds": 2.596,
+      "log": ".test-tmp\\verify-52t4bcf1\\build.log",
+      "output": "g build\\lib\\workshop\\mcp\ncopying src\\workshop\\mcp\\workshop_mcp.py -> build\\lib\\workshop\\mcp\ncopying src\\workshop\\mcp\\__init__.py -> build\\lib\\workshop\\mcp\ncreating build\\lib\\workshop\\scrape\ncopying src\\workshop\\scrape\\alias_pass.py -> build\\lib\\workshop\\scrape\ncopying src\\workshop\\scrape\\bamb5.py -> build\\lib\\workshop\\scrape\ncopying src\\workshop\\scrape\\lookup.py -> build\\lib\\workshop\\scrape\ncopying src\\workshop\\scrape\\__init__.py -> build\\lib\\workshop\\scrape\nrunning egg_info\nwriting src\\bamboozle.egg-info\\PKG-INFO\nwriting dependency_links to src\\bamboozle.egg-info\\dependency_links.txt\nwriting entry points to src\\bamboozle.egg-info\\entry_points.txt\nwriting requirements to src\\bamboozle.egg-info\\requires.txt\nwriting top-level names to src\\bamboozle.egg-info\\top_level.txt\nreading manifest file 'src\\bamboozle.egg-info\\SOURCES.txt'\nwriting manifest file 'src\\bamboozle.egg-info\\SOURCES.txt'\ncopying src\\bamboozle\\cipher_dict.json -> build\\lib\\bamboozle\ncopying src\\workshop\\mcp\\taxonomy.json -> build\\lib\\workshop\\mcp\ncopying src\\workshop\\scrape\\taxonomy.json -> build\\lib\\workshop\\scrape\ninstalling to build\\bdist.win-amd64\\wheel\nrunning install\nrunning install_lib\ncreating build\\bdist.win-amd64\\wheel\ncreating build\\bdist.win-amd64\\wheel\\bamboozle\ncopying build\\lib\\bamboozle\\audit.py -> build\\bdist.win-amd64\\wheel\\.\\bamboozle\ncopying build\\lib\\bamboozle\\audit_matrix.py -> build\\bdist.win-amd64\\wheel\\.\\bamboozle\ncopying build\\lib\\bamboozle\\cipher_dict.json -> build\\bdist.win-amd64\\wheel\\.\\bamboozle\ncopying build\\lib\\bamboozle\\cli.py -> build\\bdist.win-amd64\\wheel\\.\\bamboozle\ncopying build\\lib\\bamboozle\\dictionary.py -> build\\bdist.win-amd64\\wheel\\.\\bamboozle\ncopying build\\lib\\bamboozle\\engine.py -> build\\bdist.win-amd64\\wheel\\.\\bamboozle\ncopying build\\lib\\bamboozle\\mcp.py -> build\\bdist.win-amd64\\wheel\\.\\bamboozle\ncopying build\\lib\\bamboozle\\service.py -> build\\bdist.win-amd64\\wheel\\.\\bamboozle\ncopying build\\lib\\bamboozle\\tessera.py -> build\\bdist.win-amd64\\wheel\\.\\bamboozle\ncopying build\\lib\\bamboozle\\translate.py -> build\\bdist.win-amd64\\wheel\\.\\bamboozle\ncopying build\\lib\\bamboozle\\utils.py -> build\\bdist.win-amd64\\wheel\\.\\bamboozle\ncopying build\\lib\\bamboozle\\workspace.py -> build\\bdist.win-amd64\\wheel\\.\\bamboozle\ncopying build\\lib\\bamboozle\\__init__.py -> build\\bdist.win-amd64\\wheel\\.\\bamboozle\ncopying build\\lib\\bamboozle\\__main__.py -> build\\bdist.win-amd64\\wheel\\.\\bamboozle\ncreating build\\bdist.win-amd64\\wheel\\workshop\ncopying build\\lib\\workshop\\config.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\ncreating build\\bdist.win-amd64\\wheel\\workshop\\mcp\ncopying build\\lib\\workshop\\mcp\\taxonomy.json -> build\\bdist.win-amd64\\wheel\\.\\workshop\\mcp\ncopying build\\lib\\workshop\\mcp\\workshop_mcp.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\\mcp\ncopying build\\lib\\workshop\\mcp\\__init__.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\\mcp\ncreating build\\bdist.win-amd64\\wheel\\workshop\\scrape\ncopying build\\lib\\workshop\\scrape\\alias_pass.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\\scrape\ncopying build\\lib\\workshop\\scrape\\bamb5.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\\scrape\ncopying build\\lib\\workshop\\scrape\\lookup.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\\scrape\ncopying build\\lib\\workshop\\scrape\\taxonomy.json -> build\\bdist.win-amd64\\wheel\\.\\workshop\\scrape\ncopying build\\lib\\workshop\\scrape\\__init__.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\\scrape\ncopying build\\lib\\workshop\\__init__.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\nrunning install_egg_info\nCopying src\\bamboozle.egg-info to build\\bdist.win-amd64\\wheel\\.\\bamboozle-0.2.0-py3.13.egg-info\nrunning install_scripts\ncreating build\\bdist.win-amd64\\wheel\\bamboozle-0.2.0.dist-info\\WHEEL\ncreating 'C:\\\\Users\\\\ryanf\\\\github\\\\_active\\\\bamboozle\\\\bamboozle\\\\dist\\\\.tmp-q_0ije6o\\\\bamboozle-0.2.0-py3-none-any.whl' and adding 'build\\\\bdist.win-amd64\\\\wheel' to it\nadding 'bamboozle/__init__.py'\nadding 'bamboozle/__main__.py'\nadding 'bamboozle/audit.py'\nadding 'bamboozle/audit_matrix.py'\nadding 'bamboozle/cipher_dict.json'\nadding 'bamboozle/cli.py'\nadding 'bamboozle/dictionary.py'\nadding 'bamboozle/engine.py'\nadding 'bamboozle/mcp.py'\nadding 'bamboozle/service.py'\nadding 'bamboozle/tessera.py'\nadding 'bamboozle/translate.py'\nadding 'bamboozle/utils.py'\nadding 'bamboozle/workspace.py'\nadding 'workshop/__init__.py'\nadding 'workshop/config.py'\nadding 'workshop/mcp/__init__.py'\nadding 'workshop/mcp/taxonomy.json'\nadding 'workshop/mcp/workshop_mcp.py'\nadding 'workshop/scrape/__init__.py'\nadding 'workshop/scrape/alias_pass.py'\nadding 'workshop/scrape/bamb5.py'\nadding 'workshop/scrape/lookup.py'\nadding 'workshop/scrape/taxonomy.json'\nadding 'bamboozle-0.2.0.dist-info/METADATA'\nadding 'bamboozle-0.2.0.dist-info/WHEEL'\nadding 'bamboozle-0.2.0.dist-info/entry_points.txt'\nadding 'bamboozle-0.2.0.dist-info/top_level.txt'\nadding 'bamboozle-0.2.0.dist-info/RECORD'\nremoving build\\bdist.win-amd64\\wheel\nSuccessfully built dist\\bamboozle-0.2.0.tar.gz\nSuccessfully built dist\\bamboozle-0.2.0-py3-none-any.whl\n"
+    },
+    {
+      "name": "export",
+      "command": [
+        "uv",
+        "export",
+        "--locked",
+        "--no-dev",
+        "--no-emit-project",
+        "--no-hashes",
+        "--output-file",
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-52t4bcf1\\runtime-requirements.txt"
+      ],
+      "returncode": 0,
+      "seconds": 0.025,
+      "log": ".test-tmp\\verify-52t4bcf1\\export.log",
+      "output": "# This file was autogenerated by uv via the following command:\n#    uv export --locked --no-dev --no-emit-project --no-hashes --output-file C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-52t4bcf1\\runtime-requirements.txt\naiofile==3.12.3\n    # via py-key-value-aio\nannotated-types==0.8.0\n    # via pydantic\nanyio==4.15.1\n    # via\n    #   httpx2\n    #   mcp\n    #   py-key-value-aio\n    #   sse-starlette\n    #   starlette\n    #   watchfiles\nattrs==26.1.0\n    # via\n    #   cyclopts\n    #   jsonschema\n    #   jsonschema-path\n    #   referencing\nauthlib==1.8.0\n    # via fastmcp-slim\nbeartype==0.22.9\n    # via py-key-value-aio\ncachetools==7.2.0\n    # via py-key-value-aio\ncaio==0.12.9\n    # via aiofile\ncffi==2.1.1 ; platform_python_implementation != 'PyPy'\n    # via cryptography\nclick==8.5.0\n    # via uvicorn\ncryptography==50.0.2\n    # via\n    #   authlib\n    #   bamboozle\n    #   joserfc\n    #   pyjwt\n    #   secretstorage\ncyclopts==5.1.1\n    # via fastmcp-slim\ndnspython==2.8.0\n    # via email-validator\ndocstring-parser==0.18.0\n    # via cyclopts\nemail-validator==2.3.0\n    # via pydantic\nexceptiongroup==1.3.1\n    # via fastmcp-slim\nfastmcp==4.0.10\n    # via bamboozle\nfastmcp-slim==4.0.10\n    # via fastmcp\ngriffelib==2.3.0\n    # via fastmcp-slim\nh11==0.16.0\n    # via\n    #   httpcore2\n    #   uvicorn\nhttpcore2==2.13.1 ; sys_platform != 'emscripten'\n    # via httpx2\nhttpx2==2.13.1\n    # via\n    #   fastmcp-slim\n    #   mcp\nhttpx2-jsfetch==1.0 ; sys_platform == 'emscripten'\n    # via httpx2\nidna==3.20\n    # via\n    #   anyio\n    #   email-validator\n    #   httpx2\njaraco-classes==3.4.0\n    # via keyring\njaraco-context==6.1.2\n    # via keyring\njaraco-functools==4.6.0\n    # via keyring\njeepney==0.9.0 ; sys_platform == 'linux'\n    # via\n    #   keyring\n    #   secretstorage\njoserfc==1.7.5\n    # via\n    #   authlib\n    #   fastmcp-slim\njsonref==1.1.0\n    # via fastmcp-slim\njsonschema==4.26.0\n    # via mcp\njsonschema-path==0.5.0\n    # via fastmcp-slim\njsonschema-specifications==2025.9.1\n    # via jsonschema\nkeyring==25.7.0\n    # via py-key-value-aio\nmarkdown-it-py==4.2.0\n    # via rich\nmcp==2.2.0\n    # via fastmcp-slim\nmcp-types==2.2.0\n    # via\n    #   fastmcp-slim\n    #   mcp\nmdurl==0.1.2\n    # via markdown-it-py\nmore-itertools==11.1.0\n    # via\n    #   jaraco-classes\n    #   jaraco-functools\nopenapi-pydantic==0.6.0\n    # via fastmcp-slim\nopentelemetry-api==1.45.0\n    # via\n    #   fastmcp-slim\n    #   mcp\npackaging==26.3\n    # via fastmcp-slim\npathable==0.6.0\n    # via jsonschema-path\nplatformdirs==4.12.2\n    # via fastmcp-slim\npy-key-value-aio==0.4.6\n    # via fastmcp-slim\npycparser==3.0 ; implementation_name != 'PyPy' and platform_python_implementation != 'PyPy'\n    # via cffi\npydantic==2.13.5\n    # via\n    #   fastmcp-slim\n    #   mcp\n    #   mcp-types\n    #   openapi-pydantic\n    #   pydantic-settings\npydantic-core==2.46.5\n    # via pydantic\npydantic-settings==2.15.0\n    # via fastmcp-slim\npygments==2.21.0\n    # via\n    #   rich\n    #   rich-rst\npyjwt==2.15.1\n    # via mcp\npyperclip==1.11.0\n    # via fastmcp-slim\npython-dotenv==1.2.4\n    # via\n    #   fastmcp-slim\n    #   pydantic-settings\npython-multipart==0.0.32\n    # via\n    #   fastmcp-slim\n    #   mcp\npywin32==312 ; sys_platform == 'win32'\n    # via mcp\npywin32-ctypes==0.2.3 ; sys_platform == 'win32'\n    # via keyring\npyyaml==6.0.3\n    # via\n    #   fastmcp-slim\n    #   jsonschema-path\nreferencing==0.37.0\n    # via\n    #   jsonschema\n    #   jsonschema-path\n    #   jsonschema-specifications\nrich==15.0.0\n    # via\n    #   cyclopts\n    #   fastmcp-slim\n    #   rich-rst\nrich-rst==2.2.0\n    # via cyclopts\nrpds-py==2026.6.3\n    # via\n    #   jsonschema\n    #   referencing\nsecretstorage==3.5.0 ; sys_platform == 'linux'\n    # via keyring\nsse-starlette==3.5.0\n    # via mcp\nstarlette==1.7.0\n    # via\n    #   fastmcp-slim\n    #   mcp\n    #   sse-starlette\ntruststore==0.10.4 ; sys_platform != 'emscripten'\n    # via\n    #   httpcore2\n    #   httpx2\ntyping-extensions==4.16.0\n    # via\n    #   anyio\n    #   fastmcp-slim\n    #   mcp\n    #   mcp-types\n    #   opentelemetry-api\n    #   py-key-value-aio\n    #   pydantic\n    #   pydantic-core\n    #   typing-inspection\ntyping-inspection==0.4.4\n    # via\n    #   mcp\n    #   pydantic\n    #   pydantic-settings\nuncalled-for==0.4.0\n    # via fastmcp-slim\nuvicorn==0.54.0\n    # via\n    #   fastmcp-slim\n    #   mcp\nwatchfiles==1.3.0\n    # via fastmcp-slim\nwebsockets==17.1\n    # via fastmcp-slim\nResolved 84 packages in 1ms\n"
+    },
+    {
+      "name": "wheel-environment",
+      "command": [
+        "uv",
+        "venv",
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-52t4bcf1\\wheel-env",
+        "--python",
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.venv\\Scripts\\python.exe"
+      ],
+      "returncode": 0,
+      "seconds": 0.024,
+      "log": ".test-tmp\\verify-52t4bcf1\\wheel-environment.log",
+      "output": "Using CPython 3.13.9 interpreter at: .venv\\Scripts\\python.exe\nCreating virtual environment at: .test-tmp\\verify-52t4bcf1\\wheel-env\nActivate with: .test-tmp\\verify-52t4bcf1\\wheel-env\\Scripts\\activate\n"
+    },
+    {
+      "name": "wheel-install",
+      "command": [
+        "uv",
+        "pip",
+        "install",
+        "--python",
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-52t4bcf1\\wheel-env\\Scripts\\python.exe",
+        "--constraint",
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-52t4bcf1\\runtime-requirements.txt",
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\dist\\bamboozle-0.2.0-py3-none-any.whl"
+      ],
+      "returncode": 1,
+      "seconds": 2.831,
+      "log": ".test-tmp\\verify-52t4bcf1\\wheel-install.log",
+      "output": "Using Python 3.13.9 environment at: .test-tmp\\verify-52t4bcf1\\wheel-env\nResolved 69 packages in 321ms\nDownloading beartype (1.3MiB)\nDownloading pywin32 (6.6MiB)\nDownloading pydantic-core (1.9MiB)\nDownloading pygments (1.2MiB)\nDownloading cryptography (3.6MiB)\n Downloading pydantic-core\n Downloading cryptography\n  \u00d7 Failed to download `pygments==2.21.0`\n  \u251c\u2500\u25b6 Failed to extract archive: pygments-2.21.0-py3-none-any.whl\n  \u251c\u2500\u25b6 I/O operation failed during extraction\n  \u2570\u2500\u25b6 failed to flush file\n      `C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.uv-cache\\.tmptX6csF\\pygments/lexers/pointless.py`:\n      There is not enough space on the disk. (os error 112)\n  help: `pygments` (v2.21.0) was included because `bamboozle` (v0.2.0) depends\n        on `fastmcp` (v4.0.10) which depends on `fastmcp-slim` (v4.0.10) which\n        depends on `rich` (v15.0.0) which depends on `pygments`\n"
+    }
+  ],
+  "source_sha256": {
+    "src/bamboozle/__init__.py": "d0929dec9f6926104f74707023beef23ed89fa40b0be9207426ed411000f723d",
+    "src/bamboozle/__main__.py": "c4e635a2015428e750f8e441975d34352b4386f23cdf596a2d7e87a8f2da2ca9",
+    "src/bamboozle/audit.py": "419f33a4c597987d65329d8c4887ee2cba0f2723c1bb75a222c583f4e4e256eb",
+    "src/bamboozle/audit_matrix.py": "0da01520a1f6b3c821b49833bf030a4d94be1885689c012affa4259bfc6317db",
+    "src/bamboozle/cipher_dict.json": "b49059d73a0965ea7bd0b790ef0a92cb86cada3898a203b8d5e3dce4d85b5dfe",
+    "src/bamboozle/cli.py": "24ef0a45afb97e19a8a69aa093c070e69b20d6b7729abedf39df55eb3184fcb0",
+    "src/bamboozle/dictionary.py": "c02a01a58f50e018d348abd1ddb3ceb19872892e2b7486d20c284bf620dfccda",
+    "src/bamboozle/engine.py": "f6f804e8659b67bb84a17e94f4bcdf3fe62ac06f2e4fefd2876a62965b33e6e0",
+    "src/bamboozle/mcp.py": "f56ae0dc39bae7b031aaa0de7e861a1f64ecff00011f0e1670227b750e1c6036",
+    "src/bamboozle/service.py": "c6e52a1ab7eed8e7bc8267205c208c8fb01f5793df9b9679e49ed291fabeeeae",
+    "src/bamboozle/tessera.py": "155ae5d87e8b8f615998819ff84d1768118bcc0e377eee2b034023bb95c35548",
+    "src/bamboozle/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/bamboozle/tests/test_audit_matrix.py": "96edd1911b986e665251d2f3ff0f53fc0cab298ba7e451a58c10de403f228583",
+    "src/bamboozle/tests/test_cli_mcp.py": "5edc61f5deaeb9376328a0dcf9c7150b730400ea283dd2aed4a7b16a6d2cf895",
+    "src/bamboozle/tests/test_dictionary.py": "f935496088dbff642404b1ab9ae43769b85c503146754c61bb852a1c8d2ec1a8",
+    "src/bamboozle/tests/test_engine.py": "1a314e31227ac23033ae570a85c7f4c21839f285d7b8d02064fb926b9a95ca1c",
+    "src/bamboozle/tests/test_service.py": "d591bd53f87bdb7acc28a6234f7c7f7956f41d1ca0b6a8d40855cf4d2807fa6f",
+    "src/bamboozle/tests/test_tessera.py": "afa6862454d6b533f5c9aee097dbdd199f414098cd7545b1c81a21a4fb270058",
+    "src/bamboozle/tests/test_translate.py": "bd8e0c52dbc2e6cef600529dc158e6218290705468a2d424279c80216e7de7de",
+    "src/bamboozle/tests/test_workspace_audit.py": "5840cb16f21d7779245752ad2891b6099cd91befa5f75840e9a54d0b89596ed6",
+    "src/bamboozle/translate.py": "73893e54af8234e24584540ee695f521000ecbb33c3e27c58a809b6a8111aada",
+    "src/bamboozle/utils.py": "2b68a937145295a855541354048b7c11e2a8946c00c199fe2932e2eb5ce20e60",
+    "src/bamboozle/workspace.py": "31ae24e8968baea412e32b4af949dce56d302fa7db36a48a0a22b9b70dd9517e",
+    "src/DECRYPT_FROM_AGENT.bat": "25ec45eff2279dfd24d09b6f76dfb6c702e724dd5b9d2aad28b602fa2aee65dd",
+    "src/ENCRYPT_FOR_AGENT.bat": "b261f32d499395b46f864a8658f6741ff0b4fc9d35b93d6ac173b5efda05b186",
+    "src/mcp.pacer.json": "cfba2afd419f0c7aec1c9dec95ea04bc9383b02d181f54d2ddb5137cb760add8",
+    "src/workshop/__init__.py": "94f960d9ab834f1b3df0983716d0f1974c8c4ee5937045f97c80cc18f105e3ad",
+    "src/workshop/config.py": "3d8d3abfc3405ce04b386207c9f1101ed328d53baf425a89786a385863e6ca02",
+    "src/workshop/mcp/__init__.py": "a33f06325c956490689ea4a3ab4cbcd05ae78339c315dd47107fbf3cd97f97f1",
+    "src/workshop/mcp/taxonomy.json": "fbb674a35398c11c534a720a2c7551028c95bbcd18d5d942614a5e732b422a30",
+    "src/workshop/mcp/tests/test_workshop_mcp.py": "8d9946243de270fb792ed502897482337f39b478c0b80a854b91895ff14654d2",
+    "src/workshop/mcp/workshop_mcp.py": "6222e1e5702b004f4368f2acc900f6a80255084bb91a6e3809e39dcce57f7d4f",
+    "src/workshop/scrape/__init__.py": "f94e068724419232fc3861b067ea6e068dd8fc32d2aa3eab09cbc298f88f3d2c",
+    "src/workshop/scrape/_lookup_index.json": "a55d8623c0b607f018b8074c2173fc22843c501d9991a58d77760f830adb905c",
+    "src/workshop/scrape/alias_pass.py": "7e4285de5791b038f387e656020da3912e14242ccc6deab8c6a087eea10b4161",
+    "src/workshop/scrape/bamb5.py": "df196a385347a5e10b6bfaa1034103837f9201275198a004fa1b4139433f1b57",
+    "src/workshop/scrape/lookup.py": "99d4653e28907afa05be3a270e1d5395506a9e64568846bc44a87043263163ac",
+    "src/workshop/scrape/taxonomy.json": "ba9e29c6c062f43e0d633f6c0bae19b44ecce3722e0e27c230b1421e8f737052",
+    "src/workshop/scrape/tests/test_alias_pass.py": "50f88b3c00da8909ecda133e5137c4df71296be7a4dde36e8b46132b375eb41b",
+    "src/workshop/scrape/tests/test_bamb5.py": "756d08b17bbd1dbe7623a1151201d3cf6a698583d381494bcaecc524f47b6574",
+    "src/workshop/scrape/tests/test_configuration.py": "b9b22f9d8997fad4eec88cf40cd3e0cd0ec00210b16d56abedf37ce33a1eaeb6",
+    "src/workshop/scrape/tests/test_lookup.py": "33cda79a49e6940e22a096c7d5a7c98539540b3382fd3442202214b237025616",
+    "scripts/package_smoke.py": "20a5ce3997b14bdb0aa7ffebfb136d5272328502c3edd4d28c1381225900f4d4",
+    "scripts/verify.py": "feeb06a011aeaa7b87b757cdd014b61384af439f902c7c3cee69bb39c1b2259d"
+  }
+}
