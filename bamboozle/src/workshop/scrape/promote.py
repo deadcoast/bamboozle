@@ -6,7 +6,7 @@ import argparse
 import json
 from pathlib import Path
 
-from workshop import config, operations, plans
+from workshop import config, inventory, operations, plans
 
 
 def main(argv: list[str] | None = None, *, root: Path | None = None) -> int:
@@ -22,11 +22,16 @@ def main(argv: list[str] | None = None, *, root: Path | None = None) -> int:
     actions.add_argument("--show-plan")
     actions.add_argument("--apply-plan")
     actions.add_argument("--cancel-plan")
+    actions.add_argument("--list-plans", action="store_true")
+    parser.add_argument("--limit", type=int)
+    parser.add_argument("--cursor")
     parser.add_argument("--plan-sha256")
     parser.add_argument("--details", action="store_true")
     parser.add_argument("--reason", default="")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args(argv)
+    if not args.list_plans and (args.limit is not None or args.cursor is not None):
+        parser.error("--limit and --cursor require --list-plans")
     if bool(args.apply_plan or args.cancel_plan) != bool(args.plan_sha256):
         parser.error(
             "--plan-sha256 is required only with --apply-plan or --cancel-plan"
@@ -41,12 +46,19 @@ def main(argv: list[str] | None = None, *, root: Path | None = None) -> int:
         or args.show_plan
         or args.cancel_plan
         or args.status
+        or args.list_plans
     ):
         parser.error(
             "--dry-run applies only to direct operations, recovery, or --apply-plan"
         )
     try:
-        if args.prepare_candidate:
+        if args.list_plans:
+            result = inventory.list_plans(
+                args.root,
+                limit=5 if args.limit is None else args.limit,
+                cursor=args.cursor,
+            )
+        elif args.prepare_candidate:
             result = plans.prepare_promotion(args.root, args.prepare_candidate)
         elif args.prepare_quarantine:
             result = plans.prepare_quarantine(

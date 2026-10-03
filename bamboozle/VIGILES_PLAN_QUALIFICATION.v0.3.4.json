@@ -1,0 +1,765 @@
+{
+  "cancellation_preserved_asset": true,
+  "checks": [
+    {
+      "arguments": [
+        "--prepare-candidate",
+        "candidates/ExampleA.json"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 1766,
+            "bytes_retained": 1766,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 14060,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"status\": \"prepared\",\r\n  \"operation_id\": \"c5e1c860a9e14f4a82608291ea101c51\",\r\n  \"plan_sha256\": \"c9467fab49a339d57f92566ffee7948fe83b7c35585d0195303e23938351ce3f\",\r\n  \"plan_file\": \"scrape/prepared/c5e1c860a9e14f4a82608291ea101c51.json\",\r\n  \"workshop\": \"C:\\\\Users\\\\ryanf\\\\github\\\\_active\\\\bamboozle\\\\bamboozle\\\\.vigiles\\\\plans-v0.3.4\",\r\n  \"created\": \"2026-10-03T21:41:04.294874Z\",\r\n  \"action\": \"promote\",\r\n  \"lora\": \"ExampleA\",\r\n  \"asset\": {\r\n    \"source\": \"candidates/ExampleA.bin\",\r\n    \"destination\": \"prod/model-ExampleA.bin\",\r\n    \"sha256\": \"085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0\"\r\n  },\r\n  \"reason\": \"\",\r\n  \"inputs\": {\r\n    \"scrape/_compatibility_matrix.json\": \"f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587\",\r\n    \"candidates/ExampleA.json\": \"5d8622bbaa1e3d16d90cf602d7c0cb8affb99d9a246807acd567fabfeca1753f\",\r\n    \"candidates/ExampleA.validation.json\": \"2d7f3beedda48b3e3f01ab58cf10be101d498f38d70f6e37c87ec28cda50d833\"\r\n  },\r\n  \"control_files\": [\r\n    {\r\n      \"path\": \"scrape/_lora_manifest.json\",\r\n      \"before_sha256\": \"394231068230487d0e5b678b5d9784ca35f9d7a2b57ee0a55485c74cde0f1127\",\r\n      \"after_sha256\": \"a1410953ca4b5b7183f693af51e43b58c56857edd8c5cc31d46642ffc376a208\"\r\n    },\r\n    {\r\n      \"path\": \"scrape/_lora_ledger.csv\",\r\n      \"before_sha256\": \"066e16c4471c1987e9182fa3ee21c1611618987e204b320b6b369eeeb2b08fdc\",\r\n      \"after_sha256\": \"96da6618dfe0ee42c12e3d19cd2b134e7c34ca8e95d7acbce6066caeba614ca8\"\r\n    },\r\n    {\r\n      \"path\": \"scrape/_pipeline_status.json\",\r\n      \"before_sha256\": \"b7de5854f22c7684b0be6cd82e5530f4557aef11625743d55a9612ce40ce99f8\",\r\n      \"after_sha256\": \"8a4626b5848063f8afff9f0bce07f25a18cdeffee0d2a70ebc1636f085c53f7e\"\r\n    }\r\n  ],\r\n  \"model_qualified\": false\r\n}\r\n",
+        "stdout_truncated": false
+      }
+    },
+    {
+      "arguments": [
+        "--show-plan",
+        "c5e1c860a9e14f4a82608291ea101c51"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 1789,
+            "bytes_retained": 1789,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 43584,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"status\": \"prepared\",\r\n  \"operation_id\": \"c5e1c860a9e14f4a82608291ea101c51\",\r\n  \"plan_sha256\": \"c9467fab49a339d57f92566ffee7948fe83b7c35585d0195303e23938351ce3f\",\r\n  \"plan_file\": \"scrape/prepared/c5e1c860a9e14f4a82608291ea101c51.json\",\r\n  \"workshop\": \"C:\\\\Users\\\\ryanf\\\\github\\\\_active\\\\bamboozle\\\\bamboozle\\\\.vigiles\\\\plans-v0.3.4\",\r\n  \"created\": \"2026-10-03T21:41:04.294874Z\",\r\n  \"action\": \"promote\",\r\n  \"lora\": \"ExampleA\",\r\n  \"asset\": {\r\n    \"destination\": \"prod/model-ExampleA.bin\",\r\n    \"sha256\": \"085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0\",\r\n    \"source\": \"candidates/ExampleA.bin\"\r\n  },\r\n  \"reason\": \"\",\r\n  \"inputs\": {\r\n    \"candidates/ExampleA.json\": \"5d8622bbaa1e3d16d90cf602d7c0cb8affb99d9a246807acd567fabfeca1753f\",\r\n    \"candidates/ExampleA.validation.json\": \"2d7f3beedda48b3e3f01ab58cf10be101d498f38d70f6e37c87ec28cda50d833\",\r\n    \"scrape/_compatibility_matrix.json\": \"f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587\"\r\n  },\r\n  \"control_files\": [\r\n    {\r\n      \"path\": \"scrape/_lora_manifest.json\",\r\n      \"before_sha256\": \"394231068230487d0e5b678b5d9784ca35f9d7a2b57ee0a55485c74cde0f1127\",\r\n      \"after_sha256\": \"a1410953ca4b5b7183f693af51e43b58c56857edd8c5cc31d46642ffc376a208\"\r\n    },\r\n    {\r\n      \"path\": \"scrape/_lora_ledger.csv\",\r\n      \"before_sha256\": \"066e16c4471c1987e9182fa3ee21c1611618987e204b320b6b369eeeb2b08fdc\",\r\n      \"after_sha256\": \"96da6618dfe0ee42c12e3d19cd2b134e7c34ca8e95d7acbce6066caeba614ca8\"\r\n    },\r\n    {\r\n      \"path\": \"scrape/_pipeline_status.json\",\r\n      \"before_sha256\": \"b7de5854f22c7684b0be6cd82e5530f4557aef11625743d55a9612ce40ce99f8\",\r\n      \"after_sha256\": \"8a4626b5848063f8afff9f0bce07f25a18cdeffee0d2a70ebc1636f085c53f7e\"\r\n    }\r\n  ],\r\n  \"model_qualified\": false,\r\n  \"applicable\": true\r\n}\r\n",
+        "stdout_truncated": false
+      }
+    },
+    {
+      "arguments": [
+        "--apply-plan",
+        "c5e1c860a9e14f4a82608291ea101c51",
+        "--plan-sha256",
+        "c9467fab49a339d57f92566ffee7948fe83b7c35585d0195303e23938351ce3f",
+        "--dry-run"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 1770,
+            "bytes_retained": 1770,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 27320,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"status\": \"plan_preview\",\r\n  \"operation_id\": \"c5e1c860a9e14f4a82608291ea101c51\",\r\n  \"plan_sha256\": \"c9467fab49a339d57f92566ffee7948fe83b7c35585d0195303e23938351ce3f\",\r\n  \"plan_file\": \"scrape/prepared/c5e1c860a9e14f4a82608291ea101c51.json\",\r\n  \"workshop\": \"C:\\\\Users\\\\ryanf\\\\github\\\\_active\\\\bamboozle\\\\bamboozle\\\\.vigiles\\\\plans-v0.3.4\",\r\n  \"created\": \"2026-10-03T21:41:04.294874Z\",\r\n  \"action\": \"promote\",\r\n  \"lora\": \"ExampleA\",\r\n  \"asset\": {\r\n    \"destination\": \"prod/model-ExampleA.bin\",\r\n    \"sha256\": \"085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0\",\r\n    \"source\": \"candidates/ExampleA.bin\"\r\n  },\r\n  \"reason\": \"\",\r\n  \"inputs\": {\r\n    \"candidates/ExampleA.json\": \"5d8622bbaa1e3d16d90cf602d7c0cb8affb99d9a246807acd567fabfeca1753f\",\r\n    \"candidates/ExampleA.validation.json\": \"2d7f3beedda48b3e3f01ab58cf10be101d498f38d70f6e37c87ec28cda50d833\",\r\n    \"scrape/_compatibility_matrix.json\": \"f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587\"\r\n  },\r\n  \"control_files\": [\r\n    {\r\n      \"path\": \"scrape/_lora_manifest.json\",\r\n      \"before_sha256\": \"394231068230487d0e5b678b5d9784ca35f9d7a2b57ee0a55485c74cde0f1127\",\r\n      \"after_sha256\": \"a1410953ca4b5b7183f693af51e43b58c56857edd8c5cc31d46642ffc376a208\"\r\n    },\r\n    {\r\n      \"path\": \"scrape/_lora_ledger.csv\",\r\n      \"before_sha256\": \"066e16c4471c1987e9182fa3ee21c1611618987e204b320b6b369eeeb2b08fdc\",\r\n      \"after_sha256\": \"96da6618dfe0ee42c12e3d19cd2b134e7c34ca8e95d7acbce6066caeba614ca8\"\r\n    },\r\n    {\r\n      \"path\": \"scrape/_pipeline_status.json\",\r\n      \"before_sha256\": \"b7de5854f22c7684b0be6cd82e5530f4557aef11625743d55a9612ce40ce99f8\",\r\n      \"after_sha256\": \"8a4626b5848063f8afff9f0bce07f25a18cdeffee0d2a70ebc1636f085c53f7e\"\r\n    }\r\n  ],\r\n  \"model_qualified\": false\r\n}\r\n",
+        "stdout_truncated": false
+      }
+    },
+    {
+      "arguments": [
+        "--apply-plan",
+        "c5e1c860a9e14f4a82608291ea101c51",
+        "--plan-sha256",
+        "c9467fab49a339d57f92566ffee7948fe83b7c35585d0195303e23938351ce3f"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 57,
+            "bytes_retained": 57,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 1,
+        "deployment_qualified": false,
+        "next_action": "Inspect capture diagnostics, external outputs, and its ledger before retrying; the adapter neither rolls back files nor proves publication success.",
+        "pid": 54572,
+        "retry_performed": false,
+        "returncode": 1,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "failed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\"status\": \"error\", \"error\": \"Operation asset changed\"}\r\n",
+        "stdout_truncated": false
+      }
+    },
+    {
+      "arguments": [
+        "--show-plan",
+        "c5e1c860a9e14f4a82608291ea101c51"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 1909,
+            "bytes_retained": 1909,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 64976,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"status\": \"recovery_required\",\r\n  \"operation_id\": \"c5e1c860a9e14f4a82608291ea101c51\",\r\n  \"plan_sha256\": \"c9467fab49a339d57f92566ffee7948fe83b7c35585d0195303e23938351ce3f\",\r\n  \"plan_file\": \"scrape/prepared/c5e1c860a9e14f4a82608291ea101c51.json\",\r\n  \"workshop\": \"C:\\\\Users\\\\ryanf\\\\github\\\\_active\\\\bamboozle\\\\bamboozle\\\\.vigiles\\\\plans-v0.3.4\",\r\n  \"created\": \"2026-10-03T21:41:04.294874Z\",\r\n  \"action\": \"promote\",\r\n  \"lora\": \"ExampleA\",\r\n  \"asset\": {\r\n    \"destination\": \"prod/model-ExampleA.bin\",\r\n    \"sha256\": \"085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0\",\r\n    \"source\": \"candidates/ExampleA.bin\"\r\n  },\r\n  \"reason\": \"\",\r\n  \"inputs\": {\r\n    \"candidates/ExampleA.json\": \"5d8622bbaa1e3d16d90cf602d7c0cb8affb99d9a246807acd567fabfeca1753f\",\r\n    \"candidates/ExampleA.validation.json\": \"2d7f3beedda48b3e3f01ab58cf10be101d498f38d70f6e37c87ec28cda50d833\",\r\n    \"scrape/_compatibility_matrix.json\": \"f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587\"\r\n  },\r\n  \"control_files\": [\r\n    {\r\n      \"path\": \"scrape/_lora_manifest.json\",\r\n      \"before_sha256\": \"394231068230487d0e5b678b5d9784ca35f9d7a2b57ee0a55485c74cde0f1127\",\r\n      \"after_sha256\": \"a1410953ca4b5b7183f693af51e43b58c56857edd8c5cc31d46642ffc376a208\"\r\n    },\r\n    {\r\n      \"path\": \"scrape/_lora_ledger.csv\",\r\n      \"before_sha256\": \"066e16c4471c1987e9182fa3ee21c1611618987e204b320b6b369eeeb2b08fdc\",\r\n      \"after_sha256\": \"96da6618dfe0ee42c12e3d19cd2b134e7c34ca8e95d7acbce6066caeba614ca8\"\r\n    },\r\n    {\r\n      \"path\": \"scrape/_pipeline_status.json\",\r\n      \"before_sha256\": \"b7de5854f22c7684b0be6cd82e5530f4557aef11625743d55a9612ce40ce99f8\",\r\n      \"after_sha256\": \"8a4626b5848063f8afff9f0bce07f25a18cdeffee0d2a70ebc1636f085c53f7e\"\r\n    }\r\n  ],\r\n  \"model_qualified\": false,\r\n  \"applicable\": false,\r\n  \"application_error\": \"Prepared plan is recovery_required; use explicit recovery for an interrupted apply\"\r\n}\r\n",
+        "stdout_truncated": false
+      }
+    },
+    {
+      "arguments": [
+        "--apply-plan",
+        "c5e1c860a9e14f4a82608291ea101c51",
+        "--plan-sha256",
+        "c9467fab49a339d57f92566ffee7948fe83b7c35585d0195303e23938351ce3f"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 116,
+            "bytes_retained": 116,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 1,
+        "deployment_qualified": false,
+        "next_action": "Inspect capture diagnostics, external outputs, and its ledger before retrying; the adapter neither rolls back files nor proves publication success.",
+        "pid": 74536,
+        "retry_performed": false,
+        "returncode": 1,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "failed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\"status\": \"error\", \"error\": \"Prepared plan is recovery_required; use explicit recovery for an interrupted apply\"}\r\n",
+        "stdout_truncated": false
+      }
+    },
+    {
+      "arguments": [
+        "--recover",
+        "c5e1c860a9e14f4a82608291ea101c51",
+        "--dry-run"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 93,
+            "bytes_retained": 93,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 89116,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"status\": \"recovery_preview\",\r\n  \"operation_id\": \"c5e1c860a9e14f4a82608291ea101c51\"\r\n}\r\n",
+        "stdout_truncated": false
+      }
+    },
+    {
+      "arguments": [
+        "--recover",
+        "c5e1c860a9e14f4a82608291ea101c51"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 271,
+            "bytes_retained": 271,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 19588,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"schema_version\": 1,\r\n  \"status\": \"saved\",\r\n  \"operation_id\": \"c5e1c860a9e14f4a82608291ea101c51\",\r\n  \"action\": \"promote\",\r\n  \"lora\": \"ExampleA\",\r\n  \"model_qualified\": false,\r\n  \"journal_sha256\": \"c9467fab49a339d57f92566ffee7948fe83b7c35585d0195303e23938351ce3f\"\r\n}\r\n",
+        "stdout_truncated": false
+      }
+    },
+    {
+      "arguments": [
+        "--apply-plan",
+        "c5e1c860a9e14f4a82608291ea101c51",
+        "--plan-sha256",
+        "c9467fab49a339d57f92566ffee7948fe83b7c35585d0195303e23938351ce3f"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 106,
+            "bytes_retained": 106,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 1,
+        "deployment_qualified": false,
+        "next_action": "Inspect capture diagnostics, external outputs, and its ledger before retrying; the adapter neither rolls back files nor proves publication success.",
+        "pid": 52120,
+        "retry_performed": false,
+        "returncode": 1,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "failed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\"status\": \"error\", \"error\": \"Prepared plan is applied; use explicit recovery for an interrupted apply\"}\r\n",
+        "stdout_truncated": false
+      }
+    },
+    {
+      "arguments": [
+        "--prepare-quarantine",
+        "ExampleA",
+        "--reason",
+        "cancel fixture"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 1745,
+            "bytes_retained": 1745,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 41532,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"status\": \"prepared\",\r\n  \"operation_id\": \"6ccd8c18b80e4a7f947222b954793e89\",\r\n  \"plan_sha256\": \"283f17be492fc2da058a75c28de06b3588c13d51e833b6a01d6068defe374e58\",\r\n  \"plan_file\": \"scrape/prepared/6ccd8c18b80e4a7f947222b954793e89.json\",\r\n  \"workshop\": \"C:\\\\Users\\\\ryanf\\\\github\\\\_active\\\\bamboozle\\\\bamboozle\\\\.vigiles\\\\plans-v0.3.4\",\r\n  \"created\": \"2026-10-03T21:41:05.733832Z\",\r\n  \"action\": \"quarantine\",\r\n  \"lora\": \"ExampleA\",\r\n  \"asset\": {\r\n    \"source\": \"prod/model-ExampleA.bin\",\r\n    \"destination\": \"quarantine/a5bb0395fb524acf9d423da813e5ae1c/model-ExampleA.bin\",\r\n    \"sha256\": \"085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0\"\r\n  },\r\n  \"reason\": \"cancel fixture\",\r\n  \"inputs\": {},\r\n  \"control_files\": [\r\n    {\r\n      \"path\": \"scrape/_lora_manifest.json\",\r\n      \"before_sha256\": \"a1410953ca4b5b7183f693af51e43b58c56857edd8c5cc31d46642ffc376a208\",\r\n      \"after_sha256\": \"394231068230487d0e5b678b5d9784ca35f9d7a2b57ee0a55485c74cde0f1127\"\r\n    },\r\n    {\r\n      \"path\": \"scrape/_compatibility_matrix.json\",\r\n      \"before_sha256\": \"f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587\",\r\n      \"after_sha256\": \"f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587\"\r\n    },\r\n    {\r\n      \"path\": \"scrape/_lora_ledger.csv\",\r\n      \"before_sha256\": \"96da6618dfe0ee42c12e3d19cd2b134e7c34ca8e95d7acbce6066caeba614ca8\",\r\n      \"after_sha256\": \"2d726e012ae63919c40e0e7a310d86e21bd8bd14ef6857ca0ee1ff9f61149c7d\"\r\n    },\r\n    {\r\n      \"path\": \"scrape/_pipeline_status.json\",\r\n      \"before_sha256\": \"8a4626b5848063f8afff9f0bce07f25a18cdeffee0d2a70ebc1636f085c53f7e\",\r\n      \"after_sha256\": \"0ccc0d25095eb30aae1b27e8fdee800c0031183a0d0c46374644678f7f882af4\"\r\n    }\r\n  ],\r\n  \"model_qualified\": false\r\n}\r\n",
+        "stdout_truncated": false
+      }
+    },
+    {
+      "arguments": [
+        "--cancel-plan",
+        "6ccd8c18b80e4a7f947222b954793e89",
+        "--plan-sha256",
+        "283f17be492fc2da058a75c28de06b3588c13d51e833b6a01d6068defe374e58"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 172,
+            "bytes_retained": 172,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 41092,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"status\": \"cancelled\",\r\n  \"operation_id\": \"6ccd8c18b80e4a7f947222b954793e89\",\r\n  \"plan_sha256\": \"283f17be492fc2da058a75c28de06b3588c13d51e833b6a01d6068defe374e58\"\r\n}\r\n",
+        "stdout_truncated": false
+      }
+    },
+    {
+      "arguments": [
+        "--prepare-quarantine",
+        "ExampleA",
+        "--reason",
+        "synthetic qualification"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 1754,
+            "bytes_retained": 1754,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 60696,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"status\": \"prepared\",\r\n  \"operation_id\": \"f4eb89be659141cfaffdbca8197841ce\",\r\n  \"plan_sha256\": \"3ce613e96dcb5fc072b8a86ad79f6f42e9f3ce7fe8675cd8e92a21246a78768c\",\r\n  \"plan_file\": \"scrape/prepared/f4eb89be659141cfaffdbca8197841ce.json\",\r\n  \"workshop\": \"C:\\\\Users\\\\ryanf\\\\github\\\\_active\\\\bamboozle\\\\bamboozle\\\\.vigiles\\\\plans-v0.3.4\",\r\n  \"created\": \"2026-10-03T21:41:06.014914Z\",\r\n  \"action\": \"quarantine\",\r\n  \"lora\": \"ExampleA\",\r\n  \"asset\": {\r\n    \"source\": \"prod/model-ExampleA.bin\",\r\n    \"destination\": \"quarantine/a285ca16af0847529066aace337a1166/model-ExampleA.bin\",\r\n    \"sha256\": \"085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0\"\r\n  },\r\n  \"reason\": \"synthetic qualification\",\r\n  \"inputs\": {},\r\n  \"control_files\": [\r\n    {\r\n      \"path\": \"scrape/_lora_manifest.json\",\r\n      \"before_sha256\": \"a1410953ca4b5b7183f693af51e43b58c56857edd8c5cc31d46642ffc376a208\",\r\n      \"after_sha256\": \"394231068230487d0e5b678b5d9784ca35f9d7a2b57ee0a55485c74cde0f1127\"\r\n    },\r\n    {\r\n      \"path\": \"scrape/_compatibility_matrix.json\",\r\n      \"before_sha256\": \"f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587\",\r\n      \"after_sha256\": \"f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587\"\r\n    },\r\n    {\r\n      \"path\": \"scrape/_lora_ledger.csv\",\r\n      \"before_sha256\": \"96da6618dfe0ee42c12e3d19cd2b134e7c34ca8e95d7acbce6066caeba614ca8\",\r\n      \"after_sha256\": \"44e90baba0fc3e8fff315fec2348e5cb4b0924f6ff4d072f21e55c62cb6bd81a\"\r\n    },\r\n    {\r\n      \"path\": \"scrape/_pipeline_status.json\",\r\n      \"before_sha256\": \"8a4626b5848063f8afff9f0bce07f25a18cdeffee0d2a70ebc1636f085c53f7e\",\r\n      \"after_sha256\": \"15797b178bdd70c91f0dda8f23b0746766a8112bdc041d88a881bac35d3c9bfb\"\r\n    }\r\n  ],\r\n  \"model_qualified\": false\r\n}\r\n",
+        "stdout_truncated": false
+      }
+    },
+    {
+      "arguments": [
+        "--apply-plan",
+        "f4eb89be659141cfaffdbca8197841ce",
+        "--plan-sha256",
+        "3ce613e96dcb5fc072b8a86ad79f6f42e9f3ce7fe8675cd8e92a21246a78768c"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 274,
+            "bytes_retained": 274,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 4884,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"schema_version\": 1,\r\n  \"status\": \"saved\",\r\n  \"operation_id\": \"f4eb89be659141cfaffdbca8197841ce\",\r\n  \"action\": \"quarantine\",\r\n  \"lora\": \"ExampleA\",\r\n  \"model_qualified\": false,\r\n  \"journal_sha256\": \"3ce613e96dcb5fc072b8a86ad79f6f42e9f3ce7fe8675cd8e92a21246a78768c\"\r\n}\r\n",
+        "stdout_truncated": false
+      }
+    }
+  ],
+  "controlled_failure": {
+    "error": "Operation c5e1c860a9e14f4a82608291ea101c51 needs recovery: Controlled prepared-plan ledger failure",
+    "operation_id": "c5e1c860a9e14f4a82608291ea101c51"
+  },
+  "created": "2026-10-03T21:41:04.105119Z",
+  "exact_journal_bytes": true,
+  "final_file_sha256": {
+    "_vigiles_workshop.json": "48188c0170697ed4cbf424a23f642140e92731287ba7bc324c4ac825241e45f9",
+    "candidates/ExampleA.bin": "085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0",
+    "candidates/ExampleA.json": "5d8622bbaa1e3d16d90cf602d7c0cb8affb99d9a246807acd567fabfeca1753f",
+    "candidates/ExampleA.validation.json": "2d7f3beedda48b3e3f01ab58cf10be101d498f38d70f6e37c87ec28cda50d833",
+    "quarantine/a285ca16af0847529066aace337a1166/model-ExampleA.bin": "085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0",
+    "scrape/.vigiles.lock": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
+    "scrape/_compatibility_matrix.json": "f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587",
+    "scrape/_lora_ledger.csv": "44e90baba0fc3e8fff315fec2348e5cb4b0924f6ff4d072f21e55c62cb6bd81a",
+    "scrape/_lora_manifest.json": "394231068230487d0e5b678b5d9784ca35f9d7a2b57ee0a55485c74cde0f1127",
+    "scrape/_pipeline_status.json": "15797b178bdd70c91f0dda8f23b0746766a8112bdc041d88a881bac35d3c9bfb",
+    "scrape/audit_matrix.py": "a7d54c001e50073622429210c3a39981dba7838758439893ea5c8f691a400923",
+    "scrape/prepared/6ccd8c18b80e4a7f947222b954793e89.cancelled.json": "fd781501bd697f0350f791f908b1d515ad08dcd109b0de45e93a45bdff3ea39a",
+    "scrape/prepared/6ccd8c18b80e4a7f947222b954793e89.json": "283f17be492fc2da058a75c28de06b3588c13d51e833b6a01d6068defe374e58",
+    "scrape/prepared/c5e1c860a9e14f4a82608291ea101c51.json": "c9467fab49a339d57f92566ffee7948fe83b7c35585d0195303e23938351ce3f",
+    "scrape/prepared/f4eb89be659141cfaffdbca8197841ce.json": "3ce613e96dcb5fc072b8a86ad79f6f42e9f3ce7fe8675cd8e92a21246a78768c",
+    "scrape/promote.py": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+    "scrape/taxonomy.json": "ba9e29c6c062f43e0d633f6c0bae19b44ecce3722e0e27c230b1421e8f737052",
+    "scrape/transactions/c5e1c860a9e14f4a82608291ea101c51.done.json": "7a390af9fe797c1f665ce7255a00b183aadf3561721f14f22f5a2095b52e681b",
+    "scrape/transactions/c5e1c860a9e14f4a82608291ea101c51.json": "c9467fab49a339d57f92566ffee7948fe83b7c35585d0195303e23938351ce3f",
+    "scrape/transactions/f4eb89be659141cfaffdbca8197841ce.done.json": "8dcb168dd036bcc0d22e5eb8b4a11b8e17e7572de6c4b16a53e81add131fcd3d",
+    "scrape/transactions/f4eb89be659141cfaffdbca8197841ce.json": "3ce613e96dcb5fc072b8a86ad79f6f42e9f3ce7fe8675cd8e92a21246a78768c"
+  },
+  "fixture_only": true,
+  "production_model_qualified": false,
+  "readiness": {
+    "backend": "native",
+    "checks": [
+      {
+        "name": "python",
+        "ok": true,
+        "path": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.venv\\Scripts\\python.exe"
+      },
+      {
+        "execution_contract": "unverified",
+        "name": "audit_matrix.py",
+        "ok": true,
+        "sha256": "a7d54c001e50073622429210c3a39981dba7838758439893ea5c8f691a400923"
+      },
+      {
+        "execution_contract": "unverified",
+        "name": "promote.py",
+        "ok": true,
+        "sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6"
+      },
+      {
+        "loras": 0,
+        "name": "_lora_manifest.json",
+        "ok": true,
+        "sha256": "394231068230487d0e5b678b5d9784ca35f9d7a2b57ee0a55485c74cde0f1127"
+      },
+      {
+        "name": "_compatibility_matrix.json",
+        "ok": true,
+        "pairs": 0,
+        "sha256": "f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587"
+      },
+      {
+        "key_valid_length": true,
+        "name": "native_workshop",
+        "ok": true,
+        "pending_operations": [],
+        "version": "0.3.4"
+      }
+    ],
+    "created": "2026-10-03T21:41:06.316994Z",
+    "deployment_qualified": false,
+    "executed_scripts": false,
+    "gate": "VIG-DEPLOY-01",
+    "next_action": "Review script behavior and qualify dry-run, publication, and recovery against isolated copies before any live operation.",
+    "ok": true,
+    "schema_version": 1,
+    "scrape": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.vigiles\\plans-v0.3.4\\scrape",
+    "status": "ready_for_review"
+  },
+  "recovery_ledger_rows": 1,
+  "replay_rejected": true,
+  "reviewed_promotion": {
+    "action": "promote",
+    "asset": {
+      "destination": "prod/model-ExampleA.bin",
+      "sha256": "085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0",
+      "source": "candidates/ExampleA.bin"
+    },
+    "control_files": [
+      {
+        "after_sha256": "a1410953ca4b5b7183f693af51e43b58c56857edd8c5cc31d46642ffc376a208",
+        "before_sha256": "394231068230487d0e5b678b5d9784ca35f9d7a2b57ee0a55485c74cde0f1127",
+        "path": "scrape/_lora_manifest.json"
+      },
+      {
+        "after_sha256": "96da6618dfe0ee42c12e3d19cd2b134e7c34ca8e95d7acbce6066caeba614ca8",
+        "before_sha256": "066e16c4471c1987e9182fa3ee21c1611618987e204b320b6b369eeeb2b08fdc",
+        "path": "scrape/_lora_ledger.csv"
+      },
+      {
+        "after_sha256": "8a4626b5848063f8afff9f0bce07f25a18cdeffee0d2a70ebc1636f085c53f7e",
+        "before_sha256": "b7de5854f22c7684b0be6cd82e5530f4557aef11625743d55a9612ce40ce99f8",
+        "path": "scrape/_pipeline_status.json"
+      }
+    ],
+    "created": "2026-10-03T21:41:04.294874Z",
+    "inputs": {
+      "candidates/ExampleA.json": "5d8622bbaa1e3d16d90cf602d7c0cb8affb99d9a246807acd567fabfeca1753f",
+      "candidates/ExampleA.validation.json": "2d7f3beedda48b3e3f01ab58cf10be101d498f38d70f6e37c87ec28cda50d833",
+      "scrape/_compatibility_matrix.json": "f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587"
+    },
+    "lora": "ExampleA",
+    "model_qualified": false,
+    "operation_id": "c5e1c860a9e14f4a82608291ea101c51",
+    "plan_file": "scrape/prepared/c5e1c860a9e14f4a82608291ea101c51.json",
+    "plan_sha256": "c9467fab49a339d57f92566ffee7948fe83b7c35585d0195303e23938351ce3f",
+    "reason": "",
+    "status": "prepared",
+    "workshop": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.vigiles\\plans-v0.3.4"
+  },
+  "reviewed_quarantine": {
+    "action": "quarantine",
+    "asset": {
+      "destination": "quarantine/a285ca16af0847529066aace337a1166/model-ExampleA.bin",
+      "sha256": "085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0",
+      "source": "prod/model-ExampleA.bin"
+    },
+    "control_files": [
+      {
+        "after_sha256": "394231068230487d0e5b678b5d9784ca35f9d7a2b57ee0a55485c74cde0f1127",
+        "before_sha256": "a1410953ca4b5b7183f693af51e43b58c56857edd8c5cc31d46642ffc376a208",
+        "path": "scrape/_lora_manifest.json"
+      },
+      {
+        "after_sha256": "f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587",
+        "before_sha256": "f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587",
+        "path": "scrape/_compatibility_matrix.json"
+      },
+      {
+        "after_sha256": "44e90baba0fc3e8fff315fec2348e5cb4b0924f6ff4d072f21e55c62cb6bd81a",
+        "before_sha256": "96da6618dfe0ee42c12e3d19cd2b134e7c34ca8e95d7acbce6066caeba614ca8",
+        "path": "scrape/_lora_ledger.csv"
+      },
+      {
+        "after_sha256": "15797b178bdd70c91f0dda8f23b0746766a8112bdc041d88a881bac35d3c9bfb",
+        "before_sha256": "8a4626b5848063f8afff9f0bce07f25a18cdeffee0d2a70ebc1636f085c53f7e",
+        "path": "scrape/_pipeline_status.json"
+      }
+    ],
+    "created": "2026-10-03T21:41:06.014914Z",
+    "inputs": {},
+    "lora": "ExampleA",
+    "model_qualified": false,
+    "operation_id": "f4eb89be659141cfaffdbca8197841ce",
+    "plan_file": "scrape/prepared/f4eb89be659141cfaffdbca8197841ce.json",
+    "plan_sha256": "3ce613e96dcb5fc072b8a86ad79f6f42e9f3ce7fe8675cd8e92a21246a78768c",
+    "reason": "synthetic qualification",
+    "status": "prepared",
+    "workshop": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.vigiles\\plans-v0.3.4"
+  },
+  "schema_version": 1,
+  "stale_rejected": true,
+  "status": "passed",
+  "version": "0.3.4",
+  "workshop": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.vigiles\\plans-v0.3.4"
+}

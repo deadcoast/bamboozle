@@ -1,8 +1,8 @@
 # Bamboozle / Vigiles
 
-Current release: **v0.3.3 (VIGIL3)**. Native promotion and quarantine can now apply
-the exact durable plan reviewed earlier. Consumer snapshots, bounded subprocess
-capture, and legacy direct operations remain available.
+Current release: **v0.3.4 (VIGIL3)**. Discover retained native plans through a
+bounded, read-only inventory in the CLI and both workshop MCP interfaces. Exact
+reviewed-plan application, consumer snapshots, and bounded capture remain available.
 
 Vigiles is MIVIM's local middleware for reversible terminology translation,
 authenticated file exchange, and repository integrity checks. The application is
@@ -399,7 +399,66 @@ uv run --locked python scripts/qualify_plans.py --workshop ".vigiles/new-plan-qu
 
 `VIGILES_PLAN_QUALIFICATION.json` records actual CLI preparation, stale rejection,
 controlled interrupted application, exact-byte recovery, replay rejection, and
-quarantine/cancellation using synthetic assets at `.vigiles/plans-v0.3.3`.
+quarantine/cancellation using synthetic assets at `.vigiles/plans-v0.3.4`.
+
+### Discover retained plans
+
+Use inventory after losing a client response, or to locate stale plans occupying
+unused slots. It reads existing files without creating locks, directories, or caches:
+
+```powershell
+$page = uv run --locked python -m workshop.scrape.promote --list-plans --limit 5 | ConvertFrom-Json
+$page.items
+if ($page.has_more) {
+    uv run --locked python -m workshop.scrape.promote --list-plans --limit 5 --cursor $page.next_cursor
+}
+```
+
+Both workshop MCP interfaces expose `list_plans(limit=5, cursor=None)`. Continue
+with the returned cursor until `has_more` is false. Pages contain up to 10 records
+and 6,000 ASCII JSON bytes; long filenames can reduce a page's record count.
+Each row names the retained file; valid plans include their stable operation ID,
+exact digest, action, LoRA, creation time, and observed state:
+
+| State | Meaning |
+| --- | --- |
+| `prepared` | Retained unused plan; checked metadata currently matches. |
+| `stale` | Input/control metadata, source presence, or destination presence changed. |
+| `cancelled` | Retained cancellation marker matches the plan digest. |
+| `recovery_required` | The matching journal lacks valid completion. |
+| `applied` | The completion record matches the exact plan journal. |
+| `corrupt` | Invalid record, unexpected filename, orphan cancellation marker, or mismatched completion/cancellation. |
+| `unavailable` | Read access or the page read budget prevented inspection. |
+| `changing` | Observed metadata changed while the row was being read. |
+
+Inventory reports `freshness: metadata_only` and `apply_preflight: false`. It does
+not hash model assets, check every other operation's recovery state, or reserve a
+workshop. A `prepared` row is not permission or proof of applicability. Use
+`--show-plan <id>` for full inspection, and review its details before digest-bound
+application. Apply always retains full asset and state validation.
+
+Each page reads at most 64 MiB of metadata, including the native workshop marker,
+and scans at most 10,000 directory
+entries per scan. Read-budget exhaustion shortens the page; if one record cannot
+be inspected within the budget, that row reports `unavailable`. Try a smaller page
+or inspect its ID. Exceeding the directory cap fails explicitly without returning
+a partial inventory. Known cancellation markers are folded into their plan row;
+orphans, unexpected files, and directories remain visible.
+
+Cursors bind to the workshop and sorted directory membership, not a stored
+snapshot of model/control data. Addition, removal, or rename invalidates an old
+cursor; restart listing explicitly. Changes in membership during a page also fail
+that page. Existing rows' states are observed anew on each request; this is not a
+transactional snapshot across pages. No history is cancelled or deleted by listing.
+
+```powershell
+uv run --locked python scripts/qualify_inventory.py --workshop ".vigiles/new-inventory-qualification" --report "new-inventory-qualification.json"
+```
+
+`VIGILES_INVENTORY_QUALIFICATION.json` records real CLI paging, damaged-record
+visibility, cursor invalidation, and discovery during interrupted publication.
+Its synthetic workspace, `.vigiles/inventory-v0.3.4-final`, deliberately retains a
+corrupt plan fixture as evidence; use the separate pipeline fixture for normal work.
 
 Reproduce qualification with explicitly synthetic byte assets in a new directory:
 
@@ -409,8 +468,8 @@ uv run --locked python scripts/qualify_pipeline.py --workshop ".vigiles/new-qual
 
 The qualifier refuses existing workshop contents/report paths, exercises the actual
 scripts, injects a controlled ledger failure, and recovers through the CLI. This
-checkout's current target is `.vigiles/workshop-v0.3.3`; prior targets remain
-at `.vigiles/workshop`, `.vigiles/workshop-v0.3.1`, and `.vigiles/workshop-v0.3.2`. See
+checkout's current target is `.vigiles/workshop-v0.3.4`; prior targets remain
+at `.vigiles/workshop` and the `.vigiles/workshop-v0.3.1` through `v0.3.3` paths. See
 `VIGILES_PIPELINE_QUALIFICATION.json` for representative manifest/matrix data and
 execution evidence. Fixture success does not establish live LoRA/ComfyUI acceptance.
 
@@ -418,8 +477,10 @@ The installed-wheel smoke test also checks pending-read rejection and recovery
 through a real workshop MCP stdio process, and noisy external-script success,
 failure, and timeout using the installed adapter. Both workshop MCP stdio servers
 also exercise prepared promotion/quarantine, inspection, preview, replay rejection,
-and cancellation. Historical reports remain as `VIGILES_*.foundation-0.3.0.json`,
-`VIGILES_*.consumers-0.3.1.json`, and `VIGILES_*.capture-0.3.2.json`.
+and cancellation, plus read-only paged discovery of valid, stale, and corrupt
+records. Historical reports remain as `VIGILES_*.foundation-0.3.0.json`,
+`VIGILES_*.consumers-0.3.1.json`, `VIGILES_*.capture-0.3.2.json`, and
+`VIGILES_*.plans-0.3.3.json`.
 
 ## Development and verification
 

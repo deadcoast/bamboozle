@@ -333,4 +333,54 @@ protocol, as do uncoordinated filesystem races. Only synthetic assets are used i
 qualification. Live deployment, remote CI, process-tree isolation, identity, and
 historical-ledger migration remain separate open gates.
 
+### VIGIL3 prepared-plan discovery — 0.3.4
+
+VIGIL3-OPS-04 supplies bounded read-only discovery through `workshop/inventory.py`,
+native CLI `--list-plans`, and both MCP `list_plans` tools. Operators can recover
+lost plan IDs and identify retained states without manually enumerating files.
+
+- Rows expose stable filenames and, when valid, operation IDs, exact digests,
+  actions, LoRA names, creation times, and observed states. Prepared, stale,
+  cancelled, recovery-required, applied, corrupt, unavailable, and changing
+  records are explicit. Cancellation markers fold into their owning row; orphan
+  markers, malformed names, directories, and leftover temporary files stay visible.
+- Default pages contain up to five records, configurable from one to ten.
+  Responses remain at most 6,000 ASCII JSON bytes, including cursor/error fields,
+  below adapter capture limits. A page may contain fewer records due to byte/read
+  budgets; its cursor advances only past returned records.
+- Sorted directory membership is bound to an opaque cursor and selected workshop.
+  Added/removed/renamed entries require an explicit restart. A second bounded
+  enumeration rejects membership changes during a page. No cursor file, lock,
+  cache, or other filesystem state is created by discovery.
+- Each directory scan caps at 10,000 entries and fails explicitly above that
+  threshold. Each page reads at most 64 MiB of metadata including the workshop
+  marker, with the existing 16 MiB
+  per-file cap. Budget failures shorten the page, or return an unavailable row
+  when even its first record cannot be inspected. Errors never become a silent
+  empty inventory or false successful completion.
+- Metadata is read from regular files through workspace path checks. Observed
+  file identities/sizes/modification times are rechecked to distinguish detectable
+  concurrent changes from static corruption. This does not provide OS isolation
+  against hostile concurrent replacement.
+- Discovery checks current input/control digests and asset path presence but does
+  not read model bytes or scan every unrelated recovery journal. It labels this
+  `metadata_only`, `asset_hashes_checked: false`, and `apply_preflight: false`.
+  Full plan inspection and application continue to validate asset digests and
+  pending operations. Inventory is not approval or a reservation.
+- Paging stabilizes directory membership, not all operational state across
+  requests. A plan's state is observed anew; native publication may advance while
+  an operator pages. Uncoordinated edits remain outside writer serialization.
+- Regressions cover paging completeness, status transitions, corrupt JSON and
+  markers, malformed assets, orphan/nonfile records, budget exhaustion, long
+  Unicode filenames, invalid/cross-workshop/stale cursors, catalog changes,
+  metadata races, no asset reads, read-only old-workshop behavior, and both real
+  adapters. Installed qualification exercises both exported MCP servers and
+  discovery of an interrupted prepared operation before explicit recovery.
+
+No automatic history cleanup, cancellation, retry, migration, or external deployment
+is added. The inventory qualification fixture retains a deliberate corrupt record;
+its passing discovery checks do not make that fixture suitable for later writes.
+Live deployment, remote CI, identity, restoration migration, and process-tree/host
+isolation remain open.
+
 ---

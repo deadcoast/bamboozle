@@ -15,6 +15,7 @@ from fastmcp.client.transports import StdioTransport
 
 import bamboozle
 from bamboozle.dictionary import Dictionary
+from bamboozle.utils import sha256
 from workshop import examples, plans, process
 from workshop import operations as ops
 from workshop.pipeline import run_script
@@ -212,6 +213,18 @@ def main() -> None:
             status = await client.call_tool("pipeline_status", {"rebuild_index": True})
             if "blocked_pending_recovery" not in str(status.content):
                 raise RuntimeError("Installed workshop did not block index rebuild")
+            pending_inventory = await client.call_tool("list_plans", {})
+            pending_content = pending_inventory.content[0]
+            if pending_content.type != "text":
+                raise RuntimeError("Installed pending inventory did not return text")
+            pending_report = json.loads(pending_content.text)
+            if pending_report["returncode"] != 0 or pending_report["stdout_truncated"]:
+                raise RuntimeError("Installed pending inventory failed")
+            if (
+                json.loads(pending_report["stdout"])["items"][0]["status"]
+                != "recovery_required"
+            ):
+                raise RuntimeError("Installed inventory hid the pending plan")
             recovered = run_script(
                 scrape, Path(sys.executable), "promote.py", "--recover", operation_id
             )
@@ -251,6 +264,9 @@ def main() -> None:
                     raise RuntimeError(f"Installed plan tool failed: {report}")
                 return json.loads(report["stdout"])
 
+            stale = await call(
+                "prepare_promotion", {"candidate": "candidates/ExampleC.json"}
+            )
             review = await call(
                 "prepare_promotion", {"candidate": "candidates/ExampleC.json"}
             )
@@ -303,12 +319,64 @@ def main() -> None:
                 or not (workshop / "prod/model-ExampleB.bin").exists()
             ):
                 raise RuntimeError("Installed cancellation changed production assets")
+            retained = await call(
+                "prepare_quarantine",
+                {"name": "ExampleB", "reason": "inventory fixture"},
+            )
+            (scrape / "prepared/broken-fixture.tmp").write_bytes(
+                b"retained incomplete fixture"
+            )
+
+            def inventory_files() -> dict:
+                return {
+                    str(path.relative_to(workshop)): sha256(path.read_bytes())
+                    for path in workshop.rglob("*")
+                    if path.is_file()
+                }
+
+            before_inventory = inventory_files()
+            rows = []
+            cursor = None
+            page_count = 0
+            while True:
+                page = await call("list_plans", {"limit": 2, "cursor": cursor})
+                if page["asset_hashes_checked"] or page["apply_preflight"]:
+                    raise RuntimeError("Inventory incorrectly claimed apply readiness")
+                rows.extend(page["items"])
+                page_count += 1
+                cursor = page["next_cursor"]
+                if cursor is None:
+                    break
+                if page_count > 20:
+                    raise RuntimeError("Inventory paging did not finish")
+            if inventory_files() != before_inventory:
+                raise RuntimeError("Installed inventory mutated workshop files")
+            observed = {row.get("operation_id"): row["status"] for row in rows}
+            expected = {
+                stale["operation_id"]: "stale",
+                review["operation_id"]: "applied",
+                unused["operation_id"]: "cancelled",
+                retained["operation_id"]: "prepared",
+            }
+            if (
+                any(observed.get(key) != value for key, value in expected.items())
+                or "corrupt" not in observed.values()
+            ):
+                raise RuntimeError("Installed inventory states are incomplete")
+            if len({row["file"] for row in rows}) != len(rows):
+                raise RuntimeError("Installed inventory repeated a record")
             return {
                 "module": module,
                 "status": "passed",
                 "promotion": saved,
                 "quarantine": removed,
                 "cancelled": cancelled,
+                "inventory": {
+                    "pages": page_count,
+                    "records": len(rows),
+                    "states": sorted(set(observed.values())),
+                    "read_only": True,
+                },
             }
 
     plan_results = [
@@ -344,6 +412,7 @@ def main() -> None:
                     "bounded_capture_success_failure_timeout",
                     "both_workshop_stdio_reviewed_plan_prepare_inspect_apply_replay_cancel",
                     "installed_reviewed_plan_fault_recovery",
+                    "installed_inventory_pending_recovery_and_both_stdio_paged_states",
                 ],
             }
         )

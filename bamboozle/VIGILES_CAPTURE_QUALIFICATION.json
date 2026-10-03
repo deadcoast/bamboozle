@@ -1,14 +1,14 @@
 {
   "schema_version": 1,
-  "release": "0.3.3",
+  "release": "0.3.4",
   "development_stage": "VIGIL3",
-  "created": "2026-10-03T03:31:10.272329+00:00",
+  "created": "2026-10-03T21:50:23.108602+00:00",
   "status": "passed",
   "kind": "installed_adapter_synthetic_qualification",
   "model_qualified": false,
   "source_record": "VIGILES_VERIFICATION.json",
-  "log": "E:\\codex-temp\\bamboozle-vigiles-3ca3f44ce40f490c836e976c5fa68d64\\checks\\verify-as48qked\\wheel-smoke.log",
-  "package_file": "E:\\codex-temp\\bamboozle-vigiles-3ca3f44ce40f490c836e976c5fa68d64\\checks\\verify-as48qked\\wheel-env\\Lib\\site-packages\\bamboozle\\__init__.py",
+  "log": "E:\\codex-temp\\bamboozle-vigiles-3ca3f44ce40f490c836e976c5fa68d64\\checks\\verify-9xwxlwd0\\wheel-smoke.log",
+  "package_file": "E:\\codex-temp\\bamboozle-vigiles-3ca3f44ce40f490c836e976c5fa68d64\\checks\\verify-9xwxlwd0\\wheel-env\\Lib\\site-packages\\bamboozle\\__init__.py",
   "checks": [
     {
       "mode": "success",

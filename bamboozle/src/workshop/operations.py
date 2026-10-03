@@ -38,13 +38,18 @@ class PendingOperation(OSError):
 
 def workspace(root: Path) -> Workspace:
     ws = Workspace(root)
+    _validate_workspace(ws)
+    return ws
+
+
+def _validate_workspace(ws: Workspace) -> None:
+    """Validate the native marker using the caller's bounded reader."""
     marker = parse_json(ws.read("_vigiles_workshop.json"))
     if (
         marker != {"kind": "vigiles.workshop", "schema_version": 1}
         or type(marker.get("schema_version")) is not int
     ):
         raise ValueError("Unsupported native workshop marker")
-    return ws
 
 
 def _json(ws: Workspace, name: str) -> dict[str, Any]:
@@ -230,7 +235,12 @@ def _plan(
 
 
 def _check_plan(
-    ws: Workspace, plan: dict[str, Any], operation_id: str, *, fresh: bool = False
+    ws: Workspace,
+    plan: dict[str, Any],
+    operation_id: str,
+    *,
+    fresh: bool = False,
+    verify_asset: bool = True,
 ) -> None:
     if (
         plan.get("kind") != "vigiles.workshop.operation"
@@ -276,10 +286,14 @@ def _check_plan(
         )
         if fresh and destination.exists():
             raise FileExistsError("Operation destination already exists")
-        if destination.exists() and _digest(destination) != asset["sha256"]:
+        if (
+            verify_asset
+            and destination.exists()
+            and _digest(destination) != asset["sha256"]
+        ):
             raise FileExistsError("Destination contains different asset bytes")
         if source.exists():
-            if _digest(source) != asset["sha256"]:
+            if verify_asset and _digest(source) != asset["sha256"]:
                 raise ValueError("Operation asset changed")
         elif fresh or plan["action"] != "quarantine" or not destination.exists():
             raise FileNotFoundError("Operation asset is missing")

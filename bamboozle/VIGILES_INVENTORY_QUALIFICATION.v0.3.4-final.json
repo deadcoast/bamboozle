@@ -1,0 +1,400 @@
+{
+  "changed_catalog_cursor_rejected": true,
+  "checks": [
+    {
+      "arguments": [],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 332,
+            "bytes_retained": 332,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 19296,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"schema_version\": 1,\r\n  \"status\": \"inventory\",\r\n  \"items\": [],\r\n  \"next_cursor\": null,\r\n  \"has_more\": false,\r\n  \"catalog_sha256\": \"4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945\",\r\n  \"freshness\": \"metadata_only\",\r\n  \"asset_hashes_checked\": false,\r\n  \"apply_preflight\": false,\r\n  \"metadata_bytes_read\": 56\r\n}\r\n",
+        "stdout_truncated": false
+      }
+    },
+    {
+      "arguments": [
+        "--limit",
+        "2"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 1418,
+            "bytes_retained": 1418,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 39236,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"schema_version\": 1,\r\n  \"status\": \"inventory\",\r\n  \"items\": [\r\n    {\r\n      \"file\": \"scrape/prepared/0cfb67f13cb94b4d811ad6fcd6cedad4.json\",\r\n      \"operation_id\": \"0cfb67f13cb94b4d811ad6fcd6cedad4\",\r\n      \"plan_sha256\": \"fa6d05810218ae872709a8c0f61a689eb80d68cdfd4d597e385b29509de7ce47\",\r\n      \"action\": \"promote\",\r\n      \"lora\": \"ExampleA\",\r\n      \"created\": \"2026-10-03T21:44:56.973463Z\",\r\n      \"status\": \"stale\",\r\n      \"error\": \"Control file changed: scrape/_lora_manifest.json\"\r\n    },\r\n    {\r\n      \"file\": \"scrape/prepared/15b85dcac31b4099bc44afd36dc83574.json\",\r\n      \"operation_id\": \"15b85dcac31b4099bc44afd36dc83574\",\r\n      \"plan_sha256\": \"b94d36bf2e2b707ad7025a4e50c0ec532785c4958148b2b6a79b84ad7402921b\",\r\n      \"action\": \"quarantine\",\r\n      \"lora\": \"ExampleA\",\r\n      \"created\": \"2026-10-03T21:44:57.245834Z\",\r\n      \"status\": \"prepared\"\r\n    }\r\n  ],\r\n  \"next_cursor\": \"eyJ2IjoxLCJ3b3Jrc2hvcCI6IjRlNTJhOThiNjY3OGE4NjlmNmE5ZDExOTUwMGExOTBhZjVhZDEzMzJmOGUzNjI4MGIwMmZmNDljZDA1NTFjZDgiLCJjYXRhbG9nIjoiYTgwNTc3ZGE5YTJhNWQ4MzU1NTYzMTFiOWEyOWQwNGM4M2MwZGJkODU0ZTc3ZDkyNGNiNTVkNjFlODk5YWIxNiIsImFmdGVyIjoiMTViODVkY2FjMzFiNDA5OWJjNDRhZmQzNmRjODM1NzQuanNvbiJ9\",\r\n  \"has_more\": true,\r\n  \"catalog_sha256\": \"a80577da9a2a5d835556311b9a29d04c83c0dbd854e77d924cb55d61e899ab16\",\r\n  \"freshness\": \"metadata_only\",\r\n  \"asset_hashes_checked\": false,\r\n  \"apply_preflight\": false,\r\n  \"metadata_bytes_read\": 8153\r\n}\r\n",
+        "stdout_truncated": false
+      }
+    },
+    {
+      "arguments": [
+        "--limit",
+        "2",
+        "--cursor",
+        "eyJ2IjoxLCJ3b3Jrc2hvcCI6IjRlNTJhOThiNjY3OGE4NjlmNmE5ZDExOTUwMGExOTBhZjVhZDEzMzJmOGUzNjI4MGIwMmZmNDljZDA1NTFjZDgiLCJjYXRhbG9nIjoiYTgwNTc3ZGE5YTJhNWQ4MzU1NTYzMTFiOWEyOWQwNGM4M2MwZGJkODU0ZTc3ZDkyNGNiNTVkNjFlODk5YWIxNiIsImFmdGVyIjoiMTViODVkY2FjMzFiNDA5OWJjNDRhZmQzNmRjODM1NzQuanNvbiJ9"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 1077,
+            "bytes_retained": 1077,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 16892,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"schema_version\": 1,\r\n  \"status\": \"inventory\",\r\n  \"items\": [\r\n    {\r\n      \"file\": \"scrape/prepared/86373e6f0e6d4461b282fc1535b57e0b.json\",\r\n      \"operation_id\": \"86373e6f0e6d4461b282fc1535b57e0b\",\r\n      \"plan_sha256\": \"a6df2a9d6dcdc6f1bbdd314f27da356fbe31f713bf0ca5bfdbf9c0b4f48ed81f\",\r\n      \"action\": \"quarantine\",\r\n      \"lora\": \"ExampleA\",\r\n      \"created\": \"2026-10-03T21:44:57.165176Z\",\r\n      \"status\": \"cancelled\"\r\n    },\r\n    {\r\n      \"file\": \"scrape/prepared/f8a4e206fa9d4693af2297ade3c0beab.json\",\r\n      \"operation_id\": \"f8a4e206fa9d4693af2297ade3c0beab\",\r\n      \"plan_sha256\": \"57f1d7491a71f347b828e3bea62ead51198bf04af12f27ea445746d283c93a49\",\r\n      \"action\": \"promote\",\r\n      \"lora\": \"ExampleA\",\r\n      \"created\": \"2026-10-03T21:44:57.014970Z\",\r\n      \"status\": \"applied\"\r\n    }\r\n  ],\r\n  \"next_cursor\": null,\r\n  \"has_more\": false,\r\n  \"catalog_sha256\": \"a80577da9a2a5d835556311b9a29d04c83c0dbd854e77d924cb55d61e899ab16\",\r\n  \"freshness\": \"metadata_only\",\r\n  \"asset_hashes_checked\": false,\r\n  \"apply_preflight\": false,\r\n  \"metadata_bytes_read\": 12140\r\n}\r\n",
+        "stdout_truncated": false
+      }
+    },
+    {
+      "arguments": [
+        "--limit",
+        "1"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 1047,
+            "bytes_retained": 1047,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 72072,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"schema_version\": 1,\r\n  \"status\": \"inventory\",\r\n  \"items\": [\r\n    {\r\n      \"file\": \"scrape/prepared/0cfb67f13cb94b4d811ad6fcd6cedad4.json\",\r\n      \"operation_id\": \"0cfb67f13cb94b4d811ad6fcd6cedad4\",\r\n      \"plan_sha256\": \"fa6d05810218ae872709a8c0f61a689eb80d68cdfd4d597e385b29509de7ce47\",\r\n      \"action\": \"promote\",\r\n      \"lora\": \"ExampleA\",\r\n      \"created\": \"2026-10-03T21:44:56.973463Z\",\r\n      \"status\": \"stale\",\r\n      \"error\": \"Control file changed: scrape/_lora_manifest.json\"\r\n    }\r\n  ],\r\n  \"next_cursor\": \"eyJ2IjoxLCJ3b3Jrc2hvcCI6IjRlNTJhOThiNjY3OGE4NjlmNmE5ZDExOTUwMGExOTBhZjVhZDEzMzJmOGUzNjI4MGIwMmZmNDljZDA1NTFjZDgiLCJjYXRhbG9nIjoiYTgwNTc3ZGE5YTJhNWQ4MzU1NTYzMTFiOWEyOWQwNGM4M2MwZGJkODU0ZTc3ZDkyNGNiNTVkNjFlODk5YWIxNiIsImFmdGVyIjoiMGNmYjY3ZjEzY2I5NGI0ZDgxMWFkNmZjZDZjZWRhZDQuanNvbiJ9\",\r\n  \"has_more\": true,\r\n  \"catalog_sha256\": \"a80577da9a2a5d835556311b9a29d04c83c0dbd854e77d924cb55d61e899ab16\",\r\n  \"freshness\": \"metadata_only\",\r\n  \"asset_hashes_checked\": false,\r\n  \"apply_preflight\": false,\r\n  \"metadata_bytes_read\": 3861\r\n}\r\n",
+        "stdout_truncated": false
+      }
+    },
+    {
+      "arguments": [
+        "--cursor",
+        "eyJ2IjoxLCJ3b3Jrc2hvcCI6IjRlNTJhOThiNjY3OGE4NjlmNmE5ZDExOTUwMGExOTBhZjVhZDEzMzJmOGUzNjI4MGIwMmZmNDljZDA1NTFjZDgiLCJjYXRhbG9nIjoiYTgwNTc3ZGE5YTJhNWQ4MzU1NTYzMTFiOWEyOWQwNGM4M2MwZGJkODU0ZTc3ZDkyNGNiNTVkNjFlODk5YWIxNiIsImFmdGVyIjoiMGNmYjY3ZjEzY2I5NGI0ZDgxMWFkNmZjZDZjZWRhZDQuanNvbiJ9"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 104,
+            "bytes_retained": 104,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 1,
+        "deployment_qualified": false,
+        "next_action": "Inspect capture diagnostics, external outputs, and its ledger before retrying; the adapter neither rolls back files nor proves publication success.",
+        "pid": 59300,
+        "retry_performed": false,
+        "returncode": 1,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "failed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\"status\": \"error\", \"error\": \"Inventory cursor does not match this workshop/catalog; restart listing\"}\r\n",
+        "stdout_truncated": false
+      }
+    },
+    {
+      "arguments": [
+        "--limit",
+        "1"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 880,
+            "bytes_retained": 880,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 85360,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"schema_version\": 1,\r\n  \"status\": \"inventory\",\r\n  \"items\": [\r\n    {\r\n      \"file\": \"scrape/prepared/00000000000000000000000000000000.json\",\r\n      \"operation_id\": \"00000000000000000000000000000000\",\r\n      \"status\": \"corrupt\",\r\n      \"error\": \"Expecting property name enclosed in double quotes: line 1 column 2 (char 1)\"\r\n    }\r\n  ],\r\n  \"next_cursor\": \"eyJ2IjoxLCJ3b3Jrc2hvcCI6IjRlNTJhOThiNjY3OGE4NjlmNmE5ZDExOTUwMGExOTBhZjVhZDEzMzJmOGUzNjI4MGIwMmZmNDljZDA1NTFjZDgiLCJjYXRhbG9nIjoiYmZlNzdmMGMyMjU5ZWNlNzEzNDExYmY0MTY3MzAxYjkxYWZjNTc4M2I2Y2UyNmNmY2E3NjZhYWE5YTU1NjkwMSIsImFmdGVyIjoiMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAuanNvbiJ9\",\r\n  \"has_more\": true,\r\n  \"catalog_sha256\": \"bfe77f0c2259ece713411bf4167301b91afc5783b6ce26cfca766aaa9a556901\",\r\n  \"freshness\": \"metadata_only\",\r\n  \"asset_hashes_checked\": false,\r\n  \"apply_preflight\": false,\r\n  \"metadata_bytes_read\": 57\r\n}\r\n",
+        "stdout_truncated": false
+      }
+    },
+    {
+      "arguments": [
+        "--limit",
+        "10"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 2155,
+            "bytes_retained": 2155,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 21316,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"schema_version\": 1,\r\n  \"status\": \"inventory\",\r\n  \"items\": [\r\n    {\r\n      \"file\": \"scrape/prepared/00000000000000000000000000000000.json\",\r\n      \"operation_id\": \"00000000000000000000000000000000\",\r\n      \"status\": \"corrupt\",\r\n      \"error\": \"Expecting property name enclosed in double quotes: line 1 column 2 (char 1)\"\r\n    },\r\n    {\r\n      \"file\": \"scrape/prepared/0cfb67f13cb94b4d811ad6fcd6cedad4.json\",\r\n      \"operation_id\": \"0cfb67f13cb94b4d811ad6fcd6cedad4\",\r\n      \"plan_sha256\": \"fa6d05810218ae872709a8c0f61a689eb80d68cdfd4d597e385b29509de7ce47\",\r\n      \"action\": \"promote\",\r\n      \"lora\": \"ExampleA\",\r\n      \"created\": \"2026-10-03T21:44:56.973463Z\",\r\n      \"status\": \"stale\",\r\n      \"error\": \"Control file changed: scrape/_lora_ledger.csv\"\r\n    },\r\n    {\r\n      \"file\": \"scrape/prepared/15b85dcac31b4099bc44afd36dc83574.json\",\r\n      \"operation_id\": \"15b85dcac31b4099bc44afd36dc83574\",\r\n      \"plan_sha256\": \"b94d36bf2e2b707ad7025a4e50c0ec532785c4958148b2b6a79b84ad7402921b\",\r\n      \"action\": \"quarantine\",\r\n      \"lora\": \"ExampleA\",\r\n      \"created\": \"2026-10-03T21:44:57.245834Z\",\r\n      \"status\": \"recovery_required\"\r\n    },\r\n    {\r\n      \"file\": \"scrape/prepared/86373e6f0e6d4461b282fc1535b57e0b.json\",\r\n      \"operation_id\": \"86373e6f0e6d4461b282fc1535b57e0b\",\r\n      \"plan_sha256\": \"a6df2a9d6dcdc6f1bbdd314f27da356fbe31f713bf0ca5bfdbf9c0b4f48ed81f\",\r\n      \"action\": \"quarantine\",\r\n      \"lora\": \"ExampleA\",\r\n      \"created\": \"2026-10-03T21:44:57.165176Z\",\r\n      \"status\": \"cancelled\"\r\n    },\r\n    {\r\n      \"file\": \"scrape/prepared/f8a4e206fa9d4693af2297ade3c0beab.json\",\r\n      \"operation_id\": \"f8a4e206fa9d4693af2297ade3c0beab\",\r\n      \"plan_sha256\": \"57f1d7491a71f347b828e3bea62ead51198bf04af12f27ea445746d283c93a49\",\r\n      \"action\": \"promote\",\r\n      \"lora\": \"ExampleA\",\r\n      \"created\": \"2026-10-03T21:44:57.014970Z\",\r\n      \"status\": \"applied\"\r\n    }\r\n  ],\r\n  \"next_cursor\": null,\r\n  \"has_more\": false,\r\n  \"catalog_sha256\": \"bfe77f0c2259ece713411bf4167301b91afc5783b6ce26cfca766aaa9a556901\",\r\n  \"freshness\": \"metadata_only\",\r\n  \"asset_hashes_checked\": false,\r\n  \"apply_preflight\": false,\r\n  \"metadata_bytes_read\": 22446\r\n}\r\n",
+        "stdout_truncated": false
+      }
+    },
+    {
+      "arguments": [
+        "--limit",
+        "10"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 2145,
+            "bytes_retained": 2145,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 61696,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"schema_version\": 1,\r\n  \"status\": \"inventory\",\r\n  \"items\": [\r\n    {\r\n      \"file\": \"scrape/prepared/00000000000000000000000000000000.json\",\r\n      \"operation_id\": \"00000000000000000000000000000000\",\r\n      \"status\": \"corrupt\",\r\n      \"error\": \"Expecting property name enclosed in double quotes: line 1 column 2 (char 1)\"\r\n    },\r\n    {\r\n      \"file\": \"scrape/prepared/0cfb67f13cb94b4d811ad6fcd6cedad4.json\",\r\n      \"operation_id\": \"0cfb67f13cb94b4d811ad6fcd6cedad4\",\r\n      \"plan_sha256\": \"fa6d05810218ae872709a8c0f61a689eb80d68cdfd4d597e385b29509de7ce47\",\r\n      \"action\": \"promote\",\r\n      \"lora\": \"ExampleA\",\r\n      \"created\": \"2026-10-03T21:44:56.973463Z\",\r\n      \"status\": \"stale\",\r\n      \"error\": \"Control file changed: scrape/_lora_ledger.csv\"\r\n    },\r\n    {\r\n      \"file\": \"scrape/prepared/15b85dcac31b4099bc44afd36dc83574.json\",\r\n      \"operation_id\": \"15b85dcac31b4099bc44afd36dc83574\",\r\n      \"plan_sha256\": \"b94d36bf2e2b707ad7025a4e50c0ec532785c4958148b2b6a79b84ad7402921b\",\r\n      \"action\": \"quarantine\",\r\n      \"lora\": \"ExampleA\",\r\n      \"created\": \"2026-10-03T21:44:57.245834Z\",\r\n      \"status\": \"applied\"\r\n    },\r\n    {\r\n      \"file\": \"scrape/prepared/86373e6f0e6d4461b282fc1535b57e0b.json\",\r\n      \"operation_id\": \"86373e6f0e6d4461b282fc1535b57e0b\",\r\n      \"plan_sha256\": \"a6df2a9d6dcdc6f1bbdd314f27da356fbe31f713bf0ca5bfdbf9c0b4f48ed81f\",\r\n      \"action\": \"quarantine\",\r\n      \"lora\": \"ExampleA\",\r\n      \"created\": \"2026-10-03T21:44:57.165176Z\",\r\n      \"status\": \"cancelled\"\r\n    },\r\n    {\r\n      \"file\": \"scrape/prepared/f8a4e206fa9d4693af2297ade3c0beab.json\",\r\n      \"operation_id\": \"f8a4e206fa9d4693af2297ade3c0beab\",\r\n      \"plan_sha256\": \"57f1d7491a71f347b828e3bea62ead51198bf04af12f27ea445746d283c93a49\",\r\n      \"action\": \"promote\",\r\n      \"lora\": \"ExampleA\",\r\n      \"created\": \"2026-10-03T21:44:57.014970Z\",\r\n      \"status\": \"applied\"\r\n    }\r\n  ],\r\n  \"next_cursor\": null,\r\n  \"has_more\": false,\r\n  \"catalog_sha256\": \"bfe77f0c2259ece713411bf4167301b91afc5783b6ce26cfca766aaa9a556901\",\r\n  \"freshness\": \"metadata_only\",\r\n  \"asset_hashes_checked\": false,\r\n  \"apply_preflight\": false,\r\n  \"metadata_bytes_read\": 26263\r\n}\r\n",
+        "stdout_truncated": false
+      }
+    }
+  ],
+  "controlled_failure": "Operation 15b85dcac31b4099bc44afd36dc83574 needs recovery: Controlled inventory recovery fixture",
+  "corrupt_record_retained": true,
+  "created": "2026-10-03T21:44:56.757977Z",
+  "final_file_sha256": {
+    "_vigiles_workshop.json": "48188c0170697ed4cbf424a23f642140e92731287ba7bc324c4ac825241e45f9",
+    "candidates/ExampleA.bin": "085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0",
+    "candidates/ExampleA.json": "5d8622bbaa1e3d16d90cf602d7c0cb8affb99d9a246807acd567fabfeca1753f",
+    "candidates/ExampleA.validation.json": "2d7f3beedda48b3e3f01ab58cf10be101d498f38d70f6e37c87ec28cda50d833",
+    "quarantine/d2c50e46015f4067bd9247decae7be22/model-ExampleA.bin": "085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0",
+    "scrape/.vigiles.lock": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
+    "scrape/_compatibility_matrix.json": "f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587",
+    "scrape/_lora_ledger.csv": "90112c38d9afd0800680dafdc063a81f635f2595dae21a85aed5d0db251d019d",
+    "scrape/_lora_manifest.json": "394231068230487d0e5b678b5d9784ca35f9d7a2b57ee0a55485c74cde0f1127",
+    "scrape/_pipeline_status.json": "7131343f15d7dea247486f26529a9cfc0e28ee1e7af092098fcdc28d9be5c264",
+    "scrape/audit_matrix.py": "a7d54c001e50073622429210c3a39981dba7838758439893ea5c8f691a400923",
+    "scrape/prepared/00000000000000000000000000000000.json": "021fb596db81e6d02bf3d2586ee3981fe519f275c0ac9ca76bbcf2ebb4097d96",
+    "scrape/prepared/0cfb67f13cb94b4d811ad6fcd6cedad4.json": "fa6d05810218ae872709a8c0f61a689eb80d68cdfd4d597e385b29509de7ce47",
+    "scrape/prepared/15b85dcac31b4099bc44afd36dc83574.json": "b94d36bf2e2b707ad7025a4e50c0ec532785c4958148b2b6a79b84ad7402921b",
+    "scrape/prepared/86373e6f0e6d4461b282fc1535b57e0b.cancelled.json": "e7305f6fbad88cdd04d0094a46135ba68b8a9b6d1b03215100afd4a22198f4e8",
+    "scrape/prepared/86373e6f0e6d4461b282fc1535b57e0b.json": "a6df2a9d6dcdc6f1bbdd314f27da356fbe31f713bf0ca5bfdbf9c0b4f48ed81f",
+    "scrape/prepared/f8a4e206fa9d4693af2297ade3c0beab.json": "57f1d7491a71f347b828e3bea62ead51198bf04af12f27ea445746d283c93a49",
+    "scrape/promote.py": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+    "scrape/taxonomy.json": "ba9e29c6c062f43e0d633f6c0bae19b44ecce3722e0e27c230b1421e8f737052",
+    "scrape/transactions/15b85dcac31b4099bc44afd36dc83574.done.json": "19cc78d4611601883499c82dfe7bd66c23531997f59285fe7b7e8df49d930527",
+    "scrape/transactions/15b85dcac31b4099bc44afd36dc83574.json": "b94d36bf2e2b707ad7025a4e50c0ec532785c4958148b2b6a79b84ad7402921b",
+    "scrape/transactions/f8a4e206fa9d4693af2297ade3c0beab.done.json": "87320a06329224dad215ac759df704673220ff675f0f5511745b6e61d04a5e1e",
+    "scrape/transactions/f8a4e206fa9d4693af2297ade3c0beab.json": "57f1d7491a71f347b828e3bea62ead51198bf04af12f27ea445746d283c93a49"
+  },
+  "fixture_only": true,
+  "metadata_only": true,
+  "paged_states": {
+    "0cfb67f13cb94b4d811ad6fcd6cedad4": "stale",
+    "15b85dcac31b4099bc44afd36dc83574": "prepared",
+    "86373e6f0e6d4461b282fc1535b57e0b": "cancelled",
+    "f8a4e206fa9d4693af2297ade3c0beab": "applied"
+  },
+  "pending_recovery_discovered": true,
+  "production_model_qualified": false,
+  "read_only": true,
+  "schema_version": 1,
+  "status": "passed",
+  "version": "0.3.4",
+  "workshop": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.vigiles\\inventory-v0.3.4-final"
+}

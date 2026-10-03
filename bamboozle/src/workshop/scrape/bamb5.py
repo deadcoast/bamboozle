@@ -180,6 +180,18 @@ def prepare_quarantine(name: str, reason: str) -> dict:
 
 
 @mcp.tool(annotations={"readOnlyHint": True})
+def list_plans(limit: int = 5, cursor: str | None = None) -> dict:
+    """Native: discover paged plan metadata states without checking asset hashes."""
+    return _run(
+        "promote.py",
+        "--list-plans",
+        "--limit",
+        str(limit),
+        *(["--cursor", cursor] if cursor is not None else []),
+    )
+
+
+@mcp.tool(annotations={"readOnlyHint": True})
 def inspect_plan(plan_id: str) -> dict:
     """Native: read the saved plan summary and current applicability."""
     return _run("promote.py", "--show-plan", plan_id)

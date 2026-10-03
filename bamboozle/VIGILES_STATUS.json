@@ -1,26 +1,26 @@
 {
   "schema_version": 1,
   "project": "Bamboozle / MIVIM Vigiles",
-  "release": "0.3.3",
-  "recorded_on": "2026-10-02",
+  "release": "0.3.4",
+  "recorded_on": "2026-10-03",
   "authority": ".mivim/mivim.vigiles.md",
-  "reviewed_base_commit": "fa735c03561bd33f800513fc06b4046f1b89402f",
-  "scope": "VIGIL3 exact reviewed native promotion/quarantine plans, stale-state and replay rejection, retained cancellation, and journal recovery.",
+  "reviewed_base_commit": "00fcb97065eada354e63893f7c549b488d0e3feb",
+  "scope": "VIGIL3 bounded read-only prepared-plan inventory, stable paging, visible damaged records, and installed CLI/MCP qualification.",
   "completion": {
-    "implementation": "complete_for_defined_0.3.3_local_scope",
+    "implementation": "complete_for_defined_0.3.4_local_scope",
     "local_source_qualification": "passed",
     "local_installed_package_qualification": "passed",
     "global_project_completion": false,
     "remote_ci": "configured_not_executed",
     "external_pipeline": "optional_external_integrations_not_qualified",
     "deployment": "local_synthetic_workshop_only",
-    "native_pipeline": "fixture_qualified_with_exact_reviewed_plans_consistent_consumers_and_bounded_capture"
+    "native_pipeline": "fixture_qualified_with_bounded_plan_discovery_exact_application_consistent_consumers_and_bounded_capture"
   },
   "current_evidence": {
     "execution_record": "VIGILES_VERIFICATION.json",
-    "execution_record_created": "2026-10-03T03:31:10.272329+00:00",
+    "execution_record_created": "2026-10-03T21:50:23.108602+00:00",
     "tests": {
-      "passed": 204,
+      "passed": 240,
       "failed": 0,
       "errors": 0,
       "skipped": 0
@@ -38,14 +38,14 @@
       "wheel-install",
       "wheel-smoke"
     ],
-    "final_review": "All 204 source tests and eleven release steps pass. Source/artifact hashes and retained native fixture hashes match. Exact prepared bytes are applied/recovered with stale-state and repeat-application rejection. Both installed workshop MCP stdio interfaces pass prepare/inspect/preview/apply/quarantine/cancel and replay rejection. Installed controlled prepared-plan recovery and prior capture/consumer qualification pass.",
+    "final_review": "All 240 source tests and eleven release checks pass. Source/artifact and retained fixture hashes match. Both installed workshop MCP servers exercise complete bounded inventory pages with prepared, stale, cancelled, applied and corrupt records; installed pending-recovery discovery passes. Marker reads are charged to the same metadata budget; contradictory cancellation/journal states are reported as corrupt.",
     "authority": "Execution records establish local source/package/protocol evidence only; live model, remote CI, identity, and host acceptance remain separate.",
     "environment": "Windows CPython 3.13.9; native/test fixtures on C:, caches and installed-wheel runtime on E:.",
     "portable_test_command": "uv run --locked python scripts/verify.py --package",
     "scratch_directory": "E:/codex-temp/bamboozle-vigiles-3ca3f44ce40f490c836e976c5fa68d64",
     "package_paths": [
-      "dist/bamboozle-0.3.3-py3-none-any.whl",
-      "dist/bamboozle-0.3.3.tar.gz"
+      "dist/bamboozle-0.3.4-py3-none-any.whl",
+      "dist/bamboozle-0.3.4.tar.gz"
     ],
     "capture_qualification_record": "VIGILES_CAPTURE_QUALIFICATION.json",
     "readiness_record": "VIGILES_PIPELINE_READINESS.json",
@@ -84,7 +84,16 @@
       "VIGILES_VERIFICATION.capture-0.3.2.json",
       "VIGILES_PIPELINE_READINESS.capture-0.3.2.json",
       "VIGILES_CAPTURE_QUALIFICATION.capture-0.3.2.json",
-      "VIGILES_PIPELINE_QUALIFICATION.v0.3.2.json"
+      "VIGILES_PIPELINE_QUALIFICATION.v0.3.2.json",
+      "VIGILES_STATUS.plans-0.3.3.json",
+      "VIGILES_VERIFICATION.plans-0.3.3.json",
+      "VIGILES_PIPELINE_READINESS.plans-0.3.3.json",
+      "VIGILES_CAPTURE_QUALIFICATION.plans-0.3.3.json",
+      "VIGILES_PLAN_QUALIFICATION.v0.3.3.json",
+      "VIGILES_PIPELINE_QUALIFICATION.v0.3.3.json",
+      "VIGILES_VERIFICATION.pre-marker-budget-0.3.4.json",
+      "VIGILES_VERIFICATION.pre-conflict-check-0.3.4.json",
+      "VIGILES_INVENTORY_QUALIFICATION.pre-marker-budget-0.3.4.json"
     ],
     "plan_qualification_record": "VIGILES_PLAN_QUALIFICATION.json",
     "reviewed_plan_qualification": {
@@ -104,25 +113,37 @@
           "promotion": {
             "schema_version": 1,
             "status": "saved",
-            "operation_id": "8b4cd66df2d44982b29acd9bad21afef",
+            "operation_id": "3e94a25629834a20b416d02802eef043",
             "action": "promote",
             "lora": "ExampleC",
             "model_qualified": false,
-            "journal_sha256": "1779fc8b49d8e387459cf1febf2df9843b35b6b53d24032620fa7202ae121488"
+            "journal_sha256": "7a9e00e9d9ecddf2dcc9e6a56fb5be048f576c2c669881c566a07387c586686a"
           },
           "quarantine": {
             "schema_version": 1,
             "status": "saved",
-            "operation_id": "c82344ddc5a242df8809f6ddbc3db66a",
+            "operation_id": "8d6be43668ed4011a27fe08b7a45e1d7",
             "action": "quarantine",
             "lora": "ExampleC",
             "model_qualified": false,
-            "journal_sha256": "872dbd1d2c4f620d7994413a17af495a3e02b80961116292c85b5276a88c709f"
+            "journal_sha256": "a6b72f50caf7e22ab5746eae2fdb6871c2201d6e23bdfe36fedfe06b5297186c"
           },
           "cancelled": {
             "status": "cancelled",
-            "operation_id": "52a500c0e63c4c98b7c6a7677058743b",
-            "plan_sha256": "a59edf1efbd1a99b71696f88a27759cee46bf0c4cbe61964f1b6d224b118b1a3"
+            "operation_id": "fb9db3424d2a49cea3ef6c414155b4b8",
+            "plan_sha256": "b5fa43d4cff6d75a2a4454161bf650225ab5973fb8546961afff9079e0df7f54"
+          },
+          "inventory": {
+            "pages": 4,
+            "records": 7,
+            "states": [
+              "applied",
+              "cancelled",
+              "corrupt",
+              "prepared",
+              "stale"
+            ],
+            "read_only": true
           }
         },
         {
@@ -131,34 +152,94 @@
           "promotion": {
             "schema_version": 1,
             "status": "saved",
-            "operation_id": "28442532eaa646f7bc9d6629d36e61e5",
+            "operation_id": "8a1eeca1ffa84218a101e80ad42b14a5",
             "action": "promote",
             "lora": "ExampleC",
             "model_qualified": false,
-            "journal_sha256": "78426733ed09de8baeb7ee65acedf1f271bf48dc75cba8c1a486678979a694b2"
+            "journal_sha256": "fd06f39c51623a3040a14b81217623cdf49ba0e649da3e33b763b6aea690c876"
           },
           "quarantine": {
             "schema_version": 1,
             "status": "saved",
-            "operation_id": "f11c7a8b433a4fcfae8b42bbe892214a",
+            "operation_id": "c0e96f57beb64a948df92cacebf69ab5",
             "action": "quarantine",
             "lora": "ExampleC",
             "model_qualified": false,
-            "journal_sha256": "eaecf6786a7378bb54800551916041ad42de20207b8f24eab9a198e147bb13d7"
+            "journal_sha256": "9b9ec4a1f1101dec9872ae6df46fa9fd8c0dfdeb05e8550498ce80333a087d41"
           },
           "cancelled": {
             "status": "cancelled",
-            "operation_id": "3ccf49fd0e784d6ea1f2bb54e1ffaf5d",
-            "plan_sha256": "0ef6454de8b736aa47ea9b06225b6a1a0b6598bb700301b69d9ee0e399090926"
+            "operation_id": "9b8a8e8c4df3416baa95e334529f6b21",
+            "plan_sha256": "1b71e0b1234d57ff58ac6bc9a933604ccaab17dc9d6721e009af95b8d486194b"
+          },
+          "inventory": {
+            "pages": 6,
+            "records": 12,
+            "states": [
+              "applied",
+              "cancelled",
+              "corrupt",
+              "prepared",
+              "stale"
+            ],
+            "read_only": true
           }
         }
       ],
       "installed_recovery": {
-        "operation_id": "40d901c1c419486c8924d64d596cc61b",
-        "plan_sha256": "5dbd7ca3c11b061551ec9fec9b6aabff3712b2be09e95b2bdfdcada5d1824702"
+        "operation_id": "1444cb0fc43d43e38a3dead299e6a91f",
+        "plan_sha256": "2d24a1ece2e4b62c15f0cfbeff209223a4e2ddcaebd47ce53853b2498d5aeb82"
       },
-      "installed_log": "E:\\codex-temp\\bamboozle-vigiles-3ca3f44ce40f490c836e976c5fa68d64\\checks\\verify-as48qked\\wheel-smoke.log",
+      "installed_log": "E:\\codex-temp\\bamboozle-vigiles-3ca3f44ce40f490c836e976c5fa68d64\\checks\\verify-9xwxlwd0\\wheel-smoke.log",
       "model_qualified": false
+    },
+    "inventory_qualification_record": "VIGILES_INVENTORY_QUALIFICATION.json",
+    "inventory_qualification": {
+      "status": "passed",
+      "native_script_calls": 8,
+      "new_regression_cases": 36,
+      "read_only": true,
+      "freshness": "metadata_only",
+      "asset_hashes_checked": false,
+      "page_size_default": 5,
+      "page_size_maximum": 10,
+      "max_response_bytes": 6000,
+      "max_metadata_bytes_per_page": 67108864,
+      "max_entries_per_directory_scan": 10000,
+      "cursor_bound_to_workshop_and_catalog": true,
+      "corrupt_and_unavailable_records_visible": true,
+      "installed_stdio": [
+        {
+          "module": "workshop.mcp.workshop_mcp",
+          "pages": 4,
+          "records": 7,
+          "states": [
+            "applied",
+            "cancelled",
+            "corrupt",
+            "prepared",
+            "stale"
+          ],
+          "read_only": true
+        },
+        {
+          "module": "workshop.scrape.bamb5",
+          "pages": 6,
+          "records": 12,
+          "states": [
+            "applied",
+            "cancelled",
+            "corrupt",
+            "prepared",
+            "stale"
+          ],
+          "read_only": true
+        }
+      ],
+      "installed_pending_recovery_discovery": true,
+      "installed_log": "E:\\codex-temp\\bamboozle-vigiles-3ca3f44ce40f490c836e976c5fa68d64\\checks\\verify-9xwxlwd0\\wheel-smoke.log",
+      "model_qualified": false,
+      "fixture_has_deliberate_corruption": true
     }
   },
   "closed_findings": [
@@ -396,6 +477,22 @@
         "VIGILES_VERIFICATION.json"
       ],
       "limitation": "Local consistency only; plans do not authenticate human approval, prevent hostile coordinated edits, or qualify production models."
+    },
+    {
+      "id": "VIG-FIX-019",
+      "priority": "P1",
+      "status": "implemented_verified",
+      "finding": "Prepared plan IDs could only be discovered by manually scanning the filesystem after a lost response; stale/corrupt retained records lacked a bounded inventory.",
+      "resolution": "Read-only native inventory with stable paged identifiers, catalog-bound cursors, metadata and response budgets, explicit lifecycle/corrupt/unavailable states, and CLI plus both MCP interfaces.",
+      "evidence": [
+        "src/workshop/inventory.py",
+        "src/workshop/tests/test_inventory.py",
+        "scripts/qualify_inventory.py",
+        "scripts/package_smoke.py",
+        "VIGILES_INVENTORY_QUALIFICATION.json",
+        "VIGILES_VERIFICATION.json"
+      ],
+      "limitation": "Inventory checks metadata without asset hashing or a global apply preflight. Membership paging is not a transactional state snapshot or authenticated approval."
     }
   ],
   "retained_failures": [
@@ -547,52 +644,50 @@
     }
   ],
   "delivery_boundaries": [
-    "This 0.3.3 step made no commit, push, external MCP client registration, or remote deployment.",
+    "This 0.3.4 step made no commit, push, external MCP client registration, or remote deployment.",
     "Only explicitly labeled synthetic assets were promoted/quarantined in the local qualification workspace. No live model execution, automatic quarantine, process termination policy, or startup service installation was performed.",
     "Unkeyed ledgers and local audit baselines establish consistency, not independent authenticity.",
     "Historical design documents are not runtime guarantees."
   ],
   "active_step": {
-    "id": "VIGIL3-OPS-03",
+    "id": "VIGIL3-OPS-04",
     "status": "complete_for_implementation_and_fixture_qualification",
-    "focus": "Native reviewed-plan application",
-    "finding": "Native dry-run returns a transient operation ID, while a later apply invocation creates a fresh plan. Publication revalidates that new plan, but it is not bound to the earlier reviewed preview.",
+    "focus": "Native prepared-plan inventory and discovery",
+    "finding": "Prepared plans are inspectable by ID but operators currently need filesystem inspection to discover IDs after a disconnected client or to identify stale plans occupying unused slots.",
     "target": [
-      "src/workshop/operations.py",
+      "src/workshop/plans.py",
       "src/workshop/scrape/promote.py",
       "src/workshop/mcp/workshop_mcp.py"
     ],
     "done_criteria": [
-      "Explicit preparation persists a bounded reviewable plan without publishing model assets.",
-      "Application selects the exact prepared plan and revalidates captured inputs, controls, and asset hashes.",
-      "Stale plans, changed destinations, and consumed plans cannot authorize another publication.",
-      "Interrupted apply resumes through the existing journal recovery contract.",
-      "Existing read-only dry-run behavior and legacy direct-action compatibility remain explicit.",
-      "CLI/MCP and installed package regression evidence."
+      "Bounded, read-only plan inventory with explicit paging and stable identifiers.",
+      "Expose prepared, stale, cancelled, pending-recovery and applied states without hiding corrupt records.",
+      "CLI and both MCP interfaces return complete bounded responses and do not create files during discovery.",
+      "Regression and installed-package evidence; no automatic cancellation or history deletion."
     ],
     "boundaries": [
-      "Prepared local plans are consistency evidence, not independently authenticated approval.",
-      "Live model evaluation and operator-selected production acceptance remain open."
+      "Live deployment, remote CI and process-tree isolation remain open.",
+      "Plan discovery conveys local consistency state, not authenticated approval."
     ],
-    "authority": "User requested applying the exact native operation plan reviewed earlier.",
-    "qualification_record": "VIGILES_PLAN_QUALIFICATION.json",
-    "target_workshop": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.vigiles\\plans-v0.3.3",
-    "target_kind": "synthetic_qualification_only",
-    "stage": "exact_reviewed_native_plan_application",
+    "authority": "User selected VIGIL3-OPS-04.",
+    "qualification_record": "VIGILES_INVENTORY_QUALIFICATION.json",
+    "target_workshop": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.vigiles\\inventory-v0.3.4-final",
+    "target_kind": "synthetic_discovery_fixture_with_retained_corrupt_record",
+    "stage": "bounded_native_prepared_plan_discovery",
     "source_authority": [
-      "src/workshop/plans.py",
+      "src/workshop/inventory.py",
       "src/workshop/operations.py",
       "src/workshop/scrape/promote.py"
     ],
     "completed_work": [
-      "Persist bounded promotion/quarantine plans with complete control before/after bytes, selected workshop, input/asset digests, ID, reason, and timestamp.",
-      "Read-only inspection and preview; locked application publishes the exact reviewed bytes as its journal.",
-      "Reject stale state, appeared destinations, changed plan digests, cross-workshop copies, cancelled plans and replay.",
-      "Retain cancellation and history; explicitly resume interrupted publication with the same digest and one ledger row.",
-      "CLI, both MCP adapters, installed stdio servers, native fixtures and 26 new regression cases qualified.",
-      "Version 0.3.3 specification, usage documentation, wheel/sdist and machine-readable evidence supplied; prior and failed records preserved."
+      "Native CLI --list-plans and read-only list_plans tools in both MCP interfaces.",
+      "Stable sorted file identities, opaque workshop/catalog cursors and explicit restart on membership change.",
+      "Prepared, stale, cancelled, recovery-required, applied, corrupt, unavailable and changing rows; no silent removal of damaged or orphan records.",
+      "6000-byte responses, up to ten rows, 64 MiB metadata including the marker, and 10000 entries per directory scan.",
+      "Full model hash checking remains in inspect/apply; inventory reports metadata-only scope and never authorizes publication.",
+      "36 regression cases plus actual CLI and installed MCP paging/recovery qualification; prior and intermediate evidence retained."
     ],
-    "next_action": "Review bounded native plan inventory and discovery so operators can find unfinished plans after a lost client response without scanning files manually."
+    "next_action": "Review read-only recovery conflict diagnostics so operators can identify exact blocking controls/assets before attempting explicit recovery."
   },
   "development_stage": "VIGIL3",
   "environment_remediation_0.3.1": {
@@ -614,33 +709,50 @@
       "boundary": "This is not a child-process memory cap or a whole-application RSS measurement."
     }
   ],
-  "next_step": {
-    "id": "VIGIL3-OPS-04",
-    "status": "ready_for_review_and_design",
-    "focus": "Native prepared-plan inventory and discovery",
-    "finding": "Prepared plans are inspectable by ID but operators currently need filesystem inspection to discover IDs after a disconnected client or to identify stale plans occupying unused slots.",
-    "target": [
-      "src/workshop/plans.py",
-      "src/workshop/scrape/promote.py",
-      "src/workshop/mcp/workshop_mcp.py"
-    ],
-    "done_criteria": [
-      "Bounded, read-only plan inventory with explicit paging and stable identifiers.",
-      "Expose prepared, stale, cancelled, pending-recovery and applied states without hiding corrupt records.",
-      "CLI and both MCP interfaces return complete bounded responses and do not create files during discovery.",
-      "Regression and installed-package evidence; no automatic cancellation or history deletion."
-    ],
-    "boundaries": [
-      "Live deployment, remote CI and process-tree isolation remain open.",
-      "Plan discovery conveys local consistency state, not authenticated approval."
-    ]
-  },
   "development_observations_0.3.3": [
     {
       "finding": "The first installed test treated the bamb5 translation module entry point as an MCP server launcher.",
       "resolution": "Launch its exported mcp object explicitly; preserve the existing translation CLI.",
       "retained_record": "VIGILES_VERIFICATION.failed-bamb5-launch-0.3.3.json",
       "final_result": "Both installed workshop MCP servers pass the full prepared-plan workflow."
+    }
+  ],
+  "next_step": {
+    "id": "VIGIL3-OPS-05",
+    "status": "ready_for_review_and_design",
+    "focus": "Native recovery conflict diagnostics",
+    "finding": "Inventory identifies pending or damaged operations, but recovery stops at the first mismatch and leaves operators to manually compare journal before/after images and asset state.",
+    "target": [
+      "src/workshop/operations.py",
+      "src/workshop/scrape/promote.py",
+      "src/workshop/mcp/workshop_mcp.py"
+    ],
+    "done_criteria": [
+      "Bounded read-only diagnostic report for a selected native operation, showing matching, pending and conflicting control/asset state.",
+      "Retained plan/journal/completion corruption is distinguished from recoverable interruption.",
+      "CLI and both MCP interfaces expose diagnostics without mutating or silently retrying the operation.",
+      "Regression and installed-package evidence; explicit existing recovery remains required."
+    ],
+    "boundaries": [
+      "No automatic repair, rollback, history deletion or replacement of changed files.",
+      "Live deployment, remote CI and process-tree isolation remain open."
+    ]
+  },
+  "development_observations_0.3.4": [
+    {
+      "finding": "Initial inventory reader did not charge native marker validation to its aggregate metadata budget.",
+      "resolution": "Share native marker validation with the bounded reader; include marker bytes and verify exhaustion before reading records.",
+      "preserved_verification": "VIGILES_VERIFICATION.pre-marker-budget-0.3.4.json",
+      "preserved_inventory": "VIGILES_INVENTORY_QUALIFICATION.pre-marker-budget-0.3.4.json",
+      "preserved_artifacts": "E:/codex-temp/bamboozle-vigiles-3ca3f44ce40f490c836e976c5fa68d64/checks/verify-qig7itxx/initial-artifacts",
+      "boundary": "The initial tests and package run passed; this gap was found in review, not represented as a historical test failure."
+    },
+    {
+      "finding": "A completed journal could mask a contradictory attached cancellation marker in inventory.",
+      "resolution": "Report conflicting cancellation/journal state as corrupt and retain both records; add a no-mutation regression.",
+      "preserved_verification": "VIGILES_VERIFICATION.pre-conflict-check-0.3.4.json",
+      "preserved_artifacts": "E:/codex-temp/bamboozle-vigiles-3ca3f44ce40f490c836e976c5fa68d64/checks/verify-klyulxqd/pre-conflict-artifacts",
+      "final_result": "All 240 tests and eleven release checks pass after both corrections."
     }
   ]
 }
