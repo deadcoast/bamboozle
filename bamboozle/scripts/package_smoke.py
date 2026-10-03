@@ -16,7 +16,7 @@ from fastmcp.client.transports import StdioTransport
 import bamboozle
 from bamboozle.dictionary import Dictionary
 from bamboozle.utils import sha256
-from workshop import examples, plans, process
+from workshop import examples, plans, process, recovery
 from workshop import operations as ops
 from workshop.pipeline import run_script
 from workshop.scrape.alias_pass import Taxonomy
@@ -92,6 +92,8 @@ def main() -> None:
         raise RuntimeError("Capture module was not loaded from the installed wheel")
     if not Path(plans.__file__).resolve().is_relative_to(args.prefix.resolve()):
         raise RuntimeError("Prepared plans were not loaded from the installed wheel")
+    if not Path(recovery.__file__).resolve().is_relative_to(args.prefix.resolve()):
+        raise RuntimeError("Recovery diagnostics were not loaded from the installed wheel")
     mapping = Dictionary.load()
     if len(mapping) != 110 or not Taxonomy.load().canon_cat:
         raise RuntimeError("Packaged dictionary or taxonomy resource is missing")
@@ -181,6 +183,44 @@ def main() -> None:
     if operation_id != prepared["operation_id"]:
         raise RuntimeError("Installed failure injection did not leave a journal")
 
+    diagnostic_results = []
+
+    async def smoke_diagnostics(expected: str) -> None:
+        for module in ("workshop.mcp.workshop_mcp", "workshop.scrape.bamb5"):
+            transport = StdioTransport(
+                command=sys.executable,
+                args=["-c", f"from {module} import mcp; mcp.run()"],
+                cwd=str(Path.cwd()),
+                env={"VIGILES_WORKSHOP_ROOT": str(workshop.absolute())},
+            )
+            before = {str(p): sha256(p.read_bytes()) for p in workshop.rglob("*") if p.is_file()}
+            async with Client(transport) as client:
+                result = await client.call_tool("diagnose_recovery", {"operation_id": operation_id})
+                content = result.content[0]
+                if result.is_error or content.type != "text":
+                    raise RuntimeError("Installed recovery diagnostic tool failed")
+                execution = json.loads(content.text)
+                if execution["returncode"] != 0 or execution["stdout_truncated"]:
+                    raise RuntimeError(f"Installed diagnostic output failed: {execution}")
+                report = json.loads(execution["stdout"])
+                if report["status"] != expected or report["recovery_ready"] != (expected == "recoverable"):
+                    raise RuntimeError(f"Installed diagnostic state mismatch: {report}")
+                after = {str(p): sha256(p.read_bytes()) for p in workshop.rglob("*") if p.is_file()}
+                if before != after:
+                    raise RuntimeError("Installed diagnostics changed workshop files")
+                diagnostic_results.append({"module": module, "expected": expected, "report": report, "read_only": True})
+
+    asyncio.run(asyncio.wait_for(smoke_diagnostics("recoverable"), timeout=60))
+    # Controlled fixture edits prove that both installed interfaces expose all
+    # conflicts. Restore only these synthetic bytes to continue recovery testing.
+    conflict_files = [workshop / ops.LEDGER, workshop / "prod/model-ExampleB.bin"]
+    original_fixture_bytes = {path: path.read_bytes() for path in conflict_files}
+    for path in conflict_files:
+        path.write_bytes(b"controlled installed conflict")
+    asyncio.run(asyncio.wait_for(smoke_diagnostics("conflict"), timeout=60))
+    for path, raw in original_fixture_bytes.items():
+        path.write_bytes(raw)
+
     async def smoke_mcp() -> None:
         transport = StdioTransport(
             command=sys.executable,
@@ -243,6 +283,7 @@ def main() -> None:
                 raise RuntimeError("Installed workshop did not refresh after recovery")
 
     asyncio.run(asyncio.wait_for(smoke_workshop(), timeout=30))
+    asyncio.run(asyncio.wait_for(smoke_diagnostics("already_completed"), timeout=60))
     examples.candidate(workshop, "ExampleC", ["neon"])
 
     async def smoke_plans(module: str) -> dict:
@@ -395,6 +436,7 @@ def main() -> None:
                 "package_file": str(package_file),
                 "capture_results": capture_results,
                 "plan_results": plan_results,
+                "diagnostic_results": diagnostic_results,
                 "reviewed_plan_recovery": {
                     "operation_id": operation_id,
                     "plan_sha256": prepared["plan_sha256"],
@@ -413,6 +455,7 @@ def main() -> None:
                     "both_workshop_stdio_reviewed_plan_prepare_inspect_apply_replay_cancel",
                     "installed_reviewed_plan_fault_recovery",
                     "installed_inventory_pending_recovery_and_both_stdio_paged_states",
+                    "both_workshop_stdio_recovery_diagnostics_conflicts_and_completed_history",
                 ],
             }
         )

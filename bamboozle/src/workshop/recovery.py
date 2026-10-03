@@ -43,7 +43,6 @@ def _identity(info: os.stat_result | None) -> tuple[int, ...] | None:
         info.st_mode,
         info.st_size,
         info.st_mtime_ns,
-        info.st_ctime_ns,
     )
 
 
@@ -138,7 +137,7 @@ def _failure(exc: Exception, *, missing: str = "unavailable") -> dict[str, str]:
 
 def _catalog(ws: _Reader) -> tuple[str, ...]:
     path = ws.resolve("scrape/transactions")
-    names = []
+    names: list[str] = []
     with os.scandir(path) as entries:
         for entry in entries:
             if len(names) >= MAX_DIRECTORY_ENTRIES:
@@ -228,18 +227,18 @@ def _current(
                 else ("prod" if plan["action"] == "promote" else "quarantine")
             )
             ops._inside(ws, name, directory)
-            actual = ws.asset_digest(name)
+            actual_asset = ws.asset_digest(name)
             state = (
                 "absent"
-                if actual is None
+                if actual_asset is None
                 else "matching"
-                if actual == asset["sha256"]
+                if actual_asset == asset["sha256"]
                 else "conflict"
             )
             # Empty assets are rejected by the actual recovery hasher too.
-            if actual == sha256(b""):
+            if actual_asset == sha256(b""):
                 state = "conflict"
-            row.update(state=state, observed_sha256=actual)
+            row.update(state=state, observed_sha256=actual_asset)
         except (OSError, ValueError) as exc:
             row.update(_failure(exc))
         report["assets"].append(row)
@@ -307,7 +306,7 @@ def diagnose(root: Path, operation_id: str) -> dict[str, Any]:
         try:
             plan = parse_json(raw)
             if not isinstance(plan, dict):
-                raise ValueError("Operation journal must be an object")
+                raise TypeError("Operation journal must be an object")
             decoded = ops._validate_plan(ws, plan, operation_id)
             records["journal"]["state"] = "valid"
             report["action"] = plan["action"]

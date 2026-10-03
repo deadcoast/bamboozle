@@ -244,6 +244,12 @@ def _validate_plan(
         or plan["schema_version"] != 1
         or plan.get("operation_id") != operation_id
         or plan.get("action") not in {"promote", "quarantine", "audit"}
+        or not isinstance(plan.get("lora"), str)
+        or len(plan["lora"]) > 64
+        or not isinstance(plan.get("created"), str)
+        or not 1 <= len(plan["created"]) <= 64
+        or not isinstance(plan.get("reason"), str)
+        or len(plan["reason"]) > 2000
         or not isinstance(plan.get("inputs"), dict)
         or not isinstance(plan.get("writes"), list)
         or not all(isinstance(item, dict) for item in plan["writes"])
