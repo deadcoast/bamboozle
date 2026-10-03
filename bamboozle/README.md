@@ -1,5 +1,9 @@
 # Bamboozle / Vigiles
 
+Current release: **v0.3.2 (VIGIL3)**. The v0.3.0 example foundation and v0.3.1
+consumer snapshots are retained. This patch bounds external pipeline output capture
+and reports incomplete draining separately from child exit.
+
 Vigiles is MIVIM's local middleware for reversible terminology translation,
 authenticated file exchange, and repository integrity checks. The application is
 packaged as `bamboozle`; `vigiles`, `bamboozle`, and `python -m bamboozle` share one CLI.
@@ -226,12 +230,37 @@ and share `workshop.pipeline.run_script`. Existing script flags are preserved:
 promotion defaults to `--dry-run`, quarantine passes `--quarantine/--reason`, and
 audit optionally passes `--prune`. The adapter uses explicit arguments and no shell,
 records the script digest, and never retries a failed operation automatically.
-It distinguishes `completed`, `failed`, `timed_out`, `start_failed`, and `unavailable`.
+It distinguishes `completed`, `failed`, `timed_out`, `start_failed`, `unavailable`,
+`capture_failed`, and `capture_incomplete`.
 An executed script may have side effects even with `--dry-run` or a nonzero exit.
 Timeout reports preserve captured progress and partial files for inspection.
-Timeout termination covers the direct child only; external process trees and
-resource isolation belong to host qualification. Returned stdout/stderr tails are
-limited to 8,000/4,000 bytes; subprocess capture itself is not a hard memory limit.
+Capture continuously drains both pipes using nonblocking reads. It retains only
+the last 8,000 stdout bytes and 4,000 stderr bytes, with reads capped at 64 KiB.
+Retention stays bounded as output grows; discarded prefixes are not spooled to
+disk. UTF-8 decoding happens after capture, replacing invalid or split sequences.
+The limits describe raw retained bytes, not the encoded size of the JSON response.
+
+The existing `stdout_truncated` and `stderr_truncated` fields indicate discarded
+prefixes. The new `capture` object records each stream's byte limit, bytes read,
+bytes retained, and EOF state. `capture.complete` means both streams reached EOF
+without a pipe error; it may be true while both tails are truncated. Byte counts
+cover observed bytes only when capture is incomplete.
+
+Child exit and pipe EOF are tracked separately. Once the direct child exits, the
+adapter permits up to one further second of draining. A descendant retaining an
+inherited pipe cannot hold the caller indefinitely. A zero child exit with missing
+EOF yields `capture_incomplete` and adapter return code `125`. Pipe errors yield
+`capture_failed`/`125`. Nonzero child exits remain `failed` with their original code,
+with any incomplete capture shown separately.
+
+Timeouts retain code `124`, request termination of the direct child, and allow up
+to two seconds of cleanup; normal scheduling may add latency. Process creation is
+outside that deadline. `child_returncode`, `child_exited`, and `pid` identify the
+actual process outcome. A failed termination is reported explicitly. Interrupts
+clean up the owned child and pipes before propagating. No reader threads remain.
+External process trees and child CPU/memory/disk limits belong to host qualification.
+The output limit does not limit the child's resource use or the existing bounded
+script-validation allocation.
 
 The subprocess fixtures in `src/workshop/mcp/tests/fixtures` exercise the adapter
 contract, including interrupted publication and explicit fixture recovery. They
@@ -282,9 +311,27 @@ removal, never models. Undecodable triggers prevent publication. Native audit
 limits inputs to 1,000 active LoRAs and 50,000 existing pairs.
 
 An OS file lock excludes other native writers. Multi-file publication can be
-interrupted; readers should check `pipeline_status` before consuming such a
-workshop. Journals retain input hashes and before/after metadata. Completion
-markers bind to journal digests, and pending operations block subsequent writes:
+interrupted. Native queries, lookup/index builds, readiness checks, and new
+operation previews accept captured metadata only when the same completed journal
+set surrounds the read. Pending operations reject these reads before data is
+returned or an index is built. Publication completing during a read also rejects
+that read; retry explicitly. This works with existing v0.3.0 workshops without
+creating reader locks or migrating their files.
+
+`pipeline_status` remains available for recovery inspection and includes
+`readable`. A requested index rebuild is blocked while recovery is pending.
+Each query reflects a completed snapshot, not a reservation against a future
+publication. Stack checks use the index and compatibility matrix from the same
+snapshot. Index fingerprints and encryption use the captured manifest, taxonomy,
+key, and native matrix bytes. Native lookup includes triggers, trained words, and
+tags, matching the audit inputs. Ledger queries accept 1–1,000 rows.
+
+These guarantees cover cooperating native journaled writers. External pipelines
+and manual changes that bypass journals do not provide transaction consistency.
+Snapshots and cache reads retain per-file size limits and strict JSON parsing;
+inspection creates no cache, lock, or directory. Journals retain input hashes and
+before/after metadata. Completion markers bind to journal digests, and pending
+operations block subsequent writes:
 
 ```powershell
 uv run --locked python -m workshop.scrape.promote --recover <operation-id> --dry-run
@@ -305,9 +352,15 @@ uv run --locked python scripts/qualify_pipeline.py --workshop ".vigiles/new-qual
 
 The qualifier refuses existing workshop contents/report paths, exercises the actual
 scripts, injects a controlled ledger failure, and recovers through the CLI. This
-checkout's recorded target is `.vigiles/workshop`. See
+checkout's current target is `.vigiles/workshop-v0.3.2`; prior targets remain
+at `.vigiles/workshop` and `.vigiles/workshop-v0.3.1`. See
 `VIGILES_PIPELINE_QUALIFICATION.json` for representative manifest/matrix data and
 execution evidence. Fixture success does not establish live LoRA/ComfyUI acceptance.
+
+The installed-wheel smoke test also checks pending-read rejection and recovery
+through a real workshop MCP stdio process, and noisy external-script success,
+failure, and timeout using the installed adapter. Historical reports remain as
+`VIGILES_*.foundation-0.3.0.json` and `VIGILES_*.consumers-0.3.1.json`.
 
 ## Development and verification
 

@@ -1,0 +1,334 @@
+{
+  "checks": [
+    {
+      "arguments": [
+        "--candidate",
+        "candidates/ExampleA.json",
+        "--dry-run"
+      ],
+      "result": {
+        "action": "promote",
+        "asset": {
+          "destination": "prod/model-ExampleA.bin",
+          "sha256": "085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0",
+          "source": "candidates/ExampleA.bin"
+        },
+        "control_files": [
+          "scrape/_lora_manifest.json",
+          "scrape/_lora_ledger.csv",
+          "scrape/_pipeline_status.json"
+        ],
+        "lora": "ExampleA",
+        "model_qualified": false,
+        "operation_id": "16cbf5715c5149a29f5764c74e5f08f6",
+        "schema_version": 1,
+        "status": "preview"
+      },
+      "script": "promote.py"
+    },
+    {
+      "arguments": [
+        "--candidate",
+        "candidates/ExampleA.json"
+      ],
+      "result": {
+        "action": "promote",
+        "journal_sha256": "8e773f80044016f0d84ed2a87da2f1ccfe83a1573bdb15ef1ca019fd69457925",
+        "lora": "ExampleA",
+        "model_qualified": false,
+        "operation_id": "f86154c924d5454f8a5cba8cfee8680c",
+        "schema_version": 1,
+        "status": "saved"
+      },
+      "script": "promote.py"
+    },
+    {
+      "arguments": [
+        "--candidate",
+        "candidates/ExampleB.json"
+      ],
+      "result": {
+        "action": "promote",
+        "journal_sha256": "e5292c7b9d88f4b120c5c9312a82b4710801ab5a774dbb2e5c509129bd254a27",
+        "lora": "ExampleB",
+        "model_qualified": false,
+        "operation_id": "a5e748a1ccf04201af4dc65a36b2f986",
+        "schema_version": 1,
+        "status": "saved"
+      },
+      "script": "promote.py"
+    },
+    {
+      "arguments": [
+        "--prune"
+      ],
+      "result": {
+        "action": "audit",
+        "asset": null,
+        "compatibility_evaluated": false,
+        "control_files": [
+          "scrape/_compatibility_matrix.json",
+          "scrape/_lora_ledger.csv",
+          "scrape/_pipeline_status.json"
+        ],
+        "dangling_pairs": [
+          "ExampleA|Missing"
+        ],
+        "lora": "",
+        "model_qualified": false,
+        "operation_id": "5466eb36a3c04a58bab141536feb47a6",
+        "pairs": 1,
+        "pruned": true,
+        "schema_version": 1,
+        "status": "preview",
+        "trigger_conflicts": 1
+      },
+      "script": "audit_matrix.py"
+    },
+    {
+      "arguments": [
+        "--prune",
+        "--apply"
+      ],
+      "result": {
+        "action": "audit",
+        "compatibility_evaluated": false,
+        "dangling_pairs": [
+          "ExampleA|Missing"
+        ],
+        "journal_sha256": "b5a567261ef3258186a36a1735824f82b13d894ba2a482fe753fea38146749d4",
+        "lora": "",
+        "model_qualified": false,
+        "operation_id": "cc849d198b7742f6b83fd42dd7d5d88a",
+        "pairs": 1,
+        "pruned": true,
+        "schema_version": 1,
+        "status": "saved",
+        "trigger_conflicts": 1
+      },
+      "script": "audit_matrix.py"
+    },
+    {
+      "arguments": [
+        "--recover",
+        "d25816e024fc430bbae36f44cef3e919",
+        "--dry-run"
+      ],
+      "result": {
+        "operation_id": "d25816e024fc430bbae36f44cef3e919",
+        "status": "recovery_preview"
+      },
+      "script": "promote.py"
+    },
+    {
+      "arguments": [
+        "--recover",
+        "d25816e024fc430bbae36f44cef3e919"
+      ],
+      "result": {
+        "action": "promote",
+        "journal_sha256": "091a66e78a3a29e4e88ddb59a810994daf5a5de00164e7e2b4c82dd25ce674b1",
+        "lora": "ExampleC",
+        "model_qualified": false,
+        "operation_id": "d25816e024fc430bbae36f44cef3e919",
+        "schema_version": 1,
+        "status": "saved"
+      },
+      "script": "promote.py"
+    },
+    {
+      "arguments": [
+        "--quarantine",
+        "ExampleC",
+        "--reason",
+        "synthetic qualification",
+        "--dry-run"
+      ],
+      "result": {
+        "action": "quarantine",
+        "asset": {
+          "destination": "quarantine/626b462c0fac4ede88a73809be3173b8/model-ExampleC.bin",
+          "sha256": "465399f1c4c44b57ccf3010413cf30b0993d5d44fd285c7431f2d9bdbd9f7f72",
+          "source": "prod/model-ExampleC.bin"
+        },
+        "control_files": [
+          "scrape/_lora_manifest.json",
+          "scrape/_compatibility_matrix.json",
+          "scrape/_lora_ledger.csv",
+          "scrape/_pipeline_status.json"
+        ],
+        "lora": "ExampleC",
+        "model_qualified": false,
+        "operation_id": "1766ac64474b47d7bab4d2ccdabe8745",
+        "schema_version": 1,
+        "status": "preview"
+      },
+      "script": "promote.py"
+    },
+    {
+      "arguments": [
+        "--quarantine",
+        "ExampleC",
+        "--reason",
+        "synthetic qualification"
+      ],
+      "result": {
+        "action": "quarantine",
+        "journal_sha256": "2bf0332fec5692b04e9e438e43f17fc7a438e5be69d23a4056720f9a25dc5f07",
+        "lora": "ExampleC",
+        "model_qualified": false,
+        "operation_id": "9069150e148e4c93b8d85f2be82515d1",
+        "schema_version": 1,
+        "status": "saved"
+      },
+      "script": "promote.py"
+    }
+  ],
+  "completed_snapshot_after_recovery": true,
+  "controlled_failure_recovered": "d25816e024fc430bbae36f44cef3e919",
+  "created": "2026-10-03T01:11:58.870074Z",
+  "final_file_sha256": {
+    "_vigiles_workshop.json": "48188c0170697ed4cbf424a23f642140e92731287ba7bc324c4ac825241e45f9",
+    "candidates/ExampleA.bin": "085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0",
+    "candidates/ExampleA.json": "5d8622bbaa1e3d16d90cf602d7c0cb8affb99d9a246807acd567fabfeca1753f",
+    "candidates/ExampleA.validation.json": "2d7f3beedda48b3e3f01ab58cf10be101d498f38d70f6e37c87ec28cda50d833",
+    "candidates/ExampleB.bin": "7800f4671dcc5fdc942ce6e186fce8c124bc1c77a3a297bb59a2e45f4cefe059",
+    "candidates/ExampleB.json": "29f3a5cadc83fe30bb49b08b1051f1b61622c7a165ef76aff8c8002d8b70bc55",
+    "candidates/ExampleB.validation.json": "38965f01389ccdeca33f245453facbef556f6e41c89aaa5d5c848869b00c9b50",
+    "candidates/ExampleC.bin": "465399f1c4c44b57ccf3010413cf30b0993d5d44fd285c7431f2d9bdbd9f7f72",
+    "candidates/ExampleC.json": "46a28fd188e61b17ab94904c4781fb92acdd62a00bdd0a5e9a889c2a967efd4a",
+    "candidates/ExampleC.validation.json": "b95bbd753a95dce56141cadf177e898a5f4d0f5906358bacc44bdac087a82e09",
+    "prod/model-ExampleA.bin": "085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0",
+    "prod/model-ExampleB.bin": "7800f4671dcc5fdc942ce6e186fce8c124bc1c77a3a297bb59a2e45f4cefe059",
+    "quarantine/4c862357129349bda3bb8d28be9917d3/model-ExampleC.bin": "465399f1c4c44b57ccf3010413cf30b0993d5d44fd285c7431f2d9bdbd9f7f72",
+    "scrape/.vigiles.lock": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
+    "scrape/_compatibility_matrix.json": "676e9709a2eb16b23271e0617bcd0af134a10a011d91875596dd470f8c7363a9",
+    "scrape/_lora_ledger.csv": "5100a0cfed221c5b0e94363bbe42b341a604a7286f548f0c17bfe8495478c7d9",
+    "scrape/_lora_manifest.json": "f540461d48c08b1d0b9bcc8c337aa15695f1486521e6875d50731a96a0dcbdbf",
+    "scrape/_pipeline_status.json": "fd63bd634c83d528162046156063c13aab9e1585cbb33021acd5c7beeca1debf",
+    "scrape/audit_matrix.py": "a7d54c001e50073622429210c3a39981dba7838758439893ea5c8f691a400923",
+    "scrape/promote.py": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+    "scrape/taxonomy.json": "ba9e29c6c062f43e0d633f6c0bae19b44ecce3722e0e27c230b1421e8f737052",
+    "scrape/transactions/9069150e148e4c93b8d85f2be82515d1.done.json": "9c6319d3bfe609ad5734601e8d7b1859747ce3266988caf5139a78a91daa9c01",
+    "scrape/transactions/9069150e148e4c93b8d85f2be82515d1.json": "2bf0332fec5692b04e9e438e43f17fc7a438e5be69d23a4056720f9a25dc5f07",
+    "scrape/transactions/a5e748a1ccf04201af4dc65a36b2f986.done.json": "542eaf34fd0cf7b07709e045de965d04460edd90ec9dc6f690fa17ff47f6ff3c",
+    "scrape/transactions/a5e748a1ccf04201af4dc65a36b2f986.json": "e5292c7b9d88f4b120c5c9312a82b4710801ab5a774dbb2e5c509129bd254a27",
+    "scrape/transactions/cc849d198b7742f6b83fd42dd7d5d88a.done.json": "77eb8cde31b4514659eb0f1019eadbaa9b5abcaad36896b2e8f32b15d398adf6",
+    "scrape/transactions/cc849d198b7742f6b83fd42dd7d5d88a.json": "b5a567261ef3258186a36a1735824f82b13d894ba2a482fe753fea38146749d4",
+    "scrape/transactions/d25816e024fc430bbae36f44cef3e919.done.json": "2298d13cb61d741c769e56ba2e72670ec531a89101d3065ed88670f602713c4b",
+    "scrape/transactions/d25816e024fc430bbae36f44cef3e919.json": "091a66e78a3a29e4e88ddb59a810994daf5a5de00164e7e2b4c82dd25ce674b1",
+    "scrape/transactions/f86154c924d5454f8a5cba8cfee8680c.done.json": "24c15c374266563238b87d30f452cc7b6592dc33df5616ea81bacd1ccea32113",
+    "scrape/transactions/f86154c924d5454f8a5cba8cfee8680c.json": "8e773f80044016f0d84ed2a87da2f1ccfe83a1573bdb15ef1ca019fd69457925"
+  },
+  "fixture_only": true,
+  "manifest": {
+    "loras": {
+      "ExampleA": {
+        "base_model": "synthetic-fixture-only",
+        "categories": [
+          "fixture"
+        ],
+        "path": "prod/model-ExampleA.bin",
+        "sha256": "085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0",
+        "tags": [
+          "red hair"
+        ],
+        "triggers": [
+          "red hair"
+        ],
+        "validation_kind": "fixture",
+        "validation_sha256": "2d7f3beedda48b3e3f01ab58cf10be101d498f38d70f6e37c87ec28cda50d833"
+      },
+      "ExampleB": {
+        "base_model": "synthetic-fixture-only",
+        "categories": [
+          "fixture"
+        ],
+        "path": "prod/model-ExampleB.bin",
+        "sha256": "7800f4671dcc5fdc942ce6e186fce8c124bc1c77a3a297bb59a2e45f4cefe059",
+        "tags": [
+          "red hair",
+          "film grain"
+        ],
+        "triggers": [
+          "red hair",
+          "film grain"
+        ],
+        "validation_kind": "fixture",
+        "validation_sha256": "38965f01389ccdeca33f245453facbef556f6e41c89aaa5d5c848869b00c9b50"
+      }
+    },
+    "schema_version": 1
+  },
+  "matrix": {
+    "pairs": {
+      "ExampleA|ExampleB": {
+        "notes": "synthetic score; not model evaluation",
+        "score": 0.85,
+        "trigger_conflict": true,
+        "trigger_overlap": 0.5
+      }
+    },
+    "schema_version": 1
+  },
+  "pending_read_rejections": [
+    "scrape/_lora_manifest.json",
+    "scrape/_compatibility_matrix.json",
+    "scrape/_lora_ledger.csv"
+  ],
+  "production_model_qualified": false,
+  "readiness": {
+    "backend": "native",
+    "checks": [
+      {
+        "name": "python",
+        "ok": true,
+        "path": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.venv\\Scripts\\python.exe"
+      },
+      {
+        "execution_contract": "unverified",
+        "name": "audit_matrix.py",
+        "ok": true,
+        "sha256": "a7d54c001e50073622429210c3a39981dba7838758439893ea5c8f691a400923"
+      },
+      {
+        "execution_contract": "unverified",
+        "name": "promote.py",
+        "ok": true,
+        "sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6"
+      },
+      {
+        "loras": 2,
+        "name": "_lora_manifest.json",
+        "ok": true,
+        "sha256": "f540461d48c08b1d0b9bcc8c337aa15695f1486521e6875d50731a96a0dcbdbf"
+      },
+      {
+        "name": "_compatibility_matrix.json",
+        "ok": true,
+        "pairs": 1,
+        "sha256": "676e9709a2eb16b23271e0617bcd0af134a10a011d91875596dd470f8c7363a9"
+      },
+      {
+        "key_valid_length": true,
+        "name": "native_workshop",
+        "ok": true,
+        "pending_operations": [],
+        "version": "0.3.1"
+      }
+    ],
+    "created": "2026-10-03T01:12:03.153081Z",
+    "deployment_qualified": false,
+    "executed_scripts": false,
+    "gate": "VIG-DEPLOY-01",
+    "next_action": "Review script behavior and qualify dry-run, publication, and recovery against isolated copies before any live operation.",
+    "ok": true,
+    "schema_version": 1,
+    "scrape": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.vigiles\\workshop-v0.3.1\\scrape",
+    "status": "ready_for_review"
+  },
+  "schema_version": 1,
+  "status": "passed",
+  "version": "0.3.1",
+  "workshop": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.vigiles\\workshop-v0.3.1"
+}

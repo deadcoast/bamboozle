@@ -5,8 +5,6 @@ from __future__ import annotations
 
 import argparse
 import base64
-import csv
-import json
 import sys
 from pathlib import Path
 
@@ -18,7 +16,7 @@ if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from bamboozle.utils import atomic_write, json_bytes, parse_json, read_bytes, sha256
-from workshop import config
+from workshop import config, snapshot
 from workshop.pipeline import inspect_pipeline, run_script
 
 ROOT = config.SCRAPE
@@ -61,14 +59,14 @@ def _cipher() -> AESSIV:
 
 
 def _load(p: Path) -> dict:
-    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
+    return snapshot.load_json(p)
 
 
 def _alias_index() -> dict[str, tuple[str, str]]:
     """Build an index of alias -> (category, canonical_tag)."""
     from workshop.scrape.alias_pass import Taxonomy
 
-    tax = Taxonomy.load(TAXONOMY)
+    tax = Taxonomy.from_data(_load(TAXONOMY))
     return {
         alias: (tax.canon_cat[canon], canon)
         for alias, canon in tax.alias_to_canon.items()
@@ -190,10 +188,7 @@ def recover_pipeline(operation_id: str, dry_run: bool = True) -> dict:
 @mcp.tool()
 def ledger_tail(n: int = 25) -> list[dict]:
     """Return the last n rows of _lora_ledger.csv."""
-    if not LEDGER.exists():
-        return []
-    with LEDGER.open(encoding="utf-8", newline="") as f:
-        return list(csv.DictReader(f))[-n:]
+    return snapshot.ledger_tail(LEDGER, n)
 
 
 # ---------- core ----------

@@ -201,4 +201,84 @@ This completes the missing implementation and local file-operation qualification
 Live model evaluation, ComfyUI acceptance, cross-platform CI, and host isolation
 retain separate open gates. No fixture result closes those acceptance gates.
 
+### VIGIL3 core operations — 0.3.1
+
+The user designated v0.3.0 as the example foundation and requested further core
+development under VIGIL3, following review → plan → develop → repeat.
+
+Review found that writer serialization did not protect consumers. An interrupted
+publication could expose a new manifest with an old matrix/ledger, while MCP
+cached indexes bypassed pending checks. Status could rebuild that partial index
+before checking recovery state. The patch addresses this consumer boundary.
+
+- `workshop/snapshot.py` accepts metadata only when the same completed journal set
+  surrounds its capture. Journals are published before controls and retained after
+  completion; an incomplete operation or changing set fails the read without retry.
+  Completion records are checked against their journal hashes. Status must bind to
+  a completed journal, or describe a genuinely empty initialized workshop.
+- No read lock file or migration is needed. Readiness, queries, and failed reads
+  do not create files. Existing v0.3.0 workspaces remain supported.
+- Native manifest/matrix/ledger queries, taxonomy/trigger loaders, new operation
+  planning, and lookup snapshots use this boundary. Recovery inspection remains
+  available. `readable: false` prevents requested status-driven index rebuilds.
+- Index creation uses captured bytes for canonicalization, cache fingerprinting,
+  and encryption. Each index retains its query cipher and native matrix snapshot.
+  A later rotation cannot mix a new key with an old fingerprint. Stack checks do
+  not read a newer matrix after loading an older manifest.
+- Native lookup includes tags as well as triggers and trained words, matching the
+  native auditor. Cache writes use the shared atomic writer and strict bounded
+  cache reads. Ledger responses are bounded to 1–1,000 rows.
+- Evidence includes all three partial-publication paths, active-writer rejection,
+  publication completing during capture, cache preservation, corrupt completion,
+  status mismatch, coherent stack results, and actual installed MCP stdio recovery.
+
+This is a consistency protocol among native participants, not an OS sandbox.
+External scripts and manual/uncoordinated key, taxonomy, or metadata edits remain
+outside journal serialization. A returned snapshot may become historical when
+another operation starts; it does not authorize later deployment. Separate live
+model, identity, remote CI, restore-migration, and host gates remain open.
+
+### VIGIL3 bounded subprocess capture — 0.3.2
+
+VIGIL3-OPS-02 closes the adapter's whole-stream buffering gap. Previously, returned
+tails were bounded but `subprocess.run(capture_output=True)` retained the entire
+output first. The new `workshop/process.py` performs fair nonblocking reads from
+both pipes with fixed stdout/stderr tails.
+
+- Retain at most 8,000/4,000 raw bytes; read at most 64 KiB per stream per loop.
+  Check child state and deadlines between iterations, including when one or both
+  streams continuously produce data. No complete-output buffer, spool file, or
+  reader thread is used. UTF-8 replacement decoding occurs after capture.
+- Report observed/retained byte counts, stream EOF, truncation, capture completeness,
+  child return code, PID, and confirmed child exit. Complete draining and retained
+  full output are separate properties. Incomplete counts are lower bounds.
+- Child exit starts a one-second drain grace. Missing EOF after a zero child exit
+  yields `capture_incomplete`/125. Pipe errors yield `capture_failed`/125. Nonzero
+  child codes and timeout code 124 retain their existing meaning; capture state is
+  also reported. No adapter failure is misrepresented as successful publication.
+- Timeout requests one direct-child kill and bounds cleanup to two seconds.
+  Pipe EOF does not remove the child execution deadline. Failed termination is
+  reported with `child_exited: false` when applicable. Cancellation propagates
+  after bounded owned-child cleanup. Process creation and OS scheduling are outside
+  hard real-time guarantees; inherited descendant pipes are closed at the boundary.
+- Side-effect, no-retry, and no-rollback contracts remain intact. Partial files are
+  preserved, and capture faults after spawning still report that execution began.
+- Regression evidence includes simultaneous streams exceeding 8 MiB each; exact
+  byte tails/counters and less than 2 MiB traced allocation during the capture phase;
+  success/failure/timeout; UTF-8 boundaries; empty streams; inherited descriptors;
+  closed pipes with a live child; setup/read faults; interrupts; and kill failure.
+  Script validation has a separate 16 MiB read ceiling and is excluded from the
+  capture-phase memory measurement. The initial measurement included that allocation;
+  the corrected test isolates capture without relaxing its 2 MiB bound.
+- Installed-wheel evidence repeats noisy success/failure/timeout with 4 MiB per
+  stream. Native pipeline fixture qualification and consumer recovery tests remain
+  required; synthetic process evidence does not establish live model acceptance.
+
+The supported Python baseline supplies nonblocking Windows/POSIX pipes via
+[`os.set_blocking`](https://docs.python.org/3/library/os.html#os.set_blocking).
+[Python's subprocess documentation](https://docs.python.org/3/library/subprocess.html#subprocess.Popen.communicate)
+warns that whole-output communication buffers are unsuitable for unlimited data.
+This implementation bounds adapter output storage, not the child process's total
+CPU, memory, disk, or descendant lifetime. VIG-HOST-01 remains open.
+
 ---

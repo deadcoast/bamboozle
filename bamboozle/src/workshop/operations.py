@@ -18,6 +18,7 @@ from typing import Any
 
 from bamboozle.utils import atomic_write, json_bytes, parse_json, sha256, utc_now
 from bamboozle.workspace import Workspace
+from workshop import snapshot
 from workshop.pipeline import _manifest, _matrix
 
 MANIFEST = "scrape/_lora_manifest.json"
@@ -358,7 +359,10 @@ def _execute(ws: Workspace, plan: dict[str, Any], apply: bool) -> dict[str, Any]
 
 def promote(root: Path, candidate: str, *, dry_run: bool = True) -> dict[str, Any]:
     ws = workspace(root)
-    observed = {name: ws.read(name) for name in CONTROLS}
+    captured = snapshot.capture(
+        ws.root / "scrape", [ws.root / name for name in CONTROLS]
+    )
+    observed = {name: captured[ws.root / name] for name in CONTROLS}
     path = _inside(ws, candidate, "candidates")
     raw = ws.read(path)
     data = parse_json(raw)
@@ -444,7 +448,10 @@ def quarantine(
             "Quarantine requires a nonempty reason of at most 2000 characters"
         )
     ws = workspace(root)
-    observed = {path: ws.read(path) for path in CONTROLS}
+    captured = snapshot.capture(
+        ws.root / "scrape", [ws.root / name for name in CONTROLS]
+    )
+    observed = {name: captured[ws.root / name] for name in CONTROLS}
     manifest, matrix = parse_json(observed[MANIFEST]), parse_json(observed[MATRIX])
     _manifest(manifest)
     _matrix(matrix, None)
@@ -509,4 +516,14 @@ def pipeline_status(root: Path) -> dict[str, Any]:
         status["status"] = (
             "saved" if _completed(ws, status["operation_id"]) else "recovery_required"
         )
+    status["readable"] = status.get("status") in {"saved", "initialized"}
+    if status["readable"]:
+        try:
+            captured = snapshot.capture(ws.root / "scrape", [ws.root / STATUS])
+            stable = parse_json(captured[ws.root / STATUS])
+            status.update(stable)
+            if stable["status"] == "publication_recorded":
+                status["status"] = "saved"
+        except (OSError, ValueError, TypeError) as exc:
+            status.update(status="needs_attention", readable=False, read_error=str(exc))
     return status

@@ -24,7 +24,10 @@ def audit(
     if not math.isfinite(threshold) or not 0 <= threshold <= 1:
         raise ValueError("Overlap threshold must be between zero and one")
     ws = ops.workspace(root)
-    observed = {name: ws.read(name) for name in ops.CONTROLS}
+    captured = ops.snapshot.capture(
+        ws.root / "scrape", [ws.root / name for name in ops.CONTROLS]
+    )
+    observed = {name: captured[ws.root / name] for name in ops.CONTROLS}
     manifest, matrix = (
         parse_json(observed[ops.MANIFEST]),
         parse_json(observed[ops.MATRIX]),

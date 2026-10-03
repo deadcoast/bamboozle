@@ -22,12 +22,13 @@ def test_index_cache_reuses_rebuilds_and_forces(monkeypatch, index):
     fingerprint = ["fixture"]
     calls = []
 
-    def load(cls, force=False):
+    def load(cls, *paths, force=False, content=None):
         calls.append(force)
         return lookup.Index(index.by_canon, index.by_lora, index.tax, fingerprint[0])
 
     monkeypatch.setattr(server, "_IDX", None)
-    monkeypatch.setattr(lookup, "_fingerprint", lambda *paths: fingerprint[0])
+    monkeypatch.setattr(lookup, "_inputs", lambda *paths: {})
+    monkeypatch.setattr(lookup, "_content_fingerprint", lambda content: fingerprint[0])
     monkeypatch.setattr(lookup.Index, "load", classmethod(load))
 
     first = server._idx()

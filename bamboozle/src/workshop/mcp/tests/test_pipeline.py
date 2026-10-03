@@ -152,7 +152,7 @@ def test_spawn_failure_is_not_reported_as_execution(pipeline, monkeypatch):
     def fail(*args, **kwargs):
         raise PermissionError("fixture denied execution")
 
-    monkeypatch.setattr(subprocess, "run", fail)
+    monkeypatch.setattr(subprocess, "Popen", fail)
     report = run_script(pipeline, Path(sys.executable), "promote.py")
     assert report["status"] == "start_failed" and report["returncode"] == 126
     assert not report["started"] and not report["side_effects_possible"]

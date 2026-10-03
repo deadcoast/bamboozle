@@ -2,9 +2,7 @@
 
 from __future__ import annotations
 
-import csv
 import difflib
-import json
 import sys
 from pathlib import Path
 
@@ -13,7 +11,7 @@ from fastmcp import FastMCP
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
-from workshop import config
+from workshop import config, snapshot
 from workshop.pipeline import inspect_pipeline, run_script
 from workshop.scrape import lookup
 
@@ -32,9 +30,16 @@ mcp = FastMCP("workshop")
 
 def _idx(force: bool = False) -> lookup.Index:
     global _IDX
-    fp = lookup._fingerprint(lookup.MANIFEST, lookup.ap.TAXONOMY, lookup.bamb5.KEY_PATH)
+    content = lookup._inputs(lookup.MANIFEST, lookup.ap.TAXONOMY)
+    fp = lookup._content_fingerprint(content)
     if force or _IDX is None or _IDX.fp != fp:
-        _IDX = lookup.Index.load(force=force)
+        _IDX = lookup.Index.load(
+            lookup.MANIFEST,
+            lookup.ap.TAXONOMY,
+            lookup.INDEX,
+            force=force,
+            content=content,
+        )
     return _IDX
 
 
@@ -98,6 +103,7 @@ def stack_check(loras: list[str], threshold: float = 0.5) -> dict:
     """Pre-flight collision check for a LoRA stack."""
     ix = _idx()
     missing = [l for l in loras if l not in ix.by_lora]
+    matrix = ix.matrix if ix.matrix is not None else _load(MATRIX)
     pairs = []
     for i, a in enumerate(loras):
         sa = set(ix.by_lora.get(a, []))
@@ -106,7 +112,9 @@ def stack_check(loras: list[str], threshold: float = 0.5) -> dict:
             shared = sa & sb
             if shared:
                 j = round(len(shared) / len(sa | sb), 3)
-                m = compatibility(a, b)
+                m = matrix.get("pairs", {}).get(
+                    "|".join(sorted([a, b])), {"status": "untested"}
+                )
                 pairs.append(
                     {
                         "a": a,
@@ -134,22 +142,34 @@ def orphan_tags() -> list[str]:
 @mcp.tool()
 def pipeline_status(rebuild_index: bool = False) -> dict:
     """Last scheduled run summary; optionally force an index rebuild."""
-    if rebuild_index:
-        _idx(force=True)
     if (SCRAPE.parent / "_vigiles_workshop.json").exists():
         from workshop.operations import pipeline_status as native_status
 
-        return native_status(SCRAPE.parent)
+        state = native_status(SCRAPE.parent)
+        if rebuild_index:
+            if not state["readable"]:
+                state["index_rebuild"] = "blocked_pending_recovery"
+            else:
+                try:
+                    _idx(force=True)
+                    state["index_rebuild"] = "completed"
+                except (OSError, ValueError, TypeError) as exc:
+                    state = native_status(SCRAPE.parent)
+                    state["index_rebuild"] = "failed"
+                    state["index_error"] = str(exc)
+        return state
+    if rebuild_index:
+        _idx(force=True)
     return _load(STATUS) or {"status": "no run recorded"}
 
 
 def _load(p: Path) -> dict:
-    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
+    return snapshot.load_json(p)
 
 
 def _alias_index() -> dict[str, tuple[str, str]]:
     """Build an index of alias -> (category, canonical_tag)."""
-    tax = lookup.ap.Taxonomy.load(TAXONOMY)
+    tax = lookup.ap.Taxonomy.from_data(_load(TAXONOMY))
     return {
         alias: (tax.canon_cat[canon], canon)
         for alias, canon in tax.alias_to_canon.items()
@@ -305,10 +325,7 @@ def recover_pipeline(operation_id: str, dry_run: bool = True) -> dict:
 @mcp.tool()
 def ledger_tail(n: int = 25) -> list[dict]:
     """Return the last n rows of _lora_ledger.csv."""
-    if not LEDGER.exists():
-        return []
-    with LEDGER.open(encoding="utf-8", newline="") as f:
-        return list(csv.DictReader(f))[-n:]
+    return snapshot.ledger_tail(LEDGER, n)
 
 
 if __name__ == "__main__":

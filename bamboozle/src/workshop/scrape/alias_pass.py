@@ -1,7 +1,6 @@
 # alias_pass.py
 from __future__ import annotations
 
-import json
 import re
 import sys
 import unicodedata
@@ -10,12 +9,13 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from cryptography.exceptions import InvalidTag
+from cryptography.hazmat.primitives.ciphers.aead import AESSIV
 
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
-from bamboozle.utils import parse_json, read_bytes
-from workshop import config
+from bamboozle.utils import parse_json
+from workshop import config, snapshot
 from workshop.scrape import bamb5
 
 ROOT = config.SCRAPE
@@ -41,7 +41,10 @@ class Taxonomy:
 
     @classmethod
     def load(cls, path: Path = TAXONOMY) -> Taxonomy:
-        raw = parse_json(read_bytes(path))
+        return cls.from_data(parse_json(snapshot.capture(path.parent, [path])[path]))
+
+    @classmethod
+    def from_data(cls, raw: object) -> Taxonomy:
         if not isinstance(raw, dict):
             raise TypeError("Taxonomy must be an object")
         if type(raw.get("version", 1)) is not int or raw.get("version", 1) != 1:
@@ -113,12 +116,17 @@ class AliasReport:
     )
 
 
-def run(loras: dict[str, list[str]], tax: Taxonomy | None = None) -> AliasReport:
+def run(
+    loras: dict[str, list[str]],
+    tax: Taxonomy | None = None,
+    *,
+    cipher: AESSIV | None = None,
+) -> AliasReport:
     """loras: {lora_id: [triggers, possibly b5_ encoded]}"""
     tax = tax or Taxonomy.load()
     rep = AliasReport()
     owners: dict[str, list[str]] = defaultdict(list)
-    c = None
+    c = cipher
 
     for lid, trigs in loras.items():
         canon_set: set[str] = set()
@@ -170,12 +178,19 @@ def pairwise_overlap(rep: AliasReport) -> dict[tuple[str, str], float]:
 
 # ---------- loaders ----------
 def load_prod_triggers(manifest: Path) -> dict[str, list[str]]:
-    data = json.loads(manifest.read_text(encoding="utf-8"))
+    return prod_triggers(
+        parse_json(snapshot.capture(manifest.parent, [manifest])[manifest])
+    )
+
+
+def prod_triggers(data, *, include_tags: bool = False) -> dict[str, list[str]]:
     items = data.get("loras", data) if isinstance(data, dict) else data
     out = {}
     if isinstance(items, dict):
         for lid, spec in items.items():
             out[lid] = spec.get("triggers", []) + spec.get("trained_words", [])
+            if include_tags:
+                out[lid] += spec.get("tags", [])
     else:
         for spec in items:
             out[spec["id"]] = spec.get("triggers", []) + spec.get("trained_words", [])

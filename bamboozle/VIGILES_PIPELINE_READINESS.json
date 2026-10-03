@@ -2,10 +2,10 @@
   "schema_version": 1,
   "gate": "VIG-DEPLOY-01",
   "backend": "native",
-  "created": "2026-10-02T23:29:21.054125Z",
+  "created": "2026-10-03T03:02:42.910999Z",
   "status": "ready_for_review",
   "ok": true,
-  "scrape": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.vigiles\\workshop\\scrape",
+  "scrape": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.vigiles\\workshop-v0.3.2\\scrape",
   "executed_scripts": false,
   "deployment_qualified": false,
   "checks": [
@@ -41,7 +41,7 @@
     {
       "name": "native_workshop",
       "ok": true,
-      "version": "0.3.0",
+      "version": "0.3.2",
       "pending_operations": [],
       "key_valid_length": true
     }

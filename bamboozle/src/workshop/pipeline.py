@@ -8,13 +8,12 @@ from __future__ import annotations
 
 import ast
 import math
-import os
-import subprocess
 from pathlib import Path
 from typing import Any
 
 from bamboozle.utils import parse_json, sha256, utc_now
 from bamboozle.workspace import Workspace
+from workshop.process import StartError, run_captured
 
 SCRIPTS = frozenset({"promote.py", "audit_matrix.py"})
 
@@ -25,11 +24,6 @@ def _script(scrape: Path, name: str) -> tuple[Path, str]:
     content = workspace.read(path)
     ast.parse(content, filename=name)
     return path, sha256(content)
-
-
-def _tail(value: bytes | str | None, limit: int) -> tuple[str, bool]:
-    data = value.encode("utf-8") if isinstance(value, str) else value or b""
-    return data[-limit:].decode("utf-8", errors="replace"), len(data) > limit
 
 
 def run_script(
@@ -72,43 +66,25 @@ def run_script(
         return report
     report["script_sha256"] = digest
     try:
-        result = subprocess.run(
+        result = run_captured(
             [str(interpreter), str(path), *args],
             cwd=path.parent,
-            stdin=subprocess.DEVNULL,
-            capture_output=True,
             timeout=timeout,
-            check=False,
-            creationflags=subprocess.CREATE_NO_WINDOW if os.name == "nt" else 0,
         )
-        code, stdout, stderr = result.returncode, result.stdout, result.stderr
-        status = "completed" if code == 0 else "failed"
-    except subprocess.TimeoutExpired as exc:
-        code, stdout, stderr = 124, exc.stdout or b"", exc.stderr or b""
-        status = "timed_out"
-    except OSError as exc:
+    except StartError as exc:
         report.update(returncode=126, stdout="", stderr=str(exc), status="start_failed")
         return report
-    output, output_truncated = _tail(stdout, 8000)
-    errors, errors_truncated = _tail(stderr, 4000)
+    report.update(result)
     report.update(
-        returncode=code,
-        stdout=output,
-        stderr=errors,
-        stdout_truncated=output_truncated,
-        stderr_truncated=errors_truncated,
-        status=status,
         started=True,
         # Includes dry-run: an external flag is a request, not enforced isolation.
         side_effects_possible=True,
     )
-    if status in {"failed", "timed_out"}:
+    if report["status"] != "completed":
         report["next_action"] = (
-            "Inspect external outputs and its ledger before retrying; "
+            "Inspect capture diagnostics, external outputs, and its ledger before retrying; "
             "the adapter neither rolls back files nor proves publication success."
         )
-    if status == "timed_out":
-        report["termination_scope"] = "direct_child_only"
     return report
 
 
@@ -163,12 +139,35 @@ def inspect_pipeline(scrape: Path, python: Path) -> dict[str, Any]:
         {"name": "python", "ok": python.is_file(), "path": str(python.absolute())}
     )
     loras: set[str] | None = None
+    from workshop import snapshot
+
+    native = snapshot.is_native(scrape)
+    captured: dict[Path, bytes] = {}
+    snapshot_error: str | None = None
+    if native:
+        try:
+            captured = snapshot.capture(
+                scrape,
+                [
+                    scrape / name
+                    for name in (
+                        *sorted(SCRIPTS),
+                        "_lora_manifest.json",
+                        "_compatibility_matrix.json",
+                        "_bamb5.key",
+                    )
+                ],
+            )
+        except (OSError, ValueError, TypeError, KeyError) as exc:
+            snapshot_error = str(exc)
     for name in (*sorted(SCRIPTS), "_lora_manifest.json", "_compatibility_matrix.json"):
         check: dict[str, Any] = {"name": name, "ok": False}
         try:
             if workspace is None:
                 raise FileNotFoundError("Workshop scrape directory is unavailable")
-            content = workspace.read(name)
+            if snapshot_error is not None:
+                raise ValueError(snapshot_error)
+            content = captured[scrape / name] if native else workspace.read(name)
             check["sha256"] = sha256(content)
             if name in SCRIPTS:
                 ast.parse(content, filename=name)
@@ -182,19 +181,19 @@ def inspect_pipeline(scrape: Path, python: Path) -> dict[str, Any]:
         except (OSError, ValueError, TypeError, SyntaxError) as exc:
             check["error"] = str(exc)
         checks.append(check)
-    native = (scrape.parent / "_vigiles_workshop.json").exists()
     if native:
         from bamboozle import __version__
         from workshop.operations import pipeline_status
-        from workshop.operations import workspace as native_workspace
 
         check = {"name": "native_workshop", "ok": False, "version": __version__}
         try:
             state = pipeline_status(scrape.parent)
-            key = native_workspace(scrape.parent).read("scrape/_bamb5.key")
+            if snapshot_error is not None:
+                raise ValueError(snapshot_error)
+            key = captured[scrape / "_bamb5.key"]
             check["pending_operations"] = state["pending_operations"]
             check["key_valid_length"] = len(key) == 64
-            check["ok"] = not state["pending_operations"] and len(key) == 64
+            check["ok"] = state["readable"] and len(key) == 64
         except (OSError, ValueError, TypeError, KeyError) as exc:
             check["error"] = str(exc)
         checks.append(check)

@@ -6,19 +6,19 @@ import difflib
 import hashlib
 import json
 import logging
-import os
 import sys
-import tempfile
 from collections import defaultdict
 from pathlib import Path
 
 from cryptography.exceptions import InvalidTag
+from cryptography.hazmat.primitives.ciphers.aead import AESSIV
 
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
-from bamboozle.utils import read_bytes
-from workshop import config
+from bamboozle.utils import atomic_write, json_bytes, parse_json, read_bytes
+from workshop import config, snapshot
+from workshop.pipeline import _manifest, _matrix
 from workshop.scrape import alias_pass as ap
 from workshop.scrape import bamb5
 
@@ -37,11 +37,25 @@ def _fingerprint(*paths: Path) -> str:
     return h.hexdigest()[:16]
 
 
-def _atomic_write(path: Path, data: dict) -> None:
-    fd, tmp = tempfile.mkstemp(dir=path.parent, suffix=".tmp")
-    with os.fdopen(fd, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=1, ensure_ascii=False)
-    os.replace(tmp, path)
+def _inputs(manifest: Path, tax_path: Path) -> dict[Path, bytes]:
+    paths = [manifest, tax_path, _key_path(manifest)]
+    if snapshot.is_native(manifest.parent):
+        paths.append(manifest.parent / "_compatibility_matrix.json")
+    return snapshot.capture(manifest.parent, paths)
+
+
+def _key_path(manifest: Path) -> Path:
+    if snapshot.is_native(manifest.parent):
+        return manifest.parent / "_bamb5.key"
+    return bamb5.KEY_PATH
+
+
+def _content_fingerprint(content: dict[Path, bytes]) -> str:
+    digest = hashlib.sha256()
+    for path, raw in content.items():
+        digest.update(path.name.encode("utf-8"))
+        digest.update(hashlib.sha256(raw).digest())
+    return digest.hexdigest()[:16]
 
 
 class Index:
@@ -51,11 +65,16 @@ class Index:
         by_lora: dict[str, list[str]],
         tax: ap.Taxonomy,
         fp: str,
+        *,
+        cipher: AESSIV | None = None,
+        matrix: dict | None = None,
     ):
         self.by_canon = by_canon
         self.by_lora = by_lora
         self.tax = tax
         self.fp = fp
+        self._cipher = cipher
+        self.matrix = matrix
         self.by_cat: dict[str, list[str]] = defaultdict(list)
         for cn in sorted(set(by_canon) | set(tax.canon_cat)):
             self.by_cat[tax.canon_cat.get(cn, "uncategorized")].append(cn)
@@ -63,8 +82,22 @@ class Index:
     # ---------- build / persist ----------
     @classmethod
     def build(cls, manifest: Path = MANIFEST, tax_path: Path = ap.TAXONOMY) -> Index:
-        tax = ap.Taxonomy.load(tax_path)
-        rep = ap.run(ap.load_prod_triggers(manifest), tax)
+        return cls._build(manifest, tax_path, _inputs(manifest, tax_path))
+
+    @classmethod
+    def _build(
+        cls, manifest: Path, tax_path: Path, content: dict[Path, bytes]
+    ) -> Index:
+        tax = ap.Taxonomy.from_data(parse_json(content[tax_path]))
+        cipher = AESSIV(content[_key_path(manifest)])
+        data = parse_json(content[manifest])
+        matrix_path = manifest.parent / "_compatibility_matrix.json"
+        matrix = parse_json(content[matrix_path]) if matrix_path in content else None
+        if matrix is not None:
+            _matrix(matrix, _manifest(data))
+        rep = ap.run(
+            ap.prod_triggers(data, include_tags=matrix is not None), tax, cipher=cipher
+        )
         if rep.decode_errors:
             raise ValueError(
                 "Manifest contains undecodable triggers; restore the correct key before rebuilding"
@@ -78,23 +111,28 @@ class Index:
             {k: sorted(v) for k, v in by_canon.items()},
             by_lora,
             tax,
-            _fingerprint(manifest, tax_path, bamb5.KEY_PATH),
+            _content_fingerprint(content),
+            cipher=cipher,
+            matrix=matrix,
         )
 
     def save(self, path: Path = INDEX) -> None:
-        c = bamb5._cipher()
+        c = self._cipher or bamb5._cipher()
         e = lambda s: bamb5.encode(s, c)
-        _atomic_write(
+        atomic_write(
             path,
-            {
-                "version": VERSION,
-                "fingerprint": self.fp,
-                "built": datetime.datetime.now(datetime.UTC).isoformat(
-                    timespec="seconds"
-                ),
-                "by_canon": {e(k): v for k, v in self.by_canon.items()},
-                "by_lora": {k: [e(x) for x in v] for k, v in self.by_lora.items()},
-            },
+            json_bytes(
+                {
+                    "version": VERSION,
+                    "fingerprint": self.fp,
+                    "built": datetime.datetime.now(datetime.UTC).isoformat(
+                        timespec="seconds"
+                    ),
+                    "by_canon": {e(k): v for k, v in self.by_canon.items()},
+                    "by_lora": {k: [e(x) for x in v] for k, v in self.by_lora.items()},
+                }
+            ),
+            overwrite=True,
         )
 
     @classmethod
@@ -104,19 +142,28 @@ class Index:
         tax_path: Path = ap.TAXONOMY,
         path: Path = INDEX,
         force: bool = False,
+        *,
+        content: dict[Path, bytes] | None = None,
     ) -> Index:
-        fp = _fingerprint(manifest, tax_path, bamb5.KEY_PATH)
+        content = _inputs(manifest, tax_path) if content is None else content
+        fp = _content_fingerprint(content)
+        matrix_path = manifest.parent / "_compatibility_matrix.json"
+        matrix = parse_json(content[matrix_path]) if matrix_path in content else None
+        if matrix is not None:
+            _matrix(matrix, _manifest(parse_json(content[manifest])))
+        cipher = AESSIV(content[_key_path(manifest)])
         if not force and path.exists():
             try:
-                raw = json.loads(path.read_text(encoding="utf-8"))
+                raw = parse_json(read_bytes(path))
                 if raw.get("version") == VERSION and raw.get("fingerprint") == fp:
-                    c = bamb5._cipher()
-                    d = lambda s: bamb5.decode(s, c)
+                    d = lambda s: bamb5.decode(s, cipher)
                     return cls(
                         {d(k): v for k, v in raw["by_canon"].items()},
                         {k: [d(x) for x in v] for k, v in raw["by_lora"].items()},
-                        ap.Taxonomy.load(tax_path),
+                        ap.Taxonomy.from_data(parse_json(content[tax_path])),
                         fp,
+                        cipher=cipher,
+                        matrix=matrix,
                     )
             except (
                 OSError,
@@ -129,7 +176,7 @@ class Index:
                 logger.warning(
                     "Rebuilding lookup index %s after cache read failed: %s", path, exc
                 )
-        idx = cls.build(manifest, tax_path)
+        idx = cls._build(manifest, tax_path, content)
         idx.save(path)
         return idx
 
@@ -137,7 +184,7 @@ class Index:
 
     def _canon(self, q: str) -> str | None:
         try:
-            plain = bamb5.decode(q)
+            plain = bamb5.decode(q, self._cipher)
         except (InvalidTag, ValueError):
             return None
         return self.tax.resolve(plain)
@@ -174,7 +221,7 @@ class Index:
         }
 
     def suggest(self, term: str, n: int = 8) -> list[dict]:
-        q = ap.normalize(bamb5.decode(term)) if term else ""
+        q = ap.normalize(bamb5.decode(term, self._cipher)) if term else ""
         pool = list(self.tax.alias_to_canon) + list(self.by_canon)
         hits = difflib.get_close_matches(q, list(dict.fromkeys(pool)), n=n, cutoff=0.6)
         seen, out = set(), []

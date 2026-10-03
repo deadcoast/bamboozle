@@ -14,6 +14,7 @@ from workshop import examples
 from workshop import operations as ops
 from workshop.bootstrap import initialize
 from workshop.pipeline import inspect_pipeline, run_script
+from workshop.snapshot import capture
 
 
 def snapshot(root: Path) -> dict[str, str]:
@@ -78,6 +79,16 @@ def qualify(root: Path) -> dict:
     assert operation_id, "Fault injection did not produce a pending operation"
     assert ops.pipeline_status(root)["status"] == "recovery_required"
     before = snapshot(root)
+    blocked_reads = []
+    for name in (ops.MANIFEST, ops.MATRIX, ops.LEDGER):
+        path = root / name
+        try:
+            capture(root / "scrape", [path])
+        except ValueError as exc:
+            assert "pending" in str(exc)
+            blocked_reads.append(name)
+    assert len(blocked_reads) == 3, "Incomplete native state was exposed to a reader"
+    assert snapshot(root) == before, "Rejected reads mutated the workshop"
     run("promote.py", "--recover", operation_id, "--dry-run")
     assert snapshot(root) == before, "Recovery preview mutated the workspace"
     run("promote.py", "--recover", operation_id)
@@ -105,10 +116,13 @@ def qualify(root: Path) -> dict:
     assert ops.pipeline_status(root)["pending_operations"] == []
     readiness = inspect_pipeline(root / "scrape", Path(sys.executable))
     assert readiness["ok"]
+    capture(root / "scrape", [root / ops.MANIFEST, root / ops.MATRIX])
     return {
         "status": "passed",
         "checks": checks,
         "controlled_failure_recovered": operation_id,
+        "pending_read_rejections": blocked_reads,
+        "completed_snapshot_after_recovery": True,
         "manifest": manifest,
         "matrix": matrix,
         "readiness": readiness,
