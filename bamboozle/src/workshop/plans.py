@@ -82,6 +82,7 @@ def _load(
         raise ValueError("Prepared plan has unexpected control writes")
     if not (ops.CONTROLS - required) <= plan["inputs"].keys():
         raise ValueError("Prepared plan is missing control preconditions")
+    ops._validate_plan(ws, plan, plan_id)
     return plan, raw
 
 
@@ -252,6 +253,8 @@ def check_recovery(
     ws: Workspace, plan_id: str, raw: bytes, plan: dict[str, Any]
 ) -> None:
     """Prepared operations recover only from the retained reviewed bytes."""
+    if _path(ws, plan_id, cancelled=True).exists():
+        raise ValueError("Conflicting cancellation marker and operation journal")
     path = _path(ws, plan_id)
     if "prepared_for" in plan or path.exists():
         _, prepared = _load(ws, plan_id)

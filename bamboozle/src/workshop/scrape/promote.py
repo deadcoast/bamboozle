@@ -16,6 +16,7 @@ def main(argv: list[str] | None = None, *, root: Path | None = None) -> int:
     actions.add_argument("--candidate")
     actions.add_argument("--quarantine")
     actions.add_argument("--recover")
+    actions.add_argument("--diagnose-recovery", metavar="OPERATION_ID")
     actions.add_argument("--status", action="store_true")
     actions.add_argument("--prepare-candidate")
     actions.add_argument("--prepare-quarantine")
@@ -47,12 +48,15 @@ def main(argv: list[str] | None = None, *, root: Path | None = None) -> int:
         or args.cancel_plan
         or args.status
         or args.list_plans
+        or args.diagnose_recovery
     ):
         parser.error(
             "--dry-run applies only to direct operations, recovery, or --apply-plan"
         )
     try:
-        if args.list_plans:
+        if args.diagnose_recovery:
+            result = operations.diagnose_recovery(args.root, args.diagnose_recovery)
+        elif args.list_plans:
             result = inventory.list_plans(
                 args.root,
                 limit=5 if args.limit is None else args.limit,

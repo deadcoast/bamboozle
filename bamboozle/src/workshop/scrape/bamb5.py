@@ -234,6 +234,12 @@ def recover_pipeline(operation_id: str, dry_run: bool = True) -> dict:
     )
 
 
+@mcp.tool(annotations={"readOnlyHint": True})
+def diagnose_recovery(operation_id: str) -> dict:
+    """Native: explain recovery evidence and all control/asset conflicts without writes."""
+    return _run("promote.py", "--diagnose-recovery", operation_id)
+
+
 @mcp.tool()
 def ledger_tail(n: int = 25) -> list[dict]:
     """Return the last n rows of _lora_ledger.csv."""

@@ -234,14 +234,10 @@ def _plan(
     return plan
 
 
-def _check_plan(
-    ws: Workspace,
-    plan: dict[str, Any],
-    operation_id: str,
-    *,
-    fresh: bool = False,
-    verify_asset: bool = True,
-) -> None:
+def _validate_plan(
+    ws: Workspace, plan: dict[str, Any], operation_id: str
+) -> list[tuple[str, bytes, bytes]]:
+    """Validate retained structure without consulting current publication state."""
     if (
         plan.get("kind") != "vigiles.workshop.operation"
         or type(plan.get("schema_version")) is not int
@@ -258,22 +254,71 @@ def _check_plan(
         )
     ):
         raise ValueError("Unsupported workshop operation journal")
-    for name, digest in plan["inputs"].items():
-        if sha256(ws.read(name)) != digest:
-            raise ValueError(f"Operation input changed: {name}")
-    paths = [item["path"] for item in plan["writes"]]
-    if len(paths) != len(set(paths)) or not set(paths) <= CONTROLS:
+    required = {LEDGER, STATUS, MATRIX if plan["action"] == "audit" else MANIFEST}
+    if plan["action"] == "quarantine":
+        required.add(MATRIX)
+    paths = [item.get("path") for item in plan["writes"]]
+    if (
+        any(not isinstance(path, str) for path in paths)
+        or len(paths) != len(required)
+        or set(paths) != required
+    ):
         raise ValueError("Journal contains unsupported control-file destinations")
+    if (
+        len(plan["inputs"]) > 16
+        or not (CONTROLS - required) <= plan["inputs"].keys()
+        or required & plan["inputs"].keys()
+        or any(
+            not isinstance(name, str)
+            or not name
+            or not isinstance(digest, str)
+            or re.fullmatch(r"[0-9a-f]{64}", digest) is None
+            for name, digest in plan["inputs"].items()
+        )
+    ):
+        raise ValueError("Journal contains invalid input preconditions")
+    decoded = []
     for item in plan["writes"]:
+        if any(
+            not isinstance(item.get(key), str)
+            for key in ("before", "before_content", "after")
+        ):
+            raise ValueError("Journal contains invalid control images")
         before = base64.b64decode(item["before_content"], validate=True)
         if sha256(before) != item["before"]:
             raise ValueError("Journal before-image digest does not match")
         after = base64.b64decode(item["after"], validate=True)
-        if len(after) > ws.max_bytes:
+        if max(len(before), len(after)) > ws.max_bytes:
             raise ValueError("Journal metadata exceeds its file limit")
-        allowed = {item["before"]} if fresh else {item["before"], sha256(after)}
-        if sha256(ws.read(item["path"])) not in allowed:
-            raise ValueError(f"Control file changed: {item['path']}")
+        decoded.append((item["path"], before, after))
+    asset = plan["asset"]
+    if asset is not None and (
+        any(
+            not isinstance(asset.get(key), str) or not asset[key]
+            for key in ("source", "destination", "sha256")
+        )
+        or re.fullmatch(r"[0-9a-f]{64}", asset["sha256"]) is None
+    ):
+        raise ValueError("Journal contains invalid asset fields")
+    return decoded
+
+
+def _check_plan(
+    ws: Workspace,
+    plan: dict[str, Any],
+    operation_id: str,
+    *,
+    fresh: bool = False,
+    verify_asset: bool = True,
+) -> None:
+    decoded = _validate_plan(ws, plan, operation_id)
+    for name, digest in plan["inputs"].items():
+        if sha256(ws.read(name)) != digest:
+            raise ValueError(f"Operation input changed: {name}")
+    for name, before, after in decoded:
+        allowed = {sha256(before)} if fresh else {sha256(before), sha256(after)}
+        if sha256(ws.read(name)) not in allowed:
+            raise ValueError(f"Control file changed: {name}")
     asset = plan["asset"]
     if asset:
         source = _inside(
@@ -524,6 +569,7 @@ def recover(root: Path, operation_id: str, *, dry_run: bool = True) -> dict[str,
     plan = parse_json(raw)
     if not isinstance(plan, dict):
         raise TypeError("Unsupported workshop operation journal")
+    _validate_plan(ws, plan, operation_id)
     from workshop.plans import check_recovery
 
     check_recovery(ws, operation_id, raw, plan)
@@ -544,6 +590,13 @@ def recover(root: Path, operation_id: str, *, dry_run: bool = True) -> dict[str,
                 "Unexpected additional pending operation; inspect journals"
             )
         return _finish(ws, plan)
+
+
+def diagnose_recovery(root: Path, operation_id: str) -> dict[str, Any]:
+    """Inspect a selected journal without locks, writes, retries, or recovery."""
+    from workshop.recovery import diagnose
+
+    return diagnose(root, operation_id)
 
 
 def pipeline_status(root: Path) -> dict[str, Any]:
