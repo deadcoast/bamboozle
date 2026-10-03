@@ -195,9 +195,119 @@ BAMb5 tokens retain their existing deterministic AES-SIV format and separate key
 they are not Tessera packets. Explicit forced BAMb5 key rotation first preserves a
 content-addressed backup. Rotation does not migrate old encrypted manifests.
 
-The LoRA promotion/quarantine pipeline and its external audit script are not
-shipped here. Their adapter returns `status: unavailable` when dependencies are
-absent. No live ComfyUI promotion, quarantine, or scheduled job has been qualified.
+The native pipeline is shipped in `workshop.scrape.promote` and
+`workshop.scrape.audit_matrix`. Initialize a **new or empty** workshop to install
+entry-point scripts, empty manifest/matrix, taxonomy, and a local BAMb5 key:
+
+```powershell
+uv run --locked vigiles workshop-init --workshop "D:/your-new-workshop"
+```
+
+Initialization refuses existing contents. External pipelines remain supported;
+their adapter returns `status: unavailable` when dependencies are absent.
+
+Before connecting an external pipeline, run the read-only dependency check:
+
+```powershell
+uv run --locked vigiles workshop-check --workshop "D:/your-workshop"
+```
+
+Omit `--workshop` to inspect `VIGILES_WORKSHOP_ROOT` or its default. Optional
+`--python` selects the interpreter to inspect. This command does not create the
+workshop, execute/import its scripts, or write an index. It checks the interpreter
+file, Python syntax and hashes of `scrape/promote.py` and `scrape/audit_matrix.py`,
+the `loras` manifest shape, and distinct sorted `A|B` matrix pairs referencing
+existing IDs. Missing files, invalid fields, duplicate JSON keys, and non-finite
+JSON values produce `needs_attention` and exit code `3`. Passing inspection yields
+`ready_for_review`, never deployment qualification.
+
+Both workshop MCP interfaces expose the same read-only `pipeline_readiness` tool
+and share `workshop.pipeline.run_script`. Existing script flags are preserved:
+promotion defaults to `--dry-run`, quarantine passes `--quarantine/--reason`, and
+audit optionally passes `--prune`. The adapter uses explicit arguments and no shell,
+records the script digest, and never retries a failed operation automatically.
+It distinguishes `completed`, `failed`, `timed_out`, `start_failed`, and `unavailable`.
+An executed script may have side effects even with `--dry-run` or a nonzero exit.
+Timeout reports preserve captured progress and partial files for inspection.
+Timeout termination covers the direct child only; external process trees and
+resource isolation belong to host qualification. Returned stdout/stderr tails are
+limited to 8,000/4,000 bytes; subprocess capture itself is not a hard memory limit.
+
+The subprocess fixtures in `src/workshop/mcp/tests/fixtures` exercise the adapter
+contract, including interrupted publication and explicit fixture recovery. They
+are synthetic, are excluded from the wheel, and do not implement or qualify LoRA
+promotion. `VIGILES_PIPELINE_READINESS.json` records the checked local dependencies.
+
+## Native pipeline
+
+Source authority is `src/workshop/scrape/promote.py` and
+`src/workshop/scrape/audit_matrix.py`, sharing `src/workshop/operations.py`.
+Generated scripts in the workshop's `scrape` directory call the installed modules
+with an explicit root. Native readiness also checks key length and pending journals.
+
+Put artifacts and metadata under `candidates`. Candidate JSON requires
+`schema_version: 1`, `id`, `artifact` (a workshop-relative `.safetensors` or `.bin`
+path), `sha256`, `validation` (a workshop-relative JSON path), and `base_model`.
+Optional `triggers`, `trained_words`, `tags`, and `categories` are string lists.
+IDs allow 1–64 letters, digits, underscores, and hyphens, starting with a letter
+or digit. The generated example candidate files demonstrate the complete schema.
+
+After actual evaluation, the validation record must declare `passed: true`, the
+matching `artifact_sha256`, and `kind: "external_evaluation"`. Synthetic examples
+use `kind: "fixture"`. These records describe operator-supplied evidence; the file
+pipeline does not evaluate tensors or authenticate the record's author. Operations
+keep `model_qualified: false`.
+
+```powershell
+$env:VIGILES_WORKSHOP_ROOT = "D:/your-new-workshop"
+uv run --locked python -m workshop.scrape.promote --candidate "candidates/MyLoRA.json" --dry-run
+uv run --locked python -m workshop.scrape.promote --candidate "candidates/MyLoRA.json"
+uv run --locked python -m workshop.scrape.audit_matrix
+uv run --locked python -m workshop.scrape.audit_matrix --prune --apply
+uv run --locked python -m workshop.scrape.promote --quarantine MyLoRA --reason "review required" --dry-run
+uv run --locked python -m workshop.scrape.promote --quarantine MyLoRA --reason "review required"
+uv run --locked python -m workshop.scrape.promote --status
+```
+
+Promotion verifies copied bytes and preserves candidates. Existing IDs and outputs
+are refused. Quarantine verifies a separate copy, removes the active manifest entry
+and matrix pairs, then removes the matching production copy. Before-images retain
+removed metadata. Assets are streamed with an 8 GiB cap; metadata and each journal
+retain the 16 MiB limit.
+
+Audit is read-only unless `--apply` is supplied. It refreshes overlap, including
+zero overlap, using the workshop taxonomy/key; existing scores and notes survive.
+New overlap pairs are labeled `untested`. `--prune` selects dangling pairs for
+removal, never models. Undecodable triggers prevent publication. Native audit
+limits inputs to 1,000 active LoRAs and 50,000 existing pairs.
+
+An OS file lock excludes other native writers. Multi-file publication can be
+interrupted; readers should check `pipeline_status` before consuming such a
+workshop. Journals retain input hashes and before/after metadata. Completion
+markers bind to journal digests, and pending operations block subsequent writes:
+
+```powershell
+uv run --locked python -m workshop.scrape.promote --recover <operation-id> --dry-run
+uv run --locked python -m workshop.scrape.promote --recover <operation-id>
+```
+
+Recovery resumes matching states without duplicate ledger rows and refuses
+unrelated changes. There is no automatic rollback. Both workshop MCP interfaces
+expose `recover_pipeline`, `quarantine_lora(..., dry_run=True)`, and
+`run_audit(..., apply=True)`. Promotion defaults to preview; the existing quarantine
+tool retains its explicit-action default, so request `dry_run=True` for a preview.
+
+Reproduce qualification with explicitly synthetic byte assets in a new directory:
+
+```powershell
+uv run --locked python scripts/qualify_pipeline.py --workshop ".vigiles/new-qualification" --report "new-qualification.json"
+```
+
+The qualifier refuses existing workshop contents/report paths, exercises the actual
+scripts, injects a controlled ledger failure, and recovers through the CLI. This
+checkout's recorded target is `.vigiles/workshop`. See
+`VIGILES_PIPELINE_QUALIFICATION.json` for representative manifest/matrix data and
+execution evidence. Fixture success does not establish live LoRA/ComfyUI acceptance.
 
 ## Development and verification
 
@@ -216,6 +326,7 @@ files, and isolated wheel environment on another volume:
 
 ```powershell
 $env:UV_CACHE_DIR = "E:/codex-temp/vigiles/uv-cache"
+$env:MYPY_CACHE_DIR = "E:/codex-temp/vigiles/mypy-cache"
 $env:TEMP = "E:/codex-temp/vigiles/tmp"
 New-Item -ItemType Directory -Force $env:TEMP | Out-Null
 $env:TMP = $env:TEMP

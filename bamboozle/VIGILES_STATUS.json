@@ -1,25 +1,31 @@
 {
   "schema_version": 1,
   "project": "Bamboozle / MIVIM Vigiles",
-  "release": "0.2.0",
+  "release": "0.3.0",
   "recorded_on": "2026-10-02",
   "authority": ".mivim/mivim.vigiles.md",
-  "reviewed_base_commit": "79cedeb9414788053a363845c36f54e7684470b2",
-  "scope": "Local application framework, CLI, stdio MCP, workshop adapters, packaging, and verification.",
+  "reviewed_base_commit": "87deae4f00b536ac05aba66b852ffd368fa4949a",
+  "scope": "Local application framework, native journaled promotion/quarantine/audit pipeline, CLI/MCP, workshop initialization, packaging, and fixture qualification.",
   "completion": {
-    "implementation": "complete_for_defined_0.2.0_local_scope",
+    "implementation": "complete_for_defined_0.3.0_local_scope",
     "local_source_qualification": "passed",
     "local_installed_package_qualification": "passed",
     "global_project_completion": false,
     "remote_ci": "configured_not_executed",
-    "external_pipeline": "not_qualified",
-    "deployment": "not_performed"
+    "external_pipeline": "optional_external_integrations_not_qualified",
+    "deployment": "local_synthetic_workshop_only",
+    "native_pipeline": "implemented_fixture_qualified"
   },
   "current_evidence": {
     "execution_record": "VIGILES_VERIFICATION.json",
-    "execution_record_created": "2026-10-02T22:07:00.984248+00:00",
-    "tests": {"passed": 97, "failed": 0, "errors": 0, "skipped": 0},
-    "final_review": "All recorded source and package hashes match. Wheel and source archive contain no keys, lookup cache, interpreter state, or bytecode. git diff --check and the local doctor command pass.",
+    "execution_record_created": "2026-10-02T23:37:54.152980+00:00",
+    "tests": {
+      "passed": 143,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "final_review": "All 143 tests and eleven verification steps pass. Source/artifact hashes match. The wheel contains the native pipeline modules and excludes tests, fixture scripts, and keys. Retained qualification-workshop file hashes match the nine-call native qualification record.",
     "authority": "Use the execution record's status, step return codes, test totals, source digests, and artifact digests. Do not infer remote qualification from local results.",
     "checks": [
       "Ruff lint",
@@ -31,15 +37,43 @@
       "wheel and sdist build",
       "locked dependency export",
       "isolated wheel install",
-      "installed CLI and MCP stdio smoke"
+      "installed CLI and MCP stdio smoke",
+      "Installed read-only workshop readiness check",
+      "Installed native promotion, audit, and quarantine scripts"
     ],
-    "environment": "Windows, CPython 3.13.9; test fixtures on C:, package scratch/runtime on E:.",
+    "environment": "Windows CPython 3.13.9; native qualification and test fixtures on C:; dependency/type-check caches and installed-wheel runtime on E:.",
     "portable_test_command": "uv run --locked python scripts/verify.py --package",
     "scratch_directory": "E:/codex-temp/bamboozle-vigiles-3ca3f44ce40f490c836e976c5fa68d64",
     "package_paths": [
-      "dist/bamboozle-0.2.0-py3-none-any.whl",
-      "dist/bamboozle-0.2.0.tar.gz"
-    ]
+      "dist/bamboozle-0.3.0-py3-none-any.whl",
+      "dist/bamboozle-0.3.0.tar.gz"
+    ],
+    "previous_framework_record": "VIGILES_VERIFICATION.framework-0.2.0.json",
+    "readiness_record": "VIGILES_PIPELINE_READINESS.json",
+    "workshop_mcp_readiness": {
+      "transport": "in_process",
+      "interfaces": [
+        "workshop.mcp.workshop_mcp",
+        "workshop.scrape.bamb5"
+      ],
+      "result": "passed_native_readiness_and_completed_recovery_calls",
+      "readiness_status": "ready_for_review",
+      "production_model_qualified": false
+    },
+    "previous_adapter_record": "VIGILES_VERIFICATION.adapter-0.2.1.json",
+    "previous_missing_dependencies_record": "VIGILES_PIPELINE_READINESS.external-missing.json",
+    "native_qualification_record": "VIGILES_PIPELINE_QUALIFICATION.json",
+    "native_pipeline_qualification": {
+      "status": "passed",
+      "script_calls": 9,
+      "controlled_failure_recovered": true,
+      "active_synthetic_candidates": [
+        "ExampleA",
+        "ExampleB"
+      ],
+      "quarantined_synthetic_candidate": "ExampleC",
+      "production_model_qualified": false
+    }
   },
   "closed_findings": [
     {
@@ -157,6 +191,47 @@
         "uv.lock",
         "../.github/workflows/vigiles.yml"
       ]
+    },
+    {
+      "id": "VIG-FIX-010",
+      "priority": "P1",
+      "status": "implemented_verified",
+      "finding": "Duplicated workshop runners raised unstructured timeout/start errors, had no dependency preflight, and resolved venv interpreter symlinks to base Python.",
+      "resolution": "Shared script adapter, non-executing readiness checks, script digests, failure/timeout reporting, preserved interpreter paths, and isolated subprocess contract tests.",
+      "limitation": "Authoritative LoRA promotion, quarantine, audit, and recovery qualification remains VIG-DEPLOY-01.",
+      "evidence": [
+        "src/workshop/pipeline.py",
+        "src/workshop/config.py",
+        "src/workshop/mcp/tests/test_pipeline.py",
+        "scripts/package_smoke.py",
+        "VIGILES_PIPELINE_READINESS.json"
+      ]
+    },
+    {
+      "id": "VIG-FIX-011",
+      "priority": "P0",
+      "status": "implemented_verified",
+      "finding": "The authoritative promotion/quarantine/audit implementation and operational workshop were absent; the archived promote.py was only a metadata helper.",
+      "resolution": "Repository-native implementations, initialization, representative candidates/manifest/matrix, and a persistent synthetic qualification workshop now exist.",
+      "evidence": [
+        "src/workshop/operations.py",
+        "src/workshop/bootstrap.py",
+        "src/workshop/scrape/promote.py",
+        "src/workshop/scrape/audit_matrix.py",
+        "VIGILES_PIPELINE_QUALIFICATION.json"
+      ]
+    },
+    {
+      "id": "VIG-FIX-012",
+      "priority": "P0",
+      "status": "implemented_verified",
+      "finding": "Multi-file pipeline writes needed recoverable partial-publication semantics and protection against stale plans.",
+      "resolution": "OS file locking, pre-write journals with before-images, content-state checks, verified copy-before-removal quarantine, explicit recovery, and digest-bound completion records.",
+      "evidence": [
+        "src/workshop/operations.py",
+        "src/workshop/tests/test_operations.py",
+        "scripts/qualify_pipeline.py"
+      ]
     }
   ],
   "retained_failures": [
@@ -172,25 +247,47 @@
       "failure": "The first alternate-volume run exposed unsupported hard links and unsupported junction fixtures; 31 tests failed and 64 passed.",
       "remediation": "Replaced Windows hard-link publication with exclusive rename. Kept link-confinement fixtures on C: and package runtime on E:.",
       "evidence_rule": "Retained failed execution history is not a current passing result."
+    },
+    {
+      "record": "VIGILES_VERIFICATION.failed-pipeline-20261002.json",
+      "failure": "Final verification found Ruff ISC004 in the newly added interpreter regression probe; package qualification was correctly not attempted.",
+      "unaffected_evidence": "120 tests, Mypy, Pyright, formatting, and compilation passed.",
+      "remediation": "Made the intentional multiline probe string concatenation explicit and reran the complete verification including package installation."
+    },
+    {
+      "record": "VIGILES_VERIFICATION.failed-native-disk-20261002.json",
+      "failure": "The 0.3.0 full run encountered C: disk exhaustion (OS error 28) and a Mypy internal error. Pytest recorded 129 passes, 4 failures, and 10 setup errors; packaging was not attempted.",
+      "remediation": "Preserved the 113 MB repository Mypy cache on E: and set MYPY_CACHE_DIR there for the retry. Logs and failed tests remain retained. No source or qualification assets were deleted.",
+      "cache_preservation": "E:/codex-temp/bamboozle-vigiles-3ca3f44ce40f490c836e976c5fa68d64/preserved-mypy-cache-20261002"
     }
   ],
   "open_gates": [
     {
       "id": "VIG-DEPLOY-01",
       "priority": "P1",
-      "status": "open",
+      "status": "native_fixture_qualified_live_acceptance_open",
       "owner_role": "Workshop integration owner",
-      "impact": "No qualified live LoRA promotion, quarantine, or external audit execution.",
+      "impact": "Native file operations are locally qualified with synthetic assets; no live LoRA or ComfyUI acceptance is claimed.",
       "dependencies": [
-        "Authoritative promote/audit scripts",
-        "Representative manifest and matrix fixtures",
-        "Operator-selected target workspace"
+        "Real candidate and completed evaluation evidence",
+        "Operator-selected production workshop",
+        "Live consumer acceptance criteria"
       ],
-      "next_action": "Supply pipeline implementations and exercise adapter dry-runs and failed-publication recovery in an isolated workspace.",
+      "next_action": "Evaluate a real candidate, retain its validation evidence, select a production workshop, and exercise dry-run plus explicit publication/consumer acceptance there.",
       "done_criteria": [
-        "Passing integration fixtures for promote, quarantine, and audit",
-        "Recovery demonstrated before live writes",
-        "Explicitly recorded deployment evidence"
+        "Native promotion, quarantine, and audit fixtures pass (complete)",
+        "Interrupted publication recovery demonstrated before live writes (complete)",
+        "Real candidate accepted in an operator-selected production workspace (open)"
+      ],
+      "completed_stage": "Native implementations, representative workspace, dry-run verification, and failure recovery are supplied and locally qualified.",
+      "remaining_dependency": "Production model evaluation and live target selection remain separate from fixture qualification.",
+      "evidence": [
+        "src/workshop/scrape/promote.py",
+        "src/workshop/scrape/audit_matrix.py",
+        "src/workshop/tests/test_operations.py",
+        "VIGILES_PIPELINE_QUALIFICATION.json",
+        "VIGILES_PIPELINE_READINESS.json",
+        "VIGILES_VERIFICATION.json"
       ]
     },
     {
@@ -274,8 +371,35 @@
   ],
   "delivery_boundaries": [
     "No commit, push, external MCP client registration, or remote deployment performed.",
-    "No live model/pipeline execution, automatic quarantine, process termination, or startup service installation performed.",
+    "Only explicitly labeled synthetic assets were promoted/quarantined in the local qualification workspace. No live model execution, automatic quarantine, process termination policy, or startup service installation was performed.",
     "Unkeyed ledgers and local audit baselines establish consistency, not independent authenticity.",
     "Historical design documents are not runtime guarantees."
-  ]
+  ],
+  "active_step": {
+    "gate": "VIG-DEPLOY-01",
+    "stage": "native_pipeline_delivery",
+    "status": "complete_for_implementation_and_fixture_qualification",
+    "authority": "User explicitly selected: Implement the pipeline here.",
+    "source_authority": [
+      "src/workshop/scrape/promote.py",
+      "src/workshop/scrape/audit_matrix.py",
+      "src/workshop/operations.py"
+    ],
+    "target_workshop": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.vigiles\\workshop",
+    "target_kind": "synthetic_qualification_only",
+    "representative_manifest": ".vigiles/workshop/scrape/_lora_manifest.json",
+    "representative_matrix": ".vigiles/workshop/scrape/_compatibility_matrix.json",
+    "qualification_record": "VIGILES_PIPELINE_QUALIFICATION.json",
+    "readiness_record": "VIGILES_PIPELINE_READINESS.json",
+    "completed_work": [
+      "Native initialization supplies runnable scripts, manifest/matrix, taxonomy, local key, and managed asset directories.",
+      "Promotion verifies candidate bytes and digest-bound validation records, preserving source candidates.",
+      "Quarantine verifies a copy before removing an owned production file; before-images retain removed metadata.",
+      "OS file locks, stale-state checks, persistent journals, explicit resumable recovery, and completion digests protect native publication.",
+      "Audit refreshes canonical overlap including zero, preserves scores and notes, prunes dangling pairs only explicitly, and fails on undecodable triggers.",
+      "Actual scripts passed synthetic promotion, audit, quarantine, and post-copy failure recovery through the adapter and CLI."
+    ],
+    "remaining_boundary": "No real LoRA tensors, generation quality, live ComfyUI integration, or production host has been accepted.",
+    "next_action": "Evaluate a real candidate, retain its validation evidence, select a production workshop, and exercise dry-run plus explicit publication/consumer acceptance there."
+  }
 }

@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "created": "2026-10-02T22:28:14.661305+00:00",
+  "status": "failed",
+  "python": "3.13.9 (main, Oct 14 2025, 21:22:32) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "package_requested": true,
+  "tests": {
+    "tests": 120,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "steps": [
+    {
+      "name": "ruff",
+      "command": [
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "check",
+        "."
+      ],
+      "returncode": 1,
+      "seconds": 0.094,
+      "log": "E:\\codex-temp\\bamboozle-vigiles-3ca3f44ce40f490c836e976c5fa68d64\\checks\\verify-o_k4uyec\\ruff.log",
+      "output": "ISC004 Unparenthesized implicit string concatenation in collection\n   --> src\\workshop\\mcp\\tests\\test_pipeline.py:185:13\n    |\n183 |               sys.executable,\n184 |               \"-c\",\n185 | /             \"import json\\nfrom pathlib import Path\\nfrom workshop import config\\n\"\n186 | |             \"from workshop.pipeline import run_script\\n\"\n187 | |             \"print(json.dumps(run_script(Path.cwd(), config.PYTHON, 'promote.py')))\",\n    | |____________________________________________________________________________________^\n188 |           ],\n189 |           cwd=pipeline,\n    |\nhelp: Did you forget a comma?\nhelp: Wrap implicitly concatenated strings in parentheses\n\nFound 1 error.\nNo fixes available (1 hidden fix can be enabled with the `--unsafe-fixes` option).\n"
+    },
+    {
+      "name": "format",
+      "command": [
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "src",
+        "scripts"
+      ],
+      "returncode": 0,
+      "seconds": 0.077,
+      "log": "E:\\codex-temp\\bamboozle-vigiles-3ca3f44ce40f490c836e976c5fa68d64\\checks\\verify-o_k4uyec\\format.log",
+      "output": "40 files already formatted\n"
+    },
+    {
+      "name": "mypy",
+      "command": [
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.venv\\Scripts\\python.exe",
+        "-m",
+        "mypy",
+        "src",
+        "scripts"
+      ],
+      "returncode": 0,
+      "seconds": 0.668,
+      "log": "E:\\codex-temp\\bamboozle-vigiles-3ca3f44ce40f490c836e976c5fa68d64\\checks\\verify-o_k4uyec\\mypy.log",
+      "output": "Success: no issues found in 40 source files\n"
+    },
+    {
+      "name": "pyright",
+      "command": [
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pyright",
+        "src",
+        "scripts"
+      ],
+      "returncode": 0,
+      "seconds": 2.25,
+      "log": "E:\\codex-temp\\bamboozle-vigiles-3ca3f44ce40f490c836e976c5fa68d64\\checks\\verify-o_k4uyec\\pyright.log",
+      "output": "0 errors, 0 warnings, 0 informations\n"
+    },
+    {
+      "name": "pytest",
+      "command": [
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "-q",
+        "--tb=short",
+        "-p",
+        "no:cacheprovider",
+        "--basetemp",
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-fixtures-fkhat4hb\\pytest",
+        "--junitxml",
+        "E:\\codex-temp\\bamboozle-vigiles-3ca3f44ce40f490c836e976c5fa68d64\\checks\\verify-o_k4uyec\\pytest.xml"
+      ],
+      "returncode": 0,
+      "seconds": 6.687,
+      "log": "E:\\codex-temp\\bamboozle-vigiles-3ca3f44ce40f490c836e976c5fa68d64\\checks\\verify-o_k4uyec\\pytest.log",
+      "output": "........................................................................ [ 60%]\n................................................                         [100%]\n120 passed in 6.30s\n"
+    },
+    {
+      "name": "compile",
+      "command": [
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.venv\\Scripts\\python.exe",
+        "-m",
+        "compileall",
+        "-q",
+        "src",
+        "scripts"
+      ],
+      "returncode": 0,
+      "seconds": 0.069,
+      "log": "E:\\codex-temp\\bamboozle-vigiles-3ca3f44ce40f490c836e976c5fa68d64\\checks\\verify-o_k4uyec\\compile.log",
+      "output": ""
+    }
+  ],
+  "source_sha256": {
+    "src/bamboozle/__init__.py": "7b7dbbdf420552e1b8858ab2e7037eed2e49eda48863b804f97c4304ec35c3e0",
+    "src/bamboozle/__main__.py": "c4e635a2015428e750f8e441975d34352b4386f23cdf596a2d7e87a8f2da2ca9",
+    "src/bamboozle/audit.py": "419f33a4c597987d65329d8c4887ee2cba0f2723c1bb75a222c583f4e4e256eb",
+    "src/bamboozle/audit_matrix.py": "0da01520a1f6b3c821b49833bf030a4d94be1885689c012affa4259bfc6317db",
+    "src/bamboozle/cipher_dict.json": "b49059d73a0965ea7bd0b790ef0a92cb86cada3898a203b8d5e3dce4d85b5dfe",
+    "src/bamboozle/cli.py": "a60a0fdfac7a5d128e062884d025f30ea81a60925faef7d63a65465d7eba9146",
+    "src/bamboozle/dictionary.py": "c02a01a58f50e018d348abd1ddb3ceb19872892e2b7486d20c284bf620dfccda",
+    "src/bamboozle/engine.py": "f6f804e8659b67bb84a17e94f4bcdf3fe62ac06f2e4fefd2876a62965b33e6e0",
+    "src/bamboozle/mcp.py": "f56ae0dc39bae7b031aaa0de7e861a1f64ecff00011f0e1670227b750e1c6036",
+    "src/bamboozle/service.py": "38e396be7ecba90539a5d1e67fc013dbacbdfdd5a36bc8eda9329113dc1dc669",
+    "src/bamboozle/tessera.py": "155ae5d87e8b8f615998819ff84d1768118bcc0e377eee2b034023bb95c35548",
+    "src/bamboozle/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/bamboozle/tests/test_audit_matrix.py": "96edd1911b986e665251d2f3ff0f53fc0cab298ba7e451a58c10de403f228583",
+    "src/bamboozle/tests/test_cli_mcp.py": "2bff60e25e9f10fc51378b3bda11d13a35fc1bbe773836bc9f83d68a772bfbc5",
+    "src/bamboozle/tests/test_dictionary.py": "f935496088dbff642404b1ab9ae43769b85c503146754c61bb852a1c8d2ec1a8",
+    "src/bamboozle/tests/test_engine.py": "1a314e31227ac23033ae570a85c7f4c21839f285d7b8d02064fb926b9a95ca1c",
+    "src/bamboozle/tests/test_service.py": "3bf8981dc0e91f9f1ea632a72c36042285eb6c4b887cb88cca81d557751fbf56",
+    "src/bamboozle/tests/test_tessera.py": "afa6862454d6b533f5c9aee097dbdd199f414098cd7545b1c81a21a4fb270058",
+    "src/bamboozle/tests/test_translate.py": "bd8e0c52dbc2e6cef600529dc158e6218290705468a2d424279c80216e7de7de",
+    "src/bamboozle/tests/test_workspace_audit.py": "5840cb16f21d7779245752ad2891b6099cd91befa5f75840e9a54d0b89596ed6",
+    "src/bamboozle/translate.py": "73893e54af8234e24584540ee695f521000ecbb33c3e27c58a809b6a8111aada",
+    "src/bamboozle/utils.py": "63e6073dfdbdd01bb1abe3e6125159515abbb90aab2ee93d09739157b563dc74",
+    "src/bamboozle/workspace.py": "31ae24e8968baea412e32b4af949dce56d302fa7db36a48a0a22b9b70dd9517e",
+    "src/DECRYPT_FROM_AGENT.bat": "25ec45eff2279dfd24d09b6f76dfb6c702e724dd5b9d2aad28b602fa2aee65dd",
+    "src/ENCRYPT_FOR_AGENT.bat": "b261f32d499395b46f864a8658f6741ff0b4fc9d35b93d6ac173b5efda05b186",
+    "src/mcp.pacer.json": "cfba2afd419f0c7aec1c9dec95ea04bc9383b02d181f54d2ddb5137cb760add8",
+    "src/workshop/__init__.py": "94f960d9ab834f1b3df0983716d0f1974c8c4ee5937045f97c80cc18f105e3ad",
+    "src/workshop/config.py": "dd00ce30a84847a0e7d6638e407d4c4c28448e7ca0c26c4e398b2d593418a1fc",
+    "src/workshop/mcp/__init__.py": "a33f06325c956490689ea4a3ab4cbcd05ae78339c315dd47107fbf3cd97f97f1",
+    "src/workshop/mcp/taxonomy.json": "fbb674a35398c11c534a720a2c7551028c95bbcd18d5d942614a5e732b422a30",
+    "src/workshop/mcp/tests/fixtures/pipeline_contract.py": "7a7b757e64b9d297b1c2bda0f7a563343c5e0ab65c1c8bb399916b64613753ae",
+    "src/workshop/mcp/tests/test_pipeline.py": "38aa9f387f558f0da5402797318d7bb91c293980cd4ade2de43367816ea83f1b",
+    "src/workshop/mcp/tests/test_workshop_mcp.py": "8d9946243de270fb792ed502897482337f39b478c0b80a854b91895ff14654d2",
+    "src/workshop/mcp/workshop_mcp.py": "8e6af169a40691201bd34758a3c1e729552afa0f9f5c4dedd6e9dfdfaa0abc29",
+    "src/workshop/pipeline.py": "9c814941cd076777e2c6d4dbc11d34398b2b89e87ef2a2337f4e9df52a0867aa",
+    "src/workshop/scrape/__init__.py": "f94e068724419232fc3861b067ea6e068dd8fc32d2aa3eab09cbc298f88f3d2c",
+    "src/workshop/scrape/_lookup_index.json": "a55d8623c0b607f018b8074c2173fc22843c501d9991a58d77760f830adb905c",
+    "src/workshop/scrape/alias_pass.py": "7e4285de5791b038f387e656020da3912e14242ccc6deab8c6a087eea10b4161",
+    "src/workshop/scrape/bamb5.py": "201513b0154b84abaa25daff81d237ddf72d92273ba81b1d7e2834ea933f62e1",
+    "src/workshop/scrape/lookup.py": "99d4653e28907afa05be3a270e1d5395506a9e64568846bc44a87043263163ac",
+    "src/workshop/scrape/taxonomy.json": "ba9e29c6c062f43e0d633f6c0bae19b44ecce3722e0e27c230b1421e8f737052",
+    "src/workshop/scrape/tests/test_alias_pass.py": "50f88b3c00da8909ecda133e5137c4df71296be7a4dde36e8b46132b375eb41b",
+    "src/workshop/scrape/tests/test_bamb5.py": "756d08b17bbd1dbe7623a1151201d3cf6a698583d381494bcaecc524f47b6574",
+    "src/workshop/scrape/tests/test_configuration.py": "b9b22f9d8997fad4eec88cf40cd3e0cd0ec00210b16d56abedf37ce33a1eaeb6",
+    "src/workshop/scrape/tests/test_lookup.py": "33cda79a49e6940e22a096c7d5a7c98539540b3382fd3442202214b237025616",
+    "scripts/package_smoke.py": "7c18e35940a895a6b18df14201b18a0922659755394e2f4eef9d293e792934cd",
+    "scripts/verify.py": "3f17f94c591c26f342fdbe4dcbf478f9ad216ab05cde5be3f0cf3ee6008a9628",
+    "pyproject.toml": "8ed24366adc6f9e5a1aea7cf05aef2d825f9569e361bf5ea9669cec159d53b30",
+    "uv.lock": "45d76291331f26b26b58f900ef65ff3b9ae7aeaa6d737e30c8e7ddb648ec28a7",
+    "README.md": "53399394960213f2484fc1c62ef0dc4d939a9ddd0518bafc7289f338f5f0e49c",
+    ".mivim/mivim.vigiles.md": "abd5b1e01cd5985b7fe054272f1683c23d7308758342e997d9ab9165a3a32d3d",
+    "../.github/workflows/vigiles.yml": "c979966ae8e8007ab070626c578fcc4acb45ebbe43e5de8257f3207907f543d1"
+  },
+  "artifacts": {
+    "bamboozle-0.2.0-py3-none-any.whl": {
+      "sha256": "636098ace809f137f2ea509d3b0687014680047e2ec0a6b84cbcaf77787373cb",
+      "bytes": 41294
+    },
+    "bamboozle-0.2.0.tar.gz": {
+      "sha256": "1a64f18bdabd39da10453ae6d1ea20e283d27603458fe0274e2f7b1242ed9d5f",
+      "bytes": 37180
+    },
+    "bamboozle-0.2.1-py3-none-any.whl": {
+      "sha256": "b8dccec3fa6a8a5968b57c964e1d628700f317da8a3e42db408cf64c90e8c0e2",
+      "bytes": 44920
+    },
+    "bamboozle-0.2.1.tar.gz": {
+      "sha256": "0c3040d318caf0e16d932b7bb17ded0779aff2080a84ea1948322d3632a3900b",
+      "bytes": 42196
+    }
+  }
+}

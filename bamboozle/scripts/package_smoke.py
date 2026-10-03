@@ -14,6 +14,8 @@ from fastmcp.client.transports import StdioTransport
 
 import bamboozle
 from bamboozle.dictionary import Dictionary
+from workshop import examples
+from workshop.pipeline import run_script
 from workshop.scrape.alias_pass import Taxonomy
 
 
@@ -74,6 +76,22 @@ def main() -> None:
         raise RuntimeError("Installed Tessera delivery changed the payload")
     run("baseline")
     run("audit")
+    workshop = Path("workshop-fixture")
+    run("workshop-init", "--workshop", str(workshop))
+    scrape = workshop / "scrape"
+    readiness = run("workshop-check", "--workshop", str(workshop))
+    if not readiness["ok"] or readiness["deployment_qualified"]:
+        raise RuntimeError("Installed pipeline readiness contract failed")
+    candidate = examples.candidate(workshop, "ExampleA", ["red hair"])
+    for script, arguments in [
+        ("promote.py", ["--candidate", candidate, "--dry-run"]),
+        ("promote.py", ["--candidate", candidate]),
+        ("audit_matrix.py", ["--apply"]),
+        ("promote.py", ["--quarantine", "ExampleA", "--reason", "installed fixture"]),
+    ]:
+        result = run_script(scrape, Path(sys.executable), script, *arguments)
+        if result["returncode"] != 0:
+            raise RuntimeError(f"Installed native pipeline failed: {result}")
 
     async def smoke_mcp() -> None:
         transport = StdioTransport(
@@ -105,6 +123,8 @@ def main() -> None:
                     "tessera_roundtrip",
                     "baseline_audit",
                     "mcp_stdio_tool_call",
+                    "workshop_readiness_without_execution",
+                    "native_promotion_audit_quarantine",
                 ],
             }
         )

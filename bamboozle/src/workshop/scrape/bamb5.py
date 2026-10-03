@@ -7,7 +7,6 @@ import argparse
 import base64
 import csv
 import json
-import subprocess
 import sys
 from pathlib import Path
 
@@ -20,6 +19,7 @@ if __package__ in (None, ""):
 
 from bamboozle.utils import atomic_write, json_bytes, parse_json, read_bytes, sha256
 from workshop import config
+from workshop.pipeline import inspect_pipeline, run_script
 
 ROOT = config.SCRAPE
 KEY_PATH = config.KEY
@@ -76,29 +76,13 @@ def _alias_index() -> dict[str, tuple[str, str]]:
 
 
 def _run(script: str, *args: str, timeout: int = 900) -> dict:
-    """Run a pipeline script with the embedded Python."""
-    if script not in {"promote.py", "audit_matrix.py"}:
-        raise ValueError("Unsupported workshop script")
-    if not (SCRAPE / script).is_file() or not PY.is_file():
-        return {
-            "returncode": 127,
-            "stdout": "",
-            "stderr": f"Workshop dependency unavailable: {script}",
-            "status": "unavailable",
-        }
-    r = subprocess.run(
-        [str(PY), str(SCRAPE / script), *args],
-        cwd=SCRAPE,
-        capture_output=True,
-        text=True,
-        timeout=timeout,
-        check=False,
-    )
-    return {
-        "returncode": r.returncode,
-        "stdout": r.stdout[-8000:],
-        "stderr": r.stderr[-4000:],
-    }
+    return run_script(SCRAPE, PY, script, *args, timeout=timeout)
+
+
+@mcp.tool(annotations={"readOnlyHint": True})
+def pipeline_readiness() -> dict:
+    """Inspect dependencies and schemas without executing external pipeline code."""
+    return inspect_pipeline(SCRAPE, PY)
 
 
 @mcp.tool()
@@ -173,15 +157,34 @@ def promote_lora(candidate: str, dry_run: bool = True) -> dict:
 
 
 @mcp.tool()
-def quarantine_lora(name: str, reason: str) -> dict:
+def quarantine_lora(name: str, reason: str, dry_run: bool = False) -> dict:
     """Move a LoRA to quarantine and log the reason to the ledger."""
-    return _run("promote.py", "--quarantine", name, "--reason", reason)
+    return _run(
+        "promote.py",
+        "--quarantine",
+        name,
+        "--reason",
+        reason,
+        *(["--dry-run"] if dry_run else []),
+    )
 
 
 @mcp.tool()
-def run_audit(prune: bool = False) -> dict:
+def run_audit(prune: bool = False, apply: bool = False) -> dict:
     """Reconcile the manifest against the compatibility matrix."""
-    return _run("audit_matrix.py", *(["--prune"] if prune else []))
+    return _run(
+        "audit_matrix.py",
+        *(["--prune"] if prune else []),
+        *(["--apply"] if apply else []),
+    )
+
+
+@mcp.tool()
+def recover_pipeline(operation_id: str, dry_run: bool = True) -> dict:
+    """Preview or explicitly resume a native workshop operation journal."""
+    return _run(
+        "promote.py", "--recover", operation_id, *(["--dry-run"] if dry_run else [])
+    )
 
 
 @mcp.tool()

@@ -15,7 +15,7 @@ SCRAPE = WORKSHOP / "scrape"
 PYTHON = (
     Path(os.environ.get("VIGILES_WORKSHOP_PYTHON", sys.executable))
     .expanduser()
-    .resolve()
+    .absolute()
 )
 MANIFEST = SCRAPE / "_lora_manifest.json"
 MATRIX = SCRAPE / "_compatibility_matrix.json"

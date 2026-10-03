@@ -130,7 +130,7 @@ Open global gates:
 
 | ID | Remaining work | Done criteria |
 | --- | --- | --- |
-| VIG-DEPLOY-01 | External LoRA promotion/quarantine and audit integration | Supply authoritative pipeline scripts/fixtures; prove dry-run and failure recovery before live writes |
+| VIG-DEPLOY-01 | Native pipeline live acceptance | Native scripts and fixture qualification are supplied in 0.3.0; real candidate evaluation and operator-selected production use remain open |
 | VIG-IDENTITY-01 | Recipient identities, key distribution/revocation, replay policy | Approved trust model, isolated recipients, rotation/revocation tests, and replay rejection policy |
 | VIG-CI-01 | Execute remote platform matrix | Recorded passing Windows/Linux and Python 3.13/3.14 workflow runs for the submitted revision |
 | VIG-RESTORE-01 | Edited-file and historical-ledger migration | Explicit migration format and conflict behavior, with no silent loss and recovery fixtures |
@@ -138,5 +138,67 @@ Open global gates:
 
 Do not mark these gates complete from unit tests, a local wheel build, an in-process
 MCP test, or this specification's role language.
+
+### VIG-DEPLOY-01 adapter preparation — 0.2.1
+
+The next development step implements dependency inspection and the shared external
+process contract in `workshop/pipeline.py`. Both workshop interfaces use it; the
+native CLI exposes `workshop-check` and workshop MCP exposes `pipeline_readiness`.
+Inspection checks bounded inputs, syntax, hashes, manifest fields, and matrix
+references without importing scripts, creating directories, or generating caches.
+`ready_for_review` establishes input shape only, not operational qualification.
+
+Subprocess results separate missing dependencies, failure to start, nonzero exit,
+timeout, and zero exit. Captured progress is retained within returned tail limits.
+An external dry-run flag cannot establish absence of writes. Every started process
+therefore reports that side effects are possible. The adapter does not retry,
+discard partial output, or claim rollback. Timeout cleanup covers the direct
+child; process-tree and resource limits require host isolation.
+Interpreter paths retain virtual-environment symlinks: resolving them to a base
+Python can silently lose the installed workshop dependencies.
+
+Synthetic scripts prove argument routing, dry-run defaults, failure reporting,
+preservation of interrupted copies, and explicit fixture recovery. These fixtures
+are not authoritative pipeline implementations or live model evidence. The actual
+`promote.py`, external `audit_matrix.py`, representative manifest/matrix, and
+operator-selected workshop were the remaining dependencies at 0.2.1.
+`VIGILES_PIPELINE_READINESS.json` records local discovery;
+`VIGILES_STATUS.json` tracks adapter preparation separately from that open gate.
+
+### Native pipeline authority — 0.3.0
+
+The user's instruction to implement the pipeline here establishes the repository's
+native implementation as the source authority. Historical `.legacy/dev_tools/promote.py`
+is a metadata helper, not the promotion/quarantine pipeline.
+
+- `workshop/scrape/promote.py` provides promotion, quarantine, status, and explicit
+  recovery. `workshop/scrape/audit_matrix.py` provides read-only audit and explicit
+  application/pruning. Both use `workshop/operations.py`.
+- `workshop-init` creates a new workshop, wrapper scripts, manifests, taxonomy, and
+  local key. It refuses existing contents. The local qualification target is
+  `.vigiles/workshop` and contains synthetic assets only.
+- Promotion requires a candidate digest and a passing validation record tied to
+  that digest. The record is a local assertion, not independently authenticated
+  model acceptance. Candidate files are retained.
+- Quarantine verifies a separate copy before removing the owned production file.
+  Removed manifest/matrix entries remain in journal before-images.
+- Native writers use an OS file lock. Input/control hashes prevent stale plans
+  from overwriting unrelated changes. Journals precede writes; interrupted work
+  blocks another write until explicit recovery. Completion records bind to journal
+  hashes. Multi-file reads are not atomic; consumers must inspect pending status.
+- Recovery resumes matching before/after states and does not duplicate action
+  ledger rows. Conflict or corruption requires inspection, not automatic rollback.
+- Audit uses the selected workshop's taxonomy and key, fails on decode errors,
+  clears stale overlap/conflict values, preserves compatibility scores/notes, and
+  marks new pairs untested. Trigger overlap is not a model compatibility evaluation.
+- Assets are streamed with an 8 GiB limit. Metadata/journals are limited to 16 MiB.
+  Audit caps active LoRAs at 1,000 and existing matrix pairs at 50,000.
+
+`scripts/qualify_pipeline.py` executes the native scripts with representative
+manifest/matrix fixtures and a controlled post-copy ledger failure, then resumes
+through the real CLI. `VIGILES_PIPELINE_QUALIFICATION.json` retains those results.
+This completes the missing implementation and local file-operation qualification.
+Live model evaluation, ComfyUI acceptance, cross-platform CI, and host isolation
+retain separate open gates. No fixture result closes those acceptance gates.
 
 ---

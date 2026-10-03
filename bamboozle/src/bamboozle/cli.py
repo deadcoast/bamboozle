@@ -55,6 +55,16 @@ def parser() -> argparse.ArgumentParser:
             command.add_argument("--mapping-version")
     commands.add_parser("baseline")
     commands.add_parser("audit")
+    workshop = commands.add_parser(
+        "workshop-check",
+        help="Inspect external pipeline dependencies without execution",
+    )
+    workshop.add_argument("--workshop", type=Path)
+    workshop.add_argument("--python", type=Path)
+    initialize = commands.add_parser(
+        "workshop-init", help="Initialize a new native workshop"
+    )
+    initialize.add_argument("--workshop", type=Path)
     continuous = commands.add_parser("watch")
     continuous.add_argument("--interval", type=float, default=5.0)
     continuous.add_argument(
@@ -85,6 +95,19 @@ def _emit(report: dict[str, Any], *, compact: bool = False) -> None:
 
 
 def _execute(args: argparse.Namespace, workspace: Workspace) -> dict[str, Any]:
+    if args.command == "workshop-init":
+        from workshop import config
+        from workshop.bootstrap import initialize
+
+        root = args.workshop if args.workshop is not None else config.WORKSHOP
+        return initialize(root)
+    if args.command == "workshop-check":
+        from workshop import config
+        from workshop.pipeline import inspect_pipeline
+
+        root = args.workshop if args.workshop is not None else config.WORKSHOP
+        python = args.python if args.python is not None else config.PYTHON
+        return inspect_pipeline(root / "scrape", python)
     if args.command in ("encode", "decode", "preview"):
         reverse = args.command == "decode" or getattr(args, "reverse", False)
         plan = prepare(

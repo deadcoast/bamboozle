@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "gate": "VIG-DEPLOY-01",
+  "backend": "native",
+  "created": "2026-10-02T23:29:21.054125Z",
+  "status": "ready_for_review",
+  "ok": true,
+  "scrape": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.vigiles\\workshop\\scrape",
+  "executed_scripts": false,
+  "deployment_qualified": false,
+  "checks": [
+    {
+      "name": "python",
+      "ok": true,
+      "path": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.venv\\Scripts\\python.exe"
+    },
+    {
+      "name": "audit_matrix.py",
+      "ok": true,
+      "sha256": "a7d54c001e50073622429210c3a39981dba7838758439893ea5c8f691a400923",
+      "execution_contract": "unverified"
+    },
+    {
+      "name": "promote.py",
+      "ok": true,
+      "sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+      "execution_contract": "unverified"
+    },
+    {
+      "name": "_lora_manifest.json",
+      "ok": true,
+      "sha256": "f540461d48c08b1d0b9bcc8c337aa15695f1486521e6875d50731a96a0dcbdbf",
+      "loras": 2
+    },
+    {
+      "name": "_compatibility_matrix.json",
+      "ok": true,
+      "sha256": "676e9709a2eb16b23271e0617bcd0af134a10a011d91875596dd470f8c7363a9",
+      "pairs": 1
+    },
+    {
+      "name": "native_workshop",
+      "ok": true,
+      "version": "0.3.0",
+      "pending_operations": [],
+      "key_valid_length": true
+    }
+  ],
+  "next_action": "Review script behavior and qualify dry-run, publication, and recovery against isolated copies before any live operation."
+}

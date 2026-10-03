@@ -5,7 +5,6 @@ from __future__ import annotations
 import csv
 import difflib
 import json
-import subprocess
 import sys
 from pathlib import Path
 
@@ -15,6 +14,7 @@ if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from workshop import config
+from workshop.pipeline import inspect_pipeline, run_script
 from workshop.scrape import lookup
 
 WORKSHOP = config.WORKSHOP
@@ -136,6 +136,10 @@ def pipeline_status(rebuild_index: bool = False) -> dict:
     """Last scheduled run summary; optionally force an index rebuild."""
     if rebuild_index:
         _idx(force=True)
+    if (SCRAPE.parent / "_vigiles_workshop.json").exists():
+        from workshop.operations import pipeline_status as native_status
+
+        return native_status(SCRAPE.parent)
     return _load(STATUS) or {"status": "no run recorded"}
 
 
@@ -153,29 +157,13 @@ def _alias_index() -> dict[str, tuple[str, str]]:
 
 
 def _run(script: str, *args: str, timeout: int = 900) -> dict:
-    """Run a pipeline script with the embedded Python."""
-    if script not in {"promote.py", "audit_matrix.py"}:
-        raise ValueError("Unsupported workshop script")
-    if not (SCRAPE / script).is_file() or not PY.is_file():
-        return {
-            "returncode": 127,
-            "stdout": "",
-            "stderr": f"Workshop dependency unavailable: {script}",
-            "status": "unavailable",
-        }
-    r = subprocess.run(
-        [str(PY), str(SCRAPE / script), *args],
-        cwd=SCRAPE,
-        capture_output=True,
-        text=True,
-        timeout=timeout,
-        check=False,
-    )
-    return {
-        "returncode": r.returncode,
-        "stdout": r.stdout[-8000:],
-        "stderr": r.stderr[-4000:],
-    }
+    return run_script(SCRAPE, PY, script, *args, timeout=timeout)
+
+
+@mcp.tool(annotations={"readOnlyHint": True})
+def pipeline_readiness() -> dict:
+    """Inspect dependencies and schemas without executing external pipeline code."""
+    return inspect_pipeline(SCRAPE, PY)
 
 
 @mcp.tool()
@@ -284,15 +272,34 @@ def promote_lora(candidate: str, dry_run: bool = True) -> dict:
 
 
 @mcp.tool()
-def quarantine_lora(name: str, reason: str) -> dict:
+def quarantine_lora(name: str, reason: str, dry_run: bool = False) -> dict:
     """Move a LoRA to quarantine and log the reason to the ledger."""
-    return _run("promote.py", "--quarantine", name, "--reason", reason)
+    return _run(
+        "promote.py",
+        "--quarantine",
+        name,
+        "--reason",
+        reason,
+        *(["--dry-run"] if dry_run else []),
+    )
 
 
 @mcp.tool()
-def run_audit(prune: bool = False) -> dict:
+def run_audit(prune: bool = False, apply: bool = False) -> dict:
     """Reconcile the manifest against the compatibility matrix."""
-    return _run("audit_matrix.py", *(["--prune"] if prune else []))
+    return _run(
+        "audit_matrix.py",
+        *(["--prune"] if prune else []),
+        *(["--apply"] if apply else []),
+    )
+
+
+@mcp.tool()
+def recover_pipeline(operation_id: str, dry_run: bool = True) -> dict:
+    """Preview or explicitly resume a native workshop operation journal."""
+    return _run(
+        "promote.py", "--recover", operation_id, *(["--dry-run"] if dry_run else [])
+    )
 
 
 @mcp.tool()
