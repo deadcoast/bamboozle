@@ -1,26 +1,26 @@
 {
   "schema_version": 1,
   "project": "Bamboozle / MIVIM Vigiles",
-  "release": "0.3.2",
+  "release": "0.3.3",
   "recorded_on": "2026-10-02",
   "authority": ".mivim/mivim.vigiles.md",
-  "reviewed_base_commit": "d2dfc67c33b1cabd92cbe7d1c30b387fee0c6176",
-  "scope": "VIGIL3 bounded subprocess capture, fair pipe draining, truthful timeout/capture failure reporting, and installed adapter qualification.",
+  "reviewed_base_commit": "fa735c03561bd33f800513fc06b4046f1b89402f",
+  "scope": "VIGIL3 exact reviewed native promotion/quarantine plans, stale-state and replay rejection, retained cancellation, and journal recovery.",
   "completion": {
-    "implementation": "complete_for_defined_0.3.2_local_scope",
+    "implementation": "complete_for_defined_0.3.3_local_scope",
     "local_source_qualification": "passed",
     "local_installed_package_qualification": "passed",
     "global_project_completion": false,
     "remote_ci": "configured_not_executed",
     "external_pipeline": "optional_external_integrations_not_qualified",
     "deployment": "local_synthetic_workshop_only",
-    "native_pipeline": "implemented_fixture_qualified_with_consistent_consumers_and_bounded_adapter_capture"
+    "native_pipeline": "fixture_qualified_with_exact_reviewed_plans_consistent_consumers_and_bounded_capture"
   },
   "current_evidence": {
     "execution_record": "VIGILES_VERIFICATION.json",
-    "execution_record_created": "2026-10-03T02:59:14.734119+00:00",
+    "execution_record_created": "2026-10-03T03:31:10.272329+00:00",
     "tests": {
-      "passed": 178,
+      "passed": 204,
       "failed": 0,
       "errors": 0,
       "skipped": 0
@@ -38,14 +38,14 @@
       "wheel-install",
       "wheel-smoke"
     ],
-    "final_review": "All 178 tests and eleven release steps pass. Source/artifact hashes match. Installed capture drains both 4 MiB streams on success/failure/timeout with exact 8000/4000-byte tails; source tests cover 8 MiB streams, continuous output, inherited pipes, EOF before child exit, cleanup faults, and memory bounds. Native fixture and installed workshop MCP recovery remain passing.",
+    "final_review": "All 204 source tests and eleven release steps pass. Source/artifact hashes and retained native fixture hashes match. Exact prepared bytes are applied/recovered with stale-state and repeat-application rejection. Both installed workshop MCP stdio interfaces pass prepare/inspect/preview/apply/quarantine/cancel and replay rejection. Installed controlled prepared-plan recovery and prior capture/consumer qualification pass.",
     "authority": "Execution records establish local source/package/protocol evidence only; live model, remote CI, identity, and host acceptance remain separate.",
     "environment": "Windows CPython 3.13.9; native/test fixtures on C:, caches and installed-wheel runtime on E:.",
     "portable_test_command": "uv run --locked python scripts/verify.py --package",
     "scratch_directory": "E:/codex-temp/bamboozle-vigiles-3ca3f44ce40f490c836e976c5fa68d64",
     "package_paths": [
-      "dist/bamboozle-0.3.2-py3-none-any.whl",
-      "dist/bamboozle-0.3.2.tar.gz"
+      "dist/bamboozle-0.3.3-py3-none-any.whl",
+      "dist/bamboozle-0.3.3.tar.gz"
     ],
     "capture_qualification_record": "VIGILES_CAPTURE_QUALIFICATION.json",
     "readiness_record": "VIGILES_PIPELINE_READINESS.json",
@@ -79,8 +79,87 @@
       "VIGILES_PIPELINE_QUALIFICATION.foundation-0.3.0.json",
       "VIGILES_PIPELINE_QUALIFICATION.v0.3.1.json",
       "VIGILES_PIPELINE_READINESS.foundation-0.3.0.json",
-      "VIGILES_PIPELINE_READINESS.consumers-0.3.1.json"
-    ]
+      "VIGILES_PIPELINE_READINESS.consumers-0.3.1.json",
+      "VIGILES_STATUS.capture-0.3.2.json",
+      "VIGILES_VERIFICATION.capture-0.3.2.json",
+      "VIGILES_PIPELINE_READINESS.capture-0.3.2.json",
+      "VIGILES_CAPTURE_QUALIFICATION.capture-0.3.2.json",
+      "VIGILES_PIPELINE_QUALIFICATION.v0.3.2.json"
+    ],
+    "plan_qualification_record": "VIGILES_PLAN_QUALIFICATION.json",
+    "reviewed_plan_qualification": {
+      "status": "passed",
+      "native_script_calls": 13,
+      "new_regression_cases": 26,
+      "exact_journal_bytes": true,
+      "stale_inputs_rejected": true,
+      "replay_rejected": true,
+      "controlled_failure_recovered": true,
+      "recovery_ledger_rows": 1,
+      "unused_plan_cancellation_preserves_evidence": true,
+      "installed_stdio": [
+        {
+          "module": "workshop.mcp.workshop_mcp",
+          "status": "passed",
+          "promotion": {
+            "schema_version": 1,
+            "status": "saved",
+            "operation_id": "8b4cd66df2d44982b29acd9bad21afef",
+            "action": "promote",
+            "lora": "ExampleC",
+            "model_qualified": false,
+            "journal_sha256": "1779fc8b49d8e387459cf1febf2df9843b35b6b53d24032620fa7202ae121488"
+          },
+          "quarantine": {
+            "schema_version": 1,
+            "status": "saved",
+            "operation_id": "c82344ddc5a242df8809f6ddbc3db66a",
+            "action": "quarantine",
+            "lora": "ExampleC",
+            "model_qualified": false,
+            "journal_sha256": "872dbd1d2c4f620d7994413a17af495a3e02b80961116292c85b5276a88c709f"
+          },
+          "cancelled": {
+            "status": "cancelled",
+            "operation_id": "52a500c0e63c4c98b7c6a7677058743b",
+            "plan_sha256": "a59edf1efbd1a99b71696f88a27759cee46bf0c4cbe61964f1b6d224b118b1a3"
+          }
+        },
+        {
+          "module": "workshop.scrape.bamb5",
+          "status": "passed",
+          "promotion": {
+            "schema_version": 1,
+            "status": "saved",
+            "operation_id": "28442532eaa646f7bc9d6629d36e61e5",
+            "action": "promote",
+            "lora": "ExampleC",
+            "model_qualified": false,
+            "journal_sha256": "78426733ed09de8baeb7ee65acedf1f271bf48dc75cba8c1a486678979a694b2"
+          },
+          "quarantine": {
+            "schema_version": 1,
+            "status": "saved",
+            "operation_id": "f11c7a8b433a4fcfae8b42bbe892214a",
+            "action": "quarantine",
+            "lora": "ExampleC",
+            "model_qualified": false,
+            "journal_sha256": "eaecf6786a7378bb54800551916041ad42de20207b8f24eab9a198e147bb13d7"
+          },
+          "cancelled": {
+            "status": "cancelled",
+            "operation_id": "3ccf49fd0e784d6ea1f2bb54e1ffaf5d",
+            "plan_sha256": "0ef6454de8b736aa47ea9b06225b6a1a0b6598bb700301b69d9ee0e399090926"
+          }
+        }
+      ],
+      "installed_recovery": {
+        "operation_id": "40d901c1c419486c8924d64d596cc61b",
+        "plan_sha256": "5dbd7ca3c11b061551ec9fec9b6aabff3712b2be09e95b2bdfdcada5d1824702"
+      },
+      "installed_log": "E:\\codex-temp\\bamboozle-vigiles-3ca3f44ce40f490c836e976c5fa68d64\\checks\\verify-as48qked\\wheel-smoke.log",
+      "model_qualified": false
+    }
   },
   "closed_findings": [
     {
@@ -301,6 +380,22 @@
         "src/workshop/mcp/tests/test_process_capture.py",
         "VIGILES_VERIFICATION.json"
       ]
+    },
+    {
+      "id": "VIG-FIX-018",
+      "priority": "P1",
+      "status": "implemented_verified",
+      "finding": "A native dry-run preview was transient; later application regenerated a different operation instead of applying the exact reviewed plan.",
+      "resolution": "Explicit durable preparation, full local inspection, digest-bound apply under the native writer lock, fresh precondition checks, retained cancellation, single-use journals and exact-byte recovery. Existing direct commands remain available.",
+      "evidence": [
+        "src/workshop/plans.py",
+        "src/workshop/tests/test_plans.py",
+        "src/workshop/scrape/promote.py",
+        "scripts/package_smoke.py",
+        "VIGILES_PLAN_QUALIFICATION.json",
+        "VIGILES_VERIFICATION.json"
+      ],
+      "limitation": "Local consistency only; plans do not authenticate human approval, prevent hostile coordinated edits, or qualify production models."
     }
   ],
   "retained_failures": [
@@ -334,6 +429,12 @@
       "failure": "The first 0.3.1 package smoke failed workshop-check for a relative workshop path.",
       "unaffected_evidence": "All 159 source tests, lint/types, builds, and isolated installation passed in that run.",
       "remediation": "Corrected snapshot path resolution, added relative-root and selected-native-key regressions; all 161 tests and full installed qualification then passed."
+    },
+    {
+      "record": "VIGILES_VERIFICATION.failed-bamb5-launch-0.3.3.json",
+      "failure": "First 0.3.3 wheel smoke launched bamb5 as its translation CLI instead of its exported MCP server; connection negotiation failed.",
+      "unaffected_evidence": "All 204 source tests, lint/types, compilation, build and isolated wheel installation passed; the primary MCP prepared-plan flow passed before the second server launch.",
+      "remediation": "Start each installed exported mcp object explicitly over stdio, preserving the existing bamb5 CLI. Full release verification rerun."
     }
   ],
   "open_gates": [
@@ -348,7 +449,7 @@
         "Operator-selected production workshop",
         "Live consumer acceptance criteria"
       ],
-      "next_action": "Evaluate a real candidate, retain its validation evidence, select a production workshop, and exercise dry-run plus explicit publication/consumer acceptance there.",
+      "next_action": "Evaluate a real candidate, retain its validation evidence, select a production workshop, and review/prepare/apply the exact plan before live consumer acceptance.",
       "done_criteria": [
         "Native promotion, quarantine, and audit fixtures pass (complete)",
         "Interrupted publication recovery demonstrated before live writes (complete)",
@@ -362,7 +463,8 @@
         "src/workshop/tests/test_operations.py",
         "VIGILES_PIPELINE_QUALIFICATION.json",
         "VIGILES_PIPELINE_READINESS.json",
-        "VIGILES_VERIFICATION.json"
+        "VIGILES_VERIFICATION.json",
+        "VIGILES_PLAN_QUALIFICATION.json"
       ]
     },
     {
@@ -429,7 +531,7 @@
       "priority": "P2",
       "status": "open",
       "owner_role": "Deployment operator",
-      "impact": "No installed background service or OS-level isolation has been qualified.",
+      "impact": "No installed background service, process-tree lifecycle policy, or OS-level isolation has been qualified.",
       "dependencies": [
         "Explicit target host and account",
         "Filesystem ACL policy",
@@ -445,63 +547,14 @@
     }
   ],
   "delivery_boundaries": [
-    "No commit, push, external MCP client registration, or remote deployment performed.",
+    "This 0.3.3 step made no commit, push, external MCP client registration, or remote deployment.",
     "Only explicitly labeled synthetic assets were promoted/quarantined in the local qualification workspace. No live model execution, automatic quarantine, process termination policy, or startup service installation was performed.",
     "Unkeyed ledgers and local audit baselines establish consistency, not independent authenticity.",
     "Historical design documents are not runtime guarantees."
   ],
   "active_step": {
-    "id": "VIGIL3-OPS-02",
-    "status": "complete_for_implementation_and_fixture_qualification",
-    "focus": "Bounded subprocess output capture",
-    "finding": "run_script truncates returned tails but subprocess.run(capture_output=True) still buffers complete child stdout/stderr in memory.",
-    "target": "src/workshop/pipeline.py",
-    "done_criteria": [
-      "Hard bounds on retained stdout/stderr while continuously draining child pipes",
-      "Correct byte-tail and truncation reporting for successful, failed, and timed-out scripts",
-      "No deadlock when both streams are noisy",
-      "Captured progress and partial files retained; no automatic retry or rollback",
-      "Installed adapter regression evidence on the local platform"
-    ],
-    "boundaries": [
-      "Direct-child termination is the current contract; process-tree isolation requires a separate host policy.",
-      "No live model qualification is inferred from subprocess fixtures."
-    ],
-    "stage": "bounded_subprocess_capture",
-    "authority": "User requested development of the next step in VIGILES_STATUS.",
-    "plan": [
-      "Replace whole-stream capture with fair nonblocking pipe reads and fixed byte tails.",
-      "Track observed/retained bytes, EOF, child exit, and bounded drain/termination outcomes.",
-      "Preserve partial files and output on failure, timeout, and capture errors.",
-      "Verify noisy streams, memory bounds, inherited pipes, interruption cleanup, and installed package behavior."
-    ],
-    "source_authority": [
-      "src/workshop/pipeline.py",
-      "src/workshop/process.py"
-    ],
-    "target_workshop": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.vigiles\\workshop-v0.3.2",
-    "target_kind": "synthetic_qualification_only",
-    "qualification_record": "VIGILES_CAPTURE_QUALIFICATION.json",
-    "completed_work": [
-      "Fair continuous draining with fixed byte tails and exact observed/retained counters.",
-      "Explicit capture completeness and actual child exit evidence.",
-      "Bounded drain/cleanup for inherited pipes, continuous floods, and closed streams.",
-      "Captured progress and partial files preserved through failure and timeout; no retry or rollback.",
-      "Seventeen new regression cases plus installed noisy-output and existing MCP/native pipeline checks pass.",
-      "Version 0.3.2 package/spec/evidence supplied; 0.3.1 records retained."
-    ],
-    "next_action": "Review a durable native prepare/apply-plan workflow so an operator can apply exactly the promotion or quarantine plan they reviewed; reject stale state and reuse."
-  },
-  "development_stage": "VIGIL3",
-  "environment_remediation_0.3.1": {
-    "issue": "C: reached zero free bytes during development; editor Mypy cache had reappeared.",
-    "action": "Preserved the 70 MiB cache on E: and created a .mypy_cache junction at its original path.",
-    "cache_target": "E:/codex-temp/bamboozle-vigiles-3ca3f44ce40f490c836e976c5fa68d64/editor-mypy-cache-vigil3-031",
-    "evidence_preserved": true
-  },
-  "next_step": {
     "id": "VIGIL3-OPS-03",
-    "status": "ready_for_review_and_design",
+    "status": "complete_for_implementation_and_fixture_qualification",
     "focus": "Native reviewed-plan application",
     "finding": "Native dry-run returns a transient operation ID, while a later apply invocation creates a fresh plan. Publication revalidates that new plan, but it is not bound to the earlier reviewed preview.",
     "target": [
@@ -520,7 +573,33 @@
     "boundaries": [
       "Prepared local plans are consistency evidence, not independently authenticated approval.",
       "Live model evaluation and operator-selected production acceptance remain open."
-    ]
+    ],
+    "authority": "User requested applying the exact native operation plan reviewed earlier.",
+    "qualification_record": "VIGILES_PLAN_QUALIFICATION.json",
+    "target_workshop": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.vigiles\\plans-v0.3.3",
+    "target_kind": "synthetic_qualification_only",
+    "stage": "exact_reviewed_native_plan_application",
+    "source_authority": [
+      "src/workshop/plans.py",
+      "src/workshop/operations.py",
+      "src/workshop/scrape/promote.py"
+    ],
+    "completed_work": [
+      "Persist bounded promotion/quarantine plans with complete control before/after bytes, selected workshop, input/asset digests, ID, reason, and timestamp.",
+      "Read-only inspection and preview; locked application publishes the exact reviewed bytes as its journal.",
+      "Reject stale state, appeared destinations, changed plan digests, cross-workshop copies, cancelled plans and replay.",
+      "Retain cancellation and history; explicitly resume interrupted publication with the same digest and one ledger row.",
+      "CLI, both MCP adapters, installed stdio servers, native fixtures and 26 new regression cases qualified.",
+      "Version 0.3.3 specification, usage documentation, wheel/sdist and machine-readable evidence supplied; prior and failed records preserved."
+    ],
+    "next_action": "Review bounded native plan inventory and discovery so operators can find unfinished plans after a lost client response without scanning files manually."
+  },
+  "development_stage": "VIGIL3",
+  "environment_remediation_0.3.1": {
+    "issue": "C: reached zero free bytes during development; editor Mypy cache had reappeared.",
+    "action": "Preserved the 70 MiB cache on E: and created a .mypy_cache junction at its original path.",
+    "cache_target": "E:/codex-temp/bamboozle-vigiles-3ca3f44ce40f490c836e976c5fa68d64/editor-mypy-cache-vigil3-031",
+    "evidence_preserved": true
   },
   "development_observations_0.3.2": [
     {
@@ -533,6 +612,35 @@
       ],
       "resolution": "Start tracing at the capture call after preflight. Keep the original 2 MiB capture-memory assertion; all noisy success/failure/timeout cases pass.",
       "boundary": "This is not a child-process memory cap or a whole-application RSS measurement."
+    }
+  ],
+  "next_step": {
+    "id": "VIGIL3-OPS-04",
+    "status": "ready_for_review_and_design",
+    "focus": "Native prepared-plan inventory and discovery",
+    "finding": "Prepared plans are inspectable by ID but operators currently need filesystem inspection to discover IDs after a disconnected client or to identify stale plans occupying unused slots.",
+    "target": [
+      "src/workshop/plans.py",
+      "src/workshop/scrape/promote.py",
+      "src/workshop/mcp/workshop_mcp.py"
+    ],
+    "done_criteria": [
+      "Bounded, read-only plan inventory with explicit paging and stable identifiers.",
+      "Expose prepared, stale, cancelled, pending-recovery and applied states without hiding corrupt records.",
+      "CLI and both MCP interfaces return complete bounded responses and do not create files during discovery.",
+      "Regression and installed-package evidence; no automatic cancellation or history deletion."
+    ],
+    "boundaries": [
+      "Live deployment, remote CI and process-tree isolation remain open.",
+      "Plan discovery conveys local consistency state, not authenticated approval."
+    ]
+  },
+  "development_observations_0.3.3": [
+    {
+      "finding": "The first installed test treated the bamb5 translation module entry point as an MCP server launcher.",
+      "resolution": "Launch its exported mcp object explicitly; preserve the existing translation CLI.",
+      "retained_record": "VIGILES_VERIFICATION.failed-bamb5-launch-0.3.3.json",
+      "final_result": "Both installed workshop MCP servers pass the full prepared-plan workflow."
     }
   ]
 }

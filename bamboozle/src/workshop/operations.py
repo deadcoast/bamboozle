@@ -213,6 +213,7 @@ def _plan(
         "lora": name,
         "created": created,
         "asset": asset,
+        "reason": reason,
         "inputs": {
             **{
                 name: sha256(raw)
@@ -228,7 +229,9 @@ def _plan(
     return plan
 
 
-def _check_plan(ws: Workspace, plan: dict[str, Any], operation_id: str) -> None:
+def _check_plan(
+    ws: Workspace, plan: dict[str, Any], operation_id: str, *, fresh: bool = False
+) -> None:
     if (
         plan.get("kind") != "vigiles.workshop.operation"
         or type(plan.get("schema_version")) is not int
@@ -258,7 +261,8 @@ def _check_plan(ws: Workspace, plan: dict[str, Any], operation_id: str) -> None:
         after = base64.b64decode(item["after"], validate=True)
         if len(after) > ws.max_bytes:
             raise ValueError("Journal metadata exceeds its file limit")
-        if sha256(ws.read(item["path"])) not in {item["before"], sha256(after)}:
+        allowed = {item["before"]} if fresh else {item["before"], sha256(after)}
+        if sha256(ws.read(item["path"])) not in allowed:
             raise ValueError(f"Control file changed: {item['path']}")
     asset = plan["asset"]
     if asset:
@@ -270,12 +274,14 @@ def _check_plan(ws: Workspace, plan: dict[str, Any], operation_id: str) -> None:
             asset["destination"],
             "prod" if plan["action"] == "promote" else "quarantine",
         )
+        if fresh and destination.exists():
+            raise FileExistsError("Operation destination already exists")
         if destination.exists() and _digest(destination) != asset["sha256"]:
             raise FileExistsError("Destination contains different asset bytes")
         if source.exists():
             if _digest(source) != asset["sha256"]:
                 raise ValueError("Operation asset changed")
-        elif plan["action"] != "quarantine" or not destination.exists():
+        elif fresh or plan["action"] != "quarantine" or not destination.exists():
             raise FileNotFoundError("Operation asset is missing")
 
 
@@ -337,28 +343,35 @@ def _execute(ws: Workspace, plan: dict[str, Any], apply: bool) -> dict[str, Any]
         "model_qualified": False,
     }
     if not apply:
-        _check_plan(ws, plan, plan["operation_id"])
+        _check_plan(ws, plan, plan["operation_id"], fresh=True)
         return report
     with _lock(ws):
         if pending := _pending(ws):
             raise ValueError(
                 f"Recover pending operations before another write: {pending}"
             )
-        _check_plan(ws, plan, plan["operation_id"])
-        journal = ws.resolve(
-            f"scrape/transactions/{plan['operation_id']}.json", write=True
-        )
-        try:
-            atomic_write(journal, json_bytes(plan))
-        except OSError as exc:
-            if journal.exists():
-                raise PendingOperation(plan["operation_id"], exc) from exc
-            raise
-        return _finish(ws, plan)
+        _check_plan(ws, plan, plan["operation_id"], fresh=True)
+        return _publish(ws, plan, json_bytes(plan))
+
+
+def _publish(ws: Workspace, plan: dict[str, Any], content: bytes) -> dict[str, Any]:
+    """Publish checked bytes under the caller's writer lock, then resume them."""
+    journal = ws.resolve(f"scrape/transactions/{plan['operation_id']}.json", write=True)
+    try:
+        atomic_write(journal, content)
+    except OSError as exc:
+        if journal.exists():
+            raise PendingOperation(plan["operation_id"], exc) from exc
+        raise
+    return _finish(ws, plan)
 
 
 def promote(root: Path, candidate: str, *, dry_run: bool = True) -> dict[str, Any]:
     ws = workspace(root)
+    return _execute(ws, _promotion_plan(ws, candidate), not dry_run)
+
+
+def _promotion_plan(ws: Workspace, candidate: str) -> dict[str, Any]:
     captured = snapshot.capture(
         ws.root / "scrape", [ws.root / name for name in CONTROLS]
     )
@@ -437,17 +450,21 @@ def promote(root: Path, candidate: str, *, dry_run: bool = True) -> dict[str, An
             _relative(ws, validation_path): sha256(validation_bytes),
         },
     )
-    return _execute(ws, plan, not dry_run)
+    return plan
 
 
 def quarantine(
     root: Path, name: str, reason: str, *, dry_run: bool = True
 ) -> dict[str, Any]:
+    ws = workspace(root)
+    return _execute(ws, _quarantine_plan(ws, name, reason), not dry_run)
+
+
+def _quarantine_plan(ws: Workspace, name: str, reason: str) -> dict[str, Any]:
     if not reason.strip() or len(reason) > 2000 or "\0" in reason:
         raise ValueError(
             "Quarantine requires a nonempty reason of at most 2000 characters"
         )
-    ws = workspace(root)
     captured = snapshot.capture(
         ws.root / "scrape", [ws.root / name for name in CONTROLS]
     )
@@ -482,20 +499,30 @@ def quarantine(
         },
         reason=reason,
     )
-    return _execute(ws, plan, not dry_run)
+    return plan
 
 
 def recover(root: Path, operation_id: str, *, dry_run: bool = True) -> dict[str, Any]:
     if re.fullmatch(r"[0-9a-f]{32}", operation_id) is None:
         raise ValueError("Invalid operation ID")
     ws = workspace(root)
-    plan = _json(ws, f"scrape/transactions/{operation_id}.json")
+    raw = ws.read(f"scrape/transactions/{operation_id}.json")
+    plan = parse_json(raw)
+    if not isinstance(plan, dict):
+        raise TypeError("Unsupported workshop operation journal")
+    from workshop.plans import check_recovery
+
+    check_recovery(ws, operation_id, raw, plan)
     if _completed(ws, operation_id):
         return {"status": "already_completed", "operation_id": operation_id}
     _check_plan(ws, plan, operation_id)
     if dry_run:
         return {"status": "recovery_preview", "operation_id": operation_id}
     with _lock(ws):
+        current = ws.read(f"scrape/transactions/{operation_id}.json")
+        if current != raw:
+            raise ValueError("Recovery journal changed while acquiring the lock")
+        check_recovery(ws, operation_id, current, plan)
         if _completed(ws, operation_id):
             return {"status": "already_completed", "operation_id": operation_id}
         if _pending(ws) != [operation_id]:

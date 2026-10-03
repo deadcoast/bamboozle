@@ -305,6 +305,43 @@ def quarantine_lora(name: str, reason: str, dry_run: bool = False) -> dict:
 
 
 @mcp.tool()
+def prepare_promotion(candidate: str) -> dict:
+    """Native: persist a reviewable promotion plan without publishing assets."""
+    return _run("promote.py", "--prepare-candidate", candidate)
+
+
+@mcp.tool()
+def prepare_quarantine(name: str, reason: str) -> dict:
+    """Native: persist a reviewable quarantine plan without moving assets."""
+    return _run("promote.py", "--prepare-quarantine", name, "--reason", reason)
+
+
+@mcp.tool(annotations={"readOnlyHint": True})
+def inspect_plan(plan_id: str) -> dict:
+    """Native: read the saved plan summary and current applicability."""
+    return _run("promote.py", "--show-plan", plan_id)
+
+
+@mcp.tool()
+def apply_plan(plan_id: str, plan_sha256: str, dry_run: bool = True) -> dict:
+    """Native: check or apply the exact reviewed digest; defaults to read-only."""
+    return _run(
+        "promote.py",
+        "--apply-plan",
+        plan_id,
+        "--plan-sha256",
+        plan_sha256,
+        *(["--dry-run"] if dry_run else []),
+    )
+
+
+@mcp.tool()
+def cancel_plan(plan_id: str, plan_sha256: str) -> dict:
+    """Native: cancel an unused plan, retaining it as review evidence."""
+    return _run("promote.py", "--cancel-plan", plan_id, "--plan-sha256", plan_sha256)
+
+
+@mcp.tool()
 def run_audit(prune: bool = False, apply: bool = False) -> dict:
     """Reconcile the manifest against the compatibility matrix."""
     return _run(

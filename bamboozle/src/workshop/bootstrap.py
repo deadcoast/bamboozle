@@ -23,7 +23,13 @@ def initialize(root: Path) -> dict[str, Any]:
             "Workshop initialization requires a new or empty directory"
         )
     root.mkdir(parents=True, exist_ok=True)
-    for directory in ("scrape/transactions", "candidates", "prod", "quarantine"):
+    for directory in (
+        "scrape/transactions",
+        "scrape/prepared",
+        "candidates",
+        "prod",
+        "quarantine",
+    ):
         (root / directory).mkdir(parents=True)
     atomic_write(
         root / "_vigiles_workshop.json",

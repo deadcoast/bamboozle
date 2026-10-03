@@ -1,8 +1,8 @@
 # Bamboozle / Vigiles
 
-Current release: **v0.3.2 (VIGIL3)**. The v0.3.0 example foundation and v0.3.1
-consumer snapshots are retained. This patch bounds external pipeline output capture
-and reports incomplete draining separately from child exit.
+Current release: **v0.3.3 (VIGIL3)**. Native promotion and quarantine can now apply
+the exact durable plan reviewed earlier. Consumer snapshots, bounded subprocess
+capture, and legacy direct operations remain available.
 
 Vigiles is MIVIM's local middleware for reversible terminology translation,
 authenticated file exchange, and repository integrity checks. The application is
@@ -344,6 +344,63 @@ expose `recover_pipeline`, `quarantine_lora(..., dry_run=True)`, and
 `run_audit(..., apply=True)`. Promotion defaults to preview; the existing quarantine
 tool retains its explicit-action default, so request `dry_run=True` for a preview.
 
+### Prepare, review, and apply the same native plan
+
+Preparation writes a plan under `scrape/prepared` and takes the native writer lock;
+it does not publish assets, controls, or a transaction journal. Keep the returned
+`operation_id` and `plan_sha256`. Inspection and application previews are read-only:
+
+```powershell
+$review = uv run --locked python -m workshop.scrape.promote --prepare-candidate "candidates/MyLoRA.json" | ConvertFrom-Json
+uv run --locked python -m workshop.scrape.promote --show-plan $review.operation_id --details
+uv run --locked python -m workshop.scrape.promote --apply-plan $review.operation_id --plan-sha256 $review.plan_sha256 --dry-run
+# Apply only after reviewing the saved plan:
+uv run --locked python -m workshop.scrape.promote --apply-plan $review.operation_id --plan-sha256 $review.plan_sha256
+```
+
+Use `--prepare-quarantine MyLoRA --reason "review required"` to prepare quarantine.
+`--show-plan` reports source/destination, asset hash, reason, input hashes, control
+before/after hashes, and current applicability. `--details` also prints the full
+control before/after text for local review. This larger output should be read
+directly from the CLI; adapter output capture is bounded.
+
+Application requires the exact reviewed file digest and selected workshop. Under
+the writer lock it rechecks candidate/validation bytes, asset hashes, and every
+captured control. A destination that appeared since preparation is rejected even
+if its bytes match. A consumed or cancelled plan cannot publish again. The saved
+plan bytes become the transaction journal unchanged; an interrupted apply requires
+the explicit `--recover` workflow above. Recovery verifies the retained plan against
+the journal and accepts only matching before/after states.
+
+There are at most 32 unused plans per workshop. Cancel a stale or unwanted plan
+explicitly with `--cancel-plan <id> --plan-sha256 <reviewed-hash>`. Cancellation
+retains the plan and a digest-bound marker; it does not roll back pending or
+completed operations. Plans do not expire automatically. History remains on disk,
+so this bounds unused plans rather than total lifetime storage. Existing native
+workshops create the prepared directory lazily.
+
+Both workshop MCP interfaces expose `prepare_promotion`, `prepare_quarantine`,
+`inspect_plan`, `apply_plan`, and `cancel_plan`. These are native capabilities;
+external scripts need their own implementations of these options. MCP inspection
+returns the bounded summary, and `apply_plan` defaults to `dry_run=True`.
+The summary is capped at 6,000 ASCII JSON bytes before preparation; each saved
+plan retains the 16 MiB file limit. Oversized summaries fail without saving a plan.
+If saving succeeds but temporary cleanup fails, `prepared_cleanup_failed` includes
+the saved ID and digest for inspection; no automatic retry occurs.
+
+Legacy `--candidate`/`--quarantine` commands still create and apply a fresh plan
+unless `--dry-run` is supplied. A legacy dry-run does not create a reusable plan.
+Local digests establish consistency, not authenticated human approval. Changes by
+uncoordinated or hostile processes remain outside native writer serialization.
+
+```powershell
+uv run --locked python scripts/qualify_plans.py --workshop ".vigiles/new-plan-qualification" --report "new-plan-qualification.json"
+```
+
+`VIGILES_PLAN_QUALIFICATION.json` records actual CLI preparation, stale rejection,
+controlled interrupted application, exact-byte recovery, replay rejection, and
+quarantine/cancellation using synthetic assets at `.vigiles/plans-v0.3.3`.
+
 Reproduce qualification with explicitly synthetic byte assets in a new directory:
 
 ```powershell
@@ -352,15 +409,17 @@ uv run --locked python scripts/qualify_pipeline.py --workshop ".vigiles/new-qual
 
 The qualifier refuses existing workshop contents/report paths, exercises the actual
 scripts, injects a controlled ledger failure, and recovers through the CLI. This
-checkout's current target is `.vigiles/workshop-v0.3.2`; prior targets remain
-at `.vigiles/workshop` and `.vigiles/workshop-v0.3.1`. See
+checkout's current target is `.vigiles/workshop-v0.3.3`; prior targets remain
+at `.vigiles/workshop`, `.vigiles/workshop-v0.3.1`, and `.vigiles/workshop-v0.3.2`. See
 `VIGILES_PIPELINE_QUALIFICATION.json` for representative manifest/matrix data and
 execution evidence. Fixture success does not establish live LoRA/ComfyUI acceptance.
 
 The installed-wheel smoke test also checks pending-read rejection and recovery
 through a real workshop MCP stdio process, and noisy external-script success,
-failure, and timeout using the installed adapter. Historical reports remain as
-`VIGILES_*.foundation-0.3.0.json` and `VIGILES_*.consumers-0.3.1.json`.
+failure, and timeout using the installed adapter. Both workshop MCP stdio servers
+also exercise prepared promotion/quarantine, inspection, preview, replay rejection,
+and cancellation. Historical reports remain as `VIGILES_*.foundation-0.3.0.json`,
+`VIGILES_*.consumers-0.3.1.json`, and `VIGILES_*.capture-0.3.2.json`.
 
 ## Development and verification
 

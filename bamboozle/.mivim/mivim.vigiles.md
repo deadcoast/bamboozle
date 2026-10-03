@@ -281,4 +281,56 @@ warns that whole-output communication buffers are unsuitable for unlimited data.
 This implementation bounds adapter output storage, not the child process's total
 CPU, memory, disk, or descendant lifetime. VIG-HOST-01 remains open.
 
+### VIGIL3 reviewed native plans — 0.3.3
+
+VIGIL3-OPS-03 binds a later native publication to the exact promotion or quarantine
+plan inspected earlier. Legacy previews remain transient and read-only; preparing
+a durable plan is an explicit metadata write. The new contract is implemented by
+`workshop/plans.py` and shared through the native CLI and both workshop MCP servers.
+
+- Preparation captures the operation ID, time, reason, asset source/destination and
+  digest, candidate/validation digests, all control preconditions, and complete
+  control before/after bytes. The selected absolute workshop is included. Saved
+  operation JSON is limited to 16 MiB and its ordinary review summary to 6,000 ASCII
+  JSON bytes. At most 32 unused plans are retained; malformed historical records
+  fail inspection/preparation rather than being silently ignored.
+- Prepared records live outside the transaction directory. Preparation publishes
+  no assets or control changes and does not block native consumers. The native
+  writer lock serializes persistence, cancellation, direct operations, and apply.
+  A cleanup failure after plan publication reports the saved ID/hash truthfully.
+- CLI `--show-plan <id> --details` exposes before/after text. The default CLI and
+  MCP summary contains the exact-byte SHA-256, action, asset, reason, input digests,
+  control digests, and current applicability. Inspection and apply previews do not
+  create locks, files, or directories. A preview is not a state reservation.
+- Application requires both the saved ID and the previously reviewed SHA-256.
+  Under the lock it checks exact plan bytes, target workshop, unchanged inputs and
+  control before-images, source asset bytes, absent destination, and no pending or
+  completed operation for that plan. Matching destination bytes or control
+  after-images cannot be used to bypass fresh-application preconditions.
+- The prepared bytes become the recovery journal unchanged. The completion
+  record binds to that same digest. Repeated apply fails; interrupted apply is
+  `recovery_required`, not an implicit resume. Explicit recovery checks retained
+  plan/journal equality and resumes matching before/after states without appending
+  another action row. Existing journals without a prepared plan remain supported.
+- Explicit digest-bound cancellation preserves the plan and a cancellation marker.
+  It frees an unused slot and prevents apply; pending/completed operations cannot
+  be cancelled. There is no automatic expiry, deletion, retry, or rollback.
+  Historical storage is retained and is not bounded by the unused-plan cap.
+- Both MCP interfaces expose native `prepare_promotion`, `prepare_quarantine`,
+  `inspect_plan`, `apply_plan`, and `cancel_plan`. Apply defaults to preview.
+  Existing direct CLI actions retain their behavior and external scripts receive
+  the new flags only when one of these new capabilities is explicitly invoked.
+- Source regressions cover stale candidate, validation, asset and control data;
+  matching-but-new destinations; after-image rejection before journaling; digest
+  edits and cross-workshop copies; lock contention; retained cancellation and
+  capacity; lazy directory creation; partial-write recovery; and both adapters.
+  Qualification executes actual CLI calls and installed stdio tools for both
+  servers. Existing native, consumer, and bounded-capture qualification continues.
+
+These local records establish consistency, not authenticated approval or independent
+identity. An actor able to replace both plan and journal remains outside this
+protocol, as do uncoordinated filesystem races. Only synthetic assets are used in
+qualification. Live deployment, remote CI, process-tree isolation, identity, and
+historical-ledger migration remain separate open gates.
+
 ---

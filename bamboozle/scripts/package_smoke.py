@@ -15,7 +15,7 @@ from fastmcp.client.transports import StdioTransport
 
 import bamboozle
 from bamboozle.dictionary import Dictionary
-from workshop import examples, process
+from workshop import examples, plans, process
 from workshop import operations as ops
 from workshop.pipeline import run_script
 from workshop.scrape.alias_pass import Taxonomy
@@ -89,6 +89,8 @@ def main() -> None:
         )
     if not Path(process.__file__).resolve().is_relative_to(args.prefix.resolve()):
         raise RuntimeError("Capture module was not loaded from the installed wheel")
+    if not Path(plans.__file__).resolve().is_relative_to(args.prefix.resolve()):
+        raise RuntimeError("Prepared plans were not loaded from the installed wheel")
     mapping = Dictionary.load()
     if len(mapping) != 110 or not Taxonomy.load().canon_cat:
         raise RuntimeError("Packaged dictionary or taxonomy resource is missing")
@@ -156,6 +158,7 @@ def main() -> None:
 
     # Leave a real incomplete journal for the installed workshop stdio server.
     examples.candidate(workshop, "ExampleB", ["red hair"])
+    prepared = plans.prepare_promotion(workshop, "candidates/ExampleB.json")
     writer = ops.atomic_write
 
     def fail_ledger(path: Path, data: bytes, **kwargs) -> None:
@@ -166,10 +169,15 @@ def main() -> None:
     operation_id = ""
     with patch.object(ops, "atomic_write", fail_ledger):
         try:
-            ops.promote(workshop, "candidates/ExampleB.json", dry_run=False)
+            plans.apply_plan(
+                workshop,
+                prepared["operation_id"],
+                prepared["plan_sha256"],
+                dry_run=False,
+            )
         except ops.PendingOperation as exc:
             operation_id = exc.operation_id
-    if not operation_id:
+    if operation_id != prepared["operation_id"]:
         raise RuntimeError("Installed failure injection did not leave a journal")
 
     async def smoke_mcp() -> None:
@@ -209,6 +217,11 @@ def main() -> None:
             )
             if recovered["returncode"] != 0:
                 raise RuntimeError(f"Installed reader recovery failed: {recovered}")
+            if (
+                json.loads(recovered["stdout"])["journal_sha256"]
+                != prepared["plan_sha256"]
+            ):
+                raise RuntimeError("Installed recovery changed the reviewed plan")
             query = await client.call_tool("lora_who", {"trigger": "red hair"})
             content = query.content[0]
             if content.type != "text" or json.loads(content.text)["loras"] != [
@@ -217,6 +230,94 @@ def main() -> None:
                 raise RuntimeError("Installed workshop did not refresh after recovery")
 
     asyncio.run(asyncio.wait_for(smoke_workshop(), timeout=30))
+    examples.candidate(workshop, "ExampleC", ["neon"])
+
+    async def smoke_plans(module: str) -> dict:
+        transport = StdioTransport(
+            command=sys.executable,
+            args=["-c", f"from {module} import mcp; mcp.run()"],
+            cwd=str(Path.cwd()),
+            env={"VIGILES_WORKSHOP_ROOT": str(workshop.absolute())},
+        )
+        async with Client(transport) as client:
+
+            async def call(name: str, arguments: dict, code: int = 0) -> dict:
+                result = await client.call_tool(name, arguments)
+                content = result.content[0]
+                if content.type != "text":
+                    raise RuntimeError("Installed plan tool did not return JSON text")
+                report = json.loads(content.text)
+                if report["returncode"] != code or report["stdout_truncated"]:
+                    raise RuntimeError(f"Installed plan tool failed: {report}")
+                return json.loads(report["stdout"])
+
+            review = await call(
+                "prepare_promotion", {"candidate": "candidates/ExampleC.json"}
+            )
+            identity = {
+                "plan_id": review["operation_id"],
+                "plan_sha256": review["plan_sha256"],
+            }
+            inspected = await call("inspect_plan", {"plan_id": identity["plan_id"]})
+            if (
+                not inspected["applicable"]
+                or inspected["plan_sha256"] != identity["plan_sha256"]
+            ):
+                raise RuntimeError("Installed plan inspection mismatch")
+            preview = await call("apply_plan", identity)
+            if preview["status"] != "plan_preview":
+                raise RuntimeError("Installed plan tool default is not preview")
+            saved = await call("apply_plan", {**identity, "dry_run": False})
+            if saved["journal_sha256"] != identity["plan_sha256"]:
+                raise RuntimeError("Installed application changed the reviewed plan")
+            replay = await call("apply_plan", {**identity, "dry_run": False}, code=1)
+            if "applied" not in replay["error"]:
+                raise RuntimeError("Installed application did not reject replay")
+            quarantine = await call(
+                "prepare_quarantine",
+                {"name": "ExampleC", "reason": "installed fixture"},
+            )
+            removed = await call(
+                "apply_plan",
+                {
+                    "plan_id": quarantine["operation_id"],
+                    "plan_sha256": quarantine["plan_sha256"],
+                    "dry_run": False,
+                },
+            )
+            if removed["journal_sha256"] != quarantine["plan_sha256"]:
+                raise RuntimeError("Installed quarantine changed the reviewed plan")
+            unused = await call(
+                "prepare_quarantine",
+                {"name": "ExampleB", "reason": "cancelled fixture"},
+            )
+            cancelled = await call(
+                "cancel_plan",
+                {
+                    "plan_id": unused["operation_id"],
+                    "plan_sha256": unused["plan_sha256"],
+                },
+            )
+            if (
+                cancelled["status"] != "cancelled"
+                or not (workshop / "prod/model-ExampleB.bin").exists()
+            ):
+                raise RuntimeError("Installed cancellation changed production assets")
+            return {
+                "module": module,
+                "status": "passed",
+                "promotion": saved,
+                "quarantine": removed,
+                "cancelled": cancelled,
+            }
+
+    plan_results = [
+        asyncio.run(asyncio.wait_for(smoke_plans(module), timeout=60))
+        for module in (
+            "workshop.mcp.workshop_mcp",
+            "workshop.scrape.bamb5",
+        )
+    ]
     capture_results = smoke_capture()
     print(
         json.dumps(
@@ -225,6 +326,11 @@ def main() -> None:
                 "version": bamboozle.__version__,
                 "package_file": str(package_file),
                 "capture_results": capture_results,
+                "plan_results": plan_results,
+                "reviewed_plan_recovery": {
+                    "operation_id": operation_id,
+                    "plan_sha256": prepared["plan_sha256"],
+                },
                 "checks": [
                     "bundled_resources",
                     "cli_roundtrip",
@@ -236,6 +342,8 @@ def main() -> None:
                     "native_promotion_audit_quarantine",
                     "workshop_stdio_pending_read_rejection_and_recovery",
                     "bounded_capture_success_failure_timeout",
+                    "both_workshop_stdio_reviewed_plan_prepare_inspect_apply_replay_cancel",
+                    "installed_reviewed_plan_fault_recovery",
                 ],
             }
         )

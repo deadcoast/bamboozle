@@ -20,7 +20,7 @@
         ],
         "lora": "ExampleA",
         "model_qualified": false,
-        "operation_id": "962b0c12ca024f0a9d721bdcee2d84f9",
+        "operation_id": "7e86d790d60a468291a5be70b3e74321",
         "schema_version": 1,
         "status": "preview"
       },
@@ -33,10 +33,10 @@
       ],
       "result": {
         "action": "promote",
-        "journal_sha256": "a1effc4b938f85071706c78a2ed916d1a9e313517ba9a4111310df6a1919da73",
+        "journal_sha256": "c756381be7b47dd330c91adf84d93d1312cbaca210bc2187c4ef86dcea5ffdca",
         "lora": "ExampleA",
         "model_qualified": false,
-        "operation_id": "5b64ba8e668d49059e76a4a0da1a34d0",
+        "operation_id": "8da0c6dcf3f342f3b2ec3f0347c64765",
         "schema_version": 1,
         "status": "saved"
       },
@@ -49,10 +49,10 @@
       ],
       "result": {
         "action": "promote",
-        "journal_sha256": "6c84f72ac1e5e980a2b5df3a4bcdcccc3cf29f35138cbbf15a8f365745c8dd0a",
+        "journal_sha256": "6d70339a8e63eb2340c812506f025304c6263c71439795042e2d74a55d1b28f0",
         "lora": "ExampleB",
         "model_qualified": false,
-        "operation_id": "06b68729ff6349578c3e3f6ae425949d",
+        "operation_id": "bccebac518d54f7e92dafe9f475e44f6",
         "schema_version": 1,
         "status": "saved"
       },
@@ -76,7 +76,7 @@
         ],
         "lora": "",
         "model_qualified": false,
-        "operation_id": "958130dc052647678a88b2836f9715f7",
+        "operation_id": "e45e3f2750654f57ba90bb644350aa61",
         "pairs": 1,
         "pruned": true,
         "schema_version": 1,
@@ -96,10 +96,10 @@
         "dangling_pairs": [
           "ExampleA|Missing"
         ],
-        "journal_sha256": "1c5e102afad17ef919548cc91d3c05324fbbff8a2d1ad39b4255f332e5fb58b6",
+        "journal_sha256": "435cf7401123406c11d6019dded247354b534ccafae9f7897c2454045209e2dc",
         "lora": "",
         "model_qualified": false,
-        "operation_id": "e501b78dc1cf435ea4d9c70310945414",
+        "operation_id": "20a8678a83d547adacce79f4d19b5cac",
         "pairs": 1,
         "pruned": true,
         "schema_version": 1,
@@ -111,11 +111,11 @@
     {
       "arguments": [
         "--recover",
-        "234182e3e01e4fac90a4ad7c4b5d6b91",
+        "85812fade6da4ea5bfd3be9a29acf044",
         "--dry-run"
       ],
       "result": {
-        "operation_id": "234182e3e01e4fac90a4ad7c4b5d6b91",
+        "operation_id": "85812fade6da4ea5bfd3be9a29acf044",
         "status": "recovery_preview"
       },
       "script": "promote.py"
@@ -123,14 +123,14 @@
     {
       "arguments": [
         "--recover",
-        "234182e3e01e4fac90a4ad7c4b5d6b91"
+        "85812fade6da4ea5bfd3be9a29acf044"
       ],
       "result": {
         "action": "promote",
-        "journal_sha256": "219422023e0c37c27db1ad55a7069aca48e8574bf17de7ed73a4d43ac7d1cf76",
+        "journal_sha256": "e6324cea6e4973fba2c5586e92e3d7b90c4324130b2e5c9266bf5452c3808a43",
         "lora": "ExampleC",
         "model_qualified": false,
-        "operation_id": "234182e3e01e4fac90a4ad7c4b5d6b91",
+        "operation_id": "85812fade6da4ea5bfd3be9a29acf044",
         "schema_version": 1,
         "status": "saved"
       },
@@ -147,7 +147,7 @@
       "result": {
         "action": "quarantine",
         "asset": {
-          "destination": "quarantine/8c4ac6eca65845559c605ac19a20a5ad/model-ExampleC.bin",
+          "destination": "quarantine/3de2f7284f9b4daca3cd4c06300f2a70/model-ExampleC.bin",
           "sha256": "465399f1c4c44b57ccf3010413cf30b0993d5d44fd285c7431f2d9bdbd9f7f72",
           "source": "prod/model-ExampleC.bin"
         },
@@ -159,7 +159,7 @@
         ],
         "lora": "ExampleC",
         "model_qualified": false,
-        "operation_id": "fcbf5706ac4542969f0b08889551b6d7",
+        "operation_id": "b4b395b6b8e24e1b96285bd24d342856",
         "schema_version": 1,
         "status": "preview"
       },
@@ -174,10 +174,10 @@
       ],
       "result": {
         "action": "quarantine",
-        "journal_sha256": "8c1f4144e71af2e34c74b0cb775ba887a474e893cc87d16bada81c90e7fa6828",
+        "journal_sha256": "10536efc34ec0605f583ba2f46c0b10e7102eb116ff1e887570fe133bfd11508",
         "lora": "ExampleC",
         "model_qualified": false,
-        "operation_id": "8d1205c56c6843db9d4c3a23c414d1ec",
+        "operation_id": "257ec14460424efcb1fb7bbe69e40eaa",
         "schema_version": 1,
         "status": "saved"
       },
@@ -185,8 +185,8 @@
     }
   ],
   "completed_snapshot_after_recovery": true,
-  "controlled_failure_recovered": "234182e3e01e4fac90a4ad7c4b5d6b91",
-  "created": "2026-10-03T02:57:52.309378Z",
+  "controlled_failure_recovered": "85812fade6da4ea5bfd3be9a29acf044",
+  "created": "2026-10-03T03:26:35.484630Z",
   "final_file_sha256": {
     "_vigiles_workshop.json": "48188c0170697ed4cbf424a23f642140e92731287ba7bc324c4ac825241e45f9",
     "candidates/ExampleA.bin": "085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0",
@@ -200,25 +200,25 @@
     "candidates/ExampleC.validation.json": "b95bbd753a95dce56141cadf177e898a5f4d0f5906358bacc44bdac087a82e09",
     "prod/model-ExampleA.bin": "085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0",
     "prod/model-ExampleB.bin": "7800f4671dcc5fdc942ce6e186fce8c124bc1c77a3a297bb59a2e45f4cefe059",
-    "quarantine/a207a6ff062240eeac0f2a26c443ded6/model-ExampleC.bin": "465399f1c4c44b57ccf3010413cf30b0993d5d44fd285c7431f2d9bdbd9f7f72",
+    "quarantine/df2e733f06364dd58b52e60a0bcf8d40/model-ExampleC.bin": "465399f1c4c44b57ccf3010413cf30b0993d5d44fd285c7431f2d9bdbd9f7f72",
     "scrape/.vigiles.lock": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
     "scrape/_compatibility_matrix.json": "676e9709a2eb16b23271e0617bcd0af134a10a011d91875596dd470f8c7363a9",
-    "scrape/_lora_ledger.csv": "65f37dbed4d5614e5ec8c1336ee0caba0af5c1bd5eeee7dba9b0808a67ec63bc",
+    "scrape/_lora_ledger.csv": "accdc5d51ea43d3a061fc36c15378fdf43aa2b8aba5c902c5de789837a264ca9",
     "scrape/_lora_manifest.json": "f540461d48c08b1d0b9bcc8c337aa15695f1486521e6875d50731a96a0dcbdbf",
-    "scrape/_pipeline_status.json": "1b8e6b6da98a68e89b6809a1c3e03d5434195c67746342d61e555d879bcd17b5",
+    "scrape/_pipeline_status.json": "b574f81448681575d5c6cb7c8bad435a1eb2020896bf93ca9ca18c215bde9b60",
     "scrape/audit_matrix.py": "a7d54c001e50073622429210c3a39981dba7838758439893ea5c8f691a400923",
     "scrape/promote.py": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
     "scrape/taxonomy.json": "ba9e29c6c062f43e0d633f6c0bae19b44ecce3722e0e27c230b1421e8f737052",
-    "scrape/transactions/06b68729ff6349578c3e3f6ae425949d.done.json": "970bcebf862ec033d6593d7af5573260500b97564edf0b1f66e8ad4701352962",
-    "scrape/transactions/06b68729ff6349578c3e3f6ae425949d.json": "6c84f72ac1e5e980a2b5df3a4bcdcccc3cf29f35138cbbf15a8f365745c8dd0a",
-    "scrape/transactions/234182e3e01e4fac90a4ad7c4b5d6b91.done.json": "690720f213536e8a6790a462b2c94e3bf5bced69121bd2ba9b7b04fed2960780",
-    "scrape/transactions/234182e3e01e4fac90a4ad7c4b5d6b91.json": "219422023e0c37c27db1ad55a7069aca48e8574bf17de7ed73a4d43ac7d1cf76",
-    "scrape/transactions/5b64ba8e668d49059e76a4a0da1a34d0.done.json": "93fd3bfdac3b7d3ae1a8b45740b45598d0e23afd8e8b68c8e67b30c54ae3e3d6",
-    "scrape/transactions/5b64ba8e668d49059e76a4a0da1a34d0.json": "a1effc4b938f85071706c78a2ed916d1a9e313517ba9a4111310df6a1919da73",
-    "scrape/transactions/8d1205c56c6843db9d4c3a23c414d1ec.done.json": "01c9ca852bcae5f931a516db4cd61cbb0b212fd1df346050244fa606ea793322",
-    "scrape/transactions/8d1205c56c6843db9d4c3a23c414d1ec.json": "8c1f4144e71af2e34c74b0cb775ba887a474e893cc87d16bada81c90e7fa6828",
-    "scrape/transactions/e501b78dc1cf435ea4d9c70310945414.done.json": "e2faf2b79e4b42d056b3b6f000c64ebd0a7d483562c857a963968a9a34a2f404",
-    "scrape/transactions/e501b78dc1cf435ea4d9c70310945414.json": "1c5e102afad17ef919548cc91d3c05324fbbff8a2d1ad39b4255f332e5fb58b6"
+    "scrape/transactions/20a8678a83d547adacce79f4d19b5cac.done.json": "91e23bfae7b28d3023f35adde5e6ba2adcdc5ebf65ec658dbff4fae216b64ae0",
+    "scrape/transactions/20a8678a83d547adacce79f4d19b5cac.json": "435cf7401123406c11d6019dded247354b534ccafae9f7897c2454045209e2dc",
+    "scrape/transactions/257ec14460424efcb1fb7bbe69e40eaa.done.json": "d79a1abf5796abe6b63a60744fb8b7975650a70b0ffa1353e7f58e342f6e6ffb",
+    "scrape/transactions/257ec14460424efcb1fb7bbe69e40eaa.json": "10536efc34ec0605f583ba2f46c0b10e7102eb116ff1e887570fe133bfd11508",
+    "scrape/transactions/85812fade6da4ea5bfd3be9a29acf044.done.json": "d14cf282c7654fc8cc93ddb8199edda898a0221a5b9363f6793da152bfa033f9",
+    "scrape/transactions/85812fade6da4ea5bfd3be9a29acf044.json": "e6324cea6e4973fba2c5586e92e3d7b90c4324130b2e5c9266bf5452c3808a43",
+    "scrape/transactions/8da0c6dcf3f342f3b2ec3f0347c64765.done.json": "48b4c882c22b280c0f962ff7b9fd56f0ad994713ff84ebc5dbf158c85935cae0",
+    "scrape/transactions/8da0c6dcf3f342f3b2ec3f0347c64765.json": "c756381be7b47dd330c91adf84d93d1312cbaca210bc2187c4ef86dcea5ffdca",
+    "scrape/transactions/bccebac518d54f7e92dafe9f475e44f6.done.json": "fb210c52410680e48b957bedef221e2c4a2b5248df70cf900af6b2deca99dce8",
+    "scrape/transactions/bccebac518d54f7e92dafe9f475e44f6.json": "6d70339a8e63eb2340c812506f025304c6263c71439795042e2d74a55d1b28f0"
   },
   "fixture_only": true,
   "manifest": {
@@ -314,21 +314,21 @@
         "name": "native_workshop",
         "ok": true,
         "pending_operations": [],
-        "version": "0.3.2"
+        "version": "0.3.3"
       }
     ],
-    "created": "2026-10-03T02:57:56.084408Z",
+    "created": "2026-10-03T03:26:39.117238Z",
     "deployment_qualified": false,
     "executed_scripts": false,
     "gate": "VIG-DEPLOY-01",
     "next_action": "Review script behavior and qualify dry-run, publication, and recovery against isolated copies before any live operation.",
     "ok": true,
     "schema_version": 1,
-    "scrape": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.vigiles\\workshop-v0.3.2\\scrape",
+    "scrape": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.vigiles\\workshop-v0.3.3\\scrape",
     "status": "ready_for_review"
   },
   "schema_version": 1,
   "status": "passed",
-  "version": "0.3.2",
-  "workshop": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.vigiles\\workshop-v0.3.2"
+  "version": "0.3.3",
+  "workshop": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.vigiles\\workshop-v0.3.3"
 }
