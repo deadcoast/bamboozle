@@ -18,3 +18,14 @@ dist/
 *.key
 *.key.*.bak
 .*.scm_ledger.json
+
+# lsp, compiler and environment settings
+compile_commands.json
+
+# cache files
+.cache/
+
+# build files
+cipher
+*.o
+*.d
