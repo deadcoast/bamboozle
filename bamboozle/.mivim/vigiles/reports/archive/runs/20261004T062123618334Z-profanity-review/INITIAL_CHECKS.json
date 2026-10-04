@@ -1,0 +1,15 @@
+{
+  "first_focused_run": {
+    "failed": 1,
+    "failure": "Existing reviewed-restoration test caught a lost line-specific damaged-marker diagnostic; restored that diagnostic.",
+    "passed": 101,
+    "xml": ".test-tmp/profanity-first.xml"
+  },
+  "scope": "Expand and improve the existing profanity vocabulary and reversible cipher, retaining original mappings and agent I/O.",
+  "second_focused_run": {
+    "failed": 0,
+    "passed": 104,
+    "xml": ".test-tmp/profanity-second.xml"
+  },
+  "type_check_correction": "Added explicit scan findings list type after mypy requested it; subsequent mypy and pyright passed."
+}

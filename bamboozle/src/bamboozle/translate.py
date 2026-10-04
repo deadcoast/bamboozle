@@ -13,7 +13,7 @@ if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from bamboozle.cipher import process_forward, process_reverse
-from bamboozle.dictionary import Dictionary
+from bamboozle.dictionary import PROFILES, Dictionary
 from bamboozle.engine import Translator, match_case
 from bamboozle.service import prepare
 from bamboozle.utils import atomic_write, json_bytes, parse_json, read_bytes
@@ -66,7 +66,9 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--mode", choices=["forward", "reverse"], required=True)
     parser.add_argument("--input", required=True)
     parser.add_argument("--output", required=True)
-    parser.add_argument("--dict", dest="dictionary", type=Path)
+    selection = parser.add_mutually_exclusive_group()
+    selection.add_argument("--dict", dest="dictionary", type=Path)
+    selection.add_argument("--profile", choices=PROFILES)
     parser.add_argument("--ledger", type=Path)
     parser.add_argument("--strict", action="store_true")
     parser.add_argument("--root", type=Path, default=Path.cwd())
@@ -79,7 +81,9 @@ def main(argv: list[str] | None = None) -> int:
                 args.input,
                 mode=args.mode,
                 output=args.output,
-                dictionary=args.dictionary,
+                dictionary=Dictionary.load(profile=args.profile)
+                if args.profile
+                else args.dictionary,
                 ledger=args.ledger,
                 strict=args.strict,
             ).apply()
@@ -88,7 +92,8 @@ def main(argv: list[str] | None = None) -> int:
         if args.ledger is not None or args.strict:
             raise ValueError("--ledger and --strict require file-to-file translation")
         dictionary = Dictionary.load(
-            workspace.resolve(args.dictionary) if args.dictionary else None
+            workspace.resolve(args.dictionary) if args.dictionary else None,
+            profile=args.profile or "default",
         )
         original = (
             sys.stdin.read()

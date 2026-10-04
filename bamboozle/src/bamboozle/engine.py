@@ -3,11 +3,12 @@
 from __future__ import annotations
 
 import re
+from collections import Counter, OrderedDict
 from collections.abc import Mapping
 from dataclasses import dataclass
-from typing import Literal
+from typing import Any, Literal
 
-from bamboozle.dictionary import LITERAL_PREFIX, Dictionary
+from bamboozle.dictionary import CASE_PREFIX, LITERAL_PREFIX, Dictionary
 from bamboozle.utils import MAX_FILE_BYTES
 
 Mode = Literal["forward", "reverse"]
@@ -27,6 +28,8 @@ def match_case(original: str, target: str) -> str:
         return target.title()
     if original == original.lower():
         return target.lower()
+    if original[:1].isupper() and original[1:] == original[1:].lower():
+        return target[:1].upper() + target[1:]
     raise ValueError(
         "Mixed-case terms require an explicit mapping; conversion would lose case"
     )
@@ -68,7 +71,84 @@ class Translator:
             + ")__",
             re.IGNORECASE,
         )
-        self._prefix = re.compile(re.escape(LITERAL_PREFIX), re.IGNORECASE)
+        self._case = re.compile(
+            re.escape(CASE_PREFIX)
+            + r"(?P<case_mask>[0-9a-f]{1,128})_(?P<case_term>"
+            + _alternatives(set(self.dictionary.values()))
+            + r")__",
+            re.IGNORECASE,
+        )
+        self._prefix = re.compile(
+            re.escape(LITERAL_PREFIX) + "|" + re.escape(CASE_PREFIX), re.IGNORECASE
+        )
+        self._terms = {
+            "forward": _alternatives(
+                set(self.dictionary) | set(self.dictionary.values())
+            ),
+            "reverse": _alternatives(set(self.dictionary.values())),
+        }
+        self._patterns: OrderedDict[tuple[str, Mode], re.Pattern[str]] = OrderedDict()
+
+    def _encode_term(self, original: str, source: str, target: str) -> str:
+        try:
+            rendered = match_case(original, target)
+            if match_case(rendered, source) == original:
+                return rendered
+        except ValueError:
+            pass
+        # Store only case positions, never the original term. The neutral target
+        # remains readable and the marker is a valid identifier for identifier terms.
+        if len(original) != len(source) or original.lower() != source:
+            raise ValueError("Ambiguous Unicode case folding in matched term")
+        mask = 0
+        for index, (actual, base) in enumerate(zip(original, source, strict=True)):
+            if actual == base:
+                continue
+            if actual != base.upper() or len(base.upper()) != 1:
+                raise ValueError("Case conversion cannot preserve this term exactly")
+            mask |= 1 << index
+        return f"{CASE_PREFIX}{mask:x}_{target}__"
+
+    def _decode_case(self, match: re.Match[str]) -> str:
+        term = match.group("case_term")
+        if term.casefold() not in self._reverse:
+            raise ValueError(
+                "Case marker target must retain its canonical lowercase form"
+            )
+        source = self._reverse[term.casefold()]
+        if term != self.dictionary[source]:
+            raise ValueError(
+                "Case marker target must retain its canonical lowercase form"
+            )
+        mask = int(match.group("case_mask"), 16)
+        if mask >> len(source):
+            raise ValueError("Case marker exceeds the source term length")
+        result = []
+        for index, char in enumerate(source):
+            if mask & (1 << index):
+                upper = char.upper()
+                if upper == char or len(upper) != 1:
+                    raise ValueError("Case marker selects a non-reversible character")
+                result.append(upper)
+            else:
+                result.append(char)
+        return "".join(result)
+
+    def validate_markers(self, text: str, mode: Mode = "reverse") -> None:
+        for prefix in self._prefix.finditer(text):
+            if mode == "forward":
+                raise ValueError(
+                    "Input already contains reserved literal or case markers"
+                )
+            if prefix.group(0).casefold() == LITERAL_PREFIX.casefold():
+                if self._literal.match(text, prefix.start()) is None:
+                    line = len(re.findall(r"\r\n|\r|\n", text[: prefix.start()])) + 1
+                    raise ValueError(f"Damaged literal marker at line {line}")
+            else:
+                marker = self._case.match(text, prefix.start())
+                if marker is None:
+                    raise ValueError("Damaged or unrecognized case marker")
+                self._decode_case(marker)
 
     def _pattern(self, text: str, mode: Mode) -> re.Pattern[str]:
         # re's \w omits combining marks that continue Python identifiers.
@@ -79,28 +159,72 @@ class Translator:
                 if not re.match(r"\w", char) and ("a" + char).isidentifier()
             )
         )
+        key = (extras, mode)
+        cached = self._patterns.get(key)
+        if cached is not None:
+            return cached
         boundary = r"[\w" + re.escape(extras) + "]"
-        terms = (
-            set(self.dictionary) | set(self.dictionary.values())
-            if mode == "forward"
-            else set(self.dictionary.values())
-        )
-        pattern = (
-            "(?<!" + boundary + ")(" + _alternatives(terms) + ")(?!" + boundary + ")"
-        )
+        pattern = "(?<!" + boundary + ")(" + self._terms[mode] + ")(?!" + boundary + ")"
         if mode == "reverse":
-            pattern = self._literal.pattern + "|" + pattern
-        return re.compile(pattern, re.IGNORECASE)
+            pattern = self._literal.pattern + "|" + self._case.pattern + "|" + pattern
+        compiled = re.compile(pattern, re.IGNORECASE)
+        self._patterns[key] = compiled
+        if len(self._patterns) > 32:
+            self._patterns.popitem(last=False)
+        return compiled
+
+    def scan(self, text: str, *, max_matches: int = 1000) -> dict[str, Any]:
+        """Inspect exact dictionary coverage without changing source or normalizing it."""
+        if type(max_matches) is not int or not 1 <= max_matches <= 10000:
+            raise ValueError("max_matches must be an integer from 1 to 10000")
+        if len(text) > self.max_output_chars:
+            raise ValueError("Translation exceeds the configured size limit")
+        self.validate_markers(text, "forward")
+        newline = re.compile(r"\r\n|\r|\n")
+        line, line_start, position = 1, 0, 0
+        counts: Counter[str] = Counter()
+        matches: list[dict[str, Any]] = []
+        for match in self._pattern(text, "forward").finditer(text):
+            term = match.group(0)
+            folded = term.casefold()
+            if folded in self._reverse:
+                continue
+            if folded not in self._forward:
+                raise ValueError("Ambiguous Unicode case folding in matched term")
+            target = self._forward[folded]
+            source = self._reverse[target.casefold()]
+            counts[source] += 1
+            if len(matches) < max_matches:
+                for ending in newline.finditer(text, position, match.start()):
+                    line += 1
+                    line_start = ending.end()
+                position = match.end()
+                matches.append(
+                    {
+                        "term": term,
+                        "source_term": source,
+                        "replacement": self._encode_term(term, source, target),
+                        "start": match.start(),
+                        "end": match.end(),
+                        "line": line,
+                        "column": match.start() - line_start + 1,
+                    }
+                )
+        total = sum(counts.values())
+        return {
+            "matched_terms": total,
+            "counts": dict(sorted(counts.items())),
+            "matches": matches,
+            "matches_complete": total <= max_matches,
+            "dictionary_sha256": self.dictionary.fingerprint,
+            "mapping_version": self.dictionary.version,
+        }
 
     def _transform(self, text: str, mode: Mode) -> Translation:
         length = len(text)
         if length > self.max_output_chars:
             raise ValueError("Translation exceeds the configured size limit")
-        for prefix in self._prefix.finditer(text):
-            if mode == "forward":
-                raise ValueError("Input already contains reserved literal markers")
-            if self._literal.match(text, prefix.start()) is None:
-                raise ValueError("Damaged or unrecognized literal marker")
+        self.validate_markers(text, mode)
         substitutions = literals = 0
 
         def bounded(replacement: str, original: str) -> str:
@@ -113,6 +237,9 @@ class Translator:
         def replace(match: re.Match[str]) -> str:
             nonlocal substitutions, literals
             original = match.group(0)
+            if mode == "reverse" and match.groupdict().get("case_term") is not None:
+                substitutions += 1
+                return bounded(self._decode_case(match), original)
             if mode == "reverse" and match.group("literal") is not None:
                 literals += 1
                 return bounded(match.group("literal"), original)
@@ -124,6 +251,15 @@ class Translator:
             if folded not in mapping:
                 raise ValueError("Ambiguous Unicode case folding in matched term")
             substitutions += 1
+            if mode == "forward":
+                return bounded(
+                    self._encode_term(
+                        original,
+                        self._reverse[mapping[folded].casefold()],
+                        mapping[folded],
+                    ),
+                    original,
+                )
             return bounded(match_case(original, mapping[folded]), original)
 
         result = self._pattern(text, mode).sub(replace, text)

@@ -631,3 +631,51 @@ an edit and a generated dependent module, execute the restored program, verify t
 prior source backup, and reject stale writes and private metadata reads. Directory
 discovery, project-view export, multi-file atomic imports, profile enforcement and
 recipient lifecycle are not established by this two-tool source interface.
+
+### Profanity vocabulary and reversible filter improvements — 0.4.3
+
+The user's next development instruction targets the existing profanity filter and
+dictionary. This extends the operational semantic cipher and agent I/O; it does not
+replace them with a separate censor or advance the queue to external deployment.
+
+- The default mapping version `2` has 415 entries: all 110 original mappings remain
+  unchanged, merged with the 310-entry `profanity-1` profile (five identical overlaps).
+  The profanity profile is a shipped, versioned JSON resource. Conflicting merges,
+  duplicate targets, vocabulary overlap, and reserved marker names fail validation.
+- Curated additions cover common profanity and slurs, inflections, possessives,
+  phrases, regional forms, abbreviations, curly apostrophes and explicitly listed
+  disguised spellings. Each variant has an independent neutral target. There is no
+  destructive normalization or many-to-one reverse guess.
+- The original whole-term, longest-first and Unicode identifier boundaries remain.
+  Compiled matching patterns are reused with a bounded per-engine cache. Native
+  neutral literals retain their original protection.
+- Sentence case is reversible directly. Mixed capitalization, including source
+  identifiers, uses `__SCM_CASE_<hex-mask>_<canonical-neutral-target>__` when needed.
+  The bitmask records uppercase source-character positions without exposing the
+  source word. Unknown targets, invalid masks, damaged markers and lossy Unicode
+  folding fail explicitly. The complete forward round-trip check still applies.
+  This supersedes the earlier blanket rejection of mixed-case source terms; it
+  does not authorize guessing the case of an unmarked mixed-case neutral return.
+- Case markers are decoded in ordinary, strict, agent, and reviewed-restoration
+  paths. Like literal markers, they are explicit translation context even on an
+  edited line. Earlier literal markers and saved dictionary snapshots still work.
+  New case markers require v0.4.3+ decoders.
+- `--profile profanity` selects profanity filtering without the original broad
+  domain terms. CLI conversion/inspection, both MCP launchers and the original
+  cipher flags accept explicit profiles. `--dict` remains an alternative. Saved
+  ledgers take precedence when no explicit selection is made; explicit mismatches
+  fail. Dictionary exports contain full mappings, never a runtime merge dependency.
+- `scan` and operator MCP `scan_file` use the encoder's exact matching rules and
+  report total/per-term counts, bounded findings, and Unicode character locations.
+  Counts remain complete when location rows are truncated. Scanning never writes
+  files and is intentionally absent from the dedicated agent server because its
+  operator report includes original terms.
+
+Qualification exercises every bundled term under lower/upper/title/sentence/mixed
+case, native target literals, false substring matches, historical snapshots,
+malformed markers, size limits, CLI profiles, operator scans, and agent-generated
+dependent code. The installed wheel must repeat actual profile selection, scan,
+strict round trip, encoded read, edited/generated decoded write, and execution.
+Lexical matches do not infer intent or guarantee coverage of arbitrary disguise or
+languages. Project views, multi-file import, structural enforcement and recipient
+lifecycle remain separate core work.

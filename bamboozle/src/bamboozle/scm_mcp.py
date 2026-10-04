@@ -9,7 +9,7 @@ from typing import Any
 from fastmcp import FastMCP
 
 from bamboozle.agent_files import AgentFiles
-from bamboozle.dictionary import Dictionary
+from bamboozle.dictionary import PROFILES, Dictionary
 from bamboozle.service import OperationError
 from bamboozle.workspace import Workspace
 
@@ -19,7 +19,7 @@ def register_tools(server: FastMCP, files: AgentFiles) -> None:
     def read_safe_file(file_path: str) -> dict[str, Any]:
         """Read source through the semantic encoder. Returns neutral content, never raw source.
 
-        Use this for source reads; preserve literal markers and the translated vocabulary.
+        Use this for source reads; preserve literal/case markers and the translated vocabulary.
         Keep source_sha256 for an existing-file write after a server reconnect.
         """
         return files.read(file_path)
@@ -54,7 +54,7 @@ def create_server(
         instructions=(
             "You work through the Bamboozle semantic cipher. Read project source with read_safe_file; "
             "it encodes domain terminology into the working vocabulary. Submit edits and newly generated "
-            "source through write_safe_file; it decodes that vocabulary locally. Preserve __SCM_LIT_...__ "
+            "source through write_safe_file; it decodes that vocabulary locally. Preserve __SCM_LIT_...__ and __SCM_CASE_...__ "
             "markers and do not rename mapped terms. Never request private dictionaries, keys or history."
         ),
     )
@@ -69,11 +69,13 @@ def main(argv: list[str] | None = None) -> int:
         description="Semantic cipher file tools for coding agents"
     )
     parser.add_argument("--root", type=Path, default=Path.cwd())
-    parser.add_argument("--dict", dest="dictionary", type=Path)
+    selection = parser.add_mutually_exclusive_group()
+    selection.add_argument("--dict", dest="dictionary", type=Path)
+    selection.add_argument("--profile", choices=PROFILES, default="default")
     args = parser.parse_args(argv)
     workspace = Workspace(args.root)
     private = (workspace.resolve(args.dictionary),) if args.dictionary else ()
-    mapping = Dictionary.load(private[0] if private else None)
+    mapping = Dictionary.load(private[0] if private else None, profile=args.profile)
     create_server(workspace.root, mapping, private_paths=private).run(transport="stdio")
     return 0
 

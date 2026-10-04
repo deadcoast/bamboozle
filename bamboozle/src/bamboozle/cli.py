@@ -11,11 +11,19 @@ from typing import Any
 
 from bamboozle import __version__
 from bamboozle import audit as watch
-from bamboozle.dictionary import Dictionary
-from bamboozle.service import OperationError, prepare, preview, recover, verify
+from bamboozle.dictionary import PROFILES, Dictionary
+from bamboozle.service import OperationError, prepare, preview, recover, scan, verify
 from bamboozle.tessera import create_key, seal, unseal
 from bamboozle.utils import PublicationError, atomic_write, read_bytes
 from bamboozle.workspace import Workspace
+
+
+def _dictionary_arguments(command: argparse.ArgumentParser) -> None:
+    selection = command.add_mutually_exclusive_group()
+    selection.add_argument("--dict", dest="dictionary")
+    selection.add_argument(
+        "--profile", choices=PROFILES, help="Bundled vocabulary (default: default)"
+    )
 
 
 def parser() -> argparse.ArgumentParser:
@@ -37,7 +45,7 @@ def parser() -> argparse.ArgumentParser:
         command = commands.add_parser(name)
         command.add_argument("source")
         command.add_argument("-o", "--output")
-        command.add_argument("--dict", dest="dictionary")
+        _dictionary_arguments(command)
         if name != "encode":
             command.add_argument(
                 "--ledger", help="Saved mapping for a returned agent file"
@@ -50,6 +58,12 @@ def parser() -> argparse.ArgumentParser:
         if name == "preview":
             command.add_argument("--reverse", action="store_true")
     commands.add_parser("verify").add_argument("source")
+    inspection = commands.add_parser(
+        "scan", help="Inspect dictionary matches without writing files"
+    )
+    inspection.add_argument("source")
+    inspection.add_argument("--max-matches", type=int, default=1000)
+    _dictionary_arguments(inspection)
     commands.add_parser("verify-restoration").add_argument("source")
     for name in ("restore-edits", "migrate-ledger"):
         command = commands.add_parser(name)
@@ -70,11 +84,11 @@ def parser() -> argparse.ArgumentParser:
     restore = commands.add_parser("recover")
     restore.add_argument("source")
     restore.add_argument("--original", required=True)
-    restore.add_argument("--dict", dest="dictionary")
+    _dictionary_arguments(restore)
     restore.add_argument("--apply", action="store_true")
     for name in ("validate", "dictionary-export", "serve", "serve-agent", "doctor"):
         command = commands.add_parser(name)
-        command.add_argument("--dict", dest="dictionary")
+        _dictionary_arguments(command)
         if name == "dictionary-export":
             command.add_argument("-o", "--output", required=True)
             command.add_argument("--mapping-version")
@@ -107,7 +121,10 @@ def parser() -> argparse.ArgumentParser:
 
 def _mapping(args: argparse.Namespace, workspace: Workspace) -> Dictionary:
     name = getattr(args, "dictionary", None)
-    return Dictionary.load(workspace.resolve(name) if name else None)
+    return Dictionary.load(
+        workspace.resolve(name) if name else None,
+        profile=getattr(args, "profile", None) or "default",
+    )
 
 
 def _emit(report: dict[str, Any], *, compact: bool = False) -> None:
@@ -180,11 +197,18 @@ def _execute(args: argparse.Namespace, workspace: Workspace) -> dict[str, Any]:
             args.source,
             output=args.output,
             mode="reverse" if reverse else "forward",
-            dictionary=args.dictionary,
+            dictionary=_mapping(args, workspace) if args.profile else args.dictionary,
             ledger=getattr(args, "ledger", None),
             strict=getattr(args, "strict", False),
         )
         return preview(plan) if args.command == "preview" else plan.apply()
+    if args.command == "scan":
+        return scan(
+            workspace,
+            args.source,
+            _mapping(args, workspace),
+            max_matches=args.max_matches,
+        )
     if args.command == "verify":
         return verify(workspace, args.source)
     if args.command == "recover":

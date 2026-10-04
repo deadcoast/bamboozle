@@ -11,6 +11,8 @@ from typing import Any
 from bamboozle.utils import atomic_write, json_bytes, parse_json, read_bytes, sha256
 
 LITERAL_PREFIX = "__SCM_LIT_"
+CASE_PREFIX = "__SCM_CASE_"
+PROFILES = ("default", "profanity")
 
 
 class Dictionary(Mapping[str, str]):
@@ -38,8 +40,11 @@ class Dictionary(Mapping[str, str]):
                     raise ValueError(
                         "Terms must use lowercase text without newlines or NUL"
                     )
-                if LITERAL_PREFIX.casefold() in term.casefold():
-                    raise ValueError("Terms cannot contain the reserved literal prefix")
+                if any(
+                    prefix.casefold() in term.casefold()
+                    for prefix in (LITERAL_PREFIX, CASE_PREFIX)
+                ):
+                    raise ValueError("Terms cannot contain reserved marker prefixes")
             folded_source, folded_target = source.casefold(), target.casefold()
             if folded_source in sources or folded_target in targets:
                 raise ValueError("Dictionary sources and targets must each be unique")
@@ -92,13 +97,30 @@ class Dictionary(Mapping[str, str]):
         return cls(document)
 
     @classmethod
-    def load(cls, path: Path | None = None) -> Dictionary:
-        data = (
-            read_bytes(path)
-            if path is not None
-            else files("bamboozle").joinpath("cipher_dict.json").read_bytes()
+    def load(cls, path: Path | None = None, *, profile: str = "default") -> Dictionary:
+        if profile not in PROFILES:
+            raise ValueError(f"Unknown dictionary profile: {profile}")
+        if path is not None:
+            if profile != "default":
+                raise ValueError(
+                    "Choose either a custom dictionary or a bundled profile"
+                )
+            return cls.from_document(parse_json(read_bytes(path)))
+        resources = files("bamboozle")
+        profanity = cls.from_document(
+            parse_json(resources.joinpath("profanity_dict.json").read_bytes())
         )
-        return cls.from_document(parse_json(data))
+        if profile == "profanity":
+            return profanity
+        original = cls.from_document(
+            parse_json(resources.joinpath("cipher_dict.json").read_bytes())
+        )
+        entries = dict(original)
+        for source, target in profanity.items():
+            if source in entries and entries[source] != target:
+                raise ValueError(f"Bundled dictionaries disagree on source: {source}")
+            entries[source] = target
+        return cls(entries, version="2")
 
     def save(self, path: Path) -> None:
         """Write a versioned snapshot without replacing an existing file."""

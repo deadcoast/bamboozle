@@ -49,7 +49,7 @@ class AgentFiles:
                 for part in relative.parts
             )
             or path in self.private_paths
-            or path.name.casefold() == "cipher_dict.json"
+            or path.name.casefold() in {"cipher_dict.json", "profanity_dict.json"}
             or path.name.casefold().endswith(
                 (".key", ".key.bak", ".scm_ledger.json", ".vigiles-restore.json")
             )
@@ -81,7 +81,7 @@ class AgentFiles:
                 "content": encoded,
                 "source_sha256": digest,
                 "dictionary_sha256": self.dictionary.fingerprint,
-                "terminology_contract": "Edit or generate code in this vocabulary. Preserve __SCM_LIT_...__ markers. Submit neutral content to write_safe_file; the cipher restores domain terms locally.",
+                "terminology_contract": "Edit or generate code in this vocabulary. Preserve __SCM_LIT_...__ and __SCM_CASE_...__ markers. Submit neutral content to write_safe_file; the cipher restores domain terms locally.",
             }
 
     def write(

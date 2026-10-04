@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "bamboozle"
-version = "0.4.2"
+version = "0.4.3"
 description = "Bamboozle semantic cipher and Vigiles agent translation middleware"
 readme = "README.md"
 requires-python = ">=3.13"
@@ -28,7 +28,7 @@ include = ["bamboozle*", "workshop*"]
 exclude = ["*.tests", "*.tests.*"]
 
 [tool.setuptools.package-data]
-bamboozle = ["cipher_dict.json"]
+bamboozle = ["cipher_dict.json", "profanity_dict.json"]
 "workshop.scrape" = ["taxonomy.json"]
 "workshop.mcp" = ["taxonomy.json"]
 

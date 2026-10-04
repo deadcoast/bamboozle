@@ -23,6 +23,7 @@ from bamboozle.service import (
     ledger_path,
     prepare,
     preview,
+    scan,
     verify,
 )
 from bamboozle.workspace import Workspace
@@ -75,6 +76,14 @@ def create_server(
             "version": mapping.version,
             "sha256": mapping.fingerprint,
         }
+
+    @server.tool(annotations={"readOnlyHint": True})
+    def scan_file(source: str, max_matches: int = 1000) -> dict[str, Any]:
+        """Inspect dictionary coverage with term counts and character locations; no writes.
+
+        Operator tool: findings include original terms. Not part of serve-agent.
+        """
+        return scan(workspace, source, mapping, max_matches=max_matches)
 
     @server.tool(annotations={"readOnlyHint": True})
     def preview_file(

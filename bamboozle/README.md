@@ -1,6 +1,6 @@
 # Bamboozle / Vigiles
 
-Current release: **v0.4.2 (VIGIL3)**. Bamboozle is a semantic encoder/cipher;
+Current release: **v0.4.3 (VIGIL3)**. Bamboozle is a semantic encoder/cipher;
 Vigiles provides the agent's translation interface to it. The agent reads source
 through `read_safe_file`, works in the encoded vocabulary, and submits content to
 `write_safe_file`. The cipher restores domain terminology when saving source locally.
@@ -116,7 +116,7 @@ restored_source = cipher.decode(agent_output)
 uv run --locked vigiles preview "example.py"
 uv run --locked vigiles encode "example.py"
 uv run --locked vigiles verify "example_safe.py"
-# Let the agent edit example_safe.py, preserving __SCM_LIT_...__ markers.
+# Let the agent edit example_safe.py, preserving literal and case markers.
 uv run --locked vigiles preview "example_safe.py" --reverse
 uv run --locked vigiles decode "example_safe.py"
 ```
@@ -129,8 +129,12 @@ and ledgers are never overwritten, and in-place conversion is rejected.
 The engine matches whole terms in a single pass, longest first. It protects native
 target terms with `__SCM_LIT_...__` markers and verifies exact reversibility before
 publication. Unicode identifier continuations and underscores retain their
-boundaries. Lowercase, uppercase, and title case are supported; ambiguous mixed
-case, damaged markers, and lossy mappings fail explicitly.
+boundaries. Lowercase, uppercase, title case, sentence case, and mixed capitalization
+are preserved. Mixed case uses `__SCM_CASE_<hex-case-mask>_<neutral-term>__` when plain
+replacement would lose information. Keep both marker types intact in agent edits.
+The mask records uppercase character positions; it does not contain the original
+term. These markers require decoder v0.4.3 or later. Damaged markers and lossy
+Unicode case folds fail explicitly.
 
 UTF-8 BOMs and CR/LF bytes survive file round trips. Each ledger contains the mapping
 snapshot and original/encoded SHA-256 digests. Decode uses that snapshot, so changing
@@ -290,8 +294,52 @@ edited-file workflow above. Missing migrated metadata uses `--recover-metadata`.
 
 ## Dictionaries
 
-The bundled 110-entry dictionary lives at `src/bamboozle/cipher_dict.json` and is
-included in the wheel. Both legacy flat mappings and this versioned schema load:
+The default dictionary now has **415 entries** (mapping version `2`), combining the
+unchanged 110 original domain mappings in `src/bamboozle/cipher_dict.json` with
+`src/bamboozle/profanity_dict.json`. The latter supplies a **310-entry profanity
+profile** (`profanity-1`); five mappings overlap identically. Both resources ship in
+the wheel. Existing ledgers retain their own complete dictionary snapshots.
+
+The additions cover common profanity, discriminatory slurs, plurals, inflections,
+possessives, compounds, phrases, regional forms, abbreviations, curly apostrophes,
+and explicitly listed disguised spellings such as `f**k`, `sh!t`, and `b1tch`.
+Each spelling has a distinct neutral target so decoding restores the exact spelling.
+No stemming, fuzzy normalization, or guessed reverse mapping is performed.
+
+Use `--profile profanity` to omit the original adult-domain vocabulary, including
+ambiguous technical terms such as `penetration`, `wet`, `cnc`, `dp`, and `atm`:
+
+```powershell
+uv run --locked vigiles scan "node.py" --profile profanity --max-matches 100
+uv run --locked vigiles encode "node.py" --profile profanity
+uv run --locked vigiles decode "node_safe.py" --strict
+uv run --locked vigiles --root "C:/path/to/project" serve-agent --profile profanity
+uv run --locked vigiles dictionary-export --profile profanity -o "my-profanity.json"
+```
+
+`scan` writes no files. Its JSON includes total matches, per-term counts, replacements,
+and one-based line/column locations, plus zero-based Unicode character offsets with
+an exclusive end. It recognizes CRLF, LF, and CR. `--max-matches` bounds returned
+locations (1–10,000, default 1,000); totals remain complete and `matches_complete`
+reports truncation. The operator MCP server exposes the same service as `scan_file`;
+the dedicated agent server continues to expose only encoded reads and decoded writes.
+
+Matching is lexical, not a judgment about intent. Ordinary words such as `class`,
+`assignment`, and `Scunthorpe` are not substring matches. Compound identifiers such
+as `ass_count` remain whole identifiers. Unlisted disguised spellings and other
+languages are not automatically recognized; a zero-match scan means no dictionary
+matches, not universal profanity clearance. Edit an exported dictionary to add
+project-specific terms or remove context-dependent entries, then select it with
+`--dict`. Profile and custom-dictionary options are mutually exclusive.
+
+Profiles also work with `preview`, `validate`, `doctor`, `recover`, `serve`,
+`scm-mcp`, and `scm-cipher`. For Python callers use
+`Dictionary.load(profile="profanity")` and `CipherEngine(mapping).scan(text)`.
+When decoding an existing ledger, omit profile selection to use the saved mapping;
+an explicitly selected profile must match that snapshot. Use the same selected
+profile when decoding a new agent return without a ledger.
+
+Both legacy flat mappings and this versioned schema load:
 
 ```json
 {
@@ -374,7 +422,7 @@ For a normal agent return, call `preview_file` with `reverse: true`, optionally
 verification. A saved mapping takes precedence over the server's default mapping;
 an explicitly supplied dictionary must match that ledger.
 
-The server uses stdio only. It exposes `dictionary_status`, `preview_file`,
+The server uses stdio only. It exposes `dictionary_status`, `scan_file`, `preview_file`,
 `apply_preview`, `verify_file`, and `audit_workspace`. A preview returns a
 single-use token, valid for ten minutes; only 32 pending previews are retained.
 Application rechecks the source, ledger, and destination before saving. A stale,

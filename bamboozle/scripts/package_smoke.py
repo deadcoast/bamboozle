@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -80,6 +81,168 @@ def smoke_capture() -> list[dict]:
     return results
 
 
+def smoke_profanity() -> dict:
+    """Exercise shipped vocabulary through CLI and both installed stdio surfaces."""
+    root = Path("profanity-fixture").resolve()
+    root.mkdir()
+    original = (
+        "\ufeff# f*ck; for fuck’s sake\r\n"
+        "def fUcK(value):\r\n    return value + 1\r\n"
+        "assert fUcK(3) == 4\r\n"
+    ).encode("utf-8")
+    expected = original.replace(b"value + 1", b"value * 2").replace(b"== 4", b"== 6")
+    (root / "node.py").write_bytes(original)
+
+    def cli(*arguments: str) -> dict:
+        result = subprocess.run(
+            [sys.executable, "-m", "bamboozle", "--root", str(root), *arguments],
+            capture_output=True,
+            text=True,
+            check=True,
+            timeout=30,
+        )
+        return json.loads(result.stdout)
+
+    scanned = cli("scan", "node.py", "--profile", "profanity", "--max-matches", "2")
+    if scanned["matched_terms"] != 4 or scanned["matches_complete"]:
+        raise RuntimeError(
+            "Installed profanity scan did not count/bound real vocabulary"
+        )
+    cli("encode", "node.py", "--profile", "profanity")
+    cli("decode", "node_safe.py", "--strict")
+    if (root / "node_safe_ready.py").read_bytes() != original:
+        raise RuntimeError("Installed profile and case-marker round trip failed")
+    stream = "F**K; for fuck’s sake; fUcK"
+    command = Path(sys.executable).with_name(
+        "scm-cipher.exe" if sys.platform == "win32" else "scm-cipher"
+    )
+    encoded = subprocess.run(
+        [
+            str(command),
+            "--profile",
+            "profanity",
+            "--mode",
+            "forward",
+            "--input",
+            "-",
+            "--output",
+            "-",
+        ],
+        input=stream.encode("utf-8"),
+        capture_output=True,
+        check=True,
+        timeout=30,
+        env={**os.environ, "PYTHONIOENCODING": "utf-8"},
+    ).stdout.decode("utf-8")
+    if (
+        cipher.CipherEngine(Dictionary.load(profile="profanity")).decode(encoded)
+        != stream
+    ):
+        raise RuntimeError("Installed cipher profile flags lost text")
+
+    async def exercise() -> dict:
+        command = Path(sys.executable).with_name(
+            "scm-mcp.exe" if sys.platform == "win32" else "scm-mcp"
+        )
+        transport = StdioTransport(
+            command=str(command),
+            args=["--root", str(root), "--profile", "profanity"],
+            cwd=str(root),
+        )
+        async with Client(transport) as client:
+            if {tool.name for tool in await client.list_tools()} != {
+                "read_safe_file",
+                "write_safe_file",
+            }:
+                raise RuntimeError("Agent profile exposed operator tools")
+
+            async def call(name: str, arguments: dict) -> dict:
+                result = await client.call_tool(name, arguments)
+                content = result.content[0]
+                if result.is_error or content.type != "text":
+                    raise RuntimeError("Installed profanity agent call failed")
+                return json.loads(content.text)
+
+            read = await call("read_safe_file", {"file_path": "node.py"})
+            if (
+                "fuck" in read["content"].casefold()
+                or "__SCM_CASE_" not in read["content"]
+            ):
+                raise RuntimeError(
+                    "Installed agent did not filter the mixed-case vocabulary"
+                )
+            edited = (
+                read["content"]
+                .replace("value + 1", "value * 2")
+                .replace("== 4", "== 6")
+            )
+            saved = await call(
+                "write_safe_file", {"file_path": "node.py", "content": edited}
+            )
+            identifier = cipher.CipherEngine(
+                Dictionary.load(profile="profanity")
+            ).encode("fUcK")
+            generated = await call(
+                "write_safe_file",
+                {
+                    "file_path": "generated.py",
+                    "content": f"from node import {identifier}\nassert {identifier}(5) == 10\n",
+                },
+            )
+            if (root / "node.py").read_bytes() != expected:
+                raise RuntimeError(
+                    "Installed agent edit lost case or original byte format"
+                )
+            if (root / saved["history"] / "original.bin").read_bytes() != original:
+                raise RuntimeError(
+                    "Installed profanity workflow did not preserve its original"
+                )
+            await asyncio.to_thread(
+                subprocess.run,
+                [sys.executable, str(root / "generated.py")],
+                check=True,
+                timeout=10,
+            )
+        operator = StdioTransport(
+            command=sys.executable,
+            args=[
+                "-m",
+                "bamboozle",
+                "--root",
+                str(root),
+                "serve",
+                "--profile",
+                "profanity",
+            ],
+            cwd=str(root),
+        )
+        async with Client(operator) as client:
+            result = await client.call_tool(
+                "scan_file", {"source": "node.py", "max_matches": 2}
+            )
+            content = result.content[0]
+            if content.type != "text" or json.loads(content.text)["matched_terms"] != 4:
+                raise RuntimeError(
+                    "Installed operator scan did not use the selected profile"
+                )
+        return {
+            "edited": saved,
+            "generated": generated,
+            "dependent_program_executed": True,
+        }
+
+    return {
+        "profile": "profanity",
+        "profile_entries": 310,
+        "default_entries": 415,
+        "mapping_version": Dictionary.load(profile="profanity").version,
+        "scan": scanned,
+        "cli_exact_roundtrip": True,
+        "cipher_stream_exact_roundtrip": True,
+        "agent": asyncio.run(asyncio.wait_for(exercise(), timeout=45)),
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--prefix", type=Path, required=True)
@@ -105,7 +268,11 @@ def main() -> None:
                 "Translation workflow was not loaded from the installed wheel"
             )
     mapping = Dictionary.load()
-    if len(mapping) != 110 or not Taxonomy.load().canon_cat:
+    if (
+        len(mapping) != 415
+        or len(Dictionary.load(profile="profanity")) != 310
+        or not Taxonomy.load().canon_cat
+    ):
         raise RuntimeError("Packaged dictionary or taxonomy resource is missing")
     Path("mapping.json").write_text('{"alpha":"beta"}', encoding="utf-8")
     original = b"\xef\xbb\xbfAlpha beta\r\n"
@@ -402,7 +569,7 @@ def main() -> None:
             if (
                 result.is_error
                 or content.type != "text"
-                or json.loads(content.text)["entries"] != 110
+                or json.loads(content.text)["entries"] != 415
             ):
                 raise RuntimeError("Installed MCP tool call failed")
 
@@ -839,6 +1006,7 @@ def main() -> None:
         )
     ]
     capture_results = smoke_capture()
+    profanity_results = smoke_profanity()
     print(
         json.dumps(
             {
@@ -850,6 +1018,7 @@ def main() -> None:
                 "diagnostic_results": diagnostic_results,
                 "translation_results": translation_results,
                 "agent_cipher_results": agent_results,
+                "profanity_results": profanity_results,
                 "reviewed_plan_recovery": {
                     "operation_id": operation_id,
                     "plan_sha256": prepared["plan_sha256"],

@@ -7,7 +7,8 @@ from bamboozle.dictionary import Dictionary
 
 def test_bundled_dictionary_is_valid():
     dictionary = Dictionary.load()
-    assert len(dictionary) == 110
+    assert len(dictionary) == 415
+    assert dictionary.version == "2"
     assert len(dictionary.fingerprint) == 64
 
 

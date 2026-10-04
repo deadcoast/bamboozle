@@ -162,6 +162,11 @@ Do not regenerate release evidence or claim a fresh runtime qualification.
   in private history. Existing ordinary conversion outputs remain no-clobber.
   Agent reads return encoded content; writes do not return decoded source. Never
   expose configured inverse dictionaries or private history through agent tools.
+- Keep the original 110 dictionary mappings stable. The default profile merges
+  them with the versioned profanity vocabulary; custom dictionaries and saved
+  ledgers remain independent. Every added spelling needs its own reversible target.
+  Preserve literal and case markers through agent and reviewed-restoration paths.
+  Operator scans may display original terms; do not add them to `serve-agent`.
 - Publish journals before asset/control changes and bind completion to journal
   bytes. Retain partial writes and report recovery requirements truthfully.
   Recovery is explicit; do not add automatic rollback, retry, or history deletion.

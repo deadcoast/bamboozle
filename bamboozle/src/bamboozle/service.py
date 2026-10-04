@@ -29,6 +29,30 @@ class OperationError(OSError):
         self.report = report
 
 
+def scan(
+    workspace: Workspace,
+    source: str | Path,
+    dictionary: Dictionary,
+    *,
+    max_matches: int = 1000,
+) -> dict[str, Any]:
+    """Read-only operator inspection using the same matches as the encoder."""
+    path = workspace.resolve(source)
+    raw = workspace.read(path)
+    result = Translator(dictionary, max_output_chars=workspace.max_bytes).scan(
+        raw.decode("utf-8"), max_matches=max_matches
+    )
+    return {
+        "schema_version": 1,
+        "status": "scanned",
+        "input": path.relative_to(workspace.root).as_posix(),
+        "input_sha256": sha256(raw),
+        "input_bytes": len(raw),
+        "output_saved": False,
+        **result,
+    }
+
+
 def ledger_path(path: Path) -> Path:
     return path.with_name(f".{path.name}.scm_ledger.json")
 

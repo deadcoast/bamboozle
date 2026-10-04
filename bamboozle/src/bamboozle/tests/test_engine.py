@@ -18,7 +18,7 @@ def test_identifier_boundaries_preserved(text):
     assert Translator({"alpha": "beta"}).forward(text) == text
 
 
-@pytest.mark.parametrize("text", ["aLpHa", "__SCM_LIT_beta__", "__scm_lit_broken"])
+@pytest.mark.parametrize("text", ["__SCM_LIT_beta__", "__scm_lit_broken"])
 def test_ambiguous_input_rejected(text):
     with pytest.raises(ValueError):
         Translator({"alpha": "beta"}).forward(text)

@@ -255,12 +255,7 @@ def prepare_restore(
         choices = document["choices"]
     unchanged = Counter(_lines(baseline.decode("utf-8")))
     edited = raw.decode("utf-8")
-    for prefix in translator._prefix.finditer(edited):
-        if translator._literal.match(edited, prefix.start()) is None:
-            marker_line = edited.count("\n", 0, prefix.start()) + 1
-            raise ValueError(
-                f"Damaged literal marker at line {marker_line}; restore the complete marker or remove the entire marked term"
-            )
+    translator.validate_markers(edited)
     pieces: list[str] = []
     conflicts: list[dict[str, Any]] = []
     conflict_count = 0
@@ -288,6 +283,8 @@ def prepare_restore(
 
             if match.group("literal") is not None:
                 return bounded(match.group("literal"))
+            if match.group("case_term") is not None:
+                return bounded(translator.reverse(match.group(0)))
             location = f"{number}:{match.start() + 1}"
             decision = "translate" if known else choices.get(location, terms)
             if not known:
