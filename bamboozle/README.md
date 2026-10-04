@@ -1,13 +1,15 @@
 # Bamboozle / Vigiles
 
-Current release: **v0.4.0 (VIGIL3)**. Encode source, edit the translated file, review
-its restoration, and save executable source with retained provenance. Native
-restoration and explicit historical-ledger migration are available through the CLI
-and Vigiles MCP, alongside the existing workshop operations and diagnostics.
+Current release: **v0.4.2 (VIGIL3)**. Bamboozle is a semantic encoder/cipher;
+Vigiles provides the agent's translation interface to it. The agent reads source
+through `read_safe_file`, works in the encoded vocabulary, and submits content to
+`write_safe_file`. The cipher restores domain terminology when saving source locally.
 
 Vigiles is MIVIM's local middleware for reversible terminology translation,
 authenticated file exchange, and repository integrity checks. The application is
 packaged as `bamboozle`; `vigiles`, `bamboozle`, and `python -m bamboozle` share one CLI.
+The manual file-conversion loop, reviewed restoration, BAMb5 token encryption,
+Tessera exchange, and workshop tools remain available alongside the agent interface.
 
 The native development contract is [.mivim/mivim.vigiles.md](.mivim/mivim.vigiles.md).
 [VIGILES_STATUS.json](VIGILES_STATUS.json) holds the active development plan, core
@@ -43,12 +45,79 @@ symlinks, Windows junctions, alternate data streams, and protected repository st
 such as `.git` and `.venv` are rejected. Output parents must already exist.
 Application writes cannot replace the `.mivim` specification.
 
-## Translation and restoration
+## Connect the agent to the cipher
+
+Run the agent-facing stdio server with an explicit project root:
+
+```powershell
+uv run --locked vigiles --root "C:/path/to/project" serve-agent
+# Equivalent dedicated entry point; a custom dictionary stays local to this root:
+uv run --locked scm-mcp --root "C:/path/to/project" --dict "mapping.json"
+```
+
+Register the command with your coding agent's MCP client. For clients started
+outside this application directory, use an explicit project path:
+
+```json
+{
+  "mcpServers": {
+    "vigiles": {
+      "command": "uv",
+      "args": ["run", "--project", "C:/path/to/bamboozle/bamboozle", "--locked", "vigiles", "--root", "C:/path/to/project", "serve-agent"]
+    }
+  }
+}
+```
+
+The agent uses these two tools for source I/O:
+
+1. `read_safe_file({"file_path": "node.py"})` returns encoded `content`, the source
+   hash, and the terminology contract. It does not return the inverse dictionary,
+   a raw-source diff, or create a `_safe` file the operator has to shuttle around.
+2. The agent edits that content, keeping mapped identifiers and literal markers.
+3. `write_safe_file({"file_path": "node.py", "content": "...neutral code..."})`
+   decodes and saves the edited source. The agent can also create a new module by
+   supplying a new filename; no original counterpart is required.
+
+For existing files, the server remembers up to 256 read hashes and refuses changed
+or deleted sources. After reconnecting or eviction, read again or supply
+`expected_sha256` from the earlier read. Before editing an existing file, the writer
+retains its exact prior bytes under `.vigiles/cipher/changes/<operation_id>/original.bin`,
+along with the decoded output, intent, and completion record. Write responses report
+hashes and publication state, without returning decoded source. On partial failure,
+inspect the reported history path; `output_saved` states whether publication occurred.
+No rollback or automatic deletion of retained versions occurs.
+
+The dedicated server exposes only those two cipher tools. It refuses access to its
+configured dictionary, cipher ledgers, key files, and private history. Dictionary
+substitution covers mapped terms; it is not general secret redaction or OS isolation.
+The per-server write lock and repeated hash checks are not a filesystem transaction
+against unrelated processes racing publication. Existing parent directories are
+required. Use the broader `serve` command for the retained operator preview/review,
+migration, verification and audit tools; those operator tools can display domain text.
+
+The public Python cipher interface is available to metadata pipelines too:
+
+```python
+from bamboozle.cipher import CipherEngine, load_json
+
+cipher = CipherEngine(load_json("cipher_dict.json"))
+agent_input = cipher.encode(source_text)
+restored_source = cipher.decode(agent_output)
+```
+
+`process_forward` and `process_reverse` remain available for stream integrations.
+`scm-cipher --mode forward --input source.py --output source_safe.py` and
+`python -m bamboozle.cipher` expose the original flag interface over the shared engine.
+
+## Manual translation and restoration
 
 ```powershell
 uv run --locked vigiles preview "example.py"
 uv run --locked vigiles encode "example.py"
 uv run --locked vigiles verify "example_safe.py"
+# Let the agent edit example_safe.py, preserving __SCM_LIT_...__ markers.
+uv run --locked vigiles preview "example_safe.py" --reverse
 uv run --locked vigiles decode "example_safe.py"
 ```
 
@@ -65,9 +134,39 @@ case, damaged markers, and lossy mappings fail explicitly.
 
 UTF-8 BOMs and CR/LF bytes survive file round trips. Each ledger contains the mapping
 snapshot and original/encoded SHA-256 digests. Decode uses that snapshot, so changing
-the active dictionary does not strand existing conversions. It requires the encoded
-file to remain unchanged. Use the explicit edited-file workflow below after editing.
-The retained ledger remains attached to the retained encoded source.
+the active dictionary does not strand existing conversions. **Normal decode accepts
+agent edits.** Newly introduced unmarked target terms use the translated vocabulary
+and reverse-map too. Keep or add `__SCM_LIT_target__` markers when a mapped target
+term must remain literal. The original source is not required to decode agent output.
+Keep inverse dictionaries and ledgers local when sharing neutral files with an agent.
+
+If the agent returns a new filename or generates a new module from a translated
+specification, select the saved mapping from that specification's encoding:
+
+```powershell
+uv run --locked vigiles encode "task.md" --dict "mapping.json"
+# Give task_safe.md to the agent; save its new code as AGENT_fix.py.
+uv run --locked vigiles preview "AGENT_fix.py" --reverse --ledger ".task_safe.md.scm_ledger.json"
+uv run --locked vigiles decode "AGENT_fix.py" --ledger ".task_safe.md.scm_ledger.json" -o "module_ready.py"
+uv run --locked python "module_ready.py"
+```
+
+`--dict mapping.json` can supply the mapping directly without a ledger. When a
+ledger is present, an explicit dictionary must match it. With neither a ledger
+nor `--dict`, decode uses the packaged dictionary, as the original drag-and-drop
+workflow does. Reports identify `mapping_source`, `dictionary_sha256`, and the
+selected `ledger_input`. Corrupt or unsupported ledgers fail explicitly; they do
+not trigger a fallback. Generated output does not need an original counterpart.
+
+`src/ENCRYPT_FOR_AGENT.bat` and `src/DECRYPT_FROM_AGENT.bat` accept a dragged file
+using the packaged mapping; the return launcher accepts edits and new filenames.
+Use the CLI's `--ledger` or `--dict` for a custom mapping on a newly named return.
+
+Use `decode --strict` when you specifically require the unchanged encoding and an
+exact original round trip. `verify` always performs that strict check, so it will
+report agent edits as changed. Normal decode reports translation and publication;
+it does not claim the changed output matches the original digest. The ledger stays
+with its encoded source. Review and run the returned program's tests before integration.
 
 Translation is readable substitution. It provides no confidentiality. A ledger's
 unkeyed digests check consistency, not independent authenticity; use Tessera when
@@ -88,7 +187,11 @@ ledgers. Concurrent input changes invalidate prepared conversions. These checks 
 not an operating-system sandbox against a hostile process changing filesystem
 ancestors during publication.
 
-## Complete an agent edit
+## Optional reviewed restoration
+
+Use this additional workflow when you want to resolve changed-line terminology
+individually, compare with retained original source, and retain a provenance receipt.
+Normal `decode` above remains the direct agent-return path.
 
 Keep the original source and its translation ledger. Edit the encoded file, then
 preview restoration using the saved mapping and the retained original:
@@ -264,6 +367,12 @@ Preserve and review it separately when accepting a new repository baseline.
 ```powershell
 uv run --locked vigiles --root "C:/path/to/project" serve
 ```
+
+For a normal agent return, call `preview_file` with `reverse: true`, optionally
+`ledger: ".task_safe.md.scm_ledger.json"` or `dictionary: "mapping.json"`, then
+`apply_preview` with the returned `plan_id`. `strict: true` requests unchanged-file
+verification. A saved mapping takes precedence over the server's default mapping;
+an explicitly supplied dictionary must match that ledger.
 
 The server uses stdio only. It exposes `dictionary_status`, `preview_file`,
 `apply_preview`, `verify_file`, and `audit_workspace`. A preview returns a
@@ -721,8 +830,10 @@ requested number of scans.
 Compatibility: `Bamboozletranslate`, `process_forward`, and `process_reverse` now
 delegate to the shared engine. String operations no longer create/delete a shared
 global ledger. Legacy `--mode/--input/--output` flags remain in
-`python -m bamboozle.translate`; file-to-file operations use current strict ledgers,
+`python -m bamboozle.translate`; reverse file operations accept agent edits and new
+files with the same `--dict`, `--ledger`, and optional `--strict` semantics as decode,
 while stdin/stdout translation is explicitly a text-only operation. Earlier ledger
 schemas are not silently upgraded. The two `.bat` launchers now call the installed
-CLI. Older design notes in `docs/` and `.legacy/` describe historical proposals,
-not current runtime guarantees.
+CLI. The original designs in `docs/`, `.legacy/`, and the example development loop
+remain requirements to reconcile with the implementation. Their presence does not
+prove implementation, and a narrower implementation does not retire their purpose.

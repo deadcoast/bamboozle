@@ -1,0 +1,15 @@
+{
+  "blocked_command": "uv run --locked python scripts/verify.py --package",
+  "error": "Before verifier startup, uv could not fetch setuptools>=68 from https://pypi.org/simple/setuptools/ because the sandbox denied network access (os error 10013). No package qualification ran.",
+  "focused_tests": {
+    "passed": 64,
+    "warning": "pytest cache access denied; tests passed",
+    "xml": ".test-tmp/agent-pipeline-first.xml"
+  },
+  "lint": [
+    "I001 import ordering in new pipeline tests",
+    "PLW1510 missing explicit subprocess check flag"
+  ],
+  "next_action": "Retain this failure, correct lint, then run the locked verification with network access for the build dependency.",
+  "status": "setup_failure_then_lint_corrected"
+}

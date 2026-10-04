@@ -478,6 +478,11 @@ historical translation migration, and host/process-tree isolation remain open.
 
 ### Core agent edit and restore workflow — 0.4.0
 
+Scope correction: this section records the optional original-bound review workflow.
+It did not restore the ordinary decode/launcher path or support a generated module
+without an original counterpart. The normal pipeline contract below addresses
+those gaps while preserving this implementation.
+
 The previous active plan incorrectly selected live deployment after workshop
 recovery diagnostics. That did not establish completeness of the core agent
 workflow. The retained development loop explicitly requires encoding source,
@@ -545,3 +550,84 @@ source capability, not a completed feature. Broader recipient identity/delivery,
 structural enforcement, remote CI and host isolation are not established by this
 single-file workflow. `VIGILES_STATUS.json` tracks core work separately from external
 acceptance. Qualification and retained failures stay in the managed report tree.
+
+### Original agent pipeline restored — 0.4.1
+
+The user's design remains authoritative: source or specification → neutral agent
+work → edited or newly generated source → domain restoration. Original design
+material is not retired by a narrower versioned implementation. In particular,
+`.legacy/bamboozle_v0.0.2.md` explicitly returns `AGENT_fix.py`, and
+`../example_project/dev_tools/development_loop.md` makes strict decode optional.
+Preserve the existing review, migration, audit, exchange, and workshop services;
+their further integration follows restoration of this operational pipeline.
+
+- Normal `decode`, reverse preview, file-to-file compatibility flags, and MCP
+  `preview_file(reverse=True)` accept changed or newly generated text. They reverse
+  unmarked target terms and unwrap protected literal markers using the existing
+  single-pass engine. Original source and unchanged encoded hashes are not required.
+- A native sidecar supplies its saved mapping. `--ledger` selects that context for
+  a newly named return file; `--dict` selects a dictionary directly. Explicit
+  dictionaries must match any selected ledger. Without either context, CLI uses
+  the packaged mapping; MCP uses its configured mapping. Damaged saved context
+  fails explicitly, never silently falling back to another mapping.
+- `decode --strict` and `verify` retain the original exact-byte checks.
+  `restore-edits` retains its explicit policy/decision review, original comparison,
+  receipt, and recovery mechanisms. Ledger migration remains available unchanged.
+- `DECRYPT_FROM_AGENT.bat` uses normal decode, including new return filenames with
+  the packaged mapping. CLI mapping selection supports custom translated tasks.
+- Reports identify mapping source/fingerprint, selected ledger, counts, and strict
+  mode. A normal decoded result is a translation, not proof of unchanged source;
+  it does not manufacture an original-integrity ledger for generated output.
+- Source, dictionary-file, and selected-ledger bytes are bound to prepared output
+  and checked before publication. A newly appeared implicit ledger invalidates
+  a preview. Preserve existing file bounds, workspace confinement, original files,
+  no-clobber destinations, and truthful partial-write reporting.
+- Qualification must exercise actual edited and newly generated programs through
+  normal CLI, compatibility, installed stdio MCP, and Windows return launcher.
+  Execute restored programs and preserve strict rejection and optional review tests.
+
+This qualifies the file-based source-development pipeline only. Automatic private
+project-view export and multi-file import remain core development work, as do the
+unimplemented structural profile and recipient lifecycle requirements. Passing this
+pipeline does not authorize advancing the development queue to deployment.
+
+### Encoder/cipher and agent I/O connection — 0.4.2
+
+The original `dev_tools/scm_mcp.py`, retained in commit `581d9dc`, defines the
+agent-facing contract: `read_safe_file` encodes local source before returning it;
+`write_safe_file` decodes generated content before writing it. That module was
+removed in `89f9b09`. Manual encode/decode repairs did not reinstate this contract.
+The original script's mismatched function arguments are not copied back; the
+documented interaction is restored through the retained single-pass cipher engine.
+
+- `bamboozle.cipher` restores the public `CipherEngine.encode/decode`, stream
+  `process_forward/process_reverse`, and `scm-cipher` flag interface. It uses the
+  existing engine and validated dictionary; it does not duplicate or retire them.
+- `agent_files.AgentFiles` implements encoded reads and decoded writes. Reads return
+  only encoded content, a terminology contract and hashes. Writes accept neutral
+  content and publish decoded domain source, including newly generated files.
+- Existing-file edits require a retained read hash or explicit `expected_sha256`.
+  Source is rechecked before publication; prior bytes, intended decoded output,
+  intent and result are retained privately under `.vigiles/cipher/changes/`.
+  Failure reports distinguish backup, output and result-record publication.
+  Changes observed after publication are reported without destroying evidence.
+- `serve-agent`, `scm-mcp`, and `python -m bamboozle.scm_mcp` expose the two original
+  tools through a dedicated stdio server. The supplied MCP configuration selects
+  this agent surface. The broader `serve` server also offers them alongside all
+  retained operator tools. Operator diffs are not a substitute for encoded reads.
+- Configured dictionaries, cipher ledgers, key files and private runtime/history
+  paths are refused by the agent file tools. Application workspace confinement
+  remains in effect. This is terminology-mediated I/O, not OS isolation, complete
+  secret redaction, or transactional protection from unrelated racing processes.
+- Existing parent directories are required; per-file reads/writes remain bounded.
+  The server retains at most 256 read hashes. Reconnect/eviction requires rereading
+  or presenting the previous hash. Its mapping is fixed for the server lifetime.
+- BAMb5's AES-SIV `b5_` cipher, Tessera, file converters, reviewed restoration,
+  recovery, migration and workshop operations remain available. This stage restores
+  the original semantic-cipher agent boundary, not a new BAMb5/semantic bridge.
+
+Qualification must start the installed agent server, read encoded source, submit
+an edit and a generated dependent module, execute the restored program, verify the
+prior source backup, and reject stale writes and private metadata reads. Directory
+discovery, project-view export, multi-file atomic imports, profile enforcement and
+recipient lifecycle are not established by this two-tool source interface.

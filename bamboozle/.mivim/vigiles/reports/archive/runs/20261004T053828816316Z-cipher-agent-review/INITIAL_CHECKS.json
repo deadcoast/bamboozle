@@ -1,0 +1,19 @@
+{
+  "design_evidence": {
+    "missing_connection": "The original agent file-system translation contract was removed; manual encode/decode did not restore it.",
+    "removed_by": "89f9b09",
+    "required_tools": [
+      "read_safe_file",
+      "write_safe_file"
+    ],
+    "source": "581d9dc:bamboozle/dev_tools/scm_mcp.py"
+  },
+  "error": "uv editable rebuild could not fetch setuptools because sandbox network access was denied (os error 10013)",
+  "failed": 1,
+  "failed_test": "test_batch_launchers_use_the_installed_cli",
+  "lint_correction": "ASYNC221: use asyncio.to_thread for executing the restored program in async MCP tests",
+  "passed": 42,
+  "retained_launcher_log": ".test-tmp/cipher-agent-first-launcher-error.log",
+  "retained_xml": ".test-tmp/cipher-agent-first.xml",
+  "status": "focused_tests_had_environment_failure"
+}

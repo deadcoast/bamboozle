@@ -2,7 +2,7 @@
     "mcpServers": {
       "vigiles": {
         "command": "uv",
-        "args": ["run", "--locked", "vigiles", "--root", ".", "serve"]
+        "args": ["run", "--locked", "vigiles", "--root", ".", "serve-agent"]
       }
     }
   }

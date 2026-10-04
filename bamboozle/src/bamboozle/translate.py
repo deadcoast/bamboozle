@@ -1,4 +1,4 @@
-"""Compatibility API and legacy flags over the shared translation engine."""
+"""Original cipher flags and translation API over the shared engine."""
 
 from __future__ import annotations
 
@@ -12,11 +12,21 @@ from typing import Any
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+from bamboozle.cipher import process_forward, process_reverse
 from bamboozle.dictionary import Dictionary
 from bamboozle.engine import Translator, match_case
 from bamboozle.service import prepare
 from bamboozle.utils import atomic_write, json_bytes, parse_json, read_bytes
 from bamboozle.workspace import Workspace
+
+__all__ = [
+    "Bamboozletranslate",
+    "load_json",
+    "main",
+    "process_forward",
+    "process_reverse",
+    "save_json",
+]
 
 LITERAL_TEMPLATE = "__SCM_LIT_{}__"
 LITERAL_REGEX = r"__SCM_LIT_(.*?)__"
@@ -46,42 +56,40 @@ def save_json(data: Any, file_path: str | Path) -> None:
     atomic_write(Path(file_path), json_bytes(data))
 
 
-def process_forward(
-    text: str, cipher_dict: Mapping[str, str], input_name: str | None = None
-) -> str:
-    """Translate text without shared ledger side effects; input_name is legacy metadata."""
-    return Translator(cipher_dict).forward(text)
-
-
-def process_reverse(text: str, cipher_dict: Mapping[str, str]) -> str:
-    return Translator(cipher_dict).reverse(text)
-
-
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
-        description="Legacy translation flags; prefer vigiles encode/decode"
+        description=(
+            "Semantic cipher: encode source and decode agent output, "
+            "as files or streams."
+        )
     )
     parser.add_argument("--mode", choices=["forward", "reverse"], required=True)
     parser.add_argument("--input", required=True)
     parser.add_argument("--output", required=True)
     parser.add_argument("--dict", dest="dictionary", type=Path)
+    parser.add_argument("--ledger", type=Path)
+    parser.add_argument("--strict", action="store_true")
     parser.add_argument("--root", type=Path, default=Path.cwd())
     args = parser.parse_args(argv)
     try:
         workspace = Workspace(args.root)
-        dictionary = Dictionary.load(
-            workspace.resolve(args.dictionary) if args.dictionary else None
-        )
         if args.input != "-" and args.output != "-":
             report = prepare(
                 workspace,
                 args.input,
                 mode=args.mode,
                 output=args.output,
-                dictionary=dictionary,
+                dictionary=args.dictionary,
+                ledger=args.ledger,
+                strict=args.strict,
             ).apply()
             print(json.dumps(report), file=sys.stderr)
             return 0
+        if args.ledger is not None or args.strict:
+            raise ValueError("--ledger and --strict require file-to-file translation")
+        dictionary = Dictionary.load(
+            workspace.resolve(args.dictionary) if args.dictionary else None
+        )
         original = (
             sys.stdin.read()
             if args.input == "-"

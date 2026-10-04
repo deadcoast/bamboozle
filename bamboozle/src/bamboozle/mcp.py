@@ -11,21 +11,36 @@ from typing import Any
 
 from fastmcp import FastMCP
 
+from bamboozle.agent_files import AgentFiles
 from bamboozle.audit import audit
 from bamboozle.dictionary import Dictionary
 from bamboozle.migration import prepare_migration
 from bamboozle.restoration import ReviewedFilePlan, prepare_restore, verify_restoration
-from bamboozle.service import ConversionPlan, OperationError, prepare, preview, verify
+from bamboozle.scm_mcp import register_tools
+from bamboozle.service import (
+    ConversionPlan,
+    OperationError,
+    ledger_path,
+    prepare,
+    preview,
+    verify,
+)
 from bamboozle.workspace import Workspace
 
 PLAN_TTL = 600
 MAX_PLANS = 32
 
 
-def create_server(root: Path, dictionary: Dictionary | None = None) -> FastMCP:
+def create_server(
+    root: Path,
+    dictionary: Dictionary | None = None,
+    *,
+    private_paths: tuple[Path, ...] = (),
+) -> FastMCP:
     workspace = Workspace(root)
     mapping = dictionary if dictionary is not None else Dictionary.load()
     server = FastMCP("vigiles")
+    register_tools(server, AgentFiles(workspace, mapping, private_paths=private_paths))
     plans: OrderedDict[str, tuple[float, ConversionPlan | ReviewedFilePlan, bool]] = (
         OrderedDict()
     )
@@ -63,15 +78,33 @@ def create_server(root: Path, dictionary: Dictionary | None = None) -> FastMCP:
 
     @server.tool(annotations={"readOnlyHint": True})
     def preview_file(
-        source: str, output: str | None = None, reverse: bool = False
+        source: str,
+        output: str | None = None,
+        reverse: bool = False,
+        ledger: str | None = None,
+        strict: bool = False,
+        dictionary: str | None = None,
     ) -> dict[str, Any]:
-        """Preview a translation inside the configured workspace without file writes."""
+        """Preview source or agent output. Reverse uses its saved mapping when present.
+
+        For newly named output, select the originating ledger or a dictionary file.
+        Without either, use the server mapping. Strict requires unchanged encoding.
+        Unmarked target terms translate; __SCM_LIT_...__ markers preserve literals.
+        """
+        selected: Dictionary | str | None = dictionary
+        has_saved_mapping = reverse and (
+            ledger is not None or ledger_path(workspace.resolve(source)).exists()
+        )
+        if selected is None and not has_saved_mapping:
+            selected = mapping
         plan = prepare(
             workspace,
             source,
             output=output,
             mode="reverse" if reverse else "forward",
-            dictionary=mapping,
+            dictionary=selected,
+            ledger=ledger,
+            strict=strict,
         )
         return retain(plan, preview(plan))
 

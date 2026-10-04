@@ -37,8 +37,16 @@ def parser() -> argparse.ArgumentParser:
         command = commands.add_parser(name)
         command.add_argument("source")
         command.add_argument("-o", "--output")
-        if name != "decode":
-            command.add_argument("--dict", dest="dictionary")
+        command.add_argument("--dict", dest="dictionary")
+        if name != "encode":
+            command.add_argument(
+                "--ledger", help="Saved mapping for a returned agent file"
+            )
+            command.add_argument(
+                "--strict",
+                action="store_true",
+                help="Require an unchanged encoded file and exact original restoration",
+            )
         if name == "preview":
             command.add_argument("--reverse", action="store_true")
     commands.add_parser("verify").add_argument("source")
@@ -64,7 +72,7 @@ def parser() -> argparse.ArgumentParser:
     restore.add_argument("--original", required=True)
     restore.add_argument("--dict", dest="dictionary")
     restore.add_argument("--apply", action="store_true")
-    for name in ("validate", "dictionary-export", "serve", "doctor"):
+    for name in ("validate", "dictionary-export", "serve", "serve-agent", "doctor"):
         command = commands.add_parser(name)
         command.add_argument("--dict", dest="dictionary")
         if name == "dictionary-export":
@@ -172,7 +180,9 @@ def _execute(args: argparse.Namespace, workspace: Workspace) -> dict[str, Any]:
             args.source,
             output=args.output,
             mode="reverse" if reverse else "forward",
-            dictionary=None if reverse else _mapping(args, workspace),
+            dictionary=args.dictionary,
+            ledger=getattr(args, "ledger", None),
+            strict=getattr(args, "strict", False),
         )
         return preview(plan) if args.command == "preview" else plan.apply()
     if args.command == "verify":
@@ -248,12 +258,21 @@ def main(argv: list[str] | None = None) -> int:
     args = parser().parse_args(argv)
     try:
         workspace = Workspace(args.root)
-        if args.command == "serve":
-            from bamboozle.mcp import create_server
+        if args.command in ("serve", "serve-agent"):
+            private = (workspace.resolve(args.dictionary),) if args.dictionary else ()
+            if args.command == "serve-agent":
+                from bamboozle.scm_mcp import create_server as agent_server
 
-            create_server(workspace.root, _mapping(args, workspace)).run(
-                transport="stdio"
-            )
+                server = agent_server(
+                    workspace.root, _mapping(args, workspace), private_paths=private
+                )
+            else:
+                from bamboozle.mcp import create_server
+
+                server = create_server(
+                    workspace.root, _mapping(args, workspace), private_paths=private
+                )
+            server.run(transport="stdio")
             return 0
         if args.command == "watch":
             if not 0.1 <= args.interval <= 86400 or (

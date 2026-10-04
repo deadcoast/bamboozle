@@ -7,8 +7,10 @@ commands here; the Git repository and CI workflow are one level above.
 
 Before changing implementation, read:
 
-- `.mivim/mivim.vigiles.md` for the native development contract. Its opening role
-  language is design direction; the versioned contracts define implemented behavior.
+- `.mivim/mivim.vigiles.md` and the original designs in `docs/`, `.legacy/`, and
+  `../example_project/dev_tools/development_loop.md` for the intended system.
+  Versioned contracts record implemented behavior; they do not supersede unmet
+  design requirements or authorize narrowing the user's product.
 - `VIGILES_STATUS.json` for the current stage, next step, evidence, and open gates.
 - `README.md` for supported commands and operational boundaries.
 - `pyproject.toml` and `uv.lock` for packaging, Python, and dependency constraints.
@@ -17,6 +19,16 @@ Check the working tree and preserve existing edits. Follow review → design →
 implementation → verification → specification/evidence update. When asked to
 continue development, start with the current `next_step` rather than repeating a
 completed stage. Keep work within the user's requested scope.
+The user's current direction takes precedence over assistant-written task queues.
+The core is the encoder/cipher with Vigiles as the agent-facing translator. The
+original SCM contract includes `read_safe_file` (encode before returning content)
+and `write_safe_file` (decode the agent's content before saving local source).
+Manual file conversion alone does not establish that agent integration. Keep the
+dedicated `serve-agent` surface distinct from operator tools that display raw diffs.
+Preserve existing functionality while restoring the core source → neutral agent
+work → edited/new source return pipeline. Integrate review, recovery, audit,
+workshop, and exchange capabilities around that operational pipeline; do not
+discard them or make them prerequisites that prevent normal agent development.
 Before selecting an external acceptance gate as the next development task, review
 the core workflow against the system designs. Keep a concrete source-development
 queue in status. External deployment inputs do not block independent core work;
@@ -53,6 +65,7 @@ a root-level handoff. Do not generate extra tracking documents without a task ne
 | Area | Source |
 | --- | --- |
 | Dictionary validation and reversible translation | `src/bamboozle/dictionary.py`, `engine.py`, `service.py` |
+| Public encoder/cipher API and agent-mediated source I/O | `src/bamboozle/cipher.py`, `agent_files.py`, `scm_mcp.py` |
 | Confined file access and publication | `src/bamboozle/workspace.py`, `utils.py` |
 | Tessera authenticated exchange and repository audits | `src/bamboozle/tessera.py`, `audit.py` |
 | Main CLI and MCP tools | `src/bamboozle/cli.py`, `mcp.py` |
@@ -131,17 +144,24 @@ Do not regenerate release evidence or claim a fresh runtime qualification.
 
 ## Invariants to preserve
 
-- Preserve the full encode/edit/restore loop. Strict decode remains strict; edited
-  restoration uses the retained original and saved mapping, explicit ambiguity
-  resolution, a reviewed digest, and a provenance receipt. Historical migration
-  creates separate native files and retains historical inputs. Do not silently
-  infer the meaning of newly introduced target terms or replace source files.
+- Preserve the full encode → agent edits or generates code → decode loop through
+  the normal CLI, MCP, compatibility API, and Windows launchers. Normal decode
+  reverses unmarked target terms and preserves protected literals by the documented
+  terminology contract; it does not require an unchanged file or original source.
+  `decode --strict` and `verify` retain exact round-trip integrity checks. The
+  optional `restore-edits` review/receipt workflow and explicit ledger migration
+  remain available. Never silently override a saved mapping or replace source files.
 
 - Preserve original bytes, no-clobber publication, bounded reads, strict JSON
   parsing, and workspace path confinement. Use the shared file utilities.
   Application writes cannot overwrite `.mivim`; deliberate specification edits and
   development report publication through `bamboozle.evidence` are scoped development
   operations. Do not weaken runtime workspace protection to implement reporting.
+- Agent `write_safe_file` is the explicit source-edit interface: it may update a
+  previously read source after validating its hash and retaining its prior bytes
+  in private history. Existing ordinary conversion outputs remain no-clobber.
+  Agent reads return encoded content; writes do not return decoded source. Never
+  expose configured inverse dictionaries or private history through agent tools.
 - Publish journals before asset/control changes and bind completion to journal
   bytes. Retain partial writes and report recovery requirements truthfully.
   Recovery is explicit; do not add automatic rollback, retry, or history deletion.

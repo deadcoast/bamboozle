@@ -14,7 +14,7 @@ from fastmcp import Client
 from fastmcp.client.transports import StdioTransport
 
 import bamboozle
-from bamboozle import migration, restoration
+from bamboozle import agent_files, cipher, migration, restoration, scm_mcp
 from bamboozle.dictionary import Dictionary
 from bamboozle.utils import sha256
 from workshop import examples, plans, process, recovery
@@ -97,7 +97,7 @@ def main() -> None:
         raise RuntimeError(
             "Recovery diagnostics were not loaded from the installed wheel"
         )
-    for module in (restoration, migration):
+    for module in (restoration, migration, cipher, agent_files, scm_mcp):
         if module.__file__ is None or not Path(
             module.__file__
         ).resolve().is_relative_to(args.prefix.resolve()):
@@ -128,7 +128,7 @@ def main() -> None:
     run("validate")
     run("encode", "source.txt", "--dict", "mapping.json")
     run("verify", "source_safe.txt")
-    run("decode", "source_safe.txt")
+    run("decode", "source_safe.txt", "--strict")
     if Path("source_safe_ready.txt").read_bytes() != original:
         raise RuntimeError("Installed translation did not preserve original bytes")
     program = b"\xef\xbb\xbfdef alpha(x):\r\n    return x + 1\r\nassert alpha(3) == 4\r\n# beta is literal\r\n"
@@ -175,6 +175,47 @@ def main() -> None:
         raise RuntimeError(
             "Installed restoration lost edits or changed its retained inputs"
         )
+    strict_rejection = run(
+        "decode", str(edited_path), "--strict", "-o", "strict.py", code=1
+    )
+    if "Encoded file changed" not in strict_rejection.get("error", ""):
+        raise RuntimeError("Strict decode lost its unchanged-file guarantee")
+    normal_edit = run("decode", str(edited_path), "-o", "agent-normal-edit.py")
+    if Path(normal_edit["output"]).read_bytes() != expected_program:
+        raise RuntimeError("Normal decode did not preserve the agent's edits")
+    subprocess.run([sys.executable, normal_edit["output"]], check=True, timeout=10)
+    # A new program has no original counterpart or per-file ledger.
+    generated = b'def beta(x):\n    return x * 3\nassert beta(4) == 12\nassert "__SCM_LIT_beta__" == "bet" + "a"\n'
+    generated_expected = b'def alpha(x):\n    return x * 3\nassert alpha(4) == 12\nassert "beta" == "bet" + "a"\n'
+    Path("AGENT_fix.py").write_bytes(generated)
+    normal_generated = run(
+        "decode", "AGENT_fix.py", "--ledger", ".agent-original_safe.py.scm_ledger.json"
+    )
+    if Path(normal_generated["output"]).read_bytes() != generated_expected:
+        raise RuntimeError("Normal decode did not restore newly generated source")
+    subprocess.run([sys.executable, normal_generated["output"]], check=True, timeout=10)
+    compatibility = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "bamboozle.translate",
+            "--mode",
+            "reverse",
+            "--input",
+            "AGENT_fix.py",
+            "--output",
+            "agent-compat.py",
+            "--dict",
+            "mapping.json",
+        ],
+        capture_output=True,
+        text=True,
+        check=True,
+        timeout=30,
+    )
+    if Path("agent-compat.py").read_bytes() != generated_expected:
+        raise RuntimeError("Compatibility reverse lost newly generated source")
+    subprocess.run([sys.executable, "agent-compat.py"], check=True, timeout=10)
     Path("old-original.txt").write_bytes(b"alpha beta\r\n")
     Path("old-encoded.txt").write_bytes(b"beta __SCM_LIT_beta__\r\n")
     Path("old-ledger.json").write_text(
@@ -215,6 +256,13 @@ def main() -> None:
         "restored_python_executed": True,
         "retained_inputs_unchanged": True,
         "legacy_migration": migrated,
+        "normal_pipeline": {
+            "edited": normal_edit,
+            "generated": normal_generated,
+            "compatibility": json.loads(compatibility.stderr),
+            "strict_edit_refused": True,
+            "restored_programs_executed": 3,
+        },
         "mcp": {},
     }
     run("keygen", "--key", "agent.key")
@@ -405,14 +453,202 @@ def main() -> None:
             migration_verified = await call(
                 "verify_file", {"source": applied["output"]}
             )
+            normal_returns = []
+            for source, output, options, expected in (
+                (
+                    "agent-original_safe.py",
+                    "agent-mcp-normal-edit.py",
+                    {},
+                    expected_program,
+                ),
+                (
+                    "AGENT_fix.py",
+                    "agent-mcp-generated.py",
+                    {"ledger": ".agent-original_safe.py.scm_ledger.json"},
+                    generated_expected,
+                ),
+                (
+                    "AGENT_fix.py",
+                    "agent-mcp-dictionary.py",
+                    {"dictionary": "mapping.json"},
+                    generated_expected,
+                ),
+            ):
+                normal_preview = await call(
+                    "preview_file",
+                    {
+                        "source": source,
+                        "output": output,
+                        "reverse": True,
+                        **options,
+                    },
+                )
+                normal_saved = await call(
+                    "apply_preview", {"plan_id": normal_preview["plan_id"]}
+                )
+                if Path(output).read_bytes() != expected:
+                    raise RuntimeError(
+                        "Installed normal MCP return changed expected source"
+                    )
+                await asyncio.to_thread(
+                    subprocess.run, [sys.executable, output], check=True, timeout=10
+                )
+                normal_returns.append(normal_saved)
             translation_results["mcp"] = {
                 "restoration": verified,
                 "restored_python_executed": True,
                 "replay_refused": True,
                 "migration": migration_verified,
+                "normal_returns": normal_returns,
+                "normal_programs_executed": 3,
             }
 
     asyncio.run(asyncio.wait_for(smoke_mcp(), timeout=30))
+
+    # Restore the original agent boundary itself: the agent reads encoded source
+    # and submits neutral content, while only the local files contain domain terms.
+    agent_root = Path("cipher-agent")
+    agent_root.mkdir()
+    (agent_root / "mapping.json").write_text('{"alpha":"beta"}', encoding="utf-8")
+    (agent_root / "node.py").write_bytes(program)
+    cipher_command = Path(sys.executable).with_name(
+        "scm-cipher.exe" if sys.platform == "win32" else "scm-cipher"
+    )
+    encoded_stream = subprocess.run(
+        [
+            str(cipher_command),
+            "--root",
+            str(agent_root),
+            "--mode",
+            "forward",
+            "--input",
+            "-",
+            "--output",
+            "-",
+            "--dict",
+            "mapping.json",
+        ],
+        input="alpha beta",
+        capture_output=True,
+        text=True,
+        check=True,
+        timeout=30,
+    ).stdout
+    if encoded_stream != "beta __SCM_LIT_beta__":
+        raise RuntimeError("Installed cipher entry point did not encode the stream")
+
+    async def smoke_agent_cipher() -> dict:
+        transport = StdioTransport(
+            command=sys.executable,
+            args=[
+                "-m",
+                "bamboozle",
+                "--root",
+                str(agent_root.resolve()),
+                "serve-agent",
+                "--dict",
+                "mapping.json",
+            ],
+            cwd=str(Path.cwd()),
+        )
+        async with Client(transport) as client:
+            if {tool.name for tool in await client.list_tools()} != {
+                "read_safe_file",
+                "write_safe_file",
+            }:
+                raise RuntimeError(
+                    "Agent server exposed tools outside the cipher file interface"
+                )
+
+            async def call(name: str, arguments: dict) -> dict:
+                result = await client.call_tool(name, arguments)
+                block = result.content[0]
+                if result.is_error or block.type != "text":
+                    raise RuntimeError("Agent cipher tool call failed")
+                return json.loads(block.text)
+
+            read = await call("read_safe_file", {"file_path": "node.py"})
+            if "alpha" in json.dumps(read) or "__SCM_LIT_beta__" not in read["content"]:
+                raise RuntimeError("Agent read did not present the encoded vocabulary")
+            content = read["content"].replace("x + 1", "x * 2").replace("== 4", "== 6")
+            edited = await call(
+                "write_safe_file", {"file_path": "node.py", "content": content}
+            )
+            generated = await call(
+                "write_safe_file",
+                {
+                    "file_path": "generated.py",
+                    "content": "from node import beta\nassert beta(4) == 8\n",
+                },
+            )
+            if "alpha" in json.dumps([edited, generated]):
+                raise RuntimeError("Cipher write response returned decoded source")
+            if (agent_root / "node.py").read_bytes() != expected_program:
+                raise RuntimeError(
+                    "Agent edit was not decoded into the authoritative source file"
+                )
+            backup = agent_root / edited["history"] / "original.bin"
+            if backup.read_bytes() != program:
+                raise RuntimeError("Agent edit did not preserve the prior source bytes")
+            await asyncio.to_thread(
+                subprocess.run,
+                [sys.executable, str(agent_root / "generated.py")],
+                check=True,
+                timeout=10,
+            )
+            private = await client.call_tool(
+                "read_safe_file", {"file_path": "mapping.json"}, raise_on_error=False
+            )
+            history = await client.call_tool(
+                "read_safe_file",
+                {"file_path": edited["history"] + "/original.bin"},
+                raise_on_error=False,
+            )
+            if not private.is_error or not history.is_error:
+                raise RuntimeError(
+                    "Agent cipher interface exposed private reverse data"
+                )
+            await call("read_safe_file", {"file_path": "node.py"})
+            changed = expected_program + b"# operator edit\r\n"
+            (agent_root / "node.py").write_bytes(changed)
+            stale = await client.call_tool(
+                "write_safe_file",
+                {"file_path": "node.py", "content": content},
+                raise_on_error=False,
+            )
+            if not stale.is_error or (agent_root / "node.py").read_bytes() != changed:
+                raise RuntimeError("Agent write overwrote a concurrent source edit")
+            return {
+                "edited": edited,
+                "generated": generated,
+                "agent_received_encoded_content_only": True,
+                "private_mapping_and_history_refused": True,
+                "prior_source_sha256": sha256(backup.read_bytes()),
+                "restored_two_module_program_executed": True,
+                "stale_write_refused": True,
+            }
+
+    agent_results = asyncio.run(asyncio.wait_for(smoke_agent_cipher(), timeout=30))
+
+    async def smoke_original_agent_command() -> None:
+        command = Path(sys.executable).with_name(
+            "scm-mcp.exe" if sys.platform == "win32" else "scm-mcp"
+        )
+        async with Client(
+            StdioTransport(
+                command=str(command),
+                args=["--root", str(agent_root.resolve()), "--dict", "mapping.json"],
+                cwd=str(Path.cwd()),
+            )
+        ) as client:
+            read = await client.call_tool("read_safe_file", {"file_path": "node.py"})
+            block = read.content[0]
+            if read.is_error or block.type != "text" or "alpha" in block.text:
+                raise RuntimeError(
+                    "Installed scm-mcp command did not serve encoded source"
+                )
+
+    asyncio.run(asyncio.wait_for(smoke_original_agent_command(), timeout=30))
 
     async def smoke_workshop() -> None:
         transport = StdioTransport(
@@ -613,6 +849,7 @@ def main() -> None:
                 "plan_results": plan_results,
                 "diagnostic_results": diagnostic_results,
                 "translation_results": translation_results,
+                "agent_cipher_results": agent_results,
                 "reviewed_plan_recovery": {
                     "operation_id": operation_id,
                     "plan_sha256": prepared["plan_sha256"],
@@ -620,6 +857,8 @@ def main() -> None:
                 "checks": [
                     "bundled_resources",
                     "cli_roundtrip",
+                    "original_cipher_cli_and_agent_stdio_encoded_read_decoded_write_executed_program",
+                    "normal_agent_edit_and_generated_source_cli_compatibility_and_stdio_execution",
                     "edited_source_restoration_conflicts_provenance_and_execution_cli_and_stdio",
                     "historical_ledger_migration_cli_and_stdio",
                     "ledger_verify",

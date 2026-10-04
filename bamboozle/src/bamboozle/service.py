@@ -52,7 +52,8 @@ def _ledger(
     return metadata
 
 
-def _restore(encoded: bytes, ledger: bytes, limit: int = MAX_FILE_BYTES) -> bytes:
+def _ledger_dictionary(ledger: bytes) -> tuple[Dictionary, dict[str, Any]]:
+    """Read a saved mapping without requiring the agent's output to be unchanged."""
     data = parse_json(ledger)
     if (
         not isinstance(data, dict)
@@ -64,6 +65,19 @@ def _restore(encoded: bytes, ledger: bytes, limit: int = MAX_FILE_BYTES) -> byte
     dictionary = Dictionary.from_document(data.get("dictionary"))
     if dictionary.fingerprint != data.get("dictionary_sha256"):
         raise ValueError("Ledger dictionary digest does not match")
+    for name in ("original_sha256", "encoded_sha256"):
+        value = data.get(name)
+        if (
+            not isinstance(value, str)
+            or len(value) != 64
+            or any(char not in "0123456789abcdef" for char in value)
+        ):
+            raise ValueError(f"Invalid ledger digest: {name}")
+    return dictionary, data
+
+
+def _restore(encoded: bytes, ledger: bytes, limit: int = MAX_FILE_BYTES) -> bytes:
+    dictionary, data = _ledger_dictionary(ledger)
     if sha256(encoded) != data.get("encoded_sha256"):
         raise ValueError("Encoded file changed; strict restoration refused")
     result = (
@@ -90,6 +104,11 @@ class ConversionPlan:
     source_ledger: bytes | None = field(default=None, repr=False)
     substitutions: int = 0
     literals: int = 0
+    source_ledger_path: Path | None = None
+    dictionary_inputs: dict[Path, bytes] = field(default_factory=dict, repr=False)
+    dictionary_sha256: str = ""
+    mapping_source: str = ""
+    strict: bool = False
 
     def report(self) -> dict[str, Any]:
         return {
@@ -103,6 +122,15 @@ class ConversionPlan:
             "output_bytes": len(self.result),
             "substitutions": self.substitutions,
             "literals": self.literals,
+            "dictionary_sha256": self.dictionary_sha256,
+            "mapping_source": self.mapping_source,
+            "strict": self.strict,
+            "ledger_input": (
+                str(self.source_ledger_path.relative_to(self.workspace.root))
+                if self.source_ledger is not None
+                and self.source_ledger_path is not None
+                else None
+            ),
             "output_saved": False,
             "ledger_saved": False,
         }
@@ -115,11 +143,20 @@ class ConversionPlan:
             )
         if sha256(self.workspace.read(self.source)) != self.source_digest:
             raise ValueError("Input changed after preview; create a new preview")
-        if (
-            self.source_ledger is not None
-            and self.workspace.read(ledger_path(self.source)) != self.source_ledger
-        ):
-            raise ValueError("Ledger changed after preview; create a new preview")
+        if self.source_ledger_path is not None:
+            ledger = self.workspace.resolve(self.source_ledger_path)
+            if self.source_ledger is None:
+                if ledger.exists():
+                    raise ValueError(
+                        "Ledger appeared after preview; create a new preview"
+                    )
+            elif self.workspace.read(ledger) != self.source_ledger:
+                raise ValueError("Ledger changed after preview; create a new preview")
+        for path, content in self.dictionary_inputs.items():
+            if self.workspace.read(path) != content:
+                raise ValueError(
+                    "Dictionary changed after preview; create a new preview"
+                )
 
     def apply(self) -> dict[str, Any]:
         report = self.report()
@@ -154,10 +191,16 @@ def prepare(
     *,
     mode: Mode = "forward",
     output: str | Path | None = None,
-    dictionary: Dictionary | None = None,
+    dictionary: Dictionary | str | Path | None = None,
+    ledger: str | Path | None = None,
+    strict: bool = False,
 ) -> ConversionPlan:
     if mode not in ("forward", "reverse"):
         raise ValueError("Unknown conversion mode")
+    if mode == "forward" and (strict or ledger is not None):
+        raise ValueError(
+            "Strict checking and a saved ledger apply only to reverse translation"
+        )
     path = workspace.resolve(source)
     if path.suffix.casefold() == ".key":
         raise ValueError("Key files cannot be passed through text translation")
@@ -172,10 +215,28 @@ def prepare(
         raise FileExistsError(
             f"Destination or its ledger already exists: {destination}"
         )
+    mapping_inputs = {}
+    supplied = dictionary
+    if isinstance(dictionary, (str, Path)):
+        dictionary_file = workspace.resolve(dictionary)
+        dictionary_bytes = workspace.read(dictionary_file)
+        supplied = Dictionary.from_document(parse_json(dictionary_bytes))
+        mapping_inputs[dictionary_file] = dictionary_bytes
+    if supplied is not None and not isinstance(supplied, Dictionary):
+        raise TypeError(
+            "Dictionary must be a validated Dictionary or a workspace file path"
+        )
+    mapping_source = (
+        "dictionary_file"
+        if mapping_inputs
+        else "supplied_dictionary"
+        if supplied is not None
+        else "packaged_dictionary"
+    )
     if mode == "forward":
         if ledger_path(path).exists():
             raise ValueError("Input already has a translation ledger")
-        mapping = dictionary if dictionary is not None else Dictionary.load()
+        mapping = supplied if isinstance(supplied, Dictionary) else Dictionary.load()
         converted = Translator(mapping, max_output_chars=workspace.max_bytes).transform(
             original.decode("utf-8")
         )
@@ -193,9 +254,36 @@ def prepare(
             None,
             converted.substitutions,
             converted.literals,
+            dictionary_inputs=mapping_inputs,
+            dictionary_sha256=mapping.fingerprint,
+            mapping_source=mapping_source,
         )
-    metadata = workspace.read(ledger_path(path))
-    result = _restore(original, metadata, workspace.max_bytes)
+    saved_path = workspace.resolve(ledger if ledger is not None else ledger_path(path))
+    metadata = None
+    if ledger is not None or saved_path.exists():
+        metadata = workspace.read(saved_path)
+        mapping, _ = _ledger_dictionary(metadata)
+        if (
+            isinstance(supplied, Dictionary)
+            and supplied.fingerprint != mapping.fingerprint
+        ):
+            raise ValueError(
+                "Explicit dictionary does not match the saved ledger dictionary"
+            )
+        mapping_source = "saved_ledger"
+    else:
+        if strict:
+            raise ValueError("Strict restoration requires a saved translation ledger")
+        mapping = supplied if isinstance(supplied, Dictionary) else Dictionary.load()
+    converted = Translator(mapping, max_output_chars=workspace.max_bytes).transform(
+        original.decode("utf-8"), "reverse"
+    )
+    result = converted.text.encode("utf-8")
+    if len(result) > workspace.max_bytes:
+        raise ValueError("Translated output exceeds the workspace file limit")
+    if strict:
+        assert metadata is not None
+        result = _restore(original, metadata, workspace.max_bytes)
     return ConversionPlan(
         workspace,
         path,
@@ -204,6 +292,13 @@ def prepare(
         sha256(original),
         result,
         source_ledger=metadata,
+        substitutions=converted.substitutions,
+        literals=converted.literals,
+        source_ledger_path=saved_path,
+        dictionary_inputs=mapping_inputs,
+        dictionary_sha256=mapping.fingerprint,
+        mapping_source=mapping_source,
+        strict=strict,
     )
 
 

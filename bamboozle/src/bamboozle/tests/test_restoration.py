@@ -66,7 +66,9 @@ def test_complete_agent_edit_loop_restores_and_executes_source(edit):
         assert (workspace.root / name).read_bytes() == raw
     # Strict decoding still detects edits.
     with pytest.raises(ValueError, match="Encoded file changed"):
-        service.prepare(workspace, encoded, mode="reverse", output="strict.py")
+        service.prepare(
+            workspace, encoded, mode="reverse", output="strict.py", strict=True
+        )
 
 
 @pytest.mark.parametrize(

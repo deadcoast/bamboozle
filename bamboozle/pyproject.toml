@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "bamboozle"
-version = "0.4.0"
-description = "Vigiles local translation, authenticated exchange, and repository audit framework"
+version = "0.4.2"
+description = "Bamboozle semantic cipher and Vigiles agent translation middleware"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
@@ -16,6 +16,8 @@ dependencies = [
 [project.scripts]
 bamboozle = "bamboozle.cli:main"
 vigiles = "bamboozle.cli:main"
+scm-cipher = "bamboozle.cipher:main"
+scm-mcp = "bamboozle.scm_mcp:main"
 
 [dependency-groups]
 dev = ["pytest>=9.1.1", "ruff>=0.16.10", "mypy", "pyright"]

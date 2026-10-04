@@ -50,12 +50,12 @@ def test_changed_decode_ledger_cannot_apply_preview(sample):
     assert not plan.output.exists()
 
 
-def test_edited_encoded_file_is_rejected(sample):
+def test_strict_restore_rejects_edited_encoded_file(sample):
     workspace, mapping, _ = sample
     service.prepare(workspace, "source.txt", dictionary=mapping).apply()
     (workspace.root / "source_safe.txt").write_text("edited", encoding="utf-8")
     with pytest.raises(ValueError, match="Encoded file changed"):
-        service.prepare(workspace, "source_safe.txt", mode="reverse")
+        service.prepare(workspace, "source_safe.txt", mode="reverse", strict=True)
 
 
 def test_ledger_dictionary_tampering_is_rejected(sample):

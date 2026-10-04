@@ -103,6 +103,8 @@ def test_mcp_preview_apply_verify_and_replay(tmp_path):
                 "preview_restoration",
                 "preview_migration",
                 "verify_restored_file",
+                "read_safe_file",
+                "write_safe_file",
             }
             annotations = tools["preview_file"].annotations
             assert annotations is not None and annotations.read_only_hint
