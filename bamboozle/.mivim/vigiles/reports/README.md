@@ -7,6 +7,7 @@ active planning/task files alongside ordinary project files. Its
 | Latest record | Scope |
 | --- | --- |
 | [Verification](current/VIGILES_VERIFICATION.json) | Check results and source digests; `package_requested` distinguishes source checks from package qualification |
+| [Translation workflow qualification](current/VIGILES_TRANSLATION_QUALIFICATION.json) | Installed CLI/MCP edit restoration, executed restored source, provenance, and historical migration |
 | [Pipeline qualification](current/VIGILES_PIPELINE_QUALIFICATION.json) | Synthetic native operation and recovery evidence |
 | [Plan qualification](current/VIGILES_PLAN_QUALIFICATION.json) | Exact-plan CLI application and recovery evidence |
 | [Inventory qualification](current/VIGILES_INVENTORY_QUALIFICATION.json) | Bounded discovery and damaged-record visibility |

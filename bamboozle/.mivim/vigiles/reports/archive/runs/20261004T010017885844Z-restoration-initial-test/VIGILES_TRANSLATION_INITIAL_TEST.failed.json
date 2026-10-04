@@ -1,0 +1,12 @@
+{
+  "status": "failed",
+  "reconstructed_from_captured_tool_output": true,
+  "tests": {
+    "passed": 8,
+    "failed": 1
+  },
+  "fixture_directory": ".test-tmp/restore-core-first",
+  "failure": "test_complete_agent_edit_loop_restores_and_executes_source expected edited-input rejection after restoration had already occupied the default destination; strict decode correctly refused the occupied destination first.",
+  "resolution": "Strict-decode regression now chooses a fresh strict.py output, so it tests edited-input refusal without colliding with the restored program.",
+  "retention": "Initial fixture files remain in their original scratch directory. Later passing runs do not replace this record."
+}

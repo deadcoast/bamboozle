@@ -17,6 +17,10 @@ Check the working tree and preserve existing edits. Follow review → design →
 implementation → verification → specification/evidence update. When asked to
 continue development, start with the current `next_step` rather than repeating a
 completed stage. Keep work within the user's requested scope.
+Before selecting an external acceptance gate as the next development task, review
+the core workflow against the system designs. Keep a concrete source-development
+queue in status. External deployment inputs do not block independent core work;
+do not infer whole-project completeness from a completed implementation stage.
 
 ## Planning and evidence placement
 
@@ -52,6 +56,7 @@ a root-level handoff. Do not generate extra tracking documents without a task ne
 | Confined file access and publication | `src/bamboozle/workspace.py`, `utils.py` |
 | Tessera authenticated exchange and repository audits | `src/bamboozle/tessera.py`, `audit.py` |
 | Main CLI and MCP tools | `src/bamboozle/cli.py`, `mcp.py` |
+| Edited source restoration and historical migration | `src/bamboozle/restoration.py`, `migration.py` |
 | Native workshop initialization and journaled operations | `src/workshop/bootstrap.py`, `operations.py` |
 | Read-only recovery conflict diagnostics | `src/workshop/recovery.py`, shared validation in `operations.py` |
 | Durable plans, discovery, and consumer consistency | `src/workshop/plans.py`, `inventory.py`, `snapshot.py` |
@@ -125,6 +130,12 @@ Do not regenerate release evidence or claim a fresh runtime qualification.
   unsupported native flags.
 
 ## Invariants to preserve
+
+- Preserve the full encode/edit/restore loop. Strict decode remains strict; edited
+  restoration uses the retained original and saved mapping, explicit ambiguity
+  resolution, a reviewed digest, and a provenance receipt. Historical migration
+  creates separate native files and retains historical inputs. Do not silently
+  infer the meaning of newly introduced target terms or replace source files.
 
 - Preserve original bytes, no-clobber publication, bounded reads, strict JSON
   parsing, and workspace path confinement. Use the shared file utilities.

@@ -1,5 +1,5 @@
 {
-  "boundary": "Direct-child cleanup does not qualify process-tree or host isolation.",
+  "boundary": "Direct-child cleanup does not establish process-tree isolation.",
   "checks": [
     {
       "capture": {
@@ -77,16 +77,15 @@
       "status": "timed_out"
     }
   ],
-  "created": "2026-10-04T00:01:44.972343+00:00",
-  "development_stage": "VIGIL3",
+  "created": "2026-10-04T01:00:02.698508+00:00",
+  "installed_package": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-4z9yuh2b\\wheel-env\\Lib\\site-packages\\bamboozle\\__init__.py",
   "kind": "installed_adapter_synthetic_qualification",
-  "log": ".test-tmp\\verify-55vy9pk3\\wheel-smoke.log",
-  "log_sha256": "4eeaa10764fe35a3d296d564c9c88fbec21081448f17517dd5bbd1e57c84ceed",
+  "log": ".test-tmp\\verify-4z9yuh2b\\wheel-smoke.log",
+  "log_sha256": "11208f1a343aec960b7134661d723aeb1ce55f404078f163c557a4de4cfc1aef",
   "model_qualified": false,
-  "package_file": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-55vy9pk3\\wheel-env\\Lib\\site-packages\\bamboozle\\__init__.py",
-  "release": "0.3.5",
+  "release": "0.4.0",
   "schema_version": 1,
   "status": "passed",
   "verification": ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json",
-  "verification_sha256": "4480d74ceaf29dc308be14094d5d2a65303060cbb34c6e667dbe4959d273bcfb"
+  "verification_sha256": "4dee50bb5d216ea2f5534a84bcc8ede117182dcd3f4c560e23fd5c98be8a7ee1"
 }

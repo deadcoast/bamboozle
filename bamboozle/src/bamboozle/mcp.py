@@ -13,7 +13,9 @@ from fastmcp import FastMCP
 
 from bamboozle.audit import audit
 from bamboozle.dictionary import Dictionary
-from bamboozle.service import ConversionPlan, prepare, preview, verify
+from bamboozle.migration import prepare_migration
+from bamboozle.restoration import ReviewedFilePlan, prepare_restore, verify_restoration
+from bamboozle.service import ConversionPlan, OperationError, prepare, preview, verify
 from bamboozle.workspace import Workspace
 
 PLAN_TTL = 600
@@ -24,8 +26,31 @@ def create_server(root: Path, dictionary: Dictionary | None = None) -> FastMCP:
     workspace = Workspace(root)
     mapping = dictionary if dictionary is not None else Dictionary.load()
     server = FastMCP("vigiles")
-    plans: OrderedDict[str, tuple[float, ConversionPlan]] = OrderedDict()
+    plans: OrderedDict[str, tuple[float, ConversionPlan | ReviewedFilePlan, bool]] = (
+        OrderedDict()
+    )
     lock = threading.Lock()
+
+    def retain(
+        plan: ConversionPlan | ReviewedFilePlan,
+        report: dict[str, Any],
+        recover_metadata: bool = False,
+    ) -> dict[str, Any]:
+        if report.get("ok") is False:
+            return report
+        token = secrets.token_urlsafe(24)
+        with lock:
+            now = time.monotonic()
+            for stale in [
+                key
+                for key, (created, _, _) in plans.items()
+                if now - created >= PLAN_TTL
+            ]:
+                plans.pop(stale)
+            while len(plans) >= MAX_PLANS:
+                plans.popitem(last=False)
+            plans[token] = (now, plan, recover_metadata)
+        return {**report, "plan_id": token, "expires_in_seconds": PLAN_TTL}
 
     @server.tool(annotations={"readOnlyHint": True})
     def dictionary_status() -> dict[str, Any]:
@@ -48,19 +73,56 @@ def create_server(root: Path, dictionary: Dictionary | None = None) -> FastMCP:
             mode="reverse" if reverse else "forward",
             dictionary=mapping,
         )
-        report = preview(plan)
-        token = secrets.token_urlsafe(24)
-        with lock:
-            now = time.monotonic()
-            for stale in [
-                key for key, (created, _) in plans.items() if now - created >= PLAN_TTL
-            ]:
-                plans.pop(stale)
-            while len(plans) >= MAX_PLANS:
-                plans.popitem(last=False)
-            plans[token] = (now, plan)
-        report.update(plan_id=token, expires_in_seconds=PLAN_TTL)
-        return report
+        return retain(plan, preview(plan))
+
+    @server.tool(annotations={"readOnlyHint": True})
+    def preview_restoration(
+        source: str,
+        original: str,
+        output: str | None = None,
+        ledger: str | None = None,
+        terms: str = "review",
+        decisions: str | None = None,
+        recover_metadata: bool = False,
+    ) -> dict[str, Any]:
+        """Review edited source restoration; unresolved terms never get an apply token."""
+        plan = prepare_restore(
+            workspace,
+            source,
+            original,
+            output=output,
+            ledger=ledger,
+            terms=terms,
+            decisions=decisions,
+            recover_metadata=recover_metadata,
+        )
+        return retain(plan, plan.report(), recover_metadata)
+
+    @server.tool(annotations={"readOnlyHint": True})
+    def preview_migration(
+        source: str,
+        original: str,
+        ledger: str,
+        output: str | None = None,
+        dictionary: str | None = None,
+        recover_metadata: bool = False,
+    ) -> dict[str, Any]:
+        """Review a verified historical pair's migration into separate native files."""
+        plan = prepare_migration(
+            workspace,
+            source,
+            original,
+            ledger=ledger,
+            output=output,
+            dictionary=dictionary,
+            recover_metadata=recover_metadata,
+        )
+        return retain(plan, plan.report(), recover_metadata)
+
+    @server.tool(annotations={"readOnlyHint": True})
+    def verify_restored_file(source: str) -> dict[str, Any]:
+        """Verify restored output and the retained input hashes in its provenance receipt."""
+        return verify_restoration(workspace, source)
 
     @server.tool(
         annotations={
@@ -75,7 +137,13 @@ def create_server(root: Path, dictionary: Dictionary | None = None) -> FastMCP:
             saved = plans.pop(plan_id, None)
         if saved is None or time.monotonic() - saved[0] >= PLAN_TTL:
             raise ValueError("Unknown, expired, or already consumed preview")
-        return saved[1].apply()
+        plan = saved[1]
+        try:
+            if isinstance(plan, ReviewedFilePlan):
+                return plan.apply(plan.review_sha256, recover_metadata=saved[2])
+            return plan.apply()
+        except OperationError as exc:
+            return {**exc.report, "ok": False}
 
     @server.tool(annotations={"readOnlyHint": True})
     def verify_file(source: str) -> dict[str, Any]:

@@ -164,7 +164,7 @@ Open global gates:
 | VIG-DEPLOY-01 | Native pipeline live acceptance | Native scripts and fixture qualification are supplied in 0.3.0; real candidate evaluation and operator-selected production use remain open |
 | VIG-IDENTITY-01 | Recipient identities, key distribution/revocation, replay policy | Approved trust model, isolated recipients, rotation/revocation tests, and replay rejection policy |
 | VIG-CI-01 | Execute remote platform matrix | Recorded passing Windows/Linux and Python 3.13/3.14 workflow runs for the submitted revision |
-| VIG-RESTORE-01 | Edited-file and historical-ledger migration | Explicit migration format and conflict behavior, with no silent loss and recovery fixtures |
+| VIG-RESTORE-01 | Edited-file and historical-ledger migration | Implemented in 0.4.0 below; consult current verification for qualification scope |
 | VIG-HOST-01 | Optional service deployment and OS isolation | Explicit operator-selected host, least-privilege account/ACLs, bounded resource policy, start/stop/uninstall verification |
 
 Do not mark these gates complete from unit tests, a local wheel build, an in-process
@@ -475,3 +475,73 @@ evidence remain archived. Live deployment, remote CI, identity/key governance,
 historical translation migration, and host/process-tree isolation remain open.
 
 ---
+
+### Core agent edit and restore workflow — 0.4.0
+
+The previous active plan incorrectly selected live deployment after workshop
+recovery diagnostics. That did not establish completeness of the core agent
+workflow. The retained development loop explicitly requires encoding source,
+editing the translated file, and restoring the edited result. Native strict
+restoration refused every edited file. VIG-RESTORE-01 addresses that implementation
+gap; external acceptance does not block independent core source development.
+
+- `restoration.prepare_restore` reconstructs the encoded baseline from the retained
+  original using the ledger dictionary, then uses strict restoration to check the
+  original, encoded and dictionary hashes. It does not depend on the current default
+  mapping. A copied edited file can select the original ledger explicitly.
+- Complete unchanged line occurrences retain their baseline translation meaning,
+  up to the baseline occurrence count. Changed/added line target terms require
+  explicit decisions. This is a conservative text rule, not inference of code
+  semantics or author intent. Copied lines beyond the baseline count require review.
+- Conflict reports contain one-based line/character-column positions, matched
+  terms, candidate translations and allowed choices. `translate` and `literal`
+  policies resolve changed-line terms explicitly; a decisions JSON bound to the
+  edited SHA-256 overrides policy per position. Unknown/stale positions are refused.
+  Mixed case with no reversible translation requires a literal choice or source
+  correction. Damaged literal markers require repair/removal before restoration.
+- Strict decode/verify retains its unchanged-file contract. Edited restoration is
+  the explicit `restore-edits` command; no permissive fallback was added to decode.
+  It preserves BOMs, requested line endings, deletions and non-terminology edits.
+- `ReviewedFilePlan` binds workspace, every retained input digest, output path,
+  output digest, metadata path and metadata digest. CLI application requires the
+  review SHA-256 from a successful preview. MCP application retains the exact plan
+  under the existing bounded, expiring, single-use token lifecycle. A conflict
+  never receives an application token. Every input is rechecked before writes.
+- Output and provenance receipt publish exclusively to separate paths. No original,
+  encoded input, ledger, decision file, or existing output is replaced. Inputs and
+  output are checked again before metadata publication. Partial failures report
+  `output_saved`/`metadata_saved`, retaining evidence. Explicit `--recover-metadata`
+  requires the exact retained output, unchanged inputs and absent metadata; it
+  creates only the missing metadata. No rollback, deletion or automatic retry occurs.
+- Restoration receipts bind input/output hashes, original/edited/ledger paths,
+  baseline and dictionary identities, term policy and effective choices. Read-only
+  `verify-restoration` rechecks output, receipt and retained inputs. This is local
+  consistency evidence, not authenticated history or validation of edited programs.
+- Each text/metadata file remains bounded by the workspace limit (16 MiB by
+  default). Changed-line target occurrences and decision entries are capped at
+  10,000. Return at most 100 conflicts plus total/omitted counts. Diff work is limited
+  to 256 KiB combined bytes and four million line comparisons; returned diff text
+  is at most 64 KiB UTF-8. Omitted/truncated diffs are explicit and never weaken the
+  whole-output digest or conflict checks. Restore expansion is bounded while replacing.
+- `migration.prepare_migration` accepts standalone v1/v2 per-file ledgers and the
+  historical global original-file/literal-list/timestamp record. Migration requires
+  the retained original and unedited historical encoding; global records require
+  an explicit dictionary. It replays historical boundary rules, verifies available
+  digests and file identities, then creates a separate native encoding and ledger.
+  Global historical newline normalization is reported; native output preserves the
+  supplied original bytes. Weak records establish supplied-pair consistency only.
+  Incompatible/edited/corrupt evidence is refused without overwriting historical
+  files. The migrated ledger records source evidence hashes and the profile used.
+- Primary Vigiles MCP exposes `preview_restoration`, `preview_migration`, and
+  `verify_restored_file`; both previews use `apply_preview`. CLI and MCP share the
+  same services. Tests use the actual retained historical encoder and execute
+  restored Python to prove the intended source edit survives the complete loop.
+  Installed-wheel smoke repeats conflict, review, apply, verify and real execution
+  through CLI and stdio MCP, plus historical migration and strict restoration.
+
+The next core development item is a scoped agent development view with private
+reverse metadata outside that view and reviewed multi-file import. It is a planned
+source capability, not a completed feature. Broader recipient identity/delivery,
+structural enforcement, remote CI and host isolation are not established by this
+single-file workflow. `VIGILES_STATUS.json` tracks core work separately from external
+acceptance. Qualification and retained failures stay in the managed report tree.

@@ -42,6 +42,23 @@ def parser() -> argparse.ArgumentParser:
         if name == "preview":
             command.add_argument("--reverse", action="store_true")
     commands.add_parser("verify").add_argument("source")
+    commands.add_parser("verify-restoration").add_argument("source")
+    for name in ("restore-edits", "migrate-ledger"):
+        command = commands.add_parser(name)
+        command.add_argument("source")
+        command.add_argument("--original", required=True)
+        command.add_argument("--ledger", required=name == "migrate-ledger")
+        command.add_argument("-o", "--output")
+        command.add_argument("--apply", action="store_true")
+        command.add_argument("--review-sha256")
+        command.add_argument("--recover-metadata", action="store_true")
+        if name == "restore-edits":
+            command.add_argument(
+                "--terms", choices=["review", "translate", "literal"], default="review"
+            )
+            command.add_argument("--decisions")
+        else:
+            command.add_argument("--dict", dest="dictionary")
     restore = commands.add_parser("recover")
     restore.add_argument("source")
     restore.add_argument("--original", required=True)
@@ -95,6 +112,46 @@ def _emit(report: dict[str, Any], *, compact: bool = False) -> None:
 
 
 def _execute(args: argparse.Namespace, workspace: Workspace) -> dict[str, Any]:
+    if args.command == "verify-restoration":
+        from bamboozle.restoration import verify_restoration
+
+        return verify_restoration(workspace, args.source)
+    if args.command in ("restore-edits", "migrate-ledger"):
+        from bamboozle.migration import prepare_migration
+        from bamboozle.restoration import prepare_restore
+
+        if bool(args.apply) != bool(args.review_sha256):
+            raise ValueError(
+                "--apply requires --review-sha256 from a successful preview"
+            )
+        common = {
+            "output": args.output,
+            "ledger": args.ledger,
+            "recover_metadata": args.recover_metadata,
+        }
+        reviewed = (
+            prepare_restore(
+                workspace,
+                args.source,
+                args.original,
+                terms=args.terms,
+                decisions=args.decisions,
+                **common,
+            )
+            if args.command == "restore-edits"
+            else prepare_migration(
+                workspace,
+                args.source,
+                args.original,
+                dictionary=args.dictionary,
+                **common,
+            )
+        )
+        return (
+            reviewed.apply(args.review_sha256, recover_metadata=args.recover_metadata)
+            if args.apply
+            else reviewed.report()
+        )
     if args.command == "workshop-init":
         from workshop import config
         from workshop.bootstrap import initialize

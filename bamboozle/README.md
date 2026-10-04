@@ -1,17 +1,17 @@
 # Bamboozle / Vigiles
 
-Current release: **v0.3.5 (VIGIL3)**. Diagnose interrupted native operations before
-explicit recovery, with bounded reports of retained evidence and every relevant
-input, control, and asset state. The CLI and both workshop MCP interfaces provide
-diagnostics alongside plan discovery, reviewed application, and consumer snapshots.
+Current release: **v0.4.0 (VIGIL3)**. Encode source, edit the translated file, review
+its restoration, and save executable source with retained provenance. Native
+restoration and explicit historical-ledger migration are available through the CLI
+and Vigiles MCP, alongside the existing workshop operations and diagnostics.
 
 Vigiles is MIVIM's local middleware for reversible terminology translation,
 authenticated file exchange, and repository integrity checks. The application is
 packaged as `bamboozle`; `vigiles`, `bamboozle`, and `python -m bamboozle` share one CLI.
 
 The native development contract is [.mivim/mivim.vigiles.md](.mivim/mivim.vigiles.md).
-[VIGILES_STATUS.json](VIGILES_STATUS.json) holds the active plan, next task and open
-deployment gates. [Verification](.mivim/vigiles/reports/current/VIGILES_VERIFICATION.json)
+[VIGILES_STATUS.json](VIGILES_STATUS.json) holds the active development plan, core
+task queue, and separate external gates. [Verification](.mivim/vigiles/reports/current/VIGILES_VERIFICATION.json)
 records actual checks, test results, and source hashes. Retained evidence belongs
 under [.mivim/vigiles/reports/](.mivim/vigiles/reports/README.md), with latest records
 in `current/` and historical/failed records in `archive/`. Keep only active planning
@@ -66,7 +66,7 @@ case, damaged markers, and lossy mappings fail explicitly.
 UTF-8 BOMs and CR/LF bytes survive file round trips. Each ledger contains the mapping
 snapshot and original/encoded SHA-256 digests. Decode uses that snapshot, so changing
 the active dictionary does not strand existing conversions. It requires the encoded
-file to remain unchanged. Edited-file restoration is not supported by this release.
+file to remain unchanged. Use the explicit edited-file workflow below after editing.
 The retained ledger remains attached to the retained encoded source.
 
 Translation is readable substitution. It provides no confidentiality. A ledger's
@@ -87,6 +87,103 @@ Recovery defaults to a read-only preview and refuses mismatched pairs or existin
 ledgers. Concurrent input changes invalidate prepared conversions. These checks are
 not an operating-system sandbox against a hostile process changing filesystem
 ancestors during publication.
+
+## Complete an agent edit
+
+Keep the original source and its translation ledger. Edit the encoded file, then
+preview restoration using the saved mapping and the retained original:
+
+```powershell
+uv run --locked vigiles encode "node.py"
+# Edit node_safe.py with your editor or coding agent.
+uv run --locked vigiles restore-edits "node_safe.py" --original "node.py"
+```
+
+The original must reproduce the ledger's encoded baseline and original digest.
+The active dictionary is irrelevant. `--ledger PATH` selects a retained native
+ledger explicitly when the edited file was copied to another filename.
+
+Unchanged complete line occurrences retain their original translation meaning.
+Added or changed lines containing unmarked target terms return `status: conflict`
+and exit code 3, with one-based `line:column` positions, the term, and its possible
+translation. Additional copies beyond the baseline's line counts need review too.
+These comparisons establish textual consistency; they cannot infer author intent.
+Removing a literal marker turns its term into a conflict on the changed line.
+Malformed markers must be repaired or removed completely before restoration.
+
+When all unmarked terms on changed lines use the translated vocabulary, select
+`--terms translate`. Use `--terms literal` to preserve those changed-line terms.
+Native literal markers always restore their literal values. For mixed intent,
+create a JSON decisions file from the conflict positions:
+
+```json
+{
+  "schema_version": 1,
+  "edited_sha256": "the edited_sha256 returned by the preview",
+  "choices": {"4:8": "translate", "7:12": "literal"}
+}
+```
+
+Pass it with `--decisions choices.json`. Decisions override the selected policy,
+must name changed-line target positions, and are invalidated by any edited-file
+change. Unsupported case conversions require literal preservation or a corrected
+edit. Unresolved conflicts cannot be applied.
+
+Review the original-to-restored diff and apply its exact digest:
+
+```powershell
+$review = uv run --locked vigiles restore-edits "node_safe.py" --original "node.py" --terms translate | ConvertFrom-Json
+if ($LASTEXITCODE -ne 0) { throw "Restoration preview failed" }
+$review.diff
+uv run --locked vigiles restore-edits "node_safe.py" --original "node.py" --terms translate --apply --review-sha256 $review.review_sha256
+uv run --locked vigiles verify-restoration "node_safe_ready.py"
+# Run the restored program's normal tests before integrating its changes.
+```
+
+`-o` chooses a separate destination. Original, edited input, ledger, and decisions
+remain unchanged. Application rechecks all input hashes and refuses existing
+outputs, ledgers, and receipts. `.node_safe_ready.py.vigiles-restore.json` records
+input/output hashes, mapping identity, baseline identity, and the resolved choices.
+`verify-restoration` checks the output, receipt, and retained input hashes; it does
+not claim the edited program has correct semantics or authenticate its author.
+
+Output and receipt are separate publications. A failure reports `output_saved`
+and `metadata_saved` accurately and preserves published bytes. If only metadata is
+missing, repeat the same preview with `--recover-metadata`, then apply that review
+with the same flag. Recovery requires the existing output to equal the reviewed
+result and refuses an existing receipt. It never rewrites the output.
+
+Metadata and each text input/output retain the 16 MiB workspace limit. At most
+10,000 changed-line target occurrences are processed; the first 100 conflicts are
+returned with a total and omitted count. Resolve shown positions in batches, or
+select an explicit term policy. Diff generation is bounded to 256 KiB of combined
+input, four million line comparisons, and 64 KiB of returned UTF-8 text. A partial
+or omitted diff is labeled `diff_complete: false`; hashes cover the complete result.
+
+## Migrate a historical translation
+
+`migrate-ledger` accepts the retained standalone version-1/version-2 per-file
+ledgers and the original global `.scm_ledger.json` format. Supply the **unedited**
+historical encoded file and original. Global records also require the exact
+dictionary, because they never stored one:
+
+```powershell
+$review = uv run --locked vigiles migrate-ledger "old_safe.py" --original "old.py" --ledger ".scm_ledger.json" --dict "old-dictionary.json" | ConvertFrom-Json
+if ($LASTEXITCODE -ne 0) { throw "Migration preview failed" }
+$review
+uv run --locked vigiles migrate-ledger "old_safe.py" --original "old.py" --ledger ".scm_ledger.json" --dict "old-dictionary.json" --apply --review-sha256 $review.review_sha256
+uv run --locked vigiles verify "old_safe_migrated.py"
+```
+
+Migration replays the historical encoder, checks available digests and file
+identities, and creates a separate native encoding and ledger. Standalone records
+retain their historical underscore boundary rules during replay; the new encoding
+uses native rules and reports `encoding_changed`. Global replay accounts explicitly
+for historical universal-newline I/O, while the new encoding preserves the supplied
+original bytes. Weak historical records establish pair consistency only. Missing,
+edited, incompatible, or corrupt evidence is refused, never silently upgraded.
+Historical files remain intact. The migrated file supports strict decoding and the
+edited-file workflow above. Missing migrated metadata uses `--recover-metadata`.
 
 ## Dictionaries
 
@@ -173,6 +270,14 @@ The server uses stdio only. It exposes `dictionary_status`, `preview_file`,
 single-use token, valid for ten minutes; only 32 pending previews are retained.
 Application rechecks the source, ledger, and destination before saving. A stale,
 expired, or consumed token cannot authorize a write.
+
+`preview_restoration(source, original, output, ledger, terms, decisions)` and
+`preview_migration(source, original, ledger, output, dictionary)` use the same
+reviewed services as the CLI. Optional `recover_metadata` selects explicit recovery
+of a retained output's missing metadata. A conflict response has no application
+token. Successful previews use the existing `apply_preview(plan_id)` lifecycle;
+`verify_restored_file(source)` verifies a restoration receipt. These tools belong
+to the primary Vigiles server; workshop servers continue to own workshop operations.
 
 `src/mcp.pacer.json` is a sample for a client whose working directory is this
 project. For clients started elsewhere, supply an absolute `--project` path to uv

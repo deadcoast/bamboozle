@@ -14,6 +14,7 @@ from fastmcp import Client
 from fastmcp.client.transports import StdioTransport
 
 import bamboozle
+from bamboozle import migration, restoration
 from bamboozle.dictionary import Dictionary
 from bamboozle.utils import sha256
 from workshop import examples, plans, process, recovery
@@ -96,6 +97,13 @@ def main() -> None:
         raise RuntimeError(
             "Recovery diagnostics were not loaded from the installed wheel"
         )
+    for module in (restoration, migration):
+        if module.__file__ is None or not Path(
+            module.__file__
+        ).resolve().is_relative_to(args.prefix.resolve()):
+            raise RuntimeError(
+                "Translation workflow was not loaded from the installed wheel"
+            )
     mapping = Dictionary.load()
     if len(mapping) != 110 or not Taxonomy.load().canon_cat:
         raise RuntimeError("Packaged dictionary or taxonomy resource is missing")
@@ -103,14 +111,18 @@ def main() -> None:
     original = b"\xef\xbb\xbfAlpha beta\r\n"
     Path("source.txt").write_bytes(original)
 
-    def run(*arguments: str) -> dict:
+    def run(*arguments: str, code: int = 0) -> dict:
         result = subprocess.run(
             [sys.executable, "-m", "bamboozle", *arguments],
-            check=True,
+            check=False,
             capture_output=True,
             text=True,
             timeout=30,
         )
+        if result.returncode != code:
+            raise RuntimeError(
+                f"Installed command failed: {arguments}: {result.stdout} {result.stderr}"
+            )
         return json.loads(result.stdout)
 
     run("validate")
@@ -119,6 +131,92 @@ def main() -> None:
     run("decode", "source_safe.txt")
     if Path("source_safe_ready.txt").read_bytes() != original:
         raise RuntimeError("Installed translation did not preserve original bytes")
+    program = b"\xef\xbb\xbfdef alpha(x):\r\n    return x + 1\r\nassert alpha(3) == 4\r\n# beta is literal\r\n"
+    Path("agent-original.py").write_bytes(program)
+    run("encode", "agent-original.py", "--dict", "mapping.json")
+    edited_path = Path("agent-original_safe.py")
+    edited_path.write_bytes(
+        edited_path.read_bytes().replace(b"x + 1", b"x * 2").replace(b"== 4", b"== 6")
+    )
+    unchanged_inputs = {
+        p: p.read_bytes()
+        for p in (
+            Path("agent-original.py"),
+            edited_path,
+            Path(".agent-original_safe.py.scm_ledger.json"),
+        )
+    }
+    restore_arguments = (
+        "restore-edits",
+        str(edited_path),
+        "--original",
+        "agent-original.py",
+    )
+    conflict = run(*restore_arguments, code=3)
+    if conflict["status"] != "conflict" or conflict["conflict_count"] != 1:
+        raise RuntimeError("Installed edited restoration did not expose ambiguity")
+    review = run(*restore_arguments, "--terms", "translate", "-o", "agent-restored.py")
+    saved = run(
+        *restore_arguments,
+        "--terms",
+        "translate",
+        "-o",
+        "agent-restored.py",
+        "--apply",
+        "--review-sha256",
+        review["review_sha256"],
+    )
+    restored_verification = run("verify-restoration", saved["output"])
+    subprocess.run([sys.executable, saved["output"]], check=True, timeout=10)
+    expected_program = program.replace(b"x + 1", b"x * 2").replace(b"== 4", b"== 6")
+    if Path(saved["output"]).read_bytes() != expected_program or any(
+        p.read_bytes() != raw for p, raw in unchanged_inputs.items()
+    ):
+        raise RuntimeError(
+            "Installed restoration lost edits or changed its retained inputs"
+        )
+    Path("old-original.txt").write_bytes(b"alpha beta\r\n")
+    Path("old-encoded.txt").write_bytes(b"beta __SCM_LIT_beta__\r\n")
+    Path("old-ledger.json").write_text(
+        json.dumps(
+            {
+                "original_file": "old-original.txt",
+                "track_literals": ["beta"],
+                "timestamp": "2024-01-01T00:00:00Z",
+            }
+        ),
+        encoding="utf-8",
+    )
+    legacy_args = (
+        "migrate-ledger",
+        "old-encoded.txt",
+        "--original",
+        "old-original.txt",
+        "--ledger",
+        "old-ledger.json",
+        "--dict",
+        "mapping.json",
+    )
+    migrated_review = run(*legacy_args)
+    migrated = run(
+        *legacy_args, "--apply", "--review-sha256", migrated_review["review_sha256"]
+    )
+    run("verify", migrated["output"])
+    decoded_migration = run("decode", migrated["output"])
+    if (
+        Path(decoded_migration["output"]).read_bytes()
+        != Path("old-original.txt").read_bytes()
+    ):
+        raise RuntimeError("Installed migration lost original bytes")
+    translation_results = {
+        "cli_conflict_count": conflict["conflict_count"],
+        "cli_review_sha256": review["review_sha256"],
+        "cli_restoration": restored_verification,
+        "restored_python_executed": True,
+        "retained_inputs_unchanged": True,
+        "legacy_migration": migrated,
+        "mcp": {},
+    }
     run("keygen", "--key", "agent.key")
     run(
         "seal",
@@ -259,6 +357,60 @@ def main() -> None:
                 or json.loads(content.text)["entries"] != 110
             ):
                 raise RuntimeError("Installed MCP tool call failed")
+
+            async def call(name: str, arguments: dict) -> dict:
+                response = await client.call_tool(name, arguments)
+                content = response.content[0]
+                if response.is_error or content.type != "text":
+                    raise RuntimeError("Installed translation MCP call failed")
+                return json.loads(content.text)
+
+            arguments = {
+                "source": "agent-original_safe.py",
+                "original": "agent-original.py",
+                "output": "agent-mcp-restored.py",
+            }
+            conflict = await call("preview_restoration", arguments)
+            if conflict["status"] != "conflict" or "plan_id" in conflict:
+                raise RuntimeError("Installed MCP issued a token for unresolved edits")
+            review = await call(
+                "preview_restoration", {**arguments, "terms": "translate"}
+            )
+            saved = await call("apply_preview", {"plan_id": review["plan_id"]})
+            verified = await call("verify_restored_file", {"source": saved["output"]})
+            await asyncio.to_thread(
+                subprocess.run,
+                [sys.executable, saved["output"]],
+                check=True,
+                timeout=10,
+            )
+            if Path(saved["output"]).read_bytes() != expected_program:
+                raise RuntimeError("Installed MCP restored unexpected source")
+            replay = await client.call_tool(
+                "apply_preview", {"plan_id": review["plan_id"]}, raise_on_error=False
+            )
+            if not replay.is_error:
+                raise RuntimeError("Installed restoration preview replay was accepted")
+            legacy = await call(
+                "preview_migration",
+                {
+                    "source": "old-encoded.txt",
+                    "original": "old-original.txt",
+                    "ledger": "old-ledger.json",
+                    "dictionary": "mapping.json",
+                    "output": "old-mcp-migrated.txt",
+                },
+            )
+            applied = await call("apply_preview", {"plan_id": legacy["plan_id"]})
+            migration_verified = await call(
+                "verify_file", {"source": applied["output"]}
+            )
+            translation_results["mcp"] = {
+                "restoration": verified,
+                "restored_python_executed": True,
+                "replay_refused": True,
+                "migration": migration_verified,
+            }
 
     asyncio.run(asyncio.wait_for(smoke_mcp(), timeout=30))
 
@@ -460,6 +612,7 @@ def main() -> None:
                 "capture_results": capture_results,
                 "plan_results": plan_results,
                 "diagnostic_results": diagnostic_results,
+                "translation_results": translation_results,
                 "reviewed_plan_recovery": {
                     "operation_id": operation_id,
                     "plan_sha256": prepared["plan_sha256"],
@@ -467,6 +620,8 @@ def main() -> None:
                 "checks": [
                     "bundled_resources",
                     "cli_roundtrip",
+                    "edited_source_restoration_conflicts_provenance_and_execution_cli_and_stdio",
+                    "historical_ledger_migration_cli_and_stdio",
                     "ledger_verify",
                     "tessera_roundtrip",
                     "baseline_audit",

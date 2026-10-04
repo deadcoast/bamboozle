@@ -1,0 +1,188 @@
+{
+  "authority": ".mivim/mivim.vigiles.md",
+  "core_development_queue": [
+    {
+      "focus": "Edited source restoration and explicit legacy migration",
+      "id": "VIG-RESTORE-01",
+      "status": "in_progress"
+    },
+    {
+      "design_source": ".legacy/bamboozle_v0.0.1.md sections 2-4; example_project/dev_tools/development_loop.md",
+      "done_criteria": [
+        "Export selected source files and a terminology contract into a usable development view",
+        "Keep reverse mapping and authoritative original snapshots outside the view",
+        "Review and import edits across files with conflicts, provenance, and no-clobber behavior",
+        "Qualify the complete multi-file agent development loop"
+      ],
+      "focus": "Create a scoped agent development view with private reverse metadata retained outside that view, then review and import edited files against original hashes",
+      "id": "VIG-CORE-VIEW-01",
+      "status": "planned"
+    }
+  ],
+  "development_stage": "VIGIL3",
+  "evidence": {
+    "current_directory": ".mivim/vigiles/reports/current/",
+    "directory_guide": ".mivim/vigiles/reports/README.md",
+    "historical_status": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_STATUS.json",
+    "installed_package_verification": ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json",
+    "original_record_hashes_and_relocation": ".mivim/vigiles/reports/INDEX.json",
+    "prior_release_package_verification": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_VERIFICATION.json",
+    "qualification_scope": "Current v0.3.5 verification covers 321 passing tests, 11 passing stages, and an isolated installed wheel. Fixture, package, remote CI, and live acceptance remain distinct.",
+    "recovery_qualification": ".mivim/vigiles/reports/current/VIGILES_RECOVERY_QUALIFICATION.json",
+    "source_verification": ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json"
+  },
+  "last_completed_step": {
+    "evidence": [
+      ".mivim/vigiles/reports/current/VIGILES_RECOVERY_QUALIFICATION.json",
+      ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json"
+    ],
+    "focus": "Native recovery conflict diagnostics",
+    "id": "VIGIL3-OPS-05",
+    "qualification": {
+      "cli_recovery_cases": 5,
+      "installed_mcp_diagnostic_cases": 6,
+      "scope": "Local Windows Python 3.13; synthetic fixtures and isolated installed wheel.",
+      "tests_passed": 321,
+      "verification_stages_passed": 11
+    },
+    "status": "complete_for_implementation_and_local_package_fixture_qualification"
+  },
+  "next_step": {
+    "boundaries": [
+      "Strict decode remains unchanged",
+      "Local SHA-256 provenance is consistency evidence, not authenticated author identity",
+      "Deployment is a separate external gate and does not block core source development"
+    ],
+    "design": {
+      "interfaces": "Shared implementation through the CLI and primary Vigiles MCP, plus installed-wheel end-to-end execution.",
+      "migration": "Explicitly validate historical per-file and global ledger formats against the supplied original/encoded pair, then create a separate native encoded file and ledger. Preserve historical inputs.",
+      "restoration": "Read-only preview validates the retained original and mapping, compares edited lines to the encoded baseline, and reports unresolved target terms. Explicit decisions or a declared term policy resolve changed-line ambiguity. Application binds the reviewed input/output hashes and retains a provenance receipt."
+    },
+    "done_criteria": [
+      "Restore actual edited source with the saved mapping, preserving original, edited input, and ledger",
+      "Report ambiguous changed-line terms with positions and explicit resolution options",
+      "Reject stale previews, changed ledgers/originals, occupied destinations, malformed markers, and invalid legacy evidence",
+      "Migrate supported historical records without overwriting originals or silently losing information",
+      "Run restored Python source and verify intended behavior through source, CLI, MCP, and installed-wheel tests"
+    ],
+    "finding": "The documented development loop edits encoded source, but the native file service only restores unchanged files. Selecting live deployment as the next task was premature.",
+    "focus": "Complete the encode, agent-edit, and restore workflow",
+    "id": "VIG-RESTORE-01",
+    "status": "implementation_in_progress"
+  },
+  "open_gates": [
+    {
+      "completed_stage": "Native operations, prepared plans, inventory, read-only recovery diagnostics, explicit recovery, and both MCP interfaces are locally qualified with synthetic assets and an installed v0.3.5 wheel.",
+      "dependencies": [
+        "Real candidate and completed evaluation evidence",
+        "Operator-selected production workshop",
+        "Live consumer acceptance criteria"
+      ],
+      "done_criteria": [
+        "Native promotion, quarantine, and audit fixtures pass (complete)",
+        "Interrupted publication recovery demonstrated before live writes (complete)",
+        "Real candidate accepted in an operator-selected production workspace (open)"
+      ],
+      "evidence": [
+        "src/workshop/scrape/promote.py",
+        "src/workshop/scrape/audit_matrix.py",
+        "src/workshop/tests/test_operations.py",
+        ".mivim/vigiles/reports/current/VIGILES_PIPELINE_QUALIFICATION.json",
+        ".mivim/vigiles/reports/current/VIGILES_PIPELINE_READINESS.json",
+        ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json",
+        ".mivim/vigiles/reports/current/VIGILES_PLAN_QUALIFICATION.json",
+        ".mivim/vigiles/reports/current/VIGILES_RECOVERY_QUALIFICATION.json"
+      ],
+      "id": "VIG-DEPLOY-01",
+      "impact": "Native file operations are locally qualified with synthetic assets; no live LoRA or ComfyUI acceptance is claimed.",
+      "next_action": "Evaluate a real candidate, retain its validation evidence, select a production workshop, and review/prepare/apply the exact plan before live consumer acceptance.",
+      "owner_role": "Workshop integration owner",
+      "priority": "P1",
+      "remaining_dependency": "Production model evaluation and live target selection remain separate from fixture qualification.",
+      "status": "native_fixture_qualified_live_acceptance_open"
+    },
+    {
+      "dependencies": [
+        "Approved recipient trust model",
+        "Key custody and distribution design",
+        "Replay policy"
+      ],
+      "done_criteria": [
+        "Isolated recipient tests",
+        "Rotation and revocation tests",
+        "Approved and tested replay policy",
+        "No key material in reports or source"
+      ],
+      "id": "VIG-IDENTITY-01",
+      "impact": "Tessera proves key possession and recipient-label integrity, not independently verified identity or freshness.",
+      "next_action": "Define recipient identities and key issuance, rotation, revocation, and replay semantics before cross-agent production exchange.",
+      "owner_role": "MIVIM security and agent integration owner",
+      "priority": "P1",
+      "status": "open"
+    },
+    {
+      "dependencies": [
+        "Committed and submitted revision",
+        "Enabled GitHub Actions"
+      ],
+      "done_criteria": [
+        "Windows Python 3.13 passes",
+        "Windows Python 3.14 passes",
+        "Linux Python 3.13 passes",
+        "Linux Python 3.14 passes",
+        "Run URLs and revision recorded"
+      ],
+      "evidence": [
+        "../.github/workflows/vigiles.yml"
+      ],
+      "id": "VIG-CI-01",
+      "impact": "Local Windows results do not prove Linux or Python 3.14 compatibility.",
+      "next_action": "Run the supplied workflow for the submitted revision and retain all four job results.",
+      "owner_role": "Repository maintainer",
+      "priority": "P1",
+      "status": "open"
+    },
+    {
+      "dependencies": [
+        "Historical fixtures",
+        "Approved conflict and migration behavior"
+      ],
+      "done_criteria": [
+        "No silent information loss",
+        "Migration and recovery fixtures pass",
+        "Ambiguous edits produce actionable conflicts",
+        "Strict restore remains available"
+      ],
+      "id": "VIG-RESTORE-01",
+      "impact": "Native strict restore refuses edited encoded content and historical global-ledger formats.",
+      "next_action": "Design an explicit migration and edited-file restoration format preserving source provenance and reporting conflicts.",
+      "owner_role": "Translation contract owner",
+      "priority": "P2",
+      "status": "open"
+    },
+    {
+      "dependencies": [
+        "Explicit target host and account",
+        "Filesystem ACL policy",
+        "Resource and lifecycle policy"
+      ],
+      "done_criteria": [
+        "Operator-selected deployment recorded",
+        "Least-privilege ACLs verified",
+        "Bounded resource policy tested",
+        "Start, stop, and uninstall verified"
+      ],
+      "id": "VIG-HOST-01",
+      "impact": "No installed background service, process-tree lifecycle policy, or OS-level isolation has been qualified.",
+      "next_action": "Select whether a managed service is needed, then qualify start/stop/uninstall and least-privilege operation on that host.",
+      "owner_role": "Deployment operator",
+      "priority": "P2",
+      "status": "open"
+    }
+  ],
+  "project": "Bamboozle / MIVIM Vigiles",
+  "purpose": "Active planning and open gates only; detailed evidence and completed history are retained under .mivim/vigiles/reports/.",
+  "recorded_on": "2026-10-04",
+  "release": "0.3.5",
+  "schema_version": 1
+}
