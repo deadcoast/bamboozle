@@ -1,32 +1,86 @@
 {
+  "agent_fixture": ".test-tmp/verify-fbolel9y/runtime/cipher-agent",
+  "agent_fixture_file_sha256": {
+    ".vigiles/cipher/changes/71d5e7d40a184b81b58071238dd7247b/decoded.bin": "61305fb51edc042daad152102e9d15b5df988d744a55e984d0ed2c4c2a343728",
+    ".vigiles/cipher/changes/71d5e7d40a184b81b58071238dd7247b/intent.json": "1fbc3c15cf5a5775a85dabfd09ec5069dd115815aee16006582eed79ce19a9ee",
+    ".vigiles/cipher/changes/71d5e7d40a184b81b58071238dd7247b/original.bin": "d93c8b613564debdc94f573375c355128bacb7427b88ea531acd02d7842bb967",
+    ".vigiles/cipher/changes/71d5e7d40a184b81b58071238dd7247b/result.json": "773538dccf81dc98ec2ddab624981598a5e81da7d8294f31196e945b60ae6d6d",
+    ".vigiles/cipher/changes/83c6b27a966d4e9ba611c762e34de7e1/decoded.bin": "336d5e6c491a90df43f493acb572d3b1a586443e8bd71e0ac44b23f3680d0a46",
+    ".vigiles/cipher/changes/83c6b27a966d4e9ba611c762e34de7e1/intent.json": "6ea1403bd7df483bf0b7f5a56230813e97657c2a338c7184089668942a75b422",
+    ".vigiles/cipher/changes/83c6b27a966d4e9ba611c762e34de7e1/result.json": "698cba52b8892f77a578819cf8254f4e3cb8dfdf540e2125ec935e95b91def7c",
+    "generated.py": "336d5e6c491a90df43f493acb572d3b1a586443e8bd71e0ac44b23f3680d0a46",
+    "mapping.json": "de9dc6c7ace2745f4c673937f5cf5cf45408207a932d171850945c9ed502fa6e",
+    "node.py": "a550678c61ee90e6526b25c8cb74a82ae13dbc3e66be0013baaf4f376acb0fe2"
+  },
+  "agent_fixture_final_state": "node.py retains a deliberate operator comment appended after successful decoded publication and two-module execution. The stale agent write was refused. decoded.bin retains the pre-comment restored source; original.bin retains the exact pre-edit source.",
+  "agent_interface_tests": "src/bamboozle/tests/test_agent_files.py",
   "artifacts": {
-    "bamboozle-0.4.1-py3-none-any.whl": {
-      "bytes": 93951,
-      "sha256": "acb93d09d68cd43555798726cee960219d5662e0f43de6efe74634c93b888830"
+    "bamboozle-0.4.2-py3-none-any.whl": {
+      "bytes": 100261,
+      "sha256": "3441c97d3c7cd5cc2e69b44b12626ab7056b17606b7b932981381a65e5120ea5"
     },
-    "bamboozle-0.4.1.tar.gz": {
-      "bytes": 106620,
-      "sha256": "50426007a077c022a1f4fce424e6678580b8ae541cb4325ccfed8f7dd5740de6"
+    "bamboozle-0.4.2.tar.gz": {
+      "bytes": 113592,
+      "sha256": "91bd300ec0b12c57a3b42fb1f1f77dd685101c7ad7c0110d475e20a4dd5484b8"
     }
   },
-  "created": "2026-10-04T04:55:30.870050+00:00",
+  "created": "2026-10-04T05:49:05.880525Z",
   "design_source": [
+    "581d9dc:bamboozle/dev_tools/cipher.py",
+    "581d9dc:bamboozle/dev_tools/scm_mcp.py",
+    "581d9dc:bamboozle/OVERVIEW.md",
+    ".mivim/mivim.vigiles.md",
     ".legacy/bamboozle_v0.0.2.md:358-367",
     "../example_project/dev_tools/development_loop.md:5-24"
   ],
-  "gate": "VIG-CORE-PIPELINE-01",
-  "installed_package": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-n2wu3o25\\wheel-env\\Lib\\site-packages\\bamboozle\\__init__.py",
+  "gate": "VIG-CIPHER-AGENT-01",
+  "installed_agent_cipher": {
+    "agent_received_encoded_content_only": true,
+    "edited": {
+      "backup_saved": true,
+      "before_sha256": "d93c8b613564debdc94f573375c355128bacb7427b88ea531acd02d7842bb967",
+      "dictionary_sha256": "5e4a3e5c8493f6f23e688bab3107a12668e409b4f40969241a3b36182446158a",
+      "file_path": "node.py",
+      "history": ".vigiles/cipher/changes/71d5e7d40a184b81b58071238dd7247b",
+      "operation_id": "71d5e7d40a184b81b58071238dd7247b",
+      "output_bytes": 77,
+      "output_saved": true,
+      "output_sha256": "61305fb51edc042daad152102e9d15b5df988d744a55e984d0ed2c4c2a343728",
+      "receipt_saved": true,
+      "schema_version": 1,
+      "status": "saved"
+    },
+    "generated": {
+      "backup_saved": false,
+      "before_sha256": null,
+      "dictionary_sha256": "5e4a3e5c8493f6f23e688bab3107a12668e409b4f40969241a3b36182446158a",
+      "file_path": "generated.py",
+      "history": ".vigiles/cipher/changes/83c6b27a966d4e9ba611c762e34de7e1",
+      "operation_id": "83c6b27a966d4e9ba611c762e34de7e1",
+      "output_bytes": 44,
+      "output_saved": true,
+      "output_sha256": "336d5e6c491a90df43f493acb572d3b1a586443e8bd71e0ac44b23f3680d0a46",
+      "receipt_saved": true,
+      "schema_version": 1,
+      "status": "saved"
+    },
+    "prior_source_sha256": "d93c8b613564debdc94f573375c355128bacb7427b88ea531acd02d7842bb967",
+    "private_mapping_and_history_refused": true,
+    "restored_two_module_program_executed": true,
+    "stale_write_refused": true
+  },
+  "installed_package": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-fbolel9y\\wheel-env\\Lib\\site-packages\\bamboozle\\__init__.py",
   "installed_workflow": {
     "cli_conflict_count": 1,
     "cli_restoration": {
       "input_count": 3,
       "output_sha256": "61305fb51edc042daad152102e9d15b5df988d744a55e984d0ed2c4c2a343728",
       "provenance": "local_consistency",
-      "receipt_sha256": "9f6f58f2d12e528404a252a19e3eec9e87d8e70ddb1a7e8d2653ec66ba46b157",
+      "receipt_sha256": "8245b5ded257fe25b924e230eca6def892cf26e8a562568c2bfb8de18f35dc6c",
       "schema_version": 1,
       "status": "verified"
     },
-    "cli_review_sha256": "4cff0785adc769174ccf7ad80610ec4bbc179d6bda4168a8a2111f2f857f08d6",
+    "cli_review_sha256": "27899284fc8138d2068aba9e56389f53b86210b6d79524e1cec28cbafe0b9af7",
     "legacy_migration": {
       "dictionary_sha256": "5e4a3e5c8493f6f23e688bab3107a12668e409b4f40969241a3b36182446158a",
       "encoding_changed": false,
@@ -43,7 +97,7 @@
       "output_bytes": 23,
       "output_saved": true,
       "output_sha256": "9fcb3976ea836cdb532f05bef6d90d4c2d87b85be29dcb4e3999f8da32815366",
-      "review_sha256": "056f30ca812a51cddc25b0f28f52205a849fe3aa7e44158bf9f5be6d0ac5554a",
+      "review_sha256": "56926625b7acf774794cef998508c33473ac482f90f00c57c262a33dfd62ea9e",
       "schema_version": 1,
       "status": "saved"
     },
@@ -117,7 +171,7 @@
         "input_count": 3,
         "output_sha256": "61305fb51edc042daad152102e9d15b5df988d744a55e984d0ed2c4c2a343728",
         "provenance": "local_consistency",
-        "receipt_sha256": "1e082f15c7c38bedfc3a28dd70bc2f7b6b84f144857f1d1984b4078bf1ae8e18",
+        "receipt_sha256": "2baf87bca0a18b2e8473e9b47d9ac3db1fdafc4a5a949a15b2c8e07229ab1049",
         "schema_version": 1,
         "status": "verified"
       },
@@ -184,8 +238,15 @@
     "restored_python_executed": true,
     "retained_inputs_unchanged": true
   },
-  "log": ".test-tmp\\verify-n2wu3o25\\wheel-smoke.log",
-  "log_sha256": "0dda5b1b66a4f1fccfe46c2891adfcdebf9b51d1fc8f8d088fcc0a64a44bd96c",
+  "limits": [
+    "Terminology substitution is not encryption, general secret redaction or OS isolation.",
+    "Per-file operations require existing parent directories; reads are bounded and remembered hashes are limited to 256 paths.",
+    "The configured mapping is fixed for the server lifetime; reconnects require a new read or the earlier source hash.",
+    "Hash rechecks and the server lock do not provide atomic compare-and-swap against unrelated racing writers.",
+    "No directory discovery, private project-view export, multi-file atomic import or external agent acceptance is claimed."
+  ],
+  "log": ".test-tmp/verify-fbolel9y/wheel-smoke.log",
+  "log_sha256": "cd4aa5b240e6d2ce807d0cb7d5750ff413bccfdf1b2b2da01dc4db9acfcfe755",
   "normal_pipeline_tests": "src/bamboozle/tests/test_agent_pipeline.py",
   "preserved_capabilities": [
     "Explicit strict decode and verify",
@@ -194,7 +255,7 @@
     "Tessera authenticated exchange",
     "Audit and workshop plans, inventory and recovery"
   ],
-  "release": "0.4.1",
+  "release": "0.4.2",
   "remaining_core_work": [
     "Private scoped agent project views and reviewed multi-file import",
     "Structural profile enforcement",
@@ -202,12 +263,13 @@
   ],
   "retained_failed_checks": [
     ".mivim/vigiles/reports/archive/runs/20261004T044809147249Z-normal-pipeline/INITIAL_CHECKS.json",
-    ".mivim/vigiles/reports/archive/runs/20261004T045337177012Z-1a0b4bf0/VIGILES_VERIFICATION.json"
+    ".mivim/vigiles/reports/archive/runs/20261004T045337177012Z-1a0b4bf0/VIGILES_VERIFICATION.json",
+    ".mivim/vigiles/reports/archive/runs/20261004T053828816316Z-cipher-agent-review/INITIAL_CHECKS.json"
   ],
   "retained_file_sha256": {
-    ".agent-mcp-restored.py.vigiles-restore.json": "1e082f15c7c38bedfc3a28dd70bc2f7b6b84f144857f1d1984b4078bf1ae8e18",
-    ".agent-original_safe.py.scm_ledger.json": "8cf4de8a48730cf4c7debf8e841d8e7eee0f262b197b2d77e84b6d3c0d3bb21c",
-    ".agent-restored.py.vigiles-restore.json": "9f6f58f2d12e528404a252a19e3eec9e87d8e70ddb1a7e8d2653ec66ba46b157",
+    ".agent-mcp-restored.py.vigiles-restore.json": "2baf87bca0a18b2e8473e9b47d9ac3db1fdafc4a5a949a15b2c8e07229ab1049",
+    ".agent-original_safe.py.scm_ledger.json": "b73709c8999aa7b8bd719d6a961745b9a554b7fb68cfae510130da90c1d7c50e",
+    ".agent-restored.py.vigiles-restore.json": "8245b5ded257fe25b924e230eca6def892cf26e8a562568c2bfb8de18f35dc6c",
     ".old-encoded_migrated.txt.scm_ledger.json": "863a139cf9bd20b5b05d902ca02c3bac591ab73f28eef4f09379f54ebb3e02c5",
     "AGENT_fix.py": "b42540a0c07f024f47bc5f029a8dd3366790d5c06bb1619b1f32d34c0a4c6644",
     "AGENT_fix_ready.py": "e8690e97f2d1b603dc8c7f50e6de93827a0df50ec47f70e2eb91c256d84426d2",
@@ -226,16 +288,16 @@
     "old-ledger.json": "3287a7e394d70f04e19f825bf18b0ba0ad8c8e060bd7595f34e5354fb7208f2e",
     "old-original.txt": "45e0e83f40b35d69bf3a66dbd6dd841c91bc43f9a5ffe7f8b65539252801a660"
   },
-  "retained_fixture": ".test-tmp\\verify-n2wu3o25\\runtime",
+  "retained_fixture": ".test-tmp/verify-fbolel9y/runtime",
   "schema_version": 1,
-  "scope": "Original file-based source -> neutral agent edit or generated source -> domain restoration. Local Windows Python 3.13, source CLI/MCP/Windows launcher, isolated installed CLI/compatibility/stdio MCP; generated programs are deterministic fixtures, not external-agent acceptance.",
+  "scope": "Windows Python 3.13 source and isolated installed package. Real stdio cipher-mediated source reads, edited writes, generated dependent source and execution; deterministic agent responses, not an external model run or whole-project qualification.",
   "source_sha256": {
     "../.github/workflows/vigiles.yml": "c979966ae8e8007ab070626c578fcc4acb45ebbe43e5de8257f3207907f543d1",
-    ".mivim/mivim.vigiles.md": "ee5e906304fe7909eb11b9989e4eaccef7dd68323f82dc173f32055c4f13b9be",
-    "AGENTS.md": "ead0a0efb532d88a2edbe114b3210a73ad115af1be60374c012e20aa02404fdb",
-    "README.md": "effb97f2c389e44f190ea3ba025f1e80cde17770a5f93dd3a1dc5e863e73786d",
-    "pyproject.toml": "66484d2aa400fe2c3e91775bba98dbae6f6da6042da99264ae43894901c00eaa",
-    "scripts/package_smoke.py": "0c9288e6da7eb18b966013e41b780cfc4c503469931e5c7aa6522cfb944cb48c",
+    ".mivim/mivim.vigiles.md": "4a71dd89e6a53449d26533c16686c0e064be83c1c86a24fa7d39a1792b3faaef",
+    "AGENTS.md": "a36fb76732b06d2a0cf9d910eaa78e417a00c4c02b982dc67ac4bbe69fb4faa6",
+    "README.md": "2227fb39e6dfb41da20583d6e4193ad4c785f10c59dc2caea6f94f94f185863a",
+    "pyproject.toml": "f6da635f7c5a6207204395022fb2bd32c2eef8520f72936bf7aff86af4b0814c",
+    "scripts/package_smoke.py": "efcb43f9be3fd70d80268c43657328a7e7aeb8f5591455e7cd9adaed24a70912",
     "scripts/qualify_inventory.py": "8d274f0af7ba16570a0cd4731b242dcdeeb60100d31ed323050c6b034a7c9d31",
     "scripts/qualify_pipeline.py": "a41c6401b7e863e060be2ebe2f10d92e8c2a9b5863fbec5deec1fa9e3aa7a272",
     "scripts/qualify_plans.py": "2298acce5330789283e07c6701ec131c838899fa4f7573627d227af1904f831b",
@@ -243,24 +305,28 @@
     "scripts/verify.py": "9b36f4ae3c7def0d6210a371c1431cb3262c2b4cd7ef757565dc96803870a9f7",
     "src/DECRYPT_FROM_AGENT.bat": "25ec45eff2279dfd24d09b6f76dfb6c702e724dd5b9d2aad28b602fa2aee65dd",
     "src/ENCRYPT_FOR_AGENT.bat": "b261f32d499395b46f864a8658f6741ff0b4fc9d35b93d6ac173b5efda05b186",
-    "src/bamboozle/__init__.py": "70cea43c35c8b03655c92e965c8bc0f32773348c84665aa663b50da076216f25",
+    "src/bamboozle/__init__.py": "bf479b5937f587779f8fa4e03b2ff3e8e25b7c50fa43f14b16bc4a30ee9f928f",
     "src/bamboozle/__main__.py": "c4e635a2015428e750f8e441975d34352b4386f23cdf596a2d7e87a8f2da2ca9",
+    "src/bamboozle/agent_files.py": "679d6ecc3dcae756aea405a513706f14244bf20b0609e43fbd58707360f81edd",
     "src/bamboozle/audit.py": "419f33a4c597987d65329d8c4887ee2cba0f2723c1bb75a222c583f4e4e256eb",
     "src/bamboozle/audit_matrix.py": "0da01520a1f6b3c821b49833bf030a4d94be1885689c012affa4259bfc6317db",
+    "src/bamboozle/cipher.py": "62147e0bb57eae54c194102decdcda5f1308dcb8d09408cd169f4db0726a3258",
     "src/bamboozle/cipher_dict.json": "b49059d73a0965ea7bd0b790ef0a92cb86cada3898a203b8d5e3dce4d85b5dfe",
-    "src/bamboozle/cli.py": "d061adfa1f0d7b2a23075442963a2aa320b58210f8f0e4e10068d407b4c2c7be",
+    "src/bamboozle/cli.py": "be1633dc5e7a8604da63a356923b18fb6022c3fa996f602fc000c3d9e1ddb02f",
     "src/bamboozle/dictionary.py": "c02a01a58f50e018d348abd1ddb3ceb19872892e2b7486d20c284bf620dfccda",
     "src/bamboozle/engine.py": "f6f804e8659b67bb84a17e94f4bcdf3fe62ac06f2e4fefd2876a62965b33e6e0",
     "src/bamboozle/evidence.py": "29656ca8fe9b04e286abebc552db9952c219265b29d27eb0938bff02e8be6533",
-    "src/bamboozle/mcp.py": "cc50b0ec880c569a10a4b993b7f755ffdbda8a11a983425a0478964d8fddcc51",
+    "src/bamboozle/mcp.py": "6bb5437ed13f14f64abe226958339b7f7340a63715b5261b9ba8221c5b53754c",
     "src/bamboozle/migration.py": "0b0f5be2eea97cb18e95486a49e2dc3f1b050ed2b356448e2a05fd74ffff6c7c",
     "src/bamboozle/restoration.py": "855309789a392799fd3000500004eb3d61b9df961f8cddceb13bc7df4c436b0d",
+    "src/bamboozle/scm_mcp.py": "2afbbc89be0076d81ca2632d97b63b138703846dcfcb29e1ea320dfe5aa202a4",
     "src/bamboozle/service.py": "2a066272a96ab59097598262027b43a22178c162d19485119e44212958e3990a",
     "src/bamboozle/tessera.py": "155ae5d87e8b8f615998819ff84d1768118bcc0e377eee2b034023bb95c35548",
     "src/bamboozle/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/bamboozle/tests/test_agent_files.py": "00eee33fec9843b69562ba017bdd415fc526a7c563f053e53fa78c29b5ca5899",
     "src/bamboozle/tests/test_agent_pipeline.py": "afd63fd8c7973d5f559541b07bf47ba53dcf405f8caa9729b0f34311211cd73a",
     "src/bamboozle/tests/test_audit_matrix.py": "96edd1911b986e665251d2f3ff0f53fc0cab298ba7e451a58c10de403f228583",
-    "src/bamboozle/tests/test_cli_mcp.py": "bd9608d54a2158459c8b89d5490c09dc0482a3169a255bf401f2ddc8715af4b4",
+    "src/bamboozle/tests/test_cli_mcp.py": "28ac3a871717ffcab50fd56ca550c57921598605523bfccc74a495a7047f686d",
     "src/bamboozle/tests/test_dictionary.py": "f935496088dbff642404b1ab9ae43769b85c503146754c61bb852a1c8d2ec1a8",
     "src/bamboozle/tests/test_engine.py": "1a314e31227ac23033ae570a85c7f4c21839f285d7b8d02064fb926b9a95ca1c",
     "src/bamboozle/tests/test_evidence.py": "25a844bab9b50a60da54a38a35b10e2b3720381832722f157cfed1f68c9b5c7c",
@@ -270,10 +336,10 @@
     "src/bamboozle/tests/test_tessera.py": "afa6862454d6b533f5c9aee097dbdd199f414098cd7545b1c81a21a4fb270058",
     "src/bamboozle/tests/test_translate.py": "bd8e0c52dbc2e6cef600529dc158e6218290705468a2d424279c80216e7de7de",
     "src/bamboozle/tests/test_workspace_audit.py": "5840cb16f21d7779245752ad2891b6099cd91befa5f75840e9a54d0b89596ed6",
-    "src/bamboozle/translate.py": "bf4bf7f761f04e6ffe6655c3f4cfaa86d8571c4f8a93621c06e4cf6e84dbb63a",
+    "src/bamboozle/translate.py": "24e68108653a04954042788260f274c2c60d2c4cc44219dc3ec0fb40c7f29024",
     "src/bamboozle/utils.py": "63e6073dfdbdd01bb1abe3e6125159515abbb90aab2ee93d09739157b563dc74",
     "src/bamboozle/workspace.py": "31ae24e8968baea412e32b4af949dce56d302fa7db36a48a0a22b9b70dd9517e",
-    "src/mcp.pacer.json": "cfba2afd419f0c7aec1c9dec95ea04bc9383b02d181f54d2ddb5137cb760add8",
+    "src/mcp.pacer.json": "19f74c9899e6df7f8ff3614b9b22d2a91e6cff7289abcbe76a97da35548216d9",
     "src/workshop/__init__.py": "94f960d9ab834f1b3df0983716d0f1974c8c4ee5937045f97c80cc18f105e3ad",
     "src/workshop/bootstrap.py": "62dc7b1d081d0d5554eece0c533a579195472937548f07bc600e1425f22c4dda",
     "src/workshop/config.py": "dd00ce30a84847a0e7d6638e407d4c4c28448e7ca0c26c4e398b2d593418a1fc",
@@ -309,7 +375,7 @@
     "src/workshop/tests/test_plans.py": "df02df963ddf1ba6f6a879f05dbdee694fb1a59391b34ba4e5ffb96f80578870",
     "src/workshop/tests/test_recovery_diagnostics.py": "0d2fe68b9fce33251e836a1466e18846016f9d093040066b1e19162bca7833ec",
     "src/workshop/tests/test_snapshot.py": "3a1186ecaefb5ecf1704c111028e711502f5de69b1cfb5d415062cd518c5d168",
-    "uv.lock": "acad2c30c8c20ec578e52c0e98302a197f2522bf767fa48b035521323f9f5bbb"
+    "uv.lock": "69a53f9b823194853862c3f6eda5863511567fbe7cec813da9474c629301eafb"
   },
   "source_tests": {
     "errors": 0,
@@ -318,7 +384,13 @@
     "tests": 386
   },
   "status": "passed",
-  "verification": ".mivim\\vigiles\\reports\\current\\VIGILES_VERIFICATION.json",
-  "verification_sha256": "d975205e358d763a20634b4abaa0f2151bd79b3549d0da7e665f9a9cb53e2854",
+  "tests": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests": 415
+  },
+  "verification": ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json",
+  "verification_sha256": "996f35db19588fe9a022be5fabe4099be99e4241dcbcb28c4067847268b76348",
   "verification_stages_passed": 11
 }

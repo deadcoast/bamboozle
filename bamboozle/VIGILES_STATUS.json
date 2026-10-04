@@ -44,27 +44,13 @@
     "installed_package_verification": ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json",
     "original_record_hashes_and_relocation": ".mivim/vigiles/reports/INDEX.json",
     "prior_release_package_verification": ".mivim/vigiles/reports/archive/runs/20261004T010002772728Z-89301853/VIGILES_VERIFICATION.json",
-    "prior_translation_qualification": ".mivim\\vigiles\\reports\\archive\\runs\\20261004T045530871829Z-38b43a5a\\VIGILES_TRANSLATION_QUALIFICATION.json",
-    "qualification_scope": "0.4.2 is under verification. Prior file-conversion evidence does not prove the original agent cipher I/O contract.",
+    "prior_translation_qualification": ".mivim/vigiles/reports/archive/runs/20261004T054905889926Z-1a6b557c/VIGILES_TRANSLATION_QUALIFICATION.json",
+    "qualification_scope": "0.4.2 source and installed cipher-agent interface qualified on local Windows Python 3.13; deterministic agent edit/new-module fixtures executed. Project views, multi-file import, structural rules, recipient lifecycle and external acceptance remain separate open work.",
     "recovery_qualification": ".mivim/vigiles/reports/current/VIGILES_RECOVERY_QUALIFICATION.json",
     "source_verification": ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json",
     "translation_qualification": ".mivim/vigiles/reports/current/VIGILES_TRANSLATION_QUALIFICATION.json"
   },
   "last_completed_step": {
-    "evidence": [
-      ".mivim/vigiles/reports/current/VIGILES_TRANSLATION_QUALIFICATION.json",
-      ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json"
-    ],
-    "focus": "Restore normal encode -> agent edits or generates code -> decode through CLI, MCP, compatibility and Windows return launcher",
-    "id": "VIG-CORE-PIPELINE-01",
-    "qualification": {
-      "scope": "Windows Python 3.13; executed edited and new-code fixtures in source and isolated installed package; optional review and existing workshop capabilities retained",
-      "tests_passed": 386,
-      "verification_stages_passed": 11
-    },
-    "status": "complete_file_pipeline_source_and_local_installed_package"
-  },
-  "next_step": {
     "design_source": [
       "581d9dc:bamboozle/dev_tools/scm_mcp.py",
       "581d9dc:bamboozle/OVERVIEW.md",
@@ -77,10 +63,35 @@
       "Original cipher and agent entry points work in the installed package",
       "Restored dependent modules execute through the real stdio agent interaction"
     ],
+    "evidence": [
+      ".mivim/vigiles/reports/current/VIGILES_TRANSLATION_QUALIFICATION.json",
+      ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json"
+    ],
     "focus": "Restore the original cipher-backed read_safe_file and write_safe_file agent interaction",
     "id": "VIG-CIPHER-AGENT-01",
-    "remaining": "Full regression and installed-agent qualification",
-    "status": "verification_in_progress"
+    "qualification": {
+      "scope": "Windows Python 3.13 source and isolated installed package. Real stdio cipher-mediated source reads, edited writes, generated dependent source and execution; deterministic agent responses, not an external model run or whole-project qualification.",
+      "tests_passed": 415,
+      "verification_stages_passed": 11
+    },
+    "status": "complete_source_and_local_installed_cipher_agent_interface"
+  },
+  "next_step": {
+    "design_source": [
+      ".legacy/bamboozle_v0.0.1.md",
+      ".mivim/mivim.vigiles.md"
+    ],
+    "done_criteria": [
+      "The agent view contains selected usable source and its terminology contract",
+      "Private reverse mapping and original snapshots are absent from the agent view",
+      "Changed, added, deleted, and conflicting files have explicit import behavior",
+      "Review and application are bound to exact selected source/view bytes",
+      "A multi-file edit runs correctly after reviewed import; partial failures retain recoverable evidence"
+    ],
+    "focus": "Scoped agent development views and reviewed multi-file import",
+    "id": "VIG-CORE-VIEW-01",
+    "remaining": "Implement a scoped multi-file agent development view and reviewed import around the operational cipher tools, preserving private reverse metadata and existing services.",
+    "status": "next"
   },
   "open_gates": [
     {
