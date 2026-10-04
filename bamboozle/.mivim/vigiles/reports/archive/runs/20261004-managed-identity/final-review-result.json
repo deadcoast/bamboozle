@@ -1,0 +1,21 @@
+{
+  "evidence": ".mivim\\vigiles\\reports\\current\\VIGILES_IDENTITY_QUALIFICATION.json",
+  "findings": [
+    {
+      "finding": "A refused existing destination can incorrectly set output_saved from mere path existence; distinguish retained publication from unrelated pre-existing content.",
+      "regression": "No-clobber refusal preserves original bytes and reports output_saved false.",
+      "source": "src/bamboozle/transport.py"
+    },
+    {
+      "finding": "Sending pins the registry but does not re-read the registered key bytes at context completion.",
+      "regression": "Detect key-byte drift during sending and retain truthful output state.",
+      "source": "src/bamboozle/identity.py"
+    },
+    {
+      "finding": "Custody context close errors need the existing OperationError publication report.",
+      "regression": "Fault during custody finalization retains packet/source receipt and publication flags.",
+      "source": "src/bamboozle/project_exchange.py; src/bamboozle/view_import.py"
+    }
+  ],
+  "status": "corrected_and_verified"
+}

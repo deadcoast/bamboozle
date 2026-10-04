@@ -37,6 +37,8 @@ def test_generated_context_works_from_other_directory_and_exposes_its_actual_too
     assert context["workflow"] == "vigiles-vandal_0.2"
     assert context["workflow_version"] != context["product_version"]
     assert not context["configuration_written"]
+    assert context["source_structure"]["profile_sha256"] is not None
+    assert ("managed_transport" in context) == (mode == "operator")
     assert list(tmp_path.iterdir()) == []
     connection = context["mcp_config"]["mcpServers"][f"bamboozle_{mode}"]
     assert len(context["mcp_config"]["mcpServers"]) == 1
@@ -56,6 +58,7 @@ def test_generated_context_works_from_other_directory_and_exposes_its_actual_too
                     "review_project_view",
                     "apply_project_view",
                     "validate_returned_file",
+                    "check_repository_structure",
                 } <= names
                 response = await client.call_tool("dictionary_status", {})
             assert not response.is_error and response.content[0].type == "text"

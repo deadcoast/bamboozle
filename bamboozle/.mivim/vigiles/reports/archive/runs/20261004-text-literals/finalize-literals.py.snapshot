@@ -1,0 +1,145 @@
+"""Retain verification and advance only the qualified core development gate."""
+import json
+from datetime import UTC, datetime
+from pathlib import Path
+
+from bamboozle.dictionary import Dictionary
+from bamboozle.evidence import report_destination, write_report
+from bamboozle.formats import DocumentCodec, FormatRules
+from bamboozle.utils import json_bytes, sha256
+
+root = Path.cwd()
+archive = root / ".mivim/vigiles/reports/archive/runs/20261004-text-literals"
+current = root / ".mivim/vigiles/reports/current"
+verification = json.loads((current / "VIGILES_VERIFICATION.json").read_bytes())
+prior = json.loads((archive / "prior-VIGILES_VERIFICATION.json").read_bytes())
+assert verification["created"] != prior["created"]
+assert verification["status"] == "passed" and len(verification["steps"]) == 12
+assert verification["tests"] == {"tests": 1311, "failures": 0, "errors": 0, "skipped": 0}
+assert all(step["returncode"] == 0 for step in verification["steps"])
+assert all(sha256((root / name).read_bytes()) == digest for name, digest in verification["source_sha256"].items())
+for name in verification["required_artifacts"]:
+    assert sha256((root / "dist" / name).read_bytes()) == verification["artifacts"][name]["sha256"]
+logs = {}
+for step in verification["steps"]:
+    data = (root / step["log"]).read_bytes()
+    destination = archive / (step["name"] + ".log")
+    assert not destination.exists()
+    destination.write_bytes(data)
+    logs[step["name"]] = {"path": destination.relative_to(root).as_posix(), "sha256": sha256(data)}
+pytest_log = root / next(step["log"] for step in verification["steps"] if step["name"] == "pytest")
+(archive / "pytest.xml").write_bytes(pytest_log.with_name("pytest.xml").read_bytes())
+wheel_log = archive / "wheel-smoke.log"
+installed = next(json.loads(line) for line in wheel_log.read_text(encoding="utf-8").splitlines() if line.startswith('{"status": "passed"'))
+literals = installed["literal_results"]
+assert literals["status"] == "passed" and literals["application_cases"] == 160
+assert set(literals["workflows"]) == {"cli", "mcp", "agent"}
+application = {}
+for mode, result in literals["workflows"].items():
+    report = result["restored_execution"]
+    assert result["restored_benchmark"] == {"application_cases": 160, "invalid_datasets": 4}
+    application[mode] = {
+        "restored_benchmark": result["restored_benchmark"],
+        "restored_application": {name: report[name] for name in ("label", "endpoint", "records", "total", "stats")},
+        "batches": len(report["batches"]),
+    }
+    if "benchmark" in result:
+        assert result["benchmark"] == result["restored_benchmark"]
+        application[mode]["neutral_benchmark"] = result["benchmark"]
+    else:
+        assert result["encoded_reads_decoded_writes"]
+        application[mode]["encoded_reads_decoded_writes"] = True
+
+# A remaining original design requirement, not a regression in exact-pointer JSON.
+request = {"format": "json", "values_only": True}
+try:
+    FormatRules.from_document(request)
+except ValueError as error:
+    refusal = str(error)
+else:
+    raise AssertionError("Recheck the next task; recursive values are already accepted")
+example = '{"trigger":"alpha", "nested":{"message":"task"}, "count":2}'
+selected = DocumentCodec(Dictionary({"alpha": "omega", "task": "stage"}), FormatRules("json", ("/trigger",))).transform(example)
+finding = {
+    "design_source": ".legacy/designlog:897-899",
+    "requirement": "Explicit recursive JSON string-values-only mode, preserving keys and nonstring values",
+    "proposed_rule_rejected": request,
+    "current_refusal": refusal,
+    "current_supported_exact_pointer_mode": {"input": example, "rules": {"format": "json", "pointers": ["/trigger"]}, "output": selected.text},
+    "gap": "The original values-only mode is not exposed; callers must enumerate each string pointer. Keep this exact-pointer mode unchanged when adding explicit recursive selection.",
+}
+write_report(root, archive / "next-core-finding.json", finding)
+implementation = [
+    "src/bamboozle/text_literals.py", "src/bamboozle/formats.py",
+    "src/bamboozle/service.py", "src/bamboozle/restoration.py",
+    "src/bamboozle/return_validation.py", "src/bamboozle/cli.py",
+    "src/bamboozle/mcp.py", "src/bamboozle/translate.py",
+    "src/bamboozle/cipher_operations.py", "scripts/vandal.py",
+    "scripts/literals_smoke.py", "scripts/package_smoke.py",
+    "src/bamboozle/tests/test_text_literals.py",
+]
+report = {
+    "schema_version": 1,
+    "id": "VIG-CIPHER-LITERALS-01",
+    "completed": datetime.now(UTC).isoformat(),
+    "status": "source_and_installed_application_verified",
+    "design": {
+        "sources": [".legacy/designlog:242", ".legacy/designlog:878", "VIGILES_STATUS.json"],
+        "ownership": "Bamboozle owns bounded literal recognition and saved span context; Vandal routes the shared CLI/MCP policy.",
+        "compatibility": "Explicit text rule only. Existing whole-text, Markdown, JSON, YAML, Python, dictionaries, markers, classical ciphers and encryption remain supported.",
+    },
+    "implementation": implementation,
+    "source_sha256": {name: sha256((root / name).read_bytes()) for name in implementation},
+    "contract": "docs/text-literals.md",
+    "contract_sha256": sha256((root / "docs/text-literals.md").read_bytes()),
+    "verification": {"report": ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json", "sha256": sha256((current / "VIGILES_VERIFICATION.json").read_bytes()), "tests": verification["tests"], "stages": 12, "logs": logs},
+    "focused_tests": {"tests": 44, "failures": 0, "report": (archive / "literals-focus-e.xml").relative_to(root).as_posix()},
+    "coverage": [
+        "Drive, UNC, relative, absolute, home, Unicode and quoted-space paths; URLs, mailto, www, query/fragments and punctuation",
+        "Exact BOM/CRLF inverse, native target terms, atomic prose markers and literal marker-like filenames",
+        "Selection and private span-context validation, size/count limits, ambiguity and tampering refusal",
+        "Manual ledger recovery, reviewed restoration, compatibility file conversion and stream-context refusal",
+        "Changed/reordered literal diagnostics and exclusion of unchanged literals from prose terminology findings",
+        "Source-agent reconnect hashes, generated protected files, interrupted multi-file import and explicit recovery",
+        "Complete consuming application via CLI and actual operator/source-agent stdio MCP; edited config, generated config and dependent statistics module",
+    ],
+    "installed_application": {"module": literals["text_literals_module"], "workloads_per_benchmark": 160, "total_workload_executions": 800, "invalid_dataset_executions": 20, "workflows": application},
+    "source_application": "The full source suite executes the same five application benchmarks: CLI neutral/restored, operator MCP neutral/restored, and source-agent restored.",
+    "artifacts": {name: verification["artifacts"][name] for name in verification["required_artifacts"]},
+    "retained_failures": [
+        {"report": (archive / "literals-focus-a.xml").relative_to(root).as_posix(), "findings": "Quoted relative space path was partly translated; fixed scanner. Restoration test omitted its required review digest; corrected call."},
+        {"report": (archive / "literals-focus-c.xml").relative_to(root).as_posix(), "findings": "MCP qualifier used mode instead of reverse; corrected to actual public API. Qualifier closure bindings and formatting fixed before full verification."},
+    ],
+    "limits": [
+        "Opt-in lexical preservation, not secret redaction, filesystem validation or URL reachability",
+        "Existing byte limit, 1000000 analyzed characters and 10000 spans; see contract for quoted/trailing punctuation boundaries",
+        "Other document adapters retain their historical rules; no inferred format or automatic selection",
+        "Local Windows Python 3.13 qualification only; external acceptance gates remain open",
+    ],
+}
+destination = report_destination(root, "VIGILES_LITERAL_QUALIFICATION.json")
+write_report(root, destination, report, replace=destination.exists())
+status = json.loads((root / "VIGILES_STATUS.json").read_bytes())
+completed = status["next_step"]
+assert completed["id"] == report["id"]
+completed.update(status=report["status"], implementation=implementation, evidence=[destination.relative_to(root).as_posix()], qualification={"tests": verification["tests"], "stages": 12, "scope": "Explicit protected text across complete source/installed application CLI and operator/source-agent stdio workflows"})
+next_step = {
+    "id": "VIG-CIPHER-JSON-VALUES-01", "status": "planned",
+    "focus": "Explicit recursive JSON string-value translation with key and nonstring preservation",
+    "design_sources": [".legacy/designlog:897-899", "src/bamboozle/formats.py:50"],
+    "finding": finding["gap"],
+    "done_criteria": [
+        "Add explicit bounded recursive string-value selection while retaining exact-pointer mode and historical saved rules",
+        "Preserve keys, nonstring values, unselected syntax and private original spellings; handle returned/generated values through shared CLI/MCP, source-agent and view workflows",
+        "Execute a complete nested JSON-configured application before/after agent changes from source and installed wheel, including diagnostics and interrupted-import recovery",
+    ],
+    "evidence": [(archive / "next-core-finding.json").relative_to(root).as_posix()],
+}
+status["last_completed_step"] = completed
+status["next_step"] = next_step
+status["core_development_queue"] = [next_step]
+status["core_acceptance"]["reason"] = "Explicit path/URL protection and its complete source/installed application flows are qualified. Original recursive JSON string-value selection and external acceptance gates remain open."
+status["evidence"]["literal_qualification"] = destination.relative_to(root).as_posix()
+status["evidence"]["qualification_scope"] = completed["qualification"]["scope"]
+(root / "VIGILES_STATUS.json").write_bytes(json_bytes(status))
+print(json.dumps({"status": report["status"], "tests": verification["tests"], "stages": 12, "report": str(destination), "next_step": next_step["id"]}))

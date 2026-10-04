@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "configured": true,
+  "status": "valid",
+  "profile": ".vigiles/structure.json",
+  "profile_sha256": "9324ce2b09e80f18f744dcd67856df61b00f61f067b587fbe5bedfeaebf97e89",
+  "name": "bamboozle-core",
+  "ok": true,
+  "complete": true,
+  "entries": 97,
+  "files": 94,
+  "snapshot_sha256": "0d023a9f4e68256e8d9f506a187012f01bc52056ce9845587d5787d10d299d66",
+  "finding_count": 0,
+  "findings_truncated": false,
+  "check_sha256": "e11392a76b3ba566e118568559a8fc964a6c668235443240591c852567161310",
+  "findings": [],
+  "findings_complete": true,
+  "next_offset": null
+}

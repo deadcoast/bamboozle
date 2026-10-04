@@ -1,0 +1,19 @@
+{
+  "design_sources": [
+    ".legacy/designlog:242",
+    ".legacy/designlog:878",
+    "src/bamboozle/formats.py:482"
+  ],
+  "done_criteria": [
+    "Implement explicit bounded literal protection rules with exact retained span context while preserving historical whole-text behavior",
+    "Integrate the same rules into manual translation/restoration, operator CLI/MCP, source-agent policy and scoped project views",
+    "Execute dependent neutral and restored applications that consume protected paths and URLs; cover edits, marker collisions, diagnostics and recovery"
+  ],
+  "evidence": [
+    ".mivim/vigiles/reports/archive/runs/20261004-managed-identity/next-core-finding.json"
+  ],
+  "finding": "The original design requires path and URL exclusion. Whole-text translation currently rewrites matching path/URL components and has no explicit preservation rule; the retained reproduction shows alpha becoming omega inside both a filesystem path and a URL.",
+  "focus": "Explicit literal path and URL protection in text translation",
+  "id": "VIG-CIPHER-LITERALS-01",
+  "status": "planned"
+}

@@ -1,0 +1,42 @@
+{
+  "kind": "bamboozle.structure",
+  "schema_version": 1,
+  "name": "bamboozle-core",
+  "roots": {
+    "src/bamboozle": {
+      "suffixes": [".py", ".json"],
+      "formats": {".py": "python", ".json": "json"},
+      "max_files": 512,
+      "max_file_bytes": 1048576,
+      "max_total_bytes": 16777216
+    },
+    "scripts": {
+      "suffixes": [".py"],
+      "formats": {".py": "python"},
+      "max_files": 128,
+      "max_file_bytes": 1048576,
+      "max_total_bytes": 8388608
+    }
+  },
+  "required": {
+    "src/bamboozle/cipher.py": "file",
+    "src/bamboozle/cipher_dict.json": "file",
+    "src/bamboozle/profanity_dict.json": "file",
+    "src/bamboozle/dictionary.py": "file",
+    "src/bamboozle/engine.py": "file",
+    "src/bamboozle/formats.py": "file",
+    "src/bamboozle/agent_files.py": "file",
+    "src/bamboozle/scm_mcp.py": "file",
+    "src/bamboozle/classical.py": "file",
+    "src/bamboozle/tessera.py": "file",
+    "src/bamboozle/project_views.py": "file",
+    "src/bamboozle/project_exchange.py": "file",
+    "src/bamboozle/structure.py": "file",
+    "src/bamboozle/tests": "directory",
+    "scripts/vandal.py": "file",
+    "scripts/verify.py": "file",
+    "scripts/structure_smoke.py": "file"
+  },
+  "companions": [],
+  "exclude": []
+}

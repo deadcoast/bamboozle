@@ -13,13 +13,13 @@ from pathlib import Path
 from fastmcp import Client
 from fastmcp.client.transports import StdioTransport
 
-from bamboozle import project_exchange
+from bamboozle import identity, project_exchange
 from bamboozle.tessera import create_key
 from bamboozle.utils import json_bytes, sha256
 from bamboozle.workspace import Workspace
 
 
-def run(workspace: Path | None = None) -> dict:
+def run(workspace: Path | None = None, *, managed: bool = False) -> dict:
     scenario = runpy.run_path(str(Path(__file__).with_name("python_scenario.py")))
     roots = (workspace or Path("exchange-workflow")).resolve()
     roots.mkdir(parents=True)
@@ -42,6 +42,10 @@ def run(workspace: Path | None = None) -> dict:
         "recipient": "development",
         "recipe": "transfer.cipher-recipe.json",
     }
+
+    if managed:
+        credentials = {"peer": "receiver", "recipe": "transfer.cipher-recipe.json"}
+    receiver_credentials = {**credentials, **({"peer": "owner"} if managed else {})}
 
     def execute(root: Path, enhanced: bool) -> dict:
         arguments = [sys.executable, "-m", "pipeline.main", "workload.json"]
@@ -164,6 +168,18 @@ def run(workspace: Path | None = None) -> dict:
                 "neutral_benchmark": benchmark(view),
             }
 
+        if managed and mode == "cli":
+            for root, name, peer in (
+                (owner, "owner", "receiver"),
+                (receiver, "receiver", "owner"),
+            ):
+                cli(root, "identity-init", name)
+                cli(root, "recipient-register", peer, "--key", "transport.key")
+        receiver_flags = [
+            value
+            for name, value in receiver_credentials.items()
+            for value in ("--" + name, value)
+        ]
         flags = [
             value
             for name, value in credentials.items()
@@ -181,7 +197,9 @@ def run(workspace: Path | None = None) -> dict:
             )
             sent = cli(owner, "view-pack", exported["view_id"], "-o", "out.bam", *flags)
             (receiver / "out.bam").write_bytes((owner / "out.bam").read_bytes())
-            opened = cli(receiver, "exchange-open", "out.bam", "-o", "work", *flags)
+            opened = cli(
+                receiver, "exchange-open", "out.bam", "-o", "work", *receiver_flags
+            )
             context = cli(receiver, "exchange-context", opened["exchange_id"])
             flow = agent_work(opened)
             returned = cli(
@@ -190,7 +208,7 @@ def run(workspace: Path | None = None) -> dict:
                 opened["exchange_id"],
                 "-o",
                 "return.bam",
-                *flags,
+                *receiver_flags,
             )
             (owner / "return.bam").write_bytes((receiver / "return.bam").read_bytes())
             review = cli(
@@ -258,6 +276,21 @@ def run(workspace: Path | None = None) -> dict:
                             )
                         return result.data
 
+                    if managed:
+                        for client, name, peer in (
+                            (source_client, "owner", "receiver"),
+                            (receiver_client, "receiver", "owner"),
+                        ):
+                            await call(client, "initialize_identity", {"name": name})
+                            await call(
+                                client,
+                                "change_recipient",
+                                {
+                                    "peer": peer,
+                                    "action": "register",
+                                    "key": "transport.key",
+                                },
+                            )
                     exported = await call(
                         source_client,
                         "export_project_view",
@@ -276,7 +309,7 @@ def run(workspace: Path | None = None) -> dict:
                     opened = await call(
                         receiver_client,
                         "open_project_exchange",
-                        {"packet": "out.bam", "output": "work", **credentials},
+                        {"packet": "out.bam", "output": "work", **receiver_credentials},
                     )
                     context = await call(
                         receiver_client,
@@ -290,7 +323,7 @@ def run(workspace: Path | None = None) -> dict:
                         {
                             "exchange_id": opened["exchange_id"],
                             "output": "return.bam",
-                            **credentials,
+                            **receiver_credentials,
                         },
                     )
                     (owner / "return.bam").write_bytes(
@@ -349,6 +382,33 @@ def run(workspace: Path | None = None) -> dict:
             raise RuntimeError(
                 "Source completion lost its authenticated return binding"
             )
+        if managed:
+            for root, receipt_report in ((owner, applied), (receiver, opened)):
+                delivery = identity.delivery_status(
+                    Workspace(root), receipt_report["delivery_id"]
+                )
+                if delivery["status"] != "completed":
+                    raise RuntimeError(
+                        "Managed application delivery did not complete admission"
+                    )
+            # Re-serialization changes file bytes, not the authenticated message identity.
+            packet = json.loads((receiver / "out.bam").read_bytes())
+            (receiver / "replay.bam").write_text(
+                json.dumps(packet, separators=(",", ":")), encoding="utf-8"
+            )
+            try:
+                project_exchange.open_exchange(
+                    Workspace(receiver),
+                    "replay.bam",
+                    "replayed",
+                    peer="owner",
+                    recipe="transfer.cipher-recipe.json",
+                )
+            except ValueError as exc:
+                if "replay" not in str(exc):
+                    raise
+            else:
+                raise RuntimeError("Managed application accepted a serialized replay")
         results[mode] = {
             "source_root": str(owner),
             "receiver_root": str(receiver),
@@ -369,6 +429,8 @@ def run(workspace: Path | None = None) -> dict:
     return {
         "workflows": results,
         "exchange_module": str(Path(project_exchange.__file__).resolve()),
+        "identity_module": str(Path(identity.__file__).resolve()),
+        "managed": managed,
     }
 
 

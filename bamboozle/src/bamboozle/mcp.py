@@ -11,6 +11,7 @@ from typing import Any
 
 from fastmcp import FastMCP
 
+from bamboozle import identity
 from bamboozle.agent_files import AgentFiles
 from bamboozle.audit import audit
 from bamboozle.cipher_operations import (
@@ -49,6 +50,8 @@ from bamboozle.service import (
     scan,
     verify,
 )
+from bamboozle.structure import check as check_structure
+from bamboozle.transport import transfer_file
 from bamboozle.utils import parse_json
 from bamboozle.view_import import apply_import, review_import, view_status
 from bamboozle.workspace import Workspace
@@ -96,6 +99,63 @@ def create_server(
             plans[token] = (now, plan, recover_metadata)
         return {**report, "plan_id": token, "expires_in_seconds": PLAN_TTL}
 
+    @server.tool(annotations={"readOnlyHint": False, "destructiveHint": False})
+    def initialize_identity(name: str) -> dict[str, Any]:
+        """Operator: explicitly create this workspace's local transport identity once."""
+        return identity.initialize(workspace, name)
+
+    @server.tool(annotations={"readOnlyHint": True})
+    def recipient_registry() -> dict[str, Any]:
+        """Operator: inspect peer fingerprints, lifecycle history and registry digest, never key bytes."""
+        return identity.status(workspace)
+
+    @server.tool(annotations={"readOnlyHint": False, "destructiveHint": True})
+    def change_recipient(
+        peer: str,
+        action: str,
+        key: str | None = None,
+        key_id: str | None = None,
+        expected_sha256: str | None = None,
+    ) -> dict[str, Any]:
+        """Operator: register, rotate or permanently revoke a peer key; changes require the current registry digest."""
+        return identity.change_peer(
+            workspace,
+            peer,
+            action=action,
+            key=key,
+            key_id=key_id,
+            expected_sha256=expected_sha256,
+        )
+
+    @server.tool(annotations={"readOnlyHint": True})
+    def inspect_delivery(delivery_id: str) -> dict[str, Any]:
+        """Operator: inspect a retained pending/completed delivery without retrying it."""
+        return identity.delivery_status(workspace, delivery_id)
+
+    @server.tool(annotations={"readOnlyHint": False, "destructiveHint": False})
+    def seal_file(
+        source: str, output: str, peer: str, ttl: int = 86400
+    ) -> dict[str, Any]:
+        """Operator: encrypt a file for an explicitly provisioned peer using its active key."""
+        try:
+            return transfer_file(
+                workspace, source, output, peer=peer, opening=False, ttl=ttl
+            )
+        except OperationError as exc:
+            return {**exc.report, "ok": False}
+
+    @server.tool(annotations={"readOnlyHint": False, "destructiveHint": False})
+    def open_file(
+        source: str, output: str, peer: str, recover: bool = False
+    ) -> dict[str, Any]:
+        """Operator: authenticate and admit a file delivery once, or recover its exact partial operation."""
+        try:
+            return transfer_file(
+                workspace, source, output, peer=peer, opening=True, recover=recover
+            )
+        except OperationError as exc:
+            return {**exc.report, "ok": False}
+
     @server.tool(annotations={"readOnlyHint": True})
     def cipher_catalog() -> dict[str, Any]:
         """Discover exact classical variants and separate semantic/authenticated operations."""
@@ -142,12 +202,25 @@ def create_server(
 
     @server.tool(annotations={"readOnlyHint": False, "destructiveHint": False})
     def pack_project_view(
-        view_id: str, output: str, key: str, recipient: str, recipe: str | None = None
+        view_id: str,
+        output: str,
+        key: str | None = None,
+        recipient: str | None = None,
+        recipe: str | None = None,
+        peer: str | None = None,
+        ttl: int = 86400,
     ) -> dict[str, Any]:
         """Operator: pack a fresh neutral view through optional classical transforms and Tessera."""
         try:
             return pack_view(
-                workspace, view_id, output, key=key, recipient=recipient, recipe=recipe
+                workspace,
+                view_id,
+                output,
+                key=key,
+                recipient=recipient,
+                recipe=recipe,
+                peer=peer,
+                ttl=ttl,
             )
         except OperationError as exc:
             return {**exc.report, "ok": False}
@@ -156,9 +229,10 @@ def create_server(
     def open_project_exchange(
         packet: str,
         output: str,
-        key: str,
-        recipient: str,
+        key: str | None = None,
+        recipient: str | None = None,
         recipe: str | None = None,
+        peer: str | None = None,
         recover: bool = False,
     ) -> dict[str, Any]:
         """Operator: authenticate/unpack a new neutral workspace; explicitly recover partial extraction."""
@@ -170,6 +244,7 @@ def create_server(
                 key=key,
                 recipient=recipient,
                 recipe=recipe,
+                peer=peer,
                 recover=recover,
             )
         except OperationError as exc:
@@ -179,9 +254,11 @@ def create_server(
     def pack_project_return(
         exchange_id: str,
         output: str,
-        key: str,
-        recipient: str,
+        key: str | None = None,
+        recipient: str | None = None,
         recipe: str | None = None,
+        peer: str | None = None,
+        ttl: int = 86400,
     ) -> dict[str, Any]:
         """Operator: authenticate the receiver's entire edited/new project for source-owner review."""
         try:
@@ -192,6 +269,8 @@ def create_server(
                 key=key,
                 recipient=recipient,
                 recipe=recipe,
+                peer=peer,
+                ttl=ttl,
             )
         except OperationError as exc:
             return {**exc.report, "ok": False}
@@ -318,6 +397,7 @@ def create_server(
         key: str | None = None,
         recipient: str | None = None,
         recipe: str | None = None,
+        peer: str | None = None,
     ) -> dict[str, Any]:
         """Review decoded multi-file changes; missing files need explicit deletion selection."""
         return review_import(
@@ -331,6 +411,7 @@ def create_server(
             key=key,
             recipient=recipient,
             recipe=recipe,
+            peer=peer,
         )
 
     @server.tool(annotations={"readOnlyHint": True})
@@ -348,6 +429,7 @@ def create_server(
         key: str | None = None,
         recipient: str | None = None,
         recipe: str | None = None,
+        peer: str | None = None,
     ) -> dict[str, Any]:
         """Apply exact reviewed source edits or resume a retained import explicitly.
 
@@ -364,6 +446,7 @@ def create_server(
                 key=key,
                 recipient=recipient,
                 recipe=recipe,
+                peer=peer,
             )
         except OperationError as exc:
             return {**exc.report, "ok": False}
@@ -390,6 +473,8 @@ def create_server(
         python_modules: list[str] | None = None,
         python_strings: list[str] | None = None,
         yaml_pointers: list[str] | None = None,
+        protect: list[str] | None = None,
+        json_values_only: bool = False,
     ) -> dict[str, Any]:
         """Preview source or agent output. Reverse uses its saved mapping when present.
 
@@ -418,6 +503,8 @@ def create_server(
                 python_modules,
                 python_strings,
                 yaml_pointers,
+                protect,
+                json_values_only,
             ),
         )
         return retain(plan, preview(plan))
@@ -517,7 +604,23 @@ def create_server(
 
     @server.tool(annotations={"readOnlyHint": True})
     def audit_workspace() -> dict[str, Any]:
-        """Report structural changes against the explicitly created local baseline."""
+        """Report baseline drift and violations of the operator's structural profile."""
         return audit(workspace)
+
+    @server.tool(annotations={"readOnlyHint": True})
+    def check_repository_structure(
+        rules: str | None = None,
+        offset: int = 0,
+        limit: int = 100,
+        expected_sha256: str | None = None,
+    ) -> dict[str, Any]:
+        """Operator-only required-path, syntax, size and companion diagnostics. Page with the same check_sha256; no baseline or source mutation is required."""
+        return check_structure(
+            workspace,
+            rules,
+            offset=offset,
+            limit=limit,
+            expected_sha256=expected_sha256,
+        )
 
     return server

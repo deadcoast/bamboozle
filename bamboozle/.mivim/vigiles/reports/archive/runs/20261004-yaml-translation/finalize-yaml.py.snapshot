@@ -1,0 +1,83 @@
+import json
+from pathlib import Path
+
+from bamboozle.evidence import report_destination, write_report
+from bamboozle.utils import atomic_write, sha256, utc_now
+
+root = Path.cwd().resolve()
+verification_path = report_destination(root, 'VIGILES_VERIFICATION.json')
+verified = json.loads(verification_path.read_bytes())
+assert verified['status'] == 'passed' and verified['package_requested']
+assert verified['tests']['tests'] >= 1189
+assert all(verified['tests'][key] == 0 for key in ('failures', 'errors', 'skipped'))
+assert len(verified['steps']) == 11 and all(step['returncode'] == 0 for step in verified['steps'])
+assert 'verify-sz91yd6o' not in str(verified)
+for name, digest in verified['source_sha256'].items():
+    assert sha256((root / name).read_bytes()) == digest, name
+log = root / next(step['log'] for step in verified['steps'] if step['name'] == 'wheel-smoke')
+smoke = next(json.loads(line) for line in log.read_text(encoding='utf-8').splitlines() if line.startswith('{"status": "passed"'))
+flow = smoke['yaml_results']
+assert flow['status'] == 'passed'
+assert Path(flow['yaml_module']).is_relative_to(log.parent / 'wheel-env')
+assert flow['baseline']['records'] == flow['restored']['records'] == 36
+assert len(flow['baseline']['batches']) == 12 and len(flow['restored']['batches']) == 8
+assert flow['agent']['malformed_write_refused']
+check = flow['agent']['check']
+assert check['status'] == 'passed' and check['returncode'] == 0
+assert check['source_current'] and check['capture_complete'] and check['cleanup']['complete']
+assert json.loads(check['stdout']) == {'workloads': 40, 'invalid_records': 3}
+assert flow['agent']['history']['matches_current_source']
+assert flow['interrupted_import']['output_saved'] and not flow['interrupted_import']['receipt_saved']
+assert flow['recovered_import']['receipt_saved']
+source = Path(flow['source_root'])
+assert sha256((source / 'config.yaml').read_bytes()) == flow['final_sha256']
+run_dir = source / '.vigiles/cipher/checks' / check['run_id']
+raw = (run_dir / 'result.json').read_bytes()
+assert sha256(raw) == check['result_sha256'] == (run_dir / 'result.sha256').read_text()
+receipt = json.loads(raw)
+assert all(check[key] == value for key, value in receipt.items())
+assert sha256((run_dir / 'intent.json').read_bytes()) == check['intent_sha256']
+assert not (run_dir / 'workspace/mapping.dictionary.json').exists()
+assert not (run_dir / 'workspace/source.agent-policy.json').exists()
+assert not (run_dir / 'workspace/source.agent-checks.json').exists()
+for name in verified['required_artifacts']:
+    assert sha256((root / 'dist' / name).read_bytes()) == verified['artifacts'][name]['sha256']
+archive = root / '.mivim/vigiles/reports/archive/runs/20261004-yaml-translation'
+atomic_write(archive / 'finalize-yaml.py.snapshot', Path(__file__).read_bytes())
+report_path = report_destination(root, 'VIGILES_YAML_TRANSLATION.json')
+report = json.loads(report_path.read_bytes())
+report.update(
+    status='selected_yaml_source_and_installed_application_verified',
+    completed=utc_now(),
+    verification=verification_path.relative_to(root).as_posix(),
+    verification_sha256=sha256(verification_path.read_bytes()),
+    source_sha256=verified['source_sha256'],
+    tests=verified['tests'],
+    verification_stages_passed=11,
+    installed_application_workflow=flow,
+    artifacts={name: verified['artifacts'][name] for name in verified['required_artifacts']},
+    retained_evidence_sha256={path.name: sha256(path.read_bytes()) for path in archive.iterdir() if path.is_file()},
+    limitations=[
+        'Supported YAML contract: one YAML 1.2 core-schema document, unique string keys, bounded acyclic aliases and explicitly selected string values. No merge-owned selection or arbitrary tagged object construction.',
+        'PyYAML supplies syntax events only; Bamboozle selects core-schema scalar types. Dependent YAML 1.1 consumers can interpret plain values differently.',
+        'Local Windows Python 3.13 and installed-wheel qualification; remote Linux/Python 3.14 and external-agent acceptance remain separate.',
+        'Selected formatting may change when escaping or scalar type safety requires it; unchanged saved contexts restore exact original bytes. Unselected bytes remain protected.',
+        'This translation gate does not establish global repository completion, encryption key governance or OS process isolation.',
+    ],
+)
+report['task']['status'] = report['status']
+report['task'].pop('remaining', None)
+write_report(root, report_path, report, replace=True)
+status_path = root / 'VIGILES_STATUS.json'
+status = json.loads(status_path.read_bytes())
+assert status['next_step']['id'] == 'VIG-CIPHER-YAML-01'
+completed = dict(status['next_step'])
+completed.update(status=report['status'], evidence=[report_path.relative_to(root).as_posix()], qualification={'tests': verified['tests'], 'stages': 11, 'scope': 'Complete YAML-configured application through CLI, operator/source-agent stdio, generated files, named checks, drift refusal and partial-import recovery from source and installed wheel.'})
+completed.pop('remaining', None)
+status['last_completed_step'] = completed
+status['core_development_queue'] = [step for step in status['core_development_queue'] if step['id'] != completed['id']]
+status['next_step'] = status['core_development_queue'][0]
+status['core_acceptance'] = {'status': 'not_established', 'reason': 'Selected YAML translation and complete dependent application workflows are qualified; remaining documented core gates and external acceptance remain open.'}
+status['evidence'].update(yaml_translation=report_path.relative_to(root).as_posix(), qualification_scope=completed['qualification']['scope'])
+write_report(root, status_path, status, replace=True)
+print(json.dumps({'status': report['status'], 'tests': verified['tests'], 'stages': 11, 'next_step': status['next_step']['id']}))

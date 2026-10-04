@@ -1,0 +1,7 @@
+{
+  "finding": "Whole-text mode translates literal path and URL components. There is no explicit text-rule option for retaining their literal spelling while translating surrounding prose.",
+  "input": "Load C:\\models\\alpha.bin and https://example.test/alpha; discuss alpha.",
+  "observed": "Load C:\\models\\omega.bin and https://example.test/omega; discuss omega.",
+  "requirement": ".legacy/designlog:878",
+  "source": "src/bamboozle/formats.py:482"
+}

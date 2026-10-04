@@ -247,6 +247,11 @@ def _protected_json(text: str, rules: FormatRules) -> dict[str, bytes]:
     values: dict[str, bytes] = {}
 
     def visit(value: Any, path: str) -> None:
+        if rules.values_only and isinstance(value, str):
+            # Retain presence/type so renamed keys, new fields and type changes
+            # remain reviewable without treating translated prose as structure.
+            values[path] = b"selected-string"
+            return
         if path in selected:
             return
         if isinstance(value, dict):
@@ -289,7 +294,40 @@ def _structure(
     new: list[TextRegion],
     findings: Findings,
 ) -> None:
-    if codec.rules.format == "yaml":
+    if codec.protected_text is not None:
+        old_literals, new_literals = (
+            codec.protected_text.spans(baseline),
+            codec.protected_text.spans(edited),
+        )
+        for label, text, selected, other in (
+            ("removed", baseline, old_literals, new_literals),
+            ("added", edited, new_literals, old_literals),
+        ):
+            literal_counts = Counter((item.kind, item.value) for item in other)
+            locations = Locations(text)
+            for item in selected:
+                key = (item.kind, item.value)
+                if literal_counts[key]:
+                    literal_counts[key] -= 1
+                else:
+                    findings.add(
+                        "protected_literal_changed",
+                        "A protected path or URL changed; review the literal edit separately from translated prose.",
+                        change=label,
+                        kind=item.kind,
+                        content=_excerpt(item.value),
+                        location=locations.at(item.start),
+                    )
+        before_literals = [(item.kind, item.value) for item in old_literals]
+        after_literals = [(item.kind, item.value) for item in new_literals]
+        if before_literals != after_literals and Counter(before_literals) == Counter(
+            after_literals
+        ):
+            findings.add(
+                "protected_literals_reordered",
+                "Protected paths or URLs changed order; inspect their application bindings.",
+            )
+    elif codec.rules.format == "yaml":
         from bamboozle.yaml_source import protected
 
         before_yaml = protected(baseline, codec.rules.pointers)

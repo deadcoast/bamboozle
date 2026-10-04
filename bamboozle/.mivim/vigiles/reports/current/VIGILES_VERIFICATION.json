@@ -161,15 +161,15 @@
       "sha256": "712d779d0b7ed19f80dbe176d79714c2b57f3d843c3b270f441c942a93f63222"
     },
     "bamboozle-0.7.0-py3-none-any.whl": {
-      "bytes": 219270,
-      "sha256": "0336863527c79f434ad5c5b3f84c9449bc5423b6506c2b820c17afc5f4ee8403"
+      "bytes": 252937,
+      "sha256": "0046109339bbabaa87b454dbba3b9a81cd67cc10a3046dbed809fe3798c527ab"
     },
     "bamboozle-0.7.0.tar.gz": {
-      "bytes": 264034,
-      "sha256": "f1f2e23d6fd1ae41e6facce030d6cd5c10725ac7320f649edc2dded38e15f0eb"
+      "bytes": 305338,
+      "sha256": "2b7472275cad7e3cef3c46cd7a49605028cd0a7fc7849d78834ccf20fe2a4400"
     }
   },
-  "created": "2026-10-04T15:46:05.519792+00:00",
+  "created": "2026-10-04T18:57:21.202798+00:00",
   "package_requested": true,
   "platform": "Windows-11-10.0.26200-SP0",
   "python": "3.13.9 (main, Oct 14 2025, 21:22:32) [MSC v.1944 64 bit (AMD64)]",
@@ -183,12 +183,12 @@
     "../.github/workflows/vigiles.yml": "c979966ae8e8007ab070626c578fcc4acb45ebbe43e5de8257f3207907f543d1",
     ".clang-format": "0e7a6cab64d4fb138e27d460a4cb779a9a46792a739fcaba3cd69c3a2a25d8e6",
     ".mivim/mivim.vigiles.md": "723f86a1f5b3b1764df072fb3f54715648cf5c4ac586f487d0d69615a4854edf",
-    ".mivim/vigiles-vandal_0.2.md": "c1207329d79c8cb4f55c7568eb4e7b5b332d058dfc4c5bb4c4356dd054c48882",
-    ".vigiles/skills/vigiles-vandal/SKILL.md": "a71af1acc75df24b43e894b6e1ef474fa3835459c506006e573f11d81f652f9b",
-    "AGENTS.md": "052786a5c2358996e996ca7f9778a088119d37c590b1637cf44bbbdbd2929d04",
+    ".mivim/vigiles-vandal_0.2.md": "746703656aab5d12de7547993d94ff5cd9ef15e2f73041066173cc2018158491",
+    ".vigiles/skills/vigiles-vandal/SKILL.md": "8126e9e03d262714ee16d13049afa8bdcba338553e1402f8c15ac9288b02e2eb",
+    "AGENTS.md": "a44991e33178a93d9393a4b12a41f2cab2d62080fc882e44e5fc64389b4b08e0",
     "LICENSE": "2b41e397f7c53066d3c49e46a5c775de5806a7b034ef76fc6ccec14884e4db98",
     "Makefile": "ffc1985aa2486525f7decebd6f40e74aa5c7094319340ce16865303899a52f48",
-    "README.md": "4739308ed9bd255c461c4007815e4d7c03644a7ae9826b72b07b426ac6f2b84c",
+    "README.md": "07af00b1d1d5662a4340c9c2075357845c98705dc34449cb4711901b8fd8f539",
     "include/cipher.h": "aa557c4570ca5262767865c19a72c998ce0d56c6c8b6f50fd1555676c9bf2655",
     "include/ciphers/affine.h": "e599d6998f56586d08f7306641deecdbb8d6026f2cce7713c26494ba705cb953",
     "include/ciphers/atbash.h": "13046766e47212d1fd8e7a78e8abb8d1a8766e5dc780cdd60d7e712a09c2ae25",
@@ -203,12 +203,15 @@
     "include/ciphers/vigenere.h": "1b5e093d7f0f5b7c5abb0273532b3d9f4c164ecf824fb864724ddf39de53332d",
     "include/utils/alpha.h": "1365299fc4d26a1b14232647e4afa107269428dbb254dff6f1c22d34aba0067b",
     "justfile": "1b8b82a15128ed42f32255e247c708423f8cad584e09e824d68ef3e1eac33d60",
-    "pyproject.toml": "8fbab3b23b33dcd3e08ad93fab9142fb65882dd6d7ee72a03e9589a86f0c7e23",
+    "pyproject.toml": "0f6e4c73894c34754b29688d9d7ee1a9012d6f7c8f3a03830277142d4b05bce4",
     "scripts/cipher_reference.py": "6c1925a87b47382e71c721e0adc7207dad0efb607b587d0b55f9c0e96d1e39b2",
     "scripts/escape_smoke.py": "423f243e3ba1a25b8a78b018057a04aedde9faa71531d8fdb526aba56e15876f",
-    "scripts/exchange_smoke.py": "5d7ec6702f4c5f7f9dc476d1de9f7f8ee57b96f9e3ed7b8302ac88581b2b508c",
+    "scripts/exchange_smoke.py": "e6b9ee4aba99369d9db7a9260d41338bebf91278579f1375fb8a39e89a1b2257",
     "scripts/fixture_scenario.py": "c52d19f89fe97d50aa6556906ae5384a5b93fc2f4dee5d62f582bdb6a8e0f720",
-    "scripts/package_smoke.py": "153c443e5766b164f58f09b8b8ec79b7503077fdd0fa62d0aeb57ec626c8fafb",
+    "scripts/identity_smoke.py": "74d470e1d829df85532bd5bc33b0fc27093b9af96e1454a35e28a5c99baabe3e",
+    "scripts/json_values_smoke.py": "b5ef147b88ee9280b984cb9ad48eb1c2f9090d1ec0c4f4f4bd8c666cb6934bdc",
+    "scripts/literals_smoke.py": "47c71e3289842978600d94de453322daa85754b3ce79dbf82e85824b3f760368",
+    "scripts/package_smoke.py": "85d834a07a0f19558bb8746290e0113e1d47b7d5e28377e03f267142592eeb6b",
     "scripts/python_scenario.py": "9c32ccbe75cd16db38a5b5fd3e57d8773228d03067d6779ed581bb663dc0a464",
     "scripts/python_smoke.py": "62ca5684aebcd1e0f3a3a4cfdd0b6bf60829728f167f462bb3280a8ae36f41e3",
     "scripts/qualify_inventory.py": "8d274f0af7ba16570a0cd4731b242dcdeeb60100d31ed323050c6b034a7c9d31",
@@ -217,44 +220,48 @@
     "scripts/qualify_recovery.py": "3aa8d60c972ceebd38b770a90ea4f25487b3fcc95bee69d9ac84ee29e20dac40",
     "scripts/return_smoke.py": "692580789f39f8e8ee6fa2cee465d0a4c0ba079c42d851bf1d42ef1818d2cb17",
     "scripts/source_agent_smoke.py": "5989875100f466f6938253aa44e918ac5635422a16a5402fdb7e9a59fd948a1b",
-    "scripts/vandal.py": "6e2e5e9fb3f4fbee92f5fd96e147b2405cca31e307e3392947af9809cf018f50",
-    "scripts/verify.py": "745e36a404eac5041a0b475fc99e9a2507de7753a74f0d6f97028a554e9c72d8",
+    "scripts/structure_smoke.py": "093df389580a001c0d07d56f5685154b75c9f267805a0cf8155677e9458e3e8d",
+    "scripts/vandal.py": "5bc458b2b2ad0646beaf77fa8afcf0d6ca8a1f075ec81bcfe27ce7d60c38794c",
+    "scripts/verify.py": "6eeb5aa10f3619b2a8042e5d4c31e09a502582c003c18f5dc6b34570467693b8",
+    "scripts/yaml_smoke.py": "b157b0fc837ca1c10a34ecd351a6c2d23c99384755d0ed58da5a9ee1ea4d4914",
     "src/DECRYPT_FROM_AGENT.bat": "25ec45eff2279dfd24d09b6f76dfb6c702e724dd5b9d2aad28b602fa2aee65dd",
     "src/ENCRYPT_FOR_AGENT.bat": "b261f32d499395b46f864a8658f6741ff0b4fc9d35b93d6ac173b5efda05b186",
     "src/bamboozle/__init__.py": "99552d5e65f867040da8028295e5b3c3be9bb21a989c3bc026d842b8fc87e5a1",
     "src/bamboozle/__main__.py": "c4e635a2015428e750f8e441975d34352b4386f23cdf596a2d7e87a8f2da2ca9",
     "src/bamboozle/agent_checks.py": "dc6ca8902e53ba65d5a2c8a457ec061a7af93545600ee58bf1238ba6f0caab66",
     "src/bamboozle/agent_development.py": "fc790c3214eee80582b36ee8dd7aad956e72b6c65bc95ae4c248fecda6185b1c",
-    "src/bamboozle/agent_files.py": "1bf2e953df2de794d3a0d444e09a949806216926a84db909037a43447c35e06a",
+    "src/bamboozle/agent_files.py": "282b2a8905125d8f32ed15a55c9aceb092c1be35c5076deb262edc9f27a9c783",
     "src/bamboozle/agent_policy.py": "6c25f0286714c026295318d87752b0e3a1e2a4e7712b205b896fe8d6246d438c",
-    "src/bamboozle/audit.py": "419f33a4c597987d65329d8c4887ee2cba0f2723c1bb75a222c583f4e4e256eb",
+    "src/bamboozle/audit.py": "951d6bb08d81502913506bd6cebd9efe7325f7fd032fb278eaf4f3fa910d1ee2",
     "src/bamboozle/audit_matrix.py": "0da01520a1f6b3c821b49833bf030a4d94be1885689c012affa4259bfc6317db",
     "src/bamboozle/check_process.py": "69d1b7849f2914825f107d3040a0e3b0138e8c677231c1b480805c513d26dd94",
     "src/bamboozle/cipher.py": "fa9e7c494be930fd9c1cb384159636e8ff382b672d2211887a423712592780ec",
     "src/bamboozle/cipher_dict.json": "b49059d73a0965ea7bd0b790ef0a92cb86cada3898a203b8d5e3dce4d85b5dfe",
-    "src/bamboozle/cipher_operations.py": "0d72ef43e07ec4405137baed69f9c8ebd2bfa1b76929f00af9103afb19383a17",
+    "src/bamboozle/cipher_operations.py": "44a1b4941540e5101bd5e22310ab7dc385d9f4cbf1a8fb35ebfa30c628b41e20",
     "src/bamboozle/classical.py": "dcc8f5ee898413d5d0843271858da47e70f88c604b5ffba3f7c059aecf676f59",
-    "src/bamboozle/cli.py": "80d2eca2e23733add616ec9f4ebbcad5c668d250a97cd443ec82c4001cbf66f5",
+    "src/bamboozle/cli.py": "08057f2c74017c71e3dcf9eb4a91794c8bf8b86e8aafc73907833592b9c3818c",
     "src/bamboozle/dictionary.py": "641ad855668ee467051d4be6ef355953a7d626f89c055d5e25625faa4c39b1a3",
     "src/bamboozle/engine.py": "ec778b2d91f5c7d68553799515cf49f5183600ac1c27c04b1c70f9c41886536e",
     "src/bamboozle/evidence.py": "29656ca8fe9b04e286abebc552db9952c219265b29d27eb0938bff02e8be6533",
     "src/bamboozle/fixture_rules.py": "f47b1c312494f8a7b3904029d486c249befb6cfc30557a3a603ab13a45e5af01",
     "src/bamboozle/fixtures.py": "c42dba7b72d1a3f7ce404e89e73e7bf8c40db9c3733529d7def56cf2222d142e",
-    "src/bamboozle/formats.py": "da0a7e4a70b1381f6ce975405cb314020d4f5d51636d4e1f153179bc8051b4ec",
+    "src/bamboozle/formats.py": "2915f753d1442655453f0499cdba239df66ed30053c4e97fd568028545093168",
+    "src/bamboozle/identity.py": "5d51058ab742fd2b1832cc698401e70306612b736acf7d4d5fca954ea9274588",
     "src/bamboozle/lexicon.py": "2ad6abe41f30bc412582f3429511c5609bcd66f01f1353a593d0e3932e013414",
     "src/bamboozle/markers.py": "90aa5605cad069839886bd89d4a23ff0d86a42c852440a8f4a2626b27816c2dd",
-    "src/bamboozle/mcp.py": "2ab04f103fe13e498052179fe207267b9911ea54c5c23a43572bbc6dc61387fb",
+    "src/bamboozle/mcp.py": "155f6546fdac159e2b4cea290fe8066a3a2faabe95cc4a3e95664a60deadd85d",
     "src/bamboozle/migration.py": "ecfbec20e43f84f6a77685e397f0ed4e99b74e9161d50207b244254b67c87ff3",
     "src/bamboozle/profanity_dict.json": "34f54a88062e12b0ba8353d9d59914144478cc11fc4f698beb7ad0b1fbdee35f",
-    "src/bamboozle/project_exchange.py": "d1c89f84e2f84551c0fc711d2d771d83da7fc0d96c70eeeb3e7b1ff95c1488b5",
-    "src/bamboozle/project_views.py": "fe48049a6c312df40f0a3b59e400562d991f18e5307e705d279521cc98c6051f",
+    "src/bamboozle/project_exchange.py": "bf2a7f847170336ef1f8a804085b62bcfd8b8b4c0f9ac3d6f513a366d08f0308",
+    "src/bamboozle/project_views.py": "636c316fae87a52b2b517809404ca046dc644fabf75e5a17048de3964cf833e9",
     "src/bamboozle/python_project.py": "dd170a42b701a1db0011c2a7438912306c9db6bf0cd2ec8f645a830cf285d3e8",
     "src/bamboozle/python_source.py": "1c43d3c5511716df8fc4a13491610507b5db00580e28b508813f9948b6f378fc",
-    "src/bamboozle/restoration.py": "56f55ee1e23fb01add72086cb1928e0979987bec7d46839bb0a512039e8655eb",
-    "src/bamboozle/return_validation.py": "1c46eb7728c58d53196c7e47ac92a46ea1821b6eb02420ad8d8577770941ea5f",
-    "src/bamboozle/scm_mcp.py": "318f9e8229ac2cee73ae8b13d32f90aeb6c13e676796a9ad9f4c600f0a44c917",
-    "src/bamboozle/service.py": "32bec9d8331938e628f3a0d626f18f807f76d4afe54f7b6ff6378a38e2d550bc",
-    "src/bamboozle/tessera.py": "155ae5d87e8b8f615998819ff84d1768118bcc0e377eee2b034023bb95c35548",
+    "src/bamboozle/restoration.py": "6a4004aead2cc7daab68813754386ca1ac7ecda80975aa0d18748e892f189e09",
+    "src/bamboozle/return_validation.py": "48be6834873ceafcaeef0d09563a28dbf90e0262a330b6f7ceaa1cb833b412ee",
+    "src/bamboozle/scm_mcp.py": "48ba621b45966d607caaaf0781a941837e7330c5f6e705e51f0019e163b5ed24",
+    "src/bamboozle/service.py": "600f9107e5e6117b4e53b4e2c23e2218d09900e7c6a62570c408ac7809b87f6c",
+    "src/bamboozle/structure.py": "03932d28b897f70b2345e5842881e513ec25c06cf393e4ef0889ec37a7de55b1",
+    "src/bamboozle/tessera.py": "6b43b607f7151ab8f18b920e8bd6aed102bc2818206f1b0da62acf08e9a30665",
     "src/bamboozle/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "src/bamboozle/tests/test_agent_checks.py": "be7702ba74174a163866796321d03e01eb59313789e56ed3ed25a960c3917efc",
     "src/bamboozle/tests/test_agent_development.py": "586135473ff28f9114cb99dbc9261703808e7fcd5b52f683189ba00e018eaaa9",
@@ -263,12 +270,14 @@
     "src/bamboozle/tests/test_agent_policy.py": "bc603d741698c8b7fbc64b01716dd7563b59ed26b2a657241010a1a45de4813a",
     "src/bamboozle/tests/test_audit_matrix.py": "96edd1911b986e665251d2f3ff0f53fc0cab298ba7e451a58c10de403f228583",
     "src/bamboozle/tests/test_classical.py": "252727075a18cda9a8d64004e2391c4316d56b94c0cc167b3b6b13d84e57b23f",
-    "src/bamboozle/tests/test_cli_mcp.py": "596bc2ce0fd7f62f80f8b40962331fbe2358b34247d948c20dc434dd43557e2e",
+    "src/bamboozle/tests/test_cli_mcp.py": "a11764eade86dc69e3834cbe7daa3f42d27a07d3624d0f53830b9eb4b171a403",
     "src/bamboozle/tests/test_dictionary.py": "76d227c98312d0663f7c6953926160a21575788d008c1681e94a766e34adacff",
     "src/bamboozle/tests/test_document_formats.py": "809668df9dda0d0e26ba8fa324087ebcfb4b7b25c2a323c42a6b78a41972e4fb",
     "src/bamboozle/tests/test_engine.py": "939f62f9d50911ec6216999ba2902d58566ba112160b64744570a944a5782be7",
     "src/bamboozle/tests/test_evidence.py": "25a844bab9b50a60da54a38a35b10e2b3720381832722f157cfed1f68c9b5c7c",
     "src/bamboozle/tests/test_fixtures.py": "500fa57884ea12a6695e40ceee2e50d6bccb96668a106544babc4ff5e6c061f7",
+    "src/bamboozle/tests/test_identity.py": "d73caeb2ed26f64f9b0d2c7e0ac5fea966c98eacc4c12b24c175284c3b5e7a7b",
+    "src/bamboozle/tests/test_json_values.py": "dddf1a266d164adc7598d45093d71b25767a8a49b6538bacc221a66d3d436423",
     "src/bamboozle/tests/test_lexicon.py": "d3aa13659a873871a9a53382b4dac0ef75e02b9c726c464454d16474b95049ac",
     "src/bamboozle/tests/test_marker_escapes.py": "64d8b218c604a163b5e92687f466c9171cc7e11ac471ecc3e1ee4e7d2cd7fcb2",
     "src/bamboozle/tests/test_migration.py": "3cbc0ec97dbe8955b46055a94f42d966c7b1d8c6ce2113090f606eb674b5f458",
@@ -279,14 +288,20 @@
     "src/bamboozle/tests/test_restoration.py": "14efdb3310c9f62196bef02d41efcb006498b806fc04665ddb267865903d7a7e",
     "src/bamboozle/tests/test_return_validation.py": "f7733fe3bf02831d20ace9a6f96d4a8b01cc8f8b72290c0e5843a04b6c91adb6",
     "src/bamboozle/tests/test_service.py": "f6287db50f6cd36516a163cec67352b8652dc56cedcee6a8be6159e92d3bed2e",
+    "src/bamboozle/tests/test_structure.py": "478b0987a4fc4c488f505bae4423ba71e34aac4d03c76219c42d5456d9a9e8d5",
     "src/bamboozle/tests/test_tessera.py": "afa6862454d6b533f5c9aee097dbdd199f414098cd7545b1c81a21a4fb270058",
+    "src/bamboozle/tests/test_text_literals.py": "38c5d6ac8cbf9dc2e646764e8c5e25a131a107a280df05b32ed7c688cea28c2f",
     "src/bamboozle/tests/test_translate.py": "bd8e0c52dbc2e6cef600529dc158e6218290705468a2d424279c80216e7de7de",
-    "src/bamboozle/tests/test_vandal.py": "eca0c1732097405d409235f7c6d879db493b1abdbad39e790e9631103a79f5a0",
+    "src/bamboozle/tests/test_vandal.py": "e39346c16b9933ea209dad8d9b3130a2f9de4728a020b95e9ecc44f3f2f154dd",
     "src/bamboozle/tests/test_workspace_audit.py": "5840cb16f21d7779245752ad2891b6099cd91befa5f75840e9a54d0b89596ed6",
-    "src/bamboozle/translate.py": "fe17813b0a0f8bd2dd404725db399871d36bb6cc993218e423b9227a69411358",
+    "src/bamboozle/tests/test_yaml_source.py": "3bd529918e3334686d152f45dae96a90844b94a8503d90a242605cc72575fb8e",
+    "src/bamboozle/text_literals.py": "c834a6f590a9ba4ba4bd383b685024e71c78c8c85d751256ddde2489bd9f46fd",
+    "src/bamboozle/translate.py": "51156d271bc218e984bed1b1b5efe656a5c6fc7698a4ac0b785cfe4d282cbd28",
+    "src/bamboozle/transport.py": "a57273c6d83dd7e394b347e30b859c1daf6adcaf9ef3c68d9be6d0b63067f81f",
     "src/bamboozle/utils.py": "1a0d5b1d3aa0e5d02755e3cd919bb7c2f09a65b5dc10a3cb376d194e577703a3",
-    "src/bamboozle/view_import.py": "1fe29588d064a0feb7cb1dabefa1acf741c5654ec714ce1153dee01317a82f55",
+    "src/bamboozle/view_import.py": "f128102c8a90931015b1b0c08b04cc02e4404b09200b0f3e8890f74fc273a404",
     "src/bamboozle/workspace.py": "31ae24e8968baea412e32b4af949dce56d302fa7db36a48a0a22b9b70dd9517e",
+    "src/bamboozle/yaml_source.py": "1e680dd6152fa8b7e78b4968e2d0986fbd63eb45902d938bf2ba1b4069b5c1a8",
     "src/cipher.c": "33ff06ffa466170fe197da001621bee114c6027c961885c27ea022b9e2b157d5",
     "src/ciphers/README.md": "dcecc532dedfa459b46a0f44b8f52e8b2f4dd6f6146ffd34b08eadabb933abe1",
     "src/ciphers/affine.c": "21dde85fd4a7cd8694754ff9dfa73b88a7c340d4c1182692587966b56b929769",
@@ -338,7 +353,7 @@
     "src/workshop/tests/test_plans.py": "df02df963ddf1ba6f6a879f05dbdee694fb1a59391b34ba4e5ffb96f80578870",
     "src/workshop/tests/test_recovery_diagnostics.py": "0d2fe68b9fce33251e836a1466e18846016f9d093040066b1e19162bca7833ec",
     "src/workshop/tests/test_snapshot.py": "3a1186ecaefb5ecf1704c111028e711502f5de69b1cfb5d415062cd518c5d168",
-    "uv.lock": "ea065c39e5fab80b6913990a40c4976f2242140c6797eb8a073fd11534448b55"
+    "uv.lock": "45647f9a6daca5ad6373589cb5a0a0585bfc25452562421d5ad4fec244de7e0c"
   },
   "status": "passed",
   "steps": [
@@ -350,11 +365,11 @@
         "check",
         "."
       ],
-      "log": ".test-tmp\\verify-81f1iiix\\ruff.log",
+      "log": ".test-tmp\\verify-2wf_4z_w\\ruff.log",
       "name": "ruff",
       "output": "All checks passed!\n",
       "returncode": 0,
-      "seconds": 0.098
+      "seconds": 0.092
     },
     {
       "command": [
@@ -366,11 +381,11 @@
         "src",
         "scripts"
       ],
-      "log": ".test-tmp\\verify-81f1iiix\\format.log",
+      "log": ".test-tmp\\verify-2wf_4z_w\\format.log",
       "name": "format",
-      "output": "112 files already formatted\n",
+      "output": "127 files already formatted\n",
       "returncode": 0,
-      "seconds": 0.09
+      "seconds": 0.095
     },
     {
       "command": [
@@ -380,11 +395,11 @@
         "src",
         "scripts"
       ],
-      "log": ".test-tmp\\verify-81f1iiix\\mypy.log",
+      "log": ".test-tmp\\verify-2wf_4z_w\\mypy.log",
       "name": "mypy",
-      "output": "Success: no issues found in 111 source files\n",
+      "output": "Success: no issues found in 126 source files\n",
       "returncode": 0,
-      "seconds": 0.9
+      "seconds": 0.952
     },
     {
       "command": [
@@ -394,11 +409,11 @@
         "src",
         "scripts"
       ],
-      "log": ".test-tmp\\verify-81f1iiix\\pyright.log",
+      "log": ".test-tmp\\verify-2wf_4z_w\\pyright.log",
       "name": "pyright",
       "output": "0 errors, 0 warnings, 0 informations\n",
       "returncode": 0,
-      "seconds": 6.635
+      "seconds": 6.326
     },
     {
       "command": [
@@ -410,15 +425,15 @@
         "-p",
         "no:cacheprovider",
         "--basetemp",
-        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-fixtures-p2djlf6k\\pytest",
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-fixtures-93g7yqzw\\pytest",
         "--junitxml",
-        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-81f1iiix\\pytest.xml"
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-2wf_4z_w\\pytest.xml"
       ],
-      "log": ".test-tmp\\verify-81f1iiix\\pytest.log",
+      "log": ".test-tmp\\verify-2wf_4z_w\\pytest.log",
       "name": "pytest",
-      "output": "........................................................................ [  6%]\n........................................................................ [ 13%]\n........................................................................ [ 20%]\n........................................................................ [ 27%]\n........................................................................ [ 33%]\n........................................................................ [ 40%]\n........................................................................ [ 47%]\n........................................................................ [ 54%]\n........................................................................ [ 60%]\n........................................................................ [ 67%]\n........................................................................ [ 74%]\n........................................................................ [ 81%]\n........................................................................ [ 87%]\n........................................................................ [ 94%]\n.........................................................                [100%]\n1065 passed in 178.26s (0:02:58)\n",
+      "output": "........................................................................ [  5%]\n........................................................................ [ 10%]\n........................................................................ [ 15%]\n........................................................................ [ 21%]\n........................................................................ [ 26%]\n........................................................................ [ 31%]\n........................................................................ [ 37%]\n........................................................................ [ 42%]\n........................................................................ [ 47%]\n........................................................................ [ 53%]\n........................................................................ [ 58%]\n........................................................................ [ 63%]\n........................................................................ [ 69%]\n........................................................................ [ 74%]\n........................................................................ [ 79%]\n........................................................................ [ 84%]\n........................................................................ [ 90%]\n........................................................................ [ 95%]\n............................................................             [100%]\n1356 passed in 250.81s (0:04:10)\n",
       "returncode": 0,
-      "seconds": 179.149
+      "seconds": 251.772
     },
     {
       "command": [
@@ -429,22 +444,37 @@
         "src",
         "scripts"
       ],
-      "log": ".test-tmp\\verify-81f1iiix\\compile.log",
+      "log": ".test-tmp\\verify-2wf_4z_w\\compile.log",
       "name": "compile",
       "output": "",
       "returncode": 0,
-      "seconds": 0.155
+      "seconds": 0.159
+    },
+    {
+      "command": [
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.venv\\Scripts\\python.exe",
+        "-m",
+        "bamboozle",
+        "--root",
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle",
+        "structure-check"
+      ],
+      "log": ".test-tmp\\verify-2wf_4z_w\\structure.log",
+      "name": "structure",
+      "output": "{\n  \"schema_version\": 1,\n  \"configured\": true,\n  \"status\": \"valid\",\n  \"profile\": \".vigiles/structure.json\",\n  \"profile_sha256\": \"9324ce2b09e80f18f744dcd67856df61b00f61f067b587fbe5bedfeaebf97e89\",\n  \"name\": \"bamboozle-core\",\n  \"ok\": true,\n  \"complete\": true,\n  \"entries\": 99,\n  \"files\": 96,\n  \"snapshot_sha256\": \"ef2d06c98f7b5fe5419fcaabc9d2ea7ebed2bfa4a52938d4af309c54413bede7\",\n  \"finding_count\": 0,\n  \"findings_truncated\": false,\n  \"check_sha256\": \"53197207a376c17c5026bb221c78a0fd65decdb710be364751c10daa0781281d\",\n  \"findings\": [],\n  \"findings_complete\": true,\n  \"next_offset\": null\n}\n",
+      "returncode": 0,
+      "seconds": 1.12
     },
     {
       "command": [
         "uv",
         "build"
       ],
-      "log": ".test-tmp\\verify-81f1iiix\\build.log",
+      "log": ".test-tmp\\verify-2wf_4z_w\\build.log",
       "name": "build",
-      "output": "eel\\.\\bamboozle\ncopying build\\lib\\bamboozle\\workspace.py -> build\\bdist.win-amd64\\wheel\\.\\bamboozle\ncopying build\\lib\\bamboozle\\__init__.py -> build\\bdist.win-amd64\\wheel\\.\\bamboozle\ncopying build\\lib\\bamboozle\\__main__.py -> build\\bdist.win-amd64\\wheel\\.\\bamboozle\ncreating build\\bdist.win-amd64\\wheel\\workshop\ncopying build\\lib\\workshop\\bootstrap.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\ncopying build\\lib\\workshop\\config.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\ncopying build\\lib\\workshop\\examples.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\ncopying build\\lib\\workshop\\inventory.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\ncreating build\\bdist.win-amd64\\wheel\\workshop\\mcp\ncopying build\\lib\\workshop\\mcp\\taxonomy.json -> build\\bdist.win-amd64\\wheel\\.\\workshop\\mcp\ncopying build\\lib\\workshop\\mcp\\workshop_mcp.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\\mcp\ncopying build\\lib\\workshop\\mcp\\__init__.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\\mcp\ncopying build\\lib\\workshop\\operations.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\ncopying build\\lib\\workshop\\pipeline.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\ncopying build\\lib\\workshop\\plans.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\ncopying build\\lib\\workshop\\process.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\ncopying build\\lib\\workshop\\recovery.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\ncreating build\\bdist.win-amd64\\wheel\\workshop\\scrape\ncopying build\\lib\\workshop\\scrape\\alias_pass.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\\scrape\ncopying build\\lib\\workshop\\scrape\\audit_matrix.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\\scrape\ncopying build\\lib\\workshop\\scrape\\bamb5.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\\scrape\ncopying build\\lib\\workshop\\scrape\\lookup.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\\scrape\ncopying build\\lib\\workshop\\scrape\\promote.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\\scrape\ncopying build\\lib\\workshop\\scrape\\taxonomy.json -> build\\bdist.win-amd64\\wheel\\.\\workshop\\scrape\ncopying build\\lib\\workshop\\scrape\\__init__.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\\scrape\ncopying build\\lib\\workshop\\snapshot.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\ncopying build\\lib\\workshop\\__init__.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\nrunning install_egg_info\nCopying src\\bamboozle.egg-info to build\\bdist.win-amd64\\wheel\\.\\bamboozle-0.7.0-py3.13.egg-info\nrunning install_scripts\ncreating build\\bdist.win-amd64\\wheel\\bamboozle-0.7.0.dist-info\\WHEEL\ncreating 'C:\\\\Users\\\\ryanf\\\\github\\\\_active\\\\bamboozle\\\\bamboozle\\\\dist\\\\.tmp-zdi334kz\\\\bamboozle-0.7.0-py3-none-any.whl' and adding 'build\\\\bdist.win-amd64\\\\wheel' to it\nadding 'bamboozle/__init__.py'\nadding 'bamboozle/__main__.py'\nadding 'bamboozle/agent_checks.py'\nadding 'bamboozle/agent_development.py'\nadding 'bamboozle/agent_files.py'\nadding 'bamboozle/agent_policy.py'\nadding 'bamboozle/audit.py'\nadding 'bamboozle/audit_matrix.py'\nadding 'bamboozle/check_process.py'\nadding 'bamboozle/cipher.py'\nadding 'bamboozle/cipher_dict.json'\nadding 'bamboozle/cipher_operations.py'\nadding 'bamboozle/classical.py'\nadding 'bamboozle/cli.py'\nadding 'bamboozle/dictionary.py'\nadding 'bamboozle/engine.py'\nadding 'bamboozle/evidence.py'\nadding 'bamboozle/fixture_rules.py'\nadding 'bamboozle/fixtures.py'\nadding 'bamboozle/formats.py'\nadding 'bamboozle/lexicon.py'\nadding 'bamboozle/markers.py'\nadding 'bamboozle/mcp.py'\nadding 'bamboozle/migration.py'\nadding 'bamboozle/profanity_dict.json'\nadding 'bamboozle/project_exchange.py'\nadding 'bamboozle/project_views.py'\nadding 'bamboozle/python_project.py'\nadding 'bamboozle/python_source.py'\nadding 'bamboozle/restoration.py'\nadding 'bamboozle/return_validation.py'\nadding 'bamboozle/scm_mcp.py'\nadding 'bamboozle/service.py'\nadding 'bamboozle/tessera.py'\nadding 'bamboozle/translate.py'\nadding 'bamboozle/utils.py'\nadding 'bamboozle/view_import.py'\nadding 'bamboozle/workspace.py'\nadding 'bamboozle-0.7.0.dist-info/licenses/LICENSE'\nadding 'workshop/__init__.py'\nadding 'workshop/bootstrap.py'\nadding 'workshop/config.py'\nadding 'workshop/examples.py'\nadding 'workshop/inventory.py'\nadding 'workshop/operations.py'\nadding 'workshop/pipeline.py'\nadding 'workshop/plans.py'\nadding 'workshop/process.py'\nadding 'workshop/recovery.py'\nadding 'workshop/snapshot.py'\nadding 'workshop/mcp/__init__.py'\nadding 'workshop/mcp/taxonomy.json'\nadding 'workshop/mcp/workshop_mcp.py'\nadding 'workshop/scrape/__init__.py'\nadding 'workshop/scrape/alias_pass.py'\nadding 'workshop/scrape/audit_matrix.py'\nadding 'workshop/scrape/bamb5.py'\nadding 'workshop/scrape/lookup.py'\nadding 'workshop/scrape/promote.py'\nadding 'workshop/scrape/taxonomy.json'\nadding 'bamboozle-0.7.0.dist-info/METADATA'\nadding 'bamboozle-0.7.0.dist-info/WHEEL'\nadding 'bamboozle-0.7.0.dist-info/entry_points.txt'\nadding 'bamboozle-0.7.0.dist-info/top_level.txt'\nadding 'bamboozle-0.7.0.dist-info/RECORD'\nremoving build\\bdist.win-amd64\\wheel\nSuccessfully built dist\\bamboozle-0.7.0.tar.gz\nSuccessfully built dist\\bamboozle-0.7.0-py3-none-any.whl\n",
+      "output": "wheel\\.\\bamboozle\ncopying build\\lib\\bamboozle\\__main__.py -> build\\bdist.win-amd64\\wheel\\.\\bamboozle\ncreating build\\bdist.win-amd64\\wheel\\workshop\ncopying build\\lib\\workshop\\bootstrap.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\ncopying build\\lib\\workshop\\config.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\ncopying build\\lib\\workshop\\examples.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\ncopying build\\lib\\workshop\\inventory.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\ncreating build\\bdist.win-amd64\\wheel\\workshop\\mcp\ncopying build\\lib\\workshop\\mcp\\taxonomy.json -> build\\bdist.win-amd64\\wheel\\.\\workshop\\mcp\ncopying build\\lib\\workshop\\mcp\\workshop_mcp.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\\mcp\ncopying build\\lib\\workshop\\mcp\\__init__.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\\mcp\ncopying build\\lib\\workshop\\operations.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\ncopying build\\lib\\workshop\\pipeline.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\ncopying build\\lib\\workshop\\plans.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\ncopying build\\lib\\workshop\\process.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\ncopying build\\lib\\workshop\\recovery.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\ncreating build\\bdist.win-amd64\\wheel\\workshop\\scrape\ncopying build\\lib\\workshop\\scrape\\alias_pass.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\\scrape\ncopying build\\lib\\workshop\\scrape\\audit_matrix.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\\scrape\ncopying build\\lib\\workshop\\scrape\\bamb5.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\\scrape\ncopying build\\lib\\workshop\\scrape\\lookup.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\\scrape\ncopying build\\lib\\workshop\\scrape\\promote.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\\scrape\ncopying build\\lib\\workshop\\scrape\\taxonomy.json -> build\\bdist.win-amd64\\wheel\\.\\workshop\\scrape\ncopying build\\lib\\workshop\\scrape\\__init__.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\\scrape\ncopying build\\lib\\workshop\\snapshot.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\ncopying build\\lib\\workshop\\__init__.py -> build\\bdist.win-amd64\\wheel\\.\\workshop\nrunning install_egg_info\nCopying src\\bamboozle.egg-info to build\\bdist.win-amd64\\wheel\\.\\bamboozle-0.7.0-py3.13.egg-info\nrunning install_scripts\ncreating build\\bdist.win-amd64\\wheel\\bamboozle-0.7.0.dist-info\\WHEEL\ncreating 'C:\\\\Users\\\\ryanf\\\\github\\\\_active\\\\bamboozle\\\\bamboozle\\\\dist\\\\.tmp-9vvrr3le\\\\bamboozle-0.7.0-py3-none-any.whl' and adding 'build\\\\bdist.win-amd64\\\\wheel' to it\nadding 'bamboozle/__init__.py'\nadding 'bamboozle/__main__.py'\nadding 'bamboozle/agent_checks.py'\nadding 'bamboozle/agent_development.py'\nadding 'bamboozle/agent_files.py'\nadding 'bamboozle/agent_policy.py'\nadding 'bamboozle/audit.py'\nadding 'bamboozle/audit_matrix.py'\nadding 'bamboozle/check_process.py'\nadding 'bamboozle/cipher.py'\nadding 'bamboozle/cipher_dict.json'\nadding 'bamboozle/cipher_operations.py'\nadding 'bamboozle/classical.py'\nadding 'bamboozle/cli.py'\nadding 'bamboozle/dictionary.py'\nadding 'bamboozle/engine.py'\nadding 'bamboozle/evidence.py'\nadding 'bamboozle/fixture_rules.py'\nadding 'bamboozle/fixtures.py'\nadding 'bamboozle/formats.py'\nadding 'bamboozle/identity.py'\nadding 'bamboozle/lexicon.py'\nadding 'bamboozle/markers.py'\nadding 'bamboozle/mcp.py'\nadding 'bamboozle/migration.py'\nadding 'bamboozle/profanity_dict.json'\nadding 'bamboozle/project_exchange.py'\nadding 'bamboozle/project_views.py'\nadding 'bamboozle/python_project.py'\nadding 'bamboozle/python_source.py'\nadding 'bamboozle/restoration.py'\nadding 'bamboozle/return_validation.py'\nadding 'bamboozle/scm_mcp.py'\nadding 'bamboozle/service.py'\nadding 'bamboozle/structure.py'\nadding 'bamboozle/tessera.py'\nadding 'bamboozle/text_literals.py'\nadding 'bamboozle/translate.py'\nadding 'bamboozle/transport.py'\nadding 'bamboozle/utils.py'\nadding 'bamboozle/view_import.py'\nadding 'bamboozle/workspace.py'\nadding 'bamboozle/yaml_source.py'\nadding 'bamboozle-0.7.0.dist-info/licenses/LICENSE'\nadding 'workshop/__init__.py'\nadding 'workshop/bootstrap.py'\nadding 'workshop/config.py'\nadding 'workshop/examples.py'\nadding 'workshop/inventory.py'\nadding 'workshop/operations.py'\nadding 'workshop/pipeline.py'\nadding 'workshop/plans.py'\nadding 'workshop/process.py'\nadding 'workshop/recovery.py'\nadding 'workshop/snapshot.py'\nadding 'workshop/mcp/__init__.py'\nadding 'workshop/mcp/taxonomy.json'\nadding 'workshop/mcp/workshop_mcp.py'\nadding 'workshop/scrape/__init__.py'\nadding 'workshop/scrape/alias_pass.py'\nadding 'workshop/scrape/audit_matrix.py'\nadding 'workshop/scrape/bamb5.py'\nadding 'workshop/scrape/lookup.py'\nadding 'workshop/scrape/promote.py'\nadding 'workshop/scrape/taxonomy.json'\nadding 'bamboozle-0.7.0.dist-info/METADATA'\nadding 'bamboozle-0.7.0.dist-info/WHEEL'\nadding 'bamboozle-0.7.0.dist-info/entry_points.txt'\nadding 'bamboozle-0.7.0.dist-info/top_level.txt'\nadding 'bamboozle-0.7.0.dist-info/RECORD'\nremoving build\\bdist.win-amd64\\wheel\nSuccessfully built dist\\bamboozle-0.7.0.tar.gz\nSuccessfully built dist\\bamboozle-0.7.0-py3-none-any.whl\n",
       "returncode": 0,
-      "seconds": 4.747
+      "seconds": 4.212
     },
     {
       "command": [
@@ -455,27 +485,27 @@
         "--no-emit-project",
         "--no-hashes",
         "--output-file",
-        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-81f1iiix\\runtime-requirements.txt"
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-2wf_4z_w\\runtime-requirements.txt"
       ],
-      "log": ".test-tmp\\verify-81f1iiix\\export.log",
+      "log": ".test-tmp\\verify-2wf_4z_w\\export.log",
       "name": "export",
-      "output": "# This file was autogenerated by uv via the following command:\n#    uv export --locked --no-dev --no-emit-project --no-hashes --output-file C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-81f1iiix\\runtime-requirements.txt\naiofile==3.12.3\n    # via py-key-value-aio\nannotated-types==0.8.0\n    # via pydantic\nanyio==4.15.1\n    # via\n    #   httpx2\n    #   mcp\n    #   py-key-value-aio\n    #   sse-starlette\n    #   starlette\n    #   watchfiles\nattrs==26.1.0\n    # via\n    #   cyclopts\n    #   jsonschema\n    #   jsonschema-path\n    #   referencing\nauthlib==1.8.0\n    # via fastmcp-slim\nbeartype==0.22.9\n    # via py-key-value-aio\ncachetools==7.2.0\n    # via py-key-value-aio\ncaio==0.12.9\n    # via aiofile\ncffi==2.1.1 ; platform_python_implementation != 'PyPy'\n    # via cryptography\nclick==8.5.0\n    # via uvicorn\ncryptography==50.0.2\n    # via\n    #   authlib\n    #   bamboozle\n    #   joserfc\n    #   pyjwt\n    #   secretstorage\ncyclopts==5.1.1\n    # via fastmcp-slim\ndnspython==2.8.0\n    # via email-validator\ndocstring-parser==0.18.0\n    # via cyclopts\nemail-validator==2.3.0\n    # via pydantic\nexceptiongroup==1.3.1\n    # via fastmcp-slim\nfastmcp==4.0.10\n    # via bamboozle\nfastmcp-slim==4.0.10\n    # via fastmcp\ngriffelib==2.3.0\n    # via fastmcp-slim\nh11==0.16.0\n    # via\n    #   httpcore2\n    #   uvicorn\nhttpcore2==2.13.1 ; sys_platform != 'emscripten'\n    # via httpx2\nhttpx2==2.13.1\n    # via\n    #   fastmcp-slim\n    #   mcp\nhttpx2-jsfetch==1.0 ; sys_platform == 'emscripten'\n    # via httpx2\nidna==3.20\n    # via\n    #   anyio\n    #   email-validator\n    #   httpx2\njaraco-classes==3.4.0\n    # via keyring\njaraco-context==6.1.2\n    # via keyring\njaraco-functools==4.6.0\n    # via keyring\njeepney==0.9.0 ; sys_platform == 'linux'\n    # via\n    #   keyring\n    #   secretstorage\njoserfc==1.7.5\n    # via\n    #   authlib\n    #   fastmcp-slim\njsonref==1.1.0\n    # via fastmcp-slim\njsonschema==4.26.0\n    # via mcp\njsonschema-path==0.5.0\n    # via fastmcp-slim\njsonschema-specifications==2025.9.1\n    # via jsonschema\nkeyring==25.7.0\n    # via py-key-value-aio\nmarkdown-it-py==4.2.0\n    # via\n    #   bamboozle\n    #   rich\nmcp==2.2.0\n    # via fastmcp-slim\nmcp-types==2.2.0\n    # via\n    #   fastmcp-slim\n    #   mcp\nmdurl==0.1.2\n    # via markdown-it-py\nmore-itertools==11.1.0\n    # via\n    #   jaraco-classes\n    #   jaraco-functools\nopenapi-pydantic==0.6.0\n    # via fastmcp-slim\nopentelemetry-api==1.45.0\n    # via\n    #   fastmcp-slim\n    #   mcp\npackaging==26.3\n    # via fastmcp-slim\npathable==0.6.0\n    # via jsonschema-path\nplatformdirs==4.12.2\n    # via fastmcp-slim\npy-key-value-aio==0.4.6\n    # via fastmcp-slim\npycparser==3.0 ; implementation_name != 'PyPy' and platform_python_implementation != 'PyPy'\n    # via cffi\npydantic==2.13.5\n    # via\n    #   fastmcp-slim\n    #   mcp\n    #   mcp-types\n    #   openapi-pydantic\n    #   pydantic-settings\npydantic-core==2.46.5\n    # via pydantic\npydantic-settings==2.15.0\n    # via fastmcp-slim\npygments==2.21.0\n    # via\n    #   rich\n    #   rich-rst\npyjwt==2.15.1\n    # via mcp\npyperclip==1.11.0\n    # via fastmcp-slim\npython-dotenv==1.2.4\n    # via\n    #   fastmcp-slim\n    #   pydantic-settings\npython-multipart==0.0.32\n    # via\n    #   fastmcp-slim\n    #   mcp\npywin32==312 ; sys_platform == 'win32'\n    # via mcp\npywin32-ctypes==0.2.3 ; sys_platform == 'win32'\n    # via keyring\npyyaml==6.0.3\n    # via\n    #   fastmcp-slim\n    #   jsonschema-path\nreferencing==0.37.0\n    # via\n    #   jsonschema\n    #   jsonschema-path\n    #   jsonschema-specifications\nrich==15.0.0\n    # via\n    #   cyclopts\n    #   fastmcp-slim\n    #   rich-rst\nrich-rst==2.2.0\n    # via cyclopts\nrpds-py==2026.6.3\n    # via\n    #   jsonschema\n    #   referencing\nsecretstorage==3.5.0 ; sys_platform == 'linux'\n    # via keyring\nsse-starlette==3.5.0\n    # via mcp\nstarlette==1.7.0\n    # via\n    #   fastmcp-slim\n    #   mcp\n    #   sse-starlette\ntruststore==0.10.4 ; sys_platform != 'emscripten'\n    # via\n    #   httpcore2\n    #   httpx2\ntyping-extensions==4.16.0\n    # via\n    #   anyio\n    #   fastmcp-slim\n    #   mcp\n    #   mcp-types\n    #   opentelemetry-api\n    #   py-key-value-aio\n    #   pydantic\n    #   pydantic-core\n    #   typing-inspection\ntyping-inspection==0.4.4\n    # via\n    #   mcp\n    #   pydantic\n    #   pydantic-settings\nuncalled-for==0.4.0\n    # via fastmcp-slim\nuvicorn==0.54.0\n    # via\n    #   fastmcp-slim\n    #   mcp\nwatchfiles==1.3.0\n    # via fastmcp-slim\nwebsockets==17.1\n    # via fastmcp-slim\nResolved 84 packages in 1ms\n",
+      "output": "# This file was autogenerated by uv via the following command:\n#    uv export --locked --no-dev --no-emit-project --no-hashes --output-file C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-2wf_4z_w\\runtime-requirements.txt\naiofile==3.12.3\n    # via py-key-value-aio\nannotated-types==0.8.0\n    # via pydantic\nanyio==4.15.1\n    # via\n    #   httpx2\n    #   mcp\n    #   py-key-value-aio\n    #   sse-starlette\n    #   starlette\n    #   watchfiles\nattrs==26.1.0\n    # via\n    #   cyclopts\n    #   jsonschema\n    #   jsonschema-path\n    #   referencing\nauthlib==1.8.0\n    # via fastmcp-slim\nbeartype==0.22.9\n    # via py-key-value-aio\ncachetools==7.2.0\n    # via py-key-value-aio\ncaio==0.12.9\n    # via aiofile\ncffi==2.1.1 ; platform_python_implementation != 'PyPy'\n    # via cryptography\nclick==8.5.0\n    # via uvicorn\ncryptography==50.0.2\n    # via\n    #   authlib\n    #   bamboozle\n    #   joserfc\n    #   pyjwt\n    #   secretstorage\ncyclopts==5.1.1\n    # via fastmcp-slim\ndnspython==2.8.0\n    # via email-validator\ndocstring-parser==0.18.0\n    # via cyclopts\nemail-validator==2.3.0\n    # via pydantic\nexceptiongroup==1.3.1\n    # via fastmcp-slim\nfastmcp==4.0.10\n    # via bamboozle\nfastmcp-slim==4.0.10\n    # via fastmcp\ngriffelib==2.3.0\n    # via fastmcp-slim\nh11==0.16.0\n    # via\n    #   httpcore2\n    #   uvicorn\nhttpcore2==2.13.1 ; sys_platform != 'emscripten'\n    # via httpx2\nhttpx2==2.13.1\n    # via\n    #   fastmcp-slim\n    #   mcp\nhttpx2-jsfetch==1.0 ; sys_platform == 'emscripten'\n    # via httpx2\nidna==3.20\n    # via\n    #   anyio\n    #   email-validator\n    #   httpx2\njaraco-classes==3.4.0\n    # via keyring\njaraco-context==6.1.2\n    # via keyring\njaraco-functools==4.6.0\n    # via keyring\njeepney==0.9.0 ; sys_platform == 'linux'\n    # via\n    #   keyring\n    #   secretstorage\njoserfc==1.7.5\n    # via\n    #   authlib\n    #   fastmcp-slim\njsonref==1.1.0\n    # via fastmcp-slim\njsonschema==4.26.0\n    # via mcp\njsonschema-path==0.5.0\n    # via fastmcp-slim\njsonschema-specifications==2025.9.1\n    # via jsonschema\nkeyring==25.7.0\n    # via py-key-value-aio\nmarkdown-it-py==4.2.0\n    # via\n    #   bamboozle\n    #   rich\nmcp==2.2.0\n    # via fastmcp-slim\nmcp-types==2.2.0\n    # via\n    #   fastmcp-slim\n    #   mcp\nmdurl==0.1.2\n    # via markdown-it-py\nmore-itertools==11.1.0\n    # via\n    #   jaraco-classes\n    #   jaraco-functools\nopenapi-pydantic==0.6.0\n    # via fastmcp-slim\nopentelemetry-api==1.45.0\n    # via\n    #   fastmcp-slim\n    #   mcp\npackaging==26.3\n    # via fastmcp-slim\npathable==0.6.0\n    # via jsonschema-path\nplatformdirs==4.12.2\n    # via fastmcp-slim\npy-key-value-aio==0.4.6\n    # via fastmcp-slim\npycparser==3.0 ; implementation_name != 'PyPy' and platform_python_implementation != 'PyPy'\n    # via cffi\npydantic==2.13.5\n    # via\n    #   fastmcp-slim\n    #   mcp\n    #   mcp-types\n    #   openapi-pydantic\n    #   pydantic-settings\npydantic-core==2.46.5\n    # via pydantic\npydantic-settings==2.15.0\n    # via fastmcp-slim\npygments==2.21.0\n    # via\n    #   rich\n    #   rich-rst\npyjwt==2.15.1\n    # via mcp\npyperclip==1.11.0\n    # via fastmcp-slim\npython-dotenv==1.2.4\n    # via\n    #   fastmcp-slim\n    #   pydantic-settings\npython-multipart==0.0.32\n    # via\n    #   fastmcp-slim\n    #   mcp\npywin32==312 ; sys_platform == 'win32'\n    # via mcp\npywin32-ctypes==0.2.3 ; sys_platform == 'win32'\n    # via keyring\npyyaml==6.0.3\n    # via\n    #   bamboozle\n    #   fastmcp-slim\n    #   jsonschema-path\nreferencing==0.37.0\n    # via\n    #   jsonschema\n    #   jsonschema-path\n    #   jsonschema-specifications\nrich==15.0.0\n    # via\n    #   cyclopts\n    #   fastmcp-slim\n    #   rich-rst\nrich-rst==2.2.0\n    # via cyclopts\nrpds-py==2026.6.3\n    # via\n    #   jsonschema\n    #   referencing\nsecretstorage==3.5.0 ; sys_platform == 'linux'\n    # via keyring\nsse-starlette==3.5.0\n    # via mcp\nstarlette==1.7.0\n    # via\n    #   fastmcp-slim\n    #   mcp\n    #   sse-starlette\ntruststore==0.10.4 ; sys_platform != 'emscripten'\n    # via\n    #   httpcore2\n    #   httpx2\ntyping-extensions==4.16.0\n    # via\n    #   anyio\n    #   fastmcp-slim\n    #   mcp\n    #   mcp-types\n    #   opentelemetry-api\n    #   py-key-value-aio\n    #   pydantic\n    #   pydantic-core\n    #   typing-inspection\ntyping-inspection==0.4.4\n    # via\n    #   mcp\n    #   pydantic\n    #   pydantic-settings\nuncalled-for==0.4.0\n    # via fastmcp-slim\nuvicorn==0.54.0\n    # via\n    #   fastmcp-slim\n    #   mcp\nwatchfiles==1.3.0\n    # via fastmcp-slim\nwebsockets==17.1\n    # via fastmcp-slim\nResolved 85 packages in 0.86ms\n",
       "returncode": 0,
-      "seconds": 0.032
+      "seconds": 0.033
     },
     {
       "command": [
         "uv",
         "venv",
-        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-81f1iiix\\wheel-env",
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-2wf_4z_w\\wheel-env",
         "--python",
         "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.venv\\Scripts\\python.exe"
       ],
-      "log": ".test-tmp\\verify-81f1iiix\\wheel-environment.log",
+      "log": ".test-tmp\\verify-2wf_4z_w\\wheel-environment.log",
       "name": "wheel-environment",
-      "output": "Using CPython 3.13.9 interpreter at: .venv\\Scripts\\python.exe\nCreating virtual environment at: .test-tmp\\verify-81f1iiix\\wheel-env\nActivate with: .test-tmp\\verify-81f1iiix\\wheel-env\\Scripts\\activate\n",
+      "output": "Using CPython 3.13.9 interpreter at: .venv\\Scripts\\python.exe\nCreating virtual environment at: .test-tmp\\verify-2wf_4z_w\\wheel-env\nActivate with: .test-tmp\\verify-2wf_4z_w\\wheel-env\\Scripts\\activate\n",
       "returncode": 0,
-      "seconds": 0.029
+      "seconds": 0.028
     },
     {
       "command": [
@@ -483,35 +513,35 @@
         "pip",
         "install",
         "--python",
-        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-81f1iiix\\wheel-env\\Scripts\\python.exe",
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-2wf_4z_w\\wheel-env\\Scripts\\python.exe",
         "--constraint",
-        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-81f1iiix\\runtime-requirements.txt",
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-2wf_4z_w\\runtime-requirements.txt",
         "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\dist\\bamboozle-0.7.0-py3-none-any.whl"
       ],
-      "log": ".test-tmp\\verify-81f1iiix\\wheel-install.log",
+      "log": ".test-tmp\\verify-2wf_4z_w\\wheel-install.log",
       "name": "wheel-install",
-      "output": "Using Python 3.13.9 environment at: .test-tmp\\verify-81f1iiix\\wheel-env\nResolved 69 packages in 341ms\nPrepared 1 package in 51ms\nInstalled 69 packages in 1.26s\n + aiofile==3.12.3\n + annotated-types==0.8.0\n + anyio==4.15.1\n + attrs==26.1.0\n + authlib==1.8.0\n + bamboozle==0.7.0 (from file:///C:/Users/ryanf/github/_active/bamboozle/bamboozle/dist/bamboozle-0.7.0-py3-none-any.whl)\n + beartype==0.22.9\n + cachetools==7.2.0\n + caio==0.12.9\n + cffi==2.1.1\n + click==8.5.0\n + cryptography==50.0.2\n + cyclopts==5.1.1\n + dnspython==2.8.0\n + docstring-parser==0.18.0\n + email-validator==2.3.0\n + exceptiongroup==1.3.1\n + fastmcp==4.0.10\n + fastmcp-slim==4.0.10\n + griffelib==2.3.0\n + h11==0.16.0\n + httpcore2==2.13.1\n + httpx2==2.13.1\n + idna==3.20\n + jaraco-classes==3.4.0\n + jaraco-context==6.1.2\n + jaraco-functools==4.6.0\n + joserfc==1.7.5\n + jsonref==1.1.0\n + jsonschema==4.26.0\n + jsonschema-path==0.5.0\n + jsonschema-specifications==2025.9.1\n + keyring==25.7.0\n + markdown-it-py==4.2.0\n + mcp==2.2.0\n + mcp-types==2.2.0\n + mdurl==0.1.2\n + more-itertools==11.1.0\n + openapi-pydantic==0.6.0\n + opentelemetry-api==1.45.0\n + packaging==26.3\n + pathable==0.6.0\n + platformdirs==4.12.2\n + py-key-value-aio==0.4.6\n + pycparser==3.0\n + pydantic==2.13.5\n + pydantic-core==2.46.5\n + pydantic-settings==2.15.0\n + pygments==2.21.0\n + pyjwt==2.15.1\n + pyperclip==1.11.0\n + python-dotenv==1.2.4\n + python-multipart==0.0.32\n + pywin32==312\n + pywin32-ctypes==0.2.3\n + pyyaml==6.0.3\n + referencing==0.37.0\n + rich==15.0.0\n + rich-rst==2.2.0\n + rpds-py==2026.6.3\n + sse-starlette==3.5.0\n + starlette==1.7.0\n + truststore==0.10.4\n + typing-extensions==4.16.0\n + typing-inspection==0.4.4\n + uncalled-for==0.4.0\n + uvicorn==0.54.0\n + watchfiles==1.3.0\n + websockets==17.1\n",
+      "output": "Using Python 3.13.9 environment at: .test-tmp\\verify-2wf_4z_w\\wheel-env\nResolved 69 packages in 236ms\nPrepared 1 package in 45ms\nInstalled 69 packages in 794ms\n + aiofile==3.12.3\n + annotated-types==0.8.0\n + anyio==4.15.1\n + attrs==26.1.0\n + authlib==1.8.0\n + bamboozle==0.7.0 (from file:///C:/Users/ryanf/github/_active/bamboozle/bamboozle/dist/bamboozle-0.7.0-py3-none-any.whl)\n + beartype==0.22.9\n + cachetools==7.2.0\n + caio==0.12.9\n + cffi==2.1.1\n + click==8.5.0\n + cryptography==50.0.2\n + cyclopts==5.1.1\n + dnspython==2.8.0\n + docstring-parser==0.18.0\n + email-validator==2.3.0\n + exceptiongroup==1.3.1\n + fastmcp==4.0.10\n + fastmcp-slim==4.0.10\n + griffelib==2.3.0\n + h11==0.16.0\n + httpcore2==2.13.1\n + httpx2==2.13.1\n + idna==3.20\n + jaraco-classes==3.4.0\n + jaraco-context==6.1.2\n + jaraco-functools==4.6.0\n + joserfc==1.7.5\n + jsonref==1.1.0\n + jsonschema==4.26.0\n + jsonschema-path==0.5.0\n + jsonschema-specifications==2025.9.1\n + keyring==25.7.0\n + markdown-it-py==4.2.0\n + mcp==2.2.0\n + mcp-types==2.2.0\n + mdurl==0.1.2\n + more-itertools==11.1.0\n + openapi-pydantic==0.6.0\n + opentelemetry-api==1.45.0\n + packaging==26.3\n + pathable==0.6.0\n + platformdirs==4.12.2\n + py-key-value-aio==0.4.6\n + pycparser==3.0\n + pydantic==2.13.5\n + pydantic-core==2.46.5\n + pydantic-settings==2.15.0\n + pygments==2.21.0\n + pyjwt==2.15.1\n + pyperclip==1.11.0\n + python-dotenv==1.2.4\n + python-multipart==0.0.32\n + pywin32==312\n + pywin32-ctypes==0.2.3\n + pyyaml==6.0.3\n + referencing==0.37.0\n + rich==15.0.0\n + rich-rst==2.2.0\n + rpds-py==2026.6.3\n + sse-starlette==3.5.0\n + starlette==1.7.0\n + truststore==0.10.4\n + typing-extensions==4.16.0\n + typing-inspection==0.4.4\n + uncalled-for==0.4.0\n + uvicorn==0.54.0\n + watchfiles==1.3.0\n + websockets==17.1\n",
       "returncode": 0,
-      "seconds": 2.111
+      "seconds": 1.31
     },
     {
       "command": [
-        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-81f1iiix\\wheel-env\\Scripts\\python.exe",
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-2wf_4z_w\\wheel-env\\Scripts\\python.exe",
         "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\scripts\\package_smoke.py",
         "--prefix",
-        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-81f1iiix\\wheel-env"
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-2wf_4z_w\\wheel-env"
       ],
-      "log": ".test-tmp\\verify-81f1iiix\\wheel-smoke.log",
+      "log": ".test-tmp\\verify-2wf_4z_w\\wheel-smoke.log",
       "name": "wheel-smoke",
-      "output": "ix\\wheel-env\\Lib\\site-packages\\bamboo |\n                    | zle\\scm_mcp.py:90 in edit_safe_file                     |\n                    |                                                         |\n                    |    87         Use write_safe_file for new files or deli |\n                    |    88         \"\"\"                                       |\n                    |    89         try:                                      |\n                    | >  90             return development.edit(              |\n                    |    91                 file_path,                        |\n                    |    92                 edits,                            |\n                    |    93                 expected_sha256,                  |\n                    |                                                         |\n                    | C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test |\n                    | -tmp\\verify-81f1iiix\\wheel-env\\Lib\\site-packages\\bamboo |\n                    | zle\\agent_development.py:325 in edit                    |\n                    |                                                         |\n                    |   322                 (\"neutral_sha256\", expected_neutr |\n                    |   323             ):                                    |\n                    |   324                 if read[key] != expected:         |\n                    | > 325                     raise ValueError(             |\n                    |   326                         f\"{key} changed; read or  |\n                    |   327                     )                             |\n                    |   328             text = read[\"content\"]                |\n                    +---------------------------------------------------------+\n                    ValueError: source_sha256 changed; read or search again    \n                    before editing                                             \n                    Error calling tool 'run_safe_check'                        \n                    +----------- Traceback (most recent call last) -----------+\n                    | C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test |\n                    | -tmp\\verify-81f1iiix\\wheel-env\\Lib\\site-packages\\fastmc |\n                    | p\\server\\server.py:1505 in call_tool                    |\n                    |                                                         |\n                    | C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test |\n                    | -tmp\\verify-81f1iiix\\wheel-env\\Lib\\site-packages\\fastmc |\n                    | p\\tools\\base.py:440 in _run                             |\n                    |                                                         |\n                    |                 ... 9 frames hidden ...                 |\n                    |                                                         |\n                    | C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test |\n                    | -tmp\\verify-81f1iiix\\wheel-env\\Lib\\site-packages\\bamboo |\n                    | zle\\scm_mcp.py:184 in run_safe_check                    |\n                    |                                                         |\n                    |   181             and source_current. Results and copie |\n                    |   182             check-generated files are never impor |\n                    |   183             \"\"\"                                   |\n                    | > 184             return check_service.run(check_id, ex |\n                    |   185                                                   |\n                    |   186         @server.tool(annotations={\"readOnlyHint\": |\n                    |   187         def inspect_safe_check(run_id: str) -> di |\n                    |                                                         |\n                    | C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test |\n                    | -tmp\\verify-81f1iiix\\wheel-env\\Lib\\site-packages\\bamboo |\n                    | zle\\agent_checks.py:259 in run                          |\n                    |                                                         |\n                    |   256         with exclusive_lock(lock):                |\n                    |   257             content, identity = self._snapshot(sp |\n                    |   258             if sha256(json_bytes(identity)) != ex |\n                    | > 259                 raise ValueError(                 |\n                    |   260                     \"Check snapshot changed; list |\n                    |   261                 )                                 |\n                    |   262             if spec[\"python\"][0] != \"-m\" and spec |\n                    +---------------------------------------------------------+\n                    ValueError: Check snapshot changed; list checks again      \n                    before running                                             \n",
+      "output": " \n\n\n+-----------------------------------------------------------------------------+\n|                                                                             |\n|                                                                             |\n|                        \\u2584\\u2580\\u2580 \\u2584\\u2580\\u2588 \\u2588\\u2580\\u2580 \\u2580\\u2588\\u2580 \\u2588\\u2580\\u2584\\u2580\\u2588 \\u2588\\u2580\\u2580 \\u2588\\u2580\\u2588                        |\n|                        \\u2588\\u2580  \\u2588\\u2580\\u2588 \\u2584\\u2584\\u2588  \\u2588  \\u2588 \\u2580 \\u2588 \\u2588\\u2584\\u2584 \\u2588\\u2580\\u2580                        |\n|                                                                             |\n|                                                                             |\n|                                                                             |\n|                               FastMCP 4.0.10                                |\n|                            https://gofastmcp.com                            |\n|                                                                             |\n|               \\U0001f5a5  Server:      bamboozle_source_agent, 4.0.10                |\n|               \\U0001f680 Deploy free: https://horizon.prefect.io                    |\n|                                                                             |\n+-----------------------------------------------------------------------------+\n\n\n[10/04/26 11:57:06] INFO     Starting MCP server               transport.py:242\n                             'bamboozle_source_agent' with                     \n                             transport 'stdio'                                 \n\n\n+-----------------------------------------------------------------------------+\n|                                                                             |\n|                                                                             |\n|                        \\u2584\\u2580\\u2580 \\u2584\\u2580\\u2588 \\u2588\\u2580\\u2580 \\u2580\\u2588\\u2580 \\u2588\\u2580\\u2584\\u2580\\u2588 \\u2588\\u2580\\u2580 \\u2588\\u2580\\u2588                        |\n|                        \\u2588\\u2580  \\u2588\\u2580\\u2588 \\u2584\\u2584\\u2588  \\u2588  \\u2588 \\u2580 \\u2588 \\u2588\\u2584\\u2584 \\u2588\\u2580\\u2580                        |\n|                                                                             |\n|                                                                             |\n|                                                                             |\n|                               FastMCP 4.0.10                                |\n|                            https://gofastmcp.com                            |\n|                                                                             |\n|                 \\U0001f5a5  Server:      bamboozle_operator, 4.0.10                  |\n|                 \\U0001f680 Deploy free: https://horizon.prefect.io                  |\n|                                                                             |\n+-----------------------------------------------------------------------------+\n\n\n[10/04/26 11:57:15] INFO     Starting MCP server               transport.py:242\n                             'bamboozle_operator' with                         \n                             transport 'stdio'                                 \n\n\n+-----------------------------------------------------------------------------+\n|                                                                             |\n|                                                                             |\n|                        \\u2584\\u2580\\u2580 \\u2584\\u2580\\u2588 \\u2588\\u2580\\u2580 \\u2580\\u2588\\u2580 \\u2588\\u2580\\u2584\\u2580\\u2588 \\u2588\\u2580\\u2580 \\u2588\\u2580\\u2588                        |\n|                        \\u2588\\u2580  \\u2588\\u2580\\u2588 \\u2584\\u2584\\u2588  \\u2588  \\u2588 \\u2580 \\u2588 \\u2588\\u2584\\u2584 \\u2588\\u2580\\u2580                        |\n|                                                                             |\n|                                                                             |\n|                                                                             |\n|                               FastMCP 4.0.10                                |\n|                            https://gofastmcp.com                            |\n|                                                                             |\n|               \\U0001f5a5  Server:      bamboozle_source_agent, 4.0.10                |\n|               \\U0001f680 Deploy free: https://horizon.prefect.io                    |\n|                                                                             |\n+-----------------------------------------------------------------------------+\n\n\n[10/04/26 11:57:19] INFO     Starting MCP server               transport.py:242\n                             'bamboozle_source_agent' with                     \n                             transport 'stdio'                                 \n",
       "returncode": 0,
-      "seconds": 121.554
+      "seconds": 189.999
     }
   ],
   "tests": {
     "errors": 0,
     "failures": 0,
     "skipped": 0,
-    "tests": 1065
+    "tests": 1356
   }
 }

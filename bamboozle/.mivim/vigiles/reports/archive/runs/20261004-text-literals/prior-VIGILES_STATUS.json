@@ -1,0 +1,226 @@
+{
+  "authority": ".mivim/vigiles-vandal_0.2.md",
+  "core_acceptance": {
+    "reason": "Managed local delivery and complete source/installed application workflows are qualified. Original literal path/URL protection and the documented external acceptance gates remain open.",
+    "status": "not_established"
+  },
+  "core_development_queue": [
+    {
+      "design_sources": [
+        ".legacy/designlog:242",
+        ".legacy/designlog:878",
+        "src/bamboozle/formats.py:482"
+      ],
+      "done_criteria": [
+        "Implement explicit bounded literal protection rules with exact retained span context while preserving historical whole-text behavior",
+        "Integrate the same rules into manual translation/restoration, operator CLI/MCP, source-agent policy and scoped project views",
+        "Execute dependent neutral and restored applications that consume protected paths and URLs; cover edits, marker collisions, diagnostics and recovery"
+      ],
+      "evidence": [
+        ".mivim/vigiles/reports/archive/runs/20261004-managed-identity/next-core-finding.json"
+      ],
+      "finding": "The original design requires path and URL exclusion. Whole-text translation currently rewrites matching path/URL components and has no explicit preservation rule; the retained reproduction shows alpha becoming omega inside both a filesystem path and a URL.",
+      "focus": "Explicit literal path and URL protection in text translation",
+      "id": "VIG-CIPHER-LITERALS-01",
+      "status": "planned"
+    }
+  ],
+  "development_stage": "vigiles-vandal_0.2",
+  "evidence": {
+    "agent_checks": ".mivim/vigiles/reports/current/VIGILES_AGENT_CHECKS.json",
+    "agent_development": ".mivim/vigiles/reports/current/VIGILES_AGENT_DEVELOPMENT.json",
+    "cipher_method_review": ".mivim/vigiles/reports/current/VIGILES_CIPHER_REVIEW.json",
+    "cipher_qualification": ".mivim/vigiles/reports/current/VIGILES_CIPHER_QUALIFICATION.json",
+    "core_agent_repair": ".mivim/vigiles/reports/current/VIGILES_CORE_AGENT_REPAIR.json",
+    "current_directory": ".mivim/vigiles/reports/current/",
+    "directory_guide": ".mivim/vigiles/reports/README.md",
+    "exchange_qualification": ".mivim/vigiles/reports/current/VIGILES_EXCHANGE_QUALIFICATION.json",
+    "exchange_review": ".mivim/vigiles/reports/current/VIGILES_EXCHANGE_REVIEW.json",
+    "historical_status": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_STATUS.json",
+    "identity_qualification": ".mivim\\vigiles\\reports\\current\\VIGILES_IDENTITY_QUALIFICATION.json",
+    "installed_package_verification": ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json",
+    "native_cipher_reference": ".mivim/vigiles/reports/current/VIGILES_CIPHER_REFERENCE.json",
+    "original_record_hashes_and_relocation": ".mivim/vigiles/reports/INDEX.json",
+    "prior_identity_iteration": ".mivim\\vigiles\\reports\\archive\\runs\\20261004-managed-identity\\interim-VIGILES_VERIFICATION.json",
+    "prior_release_package_verification": ".mivim/vigiles/reports/archive/runs/20261004T113712000349Z-89a5bcfd/VIGILES_VERIFICATION.json",
+    "prior_translation_qualification": ".mivim/vigiles/reports/archive/runs/20261004T114804786162Z-c39a025e/VIGILES_TRANSLATION_QUALIFICATION.json",
+    "qualification_scope": "Local managed recipient lifecycle and replay-aware file/project delivery through CLI and actual operator stdio MCP; complete neutral/restored dependent applications from source and installed wheel; key rotation/revocation, competing processes, partial publication/recovery and truthful retained-state reporting.",
+    "recovery_qualification": ".mivim/vigiles/reports/current/VIGILES_RECOVERY_QUALIFICATION.json",
+    "source_verification": ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json",
+    "structure_profiles": ".mivim/vigiles/reports/current/VIGILES_STRUCTURE_QUALIFICATION.json",
+    "translation_qualification": ".mivim/vigiles/reports/current/VIGILES_TRANSLATION_QUALIFICATION.json",
+    "yaml_translation": ".mivim/vigiles/reports/current/VIGILES_YAML_TRANSLATION.json"
+  },
+  "last_completed_step": {
+    "done_criteria": [
+      "Implement explicit local recipient and key lifecycle semantics",
+      "Exercise isolated recipients, rotation/revocation and replay rejection",
+      "Preserve existing binary exchange and keep keys out of reports"
+    ],
+    "evidence": [
+      ".mivim\\vigiles\\reports\\current\\VIGILES_IDENTITY_QUALIFICATION.json"
+    ],
+    "finding": "Current Tessera authenticates key possession and a recipient label but has no native recipient lifecycle or replay record.",
+    "focus": "Recipient registry, key lifecycle and replay-aware Tessera delivery",
+    "id": "VIG-IDENTITY-01",
+    "implementation": [
+      "src/bamboozle/identity.py",
+      "src/bamboozle/transport.py",
+      "src/bamboozle/tessera.py",
+      "src/bamboozle/project_exchange.py",
+      "src/bamboozle/view_import.py",
+      "src/bamboozle/cli.py",
+      "src/bamboozle/mcp.py",
+      "src/bamboozle/cipher_operations.py",
+      "scripts/vandal.py",
+      "scripts/identity_smoke.py",
+      "scripts/exchange_smoke.py",
+      "scripts/package_smoke.py",
+      "src/bamboozle/tests/test_identity.py",
+      "src/bamboozle/tests/test_cli_mcp.py",
+      "src/bamboozle/tests/test_vandal.py"
+    ],
+    "qualification": {
+      "scope": "Local managed recipient lifecycle and replay-aware file/project delivery through CLI and actual operator stdio MCP; complete neutral/restored dependent applications from source and installed wheel; key rotation/revocation, competing processes, partial publication/recovery and truthful retained-state reporting.",
+      "stages": 12,
+      "tests": {
+        "errors": 0,
+        "failures": 0,
+        "skipped": 0,
+        "tests": 1267
+      }
+    },
+    "status": "source_and_installed_application_verified"
+  },
+  "next_step": {
+    "design_sources": [
+      ".legacy/designlog:242",
+      ".legacy/designlog:878",
+      "src/bamboozle/formats.py:482"
+    ],
+    "done_criteria": [
+      "Implement explicit bounded literal protection rules with exact retained span context while preserving historical whole-text behavior",
+      "Integrate the same rules into manual translation/restoration, operator CLI/MCP, source-agent policy and scoped project views",
+      "Execute dependent neutral and restored applications that consume protected paths and URLs; cover edits, marker collisions, diagnostics and recovery"
+    ],
+    "evidence": [
+      ".mivim/vigiles/reports/archive/runs/20261004-managed-identity/next-core-finding.json"
+    ],
+    "finding": "The original design requires path and URL exclusion. Whole-text translation currently rewrites matching path/URL components and has no explicit preservation rule; the retained reproduction shows alpha becoming omega inside both a filesystem path and a URL.",
+    "focus": "Explicit literal path and URL protection in text translation",
+    "id": "VIG-CIPHER-LITERALS-01",
+    "status": "planned"
+  },
+  "open_gates": [
+    {
+      "completed_stage": "Native operations, prepared plans, inventory, read-only recovery diagnostics, explicit recovery, and both MCP interfaces are locally qualified with synthetic assets and an installed v0.3.5 wheel.",
+      "dependencies": [
+        "Real candidate and completed evaluation evidence",
+        "Operator-selected production workshop",
+        "Live consumer acceptance criteria"
+      ],
+      "done_criteria": [
+        "Native promotion, quarantine, and audit fixtures pass (complete)",
+        "Interrupted publication recovery demonstrated before live writes (complete)",
+        "Real candidate accepted in an operator-selected production workspace (open)"
+      ],
+      "evidence": [
+        "src/workshop/scrape/promote.py",
+        "src/workshop/scrape/audit_matrix.py",
+        "src/workshop/tests/test_operations.py",
+        ".mivim/vigiles/reports/current/VIGILES_PIPELINE_QUALIFICATION.json",
+        ".mivim/vigiles/reports/current/VIGILES_PIPELINE_READINESS.json",
+        ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json",
+        ".mivim/vigiles/reports/current/VIGILES_PLAN_QUALIFICATION.json",
+        ".mivim/vigiles/reports/current/VIGILES_RECOVERY_QUALIFICATION.json"
+      ],
+      "id": "VIG-DEPLOY-01",
+      "impact": "Native file operations are locally qualified with synthetic assets; no live LoRA or ComfyUI acceptance is claimed.",
+      "next_action": "Evaluate a real candidate, retain its validation evidence, select a production workshop, and review/prepare/apply the exact plan before live consumer acceptance.",
+      "owner_role": "Workshop integration owner",
+      "priority": "P1",
+      "remaining_dependency": "Production model evaluation and live target selection remain separate from fixture qualification.",
+      "status": "native_fixture_qualified_live_acceptance_open"
+    },
+    {
+      "completed_stage": "Isolated local identities, pair-key registration/rotation/retirement/revocation, expiry, persistent replay admission, exact pending recovery and complete source/installed file/project applications qualified.",
+      "dependencies": [
+        "Authenticated out-of-band peer/key provisioning",
+        "Operator key custody and host policy",
+        "Cross-host replay and backup/clock rollback policy"
+      ],
+      "done_criteria": [
+        "Isolated local recipient, rotation/revocation and replay tests (complete)",
+        "No key bytes in reports or neutral views (complete for qualified paths)",
+        "External peer identity, key distribution/custody and replicated-state acceptance (open)"
+      ],
+      "evidence": [
+        ".mivim\\vigiles\\reports\\current\\VIGILES_IDENTITY_QUALIFICATION.json"
+      ],
+      "id": "VIG-IDENTITY-01",
+      "impact": "Local key possession and configured peer bindings are qualified; independent identity verification, remote provisioning/custody and replicated replay policy are not established.",
+      "next_action": "For an operator-selected remote deployment, establish authenticated peer/key provisioning, custody ACLs, trusted time and cross-host replay/backup rules; this does not block the next core translator task.",
+      "owner_role": "MIVIM security and agent integration owner",
+      "priority": "P1",
+      "status": "local_implementation_qualified_external_trust_open"
+    },
+    {
+      "dependencies": [
+        "Committed and submitted revision",
+        "Enabled GitHub Actions"
+      ],
+      "done_criteria": [
+        "Windows Python 3.13 passes",
+        "Windows Python 3.14 passes",
+        "Linux Python 3.13 passes",
+        "Linux Python 3.14 passes",
+        "Run URLs and revision recorded"
+      ],
+      "evidence": [
+        "../.github/workflows/vigiles.yml"
+      ],
+      "id": "VIG-CI-01",
+      "impact": "Local Windows results do not prove Linux or Python 3.14 compatibility.",
+      "next_action": "Run the supplied workflow for the submitted revision and retain all four job results.",
+      "owner_role": "Repository maintainer",
+      "priority": "P1",
+      "status": "open"
+    },
+    {
+      "dependencies": [
+        "Explicit target host and account",
+        "Filesystem ACL policy",
+        "Resource and lifecycle policy"
+      ],
+      "done_criteria": [
+        "Operator-selected deployment recorded",
+        "Least-privilege ACLs verified",
+        "Bounded resource policy tested",
+        "Start, stop, and uninstall verified"
+      ],
+      "id": "VIG-HOST-01",
+      "impact": "No installed background service, process-tree lifecycle policy, or OS-level isolation has been qualified.",
+      "next_action": "Select whether a managed service is needed, then qualify start/stop/uninstall and least-privilege operation on that host.",
+      "owner_role": "Deployment operator",
+      "priority": "P2",
+      "status": "open"
+    }
+  ],
+  "preservation_direction": "Retain existing services; integrate them around the operational core pipeline. Assistant-written contracts and task queues cannot retire original user design requirements.",
+  "product_direction": "Bamboozle encoder/cipher/translator is the original application. Vigiles is its supporting agent workflow; core usable product capabilities take priority over peripheral agent framework expansion.",
+  "project": "Bamboozle / MIVIM Vigiles",
+  "purpose": "Active core development plan and remaining acceptance gates; completed evidence/history belong under .mivim/vigiles/reports/.",
+  "recorded_on": "2026-10-04",
+  "release": "0.7.0",
+  "schema_version": 1,
+  "workflow": {
+    "id": "vigiles-vandal_0.2",
+    "previous_specification": ".mivim/vigiles/specs/vigiles-vanilla_0.1.md",
+    "product_version_independent": true,
+    "scope": "This MIVIM Bamboozle repository only",
+    "skill": ".vigiles/skills/vigiles-vandal/SKILL.md",
+    "specification": ".mivim/vigiles-vandal_0.2.md",
+    "status": "repository_spec_skill_and_generated_stdio_contexts_qualified",
+    "version": "0.2"
+  }
+}

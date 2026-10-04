@@ -2132,6 +2132,11 @@ def main() -> None:
     )["run"]()
     if not Path(exchange_results["exchange_module"]).is_relative_to(Path(sys.prefix)):
         raise RuntimeError("Project exchange was not imported from the installed wheel")
+    identity_results = runpy.run_path(
+        str(Path(__file__).with_name("identity_smoke.py"))
+    )["run"]()
+    if not Path(identity_results["identity_module"]).is_relative_to(Path(sys.prefix)):
+        raise RuntimeError("Managed identity was not imported from the installed wheel")
     source_agent_results = runpy.run_path(
         str(Path(__file__).with_name("source_agent_smoke.py"))
     )["run"]()
@@ -2153,13 +2158,40 @@ def main() -> None:
     ]()
     if not Path(yaml_results["yaml_module"]).is_relative_to(Path(sys.prefix)):
         raise RuntimeError("YAML adapter was not imported from the installed wheel")
+    structure_results = runpy.run_path(
+        str(Path(__file__).with_name("structure_smoke.py"))
+    )["run"]()
+    if not Path(structure_results["structure_module"]).is_relative_to(Path(sys.prefix)):
+        raise RuntimeError(
+            "Structural enforcement was not imported from the installed wheel"
+        )
+    json_values_results = runpy.run_path(
+        str(Path(__file__).with_name("json_values_smoke.py"))
+    )["run"]()
+    if not Path(json_values_results["formats_module"]).is_relative_to(Path(sys.prefix)):
+        raise RuntimeError(
+            "Recursive JSON adapter was not imported from the installed wheel"
+        )
+    literal_results = runpy.run_path(
+        str(Path(__file__).with_name("literals_smoke.py"))
+    )["run"]()
+    if not Path(literal_results["text_literals_module"]).is_relative_to(
+        Path(sys.prefix)
+    ):
+        raise RuntimeError(
+            "Text literal protection was not imported from the installed wheel"
+        )
     print(
         json.dumps(
             {
                 "status": "passed",
+                "literal_results": literal_results,
+                "json_values_results": json_values_results,
                 "yaml_results": yaml_results,
+                "structure_results": structure_results,
                 "version": bamboozle.__version__,
                 "exchange_results": exchange_results,
+                "identity_results": identity_results,
                 "source_agent_results": source_agent_results,
                 "package_file": str(package_file),
                 "capture_results": capture_results,
@@ -2180,6 +2212,7 @@ def main() -> None:
                     "plan_sha256": prepared["plan_sha256"],
                 },
                 "checks": [
+                    "structural_profiles_cli_stdio_decoded_publication_batch_companions_private_refusals_stale_controls_partial_import_recovery_executed_applications",
                     "classical_recipe_review_cli_stdio_lossless_ragged_and_framed_algorithms_authenticated_transport_returned_application_execution",
                     "python_dependency_application_cli_stdio_edits_new_capacity_scheduler_300_workload_runs_neutral_and_restored_and_encrypted_return",
                     "versioned_prefix_escapes_cli_operator_and_source_agent_stdio_executed_stream_parser_views_and_encrypted_returns",

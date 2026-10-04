@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="18" failures="0" skipped="0" tests="19" time="23.323" timestamp="2026-10-04T10:38:27.811946-07:00" hostname="homeone"><testcase classname="src.bamboozle.tests.test_identity" name="test_lifecycle_requires_fresh_digests_and_distinct_keys" time="0.004"><error message="failed on setup with &quot;FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_lifecycle_requires_fresh_0\\owner'&quot;">src\bamboozle\tests\test_identity.py:19: in peers
+    owner, receiver = Workspace(tmp_path / "owner"), Workspace(tmp_path / "receiver")
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;string&gt;:5: in __init__
+    ???
+src\bamboozle\workspace.py:20: in __post_init__
+    root = self.root.resolve(strict=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\pathlib\_local.py:670: in resolve
+    return self.with_segments(os.path.realpath(self, strict=strict))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;frozen ntpath&gt;:738: in realpath
+    ???
+E   FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_lifecycle_requires_fresh_0\\owner'</error></testcase><testcase classname="src.bamboozle.tests.test_identity" name="test_tamper_never_creates_admission[sender-other]" time="0.002"><error message="failed on setup with &quot;FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_tamper_never_creates_admi0\\owner'&quot;">src\bamboozle\tests\test_identity.py:19: in peers
+    owner, receiver = Workspace(tmp_path / "owner"), Workspace(tmp_path / "receiver")
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;string&gt;:5: in __init__
+    ???
+src\bamboozle\workspace.py:20: in __post_init__
+    root = self.root.resolve(strict=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\pathlib\_local.py:670: in resolve
+    return self.with_segments(os.path.realpath(self, strict=strict))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;frozen ntpath&gt;:738: in realpath
+    ???
+E   FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_tamper_never_creates_admi0\\owner'</error></testcase><testcase classname="src.bamboozle.tests.test_identity" name="test_tamper_never_creates_admission[recipient-other]" time="0.002"><error message="failed on setup with &quot;FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_tamper_never_creates_admi1\\owner'&quot;">src\bamboozle\tests\test_identity.py:19: in peers
+    owner, receiver = Workspace(tmp_path / "owner"), Workspace(tmp_path / "receiver")
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;string&gt;:5: in __init__
+    ???
+src\bamboozle\workspace.py:20: in __post_init__
+    root = self.root.resolve(strict=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\pathlib\_local.py:670: in resolve
+    return self.with_segments(os.path.realpath(self, strict=strict))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;frozen ntpath&gt;:738: in realpath
+    ???
+E   FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_tamper_never_creates_admi1\\owner'</error></testcase><testcase classname="src.bamboozle.tests.test_identity" name="test_tamper_never_creates_admission[purpose-project-return]" time="0.001"><error message="failed on setup with &quot;FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_tamper_never_creates_admi2\\owner'&quot;">src\bamboozle\tests\test_identity.py:19: in peers
+    owner, receiver = Workspace(tmp_path / "owner"), Workspace(tmp_path / "receiver")
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;string&gt;:5: in __init__
+    ???
+src\bamboozle\workspace.py:20: in __post_init__
+    root = self.root.resolve(strict=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\pathlib\_local.py:670: in resolve
+    return self.with_segments(os.path.realpath(self, strict=strict))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;frozen ntpath&gt;:738: in realpath
+    ???
+E   FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_tamper_never_creates_admi2\\owner'</error></testcase><testcase classname="src.bamboozle.tests.test_identity" name="test_tamper_never_creates_admission[message_id-00000000000000000000000000000000]" time="0.002"><error message="failed on setup with &quot;FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_tamper_never_creates_admi3\\owner'&quot;">src\bamboozle\tests\test_identity.py:19: in peers
+    owner, receiver = Workspace(tmp_path / "owner"), Workspace(tmp_path / "receiver")
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;string&gt;:5: in __init__
+    ???
+src\bamboozle\workspace.py:20: in __post_init__
+    root = self.root.resolve(strict=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\pathlib\_local.py:670: in resolve
+    return self.with_segments(os.path.realpath(self, strict=strict))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;frozen ntpath&gt;:738: in realpath
+    ???
+E   FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_tamper_never_creates_admi3\\owner'</error></testcase><testcase classname="src.bamboozle.tests.test_identity" name="test_tamper_never_creates_admission[expires_at-1]" time="0.002"><error message="failed on setup with &quot;FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_tamper_never_creates_admi4\\owner'&quot;">src\bamboozle\tests\test_identity.py:19: in peers
+    owner, receiver = Workspace(tmp_path / "owner"), Workspace(tmp_path / "receiver")
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;string&gt;:5: in __init__
+    ???
+src\bamboozle\workspace.py:20: in __post_init__
+    root = self.root.resolve(strict=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\pathlib\_local.py:670: in resolve
+    return self.with_segments(os.path.realpath(self, strict=strict))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;frozen ntpath&gt;:738: in realpath
+    ???
+E   FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_tamper_never_creates_admi4\\owner'</error></testcase><testcase classname="src.bamboozle.tests.test_identity" name="test_tamper_never_creates_admission[schema_version-1]" time="0.001"><error message="failed on setup with &quot;FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_tamper_never_creates_admi5\\owner'&quot;">src\bamboozle\tests\test_identity.py:19: in peers
+    owner, receiver = Workspace(tmp_path / "owner"), Workspace(tmp_path / "receiver")
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;string&gt;:5: in __init__
+    ???
+src\bamboozle\workspace.py:20: in __post_init__
+    root = self.root.resolve(strict=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\pathlib\_local.py:670: in resolve
+    return self.with_segments(os.path.realpath(self, strict=strict))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;frozen ntpath&gt;:738: in realpath
+    ???
+E   FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_tamper_never_creates_admi5\\owner'</error></testcase><testcase classname="src.bamboozle.tests.test_identity" name="test_tamper_never_creates_admission[nonce-AAAA]" time="0.001"><error message="failed on setup with &quot;FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_tamper_never_creates_admi6\\owner'&quot;">src\bamboozle\tests\test_identity.py:19: in peers
+    owner, receiver = Workspace(tmp_path / "owner"), Workspace(tmp_path / "receiver")
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;string&gt;:5: in __init__
+    ???
+src\bamboozle\workspace.py:20: in __post_init__
+    root = self.root.resolve(strict=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\pathlib\_local.py:670: in resolve
+    return self.with_segments(os.path.realpath(self, strict=strict))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;frozen ntpath&gt;:738: in realpath
+    ???
+E   FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_tamper_never_creates_admi6\\owner'</error></testcase><testcase classname="src.bamboozle.tests.test_identity" name="test_tamper_never_creates_admission[ciphertext-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]" time="0.001"><error message="failed on setup with &quot;FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_tamper_never_creates_admi7\\owner'&quot;">src\bamboozle\tests\test_identity.py:19: in peers
+    owner, receiver = Workspace(tmp_path / "owner"), Workspace(tmp_path / "receiver")
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;string&gt;:5: in __init__
+    ???
+src\bamboozle\workspace.py:20: in __post_init__
+    root = self.root.resolve(strict=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\pathlib\_local.py:670: in resolve
+    return self.with_segments(os.path.realpath(self, strict=strict))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;frozen ntpath&gt;:738: in realpath
+    ???
+E   FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_tamper_never_creates_admi7\\owner'</error></testcase><testcase classname="src.bamboozle.tests.test_identity" name="test_protocols_do_not_downgrade_or_substitute_purpose" time="0.001"><error message="failed on setup with &quot;FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_protocols_do_not_downgrad0\\owner'&quot;">src\bamboozle\tests\test_identity.py:19: in peers
+    owner, receiver = Workspace(tmp_path / "owner"), Workspace(tmp_path / "receiver")
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;string&gt;:5: in __init__
+    ???
+src\bamboozle\workspace.py:20: in __post_init__
+    root = self.root.resolve(strict=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\pathlib\_local.py:670: in resolve
+    return self.with_segments(os.path.realpath(self, strict=strict))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;frozen ntpath&gt;:738: in realpath
+    ???
+E   FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_protocols_do_not_downgrad0\\owner'</error></testcase><testcase classname="src.bamboozle.tests.test_identity" name="test_expiry_future_clock_and_retirement_cutoff" time="0.001"><error message="failed on setup with &quot;FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_expiry_future_clock_and_r0\\owner'&quot;">src\bamboozle\tests\test_identity.py:19: in peers
+    owner, receiver = Workspace(tmp_path / "owner"), Workspace(tmp_path / "receiver")
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;string&gt;:5: in __init__
+    ???
+src\bamboozle\workspace.py:20: in __post_init__
+    root = self.root.resolve(strict=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\pathlib\_local.py:670: in resolve
+    return self.with_segments(os.path.realpath(self, strict=strict))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;frozen ntpath&gt;:738: in realpath
+    ???
+E   FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_expiry_future_clock_and_r0\\owner'</error></testcase><testcase classname="src.bamboozle.tests.test_identity" name="test_file_recovery_preserves_reservation_and_rejects_replay" time="0.001"><error message="failed on setup with &quot;FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_file_recovery_preserves_r0\\owner'&quot;">src\bamboozle\tests\test_identity.py:19: in peers
+    owner, receiver = Workspace(tmp_path / "owner"), Workspace(tmp_path / "receiver")
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;string&gt;:5: in __init__
+    ???
+src\bamboozle\workspace.py:20: in __post_init__
+    root = self.root.resolve(strict=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\pathlib\_local.py:670: in resolve
+    return self.with_segments(os.path.realpath(self, strict=strict))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;frozen ntpath&gt;:738: in realpath
+    ???
+E   FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_file_recovery_preserves_r0\\owner'</error></testcase><testcase classname="src.bamboozle.tests.test_identity" name="test_pending_delivery_recovers_after_expiry_but_not_revocation[False]" time="0.002"><error message="failed on setup with &quot;FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_pending_delivery_recovers0\\owner'&quot;">src\bamboozle\tests\test_identity.py:19: in peers
+    owner, receiver = Workspace(tmp_path / "owner"), Workspace(tmp_path / "receiver")
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;string&gt;:5: in __init__
+    ???
+src\bamboozle\workspace.py:20: in __post_init__
+    root = self.root.resolve(strict=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\pathlib\_local.py:670: in resolve
+    return self.with_segments(os.path.realpath(self, strict=strict))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;frozen ntpath&gt;:738: in realpath
+    ???
+E   FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_pending_delivery_recovers0\\owner'</error></testcase><testcase classname="src.bamboozle.tests.test_identity" name="test_pending_delivery_recovers_after_expiry_but_not_revocation[True]" time="0.001"><error message="failed on setup with &quot;FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_pending_delivery_recovers1\\owner'&quot;">src\bamboozle\tests\test_identity.py:19: in peers
+    owner, receiver = Workspace(tmp_path / "owner"), Workspace(tmp_path / "receiver")
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;string&gt;:5: in __init__
+    ???
+src\bamboozle\workspace.py:20: in __post_init__
+    root = self.root.resolve(strict=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\pathlib\_local.py:670: in resolve
+    return self.with_segments(os.path.realpath(self, strict=strict))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;frozen ntpath&gt;:738: in realpath
+    ???
+E   FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_pending_delivery_recovers1\\owner'</error></testcase><testcase classname="src.bamboozle.tests.test_identity" name="test_project_extraction_retains_one_delivery_through_recovery[main.py]" time="0.001"><error message="failed on setup with &quot;FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_project_extraction_retain0\\owner'&quot;">src\bamboozle\tests\test_identity.py:19: in peers
+    owner, receiver = Workspace(tmp_path / "owner"), Workspace(tmp_path / "receiver")
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;string&gt;:5: in __init__
+    ???
+src\bamboozle\workspace.py:20: in __post_init__
+    root = self.root.resolve(strict=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\pathlib\_local.py:670: in resolve
+    return self.with_segments(os.path.realpath(self, strict=strict))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;frozen ntpath&gt;:738: in realpath
+    ???
+E   FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_project_extraction_retain0\\owner'</error></testcase><testcase classname="src.bamboozle.tests.test_identity" name="test_project_extraction_retains_one_delivery_through_recovery[result.json]" time="0.002"><error message="failed on setup with &quot;FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_project_extraction_retain1\\owner'&quot;">src\bamboozle\tests\test_identity.py:19: in peers
+    owner, receiver = Workspace(tmp_path / "owner"), Workspace(tmp_path / "receiver")
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;string&gt;:5: in __init__
+    ???
+src\bamboozle\workspace.py:20: in __post_init__
+    root = self.root.resolve(strict=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\pathlib\_local.py:670: in resolve
+    return self.with_segments(os.path.realpath(self, strict=strict))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;frozen ntpath&gt;:738: in realpath
+    ???
+E   FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_project_extraction_retain1\\owner'</error></testcase><testcase classname="src.bamboozle.tests.test_identity" name="test_review_apply_recovery_keeps_authenticated_admission[False]" time="0.001"><error message="failed on setup with &quot;FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_review_apply_recovery_kee0\\owner'&quot;">src\bamboozle\tests\test_identity.py:19: in peers
+    owner, receiver = Workspace(tmp_path / "owner"), Workspace(tmp_path / "receiver")
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;string&gt;:5: in __init__
+    ???
+src\bamboozle\workspace.py:20: in __post_init__
+    root = self.root.resolve(strict=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\pathlib\_local.py:670: in resolve
+    return self.with_segments(os.path.realpath(self, strict=strict))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;frozen ntpath&gt;:738: in realpath
+    ???
+E   FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_review_apply_recovery_kee0\\owner'</error></testcase><testcase classname="src.bamboozle.tests.test_identity" name="test_review_apply_recovery_keeps_authenticated_admission[True]" time="0.001"><error message="failed on setup with &quot;FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_review_apply_recovery_kee1\\owner'&quot;">src\bamboozle\tests\test_identity.py:19: in peers
+    owner, receiver = Workspace(tmp_path / "owner"), Workspace(tmp_path / "receiver")
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;string&gt;:5: in __init__
+    ???
+src\bamboozle\workspace.py:20: in __post_init__
+    root = self.root.resolve(strict=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\pathlib\_local.py:670: in resolve
+    return self.with_segments(os.path.realpath(self, strict=strict))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;frozen ntpath&gt;:738: in realpath
+    ???
+E   FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\identity-focused-01\\test_review_apply_recovery_kee1\\owner'</error></testcase><testcase classname="src.bamboozle.tests.test_identity" name="test_complete_managed_cli_and_stdio_applications" time="22.894" /></testsuite></testsuites>

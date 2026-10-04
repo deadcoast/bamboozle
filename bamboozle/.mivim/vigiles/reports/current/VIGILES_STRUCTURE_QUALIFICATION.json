@@ -1,0 +1,1874 @@
+{
+  "artifacts": {
+    "bamboozle-0.7.0-py3-none-any.whl": {
+      "bytes": 237702,
+      "sha256": "969a76f9be772cdd8b391b5a4f867477dfa868a90a519fa5aa6d0d3517c9258b"
+    },
+    "bamboozle-0.7.0.tar.gz": {
+      "bytes": 288659,
+      "sha256": "ba51a20a02b52469a28cc2d01059b1a60c8768d7bc70069e456cce9d295624c5"
+    }
+  },
+  "completed": "2026-10-04T17:17:22.124471Z",
+  "design": {
+    "done_criteria": [
+      "Define and validate explicit local profile rules",
+      "Report actionable structural violations through audit and MCP",
+      "Enforce relevant rules at native operation boundaries with retained evidence"
+    ],
+    "method": "Bounded scoped inventories and complete prospective overlays; exact profile and snapshot certificates in contexts/review digests; private refusal receipts and original journal recovery without rewriting history.",
+    "owner": "Bamboozle owns explicit profile evaluation and native publication guards; Vandal reports its fingerprint and routes the product interfaces.",
+    "source": ".mivim/vigiles/specs/vigiles-vanilla_0.1.md:55-56"
+  },
+  "id": "VIG-CORE-PROFILE-01",
+  "installed_application": {
+    "agent": {
+      "invalid_syntax_and_missing_companion_refused": true,
+      "original_unchanged_on_refusal": true,
+      "private_profile_refused": true,
+      "saved": {
+        "backup_saved": true,
+        "before_sha256": "44b834881395814d49aad351ee660a5e89dc6d6d0cfe5f1e451330c68ab09b84",
+        "context_sha256": "2ebc615dec1d36005fb667d672dc7188f353ff14ba276a60e6cc47f0167da37a",
+        "dictionary_sha256": "0bdc79b262fda8eabd1baf33b39bd2c8b4e0e3a3a70bc9cdf0e4cf90c3d5f841",
+        "document_format": "text",
+        "file_path": "app/core.py",
+        "history": ".vigiles/cipher/changes/2fea8f2438c040899a66d8d39a46744a",
+        "marker_version": 2,
+        "operation_id": "2fea8f2438c040899a66d8d39a46744a",
+        "output_bytes": 932,
+        "output_saved": true,
+        "output_sha256": "72b184835ff40c80c965c11f4041878cdc00e782461634cc0e343016abbe77c0",
+        "receipt_saved": true,
+        "schema_version": 1,
+        "status": "saved",
+        "structure": {
+          "profile_sha256": "ec6aaf943e73a2362f2c44c8dfbb44ed0d63e2615ad3d532f5a7e6b01aaeb944",
+          "schema_version": 1,
+          "snapshot_sha256": "429fcf544eb04c974c11fafbca9745f3cb61ad0c9a4c809c43c8a5d2258d841f"
+        }
+      }
+    },
+    "baseline": {
+      "application": {
+        "groups": {
+          "g0": 270,
+          "g1": 290,
+          "g2": 310
+        },
+        "records": 30,
+        "total": 870
+      },
+      "tests": 2,
+      "unittest_output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.007s\n\nOK\n",
+      "workloads": 240
+    },
+    "draft": {
+      "check_sha256": "f1cdba88a5ce57f1c15dcf102a640e63873913461f9a880449b0cf337ecef0b9",
+      "complete": true,
+      "configured": true,
+      "entries": 6,
+      "files": 4,
+      "finding_count": 0,
+      "findings": [],
+      "findings_complete": true,
+      "findings_truncated": false,
+      "name": "group-processor",
+      "next_offset": null,
+      "ok": true,
+      "profile": "draft.structure-profile.json",
+      "profile_sha256": "ec6aaf943e73a2362f2c44c8dfbb44ed0d63e2615ad3d532f5a7e6b01aaeb944",
+      "schema_version": 1,
+      "snapshot_sha256": "666b98cab6e16452886e6a6021e52af537c64f18b9b90532eb3f629217eb922a",
+      "status": "valid"
+    },
+    "final_structure": {
+      "check_sha256": "6b0159a7999218bcea4a2a9b011871f6b7d4c2fd25911f49f263defc2f177983",
+      "complete": true,
+      "configured": true,
+      "entries": 8,
+      "files": 6,
+      "finding_count": 0,
+      "findings": [],
+      "findings_complete": true,
+      "findings_truncated": false,
+      "name": "group-processor",
+      "next_offset": null,
+      "ok": true,
+      "profile": ".vigiles/structure.json",
+      "profile_sha256": "ec6aaf943e73a2362f2c44c8dfbb44ed0d63e2615ad3d532f5a7e6b01aaeb944",
+      "schema_version": 1,
+      "snapshot_sha256": "3477a40b442c3310554038c264e3ff525b7d98dfeee5790df2efe201dd6930a6",
+      "status": "valid"
+    },
+    "neutral": {
+      "application": {
+        "groups": {
+          "g0": 270,
+          "g1": 290,
+          "g2": 310
+        },
+        "ranking": [
+          "g2",
+          "g1",
+          "g0"
+        ],
+        "records": 30,
+        "total": 870
+      },
+      "tests": 5,
+      "unittest_output": ".....\n----------------------------------------------------------------------\nRan 5 tests in 0.008s\n\nOK\n",
+      "workloads": 300
+    },
+    "partial_import": {
+      "applied_files": [
+        "app/__main__.py",
+        "app/summary.py"
+      ],
+      "error": "Injected companion publication interruption",
+      "files": {
+        "app/__init__.py": "unchanged",
+        "app/__main__.py": "applied",
+        "app/core.py": "unchanged",
+        "app/summary.py": "applied",
+        "records.json": "unchanged",
+        "tests/test_core.py": "unchanged",
+        "tests/test_summary.py": "pending"
+      },
+      "journal_saved": true,
+      "output_saved": true,
+      "receipt_saved": false,
+      "review_sha256": "a001bef36b8de7aafd37eb2392488900e39b2550ab27bc5b4eb59caa59e0d063",
+      "schema_version": 1,
+      "status": "error",
+      "structure": {
+        "profile_sha256": "ec6aaf943e73a2362f2c44c8dfbb44ed0d63e2615ad3d532f5a7e6b01aaeb944",
+        "schema_version": 1,
+        "snapshot_sha256": "3477a40b442c3310554038c264e3ff525b7d98dfeee5790df2efe201dd6930a6"
+      },
+      "view_id": "d6a639beceaa4cc88348f86700a64893"
+    },
+    "recovered": {
+      "applied_files": [
+        "app/__main__.py",
+        "app/summary.py",
+        "tests/test_summary.py"
+      ],
+      "journal_saved": true,
+      "output_saved": true,
+      "receipt_saved": true,
+      "review_sha256": "a001bef36b8de7aafd37eb2392488900e39b2550ab27bc5b4eb59caa59e0d063",
+      "schema_version": 1,
+      "status": "recovered",
+      "structure": {
+        "profile_sha256": "ec6aaf943e73a2362f2c44c8dfbb44ed0d63e2615ad3d532f5a7e6b01aaeb944",
+        "schema_version": 1,
+        "snapshot_sha256": "3477a40b442c3310554038c264e3ff525b7d98dfeee5790df2efe201dd6930a6"
+      },
+      "view_id": "d6a639beceaa4cc88348f86700a64893"
+    },
+    "refusals": {
+      ".vigiles/structure/refusals/48b8fadc19df4244a4fd380ea42c3255.json": "c0e35eb1045668f1cc4c533eec68c7b6128a6d1158b3cb40f6231815192e8110",
+      ".vigiles/structure/refusals/736f0fad9149415793bc4cb25724c52d.json": "a73412f17790a5ea143f941b29e3b263c3751e8763082616e1e414007d313e12",
+      ".vigiles/structure/refusals/9531713f0e394f8db5a52fbbc1d3749f.json": "86996a9a77227b4f5e998d2b0bdc582732322860018f60803720c9b55808db82"
+    },
+    "refused_review": {
+      "action_count": 1,
+      "changes": [
+        {
+          "action": "create",
+          "before_sha256": null,
+          "diff": "--- retained-original\n+++ restored-edits\n@@ -0,0 +1,6 @@\n+from .core import alpha\n+\n+def rank(records, multiplier):\n+    result = alpha(records, multiplier)\n+    result[\"ranking\"] = sorted(result[\"groups\"], key=lambda key: (-result[\"groups\"][key], key))\n+    return result\n",
+          "diff_complete": true,
+          "output_bytes": 210,
+          "output_sha256": "8cb09a8fed21e6816a672dadfc66a6cffb1826fd01cecf461a44b37c8f11fec0",
+          "path": "app/summary.py",
+          "policy": "translate"
+        }
+      ],
+      "conflicts": [
+        {
+          "path": ".vigiles/structure.json",
+          "reason": "Proposed source tree violates the structural profile; inspect structural_validation findings"
+        }
+      ],
+      "ok": false,
+      "output_saved": false,
+      "return_validation": {
+        "advisory": "Diagnostics do not decide edit intent; inspect decoded diffs before applying the exact review digest.",
+        "analysis_complete": true,
+        "files": [
+          {
+            "analysis_complete": true,
+            "baseline_available": true,
+            "baseline_encoded_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+            "counts": {},
+            "decodable": true,
+            "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+            "decoded_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "dictionary_sha256": "0bdc79b262fda8eabd1baf33b39bd2c8b4e0e3a3a70bc9cdf0e4cf90c3d5f841",
+            "document_byte_limit": 16777216,
+            "document_rules": {
+              "format": "text"
+            },
+            "edited_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "finding_count": 0,
+            "findings": [],
+            "findings_complete": true,
+            "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+            "marker_version": 2,
+            "next_offset": null,
+            "offset": 0,
+            "ok": true,
+            "output_saved": false,
+            "path": "app/__init__.py",
+            "schema_version": 1,
+            "status": "accepted",
+            "validation_sha256": "da7a486d5bec25e629d0531b09dfd300aa2badad12758319a3fdf1990a99dea0",
+            "validator_version": "2"
+          },
+          {
+            "analysis_complete": true,
+            "baseline_available": true,
+            "baseline_encoded_sha256": "4377381e0bddc53a23b028c1c6c94509f04a76a019ebd6bbe846d558c2b5d545",
+            "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+            "counts": {},
+            "decodable": true,
+            "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+            "decoded_sha256": "ce501ebf7ac1ef918311ce70cfe9c49d8c90863484a92e19edf09753894dbdf1",
+            "dictionary_sha256": "0bdc79b262fda8eabd1baf33b39bd2c8b4e0e3a3a70bc9cdf0e4cf90c3d5f841",
+            "document_byte_limit": 16777216,
+            "document_rules": {
+              "format": "text"
+            },
+            "edited_sha256": "4377381e0bddc53a23b028c1c6c94509f04a76a019ebd6bbe846d558c2b5d545",
+            "finding_count": 0,
+            "findings": [],
+            "findings_complete": true,
+            "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+            "marker_version": 2,
+            "next_offset": null,
+            "offset": 0,
+            "ok": true,
+            "output_saved": false,
+            "path": "app/__main__.py",
+            "schema_version": 1,
+            "status": "accepted",
+            "validation_sha256": "d309f25f9b9020fce1ddc8186c4d3dacbe85e4df9a7888f015e622c08b1e8cfe",
+            "validator_version": "2"
+          },
+          {
+            "analysis_complete": true,
+            "baseline_available": true,
+            "baseline_encoded_sha256": "34bcba90bd86463993c97740eaba49bf7c91127dd58cb229d4737933bf962094",
+            "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+            "counts": {},
+            "decodable": true,
+            "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+            "decoded_sha256": "72b184835ff40c80c965c11f4041878cdc00e782461634cc0e343016abbe77c0",
+            "dictionary_sha256": "0bdc79b262fda8eabd1baf33b39bd2c8b4e0e3a3a70bc9cdf0e4cf90c3d5f841",
+            "document_byte_limit": 16777216,
+            "document_rules": {
+              "format": "text"
+            },
+            "edited_sha256": "34bcba90bd86463993c97740eaba49bf7c91127dd58cb229d4737933bf962094",
+            "finding_count": 0,
+            "findings": [],
+            "findings_complete": true,
+            "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+            "marker_version": 2,
+            "next_offset": null,
+            "offset": 0,
+            "ok": true,
+            "output_saved": false,
+            "path": "app/core.py",
+            "schema_version": 1,
+            "status": "accepted",
+            "validation_sha256": "e4ac303de0b3182069a6d6a7682747ff394817e140f697f99b60431a5871089e",
+            "validator_version": "2"
+          },
+          {
+            "analysis_complete": true,
+            "baseline_available": false,
+            "baseline_encoded_sha256": null,
+            "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+            "counts": {
+              "ambiguous_target": 2
+            },
+            "decodable": true,
+            "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+            "decoded_sha256": "8cb09a8fed21e6816a672dadfc66a6cffb1826fd01cecf461a44b37c8f11fec0",
+            "dictionary_sha256": "0bdc79b262fda8eabd1baf33b39bd2c8b4e0e3a3a70bc9cdf0e4cf90c3d5f841",
+            "document_byte_limit": 16777216,
+            "document_rules": {
+              "format": "text"
+            },
+            "edited_sha256": "ce10e165bd3e8c3ba4b63f1fb579058761d2efe2ca4aa500b9bd651744cd4e42",
+            "finding_count": 2,
+            "findings": [
+              {
+                "code": "ambiguous_target",
+                "index": 0,
+                "literal_marker": "__SCM_LIT_omega__",
+                "location": {
+                  "column": 19,
+                  "line": 1,
+                  "offset": 18
+                },
+                "message": "Changed-line unmarked target will reverse-map; preserve with a literal marker if meant literally.",
+                "source_term": "alpha",
+                "term": "omega"
+              },
+              {
+                "code": "ambiguous_target",
+                "index": 1,
+                "literal_marker": "__SCM_LIT_omega__",
+                "location": {
+                  "column": 14,
+                  "line": 4,
+                  "offset": 69
+                },
+                "message": "Changed-line unmarked target will reverse-map; preserve with a literal marker if meant literally.",
+                "source_term": "alpha",
+                "term": "omega"
+              }
+            ],
+            "findings_complete": true,
+            "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+            "marker_version": 2,
+            "next_offset": null,
+            "offset": 0,
+            "ok": false,
+            "output_saved": false,
+            "path": "app/summary.py",
+            "schema_version": 1,
+            "status": "needs_review",
+            "validation_sha256": "b0e44e7a88fcd3834a020c3b9cb8335deed9e600abcac51699184ab1cebae7e7",
+            "validator_version": "2"
+          },
+          {
+            "analysis_complete": true,
+            "baseline_available": true,
+            "baseline_encoded_sha256": "acae4a99af9834d8c51d37375470c6969980808c1f4f9b4eba4dd93b994f1041",
+            "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+            "counts": {},
+            "decodable": true,
+            "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+            "decoded_sha256": "31556308415e714bad0b68d9fbe1ea43f486cde7f811f1f0aa251a2bedde4a72",
+            "dictionary_sha256": "0bdc79b262fda8eabd1baf33b39bd2c8b4e0e3a3a70bc9cdf0e4cf90c3d5f841",
+            "document_byte_limit": 16777216,
+            "document_rules": {
+              "format": "text"
+            },
+            "edited_sha256": "acae4a99af9834d8c51d37375470c6969980808c1f4f9b4eba4dd93b994f1041",
+            "finding_count": 0,
+            "findings": [],
+            "findings_complete": true,
+            "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+            "marker_version": 2,
+            "next_offset": null,
+            "offset": 0,
+            "ok": true,
+            "output_saved": false,
+            "path": "tests/test_core.py",
+            "schema_version": 1,
+            "status": "accepted",
+            "validation_sha256": "7cade5541811f30f76dfd74e93c48c8f5003a1d74fde0818c01bab749b6acc2c",
+            "validator_version": "2"
+          }
+        ],
+        "finding_count": 2,
+        "findings_complete": true,
+        "scope": "all_translated_returns",
+        "status": "refused"
+      },
+      "review_sha256": null,
+      "schema_version": 1,
+      "status": "conflict",
+      "structural_validation": {
+        "complete": true,
+        "entries": 7,
+        "files": 5,
+        "finding_count": 1,
+        "findings": [
+          {
+            "code": "companion",
+            "message": "Provide companion file tests/test_summary.py",
+            "path": "app/summary.py",
+            "rule": "companions/0"
+          }
+        ],
+        "findings_truncated": false,
+        "ok": false,
+        "snapshot_sha256": "ed1944326bde11e80c9320d459fcfbda5563b2dbef1fa02945a0ff1e2fe07135"
+      },
+      "structure": {
+        "profile_sha256": "ec6aaf943e73a2362f2c44c8dfbb44ed0d63e2615ad3d532f5a7e6b01aaeb944",
+        "schema_version": 1,
+        "snapshot_sha256": "ed1944326bde11e80c9320d459fcfbda5563b2dbef1fa02945a0ff1e2fe07135"
+      },
+      "view_id": "d6a639beceaa4cc88348f86700a64893"
+    },
+    "restored": {
+      "application": {
+        "groups": {
+          "g0": 270,
+          "g1": 290,
+          "g2": 310
+        },
+        "ranking": [
+          "g2",
+          "g1",
+          "g0"
+        ],
+        "records": 30,
+        "total": 870
+      },
+      "tests": 5,
+      "unittest_output": ".....\n----------------------------------------------------------------------\nRan 5 tests in 0.007s\n\nOK\n",
+      "workloads": 300
+    },
+    "review": {
+      "action_count": 3,
+      "changes": [
+        {
+          "action": "modify",
+          "before_sha256": "ce501ebf7ac1ef918311ce70cfe9c49d8c90863484a92e19edf09753894dbdf1",
+          "diff": "--- retained-original\n+++ restored-edits\n@@ -1,10 +1,10 @@\n import argparse\n import json\n from pathlib import Path\n-from .core import alpha\n+from .summary import rank\n \n parser = argparse.ArgumentParser()\n parser.add_argument(\"records\")\n parser.add_argument(\"--multiplier\", type=int, default=2)\n args = parser.parse_args()\n-print(json.dumps(alpha(json.loads(Path(args.records).read_bytes()), args.multiplier)))\n+print(json.dumps(rank(json.loads(Path(args.records).read_bytes()), args.multiplier)))\n",
+          "diff_complete": true,
+          "output_bytes": 316,
+          "output_sha256": "3f82b3c754eaccb174b8a6f316c70c16ad67807ecdbc8c7ff845a7136409aded",
+          "path": "app/__main__.py",
+          "policy": "translate"
+        },
+        {
+          "action": "create",
+          "before_sha256": null,
+          "diff": "--- retained-original\n+++ restored-edits\n@@ -0,0 +1,6 @@\n+from .core import alpha\n+\n+def rank(records, multiplier):\n+    result = alpha(records, multiplier)\n+    result[\"ranking\"] = sorted(result[\"groups\"], key=lambda key: (-result[\"groups\"][key], key))\n+    return result\n",
+          "diff_complete": true,
+          "output_bytes": 210,
+          "output_sha256": "8cb09a8fed21e6816a672dadfc66a6cffb1826fd01cecf461a44b37c8f11fec0",
+          "path": "app/summary.py",
+          "policy": "translate"
+        },
+        {
+          "action": "create",
+          "before_sha256": null,
+          "diff": "--- retained-original\n+++ restored-edits\n@@ -0,0 +1,19 @@\n+import unittest\n+from app.summary import rank\n+\n+class Ranking(unittest.TestCase):\n+    def test_ranked_workloads(self):\n+        for size in range(60):\n+            rows = [{\"id\": str(i), \"group\": \"g\" + str(i % 4), \"amount\": i} for i in range(size)]\n+            report = rank(rows, 2)\n+            self.assertEqual(report[\"total\"], sum(range(size)) * 2)\n+            self.assertEqual(report[\"ranking\"], sorted(report[\"groups\"], key=lambda key: (-report[\"groups\"][key], key)))\n+\n+    def test_ties_and_empty(self):\n+        rows = [{\"id\": key, \"group\": key, \"amount\": 4} for key in (\"b\", \"a\")]\n+        self.assertEqual(rank(rows, 2)[\"ranking\"], [\"a\", \"b\"])\n+        self.assertEqual(rank([], 2)[\"ranking\"], [])\n+\n+    def test_dependency_rejects_invalid(self):\n+        with self.assertRaises(ValueError):\n+            rank([{\"id\": \"x\", \"group\": \"g\", \"amount\": True}], 2)\n",
+          "diff_complete": true,
+          "output_bytes": 856,
+          "output_sha256": "ba7b8ff55f1314ea2fb534fd704e83434edf09e8c66784f6909559653c2b2238",
+          "path": "tests/test_summary.py",
+          "policy": "translate"
+        }
+      ],
+      "conflicts": [],
+      "ok": true,
+      "output_saved": false,
+      "return_validation": {
+        "advisory": "Diagnostics do not decide edit intent; inspect decoded diffs before applying the exact review digest.",
+        "analysis_complete": true,
+        "files": [
+          {
+            "analysis_complete": true,
+            "baseline_available": true,
+            "baseline_encoded_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+            "counts": {},
+            "decodable": true,
+            "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+            "decoded_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "dictionary_sha256": "0bdc79b262fda8eabd1baf33b39bd2c8b4e0e3a3a70bc9cdf0e4cf90c3d5f841",
+            "document_byte_limit": 16777216,
+            "document_rules": {
+              "format": "text"
+            },
+            "edited_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "finding_count": 0,
+            "findings": [],
+            "findings_complete": true,
+            "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+            "marker_version": 2,
+            "next_offset": null,
+            "offset": 0,
+            "ok": true,
+            "output_saved": false,
+            "path": "app/__init__.py",
+            "schema_version": 1,
+            "status": "accepted",
+            "validation_sha256": "da7a486d5bec25e629d0531b09dfd300aa2badad12758319a3fdf1990a99dea0",
+            "validator_version": "2"
+          },
+          {
+            "analysis_complete": true,
+            "baseline_available": true,
+            "baseline_encoded_sha256": "4377381e0bddc53a23b028c1c6c94509f04a76a019ebd6bbe846d558c2b5d545",
+            "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+            "counts": {
+              "controlled_term_removed": 1
+            },
+            "decodable": true,
+            "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+            "decoded_sha256": "3f82b3c754eaccb174b8a6f316c70c16ad67807ecdbc8c7ff845a7136409aded",
+            "dictionary_sha256": "0bdc79b262fda8eabd1baf33b39bd2c8b4e0e3a3a70bc9cdf0e4cf90c3d5f841",
+            "document_byte_limit": 16777216,
+            "document_rules": {
+              "format": "text"
+            },
+            "edited_sha256": "3f82b3c754eaccb174b8a6f316c70c16ad67807ecdbc8c7ff845a7136409aded",
+            "finding_count": 1,
+            "findings": [
+              {
+                "code": "controlled_term_removed",
+                "index": 0,
+                "message": "Controlled vocabulary occurrence count decreased; inspect possible deletion or terminology drift. Synonyms are not inferred.",
+                "neutral_term": "omega",
+                "removed_count": 2,
+                "source_term": "alpha"
+              }
+            ],
+            "findings_complete": true,
+            "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+            "marker_version": 2,
+            "next_offset": null,
+            "offset": 0,
+            "ok": false,
+            "output_saved": false,
+            "path": "app/__main__.py",
+            "schema_version": 1,
+            "status": "needs_review",
+            "validation_sha256": "10f7e225e51d094649091b8e7a02bd0c57fc3a48325d89c95a5e8b5264494b08",
+            "validator_version": "2"
+          },
+          {
+            "analysis_complete": true,
+            "baseline_available": true,
+            "baseline_encoded_sha256": "34bcba90bd86463993c97740eaba49bf7c91127dd58cb229d4737933bf962094",
+            "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+            "counts": {},
+            "decodable": true,
+            "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+            "decoded_sha256": "72b184835ff40c80c965c11f4041878cdc00e782461634cc0e343016abbe77c0",
+            "dictionary_sha256": "0bdc79b262fda8eabd1baf33b39bd2c8b4e0e3a3a70bc9cdf0e4cf90c3d5f841",
+            "document_byte_limit": 16777216,
+            "document_rules": {
+              "format": "text"
+            },
+            "edited_sha256": "34bcba90bd86463993c97740eaba49bf7c91127dd58cb229d4737933bf962094",
+            "finding_count": 0,
+            "findings": [],
+            "findings_complete": true,
+            "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+            "marker_version": 2,
+            "next_offset": null,
+            "offset": 0,
+            "ok": true,
+            "output_saved": false,
+            "path": "app/core.py",
+            "schema_version": 1,
+            "status": "accepted",
+            "validation_sha256": "e4ac303de0b3182069a6d6a7682747ff394817e140f697f99b60431a5871089e",
+            "validator_version": "2"
+          },
+          {
+            "analysis_complete": true,
+            "baseline_available": false,
+            "baseline_encoded_sha256": null,
+            "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+            "counts": {
+              "ambiguous_target": 2
+            },
+            "decodable": true,
+            "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+            "decoded_sha256": "8cb09a8fed21e6816a672dadfc66a6cffb1826fd01cecf461a44b37c8f11fec0",
+            "dictionary_sha256": "0bdc79b262fda8eabd1baf33b39bd2c8b4e0e3a3a70bc9cdf0e4cf90c3d5f841",
+            "document_byte_limit": 16777216,
+            "document_rules": {
+              "format": "text"
+            },
+            "edited_sha256": "ce10e165bd3e8c3ba4b63f1fb579058761d2efe2ca4aa500b9bd651744cd4e42",
+            "finding_count": 2,
+            "findings": [
+              {
+                "code": "ambiguous_target",
+                "index": 0,
+                "literal_marker": "__SCM_LIT_omega__",
+                "location": {
+                  "column": 19,
+                  "line": 1,
+                  "offset": 18
+                },
+                "message": "Changed-line unmarked target will reverse-map; preserve with a literal marker if meant literally.",
+                "source_term": "alpha",
+                "term": "omega"
+              },
+              {
+                "code": "ambiguous_target",
+                "index": 1,
+                "literal_marker": "__SCM_LIT_omega__",
+                "location": {
+                  "column": 14,
+                  "line": 4,
+                  "offset": 69
+                },
+                "message": "Changed-line unmarked target will reverse-map; preserve with a literal marker if meant literally.",
+                "source_term": "alpha",
+                "term": "omega"
+              }
+            ],
+            "findings_complete": true,
+            "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+            "marker_version": 2,
+            "next_offset": null,
+            "offset": 0,
+            "ok": false,
+            "output_saved": false,
+            "path": "app/summary.py",
+            "schema_version": 1,
+            "status": "needs_review",
+            "validation_sha256": "b0e44e7a88fcd3834a020c3b9cb8335deed9e600abcac51699184ab1cebae7e7",
+            "validator_version": "2"
+          },
+          {
+            "analysis_complete": true,
+            "baseline_available": true,
+            "baseline_encoded_sha256": "acae4a99af9834d8c51d37375470c6969980808c1f4f9b4eba4dd93b994f1041",
+            "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+            "counts": {},
+            "decodable": true,
+            "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+            "decoded_sha256": "31556308415e714bad0b68d9fbe1ea43f486cde7f811f1f0aa251a2bedde4a72",
+            "dictionary_sha256": "0bdc79b262fda8eabd1baf33b39bd2c8b4e0e3a3a70bc9cdf0e4cf90c3d5f841",
+            "document_byte_limit": 16777216,
+            "document_rules": {
+              "format": "text"
+            },
+            "edited_sha256": "acae4a99af9834d8c51d37375470c6969980808c1f4f9b4eba4dd93b994f1041",
+            "finding_count": 0,
+            "findings": [],
+            "findings_complete": true,
+            "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+            "marker_version": 2,
+            "next_offset": null,
+            "offset": 0,
+            "ok": true,
+            "output_saved": false,
+            "path": "tests/test_core.py",
+            "schema_version": 1,
+            "status": "accepted",
+            "validation_sha256": "7cade5541811f30f76dfd74e93c48c8f5003a1d74fde0818c01bab749b6acc2c",
+            "validator_version": "2"
+          },
+          {
+            "analysis_complete": true,
+            "baseline_available": false,
+            "baseline_encoded_sha256": null,
+            "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+            "counts": {},
+            "decodable": true,
+            "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+            "decoded_sha256": "ba7b8ff55f1314ea2fb534fd704e83434edf09e8c66784f6909559653c2b2238",
+            "dictionary_sha256": "0bdc79b262fda8eabd1baf33b39bd2c8b4e0e3a3a70bc9cdf0e4cf90c3d5f841",
+            "document_byte_limit": 16777216,
+            "document_rules": {
+              "format": "text"
+            },
+            "edited_sha256": "ba7b8ff55f1314ea2fb534fd704e83434edf09e8c66784f6909559653c2b2238",
+            "finding_count": 0,
+            "findings": [],
+            "findings_complete": true,
+            "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+            "marker_version": 2,
+            "next_offset": null,
+            "offset": 0,
+            "ok": true,
+            "output_saved": false,
+            "path": "tests/test_summary.py",
+            "schema_version": 1,
+            "status": "accepted",
+            "validation_sha256": "16c78f39fa02ee8b6f10b0ce111eb39f93535109881da1fa05825e7e9aacdaf8",
+            "validator_version": "2"
+          }
+        ],
+        "finding_count": 3,
+        "findings_complete": true,
+        "scope": "all_translated_returns",
+        "status": "needs_review"
+      },
+      "review_sha256": "a001bef36b8de7aafd37eb2392488900e39b2550ab27bc5b4eb59caa59e0d063",
+      "schema_version": 1,
+      "status": "review",
+      "structural_validation": {
+        "complete": true,
+        "entries": 8,
+        "files": 6,
+        "finding_count": 0,
+        "findings": [],
+        "findings_truncated": false,
+        "ok": true,
+        "snapshot_sha256": "3477a40b442c3310554038c264e3ff525b7d98dfeee5790df2efe201dd6930a6"
+      },
+      "structure": {
+        "profile_sha256": "ec6aaf943e73a2362f2c44c8dfbb44ed0d63e2615ad3d532f5a7e6b01aaeb944",
+        "schema_version": 1,
+        "snapshot_sha256": "3477a40b442c3310554038c264e3ff525b7d98dfeee5790df2efe201dd6930a6"
+      },
+      "view_id": "d6a639beceaa4cc88348f86700a64893"
+    },
+    "stale_recovery": {
+      "applied_files": [
+        "app/__main__.py",
+        "app/summary.py"
+      ],
+      "error": "Structural profile or scoped source changed; recheck the operation. Retained evidence: .vigiles/structure/refusals/736f0fad9149415793bc4cb25724c52d.json",
+      "files": {
+        "app/__init__.py": "unchanged",
+        "app/__main__.py": "applied",
+        "app/core.py": "unchanged",
+        "app/summary.py": "applied",
+        "records.json": "unchanged",
+        "tests/test_core.py": "unchanged",
+        "tests/test_summary.py": "pending"
+      },
+      "journal_saved": true,
+      "output_saved": true,
+      "receipt_saved": false,
+      "review_sha256": "a001bef36b8de7aafd37eb2392488900e39b2550ab27bc5b4eb59caa59e0d063",
+      "schema_version": 1,
+      "status": "error",
+      "view_id": "d6a639beceaa4cc88348f86700a64893"
+    },
+    "status": "passed",
+    "structure_module": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-tmekk43u\\wheel-env\\Lib\\site-packages\\bamboozle\\structure.py",
+    "updated": {
+      "application": {
+        "groups": {
+          "g0": 270,
+          "g1": 290,
+          "g2": 310
+        },
+        "records": 30,
+        "total": 870
+      },
+      "tests": 2,
+      "unittest_output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.007s\n\nOK\n",
+      "workloads": 240
+    },
+    "workspace": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-tmekk43u\\runtime\\structure-workflow"
+  },
+  "limits": [
+    "Structural/syntax/companion existence checks do not prove application semantics or test quality",
+    "Guards cover documented Bamboozle publication surfaces, not raw filesystem writes or OS isolation",
+    "Bounded optimistic rechecks are not filesystem transactions",
+    "Evaluation caps: 10000 entries, 64 MiB total and 2000 retained findings; explicit incomplete/truncation diagnostics",
+    "Current evidence is local Windows Python 3.13; remote CI and other runtimes remain open",
+    "Recipient registry, key lifecycle, replay semantics and external acceptance remain separate work"
+  ],
+  "original_c_methods": {
+    "checkpoint": "c53f0bfded51667437fc837cd33ede37745ae9c5",
+    "files_verified_unchanged_since_prior_qualification": {
+      "include/cipher.h": "aa557c4570ca5262767865c19a72c998ce0d56c6c8b6f50fd1555676c9bf2655",
+      "include/ciphers/affine.h": "e599d6998f56586d08f7306641deecdbb8d6026f2cce7713c26494ba705cb953",
+      "include/ciphers/atbash.h": "13046766e47212d1fd8e7a78e8abb8d1a8766e5dc780cdd60d7e712a09c2ae25",
+      "include/ciphers/beaufort.h": "c59f2ad5859d26883b6591b87a374b1eaf62863de6012b342316dd65e08896a6",
+      "include/ciphers/caesar.h": "935609abd842cba158f8b13f1bcac3070019ec854c8b1b9453745051dceab811",
+      "include/ciphers/columnar_transposition.h": "19da69b4a85a102b4ef801206869a2ff49ea999aef1cd8b06bc6ef40abf4dee9",
+      "include/ciphers/gronsfeld.h": "0fea60a621ca8e36dd04257da2081458e053efd1237950a32d6228b4869699d8",
+      "include/ciphers/polybius_square.h": "5984a898309a802368c36d005248e661c7b31532213efbba7535bf611588bd4e",
+      "include/ciphers/rail_fence.h": "49c7f6f7f2513e99dfff9bdbf6d33934376a43bb2b890138dd220cfa35a9230a",
+      "include/ciphers/rot13.h": "65787fb4e27e024a02cdc7e89b03b26028ad38a212cc36643d24f10d61d02710",
+      "include/ciphers/scytale.h": "422cd1919f8e3d360f0dfbaa22f44da0ccc22f85cffde5ebf8fcdebd7235de9e",
+      "include/ciphers/vigenere.h": "1b5e093d7f0f5b7c5abb0273532b3d9f4c164ecf824fb864724ddf39de53332d",
+      "include/utils/alpha.h": "1365299fc4d26a1b14232647e4afa107269428dbb254dff6f1c22d34aba0067b",
+      "src/ciphers/README.md": "dcecc532dedfa459b46a0f44b8f52e8b2f4dd6f6146ffd34b08eadabb933abe1",
+      "src/ciphers/affine.c": "21dde85fd4a7cd8694754ff9dfa73b88a7c340d4c1182692587966b56b929769",
+      "src/ciphers/atbash.c": "ee9387b9e349a6991ae00741f9a52d896fc59677d31651ed93428a05ae6439dc",
+      "src/ciphers/beaufort.c": "97ac49e2e9e0ca9baa2990b59edc832ad06bcb5be7d21fc23342069035d5608c",
+      "src/ciphers/caesar.c": "e86133a23e3a5c075d6124ccc96d075a416f9af99b91ebb65a63f00dc4768e01",
+      "src/ciphers/columnar_transposition.c": "435a75f3210d120b5c89557ab64ad38ae5a76c1db737c137b316acf7b503d51d",
+      "src/ciphers/gronsfeld.c": "490d3a7f3c3f49fe545f381b922eb500735a21c6c24fb0027a34e0644c9daae4",
+      "src/ciphers/polybius_square.c": "2fbdf7f5f0adeb9a73b11741e2863104e51eb2830999539265eeac28eed2ac57",
+      "src/ciphers/rail_fence.c": "662b05d9d90fcdbb498afcdaa4b4e5b36521f6744141a10a39fc77c7d4c59ca8",
+      "src/ciphers/rot13.c": "450dcf31f06f93272268d6a1a8aa51a1222df710dc1f080992ef54b6f48fc88e",
+      "src/ciphers/scytale.c": "98c0c463c40fe002ae51de6e868051c51629e723c8465e6c28b925b90b647526",
+      "src/ciphers/vigenere.c": "575c19e78d35efc83a4a9c0ad48d52d4490d1cc1deb44d06d11b08304df36b74"
+    }
+  },
+  "preserved_evidence": {
+    "additional_pre_fix_probes": "structure-edge-probe.json",
+    "directory": ".mivim\\vigiles\\reports\\archive\\runs\\20261004-structural-profiles",
+    "first_application_fixture_error": {
+      "correction": "Qualification now declares text document rules explicitly",
+      "error": "Structured new-file rules require translate policy and document rules",
+      "workspace": ".test-tmp/structure-application-01"
+    },
+    "first_full_run": {
+      "corrections": [
+        "Operator MCP inventory updated for the new tool",
+        "Truncated finding lists no longer claim complete coverage"
+      ],
+      "failed": 2,
+      "log": ".test-tmp/verify-2qbdvwnb/pytest.log",
+      "passed": 1232
+    },
+    "focused_counts": [
+      34,
+      98,
+      40,
+      54
+    ],
+    "initial_environment_constraints": [
+      "Sandbox could not read the prior verified wheel",
+      "Default global uv cache was inaccessible; required qualification used the existing repository uv cache with scoped approval"
+    ],
+    "previous_artifacts": [
+      "bamboozle-0.7.0-py3-none-any.whl",
+      "bamboozle-0.7.0.tar.gz"
+    ],
+    "probe_corrections": [
+      "Removed profiles invalidate paginated checks",
+      "Publication guards re-read control bytes after evaluation"
+    ]
+  },
+  "product_version": "0.7.0",
+  "profile_sha256": "9324ce2b09e80f18f744dcd67856df61b00f61f067b587fbe5bedfeaebf97e89",
+  "repository_profile": {
+    "check_sha256": "f2d7a9e20f3484fa3a0b5b5613f645b6ddd49d678b2b04c404af0ac0425ae107",
+    "complete": true,
+    "configured": true,
+    "entries": 90,
+    "files": 87,
+    "finding_count": 0,
+    "findings": [],
+    "findings_complete": true,
+    "findings_truncated": false,
+    "name": "bamboozle-core",
+    "next_offset": null,
+    "ok": true,
+    "profile": ".vigiles/structure.json",
+    "profile_sha256": "9324ce2b09e80f18f744dcd67856df61b00f61f067b587fbe5bedfeaebf97e89",
+    "schema_version": 1,
+    "snapshot_sha256": "efe8dd176f623a2521c57a4ebc18cdff965b3178bf726fe277d7bdaf3429926c",
+    "status": "valid"
+  },
+  "schema_version": 1,
+  "scope": "Explicit structural rules across decoded agent writes, file conversion/restoration, reviewed batch imports and binary publication; complete CLI and source-agent/operator stdio application workflows, 300 workloads in neutral/restored vocabularies, drift refusals and partial-import recovery from source and isolated installed wheel.",
+  "source_application": {
+    "agent": {
+      "invalid_syntax_and_missing_companion_refused": true,
+      "original_unchanged_on_refusal": true,
+      "private_profile_refused": true,
+      "saved": {
+        "backup_saved": true,
+        "before_sha256": "44b834881395814d49aad351ee660a5e89dc6d6d0cfe5f1e451330c68ab09b84",
+        "context_sha256": "2ebc615dec1d36005fb667d672dc7188f353ff14ba276a60e6cc47f0167da37a",
+        "dictionary_sha256": "0bdc79b262fda8eabd1baf33b39bd2c8b4e0e3a3a70bc9cdf0e4cf90c3d5f841",
+        "document_format": "text",
+        "file_path": "app/core.py",
+        "history": ".vigiles/cipher/changes/50df5fceef7146858627c23d9a84f85c",
+        "marker_version": 2,
+        "operation_id": "50df5fceef7146858627c23d9a84f85c",
+        "output_bytes": 932,
+        "output_saved": true,
+        "output_sha256": "72b184835ff40c80c965c11f4041878cdc00e782461634cc0e343016abbe77c0",
+        "receipt_saved": true,
+        "schema_version": 1,
+        "status": "saved",
+        "structure": {
+          "profile_sha256": "ec6aaf943e73a2362f2c44c8dfbb44ed0d63e2615ad3d532f5a7e6b01aaeb944",
+          "schema_version": 1,
+          "snapshot_sha256": "429fcf544eb04c974c11fafbca9745f3cb61ad0c9a4c809c43c8a5d2258d841f"
+        }
+      }
+    },
+    "baseline": {
+      "application": {
+        "groups": {
+          "g0": 270,
+          "g1": 290,
+          "g2": 310
+        },
+        "records": 30,
+        "total": 870
+      },
+      "tests": 2,
+      "unittest_output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.007s\n\nOK\n",
+      "workloads": 240
+    },
+    "draft": {
+      "check_sha256": "f1cdba88a5ce57f1c15dcf102a640e63873913461f9a880449b0cf337ecef0b9",
+      "complete": true,
+      "configured": true,
+      "entries": 6,
+      "files": 4,
+      "finding_count": 0,
+      "findings": [],
+      "findings_complete": true,
+      "findings_truncated": false,
+      "name": "group-processor",
+      "next_offset": null,
+      "ok": true,
+      "profile": "draft.structure-profile.json",
+      "profile_sha256": "ec6aaf943e73a2362f2c44c8dfbb44ed0d63e2615ad3d532f5a7e6b01aaeb944",
+      "schema_version": 1,
+      "snapshot_sha256": "666b98cab6e16452886e6a6021e52af537c64f18b9b90532eb3f629217eb922a",
+      "status": "valid"
+    },
+    "final_structure": {
+      "check_sha256": "6b0159a7999218bcea4a2a9b011871f6b7d4c2fd25911f49f263defc2f177983",
+      "complete": true,
+      "configured": true,
+      "entries": 8,
+      "files": 6,
+      "finding_count": 0,
+      "findings": [],
+      "findings_complete": true,
+      "findings_truncated": false,
+      "name": "group-processor",
+      "next_offset": null,
+      "ok": true,
+      "profile": ".vigiles/structure.json",
+      "profile_sha256": "ec6aaf943e73a2362f2c44c8dfbb44ed0d63e2615ad3d532f5a7e6b01aaeb944",
+      "schema_version": 1,
+      "snapshot_sha256": "3477a40b442c3310554038c264e3ff525b7d98dfeee5790df2efe201dd6930a6",
+      "status": "valid"
+    },
+    "neutral": {
+      "application": {
+        "groups": {
+          "g0": 270,
+          "g1": 290,
+          "g2": 310
+        },
+        "ranking": [
+          "g2",
+          "g1",
+          "g0"
+        ],
+        "records": 30,
+        "total": 870
+      },
+      "tests": 5,
+      "unittest_output": ".....\n----------------------------------------------------------------------\nRan 5 tests in 0.008s\n\nOK\n",
+      "workloads": 300
+    },
+    "partial_import": {
+      "applied_files": [
+        "app/__main__.py",
+        "app/summary.py"
+      ],
+      "error": "Injected companion publication interruption",
+      "files": {
+        "app/__init__.py": "unchanged",
+        "app/__main__.py": "applied",
+        "app/core.py": "unchanged",
+        "app/summary.py": "applied",
+        "records.json": "unchanged",
+        "tests/test_core.py": "unchanged",
+        "tests/test_summary.py": "pending"
+      },
+      "journal_saved": true,
+      "output_saved": true,
+      "receipt_saved": false,
+      "review_sha256": "7789090eec6fac11ce01a72bc96496d5bc75b590bd19606c561fbe67bd15bde1",
+      "schema_version": 1,
+      "status": "error",
+      "structure": {
+        "profile_sha256": "ec6aaf943e73a2362f2c44c8dfbb44ed0d63e2615ad3d532f5a7e6b01aaeb944",
+        "schema_version": 1,
+        "snapshot_sha256": "3477a40b442c3310554038c264e3ff525b7d98dfeee5790df2efe201dd6930a6"
+      },
+      "view_id": "b7ee29bcdbbf4529b61a634990665557"
+    },
+    "recovered": {
+      "applied_files": [
+        "app/__main__.py",
+        "app/summary.py",
+        "tests/test_summary.py"
+      ],
+      "journal_saved": true,
+      "output_saved": true,
+      "receipt_saved": true,
+      "review_sha256": "7789090eec6fac11ce01a72bc96496d5bc75b590bd19606c561fbe67bd15bde1",
+      "schema_version": 1,
+      "status": "recovered",
+      "structure": {
+        "profile_sha256": "ec6aaf943e73a2362f2c44c8dfbb44ed0d63e2615ad3d532f5a7e6b01aaeb944",
+        "schema_version": 1,
+        "snapshot_sha256": "3477a40b442c3310554038c264e3ff525b7d98dfeee5790df2efe201dd6930a6"
+      },
+      "view_id": "b7ee29bcdbbf4529b61a634990665557"
+    },
+    "refusals": {
+      ".vigiles/structure/refusals/093ffca796214baca5a75ee498b62229.json": "2eb43c4f529253d9d98ba218ca1f81fb1853f7dcd0222af56a695ec6dd0f11a7",
+      ".vigiles/structure/refusals/82505bfdf5d546a8abf05c04fd5ebf6c.json": "ac726d5c2c2b03bf42be0843b12bbfe439b523a1a13a95a02b96b06ab8eaf736",
+      ".vigiles/structure/refusals/f124391153ba44939160158e86bf7904.json": "293a55052c7c647bd51eac3dd55f4a334071f773c3d2652e37d1a5717179e6e6"
+    },
+    "refused_review": {
+      "action_count": 1,
+      "changes": [
+        {
+          "action": "create",
+          "before_sha256": null,
+          "diff": "--- retained-original\n+++ restored-edits\n@@ -0,0 +1,6 @@\n+from .core import alpha\n+\n+def rank(records, multiplier):\n+    result = alpha(records, multiplier)\n+    result[\"ranking\"] = sorted(result[\"groups\"], key=lambda key: (-result[\"groups\"][key], key))\n+    return result\n",
+          "diff_complete": true,
+          "output_bytes": 210,
+          "output_sha256": "8cb09a8fed21e6816a672dadfc66a6cffb1826fd01cecf461a44b37c8f11fec0",
+          "path": "app/summary.py",
+          "policy": "translate"
+        }
+      ],
+      "conflicts": [
+        {
+          "path": ".vigiles/structure.json",
+          "reason": "Proposed source tree violates the structural profile; inspect structural_validation findings"
+        }
+      ],
+      "ok": false,
+      "output_saved": false,
+      "return_validation": {
+        "advisory": "Diagnostics do not decide edit intent; inspect decoded diffs before applying the exact review digest.",
+        "analysis_complete": true,
+        "files": [
+          {
+            "analysis_complete": true,
+            "baseline_available": true,
+            "baseline_encoded_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+            "counts": {},
+            "decodable": true,
+            "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+            "decoded_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "dictionary_sha256": "0bdc79b262fda8eabd1baf33b39bd2c8b4e0e3a3a70bc9cdf0e4cf90c3d5f841",
+            "document_byte_limit": 16777216,
+            "document_rules": {
+              "format": "text"
+            },
+            "edited_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "finding_count": 0,
+            "findings": [],
+            "findings_complete": true,
+            "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+            "marker_version": 2,
+            "next_offset": null,
+            "offset": 0,
+            "ok": true,
+            "output_saved": false,
+            "path": "app/__init__.py",
+            "schema_version": 1,
+            "status": "accepted",
+            "validation_sha256": "da7a486d5bec25e629d0531b09dfd300aa2badad12758319a3fdf1990a99dea0",
+            "validator_version": "2"
+          },
+          {
+            "analysis_complete": true,
+            "baseline_available": true,
+            "baseline_encoded_sha256": "4377381e0bddc53a23b028c1c6c94509f04a76a019ebd6bbe846d558c2b5d545",
+            "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+            "counts": {},
+            "decodable": true,
+            "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+            "decoded_sha256": "ce501ebf7ac1ef918311ce70cfe9c49d8c90863484a92e19edf09753894dbdf1",
+            "dictionary_sha256": "0bdc79b262fda8eabd1baf33b39bd2c8b4e0e3a3a70bc9cdf0e4cf90c3d5f841",
+            "document_byte_limit": 16777216,
+            "document_rules": {
+              "format": "text"
+            },
+            "edited_sha256": "4377381e0bddc53a23b028c1c6c94509f04a76a019ebd6bbe846d558c2b5d545",
+            "finding_count": 0,
+            "findings": [],
+            "findings_complete": true,
+            "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+            "marker_version": 2,
+            "next_offset": null,
+            "offset": 0,
+            "ok": true,
+            "output_saved": false,
+            "path": "app/__main__.py",
+            "schema_version": 1,
+            "status": "accepted",
+            "validation_sha256": "d309f25f9b9020fce1ddc8186c4d3dacbe85e4df9a7888f015e622c08b1e8cfe",
+            "validator_version": "2"
+          },
+          {
+            "analysis_complete": true,
+            "baseline_available": true,
+            "baseline_encoded_sha256": "34bcba90bd86463993c97740eaba49bf7c91127dd58cb229d4737933bf962094",
+            "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+            "counts": {},
+            "decodable": true,
+            "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+            "decoded_sha256": "72b184835ff40c80c965c11f4041878cdc00e782461634cc0e343016abbe77c0",
+            "dictionary_sha256": "0bdc79b262fda8eabd1baf33b39bd2c8b4e0e3a3a70bc9cdf0e4cf90c3d5f841",
+            "document_byte_limit": 16777216,
+            "document_rules": {
+              "format": "text"
+            },
+            "edited_sha256": "34bcba90bd86463993c97740eaba49bf7c91127dd58cb229d4737933bf962094",
+            "finding_count": 0,
+            "findings": [],
+            "findings_complete": true,
+            "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+            "marker_version": 2,
+            "next_offset": null,
+            "offset": 0,
+            "ok": true,
+            "output_saved": false,
+            "path": "app/core.py",
+            "schema_version": 1,
+            "status": "accepted",
+            "validation_sha256": "e4ac303de0b3182069a6d6a7682747ff394817e140f697f99b60431a5871089e",
+            "validator_version": "2"
+          },
+          {
+            "analysis_complete": true,
+            "baseline_available": false,
+            "baseline_encoded_sha256": null,
+            "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+            "counts": {
+              "ambiguous_target": 2
+            },
+            "decodable": true,
+            "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+            "decoded_sha256": "8cb09a8fed21e6816a672dadfc66a6cffb1826fd01cecf461a44b37c8f11fec0",
+            "dictionary_sha256": "0bdc79b262fda8eabd1baf33b39bd2c8b4e0e3a3a70bc9cdf0e4cf90c3d5f841",
+            "document_byte_limit": 16777216,
+            "document_rules": {
+              "format": "text"
+            },
+            "edited_sha256": "ce10e165bd3e8c3ba4b63f1fb579058761d2efe2ca4aa500b9bd651744cd4e42",
+            "finding_count": 2,
+            "findings": [
+              {
+                "code": "ambiguous_target",
+                "index": 0,
+                "literal_marker": "__SCM_LIT_omega__",
+                "location": {
+                  "column": 19,
+                  "line": 1,
+                  "offset": 18
+                },
+                "message": "Changed-line unmarked target will reverse-map; preserve with a literal marker if meant literally.",
+                "source_term": "alpha",
+                "term": "omega"
+              },
+              {
+                "code": "ambiguous_target",
+                "index": 1,
+                "literal_marker": "__SCM_LIT_omega__",
+                "location": {
+                  "column": 14,
+                  "line": 4,
+                  "offset": 69
+                },
+                "message": "Changed-line unmarked target will reverse-map; preserve with a literal marker if meant literally.",
+                "source_term": "alpha",
+                "term": "omega"
+              }
+            ],
+            "findings_complete": true,
+            "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+            "marker_version": 2,
+            "next_offset": null,
+            "offset": 0,
+            "ok": false,
+            "output_saved": false,
+            "path": "app/summary.py",
+            "schema_version": 1,
+            "status": "needs_review",
+            "validation_sha256": "b0e44e7a88fcd3834a020c3b9cb8335deed9e600abcac51699184ab1cebae7e7",
+            "validator_version": "2"
+          },
+          {
+            "analysis_complete": true,
+            "baseline_available": true,
+            "baseline_encoded_sha256": "acae4a99af9834d8c51d37375470c6969980808c1f4f9b4eba4dd93b994f1041",
+            "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+            "counts": {},
+            "decodable": true,
+            "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+            "decoded_sha256": "31556308415e714bad0b68d9fbe1ea43f486cde7f811f1f0aa251a2bedde4a72",
+            "dictionary_sha256": "0bdc79b262fda8eabd1baf33b39bd2c8b4e0e3a3a70bc9cdf0e4cf90c3d5f841",
+            "document_byte_limit": 16777216,
+            "document_rules": {
+              "format": "text"
+            },
+            "edited_sha256": "acae4a99af9834d8c51d37375470c6969980808c1f4f9b4eba4dd93b994f1041",
+            "finding_count": 0,
+            "findings": [],
+            "findings_complete": true,
+            "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+            "marker_version": 2,
+            "next_offset": null,
+            "offset": 0,
+            "ok": true,
+            "output_saved": false,
+            "path": "tests/test_core.py",
+            "schema_version": 1,
+            "status": "accepted",
+            "validation_sha256": "7cade5541811f30f76dfd74e93c48c8f5003a1d74fde0818c01bab749b6acc2c",
+            "validator_version": "2"
+          }
+        ],
+        "finding_count": 2,
+        "findings_complete": true,
+        "scope": "all_translated_returns",
+        "status": "refused"
+      },
+      "review_sha256": null,
+      "schema_version": 1,
+      "status": "conflict",
+      "structural_validation": {
+        "complete": true,
+        "entries": 7,
+        "files": 5,
+        "finding_count": 1,
+        "findings": [
+          {
+            "code": "companion",
+            "message": "Provide companion file tests/test_summary.py",
+            "path": "app/summary.py",
+            "rule": "companions/0"
+          }
+        ],
+        "findings_truncated": false,
+        "ok": false,
+        "snapshot_sha256": "ed1944326bde11e80c9320d459fcfbda5563b2dbef1fa02945a0ff1e2fe07135"
+      },
+      "structure": {
+        "profile_sha256": "ec6aaf943e73a2362f2c44c8dfbb44ed0d63e2615ad3d532f5a7e6b01aaeb944",
+        "schema_version": 1,
+        "snapshot_sha256": "ed1944326bde11e80c9320d459fcfbda5563b2dbef1fa02945a0ff1e2fe07135"
+      },
+      "view_id": "b7ee29bcdbbf4529b61a634990665557"
+    },
+    "restored": {
+      "application": {
+        "groups": {
+          "g0": 270,
+          "g1": 290,
+          "g2": 310
+        },
+        "ranking": [
+          "g2",
+          "g1",
+          "g0"
+        ],
+        "records": 30,
+        "total": 870
+      },
+      "tests": 5,
+      "unittest_output": ".....\n----------------------------------------------------------------------\nRan 5 tests in 0.008s\n\nOK\n",
+      "workloads": 300
+    },
+    "review": {
+      "action_count": 3,
+      "changes": [
+        {
+          "action": "modify",
+          "before_sha256": "ce501ebf7ac1ef918311ce70cfe9c49d8c90863484a92e19edf09753894dbdf1",
+          "diff": "--- retained-original\n+++ restored-edits\n@@ -1,10 +1,10 @@\n import argparse\n import json\n from pathlib import Path\n-from .core import alpha\n+from .summary import rank\n \n parser = argparse.ArgumentParser()\n parser.add_argument(\"records\")\n parser.add_argument(\"--multiplier\", type=int, default=2)\n args = parser.parse_args()\n-print(json.dumps(alpha(json.loads(Path(args.records).read_bytes()), args.multiplier)))\n+print(json.dumps(rank(json.loads(Path(args.records).read_bytes()), args.multiplier)))\n",
+          "diff_complete": true,
+          "output_bytes": 316,
+          "output_sha256": "3f82b3c754eaccb174b8a6f316c70c16ad67807ecdbc8c7ff845a7136409aded",
+          "path": "app/__main__.py",
+          "policy": "translate"
+        },
+        {
+          "action": "create",
+          "before_sha256": null,
+          "diff": "--- retained-original\n+++ restored-edits\n@@ -0,0 +1,6 @@\n+from .core import alpha\n+\n+def rank(records, multiplier):\n+    result = alpha(records, multiplier)\n+    result[\"ranking\"] = sorted(result[\"groups\"], key=lambda key: (-result[\"groups\"][key], key))\n+    return result\n",
+          "diff_complete": true,
+          "output_bytes": 210,
+          "output_sha256": "8cb09a8fed21e6816a672dadfc66a6cffb1826fd01cecf461a44b37c8f11fec0",
+          "path": "app/summary.py",
+          "policy": "translate"
+        },
+        {
+          "action": "create",
+          "before_sha256": null,
+          "diff": "--- retained-original\n+++ restored-edits\n@@ -0,0 +1,19 @@\n+import unittest\n+from app.summary import rank\n+\n+class Ranking(unittest.TestCase):\n+    def test_ranked_workloads(self):\n+        for size in range(60):\n+            rows = [{\"id\": str(i), \"group\": \"g\" + str(i % 4), \"amount\": i} for i in range(size)]\n+            report = rank(rows, 2)\n+            self.assertEqual(report[\"total\"], sum(range(size)) * 2)\n+            self.assertEqual(report[\"ranking\"], sorted(report[\"groups\"], key=lambda key: (-report[\"groups\"][key], key)))\n+\n+    def test_ties_and_empty(self):\n+        rows = [{\"id\": key, \"group\": key, \"amount\": 4} for key in (\"b\", \"a\")]\n+        self.assertEqual(rank(rows, 2)[\"ranking\"], [\"a\", \"b\"])\n+        self.assertEqual(rank([], 2)[\"ranking\"], [])\n+\n+    def test_dependency_rejects_invalid(self):\n+        with self.assertRaises(ValueError):\n+            rank([{\"id\": \"x\", \"group\": \"g\", \"amount\": True}], 2)\n",
+          "diff_complete": true,
+          "output_bytes": 856,
+          "output_sha256": "ba7b8ff55f1314ea2fb534fd704e83434edf09e8c66784f6909559653c2b2238",
+          "path": "tests/test_summary.py",
+          "policy": "translate"
+        }
+      ],
+      "conflicts": [],
+      "ok": true,
+      "output_saved": false,
+      "return_validation": {
+        "advisory": "Diagnostics do not decide edit intent; inspect decoded diffs before applying the exact review digest.",
+        "analysis_complete": true,
+        "files": [
+          {
+            "analysis_complete": true,
+            "baseline_available": true,
+            "baseline_encoded_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+            "counts": {},
+            "decodable": true,
+            "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+            "decoded_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "dictionary_sha256": "0bdc79b262fda8eabd1baf33b39bd2c8b4e0e3a3a70bc9cdf0e4cf90c3d5f841",
+            "document_byte_limit": 16777216,
+            "document_rules": {
+              "format": "text"
+            },
+            "edited_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "finding_count": 0,
+            "findings": [],
+            "findings_complete": true,
+            "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+            "marker_version": 2,
+            "next_offset": null,
+            "offset": 0,
+            "ok": true,
+            "output_saved": false,
+            "path": "app/__init__.py",
+            "schema_version": 1,
+            "status": "accepted",
+            "validation_sha256": "da7a486d5bec25e629d0531b09dfd300aa2badad12758319a3fdf1990a99dea0",
+            "validator_version": "2"
+          },
+          {
+            "analysis_complete": true,
+            "baseline_available": true,
+            "baseline_encoded_sha256": "4377381e0bddc53a23b028c1c6c94509f04a76a019ebd6bbe846d558c2b5d545",
+            "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+            "counts": {
+              "controlled_term_removed": 1
+            },
+            "decodable": true,
+            "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+            "decoded_sha256": "3f82b3c754eaccb174b8a6f316c70c16ad67807ecdbc8c7ff845a7136409aded",
+            "dictionary_sha256": "0bdc79b262fda8eabd1baf33b39bd2c8b4e0e3a3a70bc9cdf0e4cf90c3d5f841",
+            "document_byte_limit": 16777216,
+            "document_rules": {
+              "format": "text"
+            },
+            "edited_sha256": "3f82b3c754eaccb174b8a6f316c70c16ad67807ecdbc8c7ff845a7136409aded",
+            "finding_count": 1,
+            "findings": [
+              {
+                "code": "controlled_term_removed",
+                "index": 0,
+                "message": "Controlled vocabulary occurrence count decreased; inspect possible deletion or terminology drift. Synonyms are not inferred.",
+                "neutral_term": "omega",
+                "removed_count": 2,
+                "source_term": "alpha"
+              }
+            ],
+            "findings_complete": true,
+            "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+            "marker_version": 2,
+            "next_offset": null,
+            "offset": 0,
+            "ok": false,
+            "output_saved": false,
+            "path": "app/__main__.py",
+            "schema_version": 1,
+            "status": "needs_review",
+            "validation_sha256": "10f7e225e51d094649091b8e7a02bd0c57fc3a48325d89c95a5e8b5264494b08",
+            "validator_version": "2"
+          },
+          {
+            "analysis_complete": true,
+            "baseline_available": true,
+            "baseline_encoded_sha256": "34bcba90bd86463993c97740eaba49bf7c91127dd58cb229d4737933bf962094",
+            "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+            "counts": {},
+            "decodable": true,
+            "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+            "decoded_sha256": "72b184835ff40c80c965c11f4041878cdc00e782461634cc0e343016abbe77c0",
+            "dictionary_sha256": "0bdc79b262fda8eabd1baf33b39bd2c8b4e0e3a3a70bc9cdf0e4cf90c3d5f841",
+            "document_byte_limit": 16777216,
+            "document_rules": {
+              "format": "text"
+            },
+            "edited_sha256": "34bcba90bd86463993c97740eaba49bf7c91127dd58cb229d4737933bf962094",
+            "finding_count": 0,
+            "findings": [],
+            "findings_complete": true,
+            "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+            "marker_version": 2,
+            "next_offset": null,
+            "offset": 0,
+            "ok": true,
+            "output_saved": false,
+            "path": "app/core.py",
+            "schema_version": 1,
+            "status": "accepted",
+            "validation_sha256": "e4ac303de0b3182069a6d6a7682747ff394817e140f697f99b60431a5871089e",
+            "validator_version": "2"
+          },
+          {
+            "analysis_complete": true,
+            "baseline_available": false,
+            "baseline_encoded_sha256": null,
+            "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+            "counts": {
+              "ambiguous_target": 2
+            },
+            "decodable": true,
+            "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+            "decoded_sha256": "8cb09a8fed21e6816a672dadfc66a6cffb1826fd01cecf461a44b37c8f11fec0",
+            "dictionary_sha256": "0bdc79b262fda8eabd1baf33b39bd2c8b4e0e3a3a70bc9cdf0e4cf90c3d5f841",
+            "document_byte_limit": 16777216,
+            "document_rules": {
+              "format": "text"
+            },
+            "edited_sha256": "ce10e165bd3e8c3ba4b63f1fb579058761d2efe2ca4aa500b9bd651744cd4e42",
+            "finding_count": 2,
+            "findings": [
+              {
+                "code": "ambiguous_target",
+                "index": 0,
+                "literal_marker": "__SCM_LIT_omega__",
+                "location": {
+                  "column": 19,
+                  "line": 1,
+                  "offset": 18
+                },
+                "message": "Changed-line unmarked target will reverse-map; preserve with a literal marker if meant literally.",
+                "source_term": "alpha",
+                "term": "omega"
+              },
+              {
+                "code": "ambiguous_target",
+                "index": 1,
+                "literal_marker": "__SCM_LIT_omega__",
+                "location": {
+                  "column": 14,
+                  "line": 4,
+                  "offset": 69
+                },
+                "message": "Changed-line unmarked target will reverse-map; preserve with a literal marker if meant literally.",
+                "source_term": "alpha",
+                "term": "omega"
+              }
+            ],
+            "findings_complete": true,
+            "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+            "marker_version": 2,
+            "next_offset": null,
+            "offset": 0,
+            "ok": false,
+            "output_saved": false,
+            "path": "app/summary.py",
+            "schema_version": 1,
+            "status": "needs_review",
+            "validation_sha256": "b0e44e7a88fcd3834a020c3b9cb8335deed9e600abcac51699184ab1cebae7e7",
+            "validator_version": "2"
+          },
+          {
+            "analysis_complete": true,
+            "baseline_available": true,
+            "baseline_encoded_sha256": "acae4a99af9834d8c51d37375470c6969980808c1f4f9b4eba4dd93b994f1041",
+            "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+            "counts": {},
+            "decodable": true,
+            "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+            "decoded_sha256": "31556308415e714bad0b68d9fbe1ea43f486cde7f811f1f0aa251a2bedde4a72",
+            "dictionary_sha256": "0bdc79b262fda8eabd1baf33b39bd2c8b4e0e3a3a70bc9cdf0e4cf90c3d5f841",
+            "document_byte_limit": 16777216,
+            "document_rules": {
+              "format": "text"
+            },
+            "edited_sha256": "acae4a99af9834d8c51d37375470c6969980808c1f4f9b4eba4dd93b994f1041",
+            "finding_count": 0,
+            "findings": [],
+            "findings_complete": true,
+            "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+            "marker_version": 2,
+            "next_offset": null,
+            "offset": 0,
+            "ok": true,
+            "output_saved": false,
+            "path": "tests/test_core.py",
+            "schema_version": 1,
+            "status": "accepted",
+            "validation_sha256": "7cade5541811f30f76dfd74e93c48c8f5003a1d74fde0818c01bab749b6acc2c",
+            "validator_version": "2"
+          },
+          {
+            "analysis_complete": true,
+            "baseline_available": false,
+            "baseline_encoded_sha256": null,
+            "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+            "counts": {},
+            "decodable": true,
+            "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+            "decoded_sha256": "ba7b8ff55f1314ea2fb534fd704e83434edf09e8c66784f6909559653c2b2238",
+            "dictionary_sha256": "0bdc79b262fda8eabd1baf33b39bd2c8b4e0e3a3a70bc9cdf0e4cf90c3d5f841",
+            "document_byte_limit": 16777216,
+            "document_rules": {
+              "format": "text"
+            },
+            "edited_sha256": "ba7b8ff55f1314ea2fb534fd704e83434edf09e8c66784f6909559653c2b2238",
+            "finding_count": 0,
+            "findings": [],
+            "findings_complete": true,
+            "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+            "marker_version": 2,
+            "next_offset": null,
+            "offset": 0,
+            "ok": true,
+            "output_saved": false,
+            "path": "tests/test_summary.py",
+            "schema_version": 1,
+            "status": "accepted",
+            "validation_sha256": "16c78f39fa02ee8b6f10b0ce111eb39f93535109881da1fa05825e7e9aacdaf8",
+            "validator_version": "2"
+          }
+        ],
+        "finding_count": 3,
+        "findings_complete": true,
+        "scope": "all_translated_returns",
+        "status": "needs_review"
+      },
+      "review_sha256": "7789090eec6fac11ce01a72bc96496d5bc75b590bd19606c561fbe67bd15bde1",
+      "schema_version": 1,
+      "status": "review",
+      "structural_validation": {
+        "complete": true,
+        "entries": 8,
+        "files": 6,
+        "finding_count": 0,
+        "findings": [],
+        "findings_truncated": false,
+        "ok": true,
+        "snapshot_sha256": "3477a40b442c3310554038c264e3ff525b7d98dfeee5790df2efe201dd6930a6"
+      },
+      "structure": {
+        "profile_sha256": "ec6aaf943e73a2362f2c44c8dfbb44ed0d63e2615ad3d532f5a7e6b01aaeb944",
+        "schema_version": 1,
+        "snapshot_sha256": "3477a40b442c3310554038c264e3ff525b7d98dfeee5790df2efe201dd6930a6"
+      },
+      "view_id": "b7ee29bcdbbf4529b61a634990665557"
+    },
+    "stale_recovery": {
+      "applied_files": [
+        "app/__main__.py",
+        "app/summary.py"
+      ],
+      "error": "Structural profile or scoped source changed; recheck the operation. Retained evidence: .vigiles/structure/refusals/f124391153ba44939160158e86bf7904.json",
+      "files": {
+        "app/__init__.py": "unchanged",
+        "app/__main__.py": "applied",
+        "app/core.py": "unchanged",
+        "app/summary.py": "applied",
+        "records.json": "unchanged",
+        "tests/test_core.py": "unchanged",
+        "tests/test_summary.py": "pending"
+      },
+      "journal_saved": true,
+      "output_saved": true,
+      "receipt_saved": false,
+      "review_sha256": "7789090eec6fac11ce01a72bc96496d5bc75b590bd19606c561fbe67bd15bde1",
+      "schema_version": 1,
+      "status": "error",
+      "view_id": "b7ee29bcdbbf4529b61a634990665557"
+    },
+    "status": "passed",
+    "structure_module": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\src\\bamboozle\\structure.py",
+    "updated": {
+      "application": {
+        "groups": {
+          "g0": 270,
+          "g1": 290,
+          "g2": 310
+        },
+        "records": 30,
+        "total": 870
+      },
+      "tests": 2,
+      "unittest_output": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.006s\n\nOK\n",
+      "workloads": 240
+    },
+    "workspace": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-fixtures-gh0z7j20\\pytest\\test_complete_application_cli_0\\structural-application"
+  },
+  "source_sha256": {
+    "../.github/workflows/vigiles.yml": "c979966ae8e8007ab070626c578fcc4acb45ebbe43e5de8257f3207907f543d1",
+    ".clang-format": "0e7a6cab64d4fb138e27d460a4cb779a9a46792a739fcaba3cd69c3a2a25d8e6",
+    ".mivim/mivim.vigiles.md": "723f86a1f5b3b1764df072fb3f54715648cf5c4ac586f487d0d69615a4854edf",
+    ".mivim/vigiles-vandal_0.2.md": "60ddc1714fc44a70871cab6f08b5d75f45b60352539991c1ebd689d312933b28",
+    ".vigiles/skills/vigiles-vandal/SKILL.md": "2174e9d6812570d33f50210ed94833558cbe0aedd33531c23f05974d96b073bf",
+    "AGENTS.md": "5eb19457db7b48a8477ddccd5d6412de427a2587fd4b24b8af354e70f7e7d15f",
+    "LICENSE": "2b41e397f7c53066d3c49e46a5c775de5806a7b034ef76fc6ccec14884e4db98",
+    "Makefile": "ffc1985aa2486525f7decebd6f40e74aa5c7094319340ce16865303899a52f48",
+    "README.md": "40f12cef93c0e799c91b70a3ba7a33334068f711f0cb6caca2336c21dc0ef888",
+    "include/cipher.h": "aa557c4570ca5262767865c19a72c998ce0d56c6c8b6f50fd1555676c9bf2655",
+    "include/ciphers/affine.h": "e599d6998f56586d08f7306641deecdbb8d6026f2cce7713c26494ba705cb953",
+    "include/ciphers/atbash.h": "13046766e47212d1fd8e7a78e8abb8d1a8766e5dc780cdd60d7e712a09c2ae25",
+    "include/ciphers/beaufort.h": "c59f2ad5859d26883b6591b87a374b1eaf62863de6012b342316dd65e08896a6",
+    "include/ciphers/caesar.h": "935609abd842cba158f8b13f1bcac3070019ec854c8b1b9453745051dceab811",
+    "include/ciphers/columnar_transposition.h": "19da69b4a85a102b4ef801206869a2ff49ea999aef1cd8b06bc6ef40abf4dee9",
+    "include/ciphers/gronsfeld.h": "0fea60a621ca8e36dd04257da2081458e053efd1237950a32d6228b4869699d8",
+    "include/ciphers/polybius_square.h": "5984a898309a802368c36d005248e661c7b31532213efbba7535bf611588bd4e",
+    "include/ciphers/rail_fence.h": "49c7f6f7f2513e99dfff9bdbf6d33934376a43bb2b890138dd220cfa35a9230a",
+    "include/ciphers/rot13.h": "65787fb4e27e024a02cdc7e89b03b26028ad38a212cc36643d24f10d61d02710",
+    "include/ciphers/scytale.h": "422cd1919f8e3d360f0dfbaa22f44da0ccc22f85cffde5ebf8fcdebd7235de9e",
+    "include/ciphers/vigenere.h": "1b5e093d7f0f5b7c5abb0273532b3d9f4c164ecf824fb864724ddf39de53332d",
+    "include/utils/alpha.h": "1365299fc4d26a1b14232647e4afa107269428dbb254dff6f1c22d34aba0067b",
+    "justfile": "1b8b82a15128ed42f32255e247c708423f8cad584e09e824d68ef3e1eac33d60",
+    "pyproject.toml": "0f6e4c73894c34754b29688d9d7ee1a9012d6f7c8f3a03830277142d4b05bce4",
+    "scripts/cipher_reference.py": "6c1925a87b47382e71c721e0adc7207dad0efb607b587d0b55f9c0e96d1e39b2",
+    "scripts/escape_smoke.py": "423f243e3ba1a25b8a78b018057a04aedde9faa71531d8fdb526aba56e15876f",
+    "scripts/exchange_smoke.py": "5d7ec6702f4c5f7f9dc476d1de9f7f8ee57b96f9e3ed7b8302ac88581b2b508c",
+    "scripts/fixture_scenario.py": "c52d19f89fe97d50aa6556906ae5384a5b93fc2f4dee5d62f582bdb6a8e0f720",
+    "scripts/package_smoke.py": "ea643d74ecc8e6ff57ffcd877e817c03bd85dcefb15af150222576d9ddfadfca",
+    "scripts/python_scenario.py": "9c32ccbe75cd16db38a5b5fd3e57d8773228d03067d6779ed581bb663dc0a464",
+    "scripts/python_smoke.py": "62ca5684aebcd1e0f3a3a4cfdd0b6bf60829728f167f462bb3280a8ae36f41e3",
+    "scripts/qualify_inventory.py": "8d274f0af7ba16570a0cd4731b242dcdeeb60100d31ed323050c6b034a7c9d31",
+    "scripts/qualify_pipeline.py": "a41c6401b7e863e060be2ebe2f10d92e8c2a9b5863fbec5deec1fa9e3aa7a272",
+    "scripts/qualify_plans.py": "2298acce5330789283e07c6701ec131c838899fa4f7573627d227af1904f831b",
+    "scripts/qualify_recovery.py": "3aa8d60c972ceebd38b770a90ea4f25487b3fcc95bee69d9ac84ee29e20dac40",
+    "scripts/return_smoke.py": "692580789f39f8e8ee6fa2cee465d0a4c0ba079c42d851bf1d42ef1818d2cb17",
+    "scripts/source_agent_smoke.py": "5989875100f466f6938253aa44e918ac5635422a16a5402fdb7e9a59fd948a1b",
+    "scripts/structure_smoke.py": "093df389580a001c0d07d56f5685154b75c9f267805a0cf8155677e9458e3e8d",
+    "scripts/vandal.py": "6e87e6f7b73b5e8264cd0436c2a2eb0530089aee8be148492b5f0e7f29fa8899",
+    "scripts/verify.py": "6eeb5aa10f3619b2a8042e5d4c31e09a502582c003c18f5dc6b34570467693b8",
+    "scripts/yaml_smoke.py": "b157b0fc837ca1c10a34ecd351a6c2d23c99384755d0ed58da5a9ee1ea4d4914",
+    "src/DECRYPT_FROM_AGENT.bat": "25ec45eff2279dfd24d09b6f76dfb6c702e724dd5b9d2aad28b602fa2aee65dd",
+    "src/ENCRYPT_FOR_AGENT.bat": "b261f32d499395b46f864a8658f6741ff0b4fc9d35b93d6ac173b5efda05b186",
+    "src/bamboozle/__init__.py": "99552d5e65f867040da8028295e5b3c3be9bb21a989c3bc026d842b8fc87e5a1",
+    "src/bamboozle/__main__.py": "c4e635a2015428e750f8e441975d34352b4386f23cdf596a2d7e87a8f2da2ca9",
+    "src/bamboozle/agent_checks.py": "dc6ca8902e53ba65d5a2c8a457ec061a7af93545600ee58bf1238ba6f0caab66",
+    "src/bamboozle/agent_development.py": "fc790c3214eee80582b36ee8dd7aad956e72b6c65bc95ae4c248fecda6185b1c",
+    "src/bamboozle/agent_files.py": "282b2a8905125d8f32ed15a55c9aceb092c1be35c5076deb262edc9f27a9c783",
+    "src/bamboozle/agent_policy.py": "6c25f0286714c026295318d87752b0e3a1e2a4e7712b205b896fe8d6246d438c",
+    "src/bamboozle/audit.py": "951d6bb08d81502913506bd6cebd9efe7325f7fd032fb278eaf4f3fa910d1ee2",
+    "src/bamboozle/audit_matrix.py": "0da01520a1f6b3c821b49833bf030a4d94be1885689c012affa4259bfc6317db",
+    "src/bamboozle/check_process.py": "69d1b7849f2914825f107d3040a0e3b0138e8c677231c1b480805c513d26dd94",
+    "src/bamboozle/cipher.py": "fa9e7c494be930fd9c1cb384159636e8ff382b672d2211887a423712592780ec",
+    "src/bamboozle/cipher_dict.json": "b49059d73a0965ea7bd0b790ef0a92cb86cada3898a203b8d5e3dce4d85b5dfe",
+    "src/bamboozle/cipher_operations.py": "0d8031cf492855f758d4c5b7f72bb645b3215cb1bb5bb5c3999762b0e793fd04",
+    "src/bamboozle/classical.py": "dcc8f5ee898413d5d0843271858da47e70f88c604b5ffba3f7c059aecf676f59",
+    "src/bamboozle/cli.py": "3edf66109f637241c39b90a9e417e69bd8fc54a56484b4298d002dcc38314189",
+    "src/bamboozle/dictionary.py": "641ad855668ee467051d4be6ef355953a7d626f89c055d5e25625faa4c39b1a3",
+    "src/bamboozle/engine.py": "ec778b2d91f5c7d68553799515cf49f5183600ac1c27c04b1c70f9c41886536e",
+    "src/bamboozle/evidence.py": "29656ca8fe9b04e286abebc552db9952c219265b29d27eb0938bff02e8be6533",
+    "src/bamboozle/fixture_rules.py": "f47b1c312494f8a7b3904029d486c249befb6cfc30557a3a603ab13a45e5af01",
+    "src/bamboozle/fixtures.py": "c42dba7b72d1a3f7ce404e89e73e7bf8c40db9c3733529d7def56cf2222d142e",
+    "src/bamboozle/formats.py": "b1e05f4304799e0bbaea22f2e6bab1da31c1761bf819d45da67ba3008b5ea0ad",
+    "src/bamboozle/lexicon.py": "2ad6abe41f30bc412582f3429511c5609bcd66f01f1353a593d0e3932e013414",
+    "src/bamboozle/markers.py": "90aa5605cad069839886bd89d4a23ff0d86a42c852440a8f4a2626b27816c2dd",
+    "src/bamboozle/mcp.py": "06dc0fb725c926d9bb46f9b3af86ff5e7b17e5cce2df59f883993e1ff9768754",
+    "src/bamboozle/migration.py": "ecfbec20e43f84f6a77685e397f0ed4e99b74e9161d50207b244254b67c87ff3",
+    "src/bamboozle/profanity_dict.json": "34f54a88062e12b0ba8353d9d59914144478cc11fc4f698beb7ad0b1fbdee35f",
+    "src/bamboozle/project_exchange.py": "d1c89f84e2f84551c0fc711d2d771d83da7fc0d96c70eeeb3e7b1ff95c1488b5",
+    "src/bamboozle/project_views.py": "bf9075fb6a334e235d0a90295bbe0c02ff99076e3279d36ed1ce0c5dd2f59371",
+    "src/bamboozle/python_project.py": "dd170a42b701a1db0011c2a7438912306c9db6bf0cd2ec8f645a830cf285d3e8",
+    "src/bamboozle/python_source.py": "1c43d3c5511716df8fc4a13491610507b5db00580e28b508813f9948b6f378fc",
+    "src/bamboozle/restoration.py": "48074a7305ebf5a3c04dede1dbe03f3d51f261115015b5d315896e1b47e4b59f",
+    "src/bamboozle/return_validation.py": "52cd0f863c6d169a7c502ec4b122ca4c0d657cf96fa565c087c813464c66f11b",
+    "src/bamboozle/scm_mcp.py": "48ba621b45966d607caaaf0781a941837e7330c5f6e705e51f0019e163b5ed24",
+    "src/bamboozle/service.py": "718343db8066fe19c43a8dcede7123ea76820407fade21c72512ed2f480f17e1",
+    "src/bamboozle/structure.py": "03932d28b897f70b2345e5842881e513ec25c06cf393e4ef0889ec37a7de55b1",
+    "src/bamboozle/tessera.py": "155ae5d87e8b8f615998819ff84d1768118bcc0e377eee2b034023bb95c35548",
+    "src/bamboozle/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/bamboozle/tests/test_agent_checks.py": "be7702ba74174a163866796321d03e01eb59313789e56ed3ed25a960c3917efc",
+    "src/bamboozle/tests/test_agent_development.py": "586135473ff28f9114cb99dbc9261703808e7fcd5b52f683189ba00e018eaaa9",
+    "src/bamboozle/tests/test_agent_files.py": "6c0938ac8b460e03f3be01689bf3f8a03f8c52a89d35788132a6b0cc5dcdd3a9",
+    "src/bamboozle/tests/test_agent_pipeline.py": "afd63fd8c7973d5f559541b07bf47ba53dcf405f8caa9729b0f34311211cd73a",
+    "src/bamboozle/tests/test_agent_policy.py": "bc603d741698c8b7fbc64b01716dd7563b59ed26b2a657241010a1a45de4813a",
+    "src/bamboozle/tests/test_audit_matrix.py": "96edd1911b986e665251d2f3ff0f53fc0cab298ba7e451a58c10de403f228583",
+    "src/bamboozle/tests/test_classical.py": "252727075a18cda9a8d64004e2391c4316d56b94c0cc167b3b6b13d84e57b23f",
+    "src/bamboozle/tests/test_cli_mcp.py": "13db3845cd5d44206ec0496d910c9e63ad909d9a51c37a86768ff5c0138ee871",
+    "src/bamboozle/tests/test_dictionary.py": "76d227c98312d0663f7c6953926160a21575788d008c1681e94a766e34adacff",
+    "src/bamboozle/tests/test_document_formats.py": "809668df9dda0d0e26ba8fa324087ebcfb4b7b25c2a323c42a6b78a41972e4fb",
+    "src/bamboozle/tests/test_engine.py": "939f62f9d50911ec6216999ba2902d58566ba112160b64744570a944a5782be7",
+    "src/bamboozle/tests/test_evidence.py": "25a844bab9b50a60da54a38a35b10e2b3720381832722f157cfed1f68c9b5c7c",
+    "src/bamboozle/tests/test_fixtures.py": "500fa57884ea12a6695e40ceee2e50d6bccb96668a106544babc4ff5e6c061f7",
+    "src/bamboozle/tests/test_lexicon.py": "d3aa13659a873871a9a53382b4dac0ef75e02b9c726c464454d16474b95049ac",
+    "src/bamboozle/tests/test_marker_escapes.py": "64d8b218c604a163b5e92687f466c9171cc7e11ac471ecc3e1ee4e7d2cd7fcb2",
+    "src/bamboozle/tests/test_migration.py": "3cbc0ec97dbe8955b46055a94f42d966c7b1d8c6ce2113090f606eb674b5f458",
+    "src/bamboozle/tests/test_profanity.py": "fff62b70ba30c6ba1a945efc82a71f874a05f78c4750422f2f53c1e31c5d14c3",
+    "src/bamboozle/tests/test_project_exchange.py": "a55d8e4c1d0d0c6b4f67b10ed947a977daf9808b59d2ed18238b7e223204e478",
+    "src/bamboozle/tests/test_project_views.py": "935605cbdeee9a7b31a8ac42b25496724cfed50466b60b694db440c7e65a52cc",
+    "src/bamboozle/tests/test_python_source.py": "628d6663d9589e84d5db8a7aa1ba9b079a2ab16ad4d95a3cb77523e2d5dfc112",
+    "src/bamboozle/tests/test_restoration.py": "14efdb3310c9f62196bef02d41efcb006498b806fc04665ddb267865903d7a7e",
+    "src/bamboozle/tests/test_return_validation.py": "f7733fe3bf02831d20ace9a6f96d4a8b01cc8f8b72290c0e5843a04b6c91adb6",
+    "src/bamboozle/tests/test_service.py": "f6287db50f6cd36516a163cec67352b8652dc56cedcee6a8be6159e92d3bed2e",
+    "src/bamboozle/tests/test_structure.py": "478b0987a4fc4c488f505bae4423ba71e34aac4d03c76219c42d5456d9a9e8d5",
+    "src/bamboozle/tests/test_tessera.py": "afa6862454d6b533f5c9aee097dbdd199f414098cd7545b1c81a21a4fb270058",
+    "src/bamboozle/tests/test_translate.py": "bd8e0c52dbc2e6cef600529dc158e6218290705468a2d424279c80216e7de7de",
+    "src/bamboozle/tests/test_vandal.py": "bba08fb491a9ef24f35b19268bc424b0f6cc8ead4d328e73839219c9413e4b26",
+    "src/bamboozle/tests/test_workspace_audit.py": "5840cb16f21d7779245752ad2891b6099cd91befa5f75840e9a54d0b89596ed6",
+    "src/bamboozle/tests/test_yaml_source.py": "3bd529918e3334686d152f45dae96a90844b94a8503d90a242605cc72575fb8e",
+    "src/bamboozle/translate.py": "28a43563b5ea86d65620e96e27622d9d6e07d42b60a50e595e9d55d85d71c6b9",
+    "src/bamboozle/utils.py": "1a0d5b1d3aa0e5d02755e3cd919bb7c2f09a65b5dc10a3cb376d194e577703a3",
+    "src/bamboozle/view_import.py": "fd973b249dde5cebc1d15ead363b77a86c886bbfdc3ccef0fa3d74091dadae40",
+    "src/bamboozle/workspace.py": "31ae24e8968baea412e32b4af949dce56d302fa7db36a48a0a22b9b70dd9517e",
+    "src/bamboozle/yaml_source.py": "1e680dd6152fa8b7e78b4968e2d0986fbd63eb45902d938bf2ba1b4069b5c1a8",
+    "src/cipher.c": "33ff06ffa466170fe197da001621bee114c6027c961885c27ea022b9e2b157d5",
+    "src/ciphers/README.md": "dcecc532dedfa459b46a0f44b8f52e8b2f4dd6f6146ffd34b08eadabb933abe1",
+    "src/ciphers/affine.c": "21dde85fd4a7cd8694754ff9dfa73b88a7c340d4c1182692587966b56b929769",
+    "src/ciphers/atbash.c": "ee9387b9e349a6991ae00741f9a52d896fc59677d31651ed93428a05ae6439dc",
+    "src/ciphers/beaufort.c": "97ac49e2e9e0ca9baa2990b59edc832ad06bcb5be7d21fc23342069035d5608c",
+    "src/ciphers/caesar.c": "e86133a23e3a5c075d6124ccc96d075a416f9af99b91ebb65a63f00dc4768e01",
+    "src/ciphers/columnar_transposition.c": "435a75f3210d120b5c89557ab64ad38ae5a76c1db737c137b316acf7b503d51d",
+    "src/ciphers/gronsfeld.c": "490d3a7f3c3f49fe545f381b922eb500735a21c6c24fb0027a34e0644c9daae4",
+    "src/ciphers/polybius_square.c": "2fbdf7f5f0adeb9a73b11741e2863104e51eb2830999539265eeac28eed2ac57",
+    "src/ciphers/rail_fence.c": "662b05d9d90fcdbb498afcdaa4b4e5b36521f6744141a10a39fc77c7d4c59ca8",
+    "src/ciphers/rot13.c": "450dcf31f06f93272268d6a1a8aa51a1222df710dc1f080992ef54b6f48fc88e",
+    "src/ciphers/scytale.c": "98c0c463c40fe002ae51de6e868051c51629e723c8465e6c28b925b90b647526",
+    "src/ciphers/vigenere.c": "575c19e78d35efc83a4a9c0ad48d52d4490d1cc1deb44d06d11b08304df36b74",
+    "src/main.c": "be0f19717769bee405b01e46994cf9c94c52e98e0c2cd5d3248921bc0fd841d6",
+    "src/mcp.pacer.json": "785068f7f003a19ee82c2fe94c1dc62d2dc82f908f50cd5a49a9430bfa17522c",
+    "src/utils/alpha.c": "bd04946aedca13da9ef2e4d2f71cfe1f230e071cde83205ddf43b85300147532",
+    "src/workshop/__init__.py": "94f960d9ab834f1b3df0983716d0f1974c8c4ee5937045f97c80cc18f105e3ad",
+    "src/workshop/bootstrap.py": "62dc7b1d081d0d5554eece0c533a579195472937548f07bc600e1425f22c4dda",
+    "src/workshop/config.py": "dd00ce30a84847a0e7d6638e407d4c4c28448e7ca0c26c4e398b2d593418a1fc",
+    "src/workshop/examples.py": "4b519d10b869289d7233d4d9f180cbfc000cd1d813f7b6375d5e5f0a6a1226b8",
+    "src/workshop/inventory.py": "46408e4f59d037ef229c207841e57bd1db871b7c7a18f3d6cd8350f8c904bded",
+    "src/workshop/mcp/__init__.py": "a33f06325c956490689ea4a3ab4cbcd05ae78339c315dd47107fbf3cd97f97f1",
+    "src/workshop/mcp/taxonomy.json": "fbb674a35398c11c534a720a2c7551028c95bbcd18d5d942614a5e732b422a30",
+    "src/workshop/mcp/tests/fixtures/pipeline_contract.py": "666894193e235e3016ddec1f02f23a5782dcd45d5300044c9bcf2e523cc4ea29",
+    "src/workshop/mcp/tests/test_pipeline.py": "11e2ab0b170d62f59679c14793d9277d5ce6982d8c6e718b18348b1ad1742c7f",
+    "src/workshop/mcp/tests/test_process_capture.py": "942aba28892a816600ad97f3a0eaa52c00d66a9c5012bffe71458ab412a6d4aa",
+    "src/workshop/mcp/tests/test_workshop_mcp.py": "2bc32f07410fecf65673d296ff0927465089efab2f7d5366deba6342776a35c7",
+    "src/workshop/mcp/workshop_mcp.py": "2f58e8232e403e6b31ec6be914a5f22d9c254d9541a69e140ccdc4adf13eb7e8",
+    "src/workshop/operations.py": "3baf08fc3d20a87bd6fe82a362e144f81dc8f74de9611eb7dc273d2dc612eb57",
+    "src/workshop/pipeline.py": "05c5914a4f4aacd72daf104cd168aec2b17559c54d903dcf609a470f0b8bea13",
+    "src/workshop/plans.py": "b514060dea3b83d0fd6be50a6bf58170dde9110968b60ae05b3c89103c68046b",
+    "src/workshop/process.py": "f183a2e6fea7712357053bcbdd095d74f69dd91ea31af325c9bc80bbf05b0f81",
+    "src/workshop/recovery.py": "90c879800f1f521eba9ab39fa90897ffd1fdc22c93ccbbab8ae36012ad87e5cc",
+    "src/workshop/scrape/__init__.py": "f94e068724419232fc3861b067ea6e068dd8fc32d2aa3eab09cbc298f88f3d2c",
+    "src/workshop/scrape/_lookup_index.json": "a55d8623c0b607f018b8074c2173fc22843c501d9991a58d77760f830adb905c",
+    "src/workshop/scrape/alias_pass.py": "496e9d1b41bad0746c2e6d7a84635df144f41566a4e67b80f96863503d365061",
+    "src/workshop/scrape/audit_matrix.py": "3bb1e175f7e849f84681d8802f3f94f01c76b0c42848ea6341a4d598dc716d85",
+    "src/workshop/scrape/bamb5.py": "09bd174907105eca8634597a77e1378cd93ab200a04a1e7d9e1b628ca3817df4",
+    "src/workshop/scrape/lookup.py": "1b00dd116b8b7e2764ac3e4ba1c379cd5ffd5cc65a9ebc1abc35267877489dc5",
+    "src/workshop/scrape/promote.py": "d12f7a1d1a4d2849a8b748fc976ec894699459666590722962b0b820ac259616",
+    "src/workshop/scrape/taxonomy.json": "ba9e29c6c062f43e0d633f6c0bae19b44ecce3722e0e27c230b1421e8f737052",
+    "src/workshop/scrape/tests/test_alias_pass.py": "50f88b3c00da8909ecda133e5137c4df71296be7a4dde36e8b46132b375eb41b",
+    "src/workshop/scrape/tests/test_bamb5.py": "756d08b17bbd1dbe7623a1151201d3cf6a698583d381494bcaecc524f47b6574",
+    "src/workshop/scrape/tests/test_configuration.py": "b9b22f9d8997fad4eec88cf40cd3e0cd0ec00210b16d56abedf37ce33a1eaeb6",
+    "src/workshop/scrape/tests/test_lookup.py": "33cda79a49e6940e22a096c7d5a7c98539540b3382fd3442202214b237025616",
+    "src/workshop/snapshot.py": "4341e14480efbb0db91c7276a4ae445774ce541f647f96b2bdb9e43407dca65d",
+    "src/workshop/tests/test_inventory.py": "12136fa9ce9a6ccd6c814a94bb1cb47db3ffdc7d1325c6263b200a4b0f9305a5",
+    "src/workshop/tests/test_operations.py": "170c68072342d8ce72c6b7930cc5c0ab6d84bec7f508953f804a1e0c1af5558b",
+    "src/workshop/tests/test_plans.py": "df02df963ddf1ba6f6a879f05dbdee694fb1a59391b34ba4e5ffb96f80578870",
+    "src/workshop/tests/test_recovery_diagnostics.py": "0d2fe68b9fce33251e836a1466e18846016f9d093040066b1e19162bca7833ec",
+    "src/workshop/tests/test_snapshot.py": "3a1186ecaefb5ecf1704c111028e711502f5de69b1cfb5d415062cd518c5d168",
+    "uv.lock": "45647f9a6daca5ad6373589cb5a0a0585bfc25452562421d5ad4fec244de7e0c"
+  },
+  "status": "source_and_installed_application_verified",
+  "verification": {
+    "path": ".mivim\\vigiles\\reports\\current\\VIGILES_VERIFICATION.json",
+    "sha256": "5030fd20edfc02bc421886aa1b95033b1334c12288bc0fa4bf440f7bbfc31b66",
+    "steps": [
+      {
+        "log": ".test-tmp\\verify-tmekk43u\\ruff.log",
+        "name": "ruff",
+        "returncode": 0
+      },
+      {
+        "log": ".test-tmp\\verify-tmekk43u\\format.log",
+        "name": "format",
+        "returncode": 0
+      },
+      {
+        "log": ".test-tmp\\verify-tmekk43u\\mypy.log",
+        "name": "mypy",
+        "returncode": 0
+      },
+      {
+        "log": ".test-tmp\\verify-tmekk43u\\pyright.log",
+        "name": "pyright",
+        "returncode": 0
+      },
+      {
+        "log": ".test-tmp\\verify-tmekk43u\\pytest.log",
+        "name": "pytest",
+        "returncode": 0
+      },
+      {
+        "log": ".test-tmp\\verify-tmekk43u\\compile.log",
+        "name": "compile",
+        "returncode": 0
+      },
+      {
+        "log": ".test-tmp\\verify-tmekk43u\\structure.log",
+        "name": "structure",
+        "returncode": 0
+      },
+      {
+        "log": ".test-tmp\\verify-tmekk43u\\build.log",
+        "name": "build",
+        "returncode": 0
+      },
+      {
+        "log": ".test-tmp\\verify-tmekk43u\\export.log",
+        "name": "export",
+        "returncode": 0
+      },
+      {
+        "log": ".test-tmp\\verify-tmekk43u\\wheel-environment.log",
+        "name": "wheel-environment",
+        "returncode": 0
+      },
+      {
+        "log": ".test-tmp\\verify-tmekk43u\\wheel-install.log",
+        "name": "wheel-install",
+        "returncode": 0
+      },
+      {
+        "log": ".test-tmp\\verify-tmekk43u\\wheel-smoke.log",
+        "name": "wheel-smoke",
+        "returncode": 0
+      }
+    ],
+    "tests": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 1238
+    }
+  },
+  "wheel_source_parity": [
+    "bamboozle/__init__.py",
+    "bamboozle/__main__.py",
+    "bamboozle/agent_checks.py",
+    "bamboozle/agent_development.py",
+    "bamboozle/agent_files.py",
+    "bamboozle/agent_policy.py",
+    "bamboozle/audit.py",
+    "bamboozle/audit_matrix.py",
+    "bamboozle/check_process.py",
+    "bamboozle/cipher.py",
+    "bamboozle/cipher_operations.py",
+    "bamboozle/classical.py",
+    "bamboozle/cli.py",
+    "bamboozle/dictionary.py",
+    "bamboozle/engine.py",
+    "bamboozle/evidence.py",
+    "bamboozle/fixture_rules.py",
+    "bamboozle/fixtures.py",
+    "bamboozle/formats.py",
+    "bamboozle/lexicon.py",
+    "bamboozle/markers.py",
+    "bamboozle/mcp.py",
+    "bamboozle/migration.py",
+    "bamboozle/project_exchange.py",
+    "bamboozle/project_views.py",
+    "bamboozle/python_project.py",
+    "bamboozle/python_source.py",
+    "bamboozle/restoration.py",
+    "bamboozle/return_validation.py",
+    "bamboozle/scm_mcp.py",
+    "bamboozle/service.py",
+    "bamboozle/structure.py",
+    "bamboozle/tessera.py",
+    "bamboozle/translate.py",
+    "bamboozle/utils.py",
+    "bamboozle/view_import.py",
+    "bamboozle/workspace.py",
+    "bamboozle/yaml_source.py"
+  ],
+  "workflow": "vigiles-vandal_0.2"
+}

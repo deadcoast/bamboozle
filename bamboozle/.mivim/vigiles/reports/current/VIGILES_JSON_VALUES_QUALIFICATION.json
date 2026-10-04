@@ -1,0 +1,224 @@
+{
+  "artifacts": {
+    "bamboozle-0.7.0-py3-none-any.whl": {
+      "bytes": 252937,
+      "sha256": "0046109339bbabaa87b454dbba3b9a81cd67cc10a3046dbed809fe3798c527ab"
+    },
+    "bamboozle-0.7.0.tar.gz": {
+      "bytes": 305338,
+      "sha256": "2b7472275cad7e3cef3c46cd7a49605028cd0a7fc7849d78834ccf20fe2a4400"
+    }
+  },
+  "completed": "2026-10-04T18:57:36.539420+00:00",
+  "contract": "docs/json-values.md",
+  "contract_sha256": "031c72c4b4ace366d5b36ef1fecbde11564055337256b558278dcf89f0fa48d6",
+  "coverage": [
+    "Nested objects/arrays and root strings; BOM/CRLF, escaped keys, exact original scalar spellings and nonstring token preservation",
+    "More than 512 values, bounded expansion, depth/path/context controls, duplicate/nonfinite/malformed/unrepresentable input refusal before publication",
+    "Historical marker versions, native target and reserved-prefix collisions, corrupted contexts and malformed returned markers",
+    "Dynamic new/removed/type-changed values and key/type/nonstring return diagnostics without selected-prose false positives",
+    "Inserted/moved values restore unambiguous saved spellings; ambiguous historical spellings use normal JSON rendering",
+    "Compatibility file conversion, missing-ledger recovery, reviewed restoration, source-agent reconnect and stale-policy refusal",
+    "Complete nested JSON application through CLI and actual operator/source-agent stdio: generated configuration, inserted route/record and dependent summary module",
+    "Each application flow injects interrupted publication, explicitly recovers its retained rules/context, and executes recovered source/generated configurations"
+  ],
+  "design": {
+    "compatibility": "Opt-in recursive JSON rule; exact-pointer selections and historical saved schema/marker contracts remain unchanged.",
+    "ownership": "Shared Bamboozle span adapter, saved context and return diagnostics; Vandal only routes existing CLI/MCP policies.",
+    "sources": [
+      ".legacy/designlog:897-899",
+      ".mivim/vigiles-vandal_0.2.md",
+      "VIGILES_STATUS.json"
+    ]
+  },
+  "focused_tests": {
+    "failures": 0,
+    "report": ".mivim/vigiles/reports/archive/runs/20261004-json-values/json-values-focus-c.xml",
+    "tests": 45
+  },
+  "id": "VIG-CIPHER-JSON-VALUES-01",
+  "implementation": [
+    "src/bamboozle/formats.py",
+    "src/bamboozle/return_validation.py",
+    "src/bamboozle/cli.py",
+    "src/bamboozle/mcp.py",
+    "src/bamboozle/translate.py",
+    "src/bamboozle/project_views.py",
+    "src/bamboozle/cipher_operations.py",
+    "scripts/vandal.py",
+    "scripts/json_values_smoke.py",
+    "scripts/package_smoke.py",
+    "src/bamboozle/tests/test_json_values.py"
+  ],
+  "installed_application": {
+    "baseline_records": 300,
+    "baseline_string_values": 900,
+    "formats_module": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-2wf_4z_w\\wheel-env\\Lib\\site-packages\\bamboozle\\formats.py",
+    "invalid_dataset_executions": 20,
+    "status": "passed",
+    "total_workloads": 280,
+    "workflows": {
+      "agent": {
+        "encoded_reads_decoded_writes": true,
+        "records": 301,
+        "recovery": {
+          "applied_files": [
+            "config.json",
+            "records.json"
+          ],
+          "journal_saved": true,
+          "output_saved": true,
+          "receipt_saved": true,
+          "review_sha256": "dfaf72ce355fecd1788da933ab4c66ed5f6b2e9c73c805ab9e4ed217b09c0928",
+          "schema_version": 1,
+          "status": "recovered",
+          "view_id": "a2505739d375461b9fcf8d22b4843d09"
+        },
+        "restored_benchmark": {
+          "invalid_datasets": 4,
+          "workloads": 56
+        },
+        "total": 45150
+      },
+      "cli": {
+        "neutral_benchmark": {
+          "invalid_datasets": 4,
+          "workloads": 56
+        },
+        "records": 301,
+        "recovery": {
+          "applied_files": [
+            "config.json",
+            "records.json"
+          ],
+          "journal_saved": true,
+          "output_saved": true,
+          "receipt_saved": true,
+          "review_sha256": "24de778d3d87f08931ee2ea05320eabc12094b9a5888888e0f6ac09d357925db",
+          "schema_version": 1,
+          "status": "recovered",
+          "view_id": "f723267374d94752b3dd4db920f7e4ad"
+        },
+        "restored_benchmark": {
+          "invalid_datasets": 4,
+          "workloads": 56
+        },
+        "total": 45150
+      },
+      "mcp": {
+        "neutral_benchmark": {
+          "invalid_datasets": 4,
+          "workloads": 56
+        },
+        "records": 301,
+        "recovery": {
+          "applied_files": [
+            "config.json",
+            "records.json"
+          ],
+          "journal_saved": true,
+          "output_saved": true,
+          "receipt_saved": true,
+          "review_sha256": "0cc97112c25e544acb15fef5201e10d8130da5ce7f637116dfd951de17d0cac5",
+          "schema_version": 1,
+          "status": "recovered",
+          "view_id": "a6219deee1904c8ab1740d6e6bf06de7"
+        },
+        "restored_benchmark": {
+          "invalid_datasets": 4,
+          "workloads": 56
+        },
+        "total": 45150
+      }
+    },
+    "workloads_per_benchmark": 56
+  },
+  "limits": [
+    "Explicit all-string selection includes paths/URLs; narrower exact-pointer mode remains available",
+    "10000 string values, depth64, 100000 nodes, pointer length2048 and total selected pointer characters1000000 within existing byte limits",
+    "UTF-8 representable decoded pointers/selected values; escaped unpaired surrogates refused",
+    "Moved tokens with conflicting saved spellings retain their decoded value through normal JSON rendering, without inferring node identity",
+    "Local Windows Python3.13 source/installed qualification; external acceptance gates remain open"
+  ],
+  "retained_failure": {
+    "finding": "Application insertion shifted JSON array pointers and lost original escape spelling. Fixed recursive moved-token recovery for unambiguous saved spellings; added ambiguity and historical exact-pointer regressions.",
+    "report": ".mivim/vigiles/reports/archive/runs/20261004-json-values/json-values-focus-b.xml"
+  },
+  "schema_version": 1,
+  "source_application": "The full source suite executes the same five benchmarks: CLI neutral/restored, operator MCP neutral/restored, source-agent restored; each flow also executes after partial-import recovery.",
+  "source_sha256": {
+    "scripts/json_values_smoke.py": "b5ef147b88ee9280b984cb9ad48eb1c2f9090d1ec0c4f4f4bd8c666cb6934bdc",
+    "scripts/package_smoke.py": "85d834a07a0f19558bb8746290e0113e1d47b7d5e28377e03f267142592eeb6b",
+    "scripts/vandal.py": "5bc458b2b2ad0646beaf77fa8afcf0d6ca8a1f075ec81bcfe27ce7d60c38794c",
+    "src/bamboozle/cipher_operations.py": "44a1b4941540e5101bd5e22310ab7dc385d9f4cbf1a8fb35ebfa30c628b41e20",
+    "src/bamboozle/cli.py": "08057f2c74017c71e3dcf9eb4a91794c8bf8b86e8aafc73907833592b9c3818c",
+    "src/bamboozle/formats.py": "2915f753d1442655453f0499cdba239df66ed30053c4e97fd568028545093168",
+    "src/bamboozle/mcp.py": "155f6546fdac159e2b4cea290fe8066a3a2faabe95cc4a3e95664a60deadd85d",
+    "src/bamboozle/project_views.py": "636c316fae87a52b2b517809404ca046dc644fabf75e5a17048de3964cf833e9",
+    "src/bamboozle/return_validation.py": "48be6834873ceafcaeef0d09563a28dbf90e0262a330b6f7ceaa1cb833b412ee",
+    "src/bamboozle/tests/test_json_values.py": "dddf1a266d164adc7598d45093d71b25767a8a49b6538bacc221a66d3d436423",
+    "src/bamboozle/translate.py": "51156d271bc218e984bed1b1b5efe656a5c6fc7698a4ac0b785cfe4d282cbd28"
+  },
+  "status": "source_and_installed_application_verified",
+  "verification": {
+    "logs": {
+      "build": {
+        "path": ".mivim/vigiles/reports/archive/runs/20261004-json-values/build.log",
+        "sha256": "b2a16d5393f4e457c2e6406469edb071ce5e3ba58660b7bc7196ba535c125cb7"
+      },
+      "compile": {
+        "path": ".mivim/vigiles/reports/archive/runs/20261004-json-values/compile.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "export": {
+        "path": ".mivim/vigiles/reports/archive/runs/20261004-json-values/export.log",
+        "sha256": "ca3bb61afc7747ddc091080b3d0892399da3ae0b02a42e73aa38ea05ee8cafe2"
+      },
+      "format": {
+        "path": ".mivim/vigiles/reports/archive/runs/20261004-json-values/format.log",
+        "sha256": "3e436dcbeb69984528b27e3b4731369593b31ad01c6aed224dad600f2b825fa2"
+      },
+      "mypy": {
+        "path": ".mivim/vigiles/reports/archive/runs/20261004-json-values/mypy.log",
+        "sha256": "e378adbadb2d1c81482fcf831fa1944c512d98c313541ae43ec09c5e7e09665e"
+      },
+      "pyright": {
+        "path": ".mivim/vigiles/reports/archive/runs/20261004-json-values/pyright.log",
+        "sha256": "c584b21ee012de391dc2799d5455db619d3fefbb192ab07ea4ba83fb0d704c14"
+      },
+      "pytest": {
+        "path": ".mivim/vigiles/reports/archive/runs/20261004-json-values/pytest.log",
+        "sha256": "0c02a0465d472a4d258e1718eadcde6f5be811c582cb8b9c55cf913ea4e9d499"
+      },
+      "ruff": {
+        "path": ".mivim/vigiles/reports/archive/runs/20261004-json-values/ruff.log",
+        "sha256": "a4443afdcfb6d7363adb285762515ccf7cf50473b1a05c20c1a50f6bed4d26b0"
+      },
+      "structure": {
+        "path": ".mivim/vigiles/reports/archive/runs/20261004-json-values/structure.log",
+        "sha256": "e77b0a5af4aa2b019c396f003f2ad031603a9e02b91cc937392f1788edebbc04"
+      },
+      "wheel-environment": {
+        "path": ".mivim/vigiles/reports/archive/runs/20261004-json-values/wheel-environment.log",
+        "sha256": "c34922440e97f8ba1e759e9b2b9d99b013c61c52cff340d292b888af0945e885"
+      },
+      "wheel-install": {
+        "path": ".mivim/vigiles/reports/archive/runs/20261004-json-values/wheel-install.log",
+        "sha256": "f365ecc9e26c369ad1c2c73704055bca95dcfb29ea904dbcba28725a875018eb"
+      },
+      "wheel-smoke": {
+        "path": ".mivim/vigiles/reports/archive/runs/20261004-json-values/wheel-smoke.log",
+        "sha256": "df27525388a05e836702e2f335c98745dd58fee7920d3ee301a5821fd5056843"
+      }
+    },
+    "report": ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json",
+    "sha256": "2e010dc6349a5ad0008858913e1b5a567bd406ee7f3bf59313470df578be028e",
+    "stages": 12,
+    "tests": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 1356
+    }
+  }
+}

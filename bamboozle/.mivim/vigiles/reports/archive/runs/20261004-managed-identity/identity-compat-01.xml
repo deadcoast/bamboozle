@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="36" time="18.642" timestamp="2026-10-04T10:32:49.409678-07:00" hostname="homeone"><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_complete_return_preserves_local_view_and_exact_review[tessera]" time="0.562" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_complete_return_preserves_local_view_and_exact_review[classical-tessera]" time="0.581" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_authentication_recipe_origin_and_source_drift[tessera]" time="0.579" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_authentication_recipe_origin_and_source_drift[classical-tessera]" time="0.596" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_changed_packet_cannot_apply_old_review[tessera]" time="0.421" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_changed_packet_cannot_apply_old_review[classical-tessera]" time="0.488" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_explicit_deletion_and_private_return_refusal[tessera]" time="0.584" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_explicit_deletion_and_private_return_refusal[classical-tessera]" time="0.642" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_open_recovery_retains_partial_files_and_refuses_conflicts[tessera]" time="0.243" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_open_recovery_retains_partial_files_and_refuses_conflicts[classical-tessera]" time="0.278" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_import_recovery_uses_retained_authenticated_bytes_without_packet_or_key[tessera]" time="0.571" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_import_recovery_uses_retained_authenticated_bytes_without_packet_or_key[classical-tessera]" time="0.661" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_malicious_authenticated_paths_rejected_before_publication[../escape]" time="0.013" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_malicious_authenticated_paths_rejected_before_publication[C:/escape]" time="0.010" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_malicious_authenticated_paths_rejected_before_publication[a\\b]" time="0.013" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_malicious_authenticated_paths_rejected_before_publication[AUX.txt]" time="0.010" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_malicious_authenticated_paths_rejected_before_publication[.local/leak]" time="0.010" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_malicious_authenticated_paths_rejected_before_publication[.git/config]" time="0.010" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_malicious_authenticated_paths_rejected_before_publication[leak.key]" time="0.010" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_malicious_authenticated_paths_rejected_before_publication[x.dictionary.json]" time="0.010" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_malicious_authenticated_paths_rejected_before_publication[.env.production]" time="0.010" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_malicious_authenticated_paths_rejected_before_publication[private.pem]" time="0.010" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_frame_integrity_duplicates_bounds_and_trailing_bytes[tessera]" time="0.146" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_frame_integrity_duplicates_bounds_and_trailing_bytes[classical-tessera]" time="0.157" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_packet_tampering_and_limits_publish_nothing[tessera]" time="0.139" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_packet_tampering_and_limits_publish_nothing[classical-tessera]" time="0.156" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_outbound_state_controls_and_destination_boundaries[tessera]" time="0.279" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_outbound_state_controls_and_destination_boundaries[classical-tessera]" time="0.363" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_vandal_receiver_context_uses_product_without_extra_agent_tools[tessera]" time="0.205" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_vandal_receiver_context_uses_product_without_extra_agent_tools[classical-tessera]" time="0.220" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_complete_cli_and_stdio_applications" time="7.267" /><testcase classname="src.bamboozle.tests.test_cli_mcp" name="test_installed_cli_runs_from_another_directory" time="1.222" /><testcase classname="src.bamboozle.tests.test_cli_mcp" name="test_cli_audit_exit_code_and_bounded_watch" time="0.035" /><testcase classname="src.bamboozle.tests.test_cli_mcp" name="test_mcp_preview_apply_verify_and_replay" time="0.111"><failure message="AssertionError: assert {'apply_previ...ructure', ...} == {'apply_previ...catalog', ...}&#10;  &#10;  Extra items in the left set:&#10;  'open_file'&#10;  'seal_file'&#10;  'initialize_identity'&#10;  'inspect_delivery'&#10;  'change_recipient'&#10;  'recipient_registry'&#10;  Use -v to get more diff">tmp_path = WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/identity-compat-01/test_mcp_preview_apply_verify_0')
+
+    def test_mcp_preview_apply_verify_and_replay(tmp_path):
+        (tmp_path / "source.txt").write_text("alpha and beta", encoding="utf-8")
+        server = create_server(tmp_path, Dictionary({"alpha": "beta"}))
+    
+        async def exercise():
+            async with Client(server) as client:
+                tools = {tool.name: tool for tool in await client.list_tools()}
+                assert set(tools) == {
+                    "cipher_catalog",
+                    "preview_cipher_transform",
+                    "verify_cipher_transform",
+                    "pack_project_view",
+                    "open_project_exchange",
+                    "pack_project_return",
+                    "project_exchange_context",
+                    "dictionary_status",
+                    "preview_template_fixture",
+                    "validate_template_fixture",
+                    "export_dictionary_lexicon",
+                    "check_dictionary_lexicon",
+                    "query_dictionary_lexicon",
+                    "preview_lexicon_edit",
+                    "preview_lexicon_compilation",
+                    "verify_dictionary_compilation",
+                    "preview_file",
+                    "apply_preview",
+                    "verify_file",
+                    "audit_workspace",
+                    "check_repository_structure",
+                    "preview_restoration",
+                    "preview_migration",
+                    "verify_restored_file",
+                    "validate_returned_file",
+                    "list_safe_files",
+                    "search_safe_files",
+                    "edit_safe_file",
+                    "read_safe_file",
+                    "write_safe_file",
+                    "scan_file",
+                    "export_project_view",
+                    "review_project_view",
+                    "apply_project_view",
+                    "project_view_status",
+                }
+                annotations = tools["preview_file"].annotations
+                assert annotations is not None and annotations.read_only_hint
+                result = await client.call_tool("preview_file", {"source": "source.txt"})
+                report = _report(result)
+                assert not (tmp_path / "source_safe.txt").exists()
+                applied = await client.call_tool(
+                    "apply_preview", {"plan_id": report["plan_id"]}
+                )
+                assert _report(applied)["status"] == "saved"
+                verified = await client.call_tool(
+                    "verify_file", {"source": "source_safe.txt"}
+                )
+                assert _report(verified)["status"] == "verified"
+                replay = await client.call_tool(
+                    "apply_preview", {"plan_id": report["plan_id"]}, raise_on_error=False
+                )
+                assert replay.is_error
+                escape = await client.call_tool(
+                    "preview_file", {"source": "../escape.txt"}, raise_on_error=False
+                )
+                assert escape.is_error
+    
+&gt;       asyncio.run(exercise())
+
+src\bamboozle\tests\test_cli_mcp.py:156: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\asyncio\runners.py:195: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\asyncio\runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\asyncio\base_events.py:725: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    async def exercise():
+        async with Client(server) as client:
+            tools = {tool.name: tool for tool in await client.list_tools()}
+&gt;           assert set(tools) == {
+                "cipher_catalog",
+                "preview_cipher_transform",
+                "verify_cipher_transform",
+                "pack_project_view",
+                "open_project_exchange",
+                "pack_project_return",
+                "project_exchange_context",
+                "dictionary_status",
+                "preview_template_fixture",
+                "validate_template_fixture",
+                "export_dictionary_lexicon",
+                "check_dictionary_lexicon",
+                "query_dictionary_lexicon",
+                "preview_lexicon_edit",
+                "preview_lexicon_compilation",
+                "verify_dictionary_compilation",
+                "preview_file",
+                "apply_preview",
+                "verify_file",
+                "audit_workspace",
+                "check_repository_structure",
+                "preview_restoration",
+                "preview_migration",
+                "verify_restored_file",
+                "validate_returned_file",
+                "list_safe_files",
+                "search_safe_files",
+                "edit_safe_file",
+                "read_safe_file",
+                "write_safe_file",
+                "scan_file",
+                "export_project_view",
+                "review_project_view",
+                "apply_project_view",
+                "project_view_status",
+            }
+E           AssertionError: assert {'apply_previ...ructure', ...} == {'apply_previ...catalog', ...}
+E             
+E             Extra items in the left set:
+E             'open_file'
+E             'seal_file'
+E             'initialize_identity'
+E             'inspect_delivery'
+E             'change_recipient'
+E             'recipient_registry'
+E             Use -v to get more diff
+
+src\bamboozle\tests\test_cli_mcp.py:97: AssertionError</failure></testcase><testcase classname="src.bamboozle.tests.test_cli_mcp" name="test_mcp_refuses_stale_preview_and_expired_capability" time="0.149" /><testcase classname="src.bamboozle.tests.test_cli_mcp" name="test_batch_launchers_use_the_installed_cli" time="0.513" /></testsuite></testsuites>

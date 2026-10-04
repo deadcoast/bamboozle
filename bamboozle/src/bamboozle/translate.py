@@ -76,7 +76,9 @@ def main(argv: list[str] | None = None) -> int:
         "--format", choices=["text", "markdown", "json", "yaml"], dest="document_format"
     )
     parser.add_argument("--json-pointer", action="append")
+    parser.add_argument("--json-values-only", action="store_true")
     parser.add_argument("--yaml-pointer", action="append")
+    parser.add_argument("--protect", action="append", choices=["paths", "urls"])
     parser.add_argument("--root", type=Path, default=Path.cwd())
     args = parser.parse_args(argv)
     try:
@@ -96,6 +98,8 @@ def main(argv: list[str] | None = None) -> int:
                     args.document_format,
                     args.json_pointer,
                     yaml_pointers=args.yaml_pointer,
+                    protect=args.protect,
+                    values_only=args.json_values_only,
                 ),
             ).apply()
             print(json.dumps(report), file=sys.stderr)
@@ -114,7 +118,11 @@ def main(argv: list[str] | None = None) -> int:
         translated = DocumentCodec(
             dictionary,
             format_options(
-                args.document_format, args.json_pointer, yaml_pointers=args.yaml_pointer
+                args.document_format,
+                args.json_pointer,
+                yaml_pointers=args.yaml_pointer,
+                protect=args.protect,
+                values_only=args.json_values_only,
             ),
         ).transform(original, args.mode)
         if translated.context:

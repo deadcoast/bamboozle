@@ -11,6 +11,7 @@ from bamboozle.dictionary import Dictionary
 from bamboozle.engine import Mode, Translator
 from bamboozle.formats import DocumentCodec, FormatRules
 from bamboozle.markers import CURRENT, LEGACY, validate_version
+from bamboozle.structure import Guard, prepare_guard
 from bamboozle.utils import (
     MAX_FILE_BYTES,
     PublicationError,
@@ -71,7 +72,7 @@ def _ledger(
 ) -> bytes:
     validate_version(marker_version)
     rules = rules or FormatRules()
-    structured = rules is not None and rules.format != "text"
+    structured = rules.format != "text" or bool(rules.protect)
     metadata = json_bytes(
         {
             "kind": LEDGER_KIND,
@@ -193,6 +194,17 @@ class ConversionPlan:
     format_rules: FormatRules = field(default_factory=FormatRules)
     marker_version: int = CURRENT
     escapes: int = 0
+    structure: Guard = field(init=False, repr=False, compare=False)
+
+    def __post_init__(self) -> None:
+        object.__setattr__(
+            self,
+            "structure",
+            prepare_guard(
+                self.workspace,
+                {self.output.relative_to(self.workspace.root).as_posix(): self.result},
+            ),
+        )
 
     def report(self) -> dict[str, Any]:
         return {
@@ -220,6 +232,15 @@ class ConversionPlan:
             ),
             "output_saved": False,
             "ledger_saved": False,
+            **(
+                {
+                    "structure": self.structure.certificate,
+                    "structural_validation": self.structure.result,
+                    "ok": self.structure.result is None or self.structure.result["ok"],
+                }
+                if self.structure.certificate
+                else {}
+            ),
         }
 
     def _recheck(self) -> None:
@@ -249,6 +270,7 @@ class ConversionPlan:
         report = self.report()
         self._recheck()
         try:
+            self.structure.recheck()
             try:
                 atomic_write(self.output, self.result)
             except PublicationError:
@@ -265,6 +287,7 @@ class ConversionPlan:
                     report["ledger_saved"] = True
                     raise
                 report["ledger_saved"] = True
+            self.structure.recheck()
         except (OSError, ValueError) as exc:
             report.update(status="error", error=str(exc))
             raise OperationError(str(exc), report) from exc

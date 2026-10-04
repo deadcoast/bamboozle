@@ -9,9 +9,11 @@ from __future__ import annotations
 
 import re
 import struct
+from contextlib import ExitStack, nullcontext
 from pathlib import Path
 from typing import Any
 
+from bamboozle import identity
 from bamboozle.agent_files import check_public_name, source_path
 from bamboozle.cipher_operations import _recipe
 from bamboozle.classical import Pipeline
@@ -171,16 +173,19 @@ def _unframe(raw: bytes) -> tuple[dict[str, Any], dict[str, bytes]]:
 
 def _credentials(
     workspace: Workspace,
-    key: str,
+    key: str | None,
     recipe: str | None,
 ) -> tuple[bytes, Pipeline | None, dict[Path, str]]:
-    path = workspace.resolve(key)
-    if path.suffix.casefold() != ".key":
-        raise ValueError("Project exchange keys require the private .key suffix")
-    raw = read_bytes(path, 32)
-    if len(raw) != 32:
-        raise ValueError("Project exchange requires a 32-byte Tessera key")
-    inputs = {path: sha256(raw)}
+    raw = b""
+    inputs: dict[Path, str] = {}
+    if key is not None:
+        path = workspace.resolve(key)
+        if path.suffix.casefold() != ".key":
+            raise ValueError("Project exchange keys require the private .key suffix")
+        raw = read_bytes(path, 32)
+        if len(raw) != 32:
+            raise ValueError("Project exchange requires a 32-byte Tessera key")
+        inputs[path] = sha256(raw)
     pipeline = None
     if recipe is not None:
         recipe_path, encoded, pipeline = _recipe(workspace, recipe)
@@ -199,15 +204,28 @@ def read_exchange(
     workspace: Workspace,
     packet: str,
     *,
-    key: str,
-    recipient: str,
+    key: str | None = None,
+    recipient: str | None = None,
     recipe: str | None = None,
+    peer: str | None = None,
+    purpose: str = "project-outbound",
+    delivery: dict[str, Any] | None = None,
+    recover: bool = False,
 ) -> tuple[dict[str, Any], dict[str, bytes], str]:
     """Authenticate before interpreting paths or reversing a selected classical recipe."""
+    identity.select_mode(key, recipient, peer)
     path = source_path(workspace, packet, private_paths=set())
     raw = read_bytes(path, workspace.max_bytes * 2)
     secret, pipeline, inputs = _credentials(workspace, key, recipe)
-    opened = unseal(raw, secret, recipient)
+    if peer is not None:
+        opened, certificate = identity.authenticate(
+            workspace, raw, peer, purpose, recover=recover
+        )
+        if delivery is not None:
+            delivery.update(certificate)
+    else:
+        assert recipient is not None
+        opened = unseal(raw, secret, recipient)
     if len(opened) > workspace.max_bytes:
         raise ValueError("Project exchange payload exceeds the workspace byte limit")
     width = len(MAGIC) + 32
@@ -231,12 +249,17 @@ def _publish(
     direction: str,
     output: str,
     *,
-    key: str,
-    recipient: str,
+    key: str | None,
+    recipient: str | None,
     recipe: str | None,
+    peer: str | None,
+    ttl: int,
     inputs: dict[Path, str],
     snapshot: dict[str, bytes],
 ) -> dict[str, Any]:
+    identity.select_mode(key, recipient, peer)
+    if peer is None and ttl != 86400:
+        raise ValueError("TTL controls require managed --peer transport")
     destination = source_path(workspace, output, private_paths=set(), write=True)
     if destination.is_relative_to(view.root):
         raise ValueError("Exchange packets must remain outside the neutral workspace")
@@ -259,40 +282,49 @@ def _publish(
     fingerprint = bytes.fromhex(pipeline.fingerprint) if pipeline else bytes(32)
     if len(MAGIC) + 32 + len(raw) > workspace.max_bytes:
         raise ValueError("Project exchange payload exceeds the workspace byte limit")
-    packet = seal(MAGIC + fingerprint + raw, secret, recipient)
-    _recheck(workspace, {**inputs, **credentials})
-    if _hashes(snapshot_view(view)) != _hashes(snapshot):
-        raise ValueError("Neutral project changed while preparing exchange")
-    report = {
-        "schema_version": 1,
-        "status": "saved",
-        "direction": direction,
-        "view_id": binding["view_id"],
-        "recipient": recipient,
-        "output": destination.relative_to(workspace.root).as_posix(),
-        "output_bytes": len(packet),
-        "exchange_sha256": sha256(packet),
-        "files": len(snapshot),
-        "authenticated": True,
-        "pipeline_sha256": pipeline.fingerprint if pipeline else None,
-        "output_saved": False,
-    }
-    try:
-        atomic_write(destination, packet)
-        report["output_saved"] = True
+    payload = MAGIC + fingerprint + raw
+    context = (
+        identity.sending(workspace, peer, payload, f"project-{direction}", ttl)
+        if peer is not None
+        else nullcontext(seal(payload, secret, recipient or ""))
+    )
+    with ExitStack() as leases:
+        packet = leases.enter_context(context)
         _recheck(workspace, {**inputs, **credentials})
         if _hashes(snapshot_view(view)) != _hashes(snapshot):
-            raise ValueError("Neutral project changed during exchange publication")
-        if read_bytes(destination, workspace.max_bytes * 2) != packet:
-            raise ValueError("Published exchange changed before completion")
-    except (OSError, ValueError) as exc:
-        report.update(
-            status="error",
-            error=str(exc),
-            output_saved=report["output_saved"] or isinstance(exc, PublicationError),
-        )
-        raise OperationError(str(exc), report) from exc
-    return report
+            raise ValueError("Neutral project changed while preparing exchange")
+        report = {
+            "schema_version": 1,
+            "status": "saved",
+            "direction": direction,
+            "view_id": binding["view_id"],
+            "recipient": peer if peer is not None else recipient,
+            "output": destination.relative_to(workspace.root).as_posix(),
+            "output_bytes": len(packet),
+            "exchange_sha256": sha256(packet),
+            "files": len(snapshot),
+            "authenticated": True,
+            "pipeline_sha256": pipeline.fingerprint if pipeline else None,
+            "output_saved": False,
+        }
+        try:
+            atomic_write(destination, packet)
+            report["output_saved"] = True
+            _recheck(workspace, {**inputs, **credentials})
+            if _hashes(snapshot_view(view)) != _hashes(snapshot):
+                raise ValueError("Neutral project changed during exchange publication")
+            if read_bytes(destination, workspace.max_bytes * 2) != packet:
+                raise ValueError("Published exchange changed before completion")
+            leases.close()
+        except (OSError, ValueError) as exc:
+            report.update(
+                status="error",
+                error=str(exc),
+                output_saved=report["output_saved"]
+                or isinstance(exc, PublicationError),
+            )
+            raise OperationError(str(exc), report) from exc
+        return report
 
 
 def pack_view(
@@ -300,9 +332,11 @@ def pack_view(
     view_id: str,
     output: str,
     *,
-    key: str,
-    recipient: str,
+    key: str | None = None,
+    recipient: str | None = None,
     recipe: str | None = None,
+    peer: str | None = None,
+    ttl: int = 86400,
 ) -> dict[str, Any]:
     """Send an unchanged exported project; original spelling context stays local."""
     with exclusive_lock(operation_lock(workspace)):
@@ -325,6 +359,8 @@ def pack_view(
             key=key,
             recipient=recipient,
             recipe=recipe,
+            peer=peer,
+            ttl=ttl,
             inputs={directory / "manifest.json": manifest_sha},
             snapshot=snapshot,
         )
@@ -343,13 +379,30 @@ def _journal(
     if (
         not isinstance(value, dict)
         or set(value)
-        != {"kind", "schema_version", "exchange_sha256", "output", "header"}
+        not in (
+            {"kind", "schema_version", "exchange_sha256", "output", "header"},
+            {
+                "kind",
+                "schema_version",
+                "exchange_sha256",
+                "output",
+                "header",
+                "delivery",
+            },
+        )
         or value["kind"] != "bamboozle.exchange-open"
         or type(value["schema_version"]) is not int
         or value["schema_version"] != 1
         or value["exchange_sha256"] != exchange_id
     ):
         raise ValueError("Invalid retained exchange journal")
+    if "delivery" in value:
+        certificate = identity.validate_certificate(value["delivery"])
+        if (
+            certificate["packet_sha256"] != exchange_id
+            or certificate["header"]["purpose"] != "project-outbound"
+        ):
+            raise ValueError("Retained delivery does not match its outbound exchange")
     _header(value["header"])
     if value["header"]["direction"] != "outbound":
         raise ValueError("Only outbound projects can create agent workspaces")
@@ -388,14 +441,23 @@ def open_exchange(
     packet: str,
     output: str,
     *,
-    key: str,
-    recipient: str,
+    key: str | None = None,
+    recipient: str | None = None,
     recipe: str | None = None,
+    peer: str | None = None,
     recover: bool = False,
 ) -> dict[str, Any]:
     """Materialize an authenticated outbound view with journaled, explicit recovery."""
+    delivery: dict[str, Any] = {}
     header, snapshot, exchange_id = read_exchange(
-        workspace, packet, key=key, recipient=recipient, recipe=recipe
+        workspace,
+        packet,
+        key=key,
+        recipient=recipient,
+        recipe=recipe,
+        peer=peer,
+        delivery=delivery,
+        recover=recover,
     )
     if header["direction"] != "outbound":
         raise ValueError("Use view-review --return-packet for a returned project")
@@ -411,6 +473,7 @@ def open_exchange(
             "exchange_sha256": exchange_id,
             "output": output,
             "header": header,
+            **({"delivery": delivery} if delivery else {}),
         }
     )
     report: dict[str, Any] = {
@@ -422,7 +485,7 @@ def open_exchange(
         "files_saved": [],
         "output_saved": False,
     }
-    with exclusive_lock(operation_lock(workspace)):
+    with exclusive_lock(operation_lock(workspace)), ExitStack() as leases:
         if receipt_path.exists():
             raise ValueError(
                 "Exchange already opened; use its retained workspace/context"
@@ -441,6 +504,21 @@ def open_exchange(
                 directory.mkdir(parents=True, exist_ok=True)
                 atomic_write(journal_path, journal)
             report["journal_saved"] = True
+            if delivery:
+                report["delivery_id"] = leases.enter_context(
+                    identity.admitting(
+                        workspace,
+                        delivery,
+                        receipt_path,
+                        json_bytes(
+                            {
+                                "kind": "bamboozle.exchange-open-complete",
+                                "journal_sha256": sha256(journal),
+                            }
+                        ),
+                        recover=recover,
+                    )
+                )
             destination.mkdir(parents=True, exist_ok=True)
             view = Workspace(
                 workspace.resolve(destination, write=True), workspace.max_bytes
@@ -476,6 +554,7 @@ def open_exchange(
                 status="recovered" if recover else "opened", receipt_saved=True
             )
             report["output_saved"] = True
+            leases.close()
         except (OSError, ValueError, TypeError) as exc:
             report.update(
                 status="error",
@@ -500,14 +579,20 @@ def pack_return(
     exchange_id: str,
     output: str,
     *,
-    key: str,
-    recipient: str,
+    key: str | None = None,
+    recipient: str | None = None,
     recipe: str | None = None,
+    peer: str | None = None,
+    ttl: int = 86400,
 ) -> dict[str, Any]:
     """Return the receiver's complete edited/new project, retaining its origin binding."""
     with exclusive_lock(operation_lock(workspace)):
         exchange_context(workspace, exchange_id)
         directory, raw, journal, view = _journal(workspace, exchange_id)
+        if "delivery" in journal and peer != journal["delivery"]["header"]["sender"]:
+            raise ValueError(
+                "A managed project must return to its original registered sender"
+            )
         receipt = workspace.read(directory / "result.json")
         return _publish(
             workspace,
@@ -518,6 +603,8 @@ def pack_return(
             key=key,
             recipient=recipient,
             recipe=recipe,
+            peer=peer,
+            ttl=ttl,
             inputs={
                 directory / "import.json": sha256(raw),
                 directory / "result.json": sha256(receipt),
@@ -532,12 +619,21 @@ def returned_snapshot(
     manifest_sha: str,
     packet: str,
     *,
-    key: str,
-    recipient: str,
+    key: str | None = None,
+    recipient: str | None = None,
     recipe: str | None = None,
+    peer: str | None = None,
+    delivery: dict[str, Any] | None = None,
 ) -> tuple[dict[str, bytes], str]:
     header, snapshot, fingerprint = read_exchange(
-        workspace, packet, key=key, recipient=recipient, recipe=recipe
+        workspace,
+        packet,
+        key=key,
+        recipient=recipient,
+        recipe=recipe,
+        peer=peer,
+        purpose="project-return",
+        delivery=delivery,
     )
     if header["direction"] != "return" or header["binding"] != {
         "view_id": manifest["view_id"],

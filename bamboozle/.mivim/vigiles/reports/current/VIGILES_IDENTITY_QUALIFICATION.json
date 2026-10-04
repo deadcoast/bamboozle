@@ -1,0 +1,1687 @@
+{
+  "artifacts": {
+    "bamboozle-0.7.0-py3-none-any.whl": {
+      "bytes": 247605,
+      "sha256": "44f286e5e207580b3287527d2259ccda50f625cefa265a86bdd0139bb6dc51d9"
+    },
+    "bamboozle-0.7.0.tar.gz": {
+      "bytes": 299260,
+      "sha256": "557342f235a44afd0c6b440accee098f57af6b765bd8ef66be533a1086615e7d"
+    }
+  },
+  "completed": "2026-10-04T18:03:53.478133+00:00",
+  "contract": "docs/managed-transport.md",
+  "contract_sha256": "5037d7bf54c8a8e6ae08f41ca9c27eb332ac2431da918d4ed7d56cb52be1f2a7",
+  "design": {
+    "compatibility": "Explicit schema-1 raw-key transport and original C method assets preserved; schema-2 managed transport never downgrades. Semantic/classical/BAMb5 engines remain distinct.",
+    "ownership": "Bamboozle implements custody, versioned Tessera and journal-bound admission; Vandal routes operator capabilities and keeps them outside source-agent contexts.",
+    "sources": [
+      ".mivim/vigiles/specs/vigiles-vanilla_0.1.md:63-66",
+      ".mivim/vigiles/specs/vigiles-vanilla_0.1.md:171",
+      ".mivim/vigiles-vandal_0.2.md",
+      "VIGILES_STATUS.json"
+    ],
+    "trust": "Operator-owned local shared-key bindings, private durable state, trustworthy clock and explicit out-of-band pair-key provisioning; not independent identity verification."
+  },
+  "focused_regressions": [
+    "Tampered headers/nonces/ciphertexts, sender/recipient/purpose/version mismatch and no unauthenticated admission",
+    "Stale lifecycle digests, pair-key reuse refusal, terminal revocation and retirement issue cutoff",
+    "Expiry/future-clock refusal; exact pending recovery after expiry and revocation blocking recovery",
+    "Serialized replay and competing process admission",
+    "Read-only repeated review, no-edit return admission, source review/apply binding and packet-free retained source recovery",
+    "File/extraction/source interruption, admission crash boundary and retained completion receipts",
+    "No-clobber refusal reports pre-existing files truthfully; send key-byte drift and custody-close errors preserve publication evidence"
+  ],
+  "id": "VIG-IDENTITY-01",
+  "implementation": [
+    "src/bamboozle/identity.py",
+    "src/bamboozle/transport.py",
+    "src/bamboozle/tessera.py",
+    "src/bamboozle/project_exchange.py",
+    "src/bamboozle/view_import.py",
+    "src/bamboozle/cli.py",
+    "src/bamboozle/mcp.py",
+    "src/bamboozle/cipher_operations.py",
+    "scripts/vandal.py",
+    "scripts/identity_smoke.py",
+    "scripts/exchange_smoke.py",
+    "scripts/package_smoke.py",
+    "src/bamboozle/tests/test_identity.py",
+    "src/bamboozle/tests/test_cli_mcp.py",
+    "src/bamboozle/tests/test_vandal.py"
+  ],
+  "installed_application": {
+    "applications": {
+      "exchange_module": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-krvbdw9g\\wheel-env\\Lib\\site-packages\\bamboozle\\project_exchange.py",
+      "identity_module": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-krvbdw9g\\wheel-env\\Lib\\site-packages\\bamboozle\\identity.py",
+      "managed": true,
+      "workflows": {
+        "cli": {
+          "apply": {
+            "applied_files": [
+              "bench.py",
+              "obsolete.py",
+              "pipeline/main.py",
+              "pipeline/timeline.py"
+            ],
+            "delivery_id": "3623c80afc242566905d3d1ec3ff9863e029b99a4959ad21bd6081d0c444f7c3",
+            "journal_saved": true,
+            "output_saved": true,
+            "receipt_saved": true,
+            "review_sha256": "01916a3062ec650ab1e4de561e5ca928a7cfd586862f7a3dbe9de64dfe2b75d6",
+            "schema_version": 1,
+            "status": "applied",
+            "view_id": "e14ef85b42c648589c5028a7bcf7e401"
+          },
+          "context": {
+            "contract": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-krvbdw9g\\runtime\\identity-workflow\\projects\\cli\\receiver\\work\\BAMBOOZLE_VIEW.md",
+            "exchange_id": "6d8571f24ed611fa4a6f3d0da9e40ce6ceeb135d497ba5653512cbd6f87c8ae5",
+            "instructions": "Develop and execute the complete application in this already neutral workspace using ordinary file tools. Preserve generated controls. Operator exchange-return packages all edited/new files; missing files require explicit deletion selection at the source owner. Do not attach the source encoder or operator MCP to this agent context.",
+            "mcp_config": {
+              "mcpServers": {}
+            },
+            "view_id": "e14ef85b42c648589c5028a7bcf7e401",
+            "workspace": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-krvbdw9g\\runtime\\identity-workflow\\projects\\cli\\receiver\\work"
+          },
+          "export": {
+            "excluded_files": [],
+            "files_exported": 7,
+            "manifest_saved": true,
+            "manifest_sha256": "cd8ca284fc8e935b42e93cbf903ffa9e61e7304accc662b0c3df9b71e3eda42e",
+            "private_state": ".local/bamboozle/views/e14ef85b42c648589c5028a7bcf7e401",
+            "python_project": {
+              "files": 5,
+              "imported_members_checked": 3,
+              "providers_parsed": 5,
+              "relationships": [
+                {
+                  "line": 2,
+                  "names": [
+                    "Stage",
+                    "load"
+                  ],
+                  "provider": "pipeline/model.py",
+                  "source": "pipeline/graph.py"
+                },
+                {
+                  "line": 4,
+                  "names": [
+                    "assemble"
+                  ],
+                  "provider": "pipeline/graph.py",
+                  "source": "pipeline/main.py"
+                }
+              ],
+              "runtime_execution_required": true,
+              "status": "checked"
+            },
+            "schema_version": 1,
+            "selected_source_files": 6,
+            "status": "exported",
+            "unselected_files": "omitted",
+            "view": "view",
+            "view_id": "e14ef85b42c648589c5028a7bcf7e401"
+          },
+          "local_view_unchanged": true,
+          "neutral_benchmark": {
+            "invalid_capacities": 5,
+            "invalid_workloads": 12,
+            "protected_literals_preserved": true,
+            "scheduler_executions": 300,
+            "workloads": 100
+          },
+          "neutral_execution": {
+            "capacity": 2,
+            "critical": 8,
+            "finish": {
+              "a": 3,
+              "b": 2,
+              "c": 8
+            },
+            "intervals": {
+              "a": {
+                "finish": 3,
+                "start": 0,
+                "worker": 0
+              },
+              "b": {
+                "finish": 2,
+                "start": 0,
+                "worker": 1
+              },
+              "c": {
+                "finish": 8,
+                "start": 3,
+                "worker": 0
+              }
+            },
+            "makespan": 8,
+            "order": [
+              "a",
+              "b",
+              "c"
+            ],
+            "status": "planned",
+            "total": 10
+          },
+          "opened": {
+            "agent_context": {
+              "contract": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-krvbdw9g\\runtime\\identity-workflow\\projects\\cli\\receiver\\work\\BAMBOOZLE_VIEW.md",
+              "exchange_id": "6d8571f24ed611fa4a6f3d0da9e40ce6ceeb135d497ba5653512cbd6f87c8ae5",
+              "instructions": "Develop and execute the complete application in this already neutral workspace using ordinary file tools. Preserve generated controls. Operator exchange-return packages all edited/new files; missing files require explicit deletion selection at the source owner. Do not attach the source encoder or operator MCP to this agent context.",
+              "mcp_config": {
+                "mcpServers": {}
+              },
+              "view_id": "e14ef85b42c648589c5028a7bcf7e401",
+              "workspace": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-krvbdw9g\\runtime\\identity-workflow\\projects\\cli\\receiver\\work"
+            },
+            "delivery_id": "2856804305b34d3a444e9ac188d25b6c97c0288a8a78445bbdccb5349cb20b45",
+            "exchange_id": "6d8571f24ed611fa4a6f3d0da9e40ce6ceeb135d497ba5653512cbd6f87c8ae5",
+            "files_saved": [
+              "BAMBOOZLE_VIEW.md",
+              "obsolete.py",
+              "pipeline/__init__.py",
+              "pipeline/graph.py",
+              "pipeline/main.py",
+              "pipeline/model.py",
+              "workload.json"
+            ],
+            "journal_saved": true,
+            "output": "work",
+            "output_saved": true,
+            "receipt_saved": true,
+            "schema_version": 1,
+            "status": "opened"
+          },
+          "original_bytes_preserved": true,
+          "outbound": {
+            "authenticated": true,
+            "direction": "outbound",
+            "exchange_sha256": "6d8571f24ed611fa4a6f3d0da9e40ce6ceeb135d497ba5653512cbd6f87c8ae5",
+            "files": 7,
+            "output": "out.bam",
+            "output_bytes": 40360,
+            "output_saved": true,
+            "pipeline_sha256": "c8e31386d26327f89cf09d2d18b4509f922c50365a3f040ef2c13c746a1e2074",
+            "recipient": "receiver",
+            "schema_version": 1,
+            "status": "saved",
+            "view_id": "e14ef85b42c648589c5028a7bcf7e401"
+          },
+          "receiver_root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-krvbdw9g\\runtime\\identity-workflow\\projects\\cli\\receiver",
+          "restored_benchmark": {
+            "invalid_capacities": 5,
+            "invalid_workloads": 12,
+            "protected_literals_preserved": true,
+            "scheduler_executions": 300,
+            "workloads": 100
+          },
+          "restored_execution": {
+            "capacity": 2,
+            "critical": 8,
+            "finish": {
+              "a": 3,
+              "b": 2,
+              "c": 8
+            },
+            "intervals": {
+              "a": {
+                "finish": 3,
+                "start": 0,
+                "worker": 0
+              },
+              "b": {
+                "finish": 2,
+                "start": 0,
+                "worker": 1
+              },
+              "c": {
+                "finish": 8,
+                "start": 3,
+                "worker": 0
+              }
+            },
+            "makespan": 8,
+            "order": [
+              "a",
+              "b",
+              "c"
+            ],
+            "status": "planned",
+            "total": 10
+          },
+          "returned": {
+            "authenticated": true,
+            "direction": "return",
+            "exchange_sha256": "500cbf485571b221e98e7d64d820d87a0e34971c7b91c8091b5954c80c338e4d",
+            "files": 8,
+            "output": "return.bam",
+            "output_bytes": 58054,
+            "output_saved": true,
+            "pipeline_sha256": "c8e31386d26327f89cf09d2d18b4509f922c50365a3f040ef2c13c746a1e2074",
+            "recipient": "owner",
+            "schema_version": 1,
+            "status": "saved",
+            "view_id": "e14ef85b42c648589c5028a7bcf7e401"
+          },
+          "review": {
+            "action_count": 4,
+            "changes": [
+              {
+                "action": "create",
+                "before_sha256": null,
+                "diff": "--- retained-original\n+++ restored-edits\n@@ -0,0 +1,63 @@\n+import copy\n+import json\n+import random\n+from pipeline.main import run\n+from pipeline.graph import build, PROTOCOL_EXAMPLE, RESOURCE\n+\n+rng = random.Random(72831)\n+executions = 0\n+for size in range(1, 26):\n+    for repetition in range(4):\n+        rows = [{\"name\": str(index), \"weight\": rng.randrange(1, 13), \"dependencies\": [str(parent) for parent in range(index) if rng.random() < .18]} for index in range(size)]\n+        # Independent recurrence in generation order, separate from the returned\n+        # planner's heap traversal and event-driven capacity scheduler.\n+        ends = {}\n+        for row in rows:\n+            ends[row[\"name\"]] = max((ends[parent] for parent in row[\"dependencies\"]), default=0) + row[\"weight\"]\n+        for capacity in (1, 2, 32):\n+            result = run(rows, capacity)\n+            intervals = result[\"intervals\"]\n+            assert set(intervals) == set(ends)\n+            assert result[\"critical\"] == max(ends.values())\n+            assert result[\"total\"] == sum(row[\"weight\"] for row in rows)\n+            for row in rows:\n+                span = intervals[row[\"name\"]]\n+                assert span[\"finish\"] - span[\"start\"] == row[\"weight\"]\n+                assert all(intervals[parent][\"finish\"] <= span[\"start\"] for parent in row[\"dependencies\"])\n+            times = {item[\"start\"] for item in intervals.values()} | {item[\"finish\"] for item in intervals.values()}\n+            for moment in times:\n+                active = [item for item in intervals.values() if item[\"start\"] <= moment < item[\"finish\"]]\n+                assert len(active) <= capacity\n+                assert len({item[\"worker\"] for item in active}) == len(active)\n+            assert result[\"makespan\"] == max(item[\"finish\"] for item in intervals.values())\n+            if capacity == 1:\n+                assert result[\"makespan\"] == result[\"total\"]\n+            if capacity == 32:\n+                assert result[\"makespan\"] == result[\"critical\"]\n+            executions += 1\n+valid = [{\"name\": \"a\", \"weight\": 2, \"dependencies\": []}]\n+bad = [[], {}, valid + valid, [{\"name\":\"a\", \"weight\":2,\"dependencies\":[\"missing\"]}], [{\"name\":\"a\",\"weight\":2,\"dependencies\":[\"a\"]}]]\n+for value in (True, 0, -1, 1000001, \"2\", None):\n+    rows = copy.deepcopy(valid)\n+    rows[0][\"weight\"] = value\n+    bad.append(rows)\n+rows = copy.deepcopy(valid)\n+rows[0][\"dependencies\"] = [\"a\", \"a\"]\n+bad.append(rows)\n+for rows in bad:\n+    try:\n+        run(rows, 2)\n+    except ValueError:\n+        pass\n+    else:\n+        raise AssertionError(rows)\n+for capacity in (0, -1, True, 65, \"2\"):\n+    try:\n+        run(valid, capacity)\n+    except ValueError:\n+        pass\n+    else:\n+        raise AssertionError(capacity)\n+assert PROTOCOL_EXAMPLE == \"__SCM_LIT_bad__ __SCM_CASE_\"\n+assert RESOURCE == r\"C:\\models\\Task\\weight.json\"\n+print(json.dumps({\"workloads\":100,\"scheduler_executions\":executions,\"invalid_workloads\":len(bad),\"invalid_capacities\":5,\"protected_literals_preserved\":True}, sort_keys=True))\n",
+                "diff_complete": true,
+                "output_bytes": 2932,
+                "output_sha256": "84997c6a5ad56b751c0cbd06da5551318da1ae5197e25219ad0036739d9689b8",
+                "path": "bench.py",
+                "policy": "translate"
+              },
+              {
+                "action": "delete",
+                "before_sha256": "63322b3a3fe7698a889ae0843b77277ceb31eaabfdf169f067b8e091878eebb0",
+                "diff": "--- retained-original\n+++ restored-edits\n@@ -1 +0,0 @@\n-OLD = True\n",
+                "diff_complete": true,
+                "output_bytes": 0,
+                "output_sha256": null,
+                "path": "obsolete.py",
+                "policy": "translate"
+              },
+              {
+                "action": "modify",
+                "before_sha256": "5720614a8ca6e12c78ecb47f1a1a37ff7e6e917298eb868f982360e6d461f61b",
+                "diff": "--- retained-original\n+++ restored-edits\n@@ -1,17 +1,18 @@\n import argparse\n import json\n from pathlib import Path\n-from .graph import build\n+from .timeline import simulate\n \n-def run(rows):\n-    return build(rows)\n+def run(rows, capacity=2):\n+    return simulate(rows, capacity)\n \n def main():\n     parser = argparse.ArgumentParser(description=\"Validate and plan dependency workloads\")\n     parser.add_argument(\"input\")\n+    parser.add_argument(\"--capacity\", type=int, default=2)\n     args = parser.parse_args()\n     try:\n-        result = run(json.loads(Path(args.input).read_text(encoding=\"utf-8\")))\n+        result = run(json.loads(Path(args.input).read_text(encoding=\"utf-8\")), args.capacity)\n     except (ValueError, OSError) as error:\n         print(json.dumps({\"status\": \"invalid\", \"error\": str(error)}))\n         return 2\n",
+                "diff_complete": true,
+                "output_bytes": 749,
+                "output_sha256": "68f4a03881b3e22e2b82e1a0d658a4839d0f82c20c6ca79f34dbb92f3e9867fe",
+                "path": "pipeline/main.py",
+                "policy": "translate"
+              },
+              {
+                "action": "create",
+                "before_sha256": null,
+                "diff": "--- retained-original\n+++ restored-edits\n@@ -0,0 +1,30 @@\n+from heapq import heappop, heappush\n+from .model import load\n+from .graph import build\n+\n+def simulate(rows, capacity):\n+    if type(capacity) is not int or not 1 <= capacity <= 64:\n+        raise ValueError(\"capacity must be an integer from 1 to 64\")\n+    plan = build(rows)\n+    tasks = load(rows)\n+    completed, launched = set(), set()\n+    running, intervals = [], {}\n+    free = set(range(capacity))\n+    now = 0\n+    while len(completed) != len(tasks):\n+        ready = [name for name in plan[\"order\"] if name not in launched and set(tasks[name].dependencies) <= completed]\n+        for name in ready[:len(free)]:\n+            worker = min(free)\n+            free.remove(worker)\n+            launched.add(name)\n+            finish = now + tasks[name].weight\n+            intervals[name] = {\"start\": now, \"finish\": finish, \"worker\": worker}\n+            heappush(running, (finish, name, worker))\n+        if not running:\n+            raise ValueError(\"unschedulable workload\")\n+        now = running[0][0]\n+        while running and running[0][0] == now:\n+            _, name, worker = heappop(running)\n+            completed.add(name)\n+            free.add(worker)\n+    return {**plan, \"makespan\": now, \"intervals\": intervals, \"capacity\": capacity}\n",
+                "diff_complete": true,
+                "output_bytes": 1227,
+                "output_sha256": "7475b49a0a4081ddacad1a5ce1b68ac3ac96fc591f5d9492c3b0ea3a6cc44c9e",
+                "path": "pipeline/timeline.py",
+                "policy": "translate"
+              }
+            ],
+            "conflicts": [],
+            "delivery": {
+              "header": {
+                "algorithm": "AES-256-GCM",
+                "expires_at": 1791223356,
+                "issued_at": 1791136956,
+                "key_id": "e7a58774089d7f9121a6d166c1644b124913096a3d15700691190a46ff62e5e0",
+                "kind": "vigiles.tessera",
+                "message_id": "8d1440aa5fae439fb250e3f6309566f7",
+                "purpose": "project-return",
+                "recipient": "owner",
+                "schema_version": 2,
+                "sender": "receiver"
+              },
+              "packet_sha256": "500cbf485571b221e98e7d64d820d87a0e34971c7b91c8091b5954c80c338e4d",
+              "payload_sha256": "1a0cdda513a6e0eba3bea196c5a708b38dfcb026aa1c585a108e15ebb6e05d0d"
+            },
+            "delivery_id": "3623c80afc242566905d3d1ec3ff9863e029b99a4959ad21bd6081d0c444f7c3",
+            "exchange_sha256": "500cbf485571b221e98e7d64d820d87a0e34971c7b91c8091b5954c80c338e4d",
+            "ok": true,
+            "output_saved": false,
+            "return_validation": {
+              "advisory": "Diagnostics do not decide edit intent; inspect decoded diffs before applying the exact review digest.",
+              "analysis_complete": true,
+              "files": [
+                {
+                  "analysis_complete": true,
+                  "baseline_available": false,
+                  "baseline_encoded_sha256": null,
+                  "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+                  "counts": {},
+                  "decodable": true,
+                  "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+                  "decoded_sha256": "84997c6a5ad56b751c0cbd06da5551318da1ae5197e25219ad0036739d9689b8",
+                  "dictionary_sha256": "7a0930454c59e28dfd2d2a8afaefe9d72947d9bf1cb5e8984598a76f7ba382cf",
+                  "document_byte_limit": 16777216,
+                  "document_rules": {
+                    "format": "python",
+                    "identifiers": [
+                      "Task",
+                      "build",
+                      "run",
+                      "weight",
+                      "total"
+                    ],
+                    "modules": [
+                      ".model",
+                      ".graph",
+                      ".timeline",
+                      "pipeline.model",
+                      "pipeline.graph",
+                      "pipeline.main",
+                      "pipeline.timeline"
+                    ],
+                    "strings": [
+                      "build"
+                    ]
+                  },
+                  "edited_sha256": "135e82b621edc6733c9e274cc1953e5530114d906ed806c716703ec30d12bc78",
+                  "finding_count": 0,
+                  "findings": [],
+                  "findings_complete": true,
+                  "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+                  "marker_version": 2,
+                  "next_offset": null,
+                  "offset": 0,
+                  "ok": true,
+                  "output_saved": false,
+                  "path": "bench.py",
+                  "schema_version": 1,
+                  "status": "accepted",
+                  "validation_sha256": "5af8524129b404f3571682e92664f377f8fad888cabe51ad6e26e63b9b3236ca",
+                  "validator_version": "2"
+                },
+                {
+                  "analysis_complete": true,
+                  "baseline_available": true,
+                  "baseline_encoded_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                  "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+                  "counts": {},
+                  "decodable": true,
+                  "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+                  "decoded_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                  "dictionary_sha256": "7a0930454c59e28dfd2d2a8afaefe9d72947d9bf1cb5e8984598a76f7ba382cf",
+                  "document_byte_limit": 16777216,
+                  "document_rules": {
+                    "format": "python",
+                    "identifiers": [
+                      "Task",
+                      "build",
+                      "run",
+                      "weight",
+                      "total"
+                    ],
+                    "modules": [
+                      ".model",
+                      ".graph",
+                      ".timeline",
+                      "pipeline.model",
+                      "pipeline.graph",
+                      "pipeline.main",
+                      "pipeline.timeline"
+                    ],
+                    "strings": [
+                      "build"
+                    ]
+                  },
+                  "edited_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                  "finding_count": 0,
+                  "findings": [],
+                  "findings_complete": true,
+                  "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+                  "marker_version": 2,
+                  "next_offset": null,
+                  "offset": 0,
+                  "ok": true,
+                  "output_saved": false,
+                  "path": "pipeline/__init__.py",
+                  "schema_version": 1,
+                  "status": "accepted",
+                  "validation_sha256": "c6bfac6f1c72a593717b539a2372997a909961a72c28d2457d0e59319b78c3a0",
+                  "validator_version": "2"
+                },
+                {
+                  "analysis_complete": true,
+                  "baseline_available": true,
+                  "baseline_encoded_sha256": "fb6d0674fa7bd70940f12ccf4d808119886ebec470b5349c18c4b3c9daa8a075",
+                  "context_sha256": "260e7191885aafa0e9f6dc73be47ec57aa754811f00331a8597a3f755ec92cc2",
+                  "counts": {},
+                  "decodable": true,
+                  "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+                  "decoded_sha256": "924caae4d39420912e10c4af25d853a89ed441d63c16b1a1a890e97bfe825897",
+                  "dictionary_sha256": "7a0930454c59e28dfd2d2a8afaefe9d72947d9bf1cb5e8984598a76f7ba382cf",
+                  "document_byte_limit": 16777216,
+                  "document_rules": {
+                    "format": "python",
+                    "identifiers": [
+                      "Task",
+                      "build",
+                      "run",
+                      "weight",
+                      "total"
+                    ],
+                    "modules": [
+                      ".model",
+                      ".graph",
+                      ".timeline",
+                      "pipeline.model",
+                      "pipeline.graph",
+                      "pipeline.main",
+                      "pipeline.timeline"
+                    ],
+                    "strings": [
+                      "build"
+                    ]
+                  },
+                  "edited_sha256": "fb6d0674fa7bd70940f12ccf4d808119886ebec470b5349c18c4b3c9daa8a075",
+                  "finding_count": 0,
+                  "findings": [],
+                  "findings_complete": true,
+                  "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+                  "marker_version": 2,
+                  "next_offset": null,
+                  "offset": 0,
+                  "ok": true,
+                  "output_saved": false,
+                  "path": "pipeline/graph.py",
+                  "schema_version": 1,
+                  "status": "accepted",
+                  "validation_sha256": "305f314f4bb6c36bb4b7f4f065fc04a7346e65ff29793c54617dd61767191bdd",
+                  "validator_version": "2"
+                },
+                {
+                  "analysis_complete": true,
+                  "baseline_available": true,
+                  "baseline_encoded_sha256": "f530cee90631593a8c3517041a3d89bb6f783a63e7ab9ccffbd05935994628e2",
+                  "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+                  "counts": {
+                    "controlled_term_removed": 1,
+                    "protected_python_changed": 11
+                  },
+                  "decodable": true,
+                  "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+                  "decoded_sha256": "68f4a03881b3e22e2b82e1a0d658a4839d0f82c20c6ca79f34dbb92f3e9867fe",
+                  "dictionary_sha256": "7a0930454c59e28dfd2d2a8afaefe9d72947d9bf1cb5e8984598a76f7ba382cf",
+                  "document_byte_limit": 16777216,
+                  "document_rules": {
+                    "format": "python",
+                    "identifiers": [
+                      "Task",
+                      "build",
+                      "run",
+                      "weight",
+                      "total"
+                    ],
+                    "modules": [
+                      ".model",
+                      ".graph",
+                      ".timeline",
+                      "pipeline.model",
+                      "pipeline.graph",
+                      "pipeline.main",
+                      "pipeline.timeline"
+                    ],
+                    "strings": [
+                      "build"
+                    ]
+                  },
+                  "edited_sha256": "5ec2b6ce2a4613fda17fd809b59e59e6076639eea6c4fe3a6839e8f409546d47",
+                  "finding_count": 12,
+                  "findings": [
+                    {
+                      "code": "controlled_term_removed",
+                      "index": 0,
+                      "message": "Controlled vocabulary occurrence count decreased; inspect possible deletion or terminology drift. Synonyms are not inferred.",
+                      "neutral_term": "assemble",
+                      "removed_count": 2,
+                      "source_term": "build"
+                    },
+                    {
+                      "change": "removed",
+                      "code": "protected_python_changed",
+                      "content": {
+                        "complete": true,
+                        "sha256": "e655841f1d8708d7a91250f4a4e4d3682619ea2c62fc69d119bbd3bd5a3a78ba",
+                        "text": "import argparse\nimport json\nfrom pathlib import Path\nfrom .graph import "
+                      },
+                      "index": 1,
+                      "location": {
+                        "column": 1,
+                        "line": 1,
+                        "offset": 0
+                      },
+                      "message": "Protected content changed; review this deliberate source edit separately from selected translation regions."
+                    },
+                    {
+                      "change": "removed",
+                      "code": "protected_python_changed",
+                      "content": {
+                        "complete": true,
+                        "sha256": "82e5e742ff30a2cfa7ab444d9752a15c18e339178545ed174522aea52ebaaa7e",
+                        "text": "):\n    return "
+                      },
+                      "index": 2,
+                      "location": {
+                        "column": 17,
+                        "line": 6,
+                        "offset": 98
+                      },
+                      "message": "Protected content changed; review this deliberate source edit separately from selected translation regions."
+                    },
+                    {
+                      "change": "removed",
+                      "code": "protected_python_changed",
+                      "content": {
+                        "complete": true,
+                        "sha256": "1ca6e848ab4f41aead8a38598898e61160d7b38ef4e57eed745a1825fa4455af",
+                        "text": "=\"utf-8\")))\n    except ("
+                      },
+                      "index": 3,
+                      "location": {
+                        "column": 72,
+                        "line": 14,
+                        "offset": 375
+                      },
+                      "message": "Protected content changed; review this deliberate source edit separately from selected translation regions."
+                    },
+                    {
+                      "change": "added",
+                      "code": "protected_python_changed",
+                      "content": {
+                        "complete": true,
+                        "sha256": "d9286caab58392fb14b1c042b0519a63783637726b47d88d45718b59b55e625e",
+                        "text": "import argparse\nimport json\nfrom pathlib import Path\nfrom .timeline import "
+                      },
+                      "index": 4,
+                      "location": {
+                        "column": 1,
+                        "line": 1,
+                        "offset": 0
+                      },
+                      "message": "Protected content changed; review this deliberate source edit separately from selected translation regions."
+                    },
+                    {
+                      "change": "added",
+                      "code": "protected_python_changed",
+                      "content": {
+                        "complete": true,
+                        "sha256": "64904c0711656336982162ff0a0a38496baeae4905033958f155043bede1e7e2",
+                        "text": "=2):\n    return "
+                      },
+                      "index": 5,
+                      "location": {
+                        "column": 27,
+                        "line": 6,
+                        "offset": 111
+                      },
+                      "message": "Protected content changed; review this deliberate source edit separately from selected translation regions."
+                    },
+                    {
+                      "change": "added",
+                      "code": "protected_python_changed",
+                      "content": {
+                        "complete": true,
+                        "sha256": "0a07f659461970d8d8dcefe4fff96a1745599810dc7d47391e95c803b7b2072c",
+                        "text": ", "
+                      },
+                      "index": 6,
+                      "location": {
+                        "column": 25,
+                        "line": 7,
+                        "offset": 140
+                      },
+                      "message": "Protected content changed; review this deliberate source edit separately from selected translation regions."
+                    },
+                    {
+                      "change": "added",
+                      "code": "protected_python_changed",
+                      "content": {
+                        "complete": true,
+                        "sha256": "c3d8142fb4f61208eb898ed49b736f6cce532f6988872532629ce4e740643329",
+                        "text": ".add_argument(\"--capacity\", type="
+                      },
+                      "index": 7,
+                      "location": {
+                        "column": 11,
+                        "line": 12,
+                        "offset": 299
+                      },
+                      "message": "Protected content changed; review this deliberate source edit separately from selected translation regions."
+                    },
+                    {
+                      "change": "added",
+                      "code": "protected_python_changed",
+                      "content": {
+                        "complete": true,
+                        "sha256": "5d1ab47754e6abbeda5f8107edf11fec0423e734b2451c6c2306adbc5481ad05",
+                        "text": ", default=2)\n    "
+                      },
+                      "index": 8,
+                      "location": {
+                        "column": 47,
+                        "line": 12,
+                        "offset": 335
+                      },
+                      "message": "Protected content changed; review this deliberate source edit separately from selected translation regions."
+                    },
+                    {
+                      "change": "added",
+                      "code": "protected_python_changed",
+                      "content": {
+                        "complete": true,
+                        "sha256": "3cc7c903d422bf86861ee482580a5dc3cb16d49224d78e931b389b5b7be1efb9",
+                        "text": "=\"utf-8\")), "
+                      },
+                      "index": 9,
+                      "location": {
+                        "column": 72,
+                        "line": 15,
+                        "offset": 459
+                      },
+                      "message": "Protected content changed; review this deliberate source edit separately from selected translation regions."
+                    },
+                    {
+                      "change": "added",
+                      "code": "protected_python_changed",
+                      "content": {
+                        "complete": true,
+                        "sha256": "0a48291fe1107f4cc83f14a3b90e3bf788a99af6f27015e1cf733dd9f3cef58e",
+                        "text": ".capacity)\n    except ("
+                      },
+                      "index": 10,
+                      "location": {
+                        "column": 88,
+                        "line": 15,
+                        "offset": 475
+                      },
+                      "message": "Protected content changed; review this deliberate source edit separately from selected translation regions."
+                    },
+                    {
+                      "change": "added",
+                      "code": "protected_python_changed",
+                      "content": {
+                        "complete": true,
+                        "sha256": "0a07f659461970d8d8dcefe4fff96a1745599810dc7d47391e95c803b7b2072c",
+                        "text": ", "
+                      },
+                      "index": 11,
+                      "location": {
+                        "column": 23,
+                        "line": 16,
+                        "offset": 508
+                      },
+                      "message": "Protected content changed; review this deliberate source edit separately from selected translation regions."
+                    }
+                  ],
+                  "findings_complete": true,
+                  "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+                  "marker_version": 2,
+                  "next_offset": null,
+                  "offset": 0,
+                  "ok": false,
+                  "output_saved": false,
+                  "path": "pipeline/main.py",
+                  "schema_version": 1,
+                  "status": "needs_review",
+                  "validation_sha256": "e459084d8de2c3db1d16d8b06f370efa3eb7d741111b7fee514807bfeb65980e",
+                  "validator_version": "2"
+                },
+                {
+                  "analysis_complete": true,
+                  "baseline_available": true,
+                  "baseline_encoded_sha256": "6a2f419b685941774722366ee2c000fb69ec3d9aa15b12de7cea1778cc45cbbe",
+                  "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+                  "counts": {},
+                  "decodable": true,
+                  "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+                  "decoded_sha256": "d3721887be6eb737a9d16d6ee5de36b18bdf63d5160af9f556a0c9ca74bce33d",
+                  "dictionary_sha256": "7a0930454c59e28dfd2d2a8afaefe9d72947d9bf1cb5e8984598a76f7ba382cf",
+                  "document_byte_limit": 16777216,
+                  "document_rules": {
+                    "format": "python",
+                    "identifiers": [
+                      "Task",
+                      "build",
+                      "run",
+                      "weight",
+                      "total"
+                    ],
+                    "modules": [
+                      ".model",
+                      ".graph",
+                      ".timeline",
+                      "pipeline.model",
+                      "pipeline.graph",
+                      "pipeline.main",
+                      "pipeline.timeline"
+                    ],
+                    "strings": [
+                      "build"
+                    ]
+                  },
+                  "edited_sha256": "6a2f419b685941774722366ee2c000fb69ec3d9aa15b12de7cea1778cc45cbbe",
+                  "finding_count": 0,
+                  "findings": [],
+                  "findings_complete": true,
+                  "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+                  "marker_version": 2,
+                  "next_offset": null,
+                  "offset": 0,
+                  "ok": true,
+                  "output_saved": false,
+                  "path": "pipeline/model.py",
+                  "schema_version": 1,
+                  "status": "accepted",
+                  "validation_sha256": "f61277f3c7c9504278fb80d7f2e17645375be32a94516b07058ba89c68aec970",
+                  "validator_version": "2"
+                },
+                {
+                  "analysis_complete": true,
+                  "baseline_available": false,
+                  "baseline_encoded_sha256": null,
+                  "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+                  "counts": {},
+                  "decodable": true,
+                  "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+                  "decoded_sha256": "7475b49a0a4081ddacad1a5ce1b68ac3ac96fc591f5d9492c3b0ea3a6cc44c9e",
+                  "dictionary_sha256": "7a0930454c59e28dfd2d2a8afaefe9d72947d9bf1cb5e8984598a76f7ba382cf",
+                  "document_byte_limit": 16777216,
+                  "document_rules": {
+                    "format": "python",
+                    "identifiers": [
+                      "Task",
+                      "build",
+                      "run",
+                      "weight",
+                      "total"
+                    ],
+                    "modules": [
+                      ".model",
+                      ".graph",
+                      ".timeline",
+                      "pipeline.model",
+                      "pipeline.graph",
+                      "pipeline.main",
+                      "pipeline.timeline"
+                    ],
+                    "strings": [
+                      "build"
+                    ]
+                  },
+                  "edited_sha256": "555918ec9c548c81d7a1e0f7dbc19bbe43e1e08c692c7be8e0bd533d696c58d1",
+                  "finding_count": 0,
+                  "findings": [],
+                  "findings_complete": true,
+                  "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+                  "marker_version": 2,
+                  "next_offset": null,
+                  "offset": 0,
+                  "ok": true,
+                  "output_saved": false,
+                  "path": "pipeline/timeline.py",
+                  "schema_version": 1,
+                  "status": "accepted",
+                  "validation_sha256": "f0f80d4b7241cd08cc0632e3b41ab3fa1e77bfc74331ccfd424d0ba098f87970",
+                  "validator_version": "2"
+                }
+              ],
+              "finding_count": 12,
+              "findings_complete": true,
+              "scope": "all_translated_returns",
+              "status": "needs_review"
+            },
+            "review_sha256": "01916a3062ec650ab1e4de561e5ca928a7cfd586862f7a3dbe9de64dfe2b75d6",
+            "schema_version": 1,
+            "status": "review",
+            "view_id": "e14ef85b42c648589c5028a7bcf7e401"
+          },
+          "source_receipt_sha256": "c6d21293f1ec20ab5ae8ef76d31cc3d232045411f024d5bf42aa8e19bde1b136",
+          "source_root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-krvbdw9g\\runtime\\identity-workflow\\projects\\cli\\source"
+        },
+        "mcp": {
+          "apply": {
+            "applied_files": [
+              "bench.py",
+              "obsolete.py",
+              "pipeline/main.py",
+              "pipeline/timeline.py"
+            ],
+            "delivery_id": "9c1672f2ffc106986e87b7485c81a18d6b5c9252cf305436eb4b983d33211e5c",
+            "journal_saved": true,
+            "output_saved": true,
+            "receipt_saved": true,
+            "review_sha256": "ff1f2062c61e088d91cd3b7034c61e01d0b7fa6a41ed4a86c6cfc880dd610ed8",
+            "schema_version": 1,
+            "status": "applied",
+            "view_id": "5c64ab9886294471bd80e2c1fd9c4a98"
+          },
+          "context": {
+            "contract": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-krvbdw9g\\runtime\\identity-workflow\\projects\\mcp\\receiver\\work\\BAMBOOZLE_VIEW.md",
+            "exchange_id": "92052e32cadba61b517e708c354913c4b57c701557426d818ed21bf74c779b5c",
+            "instructions": "Develop and execute the complete application in this already neutral workspace using ordinary file tools. Preserve generated controls. Operator exchange-return packages all edited/new files; missing files require explicit deletion selection at the source owner. Do not attach the source encoder or operator MCP to this agent context.",
+            "mcp_config": {
+              "mcpServers": {}
+            },
+            "view_id": "5c64ab9886294471bd80e2c1fd9c4a98",
+            "workspace": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-krvbdw9g\\runtime\\identity-workflow\\projects\\mcp\\receiver\\work"
+          },
+          "export": {
+            "excluded_files": [],
+            "files_exported": 7,
+            "manifest_saved": true,
+            "manifest_sha256": "d897faf48fa350ea2033f3fdf666e4f2b9955280130fa0b00c8adc2828b0f7df",
+            "private_state": ".local/bamboozle/views/5c64ab9886294471bd80e2c1fd9c4a98",
+            "python_project": {
+              "files": 5,
+              "imported_members_checked": 3,
+              "providers_parsed": 5,
+              "relationships": [
+                {
+                  "line": 2,
+                  "names": [
+                    "Stage",
+                    "load"
+                  ],
+                  "provider": "pipeline/model.py",
+                  "source": "pipeline/graph.py"
+                },
+                {
+                  "line": 4,
+                  "names": [
+                    "assemble"
+                  ],
+                  "provider": "pipeline/graph.py",
+                  "source": "pipeline/main.py"
+                }
+              ],
+              "runtime_execution_required": true,
+              "status": "checked"
+            },
+            "schema_version": 1,
+            "selected_source_files": 6,
+            "status": "exported",
+            "unselected_files": "omitted",
+            "view": "view",
+            "view_id": "5c64ab9886294471bd80e2c1fd9c4a98"
+          },
+          "local_view_unchanged": true,
+          "neutral_benchmark": {
+            "invalid_capacities": 5,
+            "invalid_workloads": 12,
+            "protected_literals_preserved": true,
+            "scheduler_executions": 300,
+            "workloads": 100
+          },
+          "neutral_execution": {
+            "capacity": 2,
+            "critical": 8,
+            "finish": {
+              "a": 3,
+              "b": 2,
+              "c": 8
+            },
+            "intervals": {
+              "a": {
+                "finish": 3,
+                "start": 0,
+                "worker": 0
+              },
+              "b": {
+                "finish": 2,
+                "start": 0,
+                "worker": 1
+              },
+              "c": {
+                "finish": 8,
+                "start": 3,
+                "worker": 0
+              }
+            },
+            "makespan": 8,
+            "order": [
+              "a",
+              "b",
+              "c"
+            ],
+            "status": "planned",
+            "total": 10
+          },
+          "opened": {
+            "agent_context": {
+              "contract": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-krvbdw9g\\runtime\\identity-workflow\\projects\\mcp\\receiver\\work\\BAMBOOZLE_VIEW.md",
+              "exchange_id": "92052e32cadba61b517e708c354913c4b57c701557426d818ed21bf74c779b5c",
+              "instructions": "Develop and execute the complete application in this already neutral workspace using ordinary file tools. Preserve generated controls. Operator exchange-return packages all edited/new files; missing files require explicit deletion selection at the source owner. Do not attach the source encoder or operator MCP to this agent context.",
+              "mcp_config": {
+                "mcpServers": {}
+              },
+              "view_id": "5c64ab9886294471bd80e2c1fd9c4a98",
+              "workspace": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-krvbdw9g\\runtime\\identity-workflow\\projects\\mcp\\receiver\\work"
+            },
+            "delivery_id": "e97c2662e6f1163dcefd483f0d22ff1c70a71a16d7cc753bc1d03c57ab932824",
+            "exchange_id": "92052e32cadba61b517e708c354913c4b57c701557426d818ed21bf74c779b5c",
+            "files_saved": [
+              "BAMBOOZLE_VIEW.md",
+              "obsolete.py",
+              "pipeline/__init__.py",
+              "pipeline/graph.py",
+              "pipeline/main.py",
+              "pipeline/model.py",
+              "workload.json"
+            ],
+            "journal_saved": true,
+            "output": "work",
+            "output_saved": true,
+            "receipt_saved": true,
+            "schema_version": 1,
+            "status": "opened"
+          },
+          "original_bytes_preserved": true,
+          "outbound": {
+            "authenticated": true,
+            "direction": "outbound",
+            "exchange_sha256": "92052e32cadba61b517e708c354913c4b57c701557426d818ed21bf74c779b5c",
+            "files": 7,
+            "output": "out.bam",
+            "output_bytes": 40360,
+            "output_saved": true,
+            "pipeline_sha256": "c8e31386d26327f89cf09d2d18b4509f922c50365a3f040ef2c13c746a1e2074",
+            "recipient": "receiver",
+            "schema_version": 1,
+            "status": "saved",
+            "view_id": "5c64ab9886294471bd80e2c1fd9c4a98"
+          },
+          "receiver_root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-krvbdw9g\\runtime\\identity-workflow\\projects\\mcp\\receiver",
+          "restored_benchmark": {
+            "invalid_capacities": 5,
+            "invalid_workloads": 12,
+            "protected_literals_preserved": true,
+            "scheduler_executions": 300,
+            "workloads": 100
+          },
+          "restored_execution": {
+            "capacity": 2,
+            "critical": 8,
+            "finish": {
+              "a": 3,
+              "b": 2,
+              "c": 8
+            },
+            "intervals": {
+              "a": {
+                "finish": 3,
+                "start": 0,
+                "worker": 0
+              },
+              "b": {
+                "finish": 2,
+                "start": 0,
+                "worker": 1
+              },
+              "c": {
+                "finish": 8,
+                "start": 3,
+                "worker": 0
+              }
+            },
+            "makespan": 8,
+            "order": [
+              "a",
+              "b",
+              "c"
+            ],
+            "status": "planned",
+            "total": 10
+          },
+          "returned": {
+            "authenticated": true,
+            "direction": "return",
+            "exchange_sha256": "ba5895897836595a9149e1fc7a9bc744025e271c508af0adc62dd59b7470ca07",
+            "files": 8,
+            "output": "return.bam",
+            "output_bytes": 58054,
+            "output_saved": true,
+            "pipeline_sha256": "c8e31386d26327f89cf09d2d18b4509f922c50365a3f040ef2c13c746a1e2074",
+            "recipient": "owner",
+            "schema_version": 1,
+            "status": "saved",
+            "view_id": "5c64ab9886294471bd80e2c1fd9c4a98"
+          },
+          "review": {
+            "action_count": 4,
+            "changes": [
+              {
+                "action": "create",
+                "before_sha256": null,
+                "diff": "--- retained-original\n+++ restored-edits\n@@ -0,0 +1,63 @@\n+import copy\n+import json\n+import random\n+from pipeline.main import run\n+from pipeline.graph import build, PROTOCOL_EXAMPLE, RESOURCE\n+\n+rng = random.Random(72831)\n+executions = 0\n+for size in range(1, 26):\n+    for repetition in range(4):\n+        rows = [{\"name\": str(index), \"weight\": rng.randrange(1, 13), \"dependencies\": [str(parent) for parent in range(index) if rng.random() < .18]} for index in range(size)]\n+        # Independent recurrence in generation order, separate from the returned\n+        # planner's heap traversal and event-driven capacity scheduler.\n+        ends = {}\n+        for row in rows:\n+            ends[row[\"name\"]] = max((ends[parent] for parent in row[\"dependencies\"]), default=0) + row[\"weight\"]\n+        for capacity in (1, 2, 32):\n+            result = run(rows, capacity)\n+            intervals = result[\"intervals\"]\n+            assert set(intervals) == set(ends)\n+            assert result[\"critical\"] == max(ends.values())\n+            assert result[\"total\"] == sum(row[\"weight\"] for row in rows)\n+            for row in rows:\n+                span = intervals[row[\"name\"]]\n+                assert span[\"finish\"] - span[\"start\"] == row[\"weight\"]\n+                assert all(intervals[parent][\"finish\"] <= span[\"start\"] for parent in row[\"dependencies\"])\n+            times = {item[\"start\"] for item in intervals.values()} | {item[\"finish\"] for item in intervals.values()}\n+            for moment in times:\n+                active = [item for item in intervals.values() if item[\"start\"] <= moment < item[\"finish\"]]\n+                assert len(active) <= capacity\n+                assert len({item[\"worker\"] for item in active}) == len(active)\n+            assert result[\"makespan\"] == max(item[\"finish\"] for item in intervals.values())\n+            if capacity == 1:\n+                assert result[\"makespan\"] == result[\"total\"]\n+            if capacity == 32:\n+                assert result[\"makespan\"] == result[\"critical\"]\n+            executions += 1\n+valid = [{\"name\": \"a\", \"weight\": 2, \"dependencies\": []}]\n+bad = [[], {}, valid + valid, [{\"name\":\"a\", \"weight\":2,\"dependencies\":[\"missing\"]}], [{\"name\":\"a\",\"weight\":2,\"dependencies\":[\"a\"]}]]\n+for value in (True, 0, -1, 1000001, \"2\", None):\n+    rows = copy.deepcopy(valid)\n+    rows[0][\"weight\"] = value\n+    bad.append(rows)\n+rows = copy.deepcopy(valid)\n+rows[0][\"dependencies\"] = [\"a\", \"a\"]\n+bad.append(rows)\n+for rows in bad:\n+    try:\n+        run(rows, 2)\n+    except ValueError:\n+        pass\n+    else:\n+        raise AssertionError(rows)\n+for capacity in (0, -1, True, 65, \"2\"):\n+    try:\n+        run(valid, capacity)\n+    except ValueError:\n+        pass\n+    else:\n+        raise AssertionError(capacity)\n+assert PROTOCOL_EXAMPLE == \"__SCM_LIT_bad__ __SCM_CASE_\"\n+assert RESOURCE == r\"C:\\models\\Task\\weight.json\"\n+print(json.dumps({\"workloads\":100,\"scheduler_executions\":executions,\"invalid_workloads\":len(bad),\"invalid_capacities\":5,\"protected_literals_preserved\":True}, sort_keys=True))\n",
+                "diff_complete": true,
+                "output_bytes": 2932,
+                "output_sha256": "84997c6a5ad56b751c0cbd06da5551318da1ae5197e25219ad0036739d9689b8",
+                "path": "bench.py",
+                "policy": "translate"
+              },
+              {
+                "action": "delete",
+                "before_sha256": "63322b3a3fe7698a889ae0843b77277ceb31eaabfdf169f067b8e091878eebb0",
+                "diff": "--- retained-original\n+++ restored-edits\n@@ -1 +0,0 @@\n-OLD = True\n",
+                "diff_complete": true,
+                "output_bytes": 0,
+                "output_sha256": null,
+                "path": "obsolete.py",
+                "policy": "translate"
+              },
+              {
+                "action": "modify",
+                "before_sha256": "5720614a8ca6e12c78ecb47f1a1a37ff7e6e917298eb868f982360e6d461f61b",
+                "diff": "--- retained-original\n+++ restored-edits\n@@ -1,17 +1,18 @@\n import argparse\n import json\n from pathlib import Path\n-from .graph import build\n+from .timeline import simulate\n \n-def run(rows):\n-    return build(rows)\n+def run(rows, capacity=2):\n+    return simulate(rows, capacity)\n \n def main():\n     parser = argparse.ArgumentParser(description=\"Validate and plan dependency workloads\")\n     parser.add_argument(\"input\")\n+    parser.add_argument(\"--capacity\", type=int, default=2)\n     args = parser.parse_args()\n     try:\n-        result = run(json.loads(Path(args.input).read_text(encoding=\"utf-8\")))\n+        result = run(json.loads(Path(args.input).read_text(encoding=\"utf-8\")), args.capacity)\n     except (ValueError, OSError) as error:\n         print(json.dumps({\"status\": \"invalid\", \"error\": str(error)}))\n         return 2\n",
+                "diff_complete": true,
+                "output_bytes": 749,
+                "output_sha256": "68f4a03881b3e22e2b82e1a0d658a4839d0f82c20c6ca79f34dbb92f3e9867fe",
+                "path": "pipeline/main.py",
+                "policy": "translate"
+              },
+              {
+                "action": "create",
+                "before_sha256": null,
+                "diff": "--- retained-original\n+++ restored-edits\n@@ -0,0 +1,30 @@\n+from heapq import heappop, heappush\n+from .model import load\n+from .graph import build\n+\n+def simulate(rows, capacity):\n+    if type(capacity) is not int or not 1 <= capacity <= 64:\n+        raise ValueError(\"capacity must be an integer from 1 to 64\")\n+    plan = build(rows)\n+    tasks = load(rows)\n+    completed, launched = set(), set()\n+    running, intervals = [], {}\n+    free = set(range(capacity))\n+    now = 0\n+    while len(completed) != len(tasks):\n+        ready = [name for name in plan[\"order\"] if name not in launched and set(tasks[name].dependencies) <= completed]\n+        for name in ready[:len(free)]:\n+            worker = min(free)\n+            free.remove(worker)\n+            launched.add(name)\n+            finish = now + tasks[name].weight\n+            intervals[name] = {\"start\": now, \"finish\": finish, \"worker\": worker}\n+            heappush(running, (finish, name, worker))\n+        if not running:\n+            raise ValueError(\"unschedulable workload\")\n+        now = running[0][0]\n+        while running and running[0][0] == now:\n+            _, name, worker = heappop(running)\n+            completed.add(name)\n+            free.add(worker)\n+    return {**plan, \"makespan\": now, \"intervals\": intervals, \"capacity\": capacity}\n",
+                "diff_complete": true,
+                "output_bytes": 1227,
+                "output_sha256": "7475b49a0a4081ddacad1a5ce1b68ac3ac96fc591f5d9492c3b0ea3a6cc44c9e",
+                "path": "pipeline/timeline.py",
+                "policy": "translate"
+              }
+            ],
+            "conflicts": [],
+            "delivery": {
+              "header": {
+                "algorithm": "AES-256-GCM",
+                "expires_at": 1791223363,
+                "issued_at": 1791136963,
+                "key_id": "f834d9f35d8e65f23745c7edf77ef6557c011dd9549b978eff27147c86ffc094",
+                "kind": "vigiles.tessera",
+                "message_id": "4801a67db9d64118b1e53898047d0a05",
+                "purpose": "project-return",
+                "recipient": "owner",
+                "schema_version": 2,
+                "sender": "receiver"
+              },
+              "packet_sha256": "ba5895897836595a9149e1fc7a9bc744025e271c508af0adc62dd59b7470ca07",
+              "payload_sha256": "061eadb1a5dfcef76c85a192d671b47b5e9d86e52ce77fbda2fae15540af7017"
+            },
+            "delivery_id": "9c1672f2ffc106986e87b7485c81a18d6b5c9252cf305436eb4b983d33211e5c",
+            "exchange_sha256": "ba5895897836595a9149e1fc7a9bc744025e271c508af0adc62dd59b7470ca07",
+            "ok": true,
+            "output_saved": false,
+            "return_validation": {
+              "advisory": "Diagnostics do not decide edit intent; inspect decoded diffs before applying the exact review digest.",
+              "analysis_complete": true,
+              "files": [
+                {
+                  "analysis_complete": true,
+                  "baseline_available": false,
+                  "baseline_encoded_sha256": null,
+                  "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+                  "counts": {},
+                  "decodable": true,
+                  "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+                  "decoded_sha256": "84997c6a5ad56b751c0cbd06da5551318da1ae5197e25219ad0036739d9689b8",
+                  "dictionary_sha256": "7a0930454c59e28dfd2d2a8afaefe9d72947d9bf1cb5e8984598a76f7ba382cf",
+                  "document_byte_limit": 16777216,
+                  "document_rules": {
+                    "format": "python",
+                    "identifiers": [
+                      "Task",
+                      "build",
+                      "run",
+                      "weight",
+                      "total"
+                    ],
+                    "modules": [
+                      ".model",
+                      ".graph",
+                      ".timeline",
+                      "pipeline.model",
+                      "pipeline.graph",
+                      "pipeline.main",
+                      "pipeline.timeline"
+                    ],
+                    "strings": [
+                      "build"
+                    ]
+                  },
+                  "edited_sha256": "135e82b621edc6733c9e274cc1953e5530114d906ed806c716703ec30d12bc78",
+                  "finding_count": 0,
+                  "findings": [],
+                  "findings_complete": true,
+                  "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+                  "marker_version": 2,
+                  "next_offset": null,
+                  "offset": 0,
+                  "ok": true,
+                  "output_saved": false,
+                  "path": "bench.py",
+                  "schema_version": 1,
+                  "status": "accepted",
+                  "validation_sha256": "5af8524129b404f3571682e92664f377f8fad888cabe51ad6e26e63b9b3236ca",
+                  "validator_version": "2"
+                },
+                {
+                  "analysis_complete": true,
+                  "baseline_available": true,
+                  "baseline_encoded_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                  "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+                  "counts": {},
+                  "decodable": true,
+                  "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+                  "decoded_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                  "dictionary_sha256": "7a0930454c59e28dfd2d2a8afaefe9d72947d9bf1cb5e8984598a76f7ba382cf",
+                  "document_byte_limit": 16777216,
+                  "document_rules": {
+                    "format": "python",
+                    "identifiers": [
+                      "Task",
+                      "build",
+                      "run",
+                      "weight",
+                      "total"
+                    ],
+                    "modules": [
+                      ".model",
+                      ".graph",
+                      ".timeline",
+                      "pipeline.model",
+                      "pipeline.graph",
+                      "pipeline.main",
+                      "pipeline.timeline"
+                    ],
+                    "strings": [
+                      "build"
+                    ]
+                  },
+                  "edited_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                  "finding_count": 0,
+                  "findings": [],
+                  "findings_complete": true,
+                  "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+                  "marker_version": 2,
+                  "next_offset": null,
+                  "offset": 0,
+                  "ok": true,
+                  "output_saved": false,
+                  "path": "pipeline/__init__.py",
+                  "schema_version": 1,
+                  "status": "accepted",
+                  "validation_sha256": "c6bfac6f1c72a593717b539a2372997a909961a72c28d2457d0e59319b78c3a0",
+                  "validator_version": "2"
+                },
+                {
+                  "analysis_complete": true,
+                  "baseline_available": true,
+                  "baseline_encoded_sha256": "fb6d0674fa7bd70940f12ccf4d808119886ebec470b5349c18c4b3c9daa8a075",
+                  "context_sha256": "260e7191885aafa0e9f6dc73be47ec57aa754811f00331a8597a3f755ec92cc2",
+                  "counts": {},
+                  "decodable": true,
+                  "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+                  "decoded_sha256": "924caae4d39420912e10c4af25d853a89ed441d63c16b1a1a890e97bfe825897",
+                  "dictionary_sha256": "7a0930454c59e28dfd2d2a8afaefe9d72947d9bf1cb5e8984598a76f7ba382cf",
+                  "document_byte_limit": 16777216,
+                  "document_rules": {
+                    "format": "python",
+                    "identifiers": [
+                      "Task",
+                      "build",
+                      "run",
+                      "weight",
+                      "total"
+                    ],
+                    "modules": [
+                      ".model",
+                      ".graph",
+                      ".timeline",
+                      "pipeline.model",
+                      "pipeline.graph",
+                      "pipeline.main",
+                      "pipeline.timeline"
+                    ],
+                    "strings": [
+                      "build"
+                    ]
+                  },
+                  "edited_sha256": "fb6d0674fa7bd70940f12ccf4d808119886ebec470b5349c18c4b3c9daa8a075",
+                  "finding_count": 0,
+                  "findings": [],
+                  "findings_complete": true,
+                  "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+                  "marker_version": 2,
+                  "next_offset": null,
+                  "offset": 0,
+                  "ok": true,
+                  "output_saved": false,
+                  "path": "pipeline/graph.py",
+                  "schema_version": 1,
+                  "status": "accepted",
+                  "validation_sha256": "305f314f4bb6c36bb4b7f4f065fc04a7346e65ff29793c54617dd61767191bdd",
+                  "validator_version": "2"
+                },
+                {
+                  "analysis_complete": true,
+                  "baseline_available": true,
+                  "baseline_encoded_sha256": "f530cee90631593a8c3517041a3d89bb6f783a63e7ab9ccffbd05935994628e2",
+                  "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+                  "counts": {
+                    "controlled_term_removed": 1,
+                    "protected_python_changed": 11
+                  },
+                  "decodable": true,
+                  "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+                  "decoded_sha256": "68f4a03881b3e22e2b82e1a0d658a4839d0f82c20c6ca79f34dbb92f3e9867fe",
+                  "dictionary_sha256": "7a0930454c59e28dfd2d2a8afaefe9d72947d9bf1cb5e8984598a76f7ba382cf",
+                  "document_byte_limit": 16777216,
+                  "document_rules": {
+                    "format": "python",
+                    "identifiers": [
+                      "Task",
+                      "build",
+                      "run",
+                      "weight",
+                      "total"
+                    ],
+                    "modules": [
+                      ".model",
+                      ".graph",
+                      ".timeline",
+                      "pipeline.model",
+                      "pipeline.graph",
+                      "pipeline.main",
+                      "pipeline.timeline"
+                    ],
+                    "strings": [
+                      "build"
+                    ]
+                  },
+                  "edited_sha256": "5ec2b6ce2a4613fda17fd809b59e59e6076639eea6c4fe3a6839e8f409546d47",
+                  "finding_count": 12,
+                  "findings": [
+                    {
+                      "code": "controlled_term_removed",
+                      "index": 0,
+                      "message": "Controlled vocabulary occurrence count decreased; inspect possible deletion or terminology drift. Synonyms are not inferred.",
+                      "neutral_term": "assemble",
+                      "removed_count": 2,
+                      "source_term": "build"
+                    },
+                    {
+                      "change": "removed",
+                      "code": "protected_python_changed",
+                      "content": {
+                        "complete": true,
+                        "sha256": "e655841f1d8708d7a91250f4a4e4d3682619ea2c62fc69d119bbd3bd5a3a78ba",
+                        "text": "import argparse\nimport json\nfrom pathlib import Path\nfrom .graph import "
+                      },
+                      "index": 1,
+                      "location": {
+                        "column": 1,
+                        "line": 1,
+                        "offset": 0
+                      },
+                      "message": "Protected content changed; review this deliberate source edit separately from selected translation regions."
+                    },
+                    {
+                      "change": "removed",
+                      "code": "protected_python_changed",
+                      "content": {
+                        "complete": true,
+                        "sha256": "82e5e742ff30a2cfa7ab444d9752a15c18e339178545ed174522aea52ebaaa7e",
+                        "text": "):\n    return "
+                      },
+                      "index": 2,
+                      "location": {
+                        "column": 17,
+                        "line": 6,
+                        "offset": 98
+                      },
+                      "message": "Protected content changed; review this deliberate source edit separately from selected translation regions."
+                    },
+                    {
+                      "change": "removed",
+                      "code": "protected_python_changed",
+                      "content": {
+                        "complete": true,
+                        "sha256": "1ca6e848ab4f41aead8a38598898e61160d7b38ef4e57eed745a1825fa4455af",
+                        "text": "=\"utf-8\")))\n    except ("
+                      },
+                      "index": 3,
+                      "location": {
+                        "column": 72,
+                        "line": 14,
+                        "offset": 375
+                      },
+                      "message": "Protected content changed; review this deliberate source edit separately from selected translation regions."
+                    },
+                    {
+                      "change": "added",
+                      "code": "protected_python_changed",
+                      "content": {
+                        "complete": true,
+                        "sha256": "d9286caab58392fb14b1c042b0519a63783637726b47d88d45718b59b55e625e",
+                        "text": "import argparse\nimport json\nfrom pathlib import Path\nfrom .timeline import "
+                      },
+                      "index": 4,
+                      "location": {
+                        "column": 1,
+                        "line": 1,
+                        "offset": 0
+                      },
+                      "message": "Protected content changed; review this deliberate source edit separately from selected translation regions."
+                    },
+                    {
+                      "change": "added",
+                      "code": "protected_python_changed",
+                      "content": {
+                        "complete": true,
+                        "sha256": "64904c0711656336982162ff0a0a38496baeae4905033958f155043bede1e7e2",
+                        "text": "=2):\n    return "
+                      },
+                      "index": 5,
+                      "location": {
+                        "column": 27,
+                        "line": 6,
+                        "offset": 111
+                      },
+                      "message": "Protected content changed; review this deliberate source edit separately from selected translation regions."
+                    },
+                    {
+                      "change": "added",
+                      "code": "protected_python_changed",
+                      "content": {
+                        "complete": true,
+                        "sha256": "0a07f659461970d8d8dcefe4fff96a1745599810dc7d47391e95c803b7b2072c",
+                        "text": ", "
+                      },
+                      "index": 6,
+                      "location": {
+                        "column": 25,
+                        "line": 7,
+                        "offset": 140
+                      },
+                      "message": "Protected content changed; review this deliberate source edit separately from selected translation regions."
+                    },
+                    {
+                      "change": "added",
+                      "code": "protected_python_changed",
+                      "content": {
+                        "complete": true,
+                        "sha256": "c3d8142fb4f61208eb898ed49b736f6cce532f6988872532629ce4e740643329",
+                        "text": ".add_argument(\"--capacity\", type="
+                      },
+                      "index": 7,
+                      "location": {
+                        "column": 11,
+                        "line": 12,
+                        "offset": 299
+                      },
+                      "message": "Protected content changed; review this deliberate source edit separately from selected translation regions."
+                    },
+                    {
+                      "change": "added",
+                      "code": "protected_python_changed",
+                      "content": {
+                        "complete": true,
+                        "sha256": "5d1ab47754e6abbeda5f8107edf11fec0423e734b2451c6c2306adbc5481ad05",
+                        "text": ", default=2)\n    "
+                      },
+                      "index": 8,
+                      "location": {
+                        "column": 47,
+                        "line": 12,
+                        "offset": 335
+                      },
+                      "message": "Protected content changed; review this deliberate source edit separately from selected translation regions."
+                    },
+                    {
+                      "change": "added",
+                      "code": "protected_python_changed",
+                      "content": {
+                        "complete": true,
+                        "sha256": "3cc7c903d422bf86861ee482580a5dc3cb16d49224d78e931b389b5b7be1efb9",
+                        "text": "=\"utf-8\")), "
+                      },
+                      "index": 9,
+                      "location": {
+                        "column": 72,
+                        "line": 15,
+                        "offset": 459
+                      },
+                      "message": "Protected content changed; review this deliberate source edit separately from selected translation regions."
+                    },
+                    {
+                      "change": "added",
+                      "code": "protected_python_changed",
+                      "content": {
+                        "complete": true,
+                        "sha256": "0a48291fe1107f4cc83f14a3b90e3bf788a99af6f27015e1cf733dd9f3cef58e",
+                        "text": ".capacity)\n    except ("
+                      },
+                      "index": 10,
+                      "location": {
+                        "column": 88,
+                        "line": 15,
+                        "offset": 475
+                      },
+                      "message": "Protected content changed; review this deliberate source edit separately from selected translation regions."
+                    },
+                    {
+                      "change": "added",
+                      "code": "protected_python_changed",
+                      "content": {
+                        "complete": true,
+                        "sha256": "0a07f659461970d8d8dcefe4fff96a1745599810dc7d47391e95c803b7b2072c",
+                        "text": ", "
+                      },
+                      "index": 11,
+                      "location": {
+                        "column": 23,
+                        "line": 16,
+                        "offset": 508
+                      },
+                      "message": "Protected content changed; review this deliberate source edit separately from selected translation regions."
+                    }
+                  ],
+                  "findings_complete": true,
+                  "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+                  "marker_version": 2,
+                  "next_offset": null,
+                  "offset": 0,
+                  "ok": false,
+                  "output_saved": false,
+                  "path": "pipeline/main.py",
+                  "schema_version": 1,
+                  "status": "needs_review",
+                  "validation_sha256": "e459084d8de2c3db1d16d8b06f370efa3eb7d741111b7fee514807bfeb65980e",
+                  "validator_version": "2"
+                },
+                {
+                  "analysis_complete": true,
+                  "baseline_available": true,
+                  "baseline_encoded_sha256": "6a2f419b685941774722366ee2c000fb69ec3d9aa15b12de7cea1778cc45cbbe",
+                  "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+                  "counts": {},
+                  "decodable": true,
+                  "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+                  "decoded_sha256": "d3721887be6eb737a9d16d6ee5de36b18bdf63d5160af9f556a0c9ca74bce33d",
+                  "dictionary_sha256": "7a0930454c59e28dfd2d2a8afaefe9d72947d9bf1cb5e8984598a76f7ba382cf",
+                  "document_byte_limit": 16777216,
+                  "document_rules": {
+                    "format": "python",
+                    "identifiers": [
+                      "Task",
+                      "build",
+                      "run",
+                      "weight",
+                      "total"
+                    ],
+                    "modules": [
+                      ".model",
+                      ".graph",
+                      ".timeline",
+                      "pipeline.model",
+                      "pipeline.graph",
+                      "pipeline.main",
+                      "pipeline.timeline"
+                    ],
+                    "strings": [
+                      "build"
+                    ]
+                  },
+                  "edited_sha256": "6a2f419b685941774722366ee2c000fb69ec3d9aa15b12de7cea1778cc45cbbe",
+                  "finding_count": 0,
+                  "findings": [],
+                  "findings_complete": true,
+                  "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+                  "marker_version": 2,
+                  "next_offset": null,
+                  "offset": 0,
+                  "ok": true,
+                  "output_saved": false,
+                  "path": "pipeline/model.py",
+                  "schema_version": 1,
+                  "status": "accepted",
+                  "validation_sha256": "f61277f3c7c9504278fb80d7f2e17645375be32a94516b07058ba89c68aec970",
+                  "validator_version": "2"
+                },
+                {
+                  "analysis_complete": true,
+                  "baseline_available": false,
+                  "baseline_encoded_sha256": null,
+                  "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+                  "counts": {},
+                  "decodable": true,
+                  "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+                  "decoded_sha256": "7475b49a0a4081ddacad1a5ce1b68ac3ac96fc591f5d9492c3b0ea3a6cc44c9e",
+                  "dictionary_sha256": "7a0930454c59e28dfd2d2a8afaefe9d72947d9bf1cb5e8984598a76f7ba382cf",
+                  "document_byte_limit": 16777216,
+                  "document_rules": {
+                    "format": "python",
+                    "identifiers": [
+                      "Task",
+                      "build",
+                      "run",
+                      "weight",
+                      "total"
+                    ],
+                    "modules": [
+                      ".model",
+                      ".graph",
+                      ".timeline",
+                      "pipeline.model",
+                      "pipeline.graph",
+                      "pipeline.main",
+                      "pipeline.timeline"
+                    ],
+                    "strings": [
+                      "build"
+                    ]
+                  },
+                  "edited_sha256": "555918ec9c548c81d7a1e0f7dbc19bbe43e1e08c692c7be8e0bd533d696c58d1",
+                  "finding_count": 0,
+                  "findings": [],
+                  "findings_complete": true,
+                  "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+                  "marker_version": 2,
+                  "next_offset": null,
+                  "offset": 0,
+                  "ok": true,
+                  "output_saved": false,
+                  "path": "pipeline/timeline.py",
+                  "schema_version": 1,
+                  "status": "accepted",
+                  "validation_sha256": "f0f80d4b7241cd08cc0632e3b41ab3fa1e77bfc74331ccfd424d0ba098f87970",
+                  "validator_version": "2"
+                }
+              ],
+              "finding_count": 12,
+              "findings_complete": true,
+              "scope": "all_translated_returns",
+              "status": "needs_review"
+            },
+            "review_sha256": "ff1f2062c61e088d91cd3b7034c61e01d0b7fa6a41ed4a86c6cfc880dd610ed8",
+            "schema_version": 1,
+            "status": "review",
+            "view_id": "5c64ab9886294471bd80e2c1fd9c4a98"
+          },
+          "source_receipt_sha256": "a450111653eb6ed61d62736c7fb78ade5011a3bb03735cee97baecf36db5652b",
+          "source_root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-krvbdw9g\\runtime\\identity-workflow\\projects\\mcp\\source"
+        }
+      }
+    },
+    "identity_module": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-krvbdw9g\\wheel-env\\Lib\\site-packages\\bamboozle\\identity.py",
+    "lifecycle": {
+      "cli": {
+        "binary_bytes": 262144,
+        "delivery_id": "af422c380ac9bae65c9162fa14c2e87e4ddf385d016ba387d2374549013e8cc6",
+        "isolated_recipient_refused": true,
+        "registry_sha256": "db154f69251a95c11e80fd8600c3b148e412a633951f8a6052d446ec6afb9ea7",
+        "replay_refused": true,
+        "retired_inflight_received": true,
+        "revocation_refused": true,
+        "rotation_received": true
+      },
+      "mcp": {
+        "binary_bytes": 262144,
+        "delivery_id": "65ad04b29220a703f25d5971cf483764cf8201d9a3b31bdf8deeb0dd80362557",
+        "isolated_recipient_refused": true,
+        "registry_sha256": "d07b69a1f135834060283a89183e13666fe90c7af5e36e9171b8f27d0d9f7862",
+        "replay_refused": true,
+        "retired_inflight_received": true,
+        "revocation_refused": true,
+        "rotation_received": true
+      }
+    }
+  },
+  "limitations": [
+    "Remote identity verification and key delivery remain operator responsibilities",
+    "No global replay coordination across cloned roots or protection against administrative state/clock rollback",
+    "No live key custody ACLs, remote CI matrix or production host isolation acceptance established"
+  ],
+  "next_core_finding": ".mivim/vigiles/reports/archive/runs/20261004-managed-identity/next-core-finding.json",
+  "preserved_evidence": ".mivim\\vigiles\\reports\\archive\\runs\\20261004-managed-identity",
+  "release": "0.7.0",
+  "schema_version": 1,
+  "scope": "Local managed recipient lifecycle and replay-aware file/project delivery through CLI and actual operator stdio MCP; complete neutral/restored dependent applications from source and installed wheel; key rotation/revocation, competing processes, partial publication/recovery and truthful retained-state reporting.",
+  "source_sha256": {
+    "scripts/exchange_smoke.py": "e6b9ee4aba99369d9db7a9260d41338bebf91278579f1375fb8a39e89a1b2257",
+    "scripts/identity_smoke.py": "74d470e1d829df85532bd5bc33b0fc27093b9af96e1454a35e28a5c99baabe3e",
+    "scripts/package_smoke.py": "f711d086193e139e0386031c04fd1819491f4ab8062891df40cfbca1f44d1c2e",
+    "scripts/vandal.py": "2a24be1c853b6733b96547e65509d274719fd4fa4974778416cc928ac56ed360",
+    "src/bamboozle/cipher_operations.py": "5bd89419fa5c51f4e017b7d9c0633cbabc7ba3c0535d9cff0f72cefeec6e6ba8",
+    "src/bamboozle/cli.py": "97db019ae0ae6663336bb318c52a190a7351aa43364c474fc9f0ba9f464865c7",
+    "src/bamboozle/identity.py": "5d51058ab742fd2b1832cc698401e70306612b736acf7d4d5fca954ea9274588",
+    "src/bamboozle/mcp.py": "bd4ddb556672fbb3b09b9bf73fb6c4d5beb05e524a8828d977683e019d37e6dc",
+    "src/bamboozle/project_exchange.py": "bf2a7f847170336ef1f8a804085b62bcfd8b8b4c0f9ac3d6f513a366d08f0308",
+    "src/bamboozle/tessera.py": "6b43b607f7151ab8f18b920e8bd6aed102bc2818206f1b0da62acf08e9a30665",
+    "src/bamboozle/tests/test_cli_mcp.py": "a11764eade86dc69e3834cbe7daa3f42d27a07d3624d0f53830b9eb4b171a403",
+    "src/bamboozle/tests/test_identity.py": "d73caeb2ed26f64f9b0d2c7e0ac5fea966c98eacc4c12b24c175284c3b5e7a7b",
+    "src/bamboozle/tests/test_vandal.py": "e39346c16b9933ea209dad8d9b3130a2f9de4728a020b95e9ecc44f3f2f154dd",
+    "src/bamboozle/transport.py": "a57273c6d83dd7e394b347e30b859c1daf6adcaf9ef3c68d9be6d0b63067f81f",
+    "src/bamboozle/view_import.py": "f128102c8a90931015b1b0c08b04cc02e4404b09200b0f3e8890f74fc273a404"
+  },
+  "status": "source_and_installed_application_verified",
+  "verification": {
+    "created": "2026-10-04T18:03:24.613192+00:00",
+    "logs": {
+      "build": ".test-tmp\\verify-krvbdw9g\\build.log",
+      "compile": ".test-tmp\\verify-krvbdw9g\\compile.log",
+      "export": ".test-tmp\\verify-krvbdw9g\\export.log",
+      "format": ".test-tmp\\verify-krvbdw9g\\format.log",
+      "mypy": ".test-tmp\\verify-krvbdw9g\\mypy.log",
+      "pyright": ".test-tmp\\verify-krvbdw9g\\pyright.log",
+      "pytest": ".test-tmp\\verify-krvbdw9g\\pytest.log",
+      "ruff": ".test-tmp\\verify-krvbdw9g\\ruff.log",
+      "structure": ".test-tmp\\verify-krvbdw9g\\structure.log",
+      "wheel-environment": ".test-tmp\\verify-krvbdw9g\\wheel-environment.log",
+      "wheel-install": ".test-tmp\\verify-krvbdw9g\\wheel-install.log",
+      "wheel-smoke": ".test-tmp\\verify-krvbdw9g\\wheel-smoke.log"
+    },
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.9 (main, Oct 14 2025, 21:22:32) [MSC v.1944 64 bit (AMD64)]",
+    "report": ".mivim\\vigiles\\reports\\current\\VIGILES_VERIFICATION.json",
+    "stages": 12,
+    "tests": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 1267
+    }
+  },
+  "workflow": "vigiles-vandal_0.2"
+}

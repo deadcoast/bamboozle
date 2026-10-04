@@ -1,0 +1,31 @@
+import json
+from pathlib import Path
+
+from bamboozle.evidence import report_destination, write_report
+from bamboozle.utils import atomic_write, sha256
+
+root = Path.cwd()
+archive = root / '.mivim/vigiles/reports/archive/runs/20261004-yaml-translation'
+verification_path = report_destination(root, 'VIGILES_VERIFICATION.json')
+verified = json.loads(verification_path.read_bytes())
+assert 'verify-sz91yd6o' in str(verified)
+atomic_write(archive / 'interim-VIGILES_VERIFICATION.json', verification_path.read_bytes())
+for name in verified['required_artifacts']:
+    raw = (root / 'dist' / name).read_bytes()
+    assert sha256(raw) == verified['artifacts'][name]['sha256']
+    atomic_write(archive / ('interim-' + name), raw)
+for name in ('yaml-control.xml', 'yaml-control-final.xml'):
+    atomic_write(archive / name, (root / '.test-tmp' / name).read_bytes())
+report_path = report_destination(root, 'VIGILES_YAML_TRANSLATION.json')
+report = json.loads(report_path.read_bytes())
+report['interim_verification'] = {
+    'path': (archive / 'interim-VIGILES_VERIFICATION.json').relative_to(root).as_posix(),
+    'status': verified['status'],
+    'accepted_for_final_source': False,
+    'reason': 'Control-character folded-to-quoted rendering, saved comment spans and parser-error source redaction were corrected after this run began; final source requires a new full run.',
+}
+report['focused']['final_yaml_before_error_redaction_case'] = 123
+report['retained_failures'].append('Edge-case review found folded phrase replacements containing tabs/control characters refused at reparsing. Added safe quoted rendering with retained comment spans, exact restoration and C1 escaping; six folded/control cases and twelve style/control cases now pass.')
+write_report(root, report_path, report, replace=True)
+atomic_write(archive / 'archive-interim-yaml.py.snapshot', Path(__file__).read_bytes())
+print(json.dumps(report['interim_verification']))

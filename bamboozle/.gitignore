@@ -15,6 +15,7 @@ dist/
 *.egg-info/
 .vigiles/*
 !.vigiles/skills/
+!.vigiles/structure.json
 *.key
 *.key.*.bak
 .*.scm_ledger.json

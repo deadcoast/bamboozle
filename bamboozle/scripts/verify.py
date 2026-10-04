@@ -139,6 +139,10 @@ def main() -> int:
             ],
         ),
         ("compile", [sys.executable, "-m", "compileall", "-q", "src", "scripts"]),
+        (
+            "structure",
+            [sys.executable, "-m", "bamboozle", "--root", str(ROOT), "structure-check"],
+        ),
     ]
     for name, command in commands:
         check(name, command)

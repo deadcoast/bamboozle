@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="40" time="7.980" timestamp="2026-10-04T11:20:40.487372-07:00" hostname="homeone"><testcase classname="src.bamboozle.tests.test_text_literals" name="test_exact_literals_and_context_survive_surrounding_prose[C:\\models\\alpha.bin]" time="0.002" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_exact_literals_and_context_survive_surrounding_prose[D:/alpha/omega.json]" time="0.001" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_exact_literals_and_context_survive_surrounding_prose[\\\\server\\alpha\\omega.bin]" time="0.001" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_exact_literals_and_context_survive_surrounding_prose[/data/alpha]" time="0.001" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_exact_literals_and_context_survive_surrounding_prose[./alpha]" time="0.001" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_exact_literals_and_context_survive_surrounding_prose[../alpha/omega]" time="0.000" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_exact_literals_and_context_survive_surrounding_prose[~/alpha/file]" time="0.001" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_exact_literals_and_context_survive_surrounding_prose[~\\alpha\\omega]" time="0.001" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_exact_literals_and_context_survive_surrounding_prose[assets/alpha.csv]" time="0.001" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_exact_literals_and_context_survive_surrounding_prose[alpha.json]" time="0.001" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_exact_literals_and_context_survive_surrounding_prose[caf\xe9/alpha.json]" time="0.001" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_exact_literals_and_context_survive_surrounding_prose[&quot;C:\\my alpha\\omega.bin&quot;]" time="0.001" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_exact_literals_and_context_survive_surrounding_prose['../alpha folder/omega.bin']" time="0.001" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_exact_literals_and_context_survive_surrounding_prose[`alpha folder/omega.bin`]" time="0.000" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_exact_literals_and_context_survive_surrounding_prose[https://alpha.test/api/omega?q=alpha#omega]" time="0.001" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_exact_literals_and_context_survive_surrounding_prose[https://alpha.test/item_(omega)]" time="0.001" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_exact_literals_and_context_survive_surrounding_prose[mailto:alpha@example.test]" time="0.001" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_exact_literals_and_context_survive_surrounding_prose[www.alpha.test/omega]" time="0.001" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_exact_literals_and_context_survive_surrounding_prose[&quot;https://alpha.test/omega&quot;]" time="0.001" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_exact_literals_and_context_survive_surrounding_prose[C:\\__SCM_LIT_omega__\\__SCM_CASE_broken__.bin]" time="0.001" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_explicit_selection_and_historical_text_behavior" time="0.001" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_bad_rules_refuse_before_processing[rule0]" time="0.000" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_bad_rules_refuse_before_processing[rule1]" time="0.000" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_bad_rules_refuse_before_processing[rule2]" time="0.000" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_bad_rules_refuse_before_processing[rule3]" time="0.000" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_bad_rules_refuse_before_processing[rule4]" time="0.000" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_bad_rules_refuse_before_processing[rule5]" time="0.000" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_marker_protocol_is_atomic_and_damaged_prose_markers_are_not_hidden" time="0.001" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_dictionary_created_literal_shape_is_refused_instead_of_guessing" time="0.001" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_damaged_private_span_context_refused[source--1]" time="0.001" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_damaged_private_span_context_refused[encoded-True]" time="0.001" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_damaged_private_span_context_refused[encoded-99999]" time="0.001" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_damaged_private_span_context_refused[kind-urls]" time="0.001" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_damaged_private_span_context_refused[value-not a path]" time="0.001" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_bounds_and_punctuation" time="0.001" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_review_reports_changed_and_reordered_literals_without_term_false_positives" time="0.001" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_manual_ledger_recovery_reviewed_restoration_and_exact_old_rules" time="0.118" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_source_agent_reads_edits_reconnects_and_new_files_share_protection" time="0.081" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_partial_project_import_recovers_saved_protected_context" time="0.354" /><testcase classname="src.bamboozle.tests.test_text_literals" name="test_complete_literal_application_workflows" time="7.071"><failure message="fastmcp.exceptions.ToolError: 1 validation error for call[preview_file]&#10;mode&#10;  Unexpected keyword argument [type=unexpected_keyword_argument, input_value='reverse', input_type=str]&#10;    For further information visit https://errors.pydantic.dev/2.13/v/unexpected_keyword_argument">tmp_path = WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/literals-focus-c/test_complete_literal_applicat0')
+
+    def test_complete_literal_application_workflows(tmp_path):
+        run = runpy.run_path(str(Path(__file__).parents[3] / "scripts/literals_smoke.py"))[
+            "run"
+        ]
+&gt;       result = run(tmp_path / "applications")
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+src\bamboozle\tests\test_text_literals.py:301: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scripts\literals_smoke.py:410: in run
+    flow = asyncio.run(asyncio.wait_for(operate(), 90))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\asyncio\runners.py:195: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\asyncio\runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\asyncio\base_events.py:725: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\asyncio\tasks.py:507: in wait_for
+    return await fut
+           ^^^^^^^^^
+scripts\literals_smoke.py:347: in operate
+    reverse = await call(
+scripts\literals_smoke.py:294: in call
+    result = await client.call_tool(name, arguments)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\fastmcp\client\mixins\tools.py:336: in call_tool
+    return await self._parse_call_tool_result(
+.venv\Lib\site-packages\fastmcp\client\mixins\tools.py:272: in _parse_call_tool_result
+    return await _parse_call_tool_result(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+name = 'preview_file'
+result = CallToolResult(meta={'io.modelcontextprotocol/serverInfo': {'name': 'bamboozle_operator', 'version': '4.0.10'}}, conte...ected_keyword_argument", annotations=None, meta=None)], structured_content=None, is_error=True, result_type='complete')
+tool_output_schemas = {'list_safe_files': {'additionalProperties': True, 'type': 'object'}, 'search_safe_files': {'additionalProperties': Tr...dditionalProperties': True, 'type': 'object'}, 'edit_safe_file': {'additionalProperties': True, 'type': 'object'}, ...}
+list_tools_fn = &lt;bound method ClientSession.list_tools of &lt;mcp.client.session.ClientSession object at 0x0000019FB4C0B230&gt;&gt;
+client_name = 'Client-f793', raise_on_error = True
+
+    async def _parse_call_tool_result(
+        name: str,
+        result: mcp_types.CallToolResult,
+        tool_output_schemas: dict[str, dict[str, Any] | None],
+        list_tools_fn: Any,  # Callable[[], Awaitable[None]]
+        client_name: str | None = None,
+        raise_on_error: bool = False,
+    ) -&gt; CallToolResult:
+        """Parse an mcp_types.CallToolResult into our CallToolResult dataclass.
+    
+        Args:
+            name: Tool name (for schema lookup)
+            result: Raw MCP protocol result
+            tool_output_schemas: Dictionary mapping tool names to their output schemas
+            list_tools_fn: Async function to refresh tool schemas if needed
+            client_name: Optional client name for logging
+            raise_on_error: Whether to raise ToolError on errors
+    
+        Returns:
+            CallToolResult: Parsed result with structured data
+        """
+        # Local import: CallToolResult is under TYPE_CHECKING at module level to
+        # avoid a circular import (client.client -&gt; mixins.tools -&gt; client.client),
+        # but we need the concrete class here to construct the return value.
+        from fastmcp.client.client import CallToolResult
+    
+        data = None
+        if result.is_error and raise_on_error:
+            if result.content and isinstance(result.content[0], mcp_types.TextContent):
+                msg = result.content[0].text
+            else:
+                msg = f"Tool '{name}' returned an error"
+&gt;           raise ToolError(msg)
+E           fastmcp.exceptions.ToolError: 1 validation error for call[preview_file]
+E           mode
+E             Unexpected keyword argument [type=unexpected_keyword_argument, input_value='reverse', input_type=str]
+E               For further information visit https://errors.pydantic.dev/2.13/v/unexpected_keyword_argument
+
+.venv\Lib\site-packages\fastmcp\client\mixins\tools.py:373: ToolError</failure></testcase></testsuite></testsuites>

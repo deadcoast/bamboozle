@@ -1,0 +1,217 @@
+{
+  "artifacts": {
+    "bamboozle-0.7.0-py3-none-any.whl": {
+      "bytes": 251744,
+      "sha256": "ffb22ef84e5fb2985265b8a7357e88c400a97df9772bc0673d7da61a2dec509a"
+    },
+    "bamboozle-0.7.0.tar.gz": {
+      "bytes": 303939,
+      "sha256": "a2b9fedc78bed6ec47d0ebdeed0dc2bcb627c24d9cb0dafd9d235a1822047b49"
+    }
+  },
+  "completed": "2026-10-04T18:34:15.242233+00:00",
+  "contract": "docs/text-literals.md",
+  "contract_sha256": "333dbabce1a525a71e07d25cc1f80eda7277b6dc323bcef58df184330e542162",
+  "coverage": [
+    "Drive, UNC, relative, absolute, home, Unicode and quoted-space paths; URLs, mailto, www, query/fragments and punctuation",
+    "Exact BOM/CRLF inverse, native target terms, atomic prose markers and literal marker-like filenames",
+    "Selection and private span-context validation, size/count limits, ambiguity and tampering refusal",
+    "Manual ledger recovery, reviewed restoration, compatibility file conversion and stream-context refusal",
+    "Changed/reordered literal diagnostics and exclusion of unchanged literals from prose terminology findings",
+    "Source-agent reconnect hashes, generated protected files, interrupted multi-file import and explicit recovery",
+    "Complete consuming application via CLI and actual operator/source-agent stdio MCP; edited config, generated config and dependent statistics module"
+  ],
+  "design": {
+    "compatibility": "Explicit text rule only. Existing whole-text, Markdown, JSON, YAML, Python, dictionaries, markers, classical ciphers and encryption remain supported.",
+    "ownership": "Bamboozle owns bounded literal recognition and saved span context; Vandal routes the shared CLI/MCP policy.",
+    "sources": [
+      ".legacy/designlog:242",
+      ".legacy/designlog:878",
+      "VIGILES_STATUS.json"
+    ]
+  },
+  "focused_tests": {
+    "failures": 0,
+    "report": ".mivim/vigiles/reports/archive/runs/20261004-text-literals/literals-focus-e.xml",
+    "tests": 44
+  },
+  "id": "VIG-CIPHER-LITERALS-01",
+  "implementation": [
+    "src/bamboozle/text_literals.py",
+    "src/bamboozle/formats.py",
+    "src/bamboozle/service.py",
+    "src/bamboozle/restoration.py",
+    "src/bamboozle/return_validation.py",
+    "src/bamboozle/cli.py",
+    "src/bamboozle/mcp.py",
+    "src/bamboozle/translate.py",
+    "src/bamboozle/cipher_operations.py",
+    "scripts/vandal.py",
+    "scripts/literals_smoke.py",
+    "scripts/package_smoke.py",
+    "src/bamboozle/tests/test_text_literals.py"
+  ],
+  "installed_application": {
+    "invalid_dataset_executions": 20,
+    "module": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-6xj0026e\\wheel-env\\Lib\\site-packages\\bamboozle\\text_literals.py",
+    "total_workload_executions": 800,
+    "workflows": {
+      "agent": {
+        "batches": 8,
+        "encoded_reads_decoded_writes": true,
+        "restored_application": {
+          "endpoint": "https://alpha.example.test/api/task?label=alpha",
+          "label": "alpha task",
+          "records": 40,
+          "stats": {
+            "east": 400,
+            "west": 380
+          },
+          "total": 780
+        },
+        "restored_benchmark": {
+          "application_cases": 160,
+          "invalid_datasets": 4
+        }
+      },
+      "cli": {
+        "batches": 8,
+        "neutral_benchmark": {
+          "application_cases": 160,
+          "invalid_datasets": 4
+        },
+        "restored_application": {
+          "endpoint": "https://alpha.example.test/api/task?label=alpha",
+          "label": "alpha task",
+          "records": 40,
+          "stats": {
+            "east": 400,
+            "west": 380
+          },
+          "total": 780
+        },
+        "restored_benchmark": {
+          "application_cases": 160,
+          "invalid_datasets": 4
+        }
+      },
+      "mcp": {
+        "batches": 8,
+        "neutral_benchmark": {
+          "application_cases": 160,
+          "invalid_datasets": 4
+        },
+        "restored_application": {
+          "endpoint": "https://alpha.example.test/api/task?label=alpha",
+          "label": "alpha task",
+          "records": 40,
+          "stats": {
+            "east": 400,
+            "west": 380
+          },
+          "total": 780
+        },
+        "restored_benchmark": {
+          "application_cases": 160,
+          "invalid_datasets": 4
+        }
+      }
+    },
+    "workloads_per_benchmark": 160
+  },
+  "limits": [
+    "Opt-in lexical preservation, not secret redaction, filesystem validation or URL reachability",
+    "Existing byte limit, 1000000 analyzed characters and 10000 spans; see contract for quoted/trailing punctuation boundaries",
+    "Other document adapters retain their historical rules; no inferred format or automatic selection",
+    "Local Windows Python 3.13 qualification only; external acceptance gates remain open"
+  ],
+  "retained_failures": [
+    {
+      "findings": "Quoted relative space path was partly translated; fixed scanner. Restoration test omitted its required review digest; corrected call.",
+      "report": ".mivim/vigiles/reports/archive/runs/20261004-text-literals/literals-focus-a.xml"
+    },
+    {
+      "findings": "MCP qualifier used mode instead of reverse; corrected to actual public API. Qualifier closure bindings and formatting fixed before full verification.",
+      "report": ".mivim/vigiles/reports/archive/runs/20261004-text-literals/literals-focus-c.xml"
+    }
+  ],
+  "schema_version": 1,
+  "source_application": "The full source suite executes the same five application benchmarks: CLI neutral/restored, operator MCP neutral/restored, and source-agent restored.",
+  "source_sha256": {
+    "scripts/literals_smoke.py": "47c71e3289842978600d94de453322daa85754b3ce79dbf82e85824b3f760368",
+    "scripts/package_smoke.py": "464e5f5a5160287ab9cb912300ae883b82919ce7ba3bed3908d2008a5fc29417",
+    "scripts/vandal.py": "97386fde435f481c7d52b5d1c0da6a988ab3560dccfcdd61bfe81d7878a8b26b",
+    "src/bamboozle/cipher_operations.py": "a72f29f5c7ccf7b5ab0dcf83f9a663618f3594d7ef4315d734af09cc089b4190",
+    "src/bamboozle/cli.py": "032aa1c56b80c8085e9701fdb7f65f6be20b2ac4f82da06894ecc8708489924e",
+    "src/bamboozle/formats.py": "b89345a2d7643dcc6345f7c7ba665ba33d11faf6f3b655fefc0511be4fb7198d",
+    "src/bamboozle/mcp.py": "aa57cf3e03812c87be5f39e53974abee075a11c001b0d89311c5e4f3f59543c0",
+    "src/bamboozle/restoration.py": "6a4004aead2cc7daab68813754386ca1ac7ecda80975aa0d18748e892f189e09",
+    "src/bamboozle/return_validation.py": "4c4b2b5263220cabd859c8d75358543ec3dc2bb3979a77bd34b5918aed940146",
+    "src/bamboozle/service.py": "600f9107e5e6117b4e53b4e2c23e2218d09900e7c6a62570c408ac7809b87f6c",
+    "src/bamboozle/tests/test_text_literals.py": "38c5d6ac8cbf9dc2e646764e8c5e25a131a107a280df05b32ed7c688cea28c2f",
+    "src/bamboozle/text_literals.py": "c834a6f590a9ba4ba4bd383b685024e71c78c8c85d751256ddde2489bd9f46fd",
+    "src/bamboozle/translate.py": "77bda2c3806fa954b4da2bb32c2e062a41fb4e4afb92a81fd042eee1cb8976ab"
+  },
+  "status": "source_and_installed_application_verified",
+  "verification": {
+    "logs": {
+      "build": {
+        "path": ".mivim/vigiles/reports/archive/runs/20261004-text-literals/build.log",
+        "sha256": "68b4821bfed06980541e62fce1aa8ec7edaf1ff7bb34b6d2109860c06422c0d2"
+      },
+      "compile": {
+        "path": ".mivim/vigiles/reports/archive/runs/20261004-text-literals/compile.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "export": {
+        "path": ".mivim/vigiles/reports/archive/runs/20261004-text-literals/export.log",
+        "sha256": "55226e8b2048757b53292970a42dd400b47c0f7690a95af598f87bb78d01db06"
+      },
+      "format": {
+        "path": ".mivim/vigiles/reports/archive/runs/20261004-text-literals/format.log",
+        "sha256": "de0ea7c35d94a455bc237e1d8d1c079cfb0fbd8127904ea2a6e9d176d88f53d4"
+      },
+      "mypy": {
+        "path": ".mivim/vigiles/reports/archive/runs/20261004-text-literals/mypy.log",
+        "sha256": "742e1800d98f2d350c713c7655d01c5fca51413b7e42bdbb1f539512dba38d84"
+      },
+      "pyright": {
+        "path": ".mivim/vigiles/reports/archive/runs/20261004-text-literals/pyright.log",
+        "sha256": "c584b21ee012de391dc2799d5455db619d3fefbb192ab07ea4ba83fb0d704c14"
+      },
+      "pytest": {
+        "path": ".mivim/vigiles/reports/archive/runs/20261004-text-literals/pytest.log",
+        "sha256": "5204368a8a80c19fa0353c7d7ef567f17d06bbb7c087459bf89a15904a067d01"
+      },
+      "ruff": {
+        "path": ".mivim/vigiles/reports/archive/runs/20261004-text-literals/ruff.log",
+        "sha256": "a4443afdcfb6d7363adb285762515ccf7cf50473b1a05c20c1a50f6bed4d26b0"
+      },
+      "structure": {
+        "path": ".mivim/vigiles/reports/archive/runs/20261004-text-literals/structure.log",
+        "sha256": "c8cedd548e0913613475f2d7ea02806ea58e37303dbc398d62a34017acddec2c"
+      },
+      "wheel-environment": {
+        "path": ".mivim/vigiles/reports/archive/runs/20261004-text-literals/wheel-environment.log",
+        "sha256": "8e4d2a41dd4d4b4b8d710f2e41f2ce2fec22f14997f142106a60e3525cc43ed5"
+      },
+      "wheel-install": {
+        "path": ".mivim/vigiles/reports/archive/runs/20261004-text-literals/wheel-install.log",
+        "sha256": "2c37dde66d5ae9825134bb255f3c9476beb9b4b58aba87ce5763132ae80795d2"
+      },
+      "wheel-smoke": {
+        "path": ".mivim/vigiles/reports/archive/runs/20261004-text-literals/wheel-smoke.log",
+        "sha256": "c2efe270b8ed117a5bb21cd7a3dd9f1c353e2c13af658f77bb93d07b1aa169cf"
+      }
+    },
+    "report": ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json",
+    "sha256": "c562f71a2c57eca07d5fdd5cce8c4041dbcb266c1cd8f93d96f69db07da8917c",
+    "stages": 12,
+    "tests": {
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0,
+      "tests": 1311
+    }
+  }
+}

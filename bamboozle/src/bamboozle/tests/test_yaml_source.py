@@ -92,6 +92,9 @@ def test_nested_flow_root_and_explicit_block_indent(source, pointer):
         "!custom",
         "*alias",
         "hello\u2028world",
+        "control\x01here",
+        "del\x7fhere",
+        "c1\x80here",
     ],
 )
 @pytest.mark.parametrize("style", ["alpha", "'alpha'", '"alpha"', "|-\n  alpha\n"])
@@ -276,6 +279,14 @@ def test_yaml_rule_schema_and_cli_option_ownership():
         format_options("json", None, yaml_pointers=["/message"])
 
 
+def test_parser_errors_report_locations_without_source_vocabulary():
+    with pytest.raises(ValueError, match="line") as error:
+        DocumentCodec(MAPPING, RULES).transform(
+            "message: [private-source-word, broken: ["
+        )
+    assert "private-source-word" not in str(error.value)
+
+
 def test_escaped_markers_on_return_are_decoded_as_values_not_yaml_spelling():
     codec = DocumentCodec(MAPPING, RULES)
     assert (
@@ -291,6 +302,23 @@ def test_folded_phrase_reflow_keeps_explicit_header_and_comment_spacing():
     result = DocumentCodec(MAPPING, RULES).transform(source)
     assert result.text.startswith("message: >2-  #  alpha stays here\r\n")
     assert yaml.safe_load(result.text)["message"] == "fast lane omega"
+
+
+@pytest.mark.parametrize("target", ["tab\there", "control\x01here", "bell\x07here"])
+@pytest.mark.parametrize("ending", ["\n", "\r\n"])
+def test_folded_phrase_can_be_quoted_without_losing_comments_or_context(target, ending):
+    source = (
+        "message: >-  # preserve alpha\n  high\n  priority\nid: unchanged\n".replace(
+            "\n", ending
+        )
+    )
+    codec = DocumentCodec(Dictionary({"high priority": target}), RULES)
+    result = codec.transform(source)
+    assert yaml.safe_load(result.text)["message"] == target
+    assert "  # preserve alpha" + ending + "id: unchanged" in result.text
+    assert (
+        codec.transform(result.text, "reverse", context=result.context).text == source
+    )
 
 
 def test_agent_added_alias_cannot_silently_change_an_unselected_value(tmp_path):

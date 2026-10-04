@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="18" time="1.385" timestamp="2026-10-04T10:39:12.327632-07:00" hostname="homeone"><testcase classname="src.bamboozle.tests.test_identity" name="test_lifecycle_requires_fresh_digests_and_distinct_keys" time="0.107" /><testcase classname="src.bamboozle.tests.test_identity" name="test_tamper_never_creates_admission[sender-other]" time="0.036" /><testcase classname="src.bamboozle.tests.test_identity" name="test_tamper_never_creates_admission[recipient-other]" time="0.037" /><testcase classname="src.bamboozle.tests.test_identity" name="test_tamper_never_creates_admission[purpose-project-return]" time="0.037" /><testcase classname="src.bamboozle.tests.test_identity" name="test_tamper_never_creates_admission[message_id-00000000000000000000000000000000]" time="0.038" /><testcase classname="src.bamboozle.tests.test_identity" name="test_tamper_never_creates_admission[expires_at-1]" time="0.036" /><testcase classname="src.bamboozle.tests.test_identity" name="test_tamper_never_creates_admission[schema_version-1]" time="0.038" /><testcase classname="src.bamboozle.tests.test_identity" name="test_tamper_never_creates_admission[nonce-AAAA]" time="0.034" /><testcase classname="src.bamboozle.tests.test_identity" name="test_tamper_never_creates_admission[ciphertext-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]" time="0.039" /><testcase classname="src.bamboozle.tests.test_identity" name="test_protocols_do_not_downgrade_or_substitute_purpose" time="0.036" /><testcase classname="src.bamboozle.tests.test_identity" name="test_expiry_future_clock_and_retirement_cutoff" time="0.061" /><testcase classname="src.bamboozle.tests.test_identity" name="test_file_recovery_preserves_reservation_and_rejects_replay" time="0.219" /><testcase classname="src.bamboozle.tests.test_identity" name="test_pending_delivery_recovers_after_expiry_but_not_revocation[False]" time="0.145" /><testcase classname="src.bamboozle.tests.test_identity" name="test_pending_delivery_recovers_after_expiry_but_not_revocation[True]" time="0.101" /><testcase classname="src.bamboozle.tests.test_identity" name="test_project_extraction_retains_one_delivery_through_recovery[main.py]" time="0.047"><failure message="ValueError: Structured new-file rules require translate policy and document rules">src\bamboozle\tests\test_identity.py:255: in test_project_extraction_retains_one_delivery_through_recovery
+    _, exchange_id = project(peers)
+                     ^^^^^^^^^^^^^^
+src\bamboozle\tests\test_identity.py:242: in project
+    view = export_view(owner, "policy.json", "view", Dictionary({"task": "stage"}))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\bamboozle\project_views.py:421: in export_view
+    policy = read_policy(config_raw)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+src\bamboozle\project_views.py:198: in read_policy
+    raise ValueError(
+E   ValueError: Structured new-file rules require translate policy and document rules</failure></testcase><testcase classname="src.bamboozle.tests.test_identity" name="test_project_extraction_retains_one_delivery_through_recovery[result.json]" time="0.041"><failure message="ValueError: Structured new-file rules require translate policy and document rules">src\bamboozle\tests\test_identity.py:255: in test_project_extraction_retains_one_delivery_through_recovery
+    _, exchange_id = project(peers)
+                     ^^^^^^^^^^^^^^
+src\bamboozle\tests\test_identity.py:242: in project
+    view = export_view(owner, "policy.json", "view", Dictionary({"task": "stage"}))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\bamboozle\project_views.py:421: in export_view
+    policy = read_policy(config_raw)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+src\bamboozle\project_views.py:198: in read_policy
+    raise ValueError(
+E   ValueError: Structured new-file rules require translate policy and document rules</failure></testcase><testcase classname="src.bamboozle.tests.test_identity" name="test_review_apply_recovery_keeps_authenticated_admission[False]" time="0.040"><failure message="ValueError: Structured new-file rules require translate policy and document rules">src\bamboozle\tests\test_identity.py:288: in test_review_apply_recovery_keeps_authenticated_admission
+    view_id, exchange_id = project(peers)
+                           ^^^^^^^^^^^^^^
+src\bamboozle\tests\test_identity.py:242: in project
+    view = export_view(owner, "policy.json", "view", Dictionary({"task": "stage"}))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\bamboozle\project_views.py:421: in export_view
+    policy = read_policy(config_raw)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+src\bamboozle\project_views.py:198: in read_policy
+    raise ValueError(
+E   ValueError: Structured new-file rules require translate policy and document rules</failure></testcase><testcase classname="src.bamboozle.tests.test_identity" name="test_review_apply_recovery_keeps_authenticated_admission[True]" time="0.037"><failure message="ValueError: Structured new-file rules require translate policy and document rules">src\bamboozle\tests\test_identity.py:288: in test_review_apply_recovery_keeps_authenticated_admission
+    view_id, exchange_id = project(peers)
+                           ^^^^^^^^^^^^^^
+src\bamboozle\tests\test_identity.py:242: in project
+    view = export_view(owner, "policy.json", "view", Dictionary({"task": "stage"}))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\bamboozle\project_views.py:421: in export_view
+    policy = read_policy(config_raw)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+src\bamboozle\project_views.py:198: in read_policy
+    raise ValueError(
+E   ValueError: Structured new-file rules require translate policy and document rules</failure></testcase></testsuite></testsuites>

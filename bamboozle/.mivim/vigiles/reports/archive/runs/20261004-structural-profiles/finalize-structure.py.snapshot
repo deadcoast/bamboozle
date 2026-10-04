@@ -1,0 +1,92 @@
+"""Record only a fully passing structural profile qualification."""
+import json
+import shutil
+import zipfile
+from pathlib import Path
+
+from bamboozle.evidence import report_destination, write_report
+from bamboozle.structure import check
+from bamboozle.utils import json_bytes, sha256, utc_now
+from bamboozle.workspace import Workspace
+
+root = Path.cwd()
+archive = root / '.mivim/vigiles/reports/archive/runs/20261004-structural-profiles'
+verification_path = root / '.mivim/vigiles/reports/current/VIGILES_VERIFICATION.json'
+verification = json.loads(verification_path.read_bytes())
+assert verification['status'] == 'passed'
+assert verification['package_requested'] and verification['required_artifacts_verified']
+assert len(verification['steps']) == 12 and all(step['returncode'] == 0 for step in verification['steps'])
+assert verification['tests']['failures'] == verification['tests']['errors'] == verification['tests']['skipped'] == 0
+for name, digest in verification['source_sha256'].items():
+    assert sha256((root / name).read_bytes()) == digest, name
+steps = {step['name']: step for step in verification['steps']}
+profile_at_verification = json.loads(steps['structure']['output'])
+profile_now = check(Workspace(root))
+assert profile_now == profile_at_verification
+package_step = next(step for step in verification['steps'] if 'package_smoke.py' in ' '.join(step['command']))
+package_log = (root / package_step['log']).read_text(encoding='utf-8')
+payloads = []
+for line in package_log.splitlines():
+    if line.startswith('{'):
+        try:
+            value = json.loads(line)
+        except ValueError:
+            continue
+        if isinstance(value, dict) and 'structure_results' in value:
+            payloads.append(value)
+assert len(payloads) == 1
+installed = payloads[0]['structure_results']
+assert installed['status'] == 'passed' and installed['restored']['workloads'] == 300
+test_args = steps['pytest']['command']
+base = Path(test_args[test_args.index('--basetemp') + 1])
+source_results = [path / 'structural-application/.vigiles/qualification/result.json' for path in base.glob('test_complete_application_cli_*')]
+source_results = [path for path in source_results if path.is_file()]
+assert len(source_results) == 1
+source = json.loads(source_results[0].read_bytes())
+assert source['status'] == 'passed' and source['restored']['workloads'] == 300
+artifacts = {}
+for name in verification['required_artifacts']:
+    path = root / 'dist' / name
+    assert sha256(path.read_bytes()) == verification['artifacts'][name]['sha256']
+    artifacts[name] = verification['artifacts'][name]
+wheel = next(name for name in artifacts if name.endswith('.whl'))
+with zipfile.ZipFile(root / 'dist' / wheel) as built:
+    checked_modules = []
+    for path in sorted((root / 'src/bamboozle').glob('*.py')):
+        member = 'bamboozle/' + path.name
+        assert built.read(member) == path.read_bytes(), member
+        checked_modules.append(member)
+prior = json.loads((archive / 'prior-VIGILES_VERIFICATION.json').read_bytes())
+native = {name: digest for name, digest in prior['source_sha256'].items() if name.startswith(('src/ciphers/', 'include/'))}
+assert native and all(verification['source_sha256'][name] == digest for name, digest in native.items())
+status_path = root / 'VIGILES_STATUS.json'
+status = json.loads(status_path.read_bytes())
+task = status['next_step']
+assert task['id'] == 'VIG-CORE-PROFILE-01'
+evidence_name = 'VIGILES_STRUCTURE_QUALIFICATION.json'
+scope = 'Explicit structural rules across decoded agent writes, file conversion/restoration, reviewed batch imports and binary publication; complete CLI and source-agent/operator stdio application workflows, 300 workloads in neutral/restored vocabularies, drift refusals and partial-import recovery from source and isolated installed wheel.'
+report = {
+    'schema_version': 1, 'id': task['id'], 'status': 'source_and_installed_application_verified', 'completed': utc_now(),
+    'workflow': 'vigiles-vandal_0.2', 'product_version': '0.7.0', 'scope': scope,
+    'design': {'source': '.mivim/vigiles/specs/vigiles-vanilla_0.1.md:55-56', 'done_criteria': task['done_criteria'], 'owner': 'Bamboozle owns explicit profile evaluation and native publication guards; Vandal reports its fingerprint and routes the product interfaces.', 'method': 'Bounded scoped inventories and complete prospective overlays; exact profile and snapshot certificates in contexts/review digests; private refusal receipts and original journal recovery without rewriting history.'},
+    'verification': {'path': str(verification_path.relative_to(root)), 'sha256': sha256(verification_path.read_bytes()), 'tests': verification['tests'], 'steps': [{'name': s['name'], 'returncode': s['returncode'], 'log': s['log']} for s in verification['steps']]},
+    'repository_profile': profile_now, 'profile_sha256': sha256((root / '.vigiles/structure.json').read_bytes()),
+    'source_application': source, 'installed_application': installed,
+    'artifacts': artifacts, 'wheel_source_parity': checked_modules,
+    'original_c_methods': {'checkpoint': 'c53f0bfded51667437fc837cd33ede37745ae9c5', 'files_verified_unchanged_since_prior_qualification': native},
+    'source_sha256': verification['source_sha256'],
+    'preserved_evidence': {'directory': str(archive.relative_to(root)), 'previous_artifacts': list(artifacts), 'focused_counts': [34, 98, 40, 54], 'first_full_run': {'log': '.test-tmp/verify-2qbdvwnb/pytest.log', 'failed': 2, 'passed': 1232, 'corrections': ['Operator MCP inventory updated for the new tool', 'Truncated finding lists no longer claim complete coverage']}, 'additional_pre_fix_probes': 'structure-edge-probe.json', 'probe_corrections': ['Removed profiles invalidate paginated checks', 'Publication guards re-read control bytes after evaluation'], 'first_application_fixture_error': {'workspace': '.test-tmp/structure-application-01', 'error': 'Structured new-file rules require translate policy and document rules', 'correction': 'Qualification now declares text document rules explicitly'}, 'initial_environment_constraints': ['Sandbox could not read the prior verified wheel', 'Default global uv cache was inaccessible; required qualification used the existing repository uv cache with scoped approval']},
+    'limits': ['Structural/syntax/companion existence checks do not prove application semantics or test quality', 'Guards cover documented Bamboozle publication surfaces, not raw filesystem writes or OS isolation', 'Bounded optimistic rechecks are not filesystem transactions', 'Evaluation caps: 10000 entries, 64 MiB total and 2000 retained findings; explicit incomplete/truncation diagnostics', 'Current evidence is local Windows Python 3.13; remote CI and other runtimes remain open', 'Recipient registry, key lifecycle, replay semantics and external acceptance remain separate work']
+}
+destination = report_destination(root, evidence_name)
+write_report(root, destination, report, replace=destination.exists())
+status['last_completed_step'] = {**task, 'status': report['status'], 'implementation': ['src/bamboozle/structure.py', 'src/bamboozle/agent_files.py', 'src/bamboozle/view_import.py', 'src/bamboozle/service.py', 'src/bamboozle/restoration.py', 'src/bamboozle/cli.py', 'src/bamboozle/mcp.py', 'scripts/structure_smoke.py', '.vigiles/structure.json'], 'evidence': [str(destination.relative_to(root)).replace('\\', '/')], 'qualification': {'stages': len(verification['steps']), 'tests': verification['tests'], 'scope': scope}}
+status['core_development_queue'] = [item for item in status['core_development_queue'] if item['id'] != task['id']]
+status['next_step'] = status['core_development_queue'][0]
+status['evidence']['structure_profiles'] = str(destination.relative_to(root)).replace('\\', '/')
+status['evidence']['qualification_scope'] = scope
+status['core_acceptance']['reason'] = 'Structural profiles and complete source/installed application workflows are qualified; recipient lifecycle and the documented external acceptance gates remain open.'
+status['recorded_on'] = '2026-10-04'
+write_report(root, status_path, status, replace=True)
+shutil.copy2(__file__, archive / 'finalize-structure.py.snapshot')
+print(json.dumps({'status': report['status'], 'report': str(destination), 'tests': verification['tests'], 'stages': len(verification['steps']), 'next_step': status['next_step']['id']}))

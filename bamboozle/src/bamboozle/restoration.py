@@ -19,6 +19,7 @@ from bamboozle.service import (
     ledger_marker_version,
     ledger_path,
 )
+from bamboozle.structure import Guard, prepare_guard
 from bamboozle.utils import (
     PublicationError,
     atomic_write,
@@ -86,6 +87,19 @@ class ReviewedFilePlan:
     result: bytes | None = field(repr=False)
     metadata: bytes | None = field(repr=False)
     details: dict[str, Any]
+    structure: Guard = field(init=False, repr=False, compare=False)
+
+    def __post_init__(self) -> None:
+        changes: dict[str, bytes | None] = (
+            {self.output.relative_to(self.workspace.root).as_posix(): self.result}
+            if self.result is not None
+            else {}
+        )
+        if self.metadata is not None:
+            changes[self.metadata_path.relative_to(self.workspace.root).as_posix()] = (
+                self.metadata
+            )
+        object.__setattr__(self, "structure", prepare_guard(self.workspace, changes))
 
     @property
     def review_sha256(self) -> str:
@@ -107,6 +121,11 @@ class ReviewedFilePlan:
                     "metadata_sha256": sha256(self.metadata)
                     if self.metadata is not None
                     else None,
+                    **(
+                        {"structure": self.structure.certificate}
+                        if self.structure.certificate
+                        else {}
+                    ),
                 }
             )
         )
@@ -116,7 +135,16 @@ class ReviewedFilePlan:
             **self.details,
             "schema_version": 1,
             "status": "conflict" if self.result is None else "preview",
-            "ok": self.result is not None,
+            "ok": self.result is not None
+            and (self.structure.result is None or self.structure.result["ok"]),
+            **(
+                {
+                    "structure": self.structure.certificate,
+                    "structural_validation": self.structure.result,
+                }
+                if self.structure.certificate
+                else {}
+            ),
             "output": str(self.output.relative_to(self.workspace.root)),
             "metadata": str(self.metadata_path.relative_to(self.workspace.root)),
             "output_sha256": sha256(self.result) if self.result is not None else None,
@@ -165,6 +193,7 @@ class ReviewedFilePlan:
         report = self.report()
         report["output_saved"] = recover_metadata
         try:
+            self.structure.recheck()
             if not recover_metadata:
                 try:
                     atomic_write(self.output, self.result)
@@ -180,6 +209,7 @@ class ReviewedFilePlan:
                     )
             if self.workspace.read(self.output) != self.result:
                 raise ValueError("Output changed before metadata publication")
+            self.structure.recheck()
             try:
                 atomic_write(
                     self.workspace.resolve(self.metadata_path, write=True),
@@ -189,6 +219,7 @@ class ReviewedFilePlan:
                 report["metadata_saved"] = True
                 raise
             report["metadata_saved"] = True
+            self.structure.recheck()
         except (OSError, ValueError) as exc:
             report.update(status="error", error=str(exc))
             raise OperationError(str(exc), report) from exc
@@ -228,7 +259,7 @@ def prepare_restore(
         raise TypeError("Translation ledger must be an object")
     mapping, record = _ledger_dictionary(metadata)
     rules, context = ledger_format(record)
-    structured = rules.format != "text"
+    structured = rules.format != "text" or bool(rules.protect)
     if structured and (terms != "translate" or decisions is not None):
         raise ValueError(
             "Structured restoration uses its saved field/format policy: select --terms translate and preserve literal markers; line-based decisions apply only to text format"

@@ -1,0 +1,20 @@
+{
+  "current_refusal": "Unexpected format rules or missing JSON pointers",
+  "current_supported_exact_pointer_mode": {
+    "input": "{\"trigger\":\"alpha\", \"nested\":{\"message\":\"task\"}, \"count\":2}",
+    "output": "{\"trigger\":\"omega\", \"nested\":{\"message\":\"task\"}, \"count\":2}",
+    "rules": {
+      "format": "json",
+      "pointers": [
+        "/trigger"
+      ]
+    }
+  },
+  "design_source": ".legacy/designlog:897-899",
+  "gap": "The original values-only mode is not exposed; callers must enumerate each string pointer. Keep this exact-pointer mode unchanged when adding explicit recursive selection.",
+  "proposed_rule_rejected": {
+    "format": "json",
+    "values_only": true
+  },
+  "requirement": "Explicit recursive JSON string-values-only mode, preserving keys and nonstring values"
+}

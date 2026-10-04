@@ -1,5 +1,16 @@
 {
   "archive": ".mivim/vigiles/reports/archive/runs/20261004-yaml-translation",
+  "artifacts": {
+    "bamboozle-0.7.0-py3-none-any.whl": {
+      "bytes": 226891,
+      "sha256": "238830ef38119794cd8242b70956e9a3e64fdda0f0dc76322600d560bbf6f494"
+    },
+    "bamboozle-0.7.0.tar.gz": {
+      "bytes": 274177,
+      "sha256": "9209d86e7d8ed19a3a07036d652f6ad469fa1aa06e7367fe157d491c7a125df0"
+    }
+  },
+  "completed": "2026-10-04T16:26:46.747964Z",
   "design": {
     "interfaces": [
       "CLI --format yaml --yaml-pointer",
@@ -25,20 +36,1532 @@
   },
   "focused": {
     "expanded_regressions": 303,
+    "final_yaml_before_error_redaction_case": 123,
     "first_yaml_tests": 101,
     "latest_yaml_tests": 105
   },
+  "installed_application_workflow": {
+    "agent": {
+      "check": {
+        "capture": {
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "truncated": false
+          },
+          "stdout": {
+            "bytes_read": 41,
+            "bytes_retained": 41,
+            "display_truncated": false,
+            "truncated": false
+          }
+        },
+        "capture_complete": true,
+        "check_id": "workloads",
+        "cleanup": {
+          "complete": true,
+          "scope": "windows_job"
+        },
+        "completed": "2026-10-04T16:26:19.703256Z",
+        "error": null,
+        "intent_sha256": "63d823f1e11d558538e59df76fac49dbf652b18eb2b9e3a676f0566d9c2f1254",
+        "modified_inputs": [],
+        "result_sha256": "e5f1904628f75ff7597eb650270765d4d3d626792dd1412bd3ac1cc079a7ba3f",
+        "returncode": 0,
+        "run_id": "a870777346c24d9a9188ae8d471ccdc6",
+        "seconds": 0.231,
+        "snapshot_sha256": "e166c7f537defd244459c365d9e104702aaa7c79fe9e988e2a646f8f4236050a",
+        "source_current": true,
+        "started": true,
+        "status": "passed",
+        "stderr": "",
+        "stdout": "{\"workloads\": 40, \"invalid_records\": 3}\r\n"
+      },
+      "history": {
+        "capture": {
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "truncated": false
+          },
+          "stdout": {
+            "bytes_read": 41,
+            "bytes_retained": 41,
+            "display_truncated": false,
+            "truncated": false
+          }
+        },
+        "capture_complete": true,
+        "check_id": "workloads",
+        "cleanup": {
+          "complete": true,
+          "scope": "windows_job"
+        },
+        "completed": "2026-10-04T16:26:19.703256Z",
+        "error": null,
+        "intent_sha256": "63d823f1e11d558538e59df76fac49dbf652b18eb2b9e3a676f0566d9c2f1254",
+        "matches_current_source": true,
+        "modified_inputs": [],
+        "result_sha256": "e5f1904628f75ff7597eb650270765d4d3d626792dd1412bd3ac1cc079a7ba3f",
+        "returncode": 0,
+        "run_id": "a870777346c24d9a9188ae8d471ccdc6",
+        "seconds": 0.231,
+        "snapshot_sha256": "e166c7f537defd244459c365d9e104702aaa7c79fe9e988e2a646f8f4236050a",
+        "source_current": true,
+        "started": true,
+        "status": "passed",
+        "stderr": "",
+        "stdout": "{\"workloads\": 40, \"invalid_records\": 3}\r\n"
+      },
+      "malformed_write_refused": true
+    },
+    "baseline": {
+      "batches": [
+        {
+          "items": [
+            {
+              "amount": 1,
+              "id": "1",
+              "message": "alpha for case-1"
+            },
+            {
+              "amount": 3,
+              "id": "3",
+              "message": "alpha for case-3"
+            },
+            {
+              "amount": 5,
+              "id": "5",
+              "message": "alpha for case-5"
+            }
+          ],
+          "kind": "urgent"
+        },
+        {
+          "items": [
+            {
+              "amount": 7,
+              "id": "7",
+              "message": "alpha for case-7"
+            },
+            {
+              "amount": 9,
+              "id": "9",
+              "message": "alpha for case-9"
+            },
+            {
+              "amount": 11,
+              "id": "11",
+              "message": "alpha for case-11"
+            }
+          ],
+          "kind": "urgent"
+        },
+        {
+          "items": [
+            {
+              "amount": 13,
+              "id": "13",
+              "message": "alpha for case-13"
+            },
+            {
+              "amount": 15,
+              "id": "15",
+              "message": "alpha for case-15"
+            },
+            {
+              "amount": 17,
+              "id": "17",
+              "message": "alpha for case-17"
+            }
+          ],
+          "kind": "urgent"
+        },
+        {
+          "items": [
+            {
+              "amount": 19,
+              "id": "19",
+              "message": "alpha for case-19"
+            },
+            {
+              "amount": 21,
+              "id": "21",
+              "message": "alpha for case-21"
+            },
+            {
+              "amount": 23,
+              "id": "23",
+              "message": "alpha for case-23"
+            }
+          ],
+          "kind": "urgent"
+        },
+        {
+          "items": [
+            {
+              "amount": 25,
+              "id": "25",
+              "message": "alpha for case-25"
+            },
+            {
+              "amount": 27,
+              "id": "27",
+              "message": "alpha for case-27"
+            },
+            {
+              "amount": 29,
+              "id": "29",
+              "message": "alpha for case-29"
+            }
+          ],
+          "kind": "urgent"
+        },
+        {
+          "items": [
+            {
+              "amount": 31,
+              "id": "31",
+              "message": "alpha for case-31"
+            },
+            {
+              "amount": 33,
+              "id": "33",
+              "message": "alpha for case-33"
+            },
+            {
+              "amount": 35,
+              "id": "35",
+              "message": "alpha for case-35"
+            }
+          ],
+          "kind": "urgent"
+        },
+        {
+          "items": [
+            {
+              "amount": 0,
+              "id": "0",
+              "message": "alpha received case-0"
+            },
+            {
+              "amount": 2,
+              "id": "2",
+              "message": "alpha received case-2"
+            },
+            {
+              "amount": 4,
+              "id": "4",
+              "message": "alpha received case-4"
+            }
+          ],
+          "kind": "standard"
+        },
+        {
+          "items": [
+            {
+              "amount": 6,
+              "id": "6",
+              "message": "alpha received case-6"
+            },
+            {
+              "amount": 8,
+              "id": "8",
+              "message": "alpha received case-8"
+            },
+            {
+              "amount": 10,
+              "id": "10",
+              "message": "alpha received case-10"
+            }
+          ],
+          "kind": "standard"
+        },
+        {
+          "items": [
+            {
+              "amount": 12,
+              "id": "12",
+              "message": "alpha received case-12"
+            },
+            {
+              "amount": 14,
+              "id": "14",
+              "message": "alpha received case-14"
+            },
+            {
+              "amount": 16,
+              "id": "16",
+              "message": "alpha received case-16"
+            }
+          ],
+          "kind": "standard"
+        },
+        {
+          "items": [
+            {
+              "amount": 18,
+              "id": "18",
+              "message": "alpha received case-18"
+            },
+            {
+              "amount": 20,
+              "id": "20",
+              "message": "alpha received case-20"
+            },
+            {
+              "amount": 22,
+              "id": "22",
+              "message": "alpha received case-22"
+            }
+          ],
+          "kind": "standard"
+        },
+        {
+          "items": [
+            {
+              "amount": 24,
+              "id": "24",
+              "message": "alpha received case-24"
+            },
+            {
+              "amount": 26,
+              "id": "26",
+              "message": "alpha received case-26"
+            },
+            {
+              "amount": 28,
+              "id": "28",
+              "message": "alpha received case-28"
+            }
+          ],
+          "kind": "standard"
+        },
+        {
+          "items": [
+            {
+              "amount": 30,
+              "id": "30",
+              "message": "alpha received case-30"
+            },
+            {
+              "amount": 32,
+              "id": "32",
+              "message": "alpha received case-32"
+            },
+            {
+              "amount": 34,
+              "id": "34",
+              "message": "alpha received case-34"
+            }
+          ],
+          "kind": "standard"
+        }
+      ],
+      "records": 36,
+      "summary": "high priority alpha batches",
+      "total": 630
+    },
+    "drift_refusal": {
+      "applied_files": [],
+      "error": "Authoritative source changed after review",
+      "journal_saved": false,
+      "output_saved": false,
+      "receipt_saved": false,
+      "review_sha256": "4b632840dab944155d8f7d30110098f73e4fb78f0cf7060c0d1bcfa9f702d72d",
+      "schema_version": 1,
+      "status": "error",
+      "view_id": "01569019a48c4f2da99c7a9d7f60527a"
+    },
+    "edited": {
+      "batches": [
+        {
+          "items": [
+            {
+              "amount": 1,
+              "id": "1",
+              "message": "omega processed for case-1"
+            },
+            {
+              "amount": 3,
+              "id": "3",
+              "message": "omega processed for case-3"
+            },
+            {
+              "amount": 5,
+              "id": "5",
+              "message": "omega processed for case-5"
+            },
+            {
+              "amount": 7,
+              "id": "7",
+              "message": "omega processed for case-7"
+            },
+            {
+              "amount": 9,
+              "id": "9",
+              "message": "omega processed for case-9"
+            }
+          ],
+          "kind": "urgent"
+        },
+        {
+          "items": [
+            {
+              "amount": 11,
+              "id": "11",
+              "message": "omega processed for case-11"
+            },
+            {
+              "amount": 13,
+              "id": "13",
+              "message": "omega processed for case-13"
+            },
+            {
+              "amount": 15,
+              "id": "15",
+              "message": "omega processed for case-15"
+            },
+            {
+              "amount": 17,
+              "id": "17",
+              "message": "omega processed for case-17"
+            },
+            {
+              "amount": 19,
+              "id": "19",
+              "message": "omega processed for case-19"
+            }
+          ],
+          "kind": "urgent"
+        },
+        {
+          "items": [
+            {
+              "amount": 21,
+              "id": "21",
+              "message": "omega processed for case-21"
+            },
+            {
+              "amount": 23,
+              "id": "23",
+              "message": "omega processed for case-23"
+            },
+            {
+              "amount": 25,
+              "id": "25",
+              "message": "omega processed for case-25"
+            },
+            {
+              "amount": 27,
+              "id": "27",
+              "message": "omega processed for case-27"
+            },
+            {
+              "amount": 29,
+              "id": "29",
+              "message": "omega processed for case-29"
+            }
+          ],
+          "kind": "urgent"
+        },
+        {
+          "items": [
+            {
+              "amount": 31,
+              "id": "31",
+              "message": "omega processed for case-31"
+            },
+            {
+              "amount": 33,
+              "id": "33",
+              "message": "omega processed for case-33"
+            },
+            {
+              "amount": 35,
+              "id": "35",
+              "message": "omega processed for case-35"
+            }
+          ],
+          "kind": "urgent"
+        },
+        {
+          "items": [
+            {
+              "amount": 0,
+              "id": "0",
+              "message": "omega received case-0"
+            },
+            {
+              "amount": 2,
+              "id": "2",
+              "message": "omega received case-2"
+            },
+            {
+              "amount": 4,
+              "id": "4",
+              "message": "omega received case-4"
+            },
+            {
+              "amount": 6,
+              "id": "6",
+              "message": "omega received case-6"
+            },
+            {
+              "amount": 8,
+              "id": "8",
+              "message": "omega received case-8"
+            }
+          ],
+          "kind": "standard"
+        },
+        {
+          "items": [
+            {
+              "amount": 10,
+              "id": "10",
+              "message": "omega received case-10"
+            },
+            {
+              "amount": 12,
+              "id": "12",
+              "message": "omega received case-12"
+            },
+            {
+              "amount": 14,
+              "id": "14",
+              "message": "omega received case-14"
+            },
+            {
+              "amount": 16,
+              "id": "16",
+              "message": "omega received case-16"
+            },
+            {
+              "amount": 18,
+              "id": "18",
+              "message": "omega received case-18"
+            }
+          ],
+          "kind": "standard"
+        },
+        {
+          "items": [
+            {
+              "amount": 20,
+              "id": "20",
+              "message": "omega received case-20"
+            },
+            {
+              "amount": 22,
+              "id": "22",
+              "message": "omega received case-22"
+            },
+            {
+              "amount": 24,
+              "id": "24",
+              "message": "omega received case-24"
+            },
+            {
+              "amount": 26,
+              "id": "26",
+              "message": "omega received case-26"
+            },
+            {
+              "amount": 28,
+              "id": "28",
+              "message": "omega received case-28"
+            }
+          ],
+          "kind": "standard"
+        },
+        {
+          "items": [
+            {
+              "amount": 30,
+              "id": "30",
+              "message": "omega received case-30"
+            },
+            {
+              "amount": 32,
+              "id": "32",
+              "message": "omega received case-32"
+            },
+            {
+              "amount": 34,
+              "id": "34",
+              "message": "omega received case-34"
+            }
+          ],
+          "kind": "standard"
+        }
+      ],
+      "records": 36,
+      "summary": "fast lane omega batches",
+      "total": 630
+    },
+    "final_sha256": "e5a717289171345e3d2a04ea09d795e6481ae39dd00847bcbac8e51ccde990c6",
+    "interrupted_import": {
+      "applied_files": [
+        "config.yaml"
+      ],
+      "error": "Injected interruption after the first YAML source publication",
+      "files": {
+        "app/__init__.py": "unchanged",
+        "app/__main__.py": "unchanged",
+        "app/config.py": "unchanged",
+        "app/pipeline.py": "unchanged",
+        "checks.py": "unchanged",
+        "config.yaml": "applied",
+        "configs/recovered.yaml": "pending",
+        "records.json": "unchanged"
+      },
+      "journal_saved": true,
+      "output_saved": true,
+      "receipt_saved": false,
+      "review_sha256": "64da02307b015ddb47b82bb7e285e01d99698b54a1ef7c656885678ef0e96fda",
+      "schema_version": 1,
+      "status": "error",
+      "view_id": "032a2d7da83e474e85bf28c4c3de1212"
+    },
+    "neutral": {
+      "batches": [
+        {
+          "items": [
+            {
+              "amount": 1,
+              "id": "1",
+              "message": "omega for case-1"
+            },
+            {
+              "amount": 3,
+              "id": "3",
+              "message": "omega for case-3"
+            },
+            {
+              "amount": 5,
+              "id": "5",
+              "message": "omega for case-5"
+            }
+          ],
+          "kind": "urgent"
+        },
+        {
+          "items": [
+            {
+              "amount": 7,
+              "id": "7",
+              "message": "omega for case-7"
+            },
+            {
+              "amount": 9,
+              "id": "9",
+              "message": "omega for case-9"
+            },
+            {
+              "amount": 11,
+              "id": "11",
+              "message": "omega for case-11"
+            }
+          ],
+          "kind": "urgent"
+        },
+        {
+          "items": [
+            {
+              "amount": 13,
+              "id": "13",
+              "message": "omega for case-13"
+            },
+            {
+              "amount": 15,
+              "id": "15",
+              "message": "omega for case-15"
+            },
+            {
+              "amount": 17,
+              "id": "17",
+              "message": "omega for case-17"
+            }
+          ],
+          "kind": "urgent"
+        },
+        {
+          "items": [
+            {
+              "amount": 19,
+              "id": "19",
+              "message": "omega for case-19"
+            },
+            {
+              "amount": 21,
+              "id": "21",
+              "message": "omega for case-21"
+            },
+            {
+              "amount": 23,
+              "id": "23",
+              "message": "omega for case-23"
+            }
+          ],
+          "kind": "urgent"
+        },
+        {
+          "items": [
+            {
+              "amount": 25,
+              "id": "25",
+              "message": "omega for case-25"
+            },
+            {
+              "amount": 27,
+              "id": "27",
+              "message": "omega for case-27"
+            },
+            {
+              "amount": 29,
+              "id": "29",
+              "message": "omega for case-29"
+            }
+          ],
+          "kind": "urgent"
+        },
+        {
+          "items": [
+            {
+              "amount": 31,
+              "id": "31",
+              "message": "omega for case-31"
+            },
+            {
+              "amount": 33,
+              "id": "33",
+              "message": "omega for case-33"
+            },
+            {
+              "amount": 35,
+              "id": "35",
+              "message": "omega for case-35"
+            }
+          ],
+          "kind": "urgent"
+        },
+        {
+          "items": [
+            {
+              "amount": 0,
+              "id": "0",
+              "message": "omega received case-0"
+            },
+            {
+              "amount": 2,
+              "id": "2",
+              "message": "omega received case-2"
+            },
+            {
+              "amount": 4,
+              "id": "4",
+              "message": "omega received case-4"
+            }
+          ],
+          "kind": "standard"
+        },
+        {
+          "items": [
+            {
+              "amount": 6,
+              "id": "6",
+              "message": "omega received case-6"
+            },
+            {
+              "amount": 8,
+              "id": "8",
+              "message": "omega received case-8"
+            },
+            {
+              "amount": 10,
+              "id": "10",
+              "message": "omega received case-10"
+            }
+          ],
+          "kind": "standard"
+        },
+        {
+          "items": [
+            {
+              "amount": 12,
+              "id": "12",
+              "message": "omega received case-12"
+            },
+            {
+              "amount": 14,
+              "id": "14",
+              "message": "omega received case-14"
+            },
+            {
+              "amount": 16,
+              "id": "16",
+              "message": "omega received case-16"
+            }
+          ],
+          "kind": "standard"
+        },
+        {
+          "items": [
+            {
+              "amount": 18,
+              "id": "18",
+              "message": "omega received case-18"
+            },
+            {
+              "amount": 20,
+              "id": "20",
+              "message": "omega received case-20"
+            },
+            {
+              "amount": 22,
+              "id": "22",
+              "message": "omega received case-22"
+            }
+          ],
+          "kind": "standard"
+        },
+        {
+          "items": [
+            {
+              "amount": 24,
+              "id": "24",
+              "message": "omega received case-24"
+            },
+            {
+              "amount": 26,
+              "id": "26",
+              "message": "omega received case-26"
+            },
+            {
+              "amount": 28,
+              "id": "28",
+              "message": "omega received case-28"
+            }
+          ],
+          "kind": "standard"
+        },
+        {
+          "items": [
+            {
+              "amount": 30,
+              "id": "30",
+              "message": "omega received case-30"
+            },
+            {
+              "amount": 32,
+              "id": "32",
+              "message": "omega received case-32"
+            },
+            {
+              "amount": 34,
+              "id": "34",
+              "message": "omega received case-34"
+            }
+          ],
+          "kind": "standard"
+        }
+      ],
+      "records": 36,
+      "summary": "fast lane omega batches",
+      "total": 630
+    },
+    "original_sha256": "fcc59beee747a6361cbd65db610f440c7fdd4617fe5358858948209b6bf3c944",
+    "recovered_import": {
+      "applied_files": [
+        "config.yaml",
+        "configs/recovered.yaml"
+      ],
+      "journal_saved": true,
+      "output_saved": true,
+      "receipt_saved": true,
+      "review_sha256": "64da02307b015ddb47b82bb7e285e01d99698b54a1ef7c656885678ef0e96fda",
+      "schema_version": 1,
+      "status": "recovered",
+      "view_id": "032a2d7da83e474e85bf28c4c3de1212"
+    },
+    "restored": {
+      "batches": [
+        {
+          "items": [
+            {
+              "amount": 1,
+              "id": "1",
+              "message": "alpha processed for case-1"
+            },
+            {
+              "amount": 3,
+              "id": "3",
+              "message": "alpha processed for case-3"
+            },
+            {
+              "amount": 5,
+              "id": "5",
+              "message": "alpha processed for case-5"
+            },
+            {
+              "amount": 7,
+              "id": "7",
+              "message": "alpha processed for case-7"
+            },
+            {
+              "amount": 9,
+              "id": "9",
+              "message": "alpha processed for case-9"
+            }
+          ],
+          "kind": "urgent"
+        },
+        {
+          "items": [
+            {
+              "amount": 11,
+              "id": "11",
+              "message": "alpha processed for case-11"
+            },
+            {
+              "amount": 13,
+              "id": "13",
+              "message": "alpha processed for case-13"
+            },
+            {
+              "amount": 15,
+              "id": "15",
+              "message": "alpha processed for case-15"
+            },
+            {
+              "amount": 17,
+              "id": "17",
+              "message": "alpha processed for case-17"
+            },
+            {
+              "amount": 19,
+              "id": "19",
+              "message": "alpha processed for case-19"
+            }
+          ],
+          "kind": "urgent"
+        },
+        {
+          "items": [
+            {
+              "amount": 21,
+              "id": "21",
+              "message": "alpha processed for case-21"
+            },
+            {
+              "amount": 23,
+              "id": "23",
+              "message": "alpha processed for case-23"
+            },
+            {
+              "amount": 25,
+              "id": "25",
+              "message": "alpha processed for case-25"
+            },
+            {
+              "amount": 27,
+              "id": "27",
+              "message": "alpha processed for case-27"
+            },
+            {
+              "amount": 29,
+              "id": "29",
+              "message": "alpha processed for case-29"
+            }
+          ],
+          "kind": "urgent"
+        },
+        {
+          "items": [
+            {
+              "amount": 31,
+              "id": "31",
+              "message": "alpha processed for case-31"
+            },
+            {
+              "amount": 33,
+              "id": "33",
+              "message": "alpha processed for case-33"
+            },
+            {
+              "amount": 35,
+              "id": "35",
+              "message": "alpha processed for case-35"
+            }
+          ],
+          "kind": "urgent"
+        },
+        {
+          "items": [
+            {
+              "amount": 0,
+              "id": "0",
+              "message": "alpha received case-0"
+            },
+            {
+              "amount": 2,
+              "id": "2",
+              "message": "alpha received case-2"
+            },
+            {
+              "amount": 4,
+              "id": "4",
+              "message": "alpha received case-4"
+            },
+            {
+              "amount": 6,
+              "id": "6",
+              "message": "alpha received case-6"
+            },
+            {
+              "amount": 8,
+              "id": "8",
+              "message": "alpha received case-8"
+            }
+          ],
+          "kind": "standard"
+        },
+        {
+          "items": [
+            {
+              "amount": 10,
+              "id": "10",
+              "message": "alpha received case-10"
+            },
+            {
+              "amount": 12,
+              "id": "12",
+              "message": "alpha received case-12"
+            },
+            {
+              "amount": 14,
+              "id": "14",
+              "message": "alpha received case-14"
+            },
+            {
+              "amount": 16,
+              "id": "16",
+              "message": "alpha received case-16"
+            },
+            {
+              "amount": 18,
+              "id": "18",
+              "message": "alpha received case-18"
+            }
+          ],
+          "kind": "standard"
+        },
+        {
+          "items": [
+            {
+              "amount": 20,
+              "id": "20",
+              "message": "alpha received case-20"
+            },
+            {
+              "amount": 22,
+              "id": "22",
+              "message": "alpha received case-22"
+            },
+            {
+              "amount": 24,
+              "id": "24",
+              "message": "alpha received case-24"
+            },
+            {
+              "amount": 26,
+              "id": "26",
+              "message": "alpha received case-26"
+            },
+            {
+              "amount": 28,
+              "id": "28",
+              "message": "alpha received case-28"
+            }
+          ],
+          "kind": "standard"
+        },
+        {
+          "items": [
+            {
+              "amount": 30,
+              "id": "30",
+              "message": "alpha received case-30"
+            },
+            {
+              "amount": 32,
+              "id": "32",
+              "message": "alpha received case-32"
+            },
+            {
+              "amount": 34,
+              "id": "34",
+              "message": "alpha received case-34"
+            }
+          ],
+          "kind": "standard"
+        }
+      ],
+      "records": 36,
+      "summary": "high priority alpha batches",
+      "total": 630
+    },
+    "source_root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-vp6gv21b\\runtime\\yaml-workflow",
+    "status": "passed",
+    "view_applied": {
+      "applied_files": [
+        "config.yaml",
+        "configs/generated.yaml"
+      ],
+      "journal_saved": true,
+      "output_saved": true,
+      "receipt_saved": true,
+      "review_sha256": "4b632840dab944155d8f7d30110098f73e4fb78f0cf7060c0d1bcfa9f702d72d",
+      "schema_version": 1,
+      "status": "applied",
+      "view_id": "01569019a48c4f2da99c7a9d7f60527a"
+    },
+    "view_execution": {
+      "batches": [
+        {
+          "items": [
+            {
+              "amount": 1,
+              "id": "1",
+              "message": "omega processed for case-1"
+            },
+            {
+              "amount": 3,
+              "id": "3",
+              "message": "omega processed for case-3"
+            },
+            {
+              "amount": 5,
+              "id": "5",
+              "message": "omega processed for case-5"
+            },
+            {
+              "amount": 7,
+              "id": "7",
+              "message": "omega processed for case-7"
+            },
+            {
+              "amount": 9,
+              "id": "9",
+              "message": "omega processed for case-9"
+            }
+          ],
+          "kind": "urgent"
+        },
+        {
+          "items": [
+            {
+              "amount": 11,
+              "id": "11",
+              "message": "omega processed for case-11"
+            },
+            {
+              "amount": 13,
+              "id": "13",
+              "message": "omega processed for case-13"
+            },
+            {
+              "amount": 15,
+              "id": "15",
+              "message": "omega processed for case-15"
+            },
+            {
+              "amount": 17,
+              "id": "17",
+              "message": "omega processed for case-17"
+            },
+            {
+              "amount": 19,
+              "id": "19",
+              "message": "omega processed for case-19"
+            }
+          ],
+          "kind": "urgent"
+        },
+        {
+          "items": [
+            {
+              "amount": 21,
+              "id": "21",
+              "message": "omega processed for case-21"
+            },
+            {
+              "amount": 23,
+              "id": "23",
+              "message": "omega processed for case-23"
+            },
+            {
+              "amount": 25,
+              "id": "25",
+              "message": "omega processed for case-25"
+            },
+            {
+              "amount": 27,
+              "id": "27",
+              "message": "omega processed for case-27"
+            },
+            {
+              "amount": 29,
+              "id": "29",
+              "message": "omega processed for case-29"
+            }
+          ],
+          "kind": "urgent"
+        },
+        {
+          "items": [
+            {
+              "amount": 31,
+              "id": "31",
+              "message": "omega processed for case-31"
+            },
+            {
+              "amount": 33,
+              "id": "33",
+              "message": "omega processed for case-33"
+            },
+            {
+              "amount": 35,
+              "id": "35",
+              "message": "omega processed for case-35"
+            }
+          ],
+          "kind": "urgent"
+        },
+        {
+          "items": [
+            {
+              "amount": 0,
+              "id": "0",
+              "message": "omega received case-0"
+            },
+            {
+              "amount": 2,
+              "id": "2",
+              "message": "omega received case-2"
+            },
+            {
+              "amount": 4,
+              "id": "4",
+              "message": "omega received case-4"
+            },
+            {
+              "amount": 6,
+              "id": "6",
+              "message": "omega received case-6"
+            },
+            {
+              "amount": 8,
+              "id": "8",
+              "message": "omega received case-8"
+            }
+          ],
+          "kind": "standard"
+        },
+        {
+          "items": [
+            {
+              "amount": 10,
+              "id": "10",
+              "message": "omega received case-10"
+            },
+            {
+              "amount": 12,
+              "id": "12",
+              "message": "omega received case-12"
+            },
+            {
+              "amount": 14,
+              "id": "14",
+              "message": "omega received case-14"
+            },
+            {
+              "amount": 16,
+              "id": "16",
+              "message": "omega received case-16"
+            },
+            {
+              "amount": 18,
+              "id": "18",
+              "message": "omega received case-18"
+            }
+          ],
+          "kind": "standard"
+        },
+        {
+          "items": [
+            {
+              "amount": 20,
+              "id": "20",
+              "message": "omega received case-20"
+            },
+            {
+              "amount": 22,
+              "id": "22",
+              "message": "omega received case-22"
+            },
+            {
+              "amount": 24,
+              "id": "24",
+              "message": "omega received case-24"
+            },
+            {
+              "amount": 26,
+              "id": "26",
+              "message": "omega received case-26"
+            },
+            {
+              "amount": 28,
+              "id": "28",
+              "message": "omega received case-28"
+            }
+          ],
+          "kind": "standard"
+        },
+        {
+          "items": [
+            {
+              "amount": 30,
+              "id": "30",
+              "message": "omega received case-30"
+            },
+            {
+              "amount": 32,
+              "id": "32",
+              "message": "omega received case-32"
+            },
+            {
+              "amount": 34,
+              "id": "34",
+              "message": "omega received case-34"
+            }
+          ],
+          "kind": "standard"
+        }
+      ],
+      "records": 36,
+      "summary": "fast lane omega batches",
+      "total": 630
+    },
+    "yaml_module": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-vp6gv21b\\wheel-env\\Lib\\site-packages\\bamboozle\\yaml_source.py"
+  },
+  "interim_verification": {
+    "accepted_for_final_source": false,
+    "path": ".mivim/vigiles/reports/archive/runs/20261004-yaml-translation/interim-VIGILES_VERIFICATION.json",
+    "reason": "Control-character folded-to-quoted rendering, saved comment spans and parser-error source redaction were corrected after this run began; final source requires a new full run.",
+    "status": "passed"
+  },
+  "limitations": [
+    "Supported YAML contract: one YAML 1.2 core-schema document, unique string keys, bounded acyclic aliases and explicitly selected string values. No merge-owned selection or arbitrary tagged object construction.",
+    "PyYAML supplies syntax events only; Bamboozle selects core-schema scalar types. Dependent YAML 1.1 consumers can interpret plain values differently.",
+    "Local Windows Python 3.13 and installed-wheel qualification; remote Linux/Python 3.14 and external-agent acceptance remain separate.",
+    "Selected formatting may change when escaping or scalar type safety requires it; unchanged saved contexts restore exact original bytes. Unselected bytes remain protected.",
+    "This translation gate does not establish global repository completion, encryption key governance or OS process isolation."
+  ],
   "recorded": "2026-10-04T16:10:00.449730Z",
   "references": [
     "https://yaml.org/spec/1.2.2/#103-core-schema",
     "https://pyyaml.org/wiki/PyYAMLDocumentation"
   ],
+  "retained_evidence_sha256": {
+    "archive-interim-yaml.py.snapshot": "e94a9d60952e3745cea819324660805df5229b40b3924cba1db8c4553fd6f813",
+    "finalize-yaml.py.snapshot": "21ff2aef999156bf83877e3f492daa3ee72f1c375f63bd942b17c30eadb03a48",
+    "interim-VIGILES_VERIFICATION.json": "76bc042173797f21b7bc337f1cd747520345b82bd7c7fac7dab37946f3c9c578",
+    "interim-bamboozle-0.7.0-py3-none-any.whl": "82ae0ca26a7d50a32a4837e202d315f98690c774ea928eec19fb8c1359024b32",
+    "interim-bamboozle-0.7.0.tar.gz": "064d45742df3d33742de699b9d70e4ea5c653135f407bc51a7f33b5a2ef73b1d",
+    "prepare-yaml-evidence.py.snapshot": "80081ad4e938c9895b07e21db2d72948733073b763a11a7337c3d594f4a98880",
+    "prior-bamboozle-0.7.0-py3-none-any.whl": "0336863527c79f434ad5c5b3f84c9449bc5423b6506c2b820c17afc5f4ee8403",
+    "prior-bamboozle-0.7.0.tar.gz": "f1f2e23d6fd1ae41e6facce030d6cd5c10725ac7320f649edc2dded38e15f0eb",
+    "yaml-app-first.log": "dbc2cc35d613113ae25a56b57d04daba6c88193295719e7d71e793a563941b97",
+    "yaml-app-second.log": "fe0f25f7faa5fb0af53738d803a79b61d582e9353b7683488beba9111c97b909",
+    "yaml-control-final.xml": "07af985095260da439a38294af32784ac7a4fff500a076f728554f76cd0749d2",
+    "yaml-control.xml": "567290ed4d77f2b202c78b23f72036f66a0170846aaf5e47601494278582ddca",
+    "yaml-first.xml": "dfc092e16e6e7cac440988b4983d43159a7df80556b305dbebc9a04584fdf6ab",
+    "yaml-header.xml": "2e14c53bc6cdf03c87f93219d62cff4152db61afc458f856ffd845d155fcca43",
+    "yaml-qualified.xml": "ffe3e0bccd1a13a3f4c8d29c976563edd7c81a604177b4f219799bbe88631fb3"
+  },
   "retained_failures": [
     "First application smoke used nonexistent Translator.backward; corrected the qualifier to the existing reverse method. No product API was changed to conceal this failure.",
-    "First lint/type review found four style errors and three optional/type annotations in the new adapter, then JSON policy inference and MCP response narrowing errors in qualification code. Corrected and rechecked."
+    "First lint/type review found four style errors and three optional/type annotations in the new adapter, then JSON policy inference and MCP response narrowing errors in qualification code. Corrected and rechecked.",
+    "Edge-case review found folded phrase replacements containing tabs/control characters refused at reparsing. Added safe quoted rendering with retained comment spans, exact restoration and C1 escaping; six folded/control cases and twelve style/control cases now pass."
   ],
   "schema_version": 1,
-  "status": "implementation_in_verification",
+  "source_sha256": {
+    "../.github/workflows/vigiles.yml": "c979966ae8e8007ab070626c578fcc4acb45ebbe43e5de8257f3207907f543d1",
+    ".clang-format": "0e7a6cab64d4fb138e27d460a4cb779a9a46792a739fcaba3cd69c3a2a25d8e6",
+    ".mivim/mivim.vigiles.md": "723f86a1f5b3b1764df072fb3f54715648cf5c4ac586f487d0d69615a4854edf",
+    ".mivim/vigiles-vandal_0.2.md": "196bf82f2f432bed195a1c820546880a839fa94d547c490d6bf3694e0f585c2b",
+    ".vigiles/skills/vigiles-vandal/SKILL.md": "44189765fcb030180cf9d60c5ca2c0968865f6e81c699cb0ed258eb64a63bbc2",
+    "AGENTS.md": "57ff6e13716ceec50b3ef3b15b6ea73b48b284b0913d3f1de79948b7585f0382",
+    "LICENSE": "2b41e397f7c53066d3c49e46a5c775de5806a7b034ef76fc6ccec14884e4db98",
+    "Makefile": "ffc1985aa2486525f7decebd6f40e74aa5c7094319340ce16865303899a52f48",
+    "README.md": "e1dac701ea93a6281cd60a0fb5e7bed90e12eab0e755eb0400332cedf00dc53b",
+    "include/cipher.h": "aa557c4570ca5262767865c19a72c998ce0d56c6c8b6f50fd1555676c9bf2655",
+    "include/ciphers/affine.h": "e599d6998f56586d08f7306641deecdbb8d6026f2cce7713c26494ba705cb953",
+    "include/ciphers/atbash.h": "13046766e47212d1fd8e7a78e8abb8d1a8766e5dc780cdd60d7e712a09c2ae25",
+    "include/ciphers/beaufort.h": "c59f2ad5859d26883b6591b87a374b1eaf62863de6012b342316dd65e08896a6",
+    "include/ciphers/caesar.h": "935609abd842cba158f8b13f1bcac3070019ec854c8b1b9453745051dceab811",
+    "include/ciphers/columnar_transposition.h": "19da69b4a85a102b4ef801206869a2ff49ea999aef1cd8b06bc6ef40abf4dee9",
+    "include/ciphers/gronsfeld.h": "0fea60a621ca8e36dd04257da2081458e053efd1237950a32d6228b4869699d8",
+    "include/ciphers/polybius_square.h": "5984a898309a802368c36d005248e661c7b31532213efbba7535bf611588bd4e",
+    "include/ciphers/rail_fence.h": "49c7f6f7f2513e99dfff9bdbf6d33934376a43bb2b890138dd220cfa35a9230a",
+    "include/ciphers/rot13.h": "65787fb4e27e024a02cdc7e89b03b26028ad38a212cc36643d24f10d61d02710",
+    "include/ciphers/scytale.h": "422cd1919f8e3d360f0dfbaa22f44da0ccc22f85cffde5ebf8fcdebd7235de9e",
+    "include/ciphers/vigenere.h": "1b5e093d7f0f5b7c5abb0273532b3d9f4c164ecf824fb864724ddf39de53332d",
+    "include/utils/alpha.h": "1365299fc4d26a1b14232647e4afa107269428dbb254dff6f1c22d34aba0067b",
+    "justfile": "1b8b82a15128ed42f32255e247c708423f8cad584e09e824d68ef3e1eac33d60",
+    "pyproject.toml": "0f6e4c73894c34754b29688d9d7ee1a9012d6f7c8f3a03830277142d4b05bce4",
+    "scripts/cipher_reference.py": "6c1925a87b47382e71c721e0adc7207dad0efb607b587d0b55f9c0e96d1e39b2",
+    "scripts/escape_smoke.py": "423f243e3ba1a25b8a78b018057a04aedde9faa71531d8fdb526aba56e15876f",
+    "scripts/exchange_smoke.py": "5d7ec6702f4c5f7f9dc476d1de9f7f8ee57b96f9e3ed7b8302ac88581b2b508c",
+    "scripts/fixture_scenario.py": "c52d19f89fe97d50aa6556906ae5384a5b93fc2f4dee5d62f582bdb6a8e0f720",
+    "scripts/package_smoke.py": "d0d0bc8547303faf374c5700e0e338326b819cba0b8337994ae2dcfb8e9b90fd",
+    "scripts/python_scenario.py": "9c32ccbe75cd16db38a5b5fd3e57d8773228d03067d6779ed581bb663dc0a464",
+    "scripts/python_smoke.py": "62ca5684aebcd1e0f3a3a4cfdd0b6bf60829728f167f462bb3280a8ae36f41e3",
+    "scripts/qualify_inventory.py": "8d274f0af7ba16570a0cd4731b242dcdeeb60100d31ed323050c6b034a7c9d31",
+    "scripts/qualify_pipeline.py": "a41c6401b7e863e060be2ebe2f10d92e8c2a9b5863fbec5deec1fa9e3aa7a272",
+    "scripts/qualify_plans.py": "2298acce5330789283e07c6701ec131c838899fa4f7573627d227af1904f831b",
+    "scripts/qualify_recovery.py": "3aa8d60c972ceebd38b770a90ea4f25487b3fcc95bee69d9ac84ee29e20dac40",
+    "scripts/return_smoke.py": "692580789f39f8e8ee6fa2cee465d0a4c0ba079c42d851bf1d42ef1818d2cb17",
+    "scripts/source_agent_smoke.py": "5989875100f466f6938253aa44e918ac5635422a16a5402fdb7e9a59fd948a1b",
+    "scripts/vandal.py": "6e2e5e9fb3f4fbee92f5fd96e147b2405cca31e307e3392947af9809cf018f50",
+    "scripts/verify.py": "745e36a404eac5041a0b475fc99e9a2507de7753a74f0d6f97028a554e9c72d8",
+    "scripts/yaml_smoke.py": "b157b0fc837ca1c10a34ecd351a6c2d23c99384755d0ed58da5a9ee1ea4d4914",
+    "src/DECRYPT_FROM_AGENT.bat": "25ec45eff2279dfd24d09b6f76dfb6c702e724dd5b9d2aad28b602fa2aee65dd",
+    "src/ENCRYPT_FOR_AGENT.bat": "b261f32d499395b46f864a8658f6741ff0b4fc9d35b93d6ac173b5efda05b186",
+    "src/bamboozle/__init__.py": "99552d5e65f867040da8028295e5b3c3be9bb21a989c3bc026d842b8fc87e5a1",
+    "src/bamboozle/__main__.py": "c4e635a2015428e750f8e441975d34352b4386f23cdf596a2d7e87a8f2da2ca9",
+    "src/bamboozle/agent_checks.py": "dc6ca8902e53ba65d5a2c8a457ec061a7af93545600ee58bf1238ba6f0caab66",
+    "src/bamboozle/agent_development.py": "fc790c3214eee80582b36ee8dd7aad956e72b6c65bc95ae4c248fecda6185b1c",
+    "src/bamboozle/agent_files.py": "1bf2e953df2de794d3a0d444e09a949806216926a84db909037a43447c35e06a",
+    "src/bamboozle/agent_policy.py": "6c25f0286714c026295318d87752b0e3a1e2a4e7712b205b896fe8d6246d438c",
+    "src/bamboozle/audit.py": "419f33a4c597987d65329d8c4887ee2cba0f2723c1bb75a222c583f4e4e256eb",
+    "src/bamboozle/audit_matrix.py": "0da01520a1f6b3c821b49833bf030a4d94be1885689c012affa4259bfc6317db",
+    "src/bamboozle/check_process.py": "69d1b7849f2914825f107d3040a0e3b0138e8c677231c1b480805c513d26dd94",
+    "src/bamboozle/cipher.py": "fa9e7c494be930fd9c1cb384159636e8ff382b672d2211887a423712592780ec",
+    "src/bamboozle/cipher_dict.json": "b49059d73a0965ea7bd0b790ef0a92cb86cada3898a203b8d5e3dce4d85b5dfe",
+    "src/bamboozle/cipher_operations.py": "0d8031cf492855f758d4c5b7f72bb645b3215cb1bb5bb5c3999762b0e793fd04",
+    "src/bamboozle/classical.py": "dcc8f5ee898413d5d0843271858da47e70f88c604b5ffba3f7c059aecf676f59",
+    "src/bamboozle/cli.py": "b960407d000d9b783d29a3dc259dfc1f956884cc993d473a1ed2be64d7a4a65e",
+    "src/bamboozle/dictionary.py": "641ad855668ee467051d4be6ef355953a7d626f89c055d5e25625faa4c39b1a3",
+    "src/bamboozle/engine.py": "ec778b2d91f5c7d68553799515cf49f5183600ac1c27c04b1c70f9c41886536e",
+    "src/bamboozle/evidence.py": "29656ca8fe9b04e286abebc552db9952c219265b29d27eb0938bff02e8be6533",
+    "src/bamboozle/fixture_rules.py": "f47b1c312494f8a7b3904029d486c249befb6cfc30557a3a603ab13a45e5af01",
+    "src/bamboozle/fixtures.py": "c42dba7b72d1a3f7ce404e89e73e7bf8c40db9c3733529d7def56cf2222d142e",
+    "src/bamboozle/formats.py": "b1e05f4304799e0bbaea22f2e6bab1da31c1761bf819d45da67ba3008b5ea0ad",
+    "src/bamboozle/lexicon.py": "2ad6abe41f30bc412582f3429511c5609bcd66f01f1353a593d0e3932e013414",
+    "src/bamboozle/markers.py": "90aa5605cad069839886bd89d4a23ff0d86a42c852440a8f4a2626b27816c2dd",
+    "src/bamboozle/mcp.py": "43b55237e8f77d1aaec05dd025ab7c08424af0474b59da7596c5db71c1556ea7",
+    "src/bamboozle/migration.py": "ecfbec20e43f84f6a77685e397f0ed4e99b74e9161d50207b244254b67c87ff3",
+    "src/bamboozle/profanity_dict.json": "34f54a88062e12b0ba8353d9d59914144478cc11fc4f698beb7ad0b1fbdee35f",
+    "src/bamboozle/project_exchange.py": "d1c89f84e2f84551c0fc711d2d771d83da7fc0d96c70eeeb3e7b1ff95c1488b5",
+    "src/bamboozle/project_views.py": "bf9075fb6a334e235d0a90295bbe0c02ff99076e3279d36ed1ce0c5dd2f59371",
+    "src/bamboozle/python_project.py": "dd170a42b701a1db0011c2a7438912306c9db6bf0cd2ec8f645a830cf285d3e8",
+    "src/bamboozle/python_source.py": "1c43d3c5511716df8fc4a13491610507b5db00580e28b508813f9948b6f378fc",
+    "src/bamboozle/restoration.py": "56f55ee1e23fb01add72086cb1928e0979987bec7d46839bb0a512039e8655eb",
+    "src/bamboozle/return_validation.py": "52cd0f863c6d169a7c502ec4b122ca4c0d657cf96fa565c087c813464c66f11b",
+    "src/bamboozle/scm_mcp.py": "48ba621b45966d607caaaf0781a941837e7330c5f6e705e51f0019e163b5ed24",
+    "src/bamboozle/service.py": "32bec9d8331938e628f3a0d626f18f807f76d4afe54f7b6ff6378a38e2d550bc",
+    "src/bamboozle/tessera.py": "155ae5d87e8b8f615998819ff84d1768118bcc0e377eee2b034023bb95c35548",
+    "src/bamboozle/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/bamboozle/tests/test_agent_checks.py": "be7702ba74174a163866796321d03e01eb59313789e56ed3ed25a960c3917efc",
+    "src/bamboozle/tests/test_agent_development.py": "586135473ff28f9114cb99dbc9261703808e7fcd5b52f683189ba00e018eaaa9",
+    "src/bamboozle/tests/test_agent_files.py": "6c0938ac8b460e03f3be01689bf3f8a03f8c52a89d35788132a6b0cc5dcdd3a9",
+    "src/bamboozle/tests/test_agent_pipeline.py": "afd63fd8c7973d5f559541b07bf47ba53dcf405f8caa9729b0f34311211cd73a",
+    "src/bamboozle/tests/test_agent_policy.py": "bc603d741698c8b7fbc64b01716dd7563b59ed26b2a657241010a1a45de4813a",
+    "src/bamboozle/tests/test_audit_matrix.py": "96edd1911b986e665251d2f3ff0f53fc0cab298ba7e451a58c10de403f228583",
+    "src/bamboozle/tests/test_classical.py": "252727075a18cda9a8d64004e2391c4316d56b94c0cc167b3b6b13d84e57b23f",
+    "src/bamboozle/tests/test_cli_mcp.py": "596bc2ce0fd7f62f80f8b40962331fbe2358b34247d948c20dc434dd43557e2e",
+    "src/bamboozle/tests/test_dictionary.py": "76d227c98312d0663f7c6953926160a21575788d008c1681e94a766e34adacff",
+    "src/bamboozle/tests/test_document_formats.py": "809668df9dda0d0e26ba8fa324087ebcfb4b7b25c2a323c42a6b78a41972e4fb",
+    "src/bamboozle/tests/test_engine.py": "939f62f9d50911ec6216999ba2902d58566ba112160b64744570a944a5782be7",
+    "src/bamboozle/tests/test_evidence.py": "25a844bab9b50a60da54a38a35b10e2b3720381832722f157cfed1f68c9b5c7c",
+    "src/bamboozle/tests/test_fixtures.py": "500fa57884ea12a6695e40ceee2e50d6bccb96668a106544babc4ff5e6c061f7",
+    "src/bamboozle/tests/test_lexicon.py": "d3aa13659a873871a9a53382b4dac0ef75e02b9c726c464454d16474b95049ac",
+    "src/bamboozle/tests/test_marker_escapes.py": "64d8b218c604a163b5e92687f466c9171cc7e11ac471ecc3e1ee4e7d2cd7fcb2",
+    "src/bamboozle/tests/test_migration.py": "3cbc0ec97dbe8955b46055a94f42d966c7b1d8c6ce2113090f606eb674b5f458",
+    "src/bamboozle/tests/test_profanity.py": "fff62b70ba30c6ba1a945efc82a71f874a05f78c4750422f2f53c1e31c5d14c3",
+    "src/bamboozle/tests/test_project_exchange.py": "a55d8e4c1d0d0c6b4f67b10ed947a977daf9808b59d2ed18238b7e223204e478",
+    "src/bamboozle/tests/test_project_views.py": "935605cbdeee9a7b31a8ac42b25496724cfed50466b60b694db440c7e65a52cc",
+    "src/bamboozle/tests/test_python_source.py": "628d6663d9589e84d5db8a7aa1ba9b079a2ab16ad4d95a3cb77523e2d5dfc112",
+    "src/bamboozle/tests/test_restoration.py": "14efdb3310c9f62196bef02d41efcb006498b806fc04665ddb267865903d7a7e",
+    "src/bamboozle/tests/test_return_validation.py": "f7733fe3bf02831d20ace9a6f96d4a8b01cc8f8b72290c0e5843a04b6c91adb6",
+    "src/bamboozle/tests/test_service.py": "f6287db50f6cd36516a163cec67352b8652dc56cedcee6a8be6159e92d3bed2e",
+    "src/bamboozle/tests/test_tessera.py": "afa6862454d6b533f5c9aee097dbdd199f414098cd7545b1c81a21a4fb270058",
+    "src/bamboozle/tests/test_translate.py": "bd8e0c52dbc2e6cef600529dc158e6218290705468a2d424279c80216e7de7de",
+    "src/bamboozle/tests/test_vandal.py": "eca0c1732097405d409235f7c6d879db493b1abdbad39e790e9631103a79f5a0",
+    "src/bamboozle/tests/test_workspace_audit.py": "5840cb16f21d7779245752ad2891b6099cd91befa5f75840e9a54d0b89596ed6",
+    "src/bamboozle/tests/test_yaml_source.py": "3bd529918e3334686d152f45dae96a90844b94a8503d90a242605cc72575fb8e",
+    "src/bamboozle/translate.py": "28a43563b5ea86d65620e96e27622d9d6e07d42b60a50e595e9d55d85d71c6b9",
+    "src/bamboozle/utils.py": "1a0d5b1d3aa0e5d02755e3cd919bb7c2f09a65b5dc10a3cb376d194e577703a3",
+    "src/bamboozle/view_import.py": "1fe29588d064a0feb7cb1dabefa1acf741c5654ec714ce1153dee01317a82f55",
+    "src/bamboozle/workspace.py": "31ae24e8968baea412e32b4af949dce56d302fa7db36a48a0a22b9b70dd9517e",
+    "src/bamboozle/yaml_source.py": "1e680dd6152fa8b7e78b4968e2d0986fbd63eb45902d938bf2ba1b4069b5c1a8",
+    "src/cipher.c": "33ff06ffa466170fe197da001621bee114c6027c961885c27ea022b9e2b157d5",
+    "src/ciphers/README.md": "dcecc532dedfa459b46a0f44b8f52e8b2f4dd6f6146ffd34b08eadabb933abe1",
+    "src/ciphers/affine.c": "21dde85fd4a7cd8694754ff9dfa73b88a7c340d4c1182692587966b56b929769",
+    "src/ciphers/atbash.c": "ee9387b9e349a6991ae00741f9a52d896fc59677d31651ed93428a05ae6439dc",
+    "src/ciphers/beaufort.c": "97ac49e2e9e0ca9baa2990b59edc832ad06bcb5be7d21fc23342069035d5608c",
+    "src/ciphers/caesar.c": "e86133a23e3a5c075d6124ccc96d075a416f9af99b91ebb65a63f00dc4768e01",
+    "src/ciphers/columnar_transposition.c": "435a75f3210d120b5c89557ab64ad38ae5a76c1db737c137b316acf7b503d51d",
+    "src/ciphers/gronsfeld.c": "490d3a7f3c3f49fe545f381b922eb500735a21c6c24fb0027a34e0644c9daae4",
+    "src/ciphers/polybius_square.c": "2fbdf7f5f0adeb9a73b11741e2863104e51eb2830999539265eeac28eed2ac57",
+    "src/ciphers/rail_fence.c": "662b05d9d90fcdbb498afcdaa4b4e5b36521f6744141a10a39fc77c7d4c59ca8",
+    "src/ciphers/rot13.c": "450dcf31f06f93272268d6a1a8aa51a1222df710dc1f080992ef54b6f48fc88e",
+    "src/ciphers/scytale.c": "98c0c463c40fe002ae51de6e868051c51629e723c8465e6c28b925b90b647526",
+    "src/ciphers/vigenere.c": "575c19e78d35efc83a4a9c0ad48d52d4490d1cc1deb44d06d11b08304df36b74",
+    "src/main.c": "be0f19717769bee405b01e46994cf9c94c52e98e0c2cd5d3248921bc0fd841d6",
+    "src/mcp.pacer.json": "785068f7f003a19ee82c2fe94c1dc62d2dc82f908f50cd5a49a9430bfa17522c",
+    "src/utils/alpha.c": "bd04946aedca13da9ef2e4d2f71cfe1f230e071cde83205ddf43b85300147532",
+    "src/workshop/__init__.py": "94f960d9ab834f1b3df0983716d0f1974c8c4ee5937045f97c80cc18f105e3ad",
+    "src/workshop/bootstrap.py": "62dc7b1d081d0d5554eece0c533a579195472937548f07bc600e1425f22c4dda",
+    "src/workshop/config.py": "dd00ce30a84847a0e7d6638e407d4c4c28448e7ca0c26c4e398b2d593418a1fc",
+    "src/workshop/examples.py": "4b519d10b869289d7233d4d9f180cbfc000cd1d813f7b6375d5e5f0a6a1226b8",
+    "src/workshop/inventory.py": "46408e4f59d037ef229c207841e57bd1db871b7c7a18f3d6cd8350f8c904bded",
+    "src/workshop/mcp/__init__.py": "a33f06325c956490689ea4a3ab4cbcd05ae78339c315dd47107fbf3cd97f97f1",
+    "src/workshop/mcp/taxonomy.json": "fbb674a35398c11c534a720a2c7551028c95bbcd18d5d942614a5e732b422a30",
+    "src/workshop/mcp/tests/fixtures/pipeline_contract.py": "666894193e235e3016ddec1f02f23a5782dcd45d5300044c9bcf2e523cc4ea29",
+    "src/workshop/mcp/tests/test_pipeline.py": "11e2ab0b170d62f59679c14793d9277d5ce6982d8c6e718b18348b1ad1742c7f",
+    "src/workshop/mcp/tests/test_process_capture.py": "942aba28892a816600ad97f3a0eaa52c00d66a9c5012bffe71458ab412a6d4aa",
+    "src/workshop/mcp/tests/test_workshop_mcp.py": "2bc32f07410fecf65673d296ff0927465089efab2f7d5366deba6342776a35c7",
+    "src/workshop/mcp/workshop_mcp.py": "2f58e8232e403e6b31ec6be914a5f22d9c254d9541a69e140ccdc4adf13eb7e8",
+    "src/workshop/operations.py": "3baf08fc3d20a87bd6fe82a362e144f81dc8f74de9611eb7dc273d2dc612eb57",
+    "src/workshop/pipeline.py": "05c5914a4f4aacd72daf104cd168aec2b17559c54d903dcf609a470f0b8bea13",
+    "src/workshop/plans.py": "b514060dea3b83d0fd6be50a6bf58170dde9110968b60ae05b3c89103c68046b",
+    "src/workshop/process.py": "f183a2e6fea7712357053bcbdd095d74f69dd91ea31af325c9bc80bbf05b0f81",
+    "src/workshop/recovery.py": "90c879800f1f521eba9ab39fa90897ffd1fdc22c93ccbbab8ae36012ad87e5cc",
+    "src/workshop/scrape/__init__.py": "f94e068724419232fc3861b067ea6e068dd8fc32d2aa3eab09cbc298f88f3d2c",
+    "src/workshop/scrape/_lookup_index.json": "a55d8623c0b607f018b8074c2173fc22843c501d9991a58d77760f830adb905c",
+    "src/workshop/scrape/alias_pass.py": "496e9d1b41bad0746c2e6d7a84635df144f41566a4e67b80f96863503d365061",
+    "src/workshop/scrape/audit_matrix.py": "3bb1e175f7e849f84681d8802f3f94f01c76b0c42848ea6341a4d598dc716d85",
+    "src/workshop/scrape/bamb5.py": "09bd174907105eca8634597a77e1378cd93ab200a04a1e7d9e1b628ca3817df4",
+    "src/workshop/scrape/lookup.py": "1b00dd116b8b7e2764ac3e4ba1c379cd5ffd5cc65a9ebc1abc35267877489dc5",
+    "src/workshop/scrape/promote.py": "d12f7a1d1a4d2849a8b748fc976ec894699459666590722962b0b820ac259616",
+    "src/workshop/scrape/taxonomy.json": "ba9e29c6c062f43e0d633f6c0bae19b44ecce3722e0e27c230b1421e8f737052",
+    "src/workshop/scrape/tests/test_alias_pass.py": "50f88b3c00da8909ecda133e5137c4df71296be7a4dde36e8b46132b375eb41b",
+    "src/workshop/scrape/tests/test_bamb5.py": "756d08b17bbd1dbe7623a1151201d3cf6a698583d381494bcaecc524f47b6574",
+    "src/workshop/scrape/tests/test_configuration.py": "b9b22f9d8997fad4eec88cf40cd3e0cd0ec00210b16d56abedf37ce33a1eaeb6",
+    "src/workshop/scrape/tests/test_lookup.py": "33cda79a49e6940e22a096c7d5a7c98539540b3382fd3442202214b237025616",
+    "src/workshop/snapshot.py": "4341e14480efbb0db91c7276a4ae445774ce541f647f96b2bdb9e43407dca65d",
+    "src/workshop/tests/test_inventory.py": "12136fa9ce9a6ccd6c814a94bb1cb47db3ffdc7d1325c6263b200a4b0f9305a5",
+    "src/workshop/tests/test_operations.py": "170c68072342d8ce72c6b7930cc5c0ab6d84bec7f508953f804a1e0c1af5558b",
+    "src/workshop/tests/test_plans.py": "df02df963ddf1ba6f6a879f05dbdee694fb1a59391b34ba4e5ffb96f80578870",
+    "src/workshop/tests/test_recovery_diagnostics.py": "0d2fe68b9fce33251e836a1466e18846016f9d093040066b1e19162bca7833ec",
+    "src/workshop/tests/test_snapshot.py": "3a1186ecaefb5ecf1704c111028e711502f5de69b1cfb5d415062cd518c5d168",
+    "uv.lock": "45647f9a6daca5ad6373589cb5a0a0585bfc25452562421d5ad4fec244de7e0c"
+  },
+  "status": "selected_yaml_source_and_installed_application_verified",
   "task": {
     "design_source": [
       ".legacy/bamboozle_v0.0.1.md:303-317"
@@ -58,7 +1581,15 @@
       "scripts/yaml_smoke.py"
     ],
     "priority": "resumed_core_translation",
-    "remaining": "Full source and isolated installed-package qualification in progress.",
-    "status": "implementation_in_verification"
-  }
+    "status": "selected_yaml_source_and_installed_application_verified"
+  },
+  "tests": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests": 1189
+  },
+  "verification": ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json",
+  "verification_sha256": "a7ce186876942a3fd086d2d17f73dfb80cc5c5a407469a0cf765984a7df6380a",
+  "verification_stages_passed": 11
 }

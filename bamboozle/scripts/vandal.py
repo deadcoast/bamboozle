@@ -24,6 +24,7 @@ from bamboozle.project_views import (
     load_view,
     manifest_marker_version,
 )
+from bamboozle.structure import fingerprint as structural_fingerprint
 from bamboozle.utils import sha256
 from bamboozle.workspace import Workspace
 
@@ -73,6 +74,11 @@ def context(
         "skill_sha256": sha256((ROOT / SKILL).read_bytes()),
         "configuration_written": False,
         "cipher_capabilities": capabilities(),
+        "source_structure": {
+            "profile_sha256": structural_fingerprint(Workspace(ROOT)),
+            "operator_check": "structure-check / check_repository_structure",
+            "instructions": "Source publication enforces the source owner's optional .vigiles/structure.json. Resolve refusal findings in operator context. Reviewed multi-file imports evaluate the complete proposed tree; profile or scoped source drift requires a new review. Keep structural controls outside the neutral agent's files.",
+        },
     }
     if mode == "exchange":
         assert exchange_id is not None
@@ -129,6 +135,12 @@ def context(
             ),
         )
         if mode == "operator":
+            report["managed_transport"] = {
+                "selection": "--peer / peer selects a provisioned destination on send and expected sender on receive",
+                "lifecycle": "Use identity-init and recipient-register explicitly; inspect identity-status before digest-bound rotation or revocation. Never put provisioning keys inside a neutral view.",
+                "recovery": "Inspect delivery-status. Recover file/extraction with the exact packet and destination; source imports use retained review/snapshots. Revoked keys block pending writes; historical receipts remain readable.",
+                "trust": "Local shared-key bindings and retained replay records, not independent identity verification or host isolation",
+            }
             report["return_validation"] = {
                 "single_file_cli": "validate-return EDITED --original ORIGINAL --ledger LEDGER",
                 "single_file_mcp": "validate_returned_file",
@@ -149,7 +161,7 @@ def context(
                 str(selected.path),
             ]
             report["instructions"] = (
-                "Use list_safe_files and search_safe_files to discover operator-selected source in neutral vocabulary. Read full files or ranges with read_safe_file; use edit_safe_file with all three source/context/neutral hashes for exact non-overlapping replacements. Use write_safe_file for complete/new files, never ranged excerpts. Read neutral document_rules and generated_directories for the permitted selections. The product applies the configured Python/Markdown/JSON/text rules on reads and writes; preserve unselected syntax and literal values. Keep source_sha256 and context_sha256 from reads for writes after reconnecting. New files use the configured directory rules. Execute the complete returned application. Do not open private policies or dictionaries with raw tools."
+                "Use list_safe_files and search_safe_files to discover operator-selected source in neutral vocabulary. Read full files or ranges with read_safe_file; use edit_safe_file with all three source/context/neutral hashes for exact non-overlapping replacements. Use write_safe_file for complete/new files, never ranged excerpts. Read neutral document_rules and generated_directories for the permitted selections. The product applies the configured Python/Markdown/JSON/YAML/text rules on reads and writes; preserve unselected syntax and literal values. Explicit text protect selections keep paths/URLs visible and exact. JSON values_only selects all nested string values, including new values; keys and nonstring tokens remain literal. Keep source_sha256 and context_sha256 from reads for writes after reconnecting. New files use the configured directory rules. Execute the complete returned application. Do not open private policies or dictionaries with raw tools."
             )
     if checks is not None:
         workspace = Workspace(ROOT)

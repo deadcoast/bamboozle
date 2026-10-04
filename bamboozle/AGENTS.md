@@ -78,6 +78,8 @@ a root-level handoff. Do not generate extra tracking documents without a task ne
 | Authenticated complete-project transport and receiver context/recovery | `src/bamboozle/project_exchange.py`, `scripts/exchange_smoke.py` |
 | Original C cipher references and guarded comparison qualifier | `src/ciphers/`, `include/`, `scripts/cipher_reference.py` |
 | Shared Markdown/selected-JSON adapters | `src/bamboozle/formats.py` |
+| Recursive JSON value translation and consuming application | `src/bamboozle/formats.py`, `scripts/json_values_smoke.py`, `docs/json-values.md` |
+| Explicit text path/URL protection and complete consuming application | `src/bamboozle/text_literals.py`, `scripts/literals_smoke.py`, `docs/text-literals.md` |
 | Selected YAML spans, alias ownership and retained scalar spellings | `src/bamboozle/yaml_source.py`, `scripts/yaml_smoke.py` |
 | Explicit Python token/span translation and project import checks | `src/bamboozle/python_source.py`, `python_project.py` |
 | Generated neutral fixtures and processing contracts | `src/bamboozle/fixture_rules.py`, `fixtures.py` |
@@ -87,7 +89,9 @@ a root-level handoff. Do not generate extra tracking documents without a task ne
 | Source-agent scoped navigation, neutral search and exact edits | `src/bamboozle/agent_development.py` |
 | Named neutral application checks and bounded process ownership | `src/bamboozle/agent_checks.py`, `check_process.py` |
 | Confined file access and publication | `src/bamboozle/workspace.py`, `utils.py` |
+| Managed peers, key lifecycle, replay admission and file recovery | `src/bamboozle/identity.py`, `transport.py`, `scripts/identity_smoke.py` |
 | Tessera authenticated exchange and repository audits | `src/bamboozle/tessera.py`, `audit.py` |
+| Declared structural profiles and prospective publication checks | `src/bamboozle/structure.py`, `.vigiles/structure.json`, `scripts/structure_smoke.py` |
 | Main CLI and MCP tools | `src/bamboozle/cli.py`, `mcp.py` |
 | Edited source restoration and historical migration | `src/bamboozle/restoration.py`, `migration.py` |
 | Operator returned-text terminology and structure validation | `src/bamboozle/return_validation.py` |
@@ -129,7 +133,7 @@ For feature and release qualification:
 uv run --locked python scripts/verify.py --package
 ```
 
-The verifier runs lint, formatting, types, tests, compilation, wheel/sdist builds,
+The verifier runs lint, formatting, types, tests, compilation, the active structural profile, wheel/sdist builds,
 and an isolated installed-wheel smoke test. Read its actual result and logs.
 It writes `.mivim/vigiles/reports/current/VIGILES_VERIFICATION.json` by default and
 automatically archives the previous report under `archive/runs/`. Qualifiers use
@@ -142,6 +146,17 @@ If disk or temporary-directory problems occur, use `UV_CACHE_DIR`,
 `MYPY_CACHE_DIR`, `TEMP`/`TMP`, and the verifier's `--work-dir` option as documented
 in the README. Do not delete retained evidence or replace an existing cache
 junction to work around a failure.
+
+The tracked `.vigiles/structure.json` declares required core product files and
+syntax/size rules for this repository. Operator `structure-check` reports violations;
+Vandal only routes that product capability. Preserve the encoder, dictionaries,
+translator, agent interfaces and encryption files required there. Profile changes
+are explicit source changes, never an automatic way to bypass a failed operation.
+Source writes pin the profile in their read context; reviewed batches pin the
+complete prospective scoped tree. Use a single view import for mutually dependent
+module/test additions. Retain refusal receipts and partial journals and recover
+under their original controls. A passing profile does not replace execution of
+the complete application.
 
 For documentation-only changes, verify content, referenced paths, and whitespace.
 Do not regenerate release evidence or claim a fresh runtime qualification.
@@ -165,6 +180,20 @@ Do not regenerate release evidence or claim a fresh runtime qualification.
   unsupported native flags.
 
 ## Invariants to preserve
+
+- Recursive JSON values-only selection is explicit and uses the shared span
+  adapter. Retain exact-pointer behavior and saved schemas, keys/nonstring tokens,
+  private scalar spellings and bounded traversal. New values follow saved rules;
+  moved token spellings require unambiguous context. Keep key/type changes visible
+  in return review and execute complete source/installed CLI/MCP applications,
+  including generated data/code and interrupted-import recovery.
+
+- Explicit text `protect` selections belong to the shared product codec. Preserve
+  recognized paths/URLs exactly with bounded private span context, atomic prose
+  markers, unchanged historical defaults and saved-rule recovery. Do not silently
+  infer selections or expose private context through agent tools. Review deliberate
+  literal edits separately from prose and execute complete consuming applications
+  through source and installed CLI/MCP interfaces.
 
 - YAML selection belongs to the shared document engine. Require every alias value
   path affected by a physical scalar; never implicitly edit unselected alias/key/
@@ -307,3 +336,23 @@ acceptance evidence. The CI workflow is `../.github/workflows/vigiles.yml`.
 Local success does not close live deployment, remote CI, identity/key governance,
 restore migration, or host/process-tree-isolation gates. Consult current status
 before making any completion claim.
+
+## Managed transport development
+
+The VIG-IDENTITY-01 local implementation uses product-owned schema-2 Tessera and
+operator `--peer` routing. Follow `docs/managed-transport.md` for provisioning,
+retirement/revocation and exact delivery recovery. Keep explicit schema-1 raw-key
+operations compatible. The two packet decoders never fall back to each other.
+Keep keys and admissions in private `.vigiles/identity/`, outside neutral trees;
+source-agent MCP must not expose lifecycle or encryption tools. Vandal reports
+product capabilities and routes operator use, never reimplements custody.
+
+Admission locks use project-operation then identity order. Retain operation intent
+before admission and admission before payload/source writes. Bind source review to
+the authenticated certificate; pending recovery checks current revocation without
+rewriting historical snapshots. Existing domain receipts complete admission, so a
+second completion commit cannot disagree after interruption. Preserve failed tests
+and exercise real CLI/stdio project round trips, application workloads, separate
+recipients, cross-process replay, rotation/revocation and interrupted publication.
+Local acceptance does not prove secure remote provisioning, cloned-host replay
+coordination, clock/backup rollback resistance or independently verified identity.

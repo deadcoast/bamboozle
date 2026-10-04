@@ -11,12 +11,25 @@ from bamboozle.dictionary import Dictionary
 from bamboozle.engine import Mode, Translator
 from bamboozle.markers import CURRENT
 from bamboozle.python_source import PythonSource, selections
+from bamboozle.text_literals import ProtectedText, validate_selection
 from bamboozle.utils import MAX_FILE_BYTES, parse_json
 from bamboozle.yaml_source import YamlDocument, YamlSource
 
 MAX_POINTERS = 512
 MAX_JSON_NODES = 100000
 MAX_DEPTH = 64
+MAX_JSON_VALUES = 10000
+MAX_JSON_POINTER_CHARS = 1000000
+
+
+def _json_pointer(pointer: Any) -> None:
+    if (
+        not isinstance(pointer, str)
+        or len(pointer) > 2048
+        or (pointer and not pointer.startswith("/"))
+        or re.search(r"~(?![01])", pointer)
+    ):
+        raise ValueError("Invalid JSON pointer; use / segments and ~0/~1 escapes")
 
 
 @dataclass(frozen=True)
@@ -26,8 +39,17 @@ class FormatRules:
     identifiers: tuple[str, ...] = ()
     modules: tuple[str, ...] = ()
     strings: tuple[str, ...] = ()
+    protect: tuple[str, ...] = ()
+    values_only: bool = False
 
     def __post_init__(self) -> None:
+        if type(self.values_only) is not bool or (
+            self.values_only and (self.format != "json" or self.pointers)
+        ):
+            raise ValueError("JSON values_only requires json format without pointers")
+        validate_selection(self.protect)
+        if self.protect and self.format != "text":
+            raise ValueError("Literal protection selections apply only to text format")
         if self.format not in ("text", "markdown", "json", "python", "yaml"):
             raise ValueError(
                 "Document format must be text, markdown, json, python, or yaml"
@@ -44,6 +66,7 @@ class FormatRules:
             raise ValueError("Value pointers apply only to json or yaml format")
         if (
             self.format in ("json", "yaml")
+            and not self.values_only
             and not 1 <= len(self.pointers) <= MAX_POINTERS
         ):
             raise ValueError(
@@ -52,20 +75,16 @@ class FormatRules:
         if len(set(self.pointers)) != len(self.pointers):
             raise ValueError("Duplicate JSON pointer")
         for pointer in self.pointers:
-            if (
-                len(pointer) > 2048
-                or (pointer and not pointer.startswith("/"))
-                or re.search(r"~(?![01])", pointer)
-            ):
-                raise ValueError(
-                    "Invalid JSON pointer; use / segments and ~0/~1 escapes"
-                )
+            _json_pointer(pointer)
 
     def document(self) -> dict[str, Any]:
         return {
             "format": self.format,
+            **({"protect": list(self.protect)} if self.protect else {}),
             **(
-                {"pointers": list(self.pointers)}
+                {"values_only": True}
+                if self.values_only
+                else {"pointers": list(self.pointers)}
                 if self.format in ("json", "yaml")
                 else {}
             ),
@@ -86,6 +105,25 @@ class FormatRules:
             return cls()
         if not isinstance(value, dict) or not isinstance(value.get("format"), str):
             raise TypeError("Format rules require a format object")
+        if "values_only" in value:
+            if (
+                set(value) != {"format", "values_only"}
+                or value["values_only"] is not True
+            ):
+                raise ValueError(
+                    "Recursive JSON rules require values_only: true without pointers"
+                )
+            return cls(value["format"], values_only=True)
+        if value["format"] == "text" and "protect" in value:
+            if (
+                set(value) != {"format", "protect"}
+                or not isinstance(value["protect"], list)
+                or not value["protect"]
+            ):
+                raise ValueError(
+                    "Text protection requires a nonempty paths/urls selection"
+                )
+            return cls("text", protect=tuple(value["protect"]))
         if value["format"] == "python":
             if (
                 not {"format", "identifiers"} <= value.keys()
@@ -123,7 +161,17 @@ def format_options(
     modules: list[str] | None = None,
     strings: list[str] | None = None,
     yaml_pointers: list[str] | None = None,
+    protect: list[str] | None = None,
+    values_only: bool = False,
 ) -> FormatRules | None:
+    if type(values_only) is not bool:
+        raise ValueError("json_values_only must be a boolean")
+    if values_only:
+        if format not in (None, "json") or pointers:
+            raise ValueError("--json-values-only selects json without --json-pointer")
+        format = "json"
+    if protect and format != "text":
+        raise ValueError("--protect requires --format text")
     if yaml_pointers and format != "yaml":
         raise ValueError("--yaml-pointer requires --format yaml")
     if pointers and format != "json":
@@ -142,6 +190,8 @@ def format_options(
         tuple(identifiers or []),
         tuple(modules or []),
         tuple(strings or []),
+        tuple(protect or []),
+        values_only,
     )
 
 
@@ -164,7 +214,9 @@ class TextRegion:
     pointer: str | None = None
 
 
-def _json_strings(text: str) -> dict[str, tuple[int, int, str]]:
+def _json_strings(
+    text: str, *, values_only: bool = False
+) -> dict[str, tuple[int, int, str]]:
     """Validate JSON and locate value tokens without reserializing the document."""
     offset = 1 if text.startswith("\ufeff") else 0
     try:
@@ -174,6 +226,7 @@ def _json_strings(text: str) -> dict[str, tuple[int, int, str]]:
     decoder = json.JSONDecoder()
     strings: dict[str, tuple[int, int, str]] = {}
     nodes = 0
+    pointer_chars = 0
 
     def whitespace(index: int) -> int:
         while index < len(text) and text[index] in " \t\r\n":
@@ -181,10 +234,13 @@ def _json_strings(text: str) -> dict[str, tuple[int, int, str]]:
         return index
 
     def value(index: int, pointer: str, depth: int) -> int:
-        nonlocal nodes
+        nonlocal nodes, pointer_chars
         nodes += 1
         if depth > MAX_DEPTH or nodes > MAX_JSON_NODES:
             raise ValueError("JSON nesting or node limit exceeded")
+        if values_only:
+            _json_pointer(pointer)
+            pointer.encode("utf-8")
         index = whitespace(index)
         if text[index] == "{":
             index = whitespace(index + 1)
@@ -207,6 +263,20 @@ def _json_strings(text: str) -> dict[str, tuple[int, int, str]]:
             return index + 1
         decoded, end = decoder.raw_decode(text, index)
         if isinstance(decoded, str):
+            if values_only:
+                # These paths become private spelling-context keys and public
+                # diagnostic locations. Refuse unrepresentable paths/values now,
+                # before a file operation can publish output without its ledger.
+                pointer.encode("utf-8")
+                decoded.encode("utf-8")
+                pointer_chars += len(pointer)
+                if (
+                    len(strings) >= MAX_JSON_VALUES
+                    or pointer_chars > MAX_JSON_POINTER_CHARS
+                ):
+                    raise ValueError(
+                        "Recursive JSON string-value or pointer budget exceeded"
+                    )
             strings[pointer] = (index, end, decoded)
         return end
 
@@ -341,6 +411,11 @@ class DocumentCodec:
             dictionary, max_output_chars=limit, marker_version=marker_version
         )
         self.limit = limit
+        self.protected_text = (
+            ProtectedText(self.translator, self.rules.protect, limit)
+            if self.rules.protect
+            else None
+        )
         self.yaml = (
             YamlSource(self.translator, self.rules.pointers, limit)
             if self.rules.format == "yaml"
@@ -358,13 +433,25 @@ class DocumentCodec:
         )
 
     def validate_context(self, context: Any) -> dict[str, Any]:
+        if self.protected_text is not None:
+            return self.protected_text.context(context)
         if self.yaml is not None:
             return self.yaml.context(context)
         if self.python is not None:
             return self.python.context(context)
         if not isinstance(context, dict) or (self.rules.format != "json" and context):
             raise ValueError("Invalid document restoration context")
-        if not set(context).issubset(self.rules.pointers):
+        if self.rules.values_only:
+            if len(context) > MAX_JSON_VALUES:
+                raise ValueError(
+                    "Recursive JSON context exceeds its string-value limit"
+                )
+            for pointer in context:
+                _json_pointer(pointer)
+                pointer.encode("utf-8")
+            if sum(map(len, context)) > MAX_JSON_POINTER_CHARS:
+                raise ValueError("Recursive JSON context exceeds its pointer budget")
+        elif not set(context).issubset(self.rules.pointers):
             raise ValueError("JSON restoration context contains an unselected pointer")
         total = 0
         for pointer, pair in context.items():
@@ -379,6 +466,9 @@ class DocumentCodec:
             encoded = parse_json(pair["encoded"])
             if not isinstance(original, str) or not isinstance(encoded, str):
                 raise TypeError("JSON context must contain string values")
+            if self.rules.values_only:
+                original.encode("utf-8")
+                encoded.encode("utf-8")
             transformed = self.translator.forward(original)
             if (
                 transformed != encoded
@@ -393,6 +483,18 @@ class DocumentCodec:
         if len(text.encode("utf-8")) > self.limit:
             raise ValueError("Document exceeds size limit")
         if self.rules.format == "text":
+            if self.protected_text is not None:
+                regions = []
+                cursor = 0
+                for span in self.protected_text.spans(text):
+                    if span.start > cursor:
+                        regions.append(
+                            TextRegion(cursor, span.start, text[cursor : span.start])
+                        )
+                    cursor = span.end
+                if cursor < len(text):
+                    regions.append(TextRegion(cursor, len(text), text[cursor:]))
+                return regions
             return [TextRegion(0, len(text), text)]
         if self.yaml is not None:
             document = YamlDocument(text)
@@ -418,9 +520,9 @@ class DocumentCodec:
                 for span in spans
             ]
         if self.rules.format == "json":
-            strings = _json_strings(text)
+            strings = _json_strings(text, values_only=self.rules.values_only)
             regions = []
-            for pointer in self.rules.pointers:
+            for pointer in strings if self.rules.values_only else self.rules.pointers:
                 if pointer not in strings:
                     raise ValueError(
                         f"JSON pointer is missing or does not select a string: {pointer!r}"
@@ -465,6 +567,11 @@ class DocumentCodec:
     def _transform(
         self, text: str, mode: Mode, context: dict[str, Any]
     ) -> DocumentTranslation:
+        if self.protected_text is not None:
+            text, substitutions, literals, escapes, saved = (
+                self.protected_text.transform(text, mode, context)
+            )
+            return DocumentTranslation(text, substitutions, literals, saved, escapes)
         if self.yaml is not None:
             output, substitutions, literals, escapes, saved = self.yaml.transform(
                 text, mode, context
@@ -487,6 +594,16 @@ class DocumentCodec:
         restored: dict[str, Any] = {}
         substitutions = literals = escapes = 0
         output_bytes = len(text.encode("utf-8"))
+        relocated: dict[str, str | None] = {}
+        if mode == "reverse" and self.rules.values_only:
+            # Array insertion moves pointers. Restore a moved token's spelling
+            # only when all retained occurrences agree; never infer node identity.
+            for pair in context.values():
+                token, original = pair["encoded"], pair["original"]
+                if token not in relocated:
+                    relocated[token] = original
+                elif relocated[token] != original:
+                    relocated[token] = None
 
         def replace(start: int, end: int, rendered: str) -> None:
             nonlocal output_bytes
@@ -515,6 +632,8 @@ class DocumentCodec:
                     and raw == context[pointer]["encoded"]
                 ):
                     rendered = context[pointer]["original"]
+                elif mode == "reverse" and (spelling := relocated.get(raw)) is not None:
+                    rendered = spelling
                 if mode == "forward" and rendered != raw:
                     restored[pointer] = {"original": raw, "encoded": rendered}
                 replace(start, end, rendered)

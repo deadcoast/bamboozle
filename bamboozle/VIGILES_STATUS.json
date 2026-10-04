@@ -1,52 +1,26 @@
 {
   "authority": ".mivim/vigiles-vandal_0.2.md",
   "core_acceptance": {
-    "reason": "Source-agent check execution is now qualified; shelved core YAML translation resumes. No whole-core or external-agent acceptance claim.",
+    "reason": "Recursive JSON value translation and complete source/installed application recovery flows are qualified. Composing literal protection with structured scalars and external acceptance gates remain open.",
     "status": "not_established"
   },
   "core_development_queue": [
     {
-      "design_source": [
-        ".legacy/bamboozle_v0.0.1.md:303-317"
+      "design_sources": [
+        ".legacy/designlog:878",
+        ".legacy/bamboozle_v0.0.1.md:304-317"
       ],
       "done_criteria": [
-        "Specify exact selected scalar paths and an explicit supported YAML syntax/version contract; reject ambiguous selections before publication",
-        "Preserve unselected keys/values, comments, quoting, tags, anchors/aliases, formatting, BOM and line endings; define alias ownership without implicit edits",
-        "Integrate saved contexts, CLI, operator MCP, view policies and returned-edit validation while keeping translation and encryption separate",
-        "Execute a complete dependent application using translated, edited and restored YAML configuration, including anchors, multiline values, malformed input and drift/recovery",
-        "Retain Python/text/Markdown/JSON behavior and historical contexts; qualify source and isolated installed-package workflows"
+        "Extend explicit literal protection into exact/recursive JSON and selected YAML string values using the shared bounded scanner, preserving current defaults and historical contexts",
+        "Retain scalar spelling and literal context through manual/restored files, operator/source-agent CLI/MCP, generated files and project return/recovery; report literal edits distinctly",
+        "Execute dependent applications consuming structured configuration paths/URLs before and after agent changes from source and installed wheel, including marker collisions, aliases and interrupted publication"
       ],
-      "focus": "Explicit selected YAML string-value translation with protected structure and exact restoration",
-      "id": "VIG-CIPHER-YAML-01",
-      "implementation": [
-        "src/bamboozle/yaml_source.py",
-        "src/bamboozle/formats.py",
-        "scripts/yaml_smoke.py"
+      "evidence": [
+        ".mivim/vigiles/reports/archive/runs/20261004-json-values/next-core-finding.json"
       ],
-      "priority": "resumed_core_translation",
-      "remaining": "Full source and isolated installed-package qualification in progress.",
-      "status": "implementation_in_verification"
-    },
-    {
-      "done_criteria": [
-        "Define and validate explicit local profile rules",
-        "Report actionable structural violations through audit and MCP",
-        "Enforce relevant rules at native operation boundaries with retained evidence"
-      ],
-      "finding": "Current audits report hash drift; the MIVIM role also requires evaluating repository structure against declared rules.",
-      "focus": "Native structural profile enforcement for repository workflows",
-      "id": "VIG-CORE-PROFILE-01",
-      "status": "planned"
-    },
-    {
-      "done_criteria": [
-        "Implement explicit local recipient and key lifecycle semantics",
-        "Exercise isolated recipients, rotation/revocation and replay rejection",
-        "Preserve existing binary exchange and keep keys out of reports"
-      ],
-      "finding": "Current Tessera authenticates key possession and a recipient label but has no native recipient lifecycle or replay record.",
-      "focus": "Recipient registry, key lifecycle and replay-aware Tessera delivery",
-      "id": "VIG-IDENTITY-01",
+      "finding": "Text literal protection cannot yet be composed with selected JSON/YAML scalar translation. Paths and URLs inside translated scalar prose still change. Preserve current defaults and add explicit shared scalar protection.",
+      "focus": "Compose explicit path/URL protection with selected JSON and YAML scalar translation",
+      "id": "VIG-CIPHER-STRUCTURED-LITERALS-01",
       "status": "planned"
     }
   ],
@@ -62,69 +36,80 @@
     "exchange_qualification": ".mivim/vigiles/reports/current/VIGILES_EXCHANGE_QUALIFICATION.json",
     "exchange_review": ".mivim/vigiles/reports/current/VIGILES_EXCHANGE_REVIEW.json",
     "historical_status": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_STATUS.json",
+    "identity_qualification": ".mivim\\vigiles\\reports\\current\\VIGILES_IDENTITY_QUALIFICATION.json",
     "installed_package_verification": ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json",
+    "json_values_qualification": ".mivim/vigiles/reports/current/VIGILES_JSON_VALUES_QUALIFICATION.json",
+    "literal_qualification": ".mivim/vigiles/reports/current/VIGILES_LITERAL_QUALIFICATION.json",
     "native_cipher_reference": ".mivim/vigiles/reports/current/VIGILES_CIPHER_REFERENCE.json",
     "original_record_hashes_and_relocation": ".mivim/vigiles/reports/INDEX.json",
+    "prior_identity_iteration": ".mivim\\vigiles\\reports\\archive\\runs\\20261004-managed-identity\\interim-VIGILES_VERIFICATION.json",
     "prior_release_package_verification": ".mivim/vigiles/reports/archive/runs/20261004T113712000349Z-89a5bcfd/VIGILES_VERIFICATION.json",
     "prior_translation_qualification": ".mivim/vigiles/reports/archive/runs/20261004T114804786162Z-c39a025e/VIGILES_TRANSLATION_QUALIFICATION.json",
-    "qualification_scope": "Operator-configured Python application checks over fresh neutral source through CLI/standalone MCP/Vandal routing, bounded process ownership, retained diagnostics and real failure/edit/rerun workflow.",
+    "qualification_scope": "Recursive JSON string-value translation across complete source/installed CLI and operator/source-agent stdio applications, including generated data/code and interrupted-import recovery",
     "recovery_qualification": ".mivim/vigiles/reports/current/VIGILES_RECOVERY_QUALIFICATION.json",
     "source_verification": ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json",
-    "translation_qualification": ".mivim/vigiles/reports/current/VIGILES_TRANSLATION_QUALIFICATION.json"
+    "structure_profiles": ".mivim/vigiles/reports/current/VIGILES_STRUCTURE_QUALIFICATION.json",
+    "translation_qualification": ".mivim/vigiles/reports/current/VIGILES_TRANSLATION_QUALIFICATION.json",
+    "yaml_translation": ".mivim/vigiles/reports/current/VIGILES_YAML_TRANSLATION.json"
   },
   "last_completed_step": {
+    "design_sources": [
+      ".legacy/designlog:897-899",
+      "src/bamboozle/formats.py:50"
+    ],
     "done_criteria": [
-      "Operator-selected check commands and scope; build an executable neutral workspace from the same saved policy/dictionary without private source metadata",
-      "Invoke and inspect checks through the source-agent connection with bounded output, timeout/process cleanup and neutral diagnostics",
-      "Refuse stale source/policy snapshots and preserve actual failing checks as actionable evidence",
-      "Exercise an agent-led failed check, corrective source edit, rerun and restored application through stdio and installed package"
+      "Add explicit bounded recursive string-value selection while retaining exact-pointer mode and historical saved rules",
+      "Preserve keys, nonstring values, unselected syntax and private original spellings; handle returned/generated values through shared CLI/MCP, source-agent and view workflows",
+      "Execute a complete nested JSON-configured application before/after agent changes from source and installed wheel, including diagnostics and interrupted-import recovery"
     ],
     "evidence": [
-      ".mivim/vigiles/reports/current/VIGILES_AGENT_CHECKS.json"
+      ".mivim/vigiles/reports/current/VIGILES_JSON_VALUES_QUALIFICATION.json"
     ],
-    "finding": "The source-agent can now discover/read/search/edit/generate source, but its tool surface cannot run or inspect application checks; qualification currently uses an external local runner.",
-    "focus": "Agent-requested application checks in a neutral workspace with bounded diagnostics",
-    "id": "VIG-CORE-AGENT-CHECKS-01",
+    "finding": "The original values-only mode is not exposed; callers must enumerate each string pointer. Keep this exact-pointer mode unchanged when adding explicit recursive selection.",
+    "focus": "Explicit recursive JSON string-value translation with key and nonstring preservation",
+    "id": "VIG-CIPHER-JSON-VALUES-01",
     "implementation": [
-      "src/bamboozle/agent_checks.py",
-      "src/bamboozle/check_process.py",
-      "src/bamboozle/scm_mcp.py",
-      "scripts/source_agent_smoke.py"
+      "src/bamboozle/formats.py",
+      "src/bamboozle/return_validation.py",
+      "src/bamboozle/cli.py",
+      "src/bamboozle/mcp.py",
+      "src/bamboozle/translate.py",
+      "src/bamboozle/project_views.py",
+      "src/bamboozle/cipher_operations.py",
+      "scripts/vandal.py",
+      "scripts/json_values_smoke.py",
+      "scripts/package_smoke.py",
+      "src/bamboozle/tests/test_json_values.py"
     ],
-    "priority": "user_core_development",
     "qualification": {
-      "scope": "Operator-configured Python application checks over fresh neutral source through CLI/standalone MCP/Vandal routing, bounded process ownership, retained diagnostics and real failure/edit/rerun workflow.",
-      "stages": 11,
+      "scope": "Recursive JSON string-value translation across complete source/installed CLI and operator/source-agent stdio applications, including generated data/code and interrupted-import recovery",
+      "stages": 12,
       "tests": {
         "errors": 0,
         "failures": 0,
         "skipped": 0,
-        "tests": 1065
+        "tests": 1356
       }
     },
-    "status": "named_agent_checks_source_and_installed_package_verified"
+    "status": "source_and_installed_application_verified"
   },
   "next_step": {
-    "design_source": [
-      ".legacy/bamboozle_v0.0.1.md:303-317"
+    "design_sources": [
+      ".legacy/designlog:878",
+      ".legacy/bamboozle_v0.0.1.md:304-317"
     ],
     "done_criteria": [
-      "Specify exact selected scalar paths and an explicit supported YAML syntax/version contract; reject ambiguous selections before publication",
-      "Preserve unselected keys/values, comments, quoting, tags, anchors/aliases, formatting, BOM and line endings; define alias ownership without implicit edits",
-      "Integrate saved contexts, CLI, operator MCP, view policies and returned-edit validation while keeping translation and encryption separate",
-      "Execute a complete dependent application using translated, edited and restored YAML configuration, including anchors, multiline values, malformed input and drift/recovery",
-      "Retain Python/text/Markdown/JSON behavior and historical contexts; qualify source and isolated installed-package workflows"
+      "Extend explicit literal protection into exact/recursive JSON and selected YAML string values using the shared bounded scanner, preserving current defaults and historical contexts",
+      "Retain scalar spelling and literal context through manual/restored files, operator/source-agent CLI/MCP, generated files and project return/recovery; report literal edits distinctly",
+      "Execute dependent applications consuming structured configuration paths/URLs before and after agent changes from source and installed wheel, including marker collisions, aliases and interrupted publication"
     ],
-    "focus": "Explicit selected YAML string-value translation with protected structure and exact restoration",
-    "id": "VIG-CIPHER-YAML-01",
-    "implementation": [
-      "src/bamboozle/yaml_source.py",
-      "src/bamboozle/formats.py",
-      "scripts/yaml_smoke.py"
+    "evidence": [
+      ".mivim/vigiles/reports/archive/runs/20261004-json-values/next-core-finding.json"
     ],
-    "priority": "resumed_core_translation",
-    "remaining": "Full source and isolated installed-package qualification in progress.",
-    "status": "implementation_in_verification"
+    "finding": "Text literal protection cannot yet be composed with selected JSON/YAML scalar translation. Paths and URLs inside translated scalar prose still change. Preserve current defaults and add explicit shared scalar protection.",
+    "focus": "Compose explicit path/URL protection with selected JSON and YAML scalar translation",
+    "id": "VIG-CIPHER-STRUCTURED-LITERALS-01",
+    "status": "planned"
   },
   "open_gates": [
     {
@@ -158,23 +143,26 @@
       "status": "native_fixture_qualified_live_acceptance_open"
     },
     {
+      "completed_stage": "Isolated local identities, pair-key registration/rotation/retirement/revocation, expiry, persistent replay admission, exact pending recovery and complete source/installed file/project applications qualified.",
       "dependencies": [
-        "Approved recipient trust model",
-        "Key custody and distribution design",
-        "Replay policy"
+        "Authenticated out-of-band peer/key provisioning",
+        "Operator key custody and host policy",
+        "Cross-host replay and backup/clock rollback policy"
       ],
       "done_criteria": [
-        "Isolated recipient tests",
-        "Rotation and revocation tests",
-        "Approved and tested replay policy",
-        "No key material in reports or source"
+        "Isolated local recipient, rotation/revocation and replay tests (complete)",
+        "No key bytes in reports or neutral views (complete for qualified paths)",
+        "External peer identity, key distribution/custody and replicated-state acceptance (open)"
+      ],
+      "evidence": [
+        ".mivim\\vigiles\\reports\\current\\VIGILES_IDENTITY_QUALIFICATION.json"
       ],
       "id": "VIG-IDENTITY-01",
-      "impact": "Tessera proves key possession and recipient-label integrity, not independently verified identity or freshness.",
-      "next_action": "Define recipient identities and key issuance, rotation, revocation, and replay semantics before cross-agent production exchange.",
+      "impact": "Local key possession and configured peer bindings are qualified; independent identity verification, remote provisioning/custody and replicated replay policy are not established.",
+      "next_action": "For an operator-selected remote deployment, establish authenticated peer/key provisioning, custody ACLs, trusted time and cross-host replay/backup rules; this does not block the next core translator task.",
       "owner_role": "MIVIM security and agent integration owner",
       "priority": "P1",
-      "status": "open"
+      "status": "local_implementation_qualified_external_trust_open"
     },
     {
       "dependencies": [

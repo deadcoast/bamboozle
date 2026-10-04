@@ -80,6 +80,25 @@ content and supplied fixtures when production content must stay local. Do not
 guess a file's format or expose the entire repository by default. The
 [README](../../../README.md) contains executable CLI sequences and policy schemas.
 
+For every nested JSON string value, select
+`document: {"format":"json","values_only":true}` in either policy or use
+operator `encode --json-values-only`. Keep exact pointers for narrower selection.
+The recursive rule applies to new returned/generated values too; keys and
+nonstring tokens stay literal. Review key/type/nonstring changes separately.
+Keep private spelling context local, preserve markers and execute the complete
+consumer after edits or recovery. Moved tokens recover spelling only when
+unambiguous. See `docs/json-values.md`; Vandal supplies no second JSON engine.
+
+For text containing paths/URLs that must remain exact, explicitly select
+`document: {"format":"text","protect":["paths","urls"]}` in source-agent/view
+policies, or `encode --format text --protect paths --protect urls`. Either class
+may be selected alone. Read `docs/text-literals.md` for supported lexical spellings.
+The product owns recognition, private span context and inverse checks. Keep literal
+contents visible and exact; review changed/reordered literal findings and execute
+the consuming application. Preserve prose markers atomically. Use file-to-file
+encoding to retain context and `restore-edits --terms translate` for reviewed
+returns. Never silently enable this rule for old saved operations.
+
 For YAML use `document: {"format":"yaml","pointers":[...]}` in either policy,
 or operator `encode --format yaml --yaml-pointer ...`. Keep all selected paths
 present as strings. If an anchor is shared, select every affected alias value
@@ -165,6 +184,27 @@ the neutral cases. Operator MCP fixture tools remain outside the agent connectio
 
 ## Inspect returned vocabulary and structure
 
+The operator runs `structure-check` or `check_repository_structure` against the
+active `.vigiles/structure.json`; a draft `--rules ...structure-profile.json` is
+read-only. This checkout tracks a profile protecting its core product files.
+Bamboozle owns profile parsing, audits and source publication guards. Vandal
+reports the active fingerprint and routes tools; it supplies no second validator.
+
+Resolve required-path, suffix, syntax, byte/count and companion findings before
+publication. Page findings under the same check hash; truncated/incomplete results
+require narrower scope or correction. Agent write contexts include the active
+profile even in whole-text mode. Re-read after rule changes and keep controls
+private. Use a reviewed multi-file view to add a module and its companion together.
+Inspect `structural_validation` on the decoded proposed tree. A review pins the
+rules and whole scoped result, including unselected files in those roots.
+
+Refusals retain operator evidence under `.vigiles/structure/refusals/`. For partial
+imports, preserve snapshots/journal, inspect historical `view-status`, and recover
+only with the original profile and unchanged scoped inputs. Restore deliberate
+operator drift explicitly; never weaken rules or replace retained intent merely
+to obtain a pass. Execute the dependent neutral and restored applications because
+syntax, required paths and companion existence cannot prove their behavior.
+
 Run operator `validate-return EDITED --original ORIGINAL --ledger LEDGER`, or
 `validate_returned_file`, using the originating retained context. `restore-edits`
 and `view-review` also include `return_validation`. Findings may expose original
@@ -190,6 +230,23 @@ restored program as well as the neutral result. A validator result cannot establ
 application semantics, external-model acceptance or correct key governance.
 
 ## Keep encryption separate and composable
+
+For explicit peer custody use the product's [managed transport guide](../../../docs/managed-transport.md).
+Initialize each local identity once and register an operator-provisioned pair key
+outside neutral workspaces. Select `--peer` (MCP `peer`) on file/project transport;
+it names the destination when sending and expected sender when receiving. Do not
+mix it with raw `key`/`recipient`. Inspect `identity-status` before digest-bound
+rotation/revocation; retired keys receive only in-flight messages and revoked keys
+block pending writes. Never silently reissue, reuse or downgrade a key.
+
+Preview does not consume a managed return; exact reviewed apply does, including
+no-edit returns. Inspect `delivery-status` after interrupted publication. File and
+extraction recovery repeat the exact packet/destination with `--recover`. Source
+recovery omits packet/peer/credentials and uses its retained review certificate;
+current revocation remains authoritative. Preserve admissions and domain receipts.
+A completed historical receipt remains readable after key revocation. These local
+controls do not supply independent identity verification or global replay policy.
+
 
 For complete project exchange, export a fresh scoped view and use operator
 `view-pack` / `pack_project_view` with a `.key`, recipient and optional private

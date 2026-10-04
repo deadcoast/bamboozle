@@ -12,6 +12,7 @@ from bamboozle.cipher import CipherEngine
 from bamboozle.dictionary import Dictionary
 from bamboozle.formats import DocumentCodec, FormatRules
 from bamboozle.service import OperationError, ledger_path
+from bamboozle.structure import fingerprint, prepare_guard
 from bamboozle.utils import PublicationError, atomic_write, json_bytes, sha256, utc_now
 from bamboozle.workspace import Workspace
 
@@ -46,6 +47,7 @@ def check_public_name(path: Path) -> None:
                 ".cipher-receipt.json",
                 ".agent-policy.json",
                 ".agent-checks.json",
+                ".structure-profile.json",
             )
         )
         or ".key." in path.name.casefold()
@@ -115,6 +117,7 @@ class AgentFiles:
         )
 
     def _context_hash(self, raw: bytes | None, action: str, rules: FormatRules) -> str:
+        profile = fingerprint(self.workspace)
         return sha256(
             json_bytes(
                 {
@@ -124,6 +127,7 @@ class AgentFiles:
                     "action": action,
                     "document": rules.document(),
                     "marker_version": self.cipher.marker_version,
+                    **({"structure_sha256": profile} if profile is not None else {}),
                 }
             )
         )
@@ -236,7 +240,7 @@ class AgentFiles:
                     "Translation context changed; read again before writing"
                 )
             if (
-                self.policy is not None
+                (self.policy is not None or fingerprint(self.workspace) is not None)
                 and before is not None
                 and expected_context is None
             ):
@@ -266,6 +270,11 @@ class AgentFiles:
                 codec.transform(decoded.decode("utf-8"))
             if self.policy is not None:
                 self.policy.recheck()
+            guard = prepare_guard(
+                self.workspace,
+                {path.relative_to(self.workspace.root).as_posix(): decoded},
+            )
+            guard.recheck()
             next_context = self._context_hash(decoded, action, rules)
             operation_id = uuid.uuid4().hex
             directory = self.workspace.resolve(
@@ -287,6 +296,7 @@ class AgentFiles:
                 "output_saved": False,
                 "receipt_saved": False,
                 "history": directory.relative_to(self.workspace.root).as_posix(),
+                **({"structure": guard.certificate} if guard.certificate else {}),
             }
             try:
                 if before is not None:
@@ -336,6 +346,11 @@ class AgentFiles:
                 try:
                     path.parent.mkdir(parents=True, exist_ok=True)
                     path = self._path(file_path, write=True)
+                    guard.recheck()
+                    if (self.workspace.read(path) if path.exists() else None) != before:
+                        raise ValueError(
+                            "Source changed during structural validation; read again before writing"
+                        )
                     atomic_write(path, decoded, overwrite=before is not None)
                 except PublicationError:
                     report["output_saved"] = True
@@ -347,6 +362,7 @@ class AgentFiles:
                     )
                 if self.policy is not None:
                     self.policy.recheck()
+                guard.recheck()
                 self._remember(path, sha256(decoded), next_context)
                 result = {**report, "status": "saved", "receipt_saved": True}
                 try:

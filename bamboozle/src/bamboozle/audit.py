@@ -6,6 +6,7 @@ import os
 from pathlib import Path
 from typing import Any
 
+from bamboozle.structure import check
 from bamboozle.utils import atomic_write, json_bytes, parse_json, sha256, utc_now
 from bamboozle.workspace import PROTECTED, Workspace
 
@@ -71,7 +72,7 @@ def baseline(workspace: Workspace) -> dict[str, Any]:
     }
 
 
-def audit(workspace: Workspace) -> dict[str, Any]:
+def _baseline_audit(workspace: Workspace) -> dict[str, Any]:
     current = inventory(workspace)
     path = workspace.resolve(BASELINE)
     if not path.exists():
@@ -118,3 +119,14 @@ def audit(workspace: Workspace) -> dict[str, Any]:
         "changed": changed,
         "baseline": BASELINE.as_posix(),
     }
+
+
+def audit(workspace: Workspace) -> dict[str, Any]:
+    result = _baseline_audit(workspace)
+    structural = check(workspace)
+    if structural["configured"]:
+        result["structure"] = structural
+        result["ok"] = result["ok"] and structural["ok"]
+        if not structural["ok"]:
+            result["status"] = "structure_violations"
+    return result

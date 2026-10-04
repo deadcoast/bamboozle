@@ -9,13 +9,14 @@ import time
 from pathlib import Path
 from typing import Any
 
-from bamboozle import __version__
+from bamboozle import __version__, identity, structure
 from bamboozle import audit as watch
 from bamboozle.dictionary import PROFILES, Dictionary
 from bamboozle.fixtures import FixtureError
 from bamboozle.formats import format_options
 from bamboozle.service import OperationError, prepare, preview, recover, scan, verify
 from bamboozle.tessera import create_key, seal, unseal
+from bamboozle.transport import transfer_file
 from bamboozle.utils import PublicationError, atomic_write, read_bytes
 from bamboozle.workspace import Workspace
 
@@ -30,6 +31,12 @@ def _dictionary_arguments(command: argparse.ArgumentParser) -> None:
 
 def _format_arguments(command: argparse.ArgumentParser) -> None:
     command.add_argument(
+        "--protect",
+        action="append",
+        choices=["paths", "urls"],
+        help="Preserve technical literals with --format text; repeat to select both",
+    )
+    command.add_argument(
         "--format",
         choices=["text", "markdown", "json", "python", "yaml"],
         dest="document_format",
@@ -43,6 +50,11 @@ def _format_arguments(command: argparse.ArgumentParser) -> None:
         "--json-pointer",
         action="append",
         help="Exact JSON string-value pointer; repeat for each selected field",
+    )
+    command.add_argument(
+        "--json-values-only",
+        action="store_true",
+        help="Explicitly select all nested JSON string values; preserve keys and nonstring tokens",
     )
     command.add_argument(
         "--python-identifier",
@@ -104,14 +116,20 @@ def parser() -> argparse.ArgumentParser:
             "source", help="View ID, packet path, or received exchange ID"
         )
         exchange.add_argument("-o", "--output", required=True)
-        exchange.add_argument("--key", required=True)
-        exchange.add_argument("--recipient", required=True)
+        exchange.add_argument("--key")
+        exchange.add_argument("--recipient")
+        exchange.add_argument(
+            "--peer",
+            help="Registered peer: destination when sending, expected sender when receiving",
+        )
         exchange.add_argument(
             "--recipe",
             help="Optional private classical recipe before authenticated encryption",
         )
         if name == "exchange-open":
             exchange.add_argument("--recover", action="store_true")
+        else:
+            exchange.add_argument("--ttl", type=int, default=86400)
     commands.add_parser(
         "exchange-context", help="Show a completed receiver's neutral agent context"
     ).add_argument("exchange_id")
@@ -210,6 +228,7 @@ def parser() -> argparse.ArgumentParser:
         command = commands.add_parser(name)
         if name != "view-status":
             command.add_argument("--return-packet")
+            command.add_argument("--peer")
             command.add_argument("--key")
             command.add_argument("--recipient")
             command.add_argument("--recipe")
@@ -260,6 +279,17 @@ def parser() -> argparse.ArgumentParser:
             command.add_argument("--mapping-version")
     commands.add_parser("baseline")
     commands.add_parser("audit")
+    structural = commands.add_parser(
+        "structure-check", help="Validate explicit local repository structure rules"
+    )
+    structural.add_argument(
+        "--rules", help="Inspect a draft profile instead of .vigiles/structure.json"
+    )
+    structural.add_argument("--offset", type=int, default=0)
+    structural.add_argument("--limit", type=int, default=100)
+    structural.add_argument(
+        "--expected-sha256", help="Pin pagination to a prior check digest"
+    )
     workshop = commands.add_parser(
         "workshop-check",
         help="Inspect external pipeline dependencies without execution",
@@ -275,13 +305,28 @@ def parser() -> argparse.ArgumentParser:
     continuous.add_argument(
         "--count", type=int, help="Number of audits; omit to run until Ctrl+C"
     )
+    commands.add_parser("identity-init").add_argument("identity")
+    commands.add_parser("identity-status")
+    commands.add_parser("delivery-status").add_argument("delivery_id")
+    for action in ("register", "rotate", "revoke"):
+        lifecycle = commands.add_parser(f"recipient-{action}")
+        lifecycle.add_argument("peer")
+        lifecycle.add_argument(
+            "--key-id" if action == "revoke" else "--key", required=True
+        )
+        lifecycle.add_argument("--expected-sha256", required=action != "register")
     commands.add_parser("keygen").add_argument("--key", required=True)
     for name in ("seal", "open"):
         command = commands.add_parser(name)
         command.add_argument("source")
         command.add_argument("-o", "--output", required=True)
-        command.add_argument("--key", required=True)
-        command.add_argument("--recipient", required=True)
+        command.add_argument("--key")
+        command.add_argument("--recipient")
+        command.add_argument("--peer")
+        if name == "open":
+            command.add_argument("--recover", action="store_true")
+        else:
+            command.add_argument("--ttl", type=int, default=86400)
     return result
 
 
@@ -329,6 +374,7 @@ def _execute(args: argparse.Namespace, workspace: Workspace) -> dict[str, Any]:
                 args.output,
                 key=args.key,
                 recipient=args.recipient,
+                peer=args.peer,
                 recipe=args.recipe,
                 recover=args.recover,
             )
@@ -339,7 +385,9 @@ def _execute(args: argparse.Namespace, workspace: Workspace) -> dict[str, Any]:
             args.output,
             key=args.key,
             recipient=args.recipient,
+            peer=args.peer,
             recipe=args.recipe,
+            ttl=args.ttl,
         )
     if args.command in ("cipher-catalog", "cipher-transform", "cipher-verify"):
         from bamboozle.cipher_operations import (
@@ -473,6 +521,7 @@ def _execute(args: argparse.Namespace, workspace: Workspace) -> dict[str, Any]:
                 return_packet=args.return_packet,
                 key=args.key,
                 recipient=args.recipient,
+                peer=args.peer,
                 recipe=args.recipe,
             )
         if args.command == "view-status":
@@ -486,6 +535,7 @@ def _execute(args: argparse.Namespace, workspace: Workspace) -> dict[str, Any]:
             return_packet=args.return_packet,
             key=args.key,
             recipient=args.recipient,
+            peer=args.peer,
             recipe=args.recipe,
         )
     if args.command == "verify-restoration":
@@ -558,6 +608,8 @@ def _execute(args: argparse.Namespace, workspace: Workspace) -> dict[str, Any]:
                 args.python_module,
                 args.python_string,
                 args.yaml_pointer,
+                args.protect,
+                args.json_values_only,
             ),
         )
         return preview(plan) if args.command == "preview" else plan.apply()
@@ -584,6 +636,8 @@ def _execute(args: argparse.Namespace, workspace: Workspace) -> dict[str, Any]:
                 args.python_module,
                 args.python_string,
                 args.yaml_pointer,
+                args.protect,
+                args.json_values_only,
             ),
         )
     if args.command in ("validate", "dictionary-export", "doctor"):
@@ -613,6 +667,29 @@ def _execute(args: argparse.Namespace, workspace: Workspace) -> dict[str, Any]:
         return watch.baseline(workspace)
     if args.command == "audit":
         return watch.audit(workspace)
+    if args.command == "structure-check":
+        return structure.check(
+            workspace,
+            args.rules,
+            offset=args.offset,
+            limit=args.limit,
+            expected_sha256=args.expected_sha256,
+        )
+    if args.command == "identity-init":
+        return identity.initialize(workspace, args.identity)
+    if args.command == "identity-status":
+        return identity.status(workspace)
+    if args.command == "delivery-status":
+        return identity.delivery_status(workspace, args.delivery_id)
+    if args.command.startswith("recipient-"):
+        return identity.change_peer(
+            workspace,
+            args.peer,
+            action=args.command.removeprefix("recipient-"),
+            key=getattr(args, "key", None),
+            key_id=getattr(args, "key_id", None),
+            expected_sha256=args.expected_sha256,
+        )
     if args.command == "keygen":
         path = create_key(workspace, args.key)
         return {
@@ -621,6 +698,21 @@ def _execute(args: argparse.Namespace, workspace: Workspace) -> dict[str, Any]:
             "key": str(path.relative_to(workspace.root)),
         }
     if args.command in ("seal", "open"):
+        identity.select_mode(args.key, args.recipient, args.peer)
+        if args.peer is not None:
+            return transfer_file(
+                workspace,
+                args.source,
+                args.output,
+                peer=args.peer,
+                opening=args.command == "open",
+                recover=getattr(args, "recover", False),
+                ttl=getattr(args, "ttl", 86400),
+            )
+        if getattr(args, "recover", False) or getattr(args, "ttl", 86400) != 86400:
+            raise ValueError(
+                "Recovery and TTL controls require managed --peer transport"
+            )
         source = workspace.resolve(args.source)
         destination = workspace.resolve(args.output, write=True)
         key_path = workspace.resolve(args.key)
@@ -633,15 +725,32 @@ def _execute(args: argparse.Namespace, workspace: Workspace) -> dict[str, Any]:
             content = unseal(
                 read_bytes(source, workspace.max_bytes * 2), key, args.recipient
             )
-        atomic_write(destination, content)
-        return {
+        guard = structure.prepare_guard(
+            workspace, {destination.relative_to(workspace.root).as_posix(): content}
+        )
+        report = {
             "schema_version": 1,
             "status": "sealed" if args.command == "seal" else "opened",
             "recipient": args.recipient,
             "output": str(destination.relative_to(workspace.root)),
             "output_bytes": len(content),
-            "output_saved": True,
+            "output_saved": False,
+            **({"structure": guard.certificate} if guard.certificate else {}),
         }
+        try:
+            guard.recheck()
+            atomic_write(destination, content)
+            report["output_saved"] = True
+            guard.recheck()
+        except (OSError, ValueError) as exc:
+            report.update(
+                status="error",
+                error=str(exc),
+                output_saved=report["output_saved"]
+                or isinstance(exc, PublicationError),
+            )
+            raise OperationError(str(exc), report) from exc
+        return report
     raise ValueError(f"Unknown command: {args.command}")
 
 

@@ -1,0 +1,64 @@
+{
+  "archive": ".mivim/vigiles/reports/archive/runs/20261004-yaml-translation",
+  "design": {
+    "interfaces": [
+      "CLI --format yaml --yaml-pointer",
+      "operator MCP yaml_pointers",
+      "source-agent policies, navigation, edits, generated files and checks",
+      "ledger verification/recovery/restoration",
+      "project views and returned protected-content diagnostics"
+    ],
+    "method": "Bounded YAML parser events and physical scalar tokens; YAML 1.2 core string resolution; explicit graph-wide alias ownership; private original/encoded scalar context; reparse values, types and topology before publication.",
+    "non_goals": [
+      "No encryption algorithm changes",
+      "No full YAML language or arbitrary object-constructor claim",
+      "No native C original changes"
+    ],
+    "owner": "Bamboozle document engine; Vandal only routes existing product interfaces.",
+    "requirements": [
+      "Specify exact selected scalar paths and an explicit supported YAML syntax/version contract; reject ambiguous selections before publication",
+      "Preserve unselected keys/values, comments, quoting, tags, anchors/aliases, formatting, BOM and line endings; define alias ownership without implicit edits",
+      "Integrate saved contexts, CLI, operator MCP, view policies and returned-edit validation while keeping translation and encryption separate",
+      "Execute a complete dependent application using translated, edited and restored YAML configuration, including anchors, multiline values, malformed input and drift/recovery",
+      "Retain Python/text/Markdown/JSON behavior and historical contexts; qualify source and isolated installed-package workflows"
+    ]
+  },
+  "focused": {
+    "expanded_regressions": 303,
+    "first_yaml_tests": 101,
+    "latest_yaml_tests": 105
+  },
+  "recorded": "2026-10-04T16:10:00.449730Z",
+  "references": [
+    "https://yaml.org/spec/1.2.2/#103-core-schema",
+    "https://pyyaml.org/wiki/PyYAMLDocumentation"
+  ],
+  "retained_failures": [
+    "First application smoke used nonexistent Translator.backward; corrected the qualifier to the existing reverse method. No product API was changed to conceal this failure.",
+    "First lint/type review found four style errors and three optional/type annotations in the new adapter, then JSON policy inference and MCP response narrowing errors in qualification code. Corrected and rechecked."
+  ],
+  "schema_version": 1,
+  "status": "implementation_in_verification",
+  "task": {
+    "design_source": [
+      ".legacy/bamboozle_v0.0.1.md:303-317"
+    ],
+    "done_criteria": [
+      "Specify exact selected scalar paths and an explicit supported YAML syntax/version contract; reject ambiguous selections before publication",
+      "Preserve unselected keys/values, comments, quoting, tags, anchors/aliases, formatting, BOM and line endings; define alias ownership without implicit edits",
+      "Integrate saved contexts, CLI, operator MCP, view policies and returned-edit validation while keeping translation and encryption separate",
+      "Execute a complete dependent application using translated, edited and restored YAML configuration, including anchors, multiline values, malformed input and drift/recovery",
+      "Retain Python/text/Markdown/JSON behavior and historical contexts; qualify source and isolated installed-package workflows"
+    ],
+    "focus": "Explicit selected YAML string-value translation with protected structure and exact restoration",
+    "id": "VIG-CIPHER-YAML-01",
+    "implementation": [
+      "src/bamboozle/yaml_source.py",
+      "src/bamboozle/formats.py",
+      "scripts/yaml_smoke.py"
+    ],
+    "priority": "resumed_core_translation",
+    "remaining": "Full source and isolated installed-package qualification in progress.",
+    "status": "implementation_in_verification"
+  }
+}

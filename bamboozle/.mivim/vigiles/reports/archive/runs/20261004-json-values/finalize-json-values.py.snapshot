@@ -1,0 +1,140 @@
+"""Retain this gate only after source and installed application checks succeed."""
+import json
+from datetime import UTC, datetime
+from pathlib import Path
+
+from bamboozle.dictionary import Dictionary
+from bamboozle.evidence import report_destination, write_report
+from bamboozle.formats import DocumentCodec, FormatRules
+from bamboozle.utils import json_bytes, sha256
+
+root = Path.cwd()
+archive = root / ".mivim/vigiles/reports/archive/runs/20261004-json-values"
+current = root / ".mivim/vigiles/reports/current"
+verification = json.loads((current / "VIGILES_VERIFICATION.json").read_bytes())
+prior = json.loads((archive / "prior-VIGILES_VERIFICATION.json").read_bytes())
+assert verification["created"] != prior["created"]
+assert verification["status"] == "passed" and len(verification["steps"]) == 12
+assert verification["tests"] == {"tests":1356,"failures":0,"errors":0,"skipped":0}
+assert all(step["returncode"] == 0 for step in verification["steps"])
+assert all(sha256((root / name).read_bytes()) == digest for name,digest in verification["source_sha256"].items())
+for name in verification["required_artifacts"]:
+    assert sha256((root / "dist" / name).read_bytes()) == verification["artifacts"][name]["sha256"]
+logs = {}
+for step in verification["steps"]:
+    data = (root / step["log"]).read_bytes()
+    destination = archive / (step["name"] + ".log")
+    assert not destination.exists()
+    destination.write_bytes(data)
+    logs[step["name"]] = {"path":destination.relative_to(root).as_posix(),"sha256":sha256(data)}
+pytest_log = root / next(step["log"] for step in verification["steps"] if step["name"] == "pytest")
+(archive / "pytest.xml").write_bytes(pytest_log.with_name("pytest.xml").read_bytes())
+installed = next(json.loads(line) for line in (archive / "wheel-smoke.log").read_text(encoding="utf-8").splitlines() if line.startswith('{"status": "passed"'))
+application = installed["json_values_results"]
+assert application["status"] == "passed"
+assert set(application["workflows"]) == {"cli","mcp","agent"}
+for mode,result in application["workflows"].items():
+    assert result["restored_benchmark"] == {"workloads":56,"invalid_datasets":4}
+    assert result["recovery"]["receipt_saved"]
+    assert result["records"] == 301 and result["total"] == 45150
+    if mode != "agent":
+        assert result["neutral_benchmark"] == result["restored_benchmark"]
+    else:
+        assert result["encoded_reads_decoded_writes"]
+
+# The original technical-literal requirement still lacks structured-value composition.
+mapping = Dictionary({"alpha":"omega"})
+raw = '{"message":"alpha opens C:/alpha.bin and https://example.test/alpha"}'
+rules = FormatRules("json",values_only=True)
+translated = DocumentCodec(mapping,rules).transform(raw).text
+assert "C:/omega.bin" in translated and "https://example.test/omega" in translated
+try:
+    FormatRules("json",("/message",),protect=("paths","urls"))
+except ValueError as exc:
+    refusal = str(exc)
+else:
+    raise AssertionError("Recheck the next task; structured protection is already available")
+finding = {
+    "design_sources":[".legacy/designlog:878", ".legacy/bamboozle_v0.0.1.md:304-317"],
+    "input":raw,"rules":rules.document(),"current_output":translated,
+    "explicit_structured_protection_refusal":refusal,
+    "gap":"Text literal protection cannot yet be composed with selected JSON/YAML scalar translation. Paths and URLs inside translated scalar prose still change. Preserve current defaults and add explicit shared scalar protection.",
+}
+write_report(root,archive / "next-core-finding.json",finding)
+implementation = [
+    "src/bamboozle/formats.py", "src/bamboozle/return_validation.py",
+    "src/bamboozle/cli.py", "src/bamboozle/mcp.py", "src/bamboozle/translate.py",
+    "src/bamboozle/project_views.py", "src/bamboozle/cipher_operations.py",
+    "scripts/vandal.py", "scripts/json_values_smoke.py", "scripts/package_smoke.py",
+    "src/bamboozle/tests/test_json_values.py",
+]
+report = {
+    "schema_version":1,"id":"VIG-CIPHER-JSON-VALUES-01",
+    "status":"source_and_installed_application_verified",
+    "completed":datetime.now(UTC).isoformat(),
+    "design":{
+        "sources":[".legacy/designlog:897-899", ".mivim/vigiles-vandal_0.2.md", "VIGILES_STATUS.json"],
+        "ownership":"Shared Bamboozle span adapter, saved context and return diagnostics; Vandal only routes existing CLI/MCP policies.",
+        "compatibility":"Opt-in recursive JSON rule; exact-pointer selections and historical saved schema/marker contracts remain unchanged.",
+    },
+    "implementation":implementation,
+    "source_sha256":{name:sha256((root / name).read_bytes()) for name in implementation},
+    "contract":"docs/json-values.md",
+    "contract_sha256":sha256((root / "docs/json-values.md").read_bytes()),
+    "verification":{
+        "report":".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json",
+        "sha256":sha256((current / "VIGILES_VERIFICATION.json").read_bytes()),
+        "tests":verification["tests"],"stages":12,"logs":logs,
+    },
+    "focused_tests":{"tests":45,"failures":0,"report":(archive / "json-values-focus-c.xml").relative_to(root).as_posix()},
+    "coverage":[
+        "Nested objects/arrays and root strings; BOM/CRLF, escaped keys, exact original scalar spellings and nonstring token preservation",
+        "More than 512 values, bounded expansion, depth/path/context controls, duplicate/nonfinite/malformed/unrepresentable input refusal before publication",
+        "Historical marker versions, native target and reserved-prefix collisions, corrupted contexts and malformed returned markers",
+        "Dynamic new/removed/type-changed values and key/type/nonstring return diagnostics without selected-prose false positives",
+        "Inserted/moved values restore unambiguous saved spellings; ambiguous historical spellings use normal JSON rendering",
+        "Compatibility file conversion, missing-ledger recovery, reviewed restoration, source-agent reconnect and stale-policy refusal",
+        "Complete nested JSON application through CLI and actual operator/source-agent stdio: generated configuration, inserted route/record and dependent summary module",
+        "Each application flow injects interrupted publication, explicitly recovers its retained rules/context, and executes recovered source/generated configurations",
+    ],
+    "source_application":"The full source suite executes the same five benchmarks: CLI neutral/restored, operator MCP neutral/restored, source-agent restored; each flow also executes after partial-import recovery.",
+    "installed_application":{**application,"workloads_per_benchmark":56,"total_workloads":280,"invalid_dataset_executions":20,"baseline_records":300,"baseline_string_values":900},
+    "artifacts":{name:verification["artifacts"][name] for name in verification["required_artifacts"]},
+    "retained_failure":{
+        "report":(archive / "json-values-focus-b.xml").relative_to(root).as_posix(),
+        "finding":"Application insertion shifted JSON array pointers and lost original escape spelling. Fixed recursive moved-token recovery for unambiguous saved spellings; added ambiguity and historical exact-pointer regressions.",
+    },
+    "limits":[
+        "Explicit all-string selection includes paths/URLs; narrower exact-pointer mode remains available",
+        "10000 string values, depth64, 100000 nodes, pointer length2048 and total selected pointer characters1000000 within existing byte limits",
+        "UTF-8 representable decoded pointers/selected values; escaped unpaired surrogates refused",
+        "Moved tokens with conflicting saved spellings retain their decoded value through normal JSON rendering, without inferring node identity",
+        "Local Windows Python3.13 source/installed qualification; external acceptance gates remain open",
+    ],
+}
+destination = report_destination(root,"VIGILES_JSON_VALUES_QUALIFICATION.json")
+write_report(root,destination,report,replace=destination.exists())
+status = json.loads((root / "VIGILES_STATUS.json").read_bytes())
+completed = status["next_step"]
+assert completed["id"] == report["id"]
+scope = "Recursive JSON string-value translation across complete source/installed CLI and operator/source-agent stdio applications, including generated data/code and interrupted-import recovery"
+completed.update(status=report["status"],implementation=implementation,evidence=[destination.relative_to(root).as_posix()],qualification={"tests":verification["tests"],"stages":12,"scope":scope})
+next_step = {
+    "id":"VIG-CIPHER-STRUCTURED-LITERALS-01","status":"planned",
+    "focus":"Compose explicit path/URL protection with selected JSON and YAML scalar translation",
+    "design_sources":finding["design_sources"],"finding":finding["gap"],
+    "done_criteria":[
+        "Extend explicit literal protection into exact/recursive JSON and selected YAML string values using the shared bounded scanner, preserving current defaults and historical contexts",
+        "Retain scalar spelling and literal context through manual/restored files, operator/source-agent CLI/MCP, generated files and project return/recovery; report literal edits distinctly",
+        "Execute dependent applications consuming structured configuration paths/URLs before and after agent changes from source and installed wheel, including marker collisions, aliases and interrupted publication",
+    ],
+    "evidence":[(archive / "next-core-finding.json").relative_to(root).as_posix()],
+}
+status["last_completed_step"] = completed
+status["next_step"] = next_step
+status["core_development_queue"] = [next_step]
+status["core_acceptance"]["reason"] = "Recursive JSON value translation and complete source/installed application recovery flows are qualified. Composing literal protection with structured scalars and external acceptance gates remain open."
+status["evidence"]["json_values_qualification"] = destination.relative_to(root).as_posix()
+status["evidence"]["qualification_scope"] = scope
+(root / "VIGILES_STATUS.json").write_bytes(json_bytes(status))
+print(json.dumps({"status":report["status"],"tests":verification["tests"],"stages":12,"report":str(destination),"next_step":next_step["id"]}))

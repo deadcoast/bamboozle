@@ -1,0 +1,38 @@
+import json
+from pathlib import Path
+
+from bamboozle import structure
+from bamboozle.utils import json_bytes
+from bamboozle.workspace import Workspace
+
+root = Path('.test-tmp/structure-edge-pre-fix').resolve()
+(root / 'app').mkdir(parents=True)
+(root / '.vigiles').mkdir()
+(root / 'app/core.py').write_bytes(b'VALUE = 1\n')
+profile = {'kind': 'bamboozle.structure', 'schema_version': 1, 'name': 'original', 'roots': {'app': {'suffixes': ['.py'], 'formats': {'.py': 'python'}, 'max_files': 10, 'max_file_bytes': 1024, 'max_total_bytes': 4096}}, 'required': {}, 'companions': [], 'exclude': []}
+control = root / structure.PROFILE
+control.write_bytes(json_bytes(profile))
+workspace = Workspace(root)
+first = structure.check(workspace)
+control.unlink()
+try:
+    structure.check(workspace, expected_sha256=first['check_sha256'])
+    pagination_refused = False
+except ValueError:
+    pagination_refused = True
+control.write_bytes(json_bytes(profile))
+guard = structure.prepare_guard(workspace, {'app/core.py': b'VALUE = 2\n'})
+evaluate = structure._evaluate
+def mutate(*args):
+    result = evaluate(*args)
+    control.write_bytes(json_bytes({**profile, 'name': 'changed-during-evaluation'}))
+    return result
+structure._evaluate = mutate
+try:
+    guard.recheck()
+    concurrent_change_refused = False
+except ValueError:
+    concurrent_change_refused = True
+report = {'status': 'pre_fix_regression_observations', 'workspace': str(root), 'paginated_profile_removal_refused': pagination_refused, 'profile_mutation_during_evaluation_refused': concurrent_change_refused}
+Path('.test-tmp/structure-edge-probe.json').write_bytes(json_bytes(report))
+print(json.dumps(report))

@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="44" time="4.439" timestamp="2026-10-04T11:44:12.070361-07:00" hostname="homeone"><testcase classname="src.bamboozle.tests.test_json_values" name="test_recursive_strings_keep_exact_keys_tokens_and_private_escape_context" time="0.002" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_roots_empty_documents_and_legacy_markers_roundtrip[1-&quot;alpha&quot;]" time="0.001" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_roots_empty_documents_and_legacy_markers_roundtrip[1-&quot;&quot;]" time="0.000" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_roots_empty_documents_and_legacy_markers_roundtrip[1-[]]" time="0.000" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_roots_empty_documents_and_legacy_markers_roundtrip[1-{}]" time="0.001" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_roots_empty_documents_and_legacy_markers_roundtrip[1-123.40]" time="0.000" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_roots_empty_documents_and_legacy_markers_roundtrip[1-null]" time="0.000" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_roots_empty_documents_and_legacy_markers_roundtrip[1-true]" time="0.001" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_roots_empty_documents_and_legacy_markers_roundtrip[1-[[&quot;Alpha&quot;, [], {&quot;alpha&quot;:&quot;aLpHa&quot;}]]]" time="0.001" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_roots_empty_documents_and_legacy_markers_roundtrip[2-&quot;alpha&quot;]" time="0.001" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_roots_empty_documents_and_legacy_markers_roundtrip[2-&quot;&quot;]" time="0.000" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_roots_empty_documents_and_legacy_markers_roundtrip[2-[]]" time="0.000" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_roots_empty_documents_and_legacy_markers_roundtrip[2-{}]" time="0.000" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_roots_empty_documents_and_legacy_markers_roundtrip[2-123.40]" time="0.001" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_roots_empty_documents_and_legacy_markers_roundtrip[2-null]" time="0.001" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_roots_empty_documents_and_legacy_markers_roundtrip[2-true]" time="0.000" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_roots_empty_documents_and_legacy_markers_roundtrip[2-[[&quot;Alpha&quot;, [], {&quot;alpha&quot;:&quot;aLpHa&quot;}]]]" time="0.001" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_noncanonical_or_mixed_selections_refuse[rule0]" time="0.000" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_noncanonical_or_mixed_selections_refuse[rule1]" time="0.000" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_noncanonical_or_mixed_selections_refuse[rule2]" time="0.000" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_noncanonical_or_mixed_selections_refuse[rule3]" time="0.000" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_noncanonical_or_mixed_selections_refuse[rule4]" time="0.000" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_noncanonical_or_mixed_selections_refuse[rule5]" time="0.000" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_noncanonical_or_mixed_selections_refuse[rule6]" time="0.000" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_cli_selection_conflicts_are_explicit" time="0.000" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_dynamic_values_removal_and_type_changes_decode_under_retained_rules" time="0.001" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_diagnostics_preserve_key_and_type_structure_but_ignore_selected_prose" time="0.003" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_bounds_support_more_than_exact_pointer_limit_and_refuse_excess" time="0.032" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_invalid_or_unrepresentable_recursive_input_is_refused_before_publication[{&quot;x&quot;:&quot;alpha&quot;,&quot;x&quot;:&quot;task&quot;}]" time="0.007" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_invalid_or_unrepresentable_recursive_input_is_refused_before_publication[[NaN]]" time="0.005" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_invalid_or_unrepresentable_recursive_input_is_refused_before_publication[{&quot;x&quot;:Infinity}]" time="0.008" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_invalid_or_unrepresentable_recursive_input_is_refused_before_publication[{&quot;x&quot;: &quot;alpha&quot;,}]" time="0.005" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_invalid_or_unrepresentable_recursive_input_is_refused_before_publication[&quot;\\ud800&quot;]" time="0.008" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_invalid_or_unrepresentable_recursive_input_is_refused_before_publication[{&quot;\\ud800&quot;:false}]" time="0.009" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_invalid_or_unrepresentable_recursive_input_is_refused_before_publication[{&quot;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&quot;:&quot;alpha&quot;}]" time="0.007" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_invalid_or_unrepresentable_recursive_input_is_refused_before_publication[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[&quot;alpha&quot;]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]" time="0.012" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_bad_context_pointers_are_not_accepted[bad]" time="0.001" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_bad_context_pointers_are_not_accepted[/bad~2]" time="0.001" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_bad_context_pointers_are_not_accepted[/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx]" time="0.001" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_bad_context_pointers_are_not_accepted[4]" time="0.001" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_context_dictionary_tampering_and_malformed_return_marker_refuse" time="0.001" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_manual_recovery_restoration_and_compatibility_commands" time="0.122" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_source_agent_reconnect_and_policy_drift_new_files" time="0.104" /><testcase classname="src.bamboozle.tests.test_json_values" name="test_complete_json_values_application" time="3.811"><failure message="AssertionError">tmp_path = WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/json-values-focus-b/test_complete_json_values_appl0')
+
+    def test_complete_json_values_application(tmp_path):
+        run = runpy.run_path(
+            str(Path(__file__).parents[3] / "scripts/json_values_smoke.py")
+        )["run"]
+&gt;       result = run(tmp_path / "applications")
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+src\bamboozle\tests\test_json_values.py:318: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+workspace = WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/json-values-focus-b/test_complete_json_values_appl0/applications')
+
+    def run(workspace: Path | None = None) -&gt; dict:
+        roots = (workspace or Path("json-values-workflow")).resolve()
+        roots.mkdir(parents=True)
+        results = {}
+    
+        def execute(
+            root: Path,
+            output: Path,
+            *,
+            config="config.json",
+            records="records.json",
+            enhanced=False,
+        ) -&gt; dict:
+            process = subprocess.run(
+                [sys.executable, "-B", "-m", "app", config, records, str(output)],
+                cwd=root,
+                capture_output=True,
+                text=True,
+                check=True,
+                timeout=20,
+            )
+            result = json.loads(process.stdout)
+            assert result["records"] == (301 if enhanced else 300)
+            assert result["total"] == (45150 if enhanced else 44850)
+            assert len(result["batches"]) == (45 if enhanced else 100)
+            assert ("summary" in result) == enhanced
+            assert json.loads(output.read_bytes()) == result
+            return result
+    
+        def benchmark(root: Path, output: Path) -&gt; dict:
+            process = subprocess.run(
+                [sys.executable, "-B", "checks.py", str(output)],
+                cwd=root,
+                capture_output=True,
+                text=True,
+                check=True,
+                timeout=20,
+            )
+            result = json.loads(process.stdout)
+            assert result == {"workloads": 56, "invalid_datasets": 4}
+            return result
+    
+        def changed(content: str) -&gt; str:
+            return content.replace('"capacity":3', '"capacity":7').replace(
+                '"routes":[',
+                '"routes":[{"code":"new","message":"omega stage audit {name}"},',
+            )
+    
+        for mode in ("cli", "mcp", "agent"):
+            owner, output = roots / mode / "source", roots / mode / "results"
+            owner.mkdir(parents=True)
+            output.mkdir()
+            for name, content in MODULES.items():
+                path = owner / name
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(content, encoding="utf-8")
+            (owner / "config.json").write_bytes(CONFIG)
+            records = [
+                {
+                    "id": str(i),
+                    "kind": "alpha" if i % 2 else "task",
+                    "name": f"name-{i}",
+                    "amount": i,
+                }
+                for i in range(300)
+            ]
+            (owner / "records.json").write_bytes(json_bytes(records))
+            (owner / "mapping.dictionary.json").write_bytes(json_bytes(MAPPING.document()))
+            policy: dict = {
+                "schema_version": 2,
+                "files": {name: {"policy": "copy"} for name in MODULES},
+                "new_files": {
+                    "app": "copy",
+                    "generated": {"policy": "translate", "document": RULE},
+                },
+            }
+            for name in ("config.json", "records.json"):
+                policy["files"][name] = {"policy": "translate", "document": RULE}
+            (owner / "source.agent-policy.json").write_bytes(json_bytes(policy))
+            execute(owner, output / "baseline.json")
+    
+            def cli(*args: str, owner: Path = owner) -&gt; dict:
+                process = subprocess.run(
+                    [sys.executable, "-m", "bamboozle", "--root", str(owner), *args],
+                    capture_output=True,
+                    text=True,
+                    check=True,
+                    timeout=30,
+                )
+                result = json.loads(process.stdout)
+                assert result.get("ok") is not False and result.get("status") != "error"
+                return result
+    
+            def edit(view: Path, output: Path = output) -&gt; dict:
+                execute(view, output / "neutral-before.json")
+                content = (view / "config.json").read_bytes().decode()
+                assert (
+                    '"alpha":' in content
+                    and '"message":"omega stage for {name}"' in content
+                )
+                (view / "config.json").write_bytes(changed(content).encode())
+                rows = json.loads((view / "records.json").read_bytes())
+                rows.append(
+                    {"id": "new-300", "kind": "new", "name": "omega", "amount": 300}
+                )
+                (view / "records.json").write_bytes(json_bytes(rows))
+                (view / "app/summary.py").write_text(SUMMARY)
+                (view / "app/pipeline.py").write_text(ENHANCED)
+                (view / "generated").mkdir()
+                (view / "generated/config.json").write_bytes(
+                    (view / "config.json").read_bytes()
+                )
+                result = execute(view, output / "neutral.json", enhanced=True)
+                assert (
+                    execute(
+                        view,
+                        output / "neutral-generated.json",
+                        config="generated/config.json",
+                        enhanced=True,
+                    )
+                    == result
+                )
+                return {"neutral_benchmark": benchmark(view, output / "neutral-cases")}
+    
+            async def operate(
+                owner: Path = owner, output: Path = output, mode: str = mode, edit=edit
+            ) -&gt; dict:
+                args = [
+                    "-m",
+                    "bamboozle",
+                    "--root",
+                    str(owner),
+                    "serve-agent" if mode == "agent" else "serve",
+                    "--dict",
+                    "mapping.dictionary.json",
+                ]
+                if mode == "agent":
+                    args += ["--policy", "source.agent-policy.json"]
+                async with Client(
+                    StdioTransport(command=sys.executable, args=args, cwd=str(owner))
+                ) as client:
+    
+                    async def call(tool: str, arguments: dict) -&gt; dict:
+                        response = await client.call_tool(tool, arguments)
+                        assert (
+                            not response.is_error
+                            and isinstance(response.data, dict)
+                            and response.data.get("ok") is not False
+                        )
+                        return response.data
+    
+                    if mode == "agent":
+                        config = await call("read_safe_file", {"file_path": "config.json"})
+                        assert config["document_rules"] == RULE
+                        content = changed(config["content"])
+                        await call(
+                            "write_safe_file",
+                            {
+                                "file_path": "config.json",
+                                "content": content,
+                                "expected_sha256": config["source_sha256"],
+                                "expected_context_sha256": config["context_sha256"],
+                            },
+                        )
+                        await call(
+                            "write_safe_file",
+                            {"file_path": "generated/config.json", "content": content},
+                        )
+                        rows = await call("read_safe_file", {"file_path": "records.json"})
+                        data = json.loads(rows["content"])
+                        data.append(
+                            {"id": "new-300", "kind": "new", "name": "omega", "amount": 300}
+                        )
+                        await call(
+                            "write_safe_file",
+                            {
+                                "file_path": "records.json",
+                                "content": json.dumps(data),
+                                "expected_sha256": rows["source_sha256"],
+                                "expected_context_sha256": rows["context_sha256"],
+                            },
+                        )
+                        await call(
+                            "write_safe_file",
+                            {"file_path": "app/summary.py", "content": SUMMARY},
+                        )
+                        source = await call(
+                            "read_safe_file", {"file_path": "app/pipeline.py"}
+                        )
+                        await call(
+                            "write_safe_file",
+                            {
+                                "file_path": "app/pipeline.py",
+                                "content": ENHANCED,
+                                "expected_sha256": source["source_sha256"],
+                                "expected_context_sha256": source["context_sha256"],
+                            },
+                        )
+                        return {"encoded_reads_decoded_writes": True}
+                    preview = await call(
+                        "preview_file",
+                        {
+                            "source": "config.json",
+                            "output": "manual.json",
+                            "json_values_only": True,
+                        },
+                    )
+                    await call("apply_preview", {"plan_id": preview["plan_id"]})
+                    preview = await call(
+                        "preview_file",
+                        {
+                            "source": "manual.json",
+                            "output": "exact.json",
+                            "reverse": True,
+                            "strict": True,
+                        },
+                    )
+                    await call("apply_preview", {"plan_id": preview["plan_id"]})
+                    assert (owner / "exact.json").read_bytes() == CONFIG
+                    exported = await call(
+                        "export_project_view",
+                        {"config": "source.agent-policy.json", "output": "view"},
+                    )
+                    flow = edit(owner / "view")
+                    review = await call(
+                        "review_project_view", {"view_id": exported["view_id"]}
+                    )
+                    await call(
+                        "apply_project_view",
+                        {
+                            "view_id": exported["view_id"],
+                            "review_sha256": review["review_sha256"],
+                        },
+                    )
+                    return flow
+    
+            if mode == "cli":
+                cli(
+                    "encode",
+                    "config.json",
+                    "-o",
+                    "manual.json",
+                    "--dict",
+                    "mapping.dictionary.json",
+                    "--json-values-only",
+                )
+                cli("decode", "manual.json", "--strict", "-o", "exact.json")
+                assert (owner / "exact.json").read_bytes() == CONFIG
+                exported = cli(
+                    "view-export",
+                    "source.agent-policy.json",
+                    "--output",
+                    "view",
+                    "--dict",
+                    "mapping.dictionary.json",
+                )
+                flow = edit(owner / "view")
+                review = cli("view-review", exported["view_id"])
+                cli(
+                    "view-apply",
+                    exported["view_id"],
+                    "--review-sha256",
+                    review["review_sha256"],
+                )
+            else:
+                flow = asyncio.run(asyncio.wait_for(operate(), 90))
+            restored = execute(owner, output / "restored.json", enhanced=True)
+            assert (
+                execute(
+                    owner,
+                    output / "generated.json",
+                    config="generated/config.json",
+                    enhanced=True,
+                )
+                == restored
+            )
+            assert restored["footer"] == ["alpha", "omega", "__SCM_LIT_omega__"]
+            assert (
+&gt;               b'"message":"\\u0061lpha task for {name}"'
+                in (owner / "config.json").read_bytes()
+            )
+E           AssertionError
+
+scripts\json_values_smoke.py:431: AssertionError</failure></testcase></testsuite></testsuites>

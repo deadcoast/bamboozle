@@ -1,0 +1,14 @@
+{
+  "current_output": "{\"message\":\"omega opens C:/omega.bin and https://example.test/omega\"}",
+  "design_sources": [
+    ".legacy/designlog:878",
+    ".legacy/bamboozle_v0.0.1.md:304-317"
+  ],
+  "explicit_structured_protection_refusal": "Literal protection selections apply only to text format",
+  "gap": "Text literal protection cannot yet be composed with selected JSON/YAML scalar translation. Paths and URLs inside translated scalar prose still change. Preserve current defaults and add explicit shared scalar protection.",
+  "input": "{\"message\":\"alpha opens C:/alpha.bin and https://example.test/alpha\"}",
+  "rules": {
+    "format": "json",
+    "values_only": true
+  }
+}

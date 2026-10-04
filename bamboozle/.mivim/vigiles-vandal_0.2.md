@@ -21,7 +21,9 @@ other. Product and workflow versions advance independently.
 | Bamboozle project service | Selected neutral view and reviewed, recoverable source return | `view-export`, `view-review`, `view-apply`, `view-status` |
 | Bamboozle project exchange | Complete neutral project transport, receiver context and authenticated return | `view-pack`, `exchange-open`, `exchange-context`, `exchange-return`, returned-packet view review/apply |
 | Bamboozle return validator | Saved-context terminology and protected-structure diagnostics | `validate-return`, `validate_returned_file`, restoration/view review |
+| Bamboozle structural profiles | Declared repository rules, operator findings and prospective source publication guards | `structure-check`, `check_repository_structure`, audit, source write/view return |
 | Bamboozle source agent I/O | Encode reads and decode writes with original backups | Dedicated `serve-agent` / `scm-mcp` |
+| Bamboozle peer custody | Local identity bindings, key retirement/revocation and durable replay admission | `identity-init`, `identity-status`, `recipient-*`, `delivery-status`, managed `--peer` file/project operations |
 | Bamboozle Tessera | Authenticated binary encryption/decryption, AES-256-GCM | Operator `keygen`, `seal`, `open` |
 | Bamboozle classical methods | Explicit reversible byte transforms and composed recipes | `classical.Pipeline`, operator `cipher-transform` / `cipher-verify` |
 | BAMb5 | Deterministic authenticated term tokens, AES-SIV | `workshop.scrape.bamb5` `enc` / `dec` and selected-key JSON operations |
@@ -168,6 +170,55 @@ the filesystem is not a multi-file transaction against unrelated writers.
 - Keep reads and expansion bounded. Markdown parsing is limited to 1,000,000
   characters; JSON to 512 selected pointers, depth 64 and 100,000 value nodes, plus
   existing file/view limits. Unsupported or incompatible syntax fails explicitly.
+
+## Recursive JSON string values
+
+The original `.legacy/designlog:897-899` values-only requirement is implemented
+by the shared product document adapter. Explicit rules are
+`{"format":"json","values_only":true}`; CLI/compatibility use
+`--json-values-only`, operator MCP uses `json_values_only: true`. This selects
+every nested string value and permits new returned/generated string values while
+leaving keys and nonstring tokens untouched by translation. Exact-pointer rules
+and historical saved contexts retain their behavior. See `docs/json-values.md`.
+
+Keep private scalar spelling context with saved dictionaries/rules. Unchanged
+tokens restore their original spelling at their pointers. For moved recursive
+tokens, use retained spelling only when all saved occurrences agree; conflicting
+spellings use ordinary JSON rendering. Never guess node identity. Return review
+retains key/presence/type/nonstring evidence while excluding selected prose values.
+The scanner bounds nodes/depth plus 10,000 recursive values, 2,048 characters per
+pointer and 1,000,000 total selected pointer characters. Invalid controls, grammar,
+unrepresentable selected Unicode and exceeded bounds refuse before publication.
+
+Source-agent reads/edits/writes, project views, restoration and import recovery
+share these rules. Vandal routes existing product capabilities. Qualify a complete
+nested configuration/data application through CLI and operator/source-agent stdio,
+including inserted/moved values, generated configuration, dependent code and
+interrupted import. `scripts/json_values_smoke.py` runs those flows from source
+and the installed wheel.
+
+## Explicit text literal protection
+
+The original `.legacy/designlog:878` path/URL requirement is implemented in the
+product's `text_literals.py` and shared `DocumentCodec`. Opt in with
+`{"format":"text","protect":["paths","urls"]}`, CLI repeated `--protect` under
+`--format text`, or operator MCP `preview_file.protect`. Either class can be
+selected alone. Historical text rules and other document adapters are unchanged.
+See `docs/text-literals.md` for the version-1 lexical grammar and executable flows.
+
+Preserve recognized literal bytes and private source/encoded span context across
+ledgers, restoration, source-agent read/edit/write, new-file rules and project
+view import/recovery. Bounds are 1,000,000 characters, 10,000 spans and existing
+byte limits. Exact inverse checks refuse ambiguous dictionary-created shapes.
+Prose markers remain atomic; marker-like path contents remain literal. Forward
+stream conversion cannot discard context. Protected-text restoration uses
+`--terms translate`; old line decisions remain available for unprotected text.
+Changed/reordered literals produce operator review findings, while unchanged
+literal vocabulary is excluded from prose diagnostics. Protection is preservation,
+not secret redaction or URL validation. Vandal routes the product rule only.
+`scripts/literals_smoke.py` executes file-backed neutral/restored applications
+through CLI and actual operator/source-agent stdio; installed qualification imports
+the scanner from the wheel and repeats these application workflows.
 
 ## Selected YAML translation
 
@@ -395,6 +446,44 @@ introduced into the already encoded view context.
 Limits, exact selection semantics and actionable refusals are documented in README.
 Keep existing text/Markdown/JSON workflows and historical contexts operational.
 
+## Native structural profile contract
+
+The operator's `.vigiles/structure.json` selects explicit version-1 roots, suffixes,
+format checks, byte/count limits, required paths, companion mappings and exclusions.
+The tracked profile in this checkout protects core encoder/cipher/translator,
+dictionary and agent entry points and checks Python/JSON product sources and scripts.
+Other workspaces opt in independently. Product `structure-check` and operator MCP
+`check_repository_structure` share bounded, read-only, paged evaluation; `audit`
+combines it with existing baseline drift. The README defines the complete schema,
+fixed exclusions, limits and user commands. No source language or rule is inferred.
+
+Source-agent reads bind the active rule hash in their translation context. Writes
+decode normally, validate the prospective original-domain tree, retain ordinary
+source history and refuse structural violations with private receipt evidence.
+Direct agent tools never expose operator findings or controls. After reconnecting,
+configured structural writes require the read's context hash even in text mode.
+Operator file conversions, reviewed file publication and CLI binary packet output
+also enforce relevant destination rules without changing their cipher methods.
+
+View review overlays every addition/edit/deletion before validation, so dependent
+module/test additions can pass together. Successful review digests bind the profile
+and complete prospective scoped tree. Unselected in-scope drift invalidates them.
+Import publication rechecks the same overlay throughout the existing journaled
+operation. Recovery pins retained controls; changed active rules do not rewrite
+historical journals or prevent historical status inspection. Preserve refusal
+receipts, partial source and failure evidence; no automatic rollback is introduced.
+No-profile operations retain historical review/context digests. Outside-scope
+operations do not fail for unrelated tree violations; their active control hash
+still prevents silent rule changes during an operation.
+
+Vandal includes the product fingerprint and routing instructions in its context.
+It does not parse or enforce structural rules itself. The regular verifier checks
+the repository profile, while source and isolated installed-package qualification
+execute the complete profile-governed application through real CLI/MCP, deliberate
+invalid proposals, multi-file dependencies, partial import and explicit recovery.
+Profiles establish bounded structural constraints, not semantic correctness, test
+quality, transaction isolation against arbitrary filesystem writers, or OS isolation.
+
 ## Verification, evidence and remaining scope
 
 Product 0.4.9 implements literal-prefix escaping in the shared translation engine.
@@ -428,12 +517,45 @@ Run `uv run --locked python scripts/verify.py --package` from the application ro
 Archive exact previous reports before replacing current evidence. Keep active
 planning in `VIGILES_STATUS.json`; retain detailed reports under the existing
 `.mivim/vigiles/reports/current/` and `archive/` layout. The tracked `.vigiles/skills/`
-subtree contains workflow instructions; other `.vigiles/` paths remain private
-runtime/fixture storage. Update this specification when implementation changes,
+subtree contains workflow instructions, and `.vigiles/structure.json` is the tracked
+operator profile; other `.vigiles/` paths remain private runtime/fixture storage.
+Update this specification when implementation changes,
 without rewriting the archived vanilla contracts or claiming unfinished gates.
 
 Broader format adapters, richer fixture rule
 operators and terminology diagnostics beyond finite suffix/count evidence remain
 core development opportunities.
-Existing structural/identity/host gates remain separate; completing one source
+Existing identity/host acceptance gates remain separate; completing one source
 capability does not declare the entire application complete.
+
+## Managed local recipient and delivery contract
+
+VIG-IDENTITY-01 adds product `identity.py` and `transport.py`, integrated into the
+existing file and complete-project pipeline through CLI and operator MCP. The
+[managed transport contract](../docs/managed-transport.md) specifies actionable
+provisioning, lifecycle, packet versions, exact replay binding, operation recovery
+and trust limits. Vandal routes this interface; it owns no keys or cipher methods.
+
+Managed schema-2 Tessera authenticates explicit sender, recipient, key fingerprint,
+message ID, purpose and validity with the payload. No legacy downgrade is allowed.
+Existing schema-1 raw-key operations, classical framing, semantic mappings and
+retained translation contexts remain compatible. Registration explicitly binds a
+fresh pair key. Rotation retires old sending keys; receiving admits unexpired
+messages issued through retirement. Revocation permanently disables that key for
+new delivery and pending recovery. No key material enters reports or agent views.
+
+Read-only review never reserves delivery. Before file/extraction/source writes,
+local admission pins the exact packet and operation receipt under custody locking.
+A sender/recipient/message tuple cannot be admitted again by JSON reserialization,
+changing its path or choosing another output. The existing domain receipt completes
+admission without a second commit. Retained admission plus exact intent permits
+explicit partial recovery after expiry, subject to current revocation. An unchanged
+managed return is also consumed on apply. Historical status uses retained context
+and remains inspectable after lifecycle changes. Operation journals may precede
+admission, but payload writes never do; this crash boundary is explicitly tested.
+
+The local trust model assumes protected operator state and a trustworthy clock.
+Out-of-band peer authentication/key distribution, custody ACLs, cloned-root/global
+replay policy, administrator rollback and independent identity verification remain
+external acceptance concerns. No production deployment or cryptographic certification
+is established by synthetic local source/installed application qualification.

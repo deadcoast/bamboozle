@@ -95,6 +95,12 @@ def test_mcp_preview_apply_verify_and_replay(tmp_path):
         async with Client(server) as client:
             tools = {tool.name: tool for tool in await client.list_tools()}
             assert set(tools) == {
+                "initialize_identity",
+                "recipient_registry",
+                "change_recipient",
+                "inspect_delivery",
+                "seal_file",
+                "open_file",
                 "cipher_catalog",
                 "preview_cipher_transform",
                 "verify_cipher_transform",
@@ -115,6 +121,7 @@ def test_mcp_preview_apply_verify_and_replay(tmp_path):
                 "apply_preview",
                 "verify_file",
                 "audit_workspace",
+                "check_repository_structure",
                 "preview_restoration",
                 "preview_migration",
                 "verify_restored_file",

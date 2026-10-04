@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
+from contextlib import ExitStack
 from pathlib import Path, PurePosixPath
 from typing import Any
 
+from bamboozle import identity
 from bamboozle.dictionary import Dictionary
 from bamboozle.fixtures import TEMPLATE_SCHEMA, validate_contract
 from bamboozle.formats import DocumentCodec
@@ -31,6 +33,7 @@ from bamboozle.python_project import validate_project
 from bamboozle.restoration import _diff
 from bamboozle.return_validation import inspect_return
 from bamboozle.service import OperationError
+from bamboozle.structure import Guard, prepare_guard, validate_certificate
 from bamboozle.utils import (
     atomic_write,
     exclusive_lock,
@@ -61,13 +64,14 @@ def _snapshot(
     key: str | None,
     recipient: str | None,
     recipe: str | None,
+    peer: str | None,
+    delivery: dict[str, Any],
 ) -> tuple[dict[str, bytes], str | None]:
     if packet is None:
-        if any(value is not None for value in (key, recipient, recipe)):
+        if any(value is not None for value in (key, recipient, recipe, peer)):
             raise ValueError("Exchange credentials require a return packet")
         return snapshot_view(view), None
-    if key is None or recipient is None:
-        raise ValueError("A return packet requires an explicit key and recipient")
+    identity.select_mode(key, recipient, peer)
     return returned_snapshot(
         workspace,
         manifest,
@@ -76,6 +80,8 @@ def _snapshot(
         key=key,
         recipient=recipient,
         recipe=recipe,
+        peer=peer,
+        delivery=delivery,
     )
 
 
@@ -348,6 +354,20 @@ def _observations(
     }
 
 
+def _structure_guard(
+    workspace: Workspace, plan: dict[str, Any], outputs: dict[str, bytes]
+) -> Guard:
+    return prepare_guard(
+        workspace,
+        {
+            action["path"]: outputs.get(action["path"])
+            if action["action"] != "delete"
+            else None
+            for action in plan["actions"]
+        },
+    )
+
+
 def review_import(
     workspace: Workspace,
     view_id: str,
@@ -360,6 +380,7 @@ def review_import(
     key: str | None = None,
     recipient: str | None = None,
     recipe: str | None = None,
+    peer: str | None = None,
 ) -> dict[str, Any]:
     if (
         type(validation_offset) is not int
@@ -379,11 +400,21 @@ def review_import(
         raise ValueError(
             "View already has an import; inspect its status or explicitly recover it"
         )
+    delivery: dict[str, Any] = {}
     snapshot, exchange_sha = _snapshot(
-        workspace, manifest, manifest_sha, view, return_packet, key, recipient, recipe
+        workspace,
+        manifest,
+        manifest_sha,
+        view,
+        return_packet,
+        key,
+        recipient,
+        recipe,
+        peer,
+        delivery,
     )
     validation: list[dict[str, Any]] = []
-    plan, _, changes, conflicts = _build(
+    plan, outputs, changes, conflicts = _build(
         workspace,
         manifest,
         manifest_sha,
@@ -399,6 +430,18 @@ def review_import(
     )
     if exchange_sha is not None:
         plan["exchange_sha256"] = exchange_sha
+    if delivery:
+        plan["delivery"] = delivery
+    guard = _structure_guard(workspace, plan, outputs)
+    if guard.certificate is not None:
+        plan["structure"] = guard.certificate
+    if guard.result is not None and not guard.result["ok"]:
+        conflicts.append(
+            {
+                "path": ".vigiles/structure.json",
+                "reason": "Proposed source tree violates the structural profile; inspect structural_validation findings",
+            }
+        )
     if validation_path is not None and not validation:
         raise ValueError(
             "validation_path must select a present UTF-8 translated return file"
@@ -416,6 +459,7 @@ def review_import(
         not _unchanged_return(workspace, view, plan, return_packet)
         or load_view(workspace, view_id)[2] != manifest_sha
         or _observations(workspace, manifest, view, plan) != observed
+        or _structure_guard(workspace, plan, outputs).certificate != guard.certificate
     ):
         raise ValueError(
             "Source, view or retained context changed during review; review again"
@@ -426,6 +470,16 @@ def review_import(
         "status": "conflict" if conflicts else "review",
         **({"exchange_sha256": exchange_sha} if exchange_sha is not None else {}),
         "ok": not conflicts,
+        **(
+            {"delivery": delivery, "delivery_id": identity.delivery_id(delivery)}
+            if delivery
+            else {}
+        ),
+        **(
+            {"structure": guard.certificate, "structural_validation": guard.result}
+            if guard.certificate
+            else {}
+        ),
         "changes": changes,
         "return_validation": {
             "status": "refused"
@@ -492,6 +546,12 @@ def _load_import(
     )
     if "exchange_sha256" in plan:
         rebuilt["exchange_sha256"] = digest(plan["exchange_sha256"])
+    if "delivery" in plan:
+        rebuilt["delivery"] = identity.validate_certificate(plan["delivery"])
+        if rebuilt["delivery"]["packet_sha256"] != rebuilt.get("exchange_sha256"):
+            raise ValueError("Delivery does not match the retained return packet")
+    if "structure" in plan:
+        rebuilt["structure"] = validate_certificate(plan["structure"])
     if conflicts or json_bytes(rebuilt) != json_bytes(plan):
         raise ValueError("Import no longer matches its retained source/view snapshots")
     for name, data in outputs.items():
@@ -508,6 +568,12 @@ def _receipt(plan: dict[str, Any]) -> dict[str, Any]:
         "review_sha256": sha256(json_bytes(plan)),
         "manifest_sha256": plan["manifest_sha256"],
         "actions": plan["actions"],
+        **({"structure": plan["structure"]} if "structure" in plan else {}),
+        **(
+            {"delivery_id": identity.delivery_id(plan["delivery"])}
+            if "delivery" in plan
+            else {}
+        ),
         **(
             {"exchange_sha256": plan["exchange_sha256"]}
             if "exchange_sha256" in plan
@@ -573,6 +639,11 @@ def view_status(workspace: Workspace, view_id: str) -> dict[str, Any]:
             else {}
         ),
         "receipt_saved": complete,
+        **(
+            {"structure": document["plan"]["structure"]}
+            if "structure" in document["plan"]
+            else {}
+        ),
     }
 
 
@@ -587,15 +658,16 @@ def apply_import(
     key: str | None = None,
     recipient: str | None = None,
     recipe: str | None = None,
+    peer: str | None = None,
 ) -> dict[str, Any]:
     digest(review_sha256)
     if recover and any(
-        value is not None for value in (return_packet, key, recipient, recipe)
+        value is not None for value in (return_packet, key, recipient, recipe, peer)
     ):
         raise ValueError(
             "Recovery uses retained snapshots; omit packet and credentials"
         )
-    with exclusive_lock(operation_lock(workspace)):
+    with exclusive_lock(operation_lock(workspace)), ExitStack() as leases:
         directory, manifest, manifest_sha, mapping, view = load_view(workspace, view_id)
         journal_path = workspace.resolve(directory / "import.json", write=True)
         receipt_path = workspace.resolve(directory / "result.json", write=True)
@@ -625,11 +697,16 @@ def apply_import(
                     workspace, view_id
                 )
                 plan = document["plan"]
+                assert plan is not None
                 if document["review_sha256"] != review_sha256:
                     raise ValueError(
                         "Recovery digest does not match the retained import"
                     )
+                guard = _structure_guard(workspace, plan, outputs)
+                guard.pin(plan.get("structure"))
+                guard.recheck()
             else:
+                delivery: dict[str, Any] = {}
                 snapshot, exchange_sha = _snapshot(
                     workspace,
                     manifest,
@@ -639,6 +716,8 @@ def apply_import(
                     key,
                     recipient,
                     recipe,
+                    peer,
+                    delivery,
                 )
                 plan, outputs, _, conflicts = _build(
                     workspace,
@@ -652,6 +731,12 @@ def apply_import(
                 )
                 if exchange_sha is not None:
                     plan["exchange_sha256"] = exchange_sha
+                if delivery:
+                    plan["delivery"] = delivery
+                guard = _structure_guard(workspace, plan, outputs)
+                if guard.certificate is not None:
+                    plan["structure"] = guard.certificate
+                guard.recheck()
                 if conflicts or sha256(json_bytes(plan)) != review_sha256:
                     raise ValueError("Review is stale or contains unresolved conflicts")
                 if (
@@ -659,7 +744,7 @@ def apply_import(
                     != plan["source_snapshot"]
                 ):
                     raise ValueError("Authoritative source changed after review")
-                if not plan["actions"]:
+                if not plan["actions"] and not delivery:
                     return {**report, "status": "no_changes"}
                 for raw in [*snapshot.values(), *outputs.values()]:
                     put_blob(workspace, directory, raw)
@@ -676,6 +761,18 @@ def apply_import(
                 atomic_write(journal_path, journal)
                 report["journal_saved"] = True
             assert plan is not None
+            if "delivery" in plan:
+                report["delivery_id"] = leases.enter_context(
+                    identity.admitting(
+                        workspace,
+                        plan["delivery"],
+                        receipt_path,
+                        json_bytes(_receipt(plan)),
+                        recover=recover,
+                    )
+                )
+            if guard.certificate is not None:
+                report["structure"] = guard.certificate
             if not _unchanged_return(workspace, view, plan, return_packet):
                 raise ValueError(
                     "View changed after review; restore the retained view before recovery"
@@ -692,6 +789,7 @@ def apply_import(
                     "Source conflicts with the retained import; inspect view-status"
                 )
             for action in plan["actions"]:
+                guard.recheck()
                 name = action["path"]
                 path = editable_path(
                     workspace, name, manifest["private_paths"], view.root
@@ -708,6 +806,11 @@ def apply_import(
                         path = editable_path(
                             workspace, name, manifest["private_paths"], view.root
                         )
+                        guard.recheck()
+                        if read_optional(workspace, path) != source_raw:
+                            raise ValueError(
+                                f"Source changed during structural validation: {name}"
+                            )
                         atomic_write(
                             path,
                             outputs[name],
@@ -715,6 +818,7 @@ def apply_import(
                         )
                 report["applied_files"].append(name)
                 report["output_saved"] = True
+            guard.recheck()
             expected = {
                 **plan["source_snapshot"],
                 **{
@@ -732,6 +836,7 @@ def apply_import(
             report.update(
                 status="recovered" if recover else "applied", receipt_saved=True
             )
+            leases.close()
             return report
         except (OSError, ValueError, TypeError) as exc:
             report.update(

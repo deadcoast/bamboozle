@@ -163,7 +163,14 @@ class YamlDocument:
 
             visit(root, "", frozenset())
         except (yaml.YAMLError, RecursionError, StopIteration, TypeError) as exc:
-            raise ValueError(f"Invalid YAML syntax: {exc}") from exc
+            mark = exc.problem_mark if isinstance(exc, yaml.MarkedYAMLError) else None
+            location = (
+                f" at line {mark.line + 1}, column {mark.column + 1}"
+                if mark is not None
+                else ""
+            )
+            # Source-agent errors must not return the parser's raw source excerpt.
+            raise ValueError(f"Invalid YAML syntax{location}") from None
 
     def selected(self, pointers: tuple[str, ...]) -> list[Node]:
         selected = set(pointers)
@@ -217,12 +224,14 @@ def _value(raw: str, indent: int) -> str:
     if item.kind not in ("string", "scalar") or item.token is None:
         raise ValueError("YAML context must retain a scalar spelling")
     token = item.token
-    # Block scanners include the terminal line ending. Additional token material
-    # must not smuggle siblings/comments into a private restoration context.
+    # A block-to-quoted conversion carries its original header comment after the
+    # new token. Only whitespace/comments may follow; never a sibling or tag.
     start = indent + 3
-    if token.start_mark.index != start or document.text[
-        start : token.end_mark.index
-    ].rstrip("\r\n") != raw.rstrip("\r\n"):
+    tail = document.text[token.end_mark.index :]
+    if (
+        token.start_mark.index != start
+        or re.fullmatch(r"(?:[ \t\r\n]|#[^\r\n]*(?:\r\n|[\r\n]|$))*", tail) is None
+    ):
         raise ValueError("YAML context contains material outside its scalar")
     return item.value
 
@@ -246,7 +255,11 @@ def _render(
             return candidate
     except ValueError:
         pass
-    if raw.startswith("'") and not BREAK.search(result):
+    if (
+        raw.startswith("'")
+        and not BREAK.search(result)
+        and not re.search(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\x9f]", result)
+    ):
         return "'" + result.replace("'", "''") + "'"
     if raw.startswith(("|", ">")):
         ending = BREAK.search(raw)
@@ -274,8 +287,11 @@ def _render(
                 " " * block_indent + line[2:] if line.startswith("  ") else line
                 for line in lines[1:]
             )
-            if header and _value(preserved, indent) == result:
-                return preserved
+            try:
+                if header and _value(preserved, indent) == result:
+                    return preserved
+            except ValueError:
+                pass
             comment = header.partition("#")[2]
             if comment:
                 lines[0] = lines[0].rstrip("\r\n") + " #" + comment
@@ -284,12 +300,24 @@ def _render(
                 return rendered
     # JSON quoting is a YAML double-quoted spelling. Escape YAML-specific line
     # separators too: they are data here, not physical line folding characters.
-    return (
+    quoted = (
         json.dumps(result, ensure_ascii=False)
         .replace("\x85", "\\N")
         .replace("\u2028", "\\L")
         .replace("\u2029", "\\P")
     )
+    quoted = re.sub(
+        r"[\x7f-\x9f]", lambda match: f"\\u{ord(match.group()):04x}", quoted
+    )
+    if header:
+        # Keep the block's comment bytes and terminal separator when a literal
+        # control character requires an escaped quoted value. The retained span
+        # includes this suffix so unchanged reverse translation is byte-exact.
+        suffix = re.sub(r"^[|>][1-9+-]*", "", header)
+        suffix = BREAK.sub("", suffix)
+        ending = re.search(r"[\r\n]*$", raw)
+        quoted += suffix + (ending.group() if ending else "")
+    return quoted
 
 
 class YamlSource:
@@ -354,17 +382,21 @@ class YamlSource:
             if (
                 mode == "reverse"
                 and pair
-                and raw == pair["encoded"]
+                and pair["encoded"].startswith(raw)
+                and text.startswith(pair["encoded"], start)
                 and indent == pair["indent"]
             ):
                 rendered = pair["original"]
+                end = start + len(pair["encoded"])
             if mode == "forward" and raw != rendered:
                 saved[item.owner] = {
                     "original": raw,
                     "encoded": rendered,
                     "indent": indent,
                 }
-            output_bytes += len(rendered.encode("utf-8")) - len(raw.encode("utf-8"))
+            output_bytes += len(rendered.encode("utf-8")) - len(
+                text[start:end].encode("utf-8")
+            )
             if output_bytes > self.limit:
                 raise ValueError("Translated YAML exceeds its byte limit")
             pieces.extend((text[cursor:start], rendered))

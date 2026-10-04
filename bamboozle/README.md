@@ -68,6 +68,18 @@ scm-mcp --root C:\path\to\project --dict mapping.dictionary.json --policy source
 uv run --locked python scripts/vandal.py --mode agent --policy source.agent-policy.json
 ```
 
+Recursive JSON translation uses `encode config.json --json-values-only`, or
+`"document": {"format":"json","values_only":true}` in source-agent/view policies.
+It translates nested string values while retaining keys, nonstring tokens and
+formatting. See [recursive JSON workflows](docs/json-values.md) for generated
+values, moved-token spelling recovery and reviewed return.
+
+Plain-text policies can explicitly preserve paths and URLs with
+`"document": {"format":"text","protect":["paths","urls"]}`. Manual conversion
+uses `encode --format text --protect paths --protect urls`; decode reuses saved
+rules. See [protected text workflows and grammar](docs/text-literals.md) for
+agent edits, generated files, review, restoration and recovery.
+
 The source-agent MCP exposes five source-development tools. `read_safe_file` returns
 `content`, `source_sha256`, `context_sha256`, `neutral_sha256`, `document_format`
 and neutral `document_rules`. After reconnecting,
@@ -284,6 +296,8 @@ snapshots before changing source; inspect `view-status`, then recover with
 and deletion arguments. Its completion receipt records the returned packet hash.
 Completed imports require a fresh view for another cycle. These local bindings do
 not establish recipient identity, key lifecycle governance or network replay policy.
+Select managed `--peer` transport for the local lifecycle/admission contract in
+[managed transport](docs/managed-transport.md); deployment trust remains separate.
 
 For a received exchange inside this repository, Vandal delegates context selection
 with `uv run --locked python scripts/vandal.py --mode exchange --exchange-id ID`.
@@ -1149,7 +1163,8 @@ existing destinations for new files, changed views/contracts, and private or
 out-of-scope new paths block application. Diffs are bounded; `diff_complete: false`
 means the operator must inspect the retained files to review the entire change.
 Only an exact matching review digest can apply. An unchanged view returns
-`no_changes` without consuming it; a completed import requires a fresh export for
+`no_changes` without consuming it; a managed authenticated return instead records
+a completed admission even without source edits. A completed import requires a fresh export for
 the next development cycle.
 
 If publication is interrupted, `view-status` reports pending/applied/conflicting
@@ -1471,6 +1486,17 @@ sensitive terminology and should remain local.
 
 ## Tessera packets
 
+Managed transport is available on the same file and project commands through
+`--peer NAME`. It adds explicit local identities, pairwise key registration,
+rotation/revocation, authenticated sender/purpose/lifetime and durable replay
+admission. Read the complete [provisioning, project cycle and recovery guide](docs/managed-transport.md).
+Use `identity-init`, `recipient-register`, `identity-status`, `recipient-rotate`,
+`recipient-revoke` and `delivery-status` in operator context. Operator MCP exposes
+matching native services; the source-agent tool pool remains separate.
+
+The following raw-key commands retain schema-1 behavior. They do not select
+managed lifecycle or replay admission:
+
 ```powershell
 uv run --locked vigiles keygen --key "agent.key"
 uv run --locked vigiles seal "payload.bin" --key "agent.key" --recipient "reviewer" -o "packet.json"
@@ -1528,6 +1554,128 @@ termination, automatic quarantine, or remote telemetry is installed.
 
 An audit baseline is a local comparison record, not tamper-proof remote attestation.
 Preserve and review it separately when accepting a new repository baseline.
+
+## Enforce declared repository structure
+
+`structure-check` evaluates explicit local rules independently of a hash baseline.
+The Bamboozle checkout includes an active [.vigiles/structure.json](.vigiles/structure.json)
+covering its Python product and development scripts, with required encoder,
+dictionary, translator, agent and encryption files. The regular verifier checks
+this profile. Installing the product in another workspace does not install rules
+there: the operator selects them explicitly.
+
+For a project with `app/` and `tests/`, a complete profile is:
+
+```json
+{
+  "kind": "bamboozle.structure",
+  "schema_version": 1,
+  "name": "application",
+  "roots": {
+    "app": {
+      "suffixes": [".py"],
+      "formats": {".py": "python"},
+      "max_files": 64,
+      "max_file_bytes": 65536,
+      "max_total_bytes": 1048576
+    },
+    "tests": {
+      "suffixes": [".py"],
+      "formats": {".py": "python"},
+      "max_files": 128,
+      "max_file_bytes": 65536,
+      "max_total_bytes": 2097152
+    }
+  },
+  "required": {"app/__init__.py": "file", "tests": "directory"},
+  "companions": [{
+    "source": "app", "source_suffix": ".py",
+    "target": "tests", "target_suffix": ".py",
+    "target_prefix": "test_", "exclude_names": ["__init__.py"]
+  }],
+  "exclude": []
+}
+```
+
+Save it as `application.structure-profile.json`, inspect all findings, then
+activate the chosen bytes as `.vigiles/structure.json` in that project:
+
+```powershell
+bamboozle --root C:/projects/example structure-check --rules application.structure-profile.json
+New-Item -ItemType Directory -Force C:/projects/example/.vigiles
+Copy-Item C:/projects/example/application.structure-profile.json C:/projects/example/.vigiles/structure.json
+bamboozle --root C:/projects/example structure-check
+```
+
+Draft checking is read-only; `--rules` never activates a profile. Operator MCP
+`check_repository_structure(rules=..., offset=0, limit=100)` shares the same engine.
+`audit_workspace`, CLI `audit` and `watch` include its result when configured.
+A clean baseline can still fail the structural rules. CLI exit `3` means violations;
+`1` means invalid rules or an operation error. A missing active profile returns
+`configured: false`, preserving ordinary translation behavior.
+
+Roots use exact relative POSIX spelling and must be disjoint; `.` can select the
+workspace. Suffixes are lowercase, dot-prefixed and matched case-insensitively,
+longest first. `formats` optionally selects UTF-8 `text`, compile-checked `python`,
+strict `json`, or the existing supported `yaml` parser. Python is compiled without
+execution; YAML uses the product's bounded YAML contract. No import resolution,
+test coverage or program correctness is inferred from a syntax check.
+
+Required paths select exact files/directories under roots. A companion preserves
+the relative subdirectory: `app/parsing/reader.py` requires
+`tests/parsing/test_reader.py` in the example. Both endpoints must be declared
+roots. Basename exemptions are exact. Excluded paths suppress that path and its
+subtree and must lie strictly inside a root. Private `.vigiles`, `.mivim`, `.local`,
+Git/environment/cache state protected by `Workspace`, Python bytecode directories,
+and generated semantic ledger/restoration sidecars are omitted. Other files count
+even when their suffix is disallowed. Links, unreadable entries, special files and
+incomplete enumeration prevent a passing result.
+
+Profiles allow at most 32 roots, 32 companion rules, 512 required paths and 128
+exclusions. Evaluation is bounded to 10,000 entries and 64 MiB of source, with a
+16 MiB per-file ceiling and any smaller workspace/profile limits. Findings retain
+at most 2,000 records, expose the total count and mark truncation; narrow/fix the
+profile and recheck when that limit is reached. Page with `--offset`, `--limit`
+(1–500) and the prior `--expected-sha256`; changed controls or source invalidate
+pagination. Diagnostics contain paths, rule identifiers and corrective actions,
+without source excerpts. They remain in the operator context.
+
+Source-agent writes check the **decoded proposed tree** before publication. A read's
+context hash also binds the active profile. After reconnecting, supply both source
+and context hashes when a profile is active, including whole-text mode. Profile
+changes require a new read. Private profiles and draft `.structure-profile.json`
+files cannot enter agent reads or views.
+
+Reviewed view imports evaluate all additions, edits and explicit deletions together.
+Add a module and its companion test in the same view; operator `view-review` shows
+`structural_validation`, and successful reviews pin both the rule hash and proposed
+scoped tree. Changes elsewhere inside that scope invalidate the review. A direct
+single-file write cannot simultaneously satisfy a missing companion: create the
+test first, or use a reviewed view. Relevant file conversion/restoration, classical
+file operations and CLI `seal`/`open` publication use the same guard. Transport
+cryptography remains independent; authenticated plaintext must still satisfy the
+destination's structural rules.
+
+Publication refusals retain paths, proposed hashes and findings under
+`.vigiles/structure/refusals/`. Multi-file imports retain their existing snapshots
+and journal before writing. After interruption, `view-status` remains readable if
+rules change, but `view-apply --recover` requires the original profile and scoped
+tree, evaluated with the entire pending result overlaid. Preserve the failure and
+resolve drift before recovery. No rollback or automatic relaxation occurs.
+Operations outside declared roots do not trigger unrelated tree violations.
+These checks govern Bamboozle publication paths; raw filesystem edits, OS isolation
+and application behavior require their own controls and execution checks.
+
+The reusable application qualifier runs real CLI and source-agent/operator stdio,
+edits decoded source, adds dependent modules/tests, executes 300 workloads in both
+vocabularies, injects a partial publication and recovers it:
+
+```powershell
+uv run --locked python scripts/structure_smoke.py --workspace .test-tmp/structure-manual-01
+```
+
+Use a new directory for each run. Its `.vigiles/qualification/` retains application
+results and failures. The same workflow runs from the isolated installed wheel.
 
 ## MCP integration
 
@@ -1990,7 +2138,8 @@ The GitHub workflow lives at `../.github/workflows/vigiles.yml`, with Windows/Li
 and Python 3.13/3.14 jobs. Local success does not imply those remote jobs have run.
 
 Normal commands emit JSON. Exit codes: `0` success, `1` operation failure, `2`
-invalid arguments, `3` audit drift or missing baseline, `130` interrupted watch.
+invalid arguments, `3` review/validation refusal, structural violations, audit drift
+or missing baseline, `130` interrupted watch.
 Watch records report their own health; a bounded watch exits normally after its
 requested number of scans.
 

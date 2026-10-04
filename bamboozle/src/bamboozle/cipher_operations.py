@@ -27,6 +27,17 @@ def capabilities() -> dict[str, Any]:
         "semantic": {
             "purpose": "Readable neutral vocabulary for agent development",
             "formats": ["text", "markdown", "json", "python", "yaml"],
+            "json_selection": {
+                "exact_pointers": {"format": "json", "pointers": ["/selected"]},
+                "recursive_values": {"format": "json", "values_only": True},
+                "keys_and_nonstrings": "Preserved by translation; deliberate returned changes require review",
+            },
+            "text_protection": {
+                "rule": {"format": "text", "protect": ["paths", "urls"]},
+                "explicit": True,
+                "private_span_context": True,
+                "recognition": "Lexical paths and URLs; preserved literals remain visible",
+            },
             "cli": ["encode", "decode", "view-export", "view-review", "view-apply"],
             "authenticated": False,
         },
@@ -42,6 +53,27 @@ def capabilities() -> dict[str, Any]:
                 "algorithm": "AES-256-GCM",
                 "purpose": "Binary file confidentiality and integrity",
                 "cli": ["keygen", "seal", "open"],
+                "packet_versions": {
+                    "1": "explicit raw key and recipient",
+                    "2": "registered peer, lifecycle and local replay admission",
+                },
+                "managed_cli": [
+                    "identity-init",
+                    "identity-status",
+                    "recipient-register",
+                    "recipient-rotate",
+                    "recipient-revoke",
+                    "delivery-status",
+                ],
+                "managed_mcp": [
+                    "initialize_identity",
+                    "recipient_registry",
+                    "change_recipient",
+                    "inspect_delivery",
+                    "seal_file",
+                    "open_file",
+                ],
+                "trust": "Local symmetric peer bindings; trusted operator state and out-of-band key provisioning",
             },
             {
                 "id": "bamb5",
