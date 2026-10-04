@@ -1,0 +1,244 @@
+# Cipher Codex (C)
+
+**Security Disclaimer**: This project is for educational purposes. The implemented ciphers are not secure for real-world cryptographic use.
+
+**TL;DR**: A modular C library of classical and modern ciphers. Fully data-driven, CLI-ready, and easy to extend. Heap-allocated strings, explicit memory rules, and no giant if/else chains.
+
+A modular, extensible collection of classical and modern cipher implementations written in **C**, with a clean registry-based architecture.
+
+This project is me exploring low-level systems design applied to cryptography:
+
+- manual memory management
+- function pointers
+- data-driven dispatch
+- clear ABI-style contracts
+
+No frameworks. No magic. Just C.
+
+---
+
+## Features
+
+- **Plugin-style cipher registry**
+- **Data-driven dispatch** (no giant `if/else` chains)
+- Clean separation between:
+  - cipher implementations
+  - registry
+  - user interface
+- Each cipher is self-contained
+- Explicit memory ownership rules
+- Easy to extend with new algorithms
+- On failure, cipher functions return `NULL` and do not modify global state.
+
+I ran into a lack of a clean, easy-to-use system for managing ciphers when I was making a cipher codex in C++.
+
+---
+
+## Project Structure
+
+```bash
+.
+├── include/
+│   ├── ciphers/    # Cipher specific headers
+│   │   └── *.h
+│   └── cipher.h    # Core cipher interface and registry API
+├── src/
+│   ├── ciphers/    # Cipher implementations
+│   │   └── *.c
+│   ├── cipher.c    # Core registry and API implementation
+│   └── main.c      # CLI interface
+├── tests/
+├── .clang-format   # Code formatting rules
+├── justfile        # Build, format, lint recipes
+└── Makefile        # Build system
+```
+
+---
+
+## Requirements
+
+- Unix-like OS (Linux/macOS) for `cc` usage
+- C11-compatible compiler
+- `make` (comes with your system, run `make --version` to check)
+- Optional: [just](https://github.com/casey/just) for the extra recipes
+- Optional: `clang-format`, `clang-tidy`, `bear` for formatting, linting, and generating compile commands
+
+## 🔧 Build & Run
+
+Run from project root:
+
+```bash
+# Build (includes sanitizers and debug info by default)
+make
+
+# Run
+./cipher
+
+# Clean
+make clean
+```
+
+Or if using `just`:
+
+```bash
+# List available recipes
+just --list
+
+# Only build
+just build
+
+# Format all source files
+just format
+
+# Run clang-tidy on everything
+just lint
+
+# Generate compile_commands.json (requires bear)
+just build-db
+
+# Build and run
+just run
+
+# Clean
+just clean
+```
+
+Demo run of the CLI:
+
+```bash
+$ ./cipher
+Operations:
+1. Encrypt
+2. Decrypt
+Choose the operation: 1
+Available Ciphers:
+[1] Caesar
+[2] ROT13
+[3] Atbash
+[4] Affine
+[5] Scytale
+[6] Polybius Square
+[7] Vigenere
+[8] Beaufort
+[9] Gronsfeld
+[10] Rail Fence
+Enter the cipher id: 1
+Enter your message:
+This is my message.
+Do you have a problem with it?
+
+Enter the key: 3
+Result:
+Wklv lv pb phvvdjh.
+Gr brx kdyh d sureohp zlwk lw?
+```
+
+## Design Philosophy
+
+### Cipher Interface Contract
+
+All ciphers conform to this function signature:
+
+```c
+char *encrypt(const char *input, const cipher_params_t *params);
+char *decrypt(const char *input, const cipher_params_t *params);
+```
+
+Rules:
+
+- `input` and `params` are read-only
+- Returned string is heap-allocated
+- Caller is responsible for `free()`
+
+This mirrors real-world C library ABI design.
+
+### Cipher Registry
+
+Ciphers are registered centrally:
+
+```c
+static cipher_t cipher_registry[] = {
+    {"Caesar", PARAM_NUMBER, caesar_encrypt, caesar_decrypt},
+    {"ROT13", PARAM_NONE, rot13_encrypt, rot13_decrypt},
+    {"Atbash", PARAM_NONE, atbash_encrypt, atbash_decrypt},
+    {"Affine", PARAM_2_NUMBERS, affine_encrypt, affine_decrypt},
+    {"Scytale", PARAM_NUMBER, scytale_encrypt, scytale_decrypt},
+    {"Vigenere", PARAM_STRING, vigenere_encrypt, vigenere_decrypt},
+    {"Rail Fence", PARAM_NUMBER, rail_fence_encrypt, rail_fence_decrypt},
+    ...
+};
+```
+
+The CLI discovers available ciphers dynamically.
+Adding a new cipher does not require modifying `main.c`.
+This is the key feature of this project which was the reason for me abandoning my previous project in C++.
+Also abandoned it because C++ wasn’t the best fit for this kind of modular registry-based design.
+
+### Example Usage
+
+See main.c file for full example.
+
+```c
+const cipher_t *cipher = get_cipher(0);
+cipher_params_t params = { .number.value = 3 };
+char *result = cipher->encrypt("Hello", &params);
+```
+
+## Implemented Ciphers
+
+### Classical
+
+- Affine
+  - Atbash
+  - Caesar
+  - ROT13
+- Beaufort
+- Gronsfeld
+- Polybius Square
+- Scytale
+- Vigenere
+- Rail Fence
+
+<!-- For later --
+#### Mechanical
+
+### Modern
+
+#### Symmetric
+
+#### Hash and Integrity
+
+#### Asymmetric
+
+#### Elliptic Curve
+-->
+
+## Future Ideas?
+
+- File-based input
+- File-based output
+
+## Further Reading
+
+### Programming, Design and Computing
+
+- [ABI (Application Binary Interface)](https://en.wikipedia.org/wiki/Application_binary_interface)
+- [Plugin-style architectures](<https://en.wikipedia.org/wiki/Plug-in_(computing)>)
+
+### C Language
+
+- [C Programming Language](https://en.wikipedia.org/wiki/C_Programming_Language)
+- [Function pointers in C](https://www.geeksforgeeks.org/function-pointer-in-c/)
+- [Memory management in C](https://www.w3schools.com/c/c_memory_management.php)
+
+### Cryptograhy
+
+- [Kerckhoffs's Principle](https://en.wikipedia.org/wiki/Kerckhoffs's_principle)
+
+### Math
+
+- [Extended Euclidean Algorithm](https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm)
+
+## License
+
+MIT License
