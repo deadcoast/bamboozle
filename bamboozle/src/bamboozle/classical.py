@@ -223,18 +223,36 @@ class Cipher:
         if self.parameter_kind == "shift":
             properties = {"shift": integer}
         elif self.parameter_kind == "affine":
-            properties = {"a": {**integer, "description": "Must be coprime to 26"}, "b": integer}
+            properties = {
+                "a": {**integer, "description": "Must be coprime to 26"},
+                "b": integer,
+            }
         elif self.parameter_kind in ("width", "rails"):
             properties = {self.parameter_kind: {**integer, "minimum": 1}}
         elif self.parameter_kind in ("letters", "digits", "keyword"):
-            properties = {"key": {"type": "string", "minLength": 1, "maxLength": MAX_KEY,
-                                  "pattern": {"letters": "^[A-Za-z]+$", "digits": "^[0-9]+$", "keyword": "^[!-~]+$"}[self.parameter_kind]}}
+            properties = {
+                "key": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": MAX_KEY,
+                    "pattern": {
+                        "letters": "^[A-Za-z]+$",
+                        "digits": "^[0-9]+$",
+                        "keyword": "^[!-~]+$",
+                    }[self.parameter_kind],
+                }
+            }
         return {
             "id": self.id,
             "name": self.name,
             "variant": self.variant,
             "parameters": self.parameter_kind,
-            "parameter_schema": {"type": "object", "properties": properties, "required": sorted(properties), "additionalProperties": False},
+            "parameter_schema": {
+                "type": "object",
+                "properties": properties,
+                "required": sorted(properties),
+                "additionalProperties": False,
+            },
             "reversible": True,
             "input": "bytes",
             "authenticated": False,

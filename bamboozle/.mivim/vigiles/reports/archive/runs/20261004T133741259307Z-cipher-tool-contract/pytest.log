@@ -1,0 +1,39 @@
+........................................................................ [  7%]
+..............................................F......................... [ 14%]
+........................................................................ [ 22%]
+........................................................................ [ 29%]
+........................................................................ [ 37%]
+........................................................................ [ 44%]
+........................................................................ [ 51%]
+........................................................................ [ 59%]
+........................................................................ [ 66%]
+........................................................................ [ 74%]
+........................................................................ [ 81%]
+........................................................................ [ 89%]
+........................................................................ [ 96%]
+..................................                                       [100%]
+================================== FAILURES ===================================
+__________________ test_mcp_preview_apply_verify_and_replay ___________________
+src\bamboozle\tests\test_cli_mcp.py:145: in test_mcp_preview_apply_verify_and_replay
+    asyncio.run(exercise())
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\asyncio\runners.py:195: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\asyncio\runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\asyncio\base_events.py:725: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+src\bamboozle\tests\test_cli_mcp.py:97: in exercise
+    assert set(tools) == {
+E   AssertionError: assert {'apply_previ..._status', ...} == {'apply_previ...lexicon', ...}
+E     
+E     Extra items in the left set:
+E     'verify_cipher_transform'
+E     'preview_cipher_transform'
+E     'cipher_catalog'
+E     Use -v to get more diff
+=========================== short test summary info ===========================
+FAILED src/bamboozle/tests/test_cli_mcp.py::test_mcp_preview_apply_verify_and_replay
+1 failed, 969 passed in 100.89s (0:01:40)

@@ -9,6 +9,7 @@ import pytest
 from fastmcp import Client
 
 from bamboozle import agent_files
+from bamboozle.agent_development import AGENT_TOOLS
 from bamboozle.agent_files import AgentFiles
 from bamboozle.cipher import CipherEngine, process_forward, process_reverse
 from bamboozle.dictionary import Dictionary
@@ -252,7 +253,7 @@ def test_agent_mcp_cipher_read_edit_write_and_generate(files, factory):
             names = {tool.name for tool in await client.list_tools()}
             assert {"read_safe_file", "write_safe_file"} <= names
             if factory is create_server:
-                assert names == {"read_safe_file", "write_safe_file"}
+                assert names == AGENT_TOOLS
             read = await call(client, "read_safe_file", {"file_path": "node.py"})
             assert "alpha" not in json.dumps(read)
             updated = read["content"].replace("x + 1", "x * 2").replace("== 4", "== 6")

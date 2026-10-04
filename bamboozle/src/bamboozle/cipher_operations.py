@@ -6,6 +6,8 @@ import re
 from pathlib import Path
 from typing import Any
 
+from bamboozle.agent_checks import CHECK_TOOLS
+from bamboozle.agent_development import AGENT_TOOLS
 from bamboozle.agent_files import source_path
 from bamboozle.classical import Pipeline, catalog
 from bamboozle.restoration import ReviewedFilePlan
@@ -24,7 +26,7 @@ def capabilities() -> dict[str, Any]:
         "schema_version": 1,
         "semantic": {
             "purpose": "Readable neutral vocabulary for agent development",
-            "formats": ["text", "markdown", "json", "python"],
+            "formats": ["text", "markdown", "json", "python", "yaml"],
             "cli": ["encode", "decode", "view-export", "view-review", "view-apply"],
             "authenticated": False,
         },
@@ -48,7 +50,32 @@ def capabilities() -> dict[str, Any]:
                 "cli": "python -m workshop.scrape.bamb5",
             },
         ],
-        "source_agent_tools": ["read_safe_file", "write_safe_file"],
+        "source_agent_tools": sorted(AGENT_TOOLS),
+        "source_agent_optional_check_tools": sorted(CHECK_TOOLS),
+        "project_exchange": {
+            "purpose": "Complete neutral project outbound, receiver development and reviewed source return",
+            "cli": [
+                "view-pack",
+                "exchange-open",
+                "exchange-context",
+                "exchange-return",
+                "view-review",
+                "view-apply",
+            ],
+            "mcp": [
+                "pack_project_view",
+                "open_project_exchange",
+                "project_exchange_context",
+                "pack_project_return",
+                "review_project_view",
+                "apply_project_view",
+            ],
+            "authenticated": True,
+            "optional_classical_recipe": True,
+            "operator_only": True,
+            "payload_limit_bytes": 16 * 1024 * 1024,
+            "agent_workspace": "Readable neutral files and generated contracts only",
+        },
         "routing": "Develop in readable semantic views. Classical recipes transform opaque bytes explicitly. Use authenticated encryption for confidentiality; reverse transport before semantic restoration.",
     }
 

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="2" time="2.428" timestamp="2026-10-04T08:08:42.085279-07:00" hostname="homeone"><testcase classname="src.bamboozle.tests.test_agent_development" name="test_failed_stale_edit_does_not_grant_an_implicit_write_of_unseen_source" time="0.097"><failure message="Failed: DID NOT RAISE ValueError">development = &lt;bamboozle.agent_development.AgentDevelopment object at 0x000002441142CD70&gt;
+
+    def test_failed_stale_edit_does_not_grant_an_implicit_write_of_unseen_source(development):
+        read = development.read("module.py")
+        path = development.files.workspace.resolve("module.py")
+        changed = path.read_bytes().replace(b"x + 1", b"x * 9")
+        path.write_bytes(changed)
+        with pytest.raises(ValueError, match="changed"):
+            development.edit("module.py", [{"old_text": "x + 1", "new_text": "x * 2"}], **edit_arguments(read))
+&gt;       with pytest.raises(ValueError, match="Source changed"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+src\bamboozle\tests\test_agent_development.py:205: Failed</failure></testcase><testcase classname="src.bamboozle.tests.test_agent_development" name="test_search_does_not_evict_or_refresh_remembered_file_reads" time="0.078"><failure message="AssertionError: assert {WindowsPath(...41c1e20010c')} == {WindowsPath(...968df71dc22')}&#10;  &#10;  Omitting 1 identical items, use -vv to show&#10;  Left contains 1 more item:&#10;  {WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/agent-read-state-before/test_search_does_not_evict_or_0/records.json'): ('c401ca9de4f41614aa0dbc7e29592cfa2ce48fd64e3649a6d873968c7ab3f6e7',&#10;                                                                                                                                                     'ad997a6dad329cebd95e8092306ca46d48ef49f722a3aa10b84bd41c1e20010c')}&#10;  Use -v to get more diff">development = &lt;bamboozle.agent_development.AgentDevelopment object at 0x00000244113AAFD0&gt;
+
+    def test_search_does_not_evict_or_refresh_remembered_file_reads(development):
+        development.read("module.py")
+        before = dict(development.files.reads)
+        development.search("stage")
+&gt;       assert dict(development.files.reads) == before
+E       AssertionError: assert {WindowsPath(...41c1e20010c')} == {WindowsPath(...968df71dc22')}
+E         
+E         Omitting 1 identical items, use -vv to show
+E         Left contains 1 more item:
+E         {WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/agent-read-state-before/test_search_does_not_evict_or_0/records.json'): ('c401ca9de4f41614aa0dbc7e29592cfa2ce48fd64e3649a6d873968c7ab3f6e7',
+E                                                                                                                                                            'ad997a6dad329cebd95e8092306ca46d48ef49f722a3aa10b84bd41c1e20010c')}
+E         Use -v to get more diff
+
+src\bamboozle\tests\test_agent_development.py:214: AssertionError</failure></testcase></testsuite></testsuites>

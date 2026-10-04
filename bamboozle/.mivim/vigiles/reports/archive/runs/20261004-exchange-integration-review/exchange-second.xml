@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="84" time="34.358" timestamp="2026-10-04T07:08:50.099957-07:00" hostname="homeone"><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_complete_return_preserves_local_view_and_exact_review[tessera]" time="0.542" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_complete_return_preserves_local_view_and_exact_review[classical-tessera]" time="0.581" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_authentication_recipe_origin_and_source_drift[tessera]" time="0.545" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_authentication_recipe_origin_and_source_drift[classical-tessera]" time="0.601" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_changed_packet_cannot_apply_old_review[tessera]" time="0.440" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_changed_packet_cannot_apply_old_review[classical-tessera]" time="0.527" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_explicit_deletion_and_private_return_refusal[tessera]" time="0.673" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_explicit_deletion_and_private_return_refusal[classical-tessera]" time="0.619" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_open_recovery_retains_partial_files_and_refuses_conflicts[tessera]" time="0.237" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_open_recovery_retains_partial_files_and_refuses_conflicts[classical-tessera]" time="0.292" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_import_recovery_uses_retained_authenticated_bytes_without_packet_or_key[tessera]" time="0.655" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_import_recovery_uses_retained_authenticated_bytes_without_packet_or_key[classical-tessera]" time="0.716" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_malicious_authenticated_paths_rejected_before_publication[../escape]" time="0.012" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_malicious_authenticated_paths_rejected_before_publication[C:/escape]" time="0.012" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_malicious_authenticated_paths_rejected_before_publication[a\\b]" time="0.011" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_malicious_authenticated_paths_rejected_before_publication[AUX.txt]" time="0.012" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_malicious_authenticated_paths_rejected_before_publication[.local/leak]" time="0.011" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_malicious_authenticated_paths_rejected_before_publication[.git/config]" time="0.010" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_malicious_authenticated_paths_rejected_before_publication[leak.key]" time="0.010" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_malicious_authenticated_paths_rejected_before_publication[x.dictionary.json]" time="0.011" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_malicious_authenticated_paths_rejected_before_publication[.env.production]" time="0.011" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_malicious_authenticated_paths_rejected_before_publication[private.pem]" time="0.010" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_frame_integrity_duplicates_bounds_and_trailing_bytes[tessera]" time="0.174" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_frame_integrity_duplicates_bounds_and_trailing_bytes[classical-tessera]" time="0.200" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_complete_cli_and_stdio_applications" time="3.044"><failure message="mcp.shared.exceptions.MCPError: Connection closed">+ Exception Group Traceback (most recent call last):
+  |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\exceptiongroup\_catch.py", line 63, in handle_exception
+  |     raise matched
+  | ExceptionGroup:  (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\_pytest\runner.py", line 361, in from_call
+    |     result: TResult | None = func()
+    |                              ~~~~^^
+    |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\_pytest\runner.py", line 250, in &lt;lambda&gt;
+    |     lambda: runtest_hook(item=item, **kwds),
+    |             ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\pluggy\_hooks.py", line 512, in __call__
+    |     return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+    |            ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\pluggy\_manager.py", line 120, in _hookexec
+    |     return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+    |            ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\pluggy\_callers.py", line 167, in _multicall
+    |     raise exception
+    |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\pluggy\_callers.py", line 139, in _multicall
+    |     teardown.throw(exception)
+    |     ~~~~~~~~~~~~~~^^^^^^^^^^^
+    |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\_pytest\logging.py", line 865, in pytest_runtest_call
+    |     yield
+    |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\pluggy\_callers.py", line 139, in _multicall
+    |     teardown.throw(exception)
+    |     ~~~~~~~~~~~~~~^^^^^^^^^^^
+    |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\_pytest\capture.py", line 900, in pytest_runtest_call
+    |     return (yield)
+    |             ^^^^^
+    |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\pluggy\_callers.py", line 139, in _multicall
+    |     teardown.throw(exception)
+    |     ~~~~~~~~~~~~~~^^^^^^^^^^^
+    |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\_pytest\skipping.py", line 268, in pytest_runtest_call
+    |     return (yield)
+    |             ^^^^^
+    |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\pluggy\_callers.py", line 121, in _multicall
+    |     res = hook_impl.function(*args)
+    |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\_pytest\runner.py", line 184, in pytest_runtest_call
+    |     item.runtest()
+    |     ~~~~~~~~~~~~^^
+    |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\_pytest\python.py", line 1707, in runtest
+    |     self.ihook.pytest_pyfunc_call(pyfuncitem=self)
+    |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\pluggy\_hooks.py", line 512, in __call__
+    |     return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+    |            ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\pluggy\_manager.py", line 120, in _hookexec
+    |     return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+    |            ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\pluggy\_callers.py", line 167, in _multicall
+    |     raise exception
+    |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\pluggy\_callers.py", line 121, in _multicall
+    |     res = hook_impl.function(*args)
+    |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\_pytest\python.py", line 167, in pytest_pyfunc_call
+    |     result = testfunction(**testargs)
+    |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\src\bamboozle\tests\test_project_exchange.py", line 313, in test_complete_cli_and_stdio_applications
+    |     result = run(tmp_path / "applications")
+    |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\scripts\exchange_smoke.py", line 323, in run
+    |     asyncio.run(asyncio.wait_for(operate(), timeout=90))
+    |     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\ryanf\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\asyncio\runners.py", line 195, in run
+    |     return runner.run(main)
+    |            ~~~~~~~~~~^^^^^^
+    |   File "C:\Users\ryanf\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\asyncio\runners.py", line 118, in run
+    |     return self._loop.run_until_complete(task)
+    |            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+    |   File "C:\Users\ryanf\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\asyncio\base_events.py", line 725, in run_until_complete
+    |     return future.result()
+    |            ~~~~~~~~~~~~~^^
+    |   File "C:\Users\ryanf\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\asyncio\tasks.py", line 507, in wait_for
+    |     return await fut
+    |            ^^^^^^^^^
+    |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\scripts\exchange_smoke.py", line 244, in operate
+    |     Client(transport(owner, True)) as source_client,
+    |     ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\fastmcp\client\client.py", line 951, in __aenter__
+    |     return await self._connect()
+    |            ^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\fastmcp\client\client.py", line 1047, in _connect
+    |     raise exception
+    |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\fastmcp\client\client.py", line 1154, in _session_runner
+    |     await stack.enter_async_context(self._context_manager())
+    |   File "C:\Users\ryanf\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\contextlib.py", line 668, in enter_async_context
+    |     result = await _enter(cm)
+    |              ^^^^^^^^^^^^^^^^
+    |   File "C:\Users\ryanf\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\contextlib.py", line 214, in __aenter__
+    |     return await anext(self.gen)
+    |            ^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\exceptiongroup\_catch.py", line 65, in handle_exception
+    |     result = handler(matched)
+    |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\fastmcp\utilities\exceptions.py", line 63, in _exception_handler
+    |     raise leaf
+    |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\fastmcp\client\client.py", line 832, in _context_manager
+    |     await self._negotiate()
+    |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\fastmcp\client\client.py", line 880, in _negotiate
+    |     await negotiate_auto(self.session)
+    |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\mcp\client\_probe.py", line 81, in negotiate_auto
+    |     await session.initialize()  # every other rpc-error → legacy (the denylist)
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\mcp\client\session.py", line 654, in initialize
+    |     result = await self.send_request(
+    |              ^^^^^^^^^^^^^^^^^^^^^^^^
+    |     ...&lt;9 lines&gt;...
+    |     )
+    |     ^
+    |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\mcp\client\session.py", line 586, in send_request
+    |     raw = await self._dispatcher.send_raw_request(method, data.get("params"), opts)
+    |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\mcp\shared\jsonrpc_dispatcher.py", line 336, in send_raw_request
+    |     raise MCPError(code=CONNECTION_CLOSED, message="Connection closed")
+    | mcp.shared.exceptions.MCPError: Connection closed
+    +------------------------------------
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\src\bamboozle\tests\test_project_exchange.py", line 313, in test_complete_cli_and_stdio_applications
+    result = run(tmp_path / "applications")
+  File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\scripts\exchange_smoke.py", line 323, in run
+    asyncio.run(asyncio.wait_for(operate(), timeout=90))
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ryanf\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\asyncio\runners.py", line 195, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "C:\Users\ryanf\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\ryanf\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\asyncio\base_events.py", line 725, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "C:\Users\ryanf\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\asyncio\tasks.py", line 507, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\scripts\exchange_smoke.py", line 244, in operate
+    Client(transport(owner, True)) as source_client,
+    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\fastmcp\client\client.py", line 951, in __aenter__
+    return await self._connect()
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\fastmcp\client\client.py", line 1047, in _connect
+    raise exception
+  File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\fastmcp\client\client.py", line 1154, in _session_runner
+    await stack.enter_async_context(self._context_manager())
+  File "C:\Users\ryanf\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\contextlib.py", line 668, in enter_async_context
+    result = await _enter(cm)
+             ^^^^^^^^^^^^^^^^
+  File "C:\Users\ryanf\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\contextlib.py", line 214, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\exceptiongroup\_catch.py", line 65, in handle_exception
+    result = handler(matched)
+  File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\fastmcp\utilities\exceptions.py", line 63, in _exception_handler
+    raise leaf
+  File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\fastmcp\client\client.py", line 832, in _context_manager
+    await self._negotiate()
+  File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\fastmcp\client\client.py", line 880, in _negotiate
+    await negotiate_auto(self.session)
+  File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\mcp\client\_probe.py", line 81, in negotiate_auto
+    await session.initialize()  # every other rpc-error → legacy (the denylist)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\mcp\client\session.py", line 654, in initialize
+    result = await self.send_request(
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...&lt;9 lines&gt;...
+    )
+    ^
+  File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\mcp\client\session.py", line 586, in send_request
+    raw = await self._dispatcher.send_raw_request(method, data.get("params"), opts)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\.venv\Lib\site-packages\mcp\shared\jsonrpc_dispatcher.py", line 336, in send_raw_request
+    raise MCPError(code=CONNECTION_CLOSED, message="Connection closed")
+mcp.shared.exceptions.MCPError: Connection closed
+
+During handling of the above exception, another exception occurred:
+
+tmp_path = WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/exchange-second/test_complete_cli_and_stdio_ap0')
+
+    def test_complete_cli_and_stdio_applications(tmp_path):
+        run = runpy.run_path(str(Path(__file__).parents[3] / "scripts/exchange_smoke.py"))[
+            "run"
+        ]
+&gt;       result = run(tmp_path / "applications")
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+src\bamboozle\tests\test_project_exchange.py:313: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scripts\exchange_smoke.py:323: in run
+    asyncio.run(asyncio.wait_for(operate(), timeout=90))
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\asyncio\runners.py:195: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\asyncio\runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\asyncio\base_events.py:725: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\asyncio\tasks.py:507: in wait_for
+    return await fut
+           ^^^^^^^^^
+scripts\exchange_smoke.py:244: in operate
+    Client(transport(owner, True)) as source_client,
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\fastmcp\client\client.py:951: in __aenter__
+    return await self._connect()
+           ^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\fastmcp\client\client.py:1047: in _connect
+    raise exception
+.venv\Lib\site-packages\fastmcp\client\client.py:1154: in _session_runner
+    await stack.enter_async_context(self._context_manager())
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\contextlib.py:668: in enter_async_context
+    result = await _enter(cm)
+             ^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\contextlib.py:214: in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\exceptiongroup\_catch.py:65: in handle_exception
+    result = handler(matched)
+             ^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\fastmcp\utilities\exceptions.py:63: in _exception_handler
+    raise leaf
+.venv\Lib\site-packages\fastmcp\client\client.py:832: in _context_manager
+    await self._negotiate()
+.venv\Lib\site-packages\fastmcp\client\client.py:880: in _negotiate
+    await negotiate_auto(self.session)
+.venv\Lib\site-packages\mcp\client\_probe.py:81: in negotiate_auto
+    await session.initialize()  # every other rpc-error → legacy (the denylist)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\mcp\client\session.py:654: in initialize
+    result = await self.send_request(
+.venv\Lib\site-packages\mcp\client\session.py:586: in send_request
+    raw = await self._dispatcher.send_raw_request(method, data.get("params"), opts)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;mcp.shared.jsonrpc_dispatcher.JSONRPCDispatcher object at 0x00000157316A8590&gt;
+method = 'initialize'
+params = {'protocolVersion': '2025-11-25', 'capabilities': {}, 'clientInfo': {'name': 'mcp', 'version': '0.1.0'}}
+opts = {'cancel_on_abandon': False, 'headers': {}}, _related_request_id = None
+
+    async def send_raw_request(
+        self,
+        method: str,
+        params: Mapping[str, Any] | None,
+        opts: CallOptions | None = None,
+        *,
+        _related_request_id: RequestId | None = None,
+    ) -&gt; dict[str, Any]:
+        """Send a JSON-RPC request and await its response.
+    
+        `_related_request_id` is set only by `_JSONRPCDispatchContext` so that
+        mid-handler requests route onto the inbound request's SSE stream.
+    
+        Raises:
+            MCPError: Peer error response; `REQUEST_TIMEOUT` if
+                `opts["timeout"]` elapsed; `CONNECTION_CLOSED` if the
+                transport closed or the dispatcher shut down.
+            RuntimeError: Called before `run()`.
+        """
+        # Post-close sends get the same CONNECTION_CLOSED contract as in-flight waiters.
+        if self._closed:
+&gt;           raise MCPError(code=CONNECTION_CLOSED, message="Connection closed")
+E           mcp.shared.exceptions.MCPError: Connection closed
+
+.venv\Lib\site-packages\mcp\shared\jsonrpc_dispatcher.py:336: MCPError</failure></testcase><testcase classname="src.bamboozle.tests.test_project_views" name="test_export_is_scoped_usable_and_keeps_reverse_data_outside_view" time="0.440" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_multi_file_edit_generation_fixture_and_explicit_deletion_roundtrip" time="0.926" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_stale_review_refuses_all_source_writes[source]" time="0.329" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_stale_review_refuses_all_source_writes[view]" time="0.307" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_stale_review_refuses_all_source_writes[new_destination]" time="0.321" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_stale_review_refuses_all_source_writes[contract]" time="0.331" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unapproved_and_private_new_files_are_conflicts[outside.py]" time="0.273" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unapproved_and_private_new_files_are_conflicts[private.txt]" time="0.249" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unapproved_and_private_new_files_are_conflicts[view-policy.json]" time="0.267" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unapproved_and_private_new_files_are_conflicts[src/.env]" time="0.275" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unapproved_and_private_new_files_are_conflicts[src/key.key]" time="0.255" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unapproved_and_private_new_files_are_conflicts[src/cipher_dict.json]" time="0.263" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unapproved_and_private_new_files_are_conflicts[src/profanity_dict.json]" time="0.264" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unapproved_and_private_new_files_are_conflicts[src/.local/private.py]" time="0.239" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_saved_mapping_and_policy_are_independent_of_later_configuration" time="0.468" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_saved_custom_mapping_and_literal_targets_survive_later_edits" time="0.199" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_review_is_read_only_and_no_changes_does_not_consume_view" time="0.505" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_interrupted_import_retains_bytes_and_can_complete_explicitly[import.json]" time="0.601" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_interrupted_import_retains_bytes_and_can_complete_explicitly[settings.json]" time="0.647" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_interrupted_import_retains_bytes_and_can_complete_explicitly[generated.py]" time="0.634" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_interrupted_import_retains_bytes_and_can_complete_explicitly[node.py]" time="0.647" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_interrupted_import_retains_bytes_and_can_complete_explicitly[result.json]" time="0.695" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_post_publication_cleanup_failure_reports_actual_state[import.json]" time="0.691" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_post_publication_cleanup_failure_reports_actual_state[generated.py]" time="0.723" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_post_publication_cleanup_failure_reports_actual_state[result.json]" time="0.593" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_recovery_rejects_conflicting_or_corrupt_state[source]" time="0.592" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_recovery_rejects_conflicting_or_corrupt_state[view]" time="0.575" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_recovery_rejects_conflicting_or_corrupt_state[snapshot]" time="0.451" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_recovery_rejects_conflicting_or_corrupt_state[journal]" time="0.524" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_recovery_rejects_conflicting_or_corrupt_state[digest]" time="0.565" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_source_change_during_publication_withholds_receipt" time="0.438" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_multiple_view_writers_share_one_lock" time="0.264" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unsafe_export_paths_and_private_files_are_refused[../escape]" time="0.016" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unsafe_export_paths_and_private_files_are_refused[a/../b]" time="0.012" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unsafe_export_paths_and_private_files_are_refused[a//b]" time="0.010" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unsafe_export_paths_and_private_files_are_refused[a\\b]" time="0.012" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unsafe_export_paths_and_private_files_are_refused[/absolute]" time="0.014" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unsafe_export_paths_and_private_files_are_refused[nul.py]" time="0.012" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unsafe_export_paths_and_private_files_are_refused[a:stream]" time="0.011" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unsafe_export_paths_and_private_files_are_refused[a.]" time="0.010" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unsafe_export_paths_and_private_files_are_refused[.env]" time="0.016" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unsafe_export_paths_and_private_files_are_refused[cipher_dict.json]" time="0.013" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_policy_rejects_ambiguous_and_unknown_rules" time="0.001" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_export_never_replaces_existing_view_and_requires_selected_files" time="0.196" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_export_failure_preserves_partial_view_and_original" time="0.242" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_limits_and_damaged_case_markers_refuse_import" time="0.298" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unknown_deletion_and_foreign_manifest_are_rejected" time="0.219" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_link_in_view_is_not_followed" time="0.202" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_cli_review_apply_and_status_use_the_same_pipeline" time="0.694" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_operator_mcp_export_review_apply_and_status" time="0.918" /><testcase classname="src.bamboozle.tests.test_cli_mcp" name="test_installed_cli_runs_from_another_directory" time="1.203" /><testcase classname="src.bamboozle.tests.test_cli_mcp" name="test_cli_audit_exit_code_and_bounded_watch" time="0.034" /><testcase classname="src.bamboozle.tests.test_cli_mcp" name="test_mcp_preview_apply_verify_and_replay" time="0.152" /><testcase classname="src.bamboozle.tests.test_cli_mcp" name="test_mcp_refuses_stale_preview_and_expired_capability" time="0.108" /><testcase classname="src.bamboozle.tests.test_cli_mcp" name="test_batch_launchers_use_the_installed_cli" time="0.882"><failure message="subprocess.CalledProcessError: Command '['cmd', '/c', 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\src\\ENCRYPT_FOR_AGENT.bat', 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\exchange-second\\test_batch_launchers_use_the_i0\\batch sample.txt']' returned non-zero exit status 1.">tmp_path = WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/exchange-second/test_batch_launchers_use_the_i0')
+
+    @pytest.mark.skipif(os.name != "nt", reason="Windows batch launchers")
+    def test_batch_launchers_use_the_installed_cli(tmp_path):
+        source = Path(__file__).resolve().parents[2]
+        term = next(iter(Dictionary.load()))
+        original = (term + "\r\n").encode("utf-8")
+        path = tmp_path / "batch sample.txt"
+        path.write_bytes(original)
+        environment = dict(
+            os.environ,
+            UV_CACHE_DIR=os.environ.get("UV_CACHE_DIR", str(source.parent / ".uv-cache")),
+        )
+        for name, input_name in [
+            ("ENCRYPT_FOR_AGENT.bat", "batch sample.txt"),
+            ("DECRYPT_FROM_AGENT.bat", "batch sample_safe.txt"),
+        ]:
+&gt;           subprocess.run(
+                ["cmd", "/c", str(source / name), str(tmp_path / input_name)],
+                cwd=tmp_path,
+                capture_output=True,
+                text=True,
+                check=True,
+                timeout=30,
+                env=environment,
+            )
+
+src\bamboozle\tests\test_cli_mcp.py:195: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+input = None, capture_output = True, timeout = 30, check = True
+popenargs = (['cmd', '/c', 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\src\\ENCRYPT_FOR_AGENT.bat', 'C:\\Users\\ryan...ithub\\_active\\bamboozle\\bamboozle\\.test-tmp\\exchange-second\\test_batch_launchers_use_the_i0\\batch sample.txt'],)
+kwargs = {'cwd': WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/exchange-second/test_batch_launchers_...rogram Files\\AMD\\RyzenMaster\\', 'AMDRMSDKPATH': 'C:\\Program Files\\AMD\\RyzenMasterSDK\\', ...}, 'stdout': -1, ...}
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+    
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+        or pass capture_output=True to capture both.
+    
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output &amp; stderr attributes if those streams
+        were captured.
+    
+        If timeout (seconds) is given and the process takes too long,
+         a TimeoutExpired exception will be raised.
+    
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+    
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+    
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+    
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+    
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+&gt;               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['cmd', '/c', 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\src\\ENCRYPT_FOR_AGENT.bat', 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\exchange-second\\test_batch_launchers_use_the_i0\\batch sample.txt']' returned non-zero exit status 1.
+
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\subprocess.py:577: CalledProcessError</failure></testcase><testcase classname="src.bamboozle.tests.test_vandal" name="test_generated_context_works_from_other_directory_and_exposes_its_actual_tools[agent]" time="1.467" /><testcase classname="src.bamboozle.tests.test_vandal" name="test_generated_context_works_from_other_directory_and_exposes_its_actual_tools[operator]" time="1.493" /><testcase classname="src.bamboozle.tests.test_vandal" name="test_neutral_view_context_has_no_encoding_or_operator_connection" time="0.103" /><testcase classname="src.bamboozle.tests.test_vandal" name="test_workflow_refuses_foreign_repository_or_ambiguous_mode" time="0.009" /></testsuite></testsuites>

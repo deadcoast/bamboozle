@@ -33,6 +33,27 @@ def validate_project(
             parsed[name] = Source(files[name].decode("utf-8"))
         return parsed[name]
 
+    def exports(name: str) -> set[str]:
+        # Providers here are real .py files, including regular __init__.py packages.
+        # Their import loader supplies these bindings before executing the source.
+        # https://docs.python.org/3.13/reference/import.html#import-related-module-attributes
+        implicit = {
+            "__name__",
+            "__doc__",
+            "__package__",
+            "__loader__",
+            "__spec__",
+            "__file__",
+            "__cached__",
+        }
+        if PurePosixPath(name).name == "__init__.py":
+            implicit.add("__path__")
+        return implicit | {
+            symbol.get_name()
+            for symbol in source(name).symbols.get_symbols()
+            if symbol.is_assigned() or symbol.is_imported() or symbol.is_namespace()
+        }
+
     def resolve(importer: str, module: str) -> str:
         if module.startswith("."):
             levels = len(module) - len(module.lstrip("."))
@@ -69,13 +90,7 @@ def validate_project(
                 if module not in declared:
                     continue
                 provider = resolve(name, module)
-                symbols = {
-                    symbol.get_name()
-                    for symbol in source(provider).symbols.get_symbols()
-                    if symbol.is_assigned()
-                    or symbol.is_imported()
-                    or symbol.is_namespace()
-                }
+                symbols = exports(provider)
                 for alias in node.names:
                     if alias.name not in symbols:
                         raise ValueError(
@@ -118,13 +133,7 @@ def validate_project(
             parts.reverse()
             attribute_provider = aliases.get(".".join(parts[:-1]))
             if attribute_provider is not None:
-                symbols = {
-                    symbol.get_name()
-                    for symbol in source(attribute_provider).symbols.get_symbols()
-                    if symbol.is_assigned()
-                    or symbol.is_imported()
-                    or symbol.is_namespace()
-                }
+                symbols = exports(attribute_provider)
                 if parts[-1] not in symbols:
                     raise ValueError(
                         f"Python project attribute is not bound by its provider: {name}:{node.lineno}: {'.'.join(parts)}"

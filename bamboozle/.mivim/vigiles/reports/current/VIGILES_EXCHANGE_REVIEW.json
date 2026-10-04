@@ -1,0 +1,60 @@
+{
+  "additional_retained_failures": {
+    "environment": "Sandboxed uv sync could not access PyPI; approved uv sync rebuilt only bamboozle 0.6.0 to 0.7.0. Historical elevated fixtures required approved read access.",
+    "exchange-second.xml": "82 passed, 2 failed: smoke helper rename accidentally changed --root to --transport_root; Windows launcher attempted editable rebuild after version bump before uv sync. Corrected helper flag and rebuilt existing locked editable environment."
+  },
+  "completed": "2026-10-04T14:17:29.481977Z",
+  "created": "2026-10-04T14:08:29.224097Z",
+  "release": "0.7.0",
+  "retained_initial_failure": {
+    "additional_lint_findings": "Bind nested smoke helper parameter name unambiguously; remove unused fixture variables.",
+    "cause": "Small regression fixture omitted explicit local module selection for its new import; production import validator correctly refused it. Complete CLI and stdio application fixture passed.",
+    "failed": 10,
+    "passed": 15,
+    "path": ".mivim\\vigiles\\reports\\archive\\runs\\20261004-exchange-integration-review"
+  },
+  "retained_sha256": {
+    "VIGILES_STATUS.json": "94cd70d76b5ea46071cd85d725cc08e4ed73f1eff2a3de1ec967ea2d2288a9ca",
+    "exchange-first.xml": "8c8d4ddce03ad102c02b21ee3854f68024c308e578ffb25619bbd92f2b5f9062",
+    "exchange-historical.json": "a8256c33fd4987484cdae94b1930244af20dae48fb4a1e58f02b2d20ff6d0830",
+    "exchange-second.xml": "bfd281e7328aef587be438a731a290f1ffab66768732567da8b4bf5da1be594b",
+    "exchange-third.xml": "ac599fde557966e959f5e508e235378415cf93310f5cc07d550882fb5c0442bc",
+    "finalize-exchange.py.snapshot": "ebf97e643c161d99f22e49cedd4ca1428a0d451b17953fa503b3167c6ee31da1",
+    "test_project_exchange.py.snapshot": "ac83064aa1794065f23b147a1c14afb7ef62cbcf18b118283b1f38c9b92a9046"
+  },
+  "review": {
+    "compatibility": "Historical local view plans and receipts keep exact schema bytes; new exchange imports add an explicit exchange digest. Source-agent tool set remains unchanged.",
+    "design": "Bounded uncompressed versioned project frame, strict portable paths, optional explicit classical recipe fingerprint inside mandatory AES-GCM authentication, no inverse mapping in payload; receiver journal before extraction; source imports retain authenticated snapshots before source writes",
+    "gap": "0.6.0 cipher methods compose through manual single-file smoke glue; no product operation carries a complete neutral project to a separate receiver and imports its authenticated multi-file return",
+    "source_authority": [
+      "AGENTS.md",
+      ".mivim/vigiles-vandal_0.2.md",
+      ".vigiles/skills/vigiles-vandal/SKILL.md",
+      "docs/01bamb.md",
+      "docs/03bamb_cipher.md",
+      ".legacy/designlog"
+    ]
+  },
+  "schema_version": 1,
+  "stage": {
+    "done_criteria": [
+      "Product CLI and operator MCP pack an entire explicitly scoped neutral project with optional pinned classical recipe and mandatory Tessera authentication",
+      "Receiver develops in a separate readable workspace; original mappings, spelling context, keys and recipes remain outside it",
+      "Authenticated multi-file return binds to the originating view and reuses decoded review, allowed new files, explicit deletions, source drift protection and retained import recovery",
+      "Exercise complete dependent applications through real CLI and stdio MCP in source and receiver roots, including generated modules and restored behavior",
+      "Qualify failures, source checks and isolated installed package; preserve supplied C originals and historical local view journals"
+    ],
+    "focus": "Connect classical recipes, Tessera and semantic project views into complete multi-workspace application development and source return",
+    "id": "VIG-CIPHER-EXCHANGE-01",
+    "priority": "user_high",
+    "status": "in_development"
+  },
+  "status": "complete_source_and_local_installed_package",
+  "tests": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests": 1001
+  },
+  "verification_stages_passed": 11
+}

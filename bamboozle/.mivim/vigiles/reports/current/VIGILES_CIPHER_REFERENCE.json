@@ -64,7 +64,7 @@
       "matches_original_c": true
     }
   ],
-  "created": "2026-10-04T13:22:19.347714Z",
+  "created": "2026-10-04T13:35:41.169887Z",
   "error_dialogs_disabled": true,
   "originals": {
     "bamboozle/include/cipher.h": {
@@ -200,5 +200,5 @@
   "schema_version": 1,
   "scope": "Native compiled original C conformance for defined inputs and reproduced data-loss cases; not memory-sanitizer qualification or authentication.",
   "status": "passed",
-  "work_dir": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\cipher-native-qualified-first"
+  "work_dir": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\cipher-native-qualified-final"
 }

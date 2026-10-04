@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="23" time="4.348" timestamp="2026-10-04T07:52:58.508211-07:00" hostname="homeone"><testcase classname="src.bamboozle.tests.test_agent_development" name="test_source_agent_exposes_a_complete_navigation_and_edit_surface" time="0.128" /><testcase classname="src.bamboozle.tests.test_agent_development" name="test_discovery_search_excerpt_edit_and_new_package_execute" time="0.387" /><testcase classname="src.bamboozle.tests.test_agent_development" name="test_selected_json_edits_preserve_literal_fields" time="0.082" /><testcase classname="src.bamboozle.tests.test_agent_development" name="test_all_three_context_hashes_are_required_for_edits[expected_sha256]" time="0.034" /><testcase classname="src.bamboozle.tests.test_agent_development" name="test_all_three_context_hashes_are_required_for_edits[expected_context_sha256]" time="0.037" /><testcase classname="src.bamboozle.tests.test_agent_development" name="test_all_three_context_hashes_are_required_for_edits[expected_neutral_sha256]" time="0.038" /><testcase classname="src.bamboozle.tests.test_agent_development" name="test_invalid_edits_publish_neither_source_nor_history[edits0-ambiguous]" time="0.044" /><testcase classname="src.bamboozle.tests.test_agent_development" name="test_invalid_edits_publish_neither_source_nor_history[edits1-does not match]" time="0.043" /><testcase classname="src.bamboozle.tests.test_agent_development" name="test_invalid_edits_publish_neither_source_nor_history[edits2-does not match]" time="0.041" /><testcase classname="src.bamboozle.tests.test_agent_development" name="test_invalid_edits_publish_neither_source_nor_history[edits3-overlap]" time="0.041" /><testcase classname="src.bamboozle.tests.test_agent_development" name="test_invalid_edits_publish_neither_source_nor_history[edits4-do not change]" time="0.040" /><testcase classname="src.bamboozle.tests.test_agent_development" name="test_invalid_edits_publish_neither_source_nor_history[edits5-nonempty]" time="0.043" /><testcase classname="src.bamboozle.tests.test_agent_development" name="test_invalid_edits_publish_neither_source_nor_history[edits6-integer]" time="0.043" /><testcase classname="src.bamboozle.tests.test_agent_development" name="test_invalid_edits_publish_neither_source_nor_history[edits7-requires]" time="0.042" /><testcase classname="src.bamboozle.tests.test_agent_development" name="test_invalid_edits_publish_neither_source_nor_history[edits8-syntax]" time="0.048" /><testcase classname="src.bamboozle.tests.test_agent_development" name="test_repeated_and_adjacent_edits_use_the_original_snapshot" time="0.083" /><testcase classname="src.bamboozle.tests.test_agent_development" name="test_edits_survive_reconnect_without_private_mapping_in_response" time="0.087" /><testcase classname="src.bamboozle.tests.test_agent_development" name="test_snapshot_pages_refuse_source_or_inventory_changes" time="0.211" /><testcase classname="src.bamboozle.tests.test_agent_development" name="test_unreadable_documents_are_reported_without_raw_diagnostics" time="0.143" /><testcase classname="src.bamboozle.tests.test_agent_development" name="test_private_files_and_links_are_not_discovered_or_searched" time="0.013"><failure message="OSError: [WinError 1314] A required privilege is not held by the client: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\agent-development-first\\test_private_files_and_links_a0\\module.py' -&gt; 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\agent-development-first\\test_private_files_and_links_a0\\package\\link.py'">development = &lt;bamboozle.agent_development.AgentDevelopment object at 0x0000025F62F827B0&gt;
+tmp_path = WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/agent-development-first/test_private_files_and_links_a0')
+
+    def test_private_files_and_links_are_not_discovered_or_searched(development, tmp_path):
+        package = tmp_path / "package"
+        package.mkdir()
+        for name in (
+            ".env",
+            "auth.pem",
+            "token.key",
+            "map.dictionary.json",
+            "source.agent-policy.json",
+        ):
+            (package / name).write_bytes(b"private content")
+        (package / "allowed.py").write_bytes(b"def task():\n    return 1\n")
+        private = package / ".vigiles"
+        private.mkdir()
+        (private / "source.py").write_bytes(b"private content")
+&gt;       (package / "link.py").symlink_to(tmp_path / "module.py")
+
+src\bamboozle\tests\test_agent_development.py:239: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/agent-development-first/test_private_files_and_links_a0/package/link.py')
+target = WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/agent-development-first/test_private_files_and_links_a0/module.py')
+target_is_directory = False
+
+    def symlink_to(self, target, target_is_directory=False):
+        """
+        Make this path a symlink pointing to the target path.
+        Note the order of arguments (link, target) is the reverse of os.symlink.
+        """
+&gt;       os.symlink(target, self, target_is_directory)
+E       OSError: [WinError 1314] A required privilege is not held by the client: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\agent-development-first\\test_private_files_and_links_a0\\module.py' -&gt; 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\agent-development-first\\test_private_files_and_links_a0\\package\\link.py'
+
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\pathlib\_local.py:789: OSError</failure></testcase><testcase classname="src.bamboozle.tests.test_agent_development" name="test_changed_policy_is_never_reported_as_empty_search" time="0.014" /><testcase classname="src.bamboozle.tests.test_agent_development" name="test_limits_request_narrower_scope_instead_of_false_negative" time="0.050" /><testcase classname="src.bamboozle.tests.test_agent_development" name="test_real_mcp_schema_navigation_and_targeted_edit" time="0.301" /></testsuite></testsuites>

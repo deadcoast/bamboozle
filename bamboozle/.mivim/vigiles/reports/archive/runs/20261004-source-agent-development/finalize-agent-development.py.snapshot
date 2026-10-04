@@ -1,0 +1,116 @@
+"""Retain measured source-agent development results after package qualification."""
+import json
+from pathlib import Path
+
+from bamboozle.agent_development import AGENT_TOOLS
+from bamboozle.evidence import report_destination, write_report
+from bamboozle.utils import atomic_write, sha256, utc_now
+
+root = Path.cwd().resolve()
+verification_path = report_destination(root, "VIGILES_VERIFICATION.json")
+verified = json.loads(verification_path.read_bytes())
+assert verified["status"] == "passed" and verified["package_requested"]
+assert verified["tests"]["tests"] >= 1041
+assert all(verified["tests"][key] == 0 for key in ("failures", "errors", "skipped"))
+assert len(verified["steps"]) == 11
+assert all(step["returncode"] == 0 for step in verified["steps"])
+for name, digest in verified["source_sha256"].items():
+    assert sha256((root / name).read_bytes()) == digest, name
+log = root / next(step["log"] for step in verified["steps"] if step["name"] == "wheel-smoke")
+smoke = next(json.loads(line) for line in log.read_text(encoding="utf-8").splitlines() if line.startswith('{"status": "passed"'))
+flow = smoke["source_agent_results"]
+assert set(flow["agent_tools"]) == AGENT_TOOLS
+assert flow["reconnected_before_writes"] and flow["stale_patch_refused"]
+assert flow["neutral_execution"] == flow["restored_execution"]
+assert flow["neutral_benchmark"] == flow["restored_benchmark"] == {
+    "workloads": 100, "scheduler_executions": 300, "invalid_workloads": 12,
+    "invalid_capacities": 5, "protected_literals_preserved": True,
+}
+assert set(flow["discovered_files"]) == set(flow["original_sha256"])
+assert flow["entrypoint_search"]["complete"] and flow["entrypoint_search"]["total"] == 1
+assert flow["entrypoint_excerpt"]["partial"]
+assert flow["writes"]["pipeline/main.py"]["edits_applied"] == 4
+for name in ("agent_files_module", "agent_policy_module", "agent_development_module"):
+    assert Path(flow[name]).is_relative_to(log.parent / "wheel-env")
+for result in flow["writes"].values():
+    assert result["receipt_saved"] and result["output_saved"]
+    source = Path(flow["source_root"])
+    assert sha256((source / result["file_path"]).read_bytes()) == result["output_sha256"]
+    receipt = json.loads((source / result["history"] / "result.json").read_bytes())
+    assert all(result[key] == value for key, value in receipt.items())
+artifacts = {}
+for name in verified["required_artifacts"]:
+    row = verified["artifacts"][name]
+    assert sha256((root / "dist" / name).read_bytes()) == row["sha256"]
+    artifacts[name] = row
+archive = root / ".mivim/vigiles/reports/archive/runs/20261004-source-agent-development"
+snapshot = archive / "finalize-agent-development.py.snapshot"
+if not snapshot.exists():
+    atomic_write(snapshot, Path(__file__).read_bytes())
+path = report_destination(root, "VIGILES_AGENT_DEVELOPMENT.json")
+report = {
+    "schema_version": 1,
+    "status": "source_agent_navigation_and_exact_edits_verified",
+    "completed": utc_now(),
+    "scope": "Scoped source discovery, encoded search, ranged reads, exact neutral edit batches, existing whole-file/new-package writes; real MCP and installed package.",
+    "baseline": {"finding": "Dedicated source-agent MCP had only known-path whole-file read/write, with no discovery, neutral search or targeted-edit operations.", "retained_missing_tool_test": str((archive / "agent-development-before.xml").relative_to(root))},
+    "implementation": [
+        "Shared original AgentFiles decoder, format rules, stale-source/context guards and private publication history.",
+        "Discovery obeys explicit policy, new-file prefixes, private/protected files, links and configured private paths.",
+        "Search translates before matching; coordinates and edit hashes refer to full neutral documents. Unreadable files explicitly make coverage incomplete.",
+        "Ranged reads preserve exact returned text and report neutral-only document rules and full-file hashes.",
+        "Edit batches pin source/context/neutral hashes, reject ambiguous/overlapping/missing anchors, preserve untouched bytes and reject syntax failures before publication.",
+        "Existing CLI/standalone MCP and Vandal context expose the five product-owned source tools; operator/cipher-exchange tools stay separate.",
+    ],
+    "verification": str(verification_path.relative_to(root)),
+    "verification_sha256": sha256(verification_path.read_bytes()),
+    "tests": verified["tests"], "focused_tests": 73,
+    "verification_stages_passed": len(verified["steps"]),
+    "source_sha256": verified["source_sha256"], "artifacts": artifacts,
+    "installed_application_workflow": flow,
+    "retained_evidence_sha256": {p.name: sha256(p.read_bytes()) for p in archive.iterdir() if p.is_file()},
+    "retained_failures": [
+        "Missing-tool baseline: one expected failure.",
+        "First focused run: 22 passed, one Windows symlink privilege fixture failure.",
+        "Second focused run: 69 passed, same privilege fixture failure. Replaced fixture with actual Windows junction as elsewhere in repository.",
+        "Final focused run: 71 passed with real junction boundary exercised.",
+        "First full run: 1034 passed and five stale two-tool contract assertions failed. Updated exact tool sets; all five focused checks passed before full rerun.",
+        "Second full verification was interrupted for a newly reproduced read-cache regression: internal search/edit reads refreshed remembered write hashes. Both new regressions failed before repair; internal reads now retain no implicit write state.",
+        "Final focused run after read-state repair: 73 passed.",
+    ],
+    "limitations": [
+        "Direct edits publish one file at a time. Existing views provide reviewed multi-file publication.",
+        "Search is case-sensitive literal matching; bounded scans require narrower directories/queries. Pages bind observations, not a globally atomic filesystem snapshot.",
+        "Syntax protection requires an explicit document policy; unconfigured connections retain whole-text translation.",
+        "Application execution in this qualification is driven by the local test runner. The source-agent tool surface does not yet provide execution/check diagnostics.",
+        "This verifies the implemented navigation/edit workflow; whole-core completion and external coding-agent acceptance remain unestablished.",
+    ],
+}
+write_report(root, path, report, replace=path.exists())
+status_path = root / "VIGILES_STATUS.json"
+status = json.loads(status_path.read_bytes())
+step = dict(status["next_step"])
+assert step["id"] == "VIG-CORE-SOURCE-AGENT-02"
+step.update(status=report["status"], evidence=[str(path.relative_to(root))], qualification={"tests": verified["tests"], "stages": 11, "scope": report["scope"]})
+step.pop("remaining", None)
+status["last_completed_step"] = step
+next_step = {
+    "id": "VIG-CORE-AGENT-CHECKS-01", "status": "planned", "priority": "user_core_development",
+    "focus": "Agent-requested application checks in a neutral workspace with bounded diagnostics",
+    "finding": "The source-agent can now discover/read/search/edit/generate source, but its tool surface cannot run or inspect application checks; qualification currently uses an external local runner.",
+    "done_criteria": [
+        "Operator-selected check commands and scope; build an executable neutral workspace from the same saved policy/dictionary without private source metadata",
+        "Invoke and inspect checks through the source-agent connection with bounded output, timeout/process cleanup and neutral diagnostics",
+        "Refuse stale source/policy snapshots and preserve actual failing checks as actionable evidence",
+        "Exercise an agent-led failed check, corrective source edit, rerun and restored application through stdio and installed package",
+    ],
+}
+status["core_development_queue"] = [next_step] + [row for row in status["core_development_queue"] if row["id"] not in {"VIG-CORE-SOURCE-AGENT-01", "VIG-CORE-SOURCE-AGENT-02"}]
+for row in status["core_development_queue"]:
+    if row["id"] == "VIG-CIPHER-YAML-01":
+        row["resume_after"] = next_step["id"]
+status["next_step"] = next_step
+status["core_acceptance"] = {"status": "not_established", "reason": "Source-agent navigation/editing is qualified; agent-accessible application checks remain core development work."}
+status["evidence"].update(agent_development=str(path.relative_to(root)), qualification_scope=report["scope"])
+write_report(root, status_path, status, replace=True)
+print(json.dumps({"status": report["status"], "tests": verified["tests"], "stages": 11, "application_edits": 4, "next_step": next_step["id"]}))

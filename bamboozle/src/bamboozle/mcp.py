@@ -30,6 +30,12 @@ from bamboozle.lexicon import (
     verify_compilation,
 )
 from bamboozle.migration import prepare_migration
+from bamboozle.project_exchange import (
+    exchange_context,
+    open_exchange,
+    pack_return,
+    pack_view,
+)
 from bamboozle.project_views import export_view
 from bamboozle.restoration import ReviewedFilePlan, prepare_restore, verify_restoration
 from bamboozle.return_validation import validate_return
@@ -133,6 +139,67 @@ def create_server(
             "version": mapping.version,
             "sha256": mapping.fingerprint,
         }
+
+    @server.tool(annotations={"readOnlyHint": False, "destructiveHint": False})
+    def pack_project_view(
+        view_id: str, output: str, key: str, recipient: str, recipe: str | None = None
+    ) -> dict[str, Any]:
+        """Operator: pack a fresh neutral view through optional classical transforms and Tessera."""
+        try:
+            return pack_view(
+                workspace, view_id, output, key=key, recipient=recipient, recipe=recipe
+            )
+        except OperationError as exc:
+            return {**exc.report, "ok": False}
+
+    @server.tool(annotations={"readOnlyHint": False, "destructiveHint": False})
+    def open_project_exchange(
+        packet: str,
+        output: str,
+        key: str,
+        recipient: str,
+        recipe: str | None = None,
+        recover: bool = False,
+    ) -> dict[str, Any]:
+        """Operator: authenticate/unpack a new neutral workspace; explicitly recover partial extraction."""
+        try:
+            return open_exchange(
+                workspace,
+                packet,
+                output,
+                key=key,
+                recipient=recipient,
+                recipe=recipe,
+                recover=recover,
+            )
+        except OperationError as exc:
+            return {**exc.report, "ok": False}
+
+    @server.tool(annotations={"readOnlyHint": False, "destructiveHint": False})
+    def pack_project_return(
+        exchange_id: str,
+        output: str,
+        key: str,
+        recipient: str,
+        recipe: str | None = None,
+    ) -> dict[str, Any]:
+        """Operator: authenticate the receiver's entire edited/new project for source-owner review."""
+        try:
+            return pack_return(
+                workspace,
+                exchange_id,
+                output,
+                key=key,
+                recipient=recipient,
+                recipe=recipe,
+            )
+        except OperationError as exc:
+            return {**exc.report, "ok": False}
+
+    @server.tool(annotations={"readOnlyHint": True})
+    def project_exchange_context(exchange_id: str) -> dict[str, Any]:
+        """Return a completed receiver's neutral workspace and ordinary-file agent instructions."""
+        return exchange_context(workspace, exchange_id)
 
     @server.tool(annotations={"readOnlyHint": True})
     def preview_template_fixture(source: str, rules: str) -> dict[str, Any]:
@@ -247,6 +314,10 @@ def create_server(
         validation_path: str | None = None,
         validation_offset: int = 0,
         max_findings: int = 100,
+        return_packet: str | None = None,
+        key: str | None = None,
+        recipient: str | None = None,
+        recipe: str | None = None,
     ) -> dict[str, Any]:
         """Review decoded multi-file changes; missing files need explicit deletion selection."""
         return review_import(
@@ -256,6 +327,10 @@ def create_server(
             validation_path=validation_path,
             validation_offset=validation_offset,
             max_findings=max_findings,
+            return_packet=return_packet,
+            key=key,
+            recipient=recipient,
+            recipe=recipe,
         )
 
     @server.tool(annotations={"readOnlyHint": True})
@@ -269,6 +344,10 @@ def create_server(
         review_sha256: str,
         delete_files: list[str] | None = None,
         recover: bool = False,
+        return_packet: str | None = None,
+        key: str | None = None,
+        recipient: str | None = None,
+        recipe: str | None = None,
     ) -> dict[str, Any]:
         """Apply exact reviewed source edits or resume a retained import explicitly.
 
@@ -281,6 +360,10 @@ def create_server(
                 review_sha256,
                 delete_files=delete_files,
                 recover=recover,
+                return_packet=return_packet,
+                key=key,
+                recipient=recipient,
+                recipe=recipe,
             )
         except OperationError as exc:
             return {**exc.report, "ok": False}
@@ -306,6 +389,7 @@ def create_server(
         python_identifiers: list[str] | None = None,
         python_modules: list[str] | None = None,
         python_strings: list[str] | None = None,
+        yaml_pointers: list[str] | None = None,
     ) -> dict[str, Any]:
         """Preview source or agent output. Reverse uses its saved mapping when present.
 
@@ -333,6 +417,7 @@ def create_server(
                 python_identifiers,
                 python_modules,
                 python_strings,
+                yaml_pointers,
             ),
         )
         return retain(plan, preview(plan))

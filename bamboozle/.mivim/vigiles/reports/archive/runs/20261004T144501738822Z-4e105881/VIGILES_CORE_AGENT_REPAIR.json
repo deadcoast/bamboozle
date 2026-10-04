@@ -1,0 +1,41 @@
+{
+  "actual_repository_scan": {
+    "modules": 32,
+    "scope": "Syntax-only inspection of bundled-default reads; does not prove behavior.",
+    "syntax_failures": 0,
+    "translated_modules": 7
+  },
+  "archive": ".mivim/vigiles/reports/archive/runs/20261004-direct-source-agent-repair",
+  "created": "2026-10-04T14:37:47.815761Z",
+  "focused_tests": 52,
+  "reproduced_failures": [
+    {
+      "observed": "A dictionary containing path -> location caused from pathlib import Path to become an invalid import; unselected strings/comments were also changed.",
+      "path": "AgentFiles.read"
+    },
+    {
+      "observed": "Writing package/generated.py failed during atomic publication when its parent directory did not exist.",
+      "path": "AgentFiles.write"
+    }
+  ],
+  "retained_initial_failure": {
+    "cause": "Nested smoke module imported nonexistent schedule; corrected to execute the existing translated application entry point.",
+    "failed": 1,
+    "file": "direct-core-second.xml",
+    "passed": 38
+  },
+  "schema_version": 1,
+  "stage": {
+    "done_criteria": [
+      "Reproduce external-import corruption and nested new-module failure",
+      "Connect shared syntax-aware Python/JSON/Markdown/text codecs to direct source-agent I/O",
+      "Pin source and translation context across reconnects; reject invalid returned syntax before source writes",
+      "Execute the complete dependent application through dedicated two-tool stdio and installed package",
+      "Preserve legacy text semantics and private metadata boundaries; distinguish repaired defects from whole-core acceptance"
+    ],
+    "focus": "Repair direct source-agent translation and nested module generation through read_safe_file/write_safe_file",
+    "id": "VIG-CORE-SOURCE-AGENT-01",
+    "priority": "user_core_correction",
+    "status": "verification_in_progress"
+  }
+}

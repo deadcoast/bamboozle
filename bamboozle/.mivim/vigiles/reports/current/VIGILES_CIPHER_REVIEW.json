@@ -1,8 +1,11 @@
 {
+  "application_evidence": ".test-tmp/cipher-application-first.log",
   "checkpoint": "c53f0bfded51667437fc837cd33ede37745ae9c5",
   "checkpoint_meaning": "Original supplied C additions; its parent is the pre-addition checkpoint. Original working files remain unchanged.",
   "checkpoint_parent": "834b489899abb4d0225af8d9e61c7f8588a78b43",
+  "completed": "2026-10-04T13:43:46.092467Z",
   "created": "2026-10-04T13:11:47.933754Z",
+  "current_remote_main_observed": "6d132453118e2e5014d5ac0ef76f74fe456590df",
   "design": [
     "Retain original C source/build/license assets and checkpoint hashes as primary method references",
     "Implement the 11 supplied algorithm families as callable byte-safe versioned product transforms, with explicit incompatibilities for formerly lossy cases",
@@ -10,6 +13,7 @@
     "Keep recipes and receipts private to operator/source boundaries; do not offer classical obfuscation as authenticated confidentiality",
     "Execute known vectors, original C comparisons, binary/property/error tests, actual CLI/MCP file exchange and dependent application restoration from installed wheel"
   ],
+  "evidence_archive": ".mivim/vigiles/reports/archive/runs/20261004T134346003397Z-cipher-methods-review",
   "findings": [
     {
       "action": "Length-preserving ragged transposition with exact inverse positions",
@@ -48,6 +52,7 @@
       "source": "scripts/vandal.py"
     }
   ],
+  "native_comparison_evidence": ".mivim/vigiles/reports/current/VIGILES_CIPHER_REFERENCE.json",
   "original_assets": {
     "bamboozle/.clang-format": {
       "git_blob": "737a7c91607c54bbec3ab654fa313daf547e962c",
@@ -210,8 +215,50 @@
       "working_bytes_sha256": "bd04946aedca13da9ef2e4d2f71cfe1f230e071cde83205ddf43b85300147532"
     }
   },
+  "release": "0.6.0",
+  "retained_failures": [
+    {
+      "cause": "Launched absolute GCC executable without its bin directory on compiler-child PATH; DLL exists on disk.",
+      "kind": "compiler_launcher",
+      "observed": "User reported repeating cc1.exe System Error dialogs: libmpfr-6.dll was not found. Initial GCC driver build exited 1.",
+      "references": [
+        "https://learn.microsoft.com/en-us/windows/win32/api/errhandlingapi/nf-errhandlingapi-seterrormode",
+        "https://learn.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-search-order"
+      ],
+      "resolution": "Stopped build; verified no remaining compiler/error processes. Guarded script adds process-local runtime PATH, inherits SetErrorMode flags 0x8003, hides child windows, preflights one source and bounds process-tree execution.",
+      "verified": "Corrected preflight and two complete native conformance builds passed. No global PATH or installation was changed."
+    },
+    {
+      "evidence": ".test-tmp/classical-first.xml",
+      "kind": "focused_test_harness",
+      "observed": "62 passed, 3 failed: one incorrect Beaufort expected character; two tests called an MCP tool name on the AgentFiles Python API.",
+      "resolution": "Corrected the independently computed expected vector and called AgentFiles.read; 65 focused tests passed."
+    },
+    {
+      "kind": "static_checks",
+      "observed": "Three qualification-script type errors and one deliberately invalid-input test typing error.",
+      "resolution": "Used platform-aware process cleanup typing, a variable-length command tuple and an explicit test-only cast; both type checkers pass."
+    },
+    {
+      "collection_error": ".test-tmp/cipher-integration-final.xml",
+      "kind": "operator_tool_contract",
+      "observed": "Full regression: 969 passed and one exact operator MCP tool inventory assertion failed.",
+      "passing_evidence": ".test-tmp/cipher-integration-pass.xml",
+      "resolution": "Added the three implemented operator tools; preserved the exact two-tool source-agent contract. A subsequent patch indentation error was corrected; the final focused CLI/MCP/classical/Vandal run passed all 74 cases.",
+      "review": ".mivim/vigiles/reports/archive/runs/20261004T133741259307Z-cipher-tool-contract/REVIEW_FINDINGS.json"
+    }
+  ],
   "schema_version": 1,
   "shelved_task": "VIG-CIPHER-YAML-01",
   "stage": "VIG-CIPHER-METHODS-01",
-  "status": "reviewed_implementation_in_progress"
+  "status": "complete_source_and_local_installed_package",
+  "target_release": "0.6.0",
+  "tests": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests": 970
+  },
+  "updated": "2026-10-04T13:40:00.170133Z",
+  "verification_stages_passed": 11
 }

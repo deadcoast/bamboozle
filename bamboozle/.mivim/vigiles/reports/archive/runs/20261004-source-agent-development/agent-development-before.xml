@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="2.343" timestamp="2026-10-04T07:49:34.428545-07:00" hostname="homeone"><testcase classname="src.bamboozle.tests.test_agent_development" name="test_source_agent_exposes_a_complete_navigation_and_edit_surface" time="0.135"><failure message="AssertionError: assert {'read_safe_f...te_safe_file'} == {'edit_safe_f...te_safe_file'}&#10;  &#10;  Extra items in the right set:&#10;  'edit_safe_file'&#10;  'list_safe_files'&#10;  'search_safe_files'&#10;  Use -v to get more diff">tmp_path = WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/agent-development-before/test_source_agent_exposes_a_co0')
+
+    def test_source_agent_exposes_a_complete_navigation_and_edit_surface(tmp_path):
+        async def exercise():
+            async with Client(create_server(tmp_path)) as client:
+                assert {tool.name for tool in await client.list_tools()} == {
+                    "list_safe_files",
+                    "search_safe_files",
+                    "read_safe_file",
+                    "edit_safe_file",
+                    "write_safe_file",
+                }
+    
+&gt;       asyncio.run(exercise())
+
+src\bamboozle\tests\test_agent_development.py:24: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\asyncio\runners.py:195: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\asyncio\runners.py:118: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\asyncio\base_events.py:725: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    async def exercise():
+        async with Client(create_server(tmp_path)) as client:
+&gt;           assert {tool.name for tool in await client.list_tools()} == {
+                "list_safe_files",
+                "search_safe_files",
+                "read_safe_file",
+                "edit_safe_file",
+                "write_safe_file",
+            }
+E           AssertionError: assert {'read_safe_f...te_safe_file'} == {'edit_safe_f...te_safe_file'}
+E             
+E             Extra items in the right set:
+E             'edit_safe_file'
+E             'list_safe_files'
+E             'search_safe_files'
+E             Use -v to get more diff
+
+src\bamboozle\tests\test_agent_development.py:16: AssertionError</failure></testcase></testsuite></testsuites>

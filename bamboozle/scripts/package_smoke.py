@@ -32,6 +32,7 @@ from bamboozle import (
     scm_mcp,
     view_import,
 )
+from bamboozle.agent_development import AGENT_TOOLS
 from bamboozle.dictionary import Dictionary
 from bamboozle.service import OperationError
 from bamboozle.utils import atomic_write, json_bytes, sha256
@@ -171,10 +172,7 @@ def smoke_profanity() -> dict:
             cwd=str(root),
         )
         async with Client(transport) as client:
-            if {tool.name for tool in await client.list_tools()} != {
-                "read_safe_file",
-                "write_safe_file",
-            }:
+            if {tool.name for tool in await client.list_tools()} != AGENT_TOOLS:
                 raise RuntimeError("Agent profile exposed operator tools")
 
             async def call(name: str, arguments: dict) -> dict:
@@ -709,10 +707,7 @@ def smoke_fixtures() -> dict:
             ],
         )
         async with Client(agent) as client:
-            if {tool.name for tool in await client.list_tools()} != {
-                "read_safe_file",
-                "write_safe_file",
-            }:
+            if {tool.name for tool in await client.list_tools()} != AGENT_TOOLS:
                 raise RuntimeError("Fixture operator tools leaked into agent surface")
             denied = await client.call_tool(
                 "read_safe_file",
@@ -1051,7 +1046,7 @@ def smoke_lexicon() -> dict:
         )
         async with Client(agent_transport) as client:
             tools = sorted(tool.name for tool in await client.list_tools())
-            if tools != ["read_safe_file", "write_safe_file"]:
+            if set(tools) != AGENT_TOOLS:
                 raise RuntimeError("Compiler leaked into source-agent tool pool")
             rejected = await client.call_tool(
                 "read_safe_file",
@@ -1818,10 +1813,7 @@ def main() -> None:
             cwd=str(Path.cwd()),
         )
         async with Client(transport) as client:
-            if {tool.name for tool in await client.list_tools()} != {
-                "read_safe_file",
-                "write_safe_file",
-            }:
+            if {tool.name for tool in await client.list_tools()} != AGENT_TOOLS:
                 raise RuntimeError(
                     "Agent server exposed tools outside the cipher file interface"
                 )
@@ -2135,11 +2127,34 @@ def main() -> None:
         raise RuntimeError(
             "Python source/project adapters were not imported from the installed wheel"
         )
+    exchange_results = runpy.run_path(
+        str(Path(__file__).with_name("exchange_smoke.py"))
+    )["run"]()
+    if not Path(exchange_results["exchange_module"]).is_relative_to(Path(sys.prefix)):
+        raise RuntimeError("Project exchange was not imported from the installed wheel")
+    source_agent_results = runpy.run_path(
+        str(Path(__file__).with_name("source_agent_smoke.py"))
+    )["run"]()
+    if any(
+        not Path(source_agent_results[name]).is_relative_to(Path(sys.prefix))
+        for name in (
+            "agent_files_module",
+            "agent_policy_module",
+            "agent_development_module",
+            "agent_checks_module",
+            "check_process_module",
+        )
+    ):
+        raise RuntimeError(
+            "Source-agent implementation was not imported from the installed wheel"
+        )
     print(
         json.dumps(
             {
                 "status": "passed",
                 "version": bamboozle.__version__,
+                "exchange_results": exchange_results,
+                "source_agent_results": source_agent_results,
                 "package_file": str(package_file),
                 "capture_results": capture_results,
                 "plan_results": plan_results,

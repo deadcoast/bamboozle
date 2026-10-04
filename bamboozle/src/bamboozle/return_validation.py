@@ -289,7 +289,19 @@ def _structure(
     new: list[TextRegion],
     findings: Findings,
 ) -> None:
-    if codec.rules.format == "json":
+    if codec.rules.format == "yaml":
+        from bamboozle.yaml_source import protected
+
+        before_yaml = protected(baseline, codec.rules.pointers)
+        after_yaml = protected(edited, codec.rules.pointers)
+        if before_yaml != after_yaml:
+            findings.add(
+                "protected_yaml_changed",
+                "Protected YAML content changed; review keys, aliases, tags, comments and unselected data separately from selected values.",
+                before=_excerpt(before_yaml),
+                after=_excerpt(after_yaml),
+            )
+    elif codec.rules.format == "json":
         before, after = (
             _protected_json(baseline, codec.rules),
             _protected_json(edited, codec.rules),

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="39" time="7.456" timestamp="2026-10-04T07:31:29.696160-07:00" hostname="homeone"><testcase classname="src.bamboozle.tests.test_agent_policy" name="test_direct_read_preserves_external_import_strings_comments_and_line_endings" time="0.084" /><testcase classname="src.bamboozle.tests.test_agent_policy" name="test_direct_json_and_markdown_use_the_existing_adapters" time="0.175" /><testcase classname="src.bamboozle.tests.test_agent_policy" name="test_restart_pins_dictionary_and_format_context" time="0.072" /><testcase classname="src.bamboozle.tests.test_agent_policy" name="test_new_nested_modules_are_decoded_and_invalid_python_is_not_published" time="0.061" /><testcase classname="src.bamboozle.tests.test_agent_policy" name="test_private_or_unselected_files_remain_unavailable[private.txt]" time="0.015" /><testcase classname="src.bamboozle.tests.test_agent_policy" name="test_private_or_unselected_files_remain_unavailable[unselected.py]" time="0.014" /><testcase classname="src.bamboozle.tests.test_agent_policy" name="test_private_or_unselected_files_remain_unavailable[source.agent-policy.json]" time="0.007" /><testcase classname="src.bamboozle.tests.test_agent_policy" name="test_private_or_unselected_files_remain_unavailable[package/secret.key]" time="0.008" /><testcase classname="src.bamboozle.tests.test_agent_policy" name="test_policy_changes_require_fresh_server_context" time="0.027" /><testcase classname="src.bamboozle.tests.test_agent_policy" name="test_source_agent_complete_application_through_real_stdio" time="4.399"><failure message="subprocess.CalledProcessError: Command '['C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.venv\\Scripts\\python.exe', '-m', 'checks.nested.check']' returned non-zero exit status 1.">tmp_path = WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/direct-core-second/test_source_agent_complete_app0')
+
+    def test_source_agent_complete_application_through_real_stdio(tmp_path):
+        script = Path(__file__).parents[3] / "scripts/source_agent_smoke.py"
+&gt;       result = runpy.run_path(str(script))["run"](tmp_path / "direct-source")
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+src\bamboozle\tests\test_agent_policy.py:144: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scripts\source_agent_smoke.py:193: in run
+    subprocess.run(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+input = None, capture_output = True, timeout = 10, check = True
+popenargs = (['C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.venv\\Scripts\\python.exe', '-m', 'checks.nested.check'],)
+kwargs = {'cwd': WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/direct-core-second/test_source_agent_complete_app0/direct-source/source'), 'stdout': -1, 'stderr': -1}
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+    
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+        or pass capture_output=True to capture both.
+    
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output &amp; stderr attributes if those streams
+        were captured.
+    
+        If timeout (seconds) is given and the process takes too long,
+         a TimeoutExpired exception will be raised.
+    
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+    
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+    
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+    
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+    
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+&gt;               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.venv\\Scripts\\python.exe', '-m', 'checks.nested.check']' returned non-zero exit status 1.
+
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\subprocess.py:577: CalledProcessError</failure></testcase><testcase classname="src.bamboozle.tests.test_agent_files" name="test_cipher_api_is_the_encoder_used_by_agent" time="0.011" /><testcase classname="src.bamboozle.tests.test_agent_files" name="test_agent_reads_encoded_source_then_edits_authoritative_file" time="0.110" /><testcase classname="src.bamboozle.tests.test_agent_files" name="test_agent_generates_new_module_without_original" time="0.080" /><testcase classname="src.bamboozle.tests.test_agent_files" name="test_read_hash_allows_reconnect_and_wrong_hash_refuses_write" time="0.038" /><testcase classname="src.bamboozle.tests.test_agent_files" name="test_concurrent_edit_and_deleted_source_are_not_overwritten" time="0.013" /><testcase classname="src.bamboozle.tests.test_agent_files" name="test_private_paths_and_escapes_are_not_exposed_or_written[../escape.py]" time="0.002" /><testcase classname="src.bamboozle.tests.test_agent_files" name="test_private_paths_and_escapes_are_not_exposed_or_written[.git/config]" time="0.002" /><testcase classname="src.bamboozle.tests.test_agent_files" name="test_private_paths_and_escapes_are_not_exposed_or_written[.vigiles/cipher/changes/x/original.bin]" time="0.003" /><testcase classname="src.bamboozle.tests.test_agent_files" name="test_private_paths_and_escapes_are_not_exposed_or_written[.mivim/spec.md]" time="0.002" /><testcase classname="src.bamboozle.tests.test_agent_files" name="test_private_paths_and_escapes_are_not_exposed_or_written[.local/dict.json]" time="0.002" /><testcase classname="src.bamboozle.tests.test_agent_files" name="test_private_paths_and_escapes_are_not_exposed_or_written[cipher_dict.json]" time="0.002" /><testcase classname="src.bamboozle.tests.test_agent_files" name="test_private_paths_and_escapes_are_not_exposed_or_written[secret.key]" time="0.002" /><testcase classname="src.bamboozle.tests.test_agent_files" name="test_private_paths_and_escapes_are_not_exposed_or_written[secret.key.abc.bak]" time="0.003" /><testcase classname="src.bamboozle.tests.test_agent_files" name="test_private_paths_and_escapes_are_not_exposed_or_written[.node.scm_ledger.json]" time="0.002" /><testcase classname="src.bamboozle.tests.test_agent_files" name="test_custom_dictionary_path_is_private" time="0.004" /><testcase classname="src.bamboozle.tests.test_agent_files" name="test_damaged_markers_and_metadata_destinations_refuse_publication" time="0.003" /><testcase classname="src.bamboozle.tests.test_agent_files" name="test_partial_write_reports_actual_state_and_retains_original[original.bin]" time="0.014" /><testcase classname="src.bamboozle.tests.test_agent_files" name="test_partial_write_reports_actual_state_and_retains_original[decoded.bin]" time="0.017" /><testcase classname="src.bamboozle.tests.test_agent_files" name="test_partial_write_reports_actual_state_and_retains_original[intent.json]" time="0.018" /><testcase classname="src.bamboozle.tests.test_agent_files" name="test_partial_write_reports_actual_state_and_retains_original[node.py]" time="0.023" /><testcase classname="src.bamboozle.tests.test_agent_files" name="test_partial_write_reports_actual_state_and_retains_original[result.json]" time="0.040" /><testcase classname="src.bamboozle.tests.test_agent_files" name="test_source_change_during_backup_is_retained_and_refused" time="0.024" /><testcase classname="src.bamboozle.tests.test_agent_files" name="test_post_publication_cleanup_failure_reports_published_files[original.bin]" time="0.018" /><testcase classname="src.bamboozle.tests.test_agent_files" name="test_post_publication_cleanup_failure_reports_published_files[node.py]" time="0.028" /><testcase classname="src.bamboozle.tests.test_agent_files" name="test_post_publication_cleanup_failure_reports_published_files[result.json]" time="0.029" /><testcase classname="src.bamboozle.tests.test_agent_files" name="test_bundled_cipher_translates_metadata_for_agent_and_restores_new_tags" time="0.113" /><testcase classname="src.bamboozle.tests.test_agent_files" name="test_agent_file_limit_and_read_context_bound" time="0.022" /><testcase classname="src.bamboozle.tests.test_agent_files" name="test_agent_mcp_cipher_read_edit_write_and_generate[create_server0]" time="0.184" /><testcase classname="src.bamboozle.tests.test_agent_files" name="test_agent_mcp_cipher_read_edit_write_and_generate[create_server1]" time="0.152" /></testsuite></testsuites>

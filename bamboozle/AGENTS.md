@@ -74,11 +74,17 @@ a root-level handoff. Do not generate extra tracking documents without a task ne
 | Area | Source |
 | --- | --- |
 | Dictionary validation and reversible translation | `src/bamboozle/dictionary.py`, `engine.py`, `service.py` |
+| Classical byte registry, versioned pipelines and reviewed operator files | `src/bamboozle/classical.py`, `cipher_operations.py` |
+| Authenticated complete-project transport and receiver context/recovery | `src/bamboozle/project_exchange.py`, `scripts/exchange_smoke.py` |
+| Original C cipher references and guarded comparison qualifier | `src/ciphers/`, `include/`, `scripts/cipher_reference.py` |
 | Shared Markdown/selected-JSON adapters | `src/bamboozle/formats.py` |
 | Explicit Python token/span translation and project import checks | `src/bamboozle/python_source.py`, `python_project.py` |
 | Generated neutral fixtures and processing contracts | `src/bamboozle/fixture_rules.py`, `fixtures.py` |
 | Repository-only workflow context/MCP configuration | `scripts/vandal.py` |
 | Public encoder/cipher API and agent-mediated source I/O | `src/bamboozle/cipher.py`, `agent_files.py`, `scm_mcp.py` |
+| Direct source-agent document selection and complete application qualification | `src/bamboozle/agent_policy.py`, `scripts/source_agent_smoke.py` |
+| Source-agent scoped navigation, neutral search and exact edits | `src/bamboozle/agent_development.py` |
+| Named neutral application checks and bounded process ownership | `src/bamboozle/agent_checks.py`, `check_process.py` |
 | Confined file access and publication | `src/bamboozle/workspace.py`, `utils.py` |
 | Tessera authenticated exchange and repository audits | `src/bamboozle/tessera.py`, `audit.py` |
 | Main CLI and MCP tools | `src/bamboozle/cli.py`, `mcp.py` |
@@ -159,6 +165,25 @@ Do not regenerate release evidence or claim a fresh runtime qualification.
 
 ## Invariants to preserve
 
+- Project exchange composes the existing semantic, classical and Tessera engines.
+  Only neutral files/public controls leave source-owner storage. Authenticate before
+  reversing recipes or parsing paths; explicit recipe fingerprints belong inside
+  authentication. Keep receiver keys/recipes/journals outside its agent directory.
+  Bind returns to the original view/manifest, preserve new-file/deletion policies,
+  and use existing decoded review/import recovery. External returns add a packet
+  digest without rewriting historical local-view plans. Extraction journals precede
+  files; source journals retain authenticated snapshots before source changes.
+  Recovery is explicit. Execute complete dependent applications in separate source
+  and receiver roots, including installed CLI and actual stdio MCP interfaces.
+
+- Original C additions are pinned at `c53f0bfded51667437fc837cd33ede37745ae9c5`;
+  the parent is the pre-addition checkpoint. Preserve source/build/license bytes.
+  Use the guarded `scripts/cipher_reference.py` for native qualification, including
+  Windows runtime PATH and inherited error-dialog suppression. Classical pipelines
+  use explicit pinned variants and private recipes/receipts, separate from semantic
+  translation and authenticated encryption. Workflow capability discovery comes
+  from the product; do not implement algorithms or duplicate registries in Vandal.
+
 - Preserve the full encode → agent edits or generates code → decode loop through
   the normal CLI, MCP, compatibility API, and Windows launchers. Normal decode
   reverses unmarked target terms and preserves protected literals by the documented
@@ -195,8 +220,28 @@ Do not regenerate release evidence or claim a fresh runtime qualification.
   is explicit: Markdown protects technical syntax; JSON selects exact string
   pointers and retains original spelling context privately. Never translate keys
   or unselected fields by implicitly falling back to whole-file text processing.
-  Direct source-agent tools remain text-mode; route structured multi-file agent
-  work through version-2 views. Never connect an encoding MCP to an encoded view.
+  Direct source-agent tools use shared adapters under an explicit private
+  `.agent-policy.json`; unconfigured connections retain text behavior. Pin both
+  source/context hashes across reconnects; reconstruct spelling context privately.
+  Validate returned syntax before publication and permit complete new package paths.
+  Source-agent navigation must obey the same private/policy boundaries. Search
+  encoded content, expose only neutral rules, and mark unreadable files explicitly.
+  Exact edit batches bind source/context/neutral hashes, select non-overlapping
+  spans of one original neutral snapshot and reuse the existing write pipeline.
+  Internal search/edit reads must not refresh or evict the agent's remembered
+  read hashes, especially when a stale edit is rejected.
+  Optional source-agent checks require an operator-owned `.agent-checks.json`
+  and explicit document policy. Execute fresh neutral copies under listed hashes,
+  preserve failed/partial receipts, report source/input drift and reuse the engine
+  for neutral diagnostics. Keep named commands/import paths operator-owned and
+  run metadata private. Bound output/time, establish process ownership before
+  project code executes, and clean up descendants on Windows. Copied workspaces
+  are not OS sandboxes. Test failed check → decoded source correction → passing
+  rerun through actual stdio and installed package, including generated modules.
+  Keep original read/write tools while adding navigation/edit tools; operator
+  tools and private decoder diagnostics remain outside the agent surface.
+  Use version-2 views for reviewed multi-file transactions. Never connect an
+  encoding MCP to an encoded view.
   Python rules select exact identifiers, project import paths and explicit literal
   values. Preserve unselected syntax, private spelling context and historical
   formats. Validate both sides of declared imports and execute whole dependent

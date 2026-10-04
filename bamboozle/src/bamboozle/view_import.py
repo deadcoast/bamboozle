@@ -8,6 +8,7 @@ from typing import Any
 from bamboozle.dictionary import Dictionary
 from bamboozle.fixtures import TEMPLATE_SCHEMA, validate_contract
 from bamboozle.formats import DocumentCodec
+from bamboozle.project_exchange import returned_snapshot
 from bamboozle.project_views import (
     GENERATED_FILES,
     MAX_FILES,
@@ -35,6 +36,7 @@ from bamboozle.utils import (
     exclusive_lock,
     json_bytes,
     parse_json,
+    read_bytes,
     sha256,
     utc_now,
 )
@@ -48,6 +50,53 @@ def _deletions(values: list[str] | None) -> list[str]:
     if len(set(names)) != len(names):
         raise ValueError("Duplicate deletion selection")
     return sorted(names)
+
+
+def _snapshot(
+    workspace: Workspace,
+    manifest: dict[str, Any],
+    manifest_sha: str,
+    view: Workspace,
+    packet: str | None,
+    key: str | None,
+    recipient: str | None,
+    recipe: str | None,
+) -> tuple[dict[str, bytes], str | None]:
+    if packet is None:
+        if any(value is not None for value in (key, recipient, recipe)):
+            raise ValueError("Exchange credentials require a return packet")
+        return snapshot_view(view), None
+    if key is None or recipient is None:
+        raise ValueError("A return packet requires an explicit key and recipient")
+    return returned_snapshot(
+        workspace,
+        manifest,
+        manifest_sha,
+        packet,
+        key=key,
+        recipient=recipient,
+        recipe=recipe,
+    )
+
+
+def _unchanged_return(
+    workspace: Workspace,
+    view: Workspace,
+    plan: dict[str, Any],
+    packet: str | None,
+) -> bool:
+    if "exchange_sha256" in plan:
+        # Recovery uses the authenticated snapshot retained before source writes.
+        return (
+            packet is None
+            or sha256(read_bytes(workspace.resolve(packet), workspace.max_bytes * 2))
+            == plan["exchange_sha256"]
+        )
+    return _hashes(snapshot_view(view)) == plan["view_snapshot"]
+
+
+def _hashes(snapshot: dict[str, bytes]) -> dict[str, str]:
+    return {name: sha256(raw) for name, raw in snapshot.items()}
 
 
 def _build(
@@ -307,6 +356,10 @@ def review_import(
     validation_path: str | None = None,
     validation_offset: int = 0,
     max_findings: int = 100,
+    return_packet: str | None = None,
+    key: str | None = None,
+    recipient: str | None = None,
+    recipe: str | None = None,
 ) -> dict[str, Any]:
     if (
         type(validation_offset) is not int
@@ -326,7 +379,9 @@ def review_import(
         raise ValueError(
             "View already has an import; inspect its status or explicitly recover it"
         )
-    snapshot = snapshot_view(view)
+    snapshot, exchange_sha = _snapshot(
+        workspace, manifest, manifest_sha, view, return_packet, key, recipient, recipe
+    )
     validation: list[dict[str, Any]] = []
     plan, _, changes, conflicts = _build(
         workspace,
@@ -342,6 +397,8 @@ def review_import(
         validation_offset=validation_offset,
         max_findings=max_findings,
     )
+    if exchange_sha is not None:
+        plan["exchange_sha256"] = exchange_sha
     if validation_path is not None and not validation:
         raise ValueError(
             "validation_path must select a present UTF-8 translated return file"
@@ -356,8 +413,7 @@ def review_import(
                 }
             )
     if (
-        {name: sha256(raw) for name, raw in snapshot_view(view).items()}
-        != plan["view_snapshot"]
+        not _unchanged_return(workspace, view, plan, return_packet)
         or load_view(workspace, view_id)[2] != manifest_sha
         or _observations(workspace, manifest, view, plan) != observed
     ):
@@ -368,6 +424,7 @@ def review_import(
         "schema_version": 1,
         "view_id": view_id,
         "status": "conflict" if conflicts else "review",
+        **({"exchange_sha256": exchange_sha} if exchange_sha is not None else {}),
         "ok": not conflicts,
         "changes": changes,
         "return_validation": {
@@ -433,6 +490,8 @@ def _load_import(
         snapshot,
         _deletions(plan.get("delete_files")),
     )
+    if "exchange_sha256" in plan:
+        rebuilt["exchange_sha256"] = digest(plan["exchange_sha256"])
     if conflicts or json_bytes(rebuilt) != json_bytes(plan):
         raise ValueError("Import no longer matches its retained source/view snapshots")
     for name, data in outputs.items():
@@ -449,6 +508,11 @@ def _receipt(plan: dict[str, Any]) -> dict[str, Any]:
         "review_sha256": sha256(json_bytes(plan)),
         "manifest_sha256": plan["manifest_sha256"],
         "actions": plan["actions"],
+        **(
+            {"exchange_sha256": plan["exchange_sha256"]}
+            if "exchange_sha256" in plan
+            else {}
+        ),
     }
 
 
@@ -490,14 +554,24 @@ def view_status(workspace: Workspace, view_id: str) -> dict[str, Any]:
         document["plan"]
     ):
         raise ValueError("Invalid completed import receipt")
-    observed_view = {name: sha256(raw) for name, raw in snapshot_view(view).items()}
+    exchanged = "exchange_sha256" in document["plan"]
     return {
         "schema_version": 1,
         "view_id": view_id,
         "status": "complete" if complete else "pending",
         "review_sha256": document["review_sha256"],
         "files": states,
-        "view_changed": observed_view != document["plan"]["view_snapshot"],
+        "view_changed": None
+        if exchanged
+        else not _unchanged_return(workspace, view, document["plan"], None),
+        **(
+            {
+                "exchange_sha256": document["plan"]["exchange_sha256"],
+                "return_source": "retained_authenticated_snapshot",
+            }
+            if exchanged
+            else {}
+        ),
         "receipt_saved": complete,
     }
 
@@ -509,8 +583,18 @@ def apply_import(
     *,
     delete_files: list[str] | None = None,
     recover: bool = False,
+    return_packet: str | None = None,
+    key: str | None = None,
+    recipient: str | None = None,
+    recipe: str | None = None,
 ) -> dict[str, Any]:
     digest(review_sha256)
+    if recover and any(
+        value is not None for value in (return_packet, key, recipient, recipe)
+    ):
+        raise ValueError(
+            "Recovery uses retained snapshots; omit packet and credentials"
+        )
     with exclusive_lock(operation_lock(workspace)):
         directory, manifest, manifest_sha, mapping, view = load_view(workspace, view_id)
         journal_path = workspace.resolve(directory / "import.json", write=True)
@@ -546,7 +630,16 @@ def apply_import(
                         "Recovery digest does not match the retained import"
                     )
             else:
-                snapshot = snapshot_view(view)
+                snapshot, exchange_sha = _snapshot(
+                    workspace,
+                    manifest,
+                    manifest_sha,
+                    view,
+                    return_packet,
+                    key,
+                    recipient,
+                    recipe,
+                )
                 plan, outputs, _, conflicts = _build(
                     workspace,
                     manifest,
@@ -557,6 +650,8 @@ def apply_import(
                     snapshot,
                     _deletions(delete_files),
                 )
+                if exchange_sha is not None:
+                    plan["exchange_sha256"] = exchange_sha
                 if conflicts or sha256(json_bytes(plan)) != review_sha256:
                     raise ValueError("Review is stale or contains unresolved conflicts")
                 if (
@@ -581,9 +676,7 @@ def apply_import(
                 atomic_write(journal_path, journal)
                 report["journal_saved"] = True
             assert plan is not None
-            if {name: sha256(raw) for name, raw in snapshot_view(view).items()} != plan[
-                "view_snapshot"
-            ]:
+            if not _unchanged_return(workspace, view, plan, return_packet):
                 raise ValueError(
                     "View changed after review; restore the retained view before recovery"
                 )
@@ -633,9 +726,7 @@ def apply_import(
                 raise ValueError(
                     "Source changed during import; completion was withheld"
                 )
-            if {name: sha256(raw) for name, raw in snapshot_view(view).items()} != plan[
-                "view_snapshot"
-            ]:
+            if not _unchanged_return(workspace, view, plan, return_packet):
                 raise ValueError("View changed during import; completion was withheld")
             atomic_write(receipt_path, json_bytes(_receipt(plan)))
             report.update(

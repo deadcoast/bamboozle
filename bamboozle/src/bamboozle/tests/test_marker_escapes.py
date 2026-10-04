@@ -357,6 +357,9 @@ def test_agent_read_modify_create_and_operator_mcp_use_complete_escaping_loop(tm
     async def exercise():
         async with Client(create_agent(tmp_path, MAPPING)) as client:
             assert {tool.name for tool in await client.list_tools()} == {
+                "list_safe_files",
+                "search_safe_files",
+                "edit_safe_file",
                 "read_safe_file",
                 "write_safe_file",
             }

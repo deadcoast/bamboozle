@@ -1,0 +1,66 @@
+"""Record concrete core repairs without equating test results to whole-core acceptance."""
+import json
+from pathlib import Path
+
+from bamboozle.evidence import report_destination, write_report
+from bamboozle.utils import sha256, utc_now
+
+root = Path.cwd().resolve()
+verification_path = report_destination(root, 'VIGILES_VERIFICATION.json')
+verified = json.loads(verification_path.read_bytes())
+assert verified['status'] == 'passed' and verified['package_requested']
+assert verified['tests']['failures'] == verified['tests']['errors'] == verified['tests']['skipped'] == 0
+assert verified['tests']['tests'] >= 1015
+assert len(verified['steps']) == 11 and all(step['returncode'] == 0 for step in verified['steps'])
+for name, digest in verified['source_sha256'].items():
+    assert sha256((root / name).read_bytes()) == digest, name
+log = root / next(step['log'] for step in verified['steps'] if step['name'] == 'wheel-smoke')
+smoke = next(json.loads(line) for line in log.read_text(encoding='utf-8').splitlines() if line.startswith('{"status": "passed"'))
+flow = smoke['source_agent_results']
+assert flow['agent_tools'] == ['read_safe_file', 'write_safe_file']
+assert flow['reconnected_before_writes']
+assert flow['neutral_execution'] == flow['restored_execution']
+assert flow['neutral_benchmark'] == flow['restored_benchmark'] == {
+    'workloads':100, 'scheduler_executions':300, 'invalid_workloads':12,
+    'invalid_capacities':5, 'protected_literals_preserved':True,
+}
+for name in ('agent_files_module', 'agent_policy_module'):
+    assert Path(flow[name]).is_relative_to(log.parent / 'wheel-env')
+assert {'bench.py', 'pipeline/main.py', 'pipeline/timeline.py', 'checks/nested/check.py'} <= flow['writes'].keys()
+for report in flow['writes'].values():
+    assert report['receipt_saved'] and report['output_saved']
+    source = Path(flow['source_root'])
+    assert sha256((source / report['file_path']).read_bytes()) == report['output_sha256']
+    assert json.loads((source / report['history'] / 'result.json').read_bytes()) == report
+artifacts = {}
+for name in verified['required_artifacts']:
+    row = verified['artifacts'][name]
+    assert sha256((root / 'dist' / name).read_bytes()) == row['sha256']
+    artifacts[name] = row
+archive = root / '.mivim/vigiles/reports/archive/runs/20261004-direct-source-agent-repair'
+for name in ('direct-core-final.xml', 'finalize-source-agent.py'):
+    output = archive / (name + '.snapshot' if name.endswith('.py') else name)
+    if not output.exists():
+        output.write_bytes((root / '.test-tmp' / name).read_bytes())
+report_path = report_destination(root, 'VIGILES_CORE_AGENT_REPAIR.json')
+report = json.loads(report_path.read_bytes())
+report.update(status='reproduced_defects_repaired_source_and_installed_package_verified',completed=utc_now(),
+              tests=verified['tests'],verification_stages_passed=11,
+              verification=verification_path.relative_to(root).as_posix(),verification_sha256=sha256(verification_path.read_bytes()),
+              source_sha256=verified['source_sha256'],artifacts=artifacts,installed_direct_agent_workflow=flow,
+              limitations=['Structured source-agent protection requires an explicit operator policy; unconfigured connections retain whole-text behavior.',
+                           'Direct writes publish one file at a time; existing views provide reviewed multi-file transactions.',
+                           'Deterministic application qualification does not establish whole-core completion or external-agent quality.'],
+              retained_evidence_sha256={p.name:sha256(p.read_bytes()) for p in archive.iterdir() if p.is_file()})
+write_report(root,report_path,report,replace=True)
+status_path=root/'VIGILES_STATUS.json'
+status=json.loads(status_path.read_bytes())
+step=dict(status['next_step'])
+assert step['id']=='VIG-CORE-SOURCE-AGENT-01'
+step.update(status=report['status'],evidence=[report_path.relative_to(root).as_posix()],qualification={'tests':verified['tests'],'stages':11,'scope':'Direct source-agent structured reads, returned edits, reconnects and nested module creation; local source and installed wheel.'})
+status['last_completed_step']=step
+status['next_step']={**step,'status':'repairs_verified_core_review_open','remaining':'Continue evaluating the core against the original source-agent workflow; do not substitute peripheral feature qualification for application completion.'}
+status['core_development_queue'][0]=status['next_step']
+status['evidence'].update(core_agent_repair=report_path.relative_to(root).as_posix(),qualification_scope='Direct source-agent repairs verified through source and installed package; whole-core acceptance remains unestablished.')
+write_report(root,status_path,status,replace=True)
+print(json.dumps({'status':report['status'],'tests':verified['tests'],'stages':11,'verified_direct_agent_writes':list(flow['writes']),'whole_core_acceptance':status['core_acceptance']['status']}))

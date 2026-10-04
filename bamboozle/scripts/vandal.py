@@ -10,8 +10,13 @@ from pathlib import Path
 from typing import Any
 
 from bamboozle import __version__
+from bamboozle.agent_checks import CHECK_TOOLS, AgentChecks
+from bamboozle.agent_files import AgentFiles
+from bamboozle.agent_policy import AgentPolicy
 from bamboozle.cipher_operations import capabilities
+from bamboozle.dictionary import Dictionary
 from bamboozle.markers import CURRENT
+from bamboozle.project_exchange import exchange_context
 from bamboozle.project_views import (
     CONTRACT,
     document_rules,
@@ -28,7 +33,13 @@ SPEC = Path(".mivim/vigiles-vandal_0.2.md")
 SKILL = Path(".vigiles/skills/vigiles-vandal/SKILL.md")
 
 
-def context(mode: str, view_id: str | None = None) -> dict[str, Any]:
+def context(
+    mode: str,
+    view_id: str | None = None,
+    exchange_id: str | None = None,
+    policy: str | None = None,
+    checks: str | None = None,
+) -> dict[str, Any]:
     """Generate one operator-selected surface, tied to this Bamboozle checkout."""
     metadata = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))[
         "project"
@@ -39,11 +50,15 @@ def context(mode: str, view_id: str | None = None) -> dict[str, Any]:
         )
     if not (ROOT / SPEC).is_file() or not (ROOT / SKILL).is_file():
         raise ValueError("Vandal specification and repository skill must be present")
-    if mode not in {"agent", "operator", "view"} or (view_id is not None) != (
-        mode == "view"
+    if (
+        mode not in {"agent", "operator", "view", "exchange"}
+        or (view_id is not None) != (mode == "view")
+        or (exchange_id is not None) != (mode == "exchange")
+        or (policy is not None and mode != "agent")
+        or (checks is not None and (mode != "agent" or policy is None))
     ):
         raise ValueError(
-            "Choose agent/operator without --view-id, or view with --view-id"
+            "Choose agent/operator without IDs, view with --view-id, or exchange with --exchange-id; --policy applies only to agent and --checks requires agent --policy"
         )
     report: dict[str, Any] = {
         "workflow": WORKFLOW,
@@ -59,7 +74,10 @@ def context(mode: str, view_id: str | None = None) -> dict[str, Any]:
         "configuration_written": False,
         "cipher_capabilities": capabilities(),
     }
-    if mode == "view":
+    if mode == "exchange":
+        assert exchange_id is not None
+        report.update(exchange_context(Workspace(ROOT), exchange_id))
+    elif mode == "view":
         assert view_id is not None
         directory, manifest, _, _, view = load_view(Workspace(ROOT), view_id)
         if (directory / "import.json").exists():
@@ -105,7 +123,7 @@ def context(mode: str, view_id: str | None = None) -> dict[str, Any]:
                 }
             },
             instructions=(
-                "Original-source agent context: use read_safe_file/write_safe_file for plain-text/code translation. They use whole-term text rules and marker protocol 2. Preserve literal/case/prefix-escape markers. For new raw marker examples use bamboozle.markers.quote_prefixes on that new snippet only, never on an encoded document. Route Markdown/field-selected JSON work through an operator-created structured project view; do not use raw source file tools alongside this cipher interface."
+                "Original-source agent context: discover with list_safe_files, search neutral content with search_safe_files, read files/ranges with read_safe_file, apply exact edits with edit_safe_file and publish complete/new source with write_safe_file. Keep all three read/search hashes for edits; never write a ranged excerpt as a whole file. They use whole-term text rules and marker protocol 2. Preserve literal/case/prefix-escape markers. For new raw marker examples use bamboozle.markers.quote_prefixes on that new snippet only, never on an encoded document. Route Markdown/field-selected JSON/explicit Python identifier work through an operator-created structured project view; do not use raw source file tools alongside this cipher interface."
                 if mode == "agent"
                 else "Operator context: inspect original-domain diffs, choose dictionaries/document rules, export views, validate returned terminology/structure with saved context, review/apply imports, and recover retained operations. Page all findings under unchanged validation/review digests; accepted means no detected issue, needs_review requires intent, and refused means invalid input. Keep this MCP configuration out of the neutral agent's tool pool. Encryption/decryption are separate explicit CLI operations."
             ),
@@ -123,6 +141,37 @@ def context(mode: str, view_id: str | None = None) -> dict[str, Any]:
                 "standalone_check_grants_apply_authority": False,
                 "decrypt_before_semantic_validation": True,
             }
+        elif policy is not None:
+            selected = AgentPolicy(Workspace(ROOT), policy)
+            report["source_policy"] = selected.public_scope()
+            report["mcp_config"]["mcpServers"]["bamboozle_agent"]["args"] += [
+                "--policy",
+                str(selected.path),
+            ]
+            report["instructions"] = (
+                "Use list_safe_files and search_safe_files to discover operator-selected source in neutral vocabulary. Read full files or ranges with read_safe_file; use edit_safe_file with all three source/context/neutral hashes for exact non-overlapping replacements. Use write_safe_file for complete/new files, never ranged excerpts. Read neutral document_rules and generated_directories for the permitted selections. The product applies the configured Python/Markdown/JSON/text rules on reads and writes; preserve unselected syntax and literal values. Keep source_sha256 and context_sha256 from reads for writes after reconnecting. New files use the configured directory rules. Execute the complete returned application. Do not open private policies or dictionaries with raw tools."
+            )
+    if checks is not None:
+        workspace = Workspace(ROOT)
+        assert policy is not None
+        service = AgentChecks(
+            AgentFiles(
+                workspace, Dictionary.load(), policy=AgentPolicy(workspace, policy)
+            ),
+            checks,
+        )
+        report["mcp_config"]["mcpServers"]["bamboozle_agent"]["args"] += [
+            "--checks",
+            str(service.path),
+        ]
+        report["application_checks"] = {
+            "checks_sha256": service.fingerprint,
+            "check_ids": list(service.specs),
+            "tools": sorted(CHECK_TOOLS),
+        }
+        report["instructions"] += (
+            " List configured checks, run under the returned snapshot hash, inspect neutral diagnostics, correct source through the edit/write tools, then list and run again. Retained results survive reconnects; inspect matches_current_source before treating an old pass as current. Check execution uses trusted project code in a neutral copy; it is not an OS sandbox."
+        )
     return report
 
 
@@ -130,11 +179,24 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description="Generate the repository-specific vigiles-vandal_0.2 context and MCP configuration"
     )
-    parser.add_argument("--mode", required=True, choices=["agent", "operator", "view"])
+    parser.add_argument(
+        "--mode", required=True, choices=["agent", "operator", "view", "exchange"]
+    )
     parser.add_argument("--view-id")
+    parser.add_argument("--exchange-id")
+    parser.add_argument("--policy")
+    parser.add_argument("--checks")
     args = parser.parse_args(argv)
     try:
-        print(json.dumps(context(args.mode, args.view_id), ensure_ascii=True, indent=2))
+        print(
+            json.dumps(
+                context(
+                    args.mode, args.view_id, args.exchange_id, args.policy, args.checks
+                ),
+                ensure_ascii=True,
+                indent=2,
+            )
+        )
         return 0
     except (OSError, ValueError, TypeError) as exc:
         print(json.dumps({"workflow": WORKFLOW, "status": "error", "error": str(exc)}))

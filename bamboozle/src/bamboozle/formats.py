@@ -12,6 +12,7 @@ from bamboozle.engine import Mode, Translator
 from bamboozle.markers import CURRENT
 from bamboozle.python_source import PythonSource, selections
 from bamboozle.utils import MAX_FILE_BYTES, parse_json
+from bamboozle.yaml_source import YamlDocument, YamlSource
 
 MAX_POINTERS = 512
 MAX_JSON_NODES = 100000
@@ -27,8 +28,10 @@ class FormatRules:
     strings: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
-        if self.format not in ("text", "markdown", "json", "python"):
-            raise ValueError("Document format must be text, markdown, json, or python")
+        if self.format not in ("text", "markdown", "json", "python", "yaml"):
+            raise ValueError(
+                "Document format must be text, markdown, json, python, or yaml"
+            )
         if self.format == "python":
             selections(self.identifiers, self.modules, self.strings)
         elif self.identifiers or self.modules or self.strings:
@@ -37,11 +40,14 @@ class FormatRules:
             not isinstance(p, str) for p in self.pointers
         ):
             raise ValueError("JSON pointers must be a tuple of strings")
-        if self.format != "json" and self.pointers:
-            raise ValueError("JSON pointers apply only to json format")
-        if self.format == "json" and not 1 <= len(self.pointers) <= MAX_POINTERS:
+        if self.format not in ("json", "yaml") and self.pointers:
+            raise ValueError("Value pointers apply only to json or yaml format")
+        if (
+            self.format in ("json", "yaml")
+            and not 1 <= len(self.pointers) <= MAX_POINTERS
+        ):
             raise ValueError(
-                "JSON translation requires 1 to 512 exact string-value pointers"
+                "Structured translation requires 1 to 512 exact string-value pointers"
             )
         if len(set(self.pointers)) != len(self.pointers):
             raise ValueError("Duplicate JSON pointer")
@@ -58,7 +64,11 @@ class FormatRules:
     def document(self) -> dict[str, Any]:
         return {
             "format": self.format,
-            **({"pointers": list(self.pointers)} if self.format == "json" else {}),
+            **(
+                {"pointers": list(self.pointers)}
+                if self.format in ("json", "yaml")
+                else {}
+            ),
             **(
                 {
                     "identifiers": list(self.identifiers),
@@ -94,7 +104,11 @@ class FormatRules:
                 modules=tuple(value.get("modules", [])),
                 strings=tuple(value.get("strings", [])),
             )
-        expected = {"format", "pointers"} if value["format"] == "json" else {"format"}
+        expected = (
+            {"format", "pointers"}
+            if value["format"] in ("json", "yaml")
+            else {"format"}
+        )
         if set(value) != expected or (
             "pointers" in value and not isinstance(value["pointers"], list)
         ):
@@ -108,7 +122,12 @@ def format_options(
     identifiers: list[str] | None = None,
     modules: list[str] | None = None,
     strings: list[str] | None = None,
+    yaml_pointers: list[str] | None = None,
 ) -> FormatRules | None:
+    if yaml_pointers and format != "yaml":
+        raise ValueError("--yaml-pointer requires --format yaml")
+    if pointers and format != "json":
+        raise ValueError("--json-pointer requires --format json")
     if format is None:
         if identifiers or modules or strings:
             raise ValueError(
@@ -119,7 +138,7 @@ def format_options(
         return None
     return FormatRules(
         format,
-        tuple(pointers or []),
+        tuple(yaml_pointers or pointers or []),
         tuple(identifiers or []),
         tuple(modules or []),
         tuple(strings or []),
@@ -322,6 +341,11 @@ class DocumentCodec:
             dictionary, max_output_chars=limit, marker_version=marker_version
         )
         self.limit = limit
+        self.yaml = (
+            YamlSource(self.translator, self.rules.pointers, limit)
+            if self.rules.format == "yaml"
+            else None
+        )
         self.python = (
             PythonSource(
                 self.translator,
@@ -334,6 +358,8 @@ class DocumentCodec:
         )
 
     def validate_context(self, context: Any) -> dict[str, Any]:
+        if self.yaml is not None:
+            return self.yaml.context(context)
         if self.python is not None:
             return self.python.context(context)
         if not isinstance(context, dict) or (self.rules.format != "json" and context):
@@ -368,6 +394,18 @@ class DocumentCodec:
             raise ValueError("Document exceeds size limit")
         if self.rules.format == "text":
             return [TextRegion(0, len(text), text)]
+        if self.yaml is not None:
+            document = YamlDocument(text)
+            return [
+                TextRegion(
+                    item.token.start_mark.index,
+                    item.token.end_mark.index,
+                    item.value,
+                    item.owner,
+                )
+                for item in document.selected(self.rules.pointers)
+                if item.token is not None
+            ]
         if self.python is not None:
             _, spans = self.python.spans(text)
             return [
@@ -427,6 +465,11 @@ class DocumentCodec:
     def _transform(
         self, text: str, mode: Mode, context: dict[str, Any]
     ) -> DocumentTranslation:
+        if self.yaml is not None:
+            output, substitutions, literals, escapes, saved = self.yaml.transform(
+                text, mode, context
+            )
+            return DocumentTranslation(output, substitutions, literals, saved, escapes)
         if self.python is not None:
             python_text, substitutions, saved = self.python.transform(
                 text, mode, context

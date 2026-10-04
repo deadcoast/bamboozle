@@ -483,6 +483,9 @@ def test_read_only_cli_and_operator_mcp_reports_agree_and_agent_has_no_validator
             assert result.data == cli
         async with Client(create_agent(workspace.root)) as agent:
             assert {tool.name for tool in await agent.list_tools()} == {
+                "list_safe_files",
+                "search_safe_files",
+                "edit_safe_file",
                 "read_safe_file",
                 "write_safe_file",
             }

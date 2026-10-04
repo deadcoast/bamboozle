@@ -1,0 +1,190 @@
+[
+  {
+    "name": "installed_escape_workflow:cli",
+    "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\escaped-workflow\\cli",
+    "status": {
+      "schema_version": 1,
+      "view_id": "f3a25199a9194e0ba996142ff917f7a9",
+      "status": "complete",
+      "review_sha256": "24b7ae063bafa90ea8a47d92dba5ecc9bd842208d2336d18f9528ae7aa77bfb9",
+      "files": {
+        "batch.py": "applied",
+        "parser.py": "applied",
+        "runner.py": "applied"
+      },
+      "view_changed": false,
+      "receipt_saved": true
+    },
+    "control_sha256": {
+      "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\escaped-workflow\\cli\\.local\\bamboozle\\views\\f3a25199a9194e0ba996142ff917f7a9\\manifest.json": "641e6b5dbeab4808a0a4d9a4f41e4afaebfa6c6eb70817ae60f45797b8a16178",
+      "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\escaped-workflow\\cli\\.local\\bamboozle\\views\\f3a25199a9194e0ba996142ff917f7a9\\import.json": "715dfa30b9891294dbc126530d2e42cd3d9a26c32bea0a4e06fe136356a1af48",
+      "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\escaped-workflow\\cli\\.local\\bamboozle\\views\\f3a25199a9194e0ba996142ff917f7a9\\result.json": "7308682a12390f340012ee4999a9850d48ff6c49a58303db9c29a6625b6ba703"
+    }
+  },
+  {
+    "name": "installed_escape_workflow:mcp",
+    "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\escaped-workflow\\mcp",
+    "status": {
+      "schema_version": 1,
+      "view_id": "04960c83a279413f81fb4b7aa5f32233",
+      "status": "complete",
+      "review_sha256": "0f5ca4cb7feb9964f80c95b8ca9b529d8e3f398bbcdbd06e8e6d19fff8a1d1d9",
+      "files": {
+        "batch.py": "applied",
+        "parser.py": "applied",
+        "runner.py": "applied"
+      },
+      "view_changed": false,
+      "receipt_saved": true
+    },
+    "control_sha256": {
+      "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\escaped-workflow\\mcp\\.local\\bamboozle\\views\\04960c83a279413f81fb4b7aa5f32233\\manifest.json": "d6398f3ddf1f7bfecd3ab803b98c4a6d4ce8c62162ec8499e8559e81b9fab12a",
+      "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\escaped-workflow\\mcp\\.local\\bamboozle\\views\\04960c83a279413f81fb4b7aa5f32233\\import.json": "25f703c9eb6367231b10ef07bedf74410a769284c84bab0869f5b10ec9fb09bf",
+      "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\escaped-workflow\\mcp\\.local\\bamboozle\\views\\04960c83a279413f81fb4b7aa5f32233\\result.json": "e763283f38bac9eb0f4dbb2e7b6a29387d2201ae44ca5ce00ae82b7b9925ce5c"
+    }
+  },
+  {
+    "name": "installed_fixture_workflow:cli",
+    "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\generated-fixture-workflow\\cli",
+    "status": {
+      "schema_version": 1,
+      "view_id": "3e593cd3def640568ebc0ed78d14bb9d",
+      "status": "complete",
+      "review_sha256": "86d0006c95fb36b860903aca7c3caa78c6b2134d8c68fed9a0519d94257fd325",
+      "files": {
+        "src/catalog.py": "applied",
+        "src/renderer.py": "applied",
+        "src/run_catalog.py": "applied",
+        "templates.json": "unchanged"
+      },
+      "view_changed": false,
+      "receipt_saved": true
+    },
+    "control_sha256": {
+      "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\generated-fixture-workflow\\cli\\.local\\bamboozle\\views\\3e593cd3def640568ebc0ed78d14bb9d\\manifest.json": "2032fcf9ef3df8677d825231b6f0ff7b06c31274a8c4860662e426a59a4e355b",
+      "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\generated-fixture-workflow\\cli\\.local\\bamboozle\\views\\3e593cd3def640568ebc0ed78d14bb9d\\import.json": "49c2f5d49a37876ebae45010d840ca15b79502c81772191f4cf81c22e25e2add",
+      "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\generated-fixture-workflow\\cli\\.local\\bamboozle\\views\\3e593cd3def640568ebc0ed78d14bb9d\\result.json": "ac57406d7d38f4ec87dd9925bdd2be332daaf951cd87b39a8a56ba2a018e803b"
+    }
+  },
+  {
+    "name": "installed_fixture_workflow:mcp",
+    "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\generated-fixture-workflow\\mcp",
+    "status": {
+      "schema_version": 1,
+      "view_id": "2c63f7bccb5e48888c232765b929c0b1",
+      "status": "complete",
+      "review_sha256": "2cee102bbd8c8352b99451bad72b6eadd7afd43eb4f43288cef26206e1b11b09",
+      "files": {
+        "src/catalog.py": "applied",
+        "src/renderer.py": "applied",
+        "src/run_catalog.py": "applied",
+        "templates.json": "unchanged"
+      },
+      "view_changed": false,
+      "receipt_saved": true
+    },
+    "control_sha256": {
+      "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\generated-fixture-workflow\\mcp\\.local\\bamboozle\\views\\2c63f7bccb5e48888c232765b929c0b1\\manifest.json": "0a008deb3b808a438006ef19d5ab10704de701329f7a3dab1f171b10ae174d63",
+      "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\generated-fixture-workflow\\mcp\\.local\\bamboozle\\views\\2c63f7bccb5e48888c232765b929c0b1\\import.json": "263abe25e0cd481672721c914d0dcab34626725a9d77a2b18770b4d3fb3de465",
+      "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\generated-fixture-workflow\\mcp\\.local\\bamboozle\\views\\2c63f7bccb5e48888c232765b929c0b1\\result.json": "4697c52cb9136867aa4a9dfe9d49f75a55381562aba1a176c71af4be0ce4e49c"
+    }
+  },
+  {
+    "name": "installed_python_workflow:cli",
+    "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\python-workflow\\cli",
+    "status": {
+      "schema_version": 1,
+      "view_id": "d6602e882b4a41c9b9a5b653c1950633",
+      "status": "complete",
+      "review_sha256": "07e0a58ea8969507deac1356aaccf22a1bbc4a30796ba757ed0d434ec13c371f",
+      "files": {
+        "bench.py": "applied",
+        "pipeline/__init__.py": "unchanged",
+        "pipeline/graph.py": "unchanged",
+        "pipeline/main.py": "applied",
+        "pipeline/model.py": "unchanged",
+        "pipeline/timeline.py": "applied",
+        "workload.json": "unchanged"
+      },
+      "view_changed": false,
+      "receipt_saved": true
+    },
+    "control_sha256": {
+      "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\python-workflow\\cli\\.local\\bamboozle\\views\\d6602e882b4a41c9b9a5b653c1950633\\manifest.json": "b087ea18d6487ab01d719b6dcc6f89d09a0906be81024da11bc65770863b2c86",
+      "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\python-workflow\\cli\\.local\\bamboozle\\views\\d6602e882b4a41c9b9a5b653c1950633\\import.json": "633e005172d7e88fc914152e31ad5de21f1bd1ddc697d657aa5a8fbfda08762f",
+      "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\python-workflow\\cli\\.local\\bamboozle\\views\\d6602e882b4a41c9b9a5b653c1950633\\result.json": "c6986d434f8a57c6b946b45223a920d3e3a6c57803f866e679f52762299cb835"
+    }
+  },
+  {
+    "name": "installed_python_workflow:mcp",
+    "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\python-workflow\\mcp",
+    "status": {
+      "schema_version": 1,
+      "view_id": "ff680311351c40ce804f0b46cde49e8d",
+      "status": "complete",
+      "review_sha256": "66760abd34f0c7f0114072672452654f8d7661d8db901e2802bf1f289bd070bd",
+      "files": {
+        "bench.py": "applied",
+        "pipeline/__init__.py": "unchanged",
+        "pipeline/graph.py": "unchanged",
+        "pipeline/main.py": "applied",
+        "pipeline/model.py": "unchanged",
+        "pipeline/timeline.py": "applied",
+        "workload.json": "unchanged"
+      },
+      "view_changed": false,
+      "receipt_saved": true
+    },
+    "control_sha256": {
+      "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\python-workflow\\mcp\\.local\\bamboozle\\views\\ff680311351c40ce804f0b46cde49e8d\\manifest.json": "edc1d489cbadc8a193e309375d91e709ceb576e438bd47ee6fdc41f2998af652",
+      "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\python-workflow\\mcp\\.local\\bamboozle\\views\\ff680311351c40ce804f0b46cde49e8d\\import.json": "06c95e1801ffd1619cc506df1bdc4ea5f43ff334c927fa974b8c6f89d19b08e5",
+      "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\python-workflow\\mcp\\.local\\bamboozle\\views\\ff680311351c40ce804f0b46cde49e8d\\result.json": "187535265c9654a49dcb5ca6b3a5343e0b412bdbf3b80c260f7567ce9166de85"
+    }
+  },
+  {
+    "name": "installed_return_validation_workflow:cli",
+    "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\returned-workflow\\cli",
+    "status": {
+      "schema_version": 1,
+      "view_id": "7012ce6664db45228bc6e7af31e16932",
+      "status": "complete",
+      "review_sha256": "91e4fcc51a1b022839c8e522a4e7679f07185c46a3fff19722bd24d0ef0f8a06",
+      "files": {
+        "data.json": "applied",
+        "guide.md": "applied",
+        "src/batch.py": "applied",
+        "src/core.py": "applied"
+      },
+      "view_changed": false,
+      "receipt_saved": true
+    },
+    "control_sha256": {
+      "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\returned-workflow\\cli\\.local\\bamboozle\\views\\7012ce6664db45228bc6e7af31e16932\\manifest.json": "9a5a8ccc50b53a06bebec0359e9ab119c43a3a14918a91439b0119a04d8e28aa",
+      "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\returned-workflow\\cli\\.local\\bamboozle\\views\\7012ce6664db45228bc6e7af31e16932\\import.json": "ac597bde241caf8c419bb8bf82095fd03c7cad784a3cca947305df571af0202c",
+      "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\returned-workflow\\cli\\.local\\bamboozle\\views\\7012ce6664db45228bc6e7af31e16932\\result.json": "c8bb882a8c13f43669213d7196ee5174c8102169430b37858747bd7b806af52c"
+    }
+  },
+  {
+    "name": "installed_return_validation_workflow:mcp",
+    "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\returned-workflow\\mcp",
+    "status": {
+      "schema_version": 1,
+      "view_id": "01eda6b5885b4a0c97df729ea090602d",
+      "status": "complete",
+      "review_sha256": "1dec8551ee7ca24b4df3048b8206067a1b2bde75a7188dde191bc09cfc074aa9",
+      "files": {
+        "data.json": "applied",
+        "guide.md": "applied",
+        "src/batch.py": "applied",
+        "src/core.py": "applied"
+      },
+      "view_changed": false,
+      "receipt_saved": true
+    },
+    "control_sha256": {
+      "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\returned-workflow\\mcp\\.local\\bamboozle\\views\\01eda6b5885b4a0c97df729ea090602d\\manifest.json": "fdacdbe60d6eb969e5ebb30ed217a796282f7779adb30fd757118d568a9b8884",
+      "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\returned-workflow\\mcp\\.local\\bamboozle\\views\\01eda6b5885b4a0c97df729ea090602d\\import.json": "820f1447ee67544b4b1db6b28985012f1f75b6801788266d34fe118e78fdb272",
+      "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\returned-workflow\\mcp\\.local\\bamboozle\\views\\01eda6b5885b4a0c97df729ea090602d\\result.json": "e72f45ce656e6359a68e4841db4f56a69ee1f10fdb211affe545d983071d1b44"
+    }
+  }
+]

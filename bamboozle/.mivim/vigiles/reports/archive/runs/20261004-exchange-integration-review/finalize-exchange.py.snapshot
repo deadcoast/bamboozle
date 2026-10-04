@@ -1,0 +1,146 @@
+"""Bind the exchange stage to actual source/package/application evidence."""
+import json
+import runpy
+import xml.etree.ElementTree as ET
+from pathlib import Path
+
+from bamboozle import __version__
+from bamboozle.cipher_operations import capabilities
+from bamboozle.evidence import report_destination, write_report
+from bamboozle.project_views import load_view, snapshot_view
+from bamboozle.project_exchange import exchange_context
+from bamboozle.utils import sha256, utc_now
+from bamboozle.view_import import view_status
+from bamboozle.workspace import Workspace
+
+root = Path.cwd().resolve()
+assert __version__ == '0.7.0'
+verification_path = report_destination(root, 'VIGILES_VERIFICATION.json')
+verification = json.loads(verification_path.read_bytes())
+assert verification['status'] == 'passed' and verification['package_requested']
+assert verification['tests'] == {'tests': 1001, 'errors': 0, 'failures': 0, 'skipped': 0}
+assert len(verification['steps']) == 11
+assert all(row['returncode'] == 0 for row in verification['steps'])
+for name, digest in verification['source_sha256'].items():
+    assert sha256((root / name).read_bytes()) == digest, name
+artifacts = {}
+for name in verification['required_artifacts']:
+    assert '0.7.0' in name
+    row = verification['artifacts'][name]
+    assert sha256((root / 'dist' / name).read_bytes()) == row['sha256']
+    artifacts[name] = row
+assert len(artifacts) == 2
+log = root / next(row['log'] for row in verification['steps'] if row['name'] == 'wheel-smoke')
+records = [json.loads(line) for line in log.read_text(encoding='utf-8').splitlines() if line.startswith('{"status": "passed"')]
+assert len(records) == 1
+smoke = records[0]
+assert smoke['version'] == __version__
+exchange = smoke['exchange_results']
+assert Path(exchange['exchange_module']).is_relative_to(log.parent / 'wheel-env')
+assert set(exchange['workflows']) == {'cli', 'mcp'}
+application_hashes = {}
+for mode, flow in exchange['workflows'].items():
+    owner = Workspace(Path(flow['source_root']))
+    peer = Workspace(Path(flow['receiver_root']))
+    assert owner.root != peer.root
+    assert flow['neutral_execution'] == flow['restored_execution']
+    assert flow['neutral_benchmark'] == flow['restored_benchmark'] == {
+        'workloads': 100, 'scheduler_executions': 300, 'invalid_workloads': 12,
+        'invalid_capacities': 5, 'protected_literals_preserved': True,
+    }
+    assert flow['local_view_unchanged'] and flow['original_bytes_preserved']
+    assert flow['apply']['receipt_saved'] and not flow['review']['conflicts']
+    assert flow['outbound']['authenticated'] and flow['returned']['authenticated']
+    assert flow['outbound']['pipeline_sha256'] == flow['returned']['pipeline_sha256']
+    assert flow['returned']['exchange_sha256'] == flow['review']['exchange_sha256']
+    assert view_status(owner, flow['export']['view_id'])['status'] == 'complete'
+    context = exchange_context(peer, flow['opened']['exchange_id'])
+    assert context == flow['context'] and context['mcp_config'] == {'mcpServers': {}}
+    directory, manifest, _, _, view = load_view(owner, flow['export']['view_id'])
+    assert sha256((directory / 'result.json').read_bytes()) == flow['source_receipt_sha256']
+    journal = json.loads((directory / 'import.json').read_bytes())
+    source_names = set(journal['plan']['source_snapshot'])
+    application_hashes[mode] = {
+        'restored': {name: sha256(owner.read(name)) if (owner.root / name).exists() else None for name in sorted(source_names)},
+        'receiver': {name: sha256(raw) for name, raw in snapshot_view(Workspace(Path(context['workspace']))).items()},
+        'unchanged_local_view': {name: sha256(raw) for name, raw in snapshot_view(view).items()},
+    }
+    assert application_hashes[mode]['restored']['obsolete.py'] is None
+    assert 'pipeline/timeline.py' in application_hashes[mode]['restored']
+for flow in smoke['python_results']['workflows'].values():
+    assert flow['restored_benchmark'] == flow['neutral_benchmark']
+    assert flow['classical_transport']['exact_return_bytes']
+for item in smoke['fixture_results'].values():
+    assert item['neutral_and_original_catalog_executed'] and item['apply']['receipt_saved']
+assert smoke['lexicon_results']['neutral_and_restored_statistics_pipeline_executed']
+assert smoke['document_format_results']['bamb5_separate_authenticated_roundtrip']
+
+prior_path = report_destination(root, 'VIGILES_CIPHER_QUALIFICATION.json')
+prior = json.loads(prior_path.read_bytes())
+assert prior['release'] == '0.6.0'
+for name, original in prior['original_assets'].items():
+    assert sha256((root.parent / name).read_bytes()) == original['working_bytes_sha256'], name
+historical = json.loads((root / '.test-tmp/exchange-historical.json').read_bytes())
+assert len(historical) == 8
+for row in historical:
+    assert view_status(Workspace(Path(row['root'])), row['status']['view_id']) == row['status']
+    for name, digest in row['control_sha256'].items():
+        assert sha256(Path(name).read_bytes()) == digest
+focused = ET.parse(root / '.test-tmp/exchange-third.xml').getroot().find('testsuite')
+assert focused is not None and focused.get('tests') == '90'
+assert focused.get('failures') == focused.get('errors') == '0'
+context_function = runpy.run_path(str(root / 'scripts/vandal.py'))['context']
+contexts = {mode: context_function(mode) for mode in ('agent', 'operator')}
+assert all(row['cipher_capabilities'] == capabilities() for row in contexts.values())
+assert capabilities()['source_agent_tools'] == ['read_safe_file', 'write_safe_file']
+
+archive = root / '.mivim/vigiles/reports/archive/runs/20261004-exchange-integration-review'
+for name in ('exchange-third.xml', 'exchange-historical.json'):
+    target = archive / name
+    raw = (root / '.test-tmp' / name).read_bytes()
+    if target.exists():
+        assert target.read_bytes() == raw
+    else:
+        target.write_bytes(raw)
+snapshot = archive / 'finalize-exchange.py.snapshot'
+if not snapshot.exists():
+    snapshot.write_bytes(Path(__file__).read_bytes())
+scope = 'Local Windows Python 3.13 source and isolated installed Bamboozle 0.7.0 wheel. Complete neutral project exchange through explicit classical recipes and mandatory Tessera, separate source/receiver workspaces, actual CLI and stdio MCP development, new dependent modules and explicit deletion, decoded review and recoverable source return. Four enhanced installed applications execute 1200 scheduler cases, 48 invalid workloads and 20 invalid capacities. Source tests cover authentication, origin/recipe binding, malformed/private paths, bounds, stale returns, source drift, no-clobber publication, extraction/import interruption and explicit recovery. Eight historical view journals/receipts and all 32 supplied C/build/license assets remain unchanged. Recipient lifecycle, remote CI, external model/host acceptance and OS isolation remain separate open gates.'
+review_path = report_destination(root, 'VIGILES_EXCHANGE_REVIEW.json')
+review = json.loads(review_path.read_bytes())
+review.update(status='complete_source_and_local_installed_package', completed=utc_now(), release=__version__,
+              tests=verification['tests'], verification_stages_passed=11,
+              additional_retained_failures={'exchange-second.xml':'82 passed, 2 failed: smoke helper rename accidentally changed --root to --transport_root; Windows launcher attempted editable rebuild after version bump before uv sync. Corrected helper flag and rebuilt existing locked editable environment.',
+                                           'environment':'Sandboxed uv sync could not access PyPI; approved uv sync rebuilt only bamboozle 0.6.0 to 0.7.0. Historical elevated fixtures required approved read access.'},
+              retained_sha256={p.name:sha256(p.read_bytes()) for p in sorted(archive.iterdir()) if p.is_file()})
+write_report(root, review_path, review, replace=True)
+destination = report_destination(root, 'VIGILES_EXCHANGE_QUALIFICATION.json')
+write_report(root, destination, {
+    'schema_version':1, 'created':utc_now(), 'stage':'VIG-CIPHER-EXCHANGE-01',
+    'release':__version__, 'workflow':'vigiles-vandal_0.2', 'status':'complete_source_and_local_installed_package', 'scope':scope,
+    'tests':verification['tests'], 'focused_tests':90, 'verification_stages_passed':11,
+    'source_sha256':verification['source_sha256'], 'artifacts':artifacts,
+    'verification':verification_path.relative_to(root).as_posix(), 'verification_sha256':sha256(verification_path.read_bytes()),
+    'review':review_path.relative_to(root).as_posix(), 'installed_exchange_workflows':exchange,
+    'installed_application_sha256':application_hashes,
+    'application_coverage':{'enhanced_applications':4,'scheduler_executions':1200,'invalid_workloads':48,'invalid_capacities':20},
+    'historical_view_compatibility':historical, 'original_assets':prior['original_assets'],
+    'prior_cipher_qualification':prior_path.relative_to(root).as_posix(), 'prior_cipher_qualification_sha256':sha256(prior_path.read_bytes()),
+    'preserved_installed_workflows':{name:smoke[name] for name in ('python_results','translation_results','agent_cipher_results','profanity_results','project_view_results','document_format_results','lexicon_results','fixture_results','return_results','escape_results')},
+    'repository_contexts':contexts,
+}, replace=destination.exists())
+status_path = root / 'VIGILES_STATUS.json'
+status = json.loads(status_path.read_bytes())
+completed = dict(status['next_step'])
+assert completed['id'] == 'VIG-CIPHER-EXCHANGE-01'
+completed.update(status='complete_source_and_local_installed_package',release=__version__,
+                 evidence=[destination.relative_to(root).as_posix(),verification_path.relative_to(root).as_posix(),review_path.relative_to(root).as_posix()],
+                 qualification={'tests_passed':1001,'verification_stages_passed':11,'scope':scope})
+next_step = next(dict(row) for row in status['core_development_queue'] if row['id']=='VIG-CIPHER-YAML-01')
+assert next_step.pop('resume_after') == completed['id']
+next_step['status'] = 'next'
+status.update(last_completed_step=completed,next_step=next_step,release=__version__)
+status['core_development_queue']=[next_step,*[row for row in status['core_development_queue'] if row['id'] not in (completed['id'],next_step['id'])]]
+status['evidence'].update(exchange_qualification=destination.relative_to(root).as_posix(),exchange_review=review_path.relative_to(root).as_posix(),qualification_scope=scope)
+write_report(root,status_path,status,replace=True)
+print(json.dumps({'status':'qualified','release':__version__,'tests':verification['tests'],'stages':11,'source_hashes':len(verification['source_sha256']),'original_assets_unchanged':len(prior['original_assets']),'historical_views_unchanged':len(historical),'qualification':destination.relative_to(root).as_posix(),'next_step':next_step['id']}))

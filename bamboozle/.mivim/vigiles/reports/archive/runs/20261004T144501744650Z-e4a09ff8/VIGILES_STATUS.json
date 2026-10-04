@@ -1,0 +1,226 @@
+{
+  "authority": ".mivim/vigiles-vandal_0.2.md",
+  "core_acceptance": {
+    "reason": "Transport qualification did not establish core application completion; current work repairs reproduced source-agent failures.",
+    "status": "not_established"
+  },
+  "core_development_queue": [
+    {
+      "done_criteria": [
+        "Reproduce external-import corruption and nested new-module failure",
+        "Connect shared syntax-aware Python/JSON/Markdown/text codecs to direct source-agent I/O",
+        "Pin source and translation context across reconnects; reject invalid returned syntax before source writes",
+        "Execute the complete dependent application through dedicated two-tool stdio and installed package",
+        "Preserve legacy text semantics and private metadata boundaries; distinguish repaired defects from whole-core acceptance"
+      ],
+      "focus": "Repair direct source-agent translation and nested module generation through read_safe_file/write_safe_file",
+      "id": "VIG-CORE-SOURCE-AGENT-01",
+      "priority": "user_core_correction",
+      "status": "verification_in_progress"
+    },
+    {
+      "design_source": [
+        ".legacy/bamboozle_v0.0.1.md:303-317"
+      ],
+      "done_criteria": [
+        "Specify exact selected scalar paths and an explicit supported YAML syntax/version contract; reject ambiguous selections before publication",
+        "Preserve unselected keys/values, comments, quoting, tags, anchors/aliases, formatting, BOM and line endings; define alias ownership without implicit edits",
+        "Integrate saved contexts, CLI, operator MCP, view policies and returned-edit validation while keeping translation and encryption separate",
+        "Execute a complete dependent application using translated, edited and restored YAML configuration, including anchors, multiline values, malformed input and drift/recovery",
+        "Retain Python/text/Markdown/JSON behavior and historical contexts; qualify source and isolated installed-package workflows"
+      ],
+      "focus": "Explicit selected YAML string-value translation with protected structure and exact restoration",
+      "id": "VIG-CIPHER-YAML-01",
+      "remaining": "Original design calls for selected YAML string values while protecting keys; no YAML adapter exists.",
+      "resume_after": "VIG-CORE-SOURCE-AGENT-01",
+      "status": "shelved_for_core_correction"
+    },
+    {
+      "done_criteria": [
+        "Define and validate explicit local profile rules",
+        "Report actionable structural violations through audit and MCP",
+        "Enforce relevant rules at native operation boundaries with retained evidence"
+      ],
+      "finding": "Current audits report hash drift; the MIVIM role also requires evaluating repository structure against declared rules.",
+      "focus": "Native structural profile enforcement for repository workflows",
+      "id": "VIG-CORE-PROFILE-01",
+      "status": "planned"
+    },
+    {
+      "done_criteria": [
+        "Implement explicit local recipient and key lifecycle semantics",
+        "Exercise isolated recipients, rotation/revocation and replay rejection",
+        "Preserve existing binary exchange and keep keys out of reports"
+      ],
+      "finding": "Current Tessera authenticates key possession and a recipient label but has no native recipient lifecycle or replay record.",
+      "focus": "Recipient registry, key lifecycle and replay-aware Tessera delivery",
+      "id": "VIG-IDENTITY-01",
+      "status": "planned"
+    }
+  ],
+  "development_stage": "vigiles-vandal_0.2",
+  "evidence": {
+    "cipher_method_review": ".mivim/vigiles/reports/current/VIGILES_CIPHER_REVIEW.json",
+    "cipher_qualification": ".mivim/vigiles/reports/current/VIGILES_CIPHER_QUALIFICATION.json",
+    "current_directory": ".mivim/vigiles/reports/current/",
+    "directory_guide": ".mivim/vigiles/reports/README.md",
+    "exchange_qualification": ".mivim/vigiles/reports/current/VIGILES_EXCHANGE_QUALIFICATION.json",
+    "exchange_review": ".mivim/vigiles/reports/current/VIGILES_EXCHANGE_REVIEW.json",
+    "historical_status": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_STATUS.json",
+    "installed_package_verification": ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json",
+    "native_cipher_reference": ".mivim/vigiles/reports/current/VIGILES_CIPHER_REFERENCE.json",
+    "original_record_hashes_and_relocation": ".mivim/vigiles/reports/INDEX.json",
+    "prior_release_package_verification": ".mivim/vigiles/reports/archive/runs/20261004T113712000349Z-89a5bcfd/VIGILES_VERIFICATION.json",
+    "prior_translation_qualification": ".mivim/vigiles/reports/archive/runs/20261004T114804786162Z-c39a025e/VIGILES_TRANSLATION_QUALIFICATION.json",
+    "qualification_scope": "Local Windows Python 3.13 source and isolated installed Bamboozle 0.7.0 wheel. Complete neutral project exchange through explicit classical recipes and mandatory Tessera, separate source/receiver workspaces, actual CLI and stdio MCP development, new dependent modules and explicit deletion, decoded review and recoverable source return. Four enhanced installed applications execute 1200 scheduler cases, 48 invalid workloads and 20 invalid capacities. Source tests cover authentication, origin/recipe binding, malformed/private paths, bounds, stale returns, source drift, no-clobber publication, extraction/import interruption and explicit recovery. Eight historical view journals/receipts and all 32 supplied C/build/license assets remain unchanged. Recipient lifecycle, remote CI, external model/host acceptance and OS isolation remain separate open gates.",
+    "recovery_qualification": ".mivim/vigiles/reports/current/VIGILES_RECOVERY_QUALIFICATION.json",
+    "source_verification": ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json",
+    "translation_qualification": ".mivim/vigiles/reports/current/VIGILES_TRANSLATION_QUALIFICATION.json"
+  },
+  "last_completed_step": {
+    "done_criteria": [
+      "Product CLI and operator MCP pack an entire explicitly scoped neutral project with optional pinned classical recipe and mandatory Tessera authentication",
+      "Receiver develops in a separate readable workspace; original mappings, spelling context, keys and recipes remain outside it",
+      "Authenticated multi-file return binds to the originating view and reuses decoded review, allowed new files, explicit deletions, source drift protection and retained import recovery",
+      "Exercise complete dependent applications through real CLI and stdio MCP in source and receiver roots, including generated modules and restored behavior",
+      "Qualify failures, source checks and isolated installed package; preserve supplied C originals and historical local view journals"
+    ],
+    "evidence": [
+      ".mivim/vigiles/reports/current/VIGILES_EXCHANGE_QUALIFICATION.json",
+      ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json",
+      ".mivim/vigiles/reports/current/VIGILES_EXCHANGE_REVIEW.json"
+    ],
+    "focus": "Connect classical recipes, Tessera and semantic project views into complete multi-workspace application development and source return",
+    "id": "VIG-CIPHER-EXCHANGE-01",
+    "priority": "user_high",
+    "qualification": {
+      "scope": "Local Windows Python 3.13 source and isolated installed Bamboozle 0.7.0 wheel. Complete neutral project exchange through explicit classical recipes and mandatory Tessera, separate source/receiver workspaces, actual CLI and stdio MCP development, new dependent modules and explicit deletion, decoded review and recoverable source return. Four enhanced installed applications execute 1200 scheduler cases, 48 invalid workloads and 20 invalid capacities. Source tests cover authentication, origin/recipe binding, malformed/private paths, bounds, stale returns, source drift, no-clobber publication, extraction/import interruption and explicit recovery. Eight historical view journals/receipts and all 32 supplied C/build/license assets remain unchanged. Recipient lifecycle, remote CI, external model/host acceptance and OS isolation remain separate open gates.",
+      "tests_passed": 1001,
+      "verification_stages_passed": 11
+    },
+    "release": "0.7.0",
+    "status": "complete_source_and_local_installed_package"
+  },
+  "next_step": {
+    "done_criteria": [
+      "Reproduce external-import corruption and nested new-module failure",
+      "Connect shared syntax-aware Python/JSON/Markdown/text codecs to direct source-agent I/O",
+      "Pin source and translation context across reconnects; reject invalid returned syntax before source writes",
+      "Execute the complete dependent application through dedicated two-tool stdio and installed package",
+      "Preserve legacy text semantics and private metadata boundaries; distinguish repaired defects from whole-core acceptance"
+    ],
+    "focus": "Repair direct source-agent translation and nested module generation through read_safe_file/write_safe_file",
+    "id": "VIG-CORE-SOURCE-AGENT-01",
+    "priority": "user_core_correction",
+    "status": "verification_in_progress"
+  },
+  "open_gates": [
+    {
+      "completed_stage": "Native operations, prepared plans, inventory, read-only recovery diagnostics, explicit recovery, and both MCP interfaces are locally qualified with synthetic assets and an installed v0.3.5 wheel.",
+      "dependencies": [
+        "Real candidate and completed evaluation evidence",
+        "Operator-selected production workshop",
+        "Live consumer acceptance criteria"
+      ],
+      "done_criteria": [
+        "Native promotion, quarantine, and audit fixtures pass (complete)",
+        "Interrupted publication recovery demonstrated before live writes (complete)",
+        "Real candidate accepted in an operator-selected production workspace (open)"
+      ],
+      "evidence": [
+        "src/workshop/scrape/promote.py",
+        "src/workshop/scrape/audit_matrix.py",
+        "src/workshop/tests/test_operations.py",
+        ".mivim/vigiles/reports/current/VIGILES_PIPELINE_QUALIFICATION.json",
+        ".mivim/vigiles/reports/current/VIGILES_PIPELINE_READINESS.json",
+        ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json",
+        ".mivim/vigiles/reports/current/VIGILES_PLAN_QUALIFICATION.json",
+        ".mivim/vigiles/reports/current/VIGILES_RECOVERY_QUALIFICATION.json"
+      ],
+      "id": "VIG-DEPLOY-01",
+      "impact": "Native file operations are locally qualified with synthetic assets; no live LoRA or ComfyUI acceptance is claimed.",
+      "next_action": "Evaluate a real candidate, retain its validation evidence, select a production workshop, and review/prepare/apply the exact plan before live consumer acceptance.",
+      "owner_role": "Workshop integration owner",
+      "priority": "P1",
+      "remaining_dependency": "Production model evaluation and live target selection remain separate from fixture qualification.",
+      "status": "native_fixture_qualified_live_acceptance_open"
+    },
+    {
+      "dependencies": [
+        "Approved recipient trust model",
+        "Key custody and distribution design",
+        "Replay policy"
+      ],
+      "done_criteria": [
+        "Isolated recipient tests",
+        "Rotation and revocation tests",
+        "Approved and tested replay policy",
+        "No key material in reports or source"
+      ],
+      "id": "VIG-IDENTITY-01",
+      "impact": "Tessera proves key possession and recipient-label integrity, not independently verified identity or freshness.",
+      "next_action": "Define recipient identities and key issuance, rotation, revocation, and replay semantics before cross-agent production exchange.",
+      "owner_role": "MIVIM security and agent integration owner",
+      "priority": "P1",
+      "status": "open"
+    },
+    {
+      "dependencies": [
+        "Committed and submitted revision",
+        "Enabled GitHub Actions"
+      ],
+      "done_criteria": [
+        "Windows Python 3.13 passes",
+        "Windows Python 3.14 passes",
+        "Linux Python 3.13 passes",
+        "Linux Python 3.14 passes",
+        "Run URLs and revision recorded"
+      ],
+      "evidence": [
+        "../.github/workflows/vigiles.yml"
+      ],
+      "id": "VIG-CI-01",
+      "impact": "Local Windows results do not prove Linux or Python 3.14 compatibility.",
+      "next_action": "Run the supplied workflow for the submitted revision and retain all four job results.",
+      "owner_role": "Repository maintainer",
+      "priority": "P1",
+      "status": "open"
+    },
+    {
+      "dependencies": [
+        "Explicit target host and account",
+        "Filesystem ACL policy",
+        "Resource and lifecycle policy"
+      ],
+      "done_criteria": [
+        "Operator-selected deployment recorded",
+        "Least-privilege ACLs verified",
+        "Bounded resource policy tested",
+        "Start, stop, and uninstall verified"
+      ],
+      "id": "VIG-HOST-01",
+      "impact": "No installed background service, process-tree lifecycle policy, or OS-level isolation has been qualified.",
+      "next_action": "Select whether a managed service is needed, then qualify start/stop/uninstall and least-privilege operation on that host.",
+      "owner_role": "Deployment operator",
+      "priority": "P2",
+      "status": "open"
+    }
+  ],
+  "preservation_direction": "Retain existing services; integrate them around the operational core pipeline. Assistant-written contracts and task queues cannot retire original user design requirements.",
+  "product_direction": "Bamboozle encoder/cipher/translator is the original application. Vigiles is its supporting agent workflow; core usable product capabilities take priority over peripheral agent framework expansion.",
+  "project": "Bamboozle / MIVIM Vigiles",
+  "purpose": "Active core development plan and remaining acceptance gates; completed evidence/history belong under .mivim/vigiles/reports/.",
+  "recorded_on": "2026-10-04",
+  "release": "0.7.0",
+  "schema_version": 1,
+  "workflow": {
+    "id": "vigiles-vandal_0.2",
+    "previous_specification": ".mivim/vigiles/specs/vigiles-vanilla_0.1.md",
+    "product_version_independent": true,
+    "scope": "This MIVIM Bamboozle repository only",
+    "skill": ".vigiles/skills/vigiles-vandal/SKILL.md",
+    "specification": ".mivim/vigiles-vandal_0.2.md",
+    "status": "repository_spec_skill_and_generated_stdio_contexts_qualified",
+    "version": "0.2"
+  }
+}

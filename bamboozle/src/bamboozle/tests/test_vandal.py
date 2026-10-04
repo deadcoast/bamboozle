@@ -11,6 +11,7 @@ import pytest
 from fastmcp import Client
 from fastmcp.client.transports import StdioTransport
 
+from bamboozle.agent_development import AGENT_TOOLS
 from bamboozle.dictionary import Dictionary
 from bamboozle.project_views import export_view
 from bamboozle.utils import json_bytes
@@ -44,7 +45,7 @@ def test_generated_context_works_from_other_directory_and_exposes_its_actual_too
         async with Client(StdioTransport(**connection, cwd=str(tmp_path))) as client:
             names = {tool.name for tool in await client.list_tools()}
             if mode == "agent":
-                assert names == {"read_safe_file", "write_safe_file"}
+                assert names == AGENT_TOOLS
                 response = await client.call_tool(
                     "read_safe_file", {"file_path": "src/bamboozle/__init__.py"}
                 )

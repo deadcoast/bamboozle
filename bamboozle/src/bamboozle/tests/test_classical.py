@@ -339,6 +339,9 @@ def test_cli_and_mcp_share_recipes_and_keep_agent_tools_separate(tmp_path):
             ] == "verified"
         async with Client(agent_server(tmp_path)) as client:
             assert {tool.name for tool in await client.list_tools()} == {
+                "list_safe_files",
+                "search_safe_files",
+                "edit_safe_file",
                 "read_safe_file",
                 "write_safe_file",
             }

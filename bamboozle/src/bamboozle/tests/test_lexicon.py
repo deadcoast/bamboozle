@@ -724,6 +724,9 @@ def test_operator_mcp_author_compile_formatted_agent_return_and_boundary(tmp_pat
             )
         ) as client:
             assert {tool.name for tool in await client.list_tools()} == {
+                "list_safe_files",
+                "search_safe_files",
+                "edit_safe_file",
                 "read_safe_file",
                 "write_safe_file",
             }

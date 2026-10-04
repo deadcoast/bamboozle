@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="10" skipped="0" tests="25" time="13.373" timestamp="2026-10-04T07:07:18.629829-07:00" hostname="homeone"><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_complete_return_preserves_local_view_and_exact_review[tessera]" time="0.356"><failure message="assert (False)">cycle = (Workspace(root=WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/exchange-first/test_complete_...9f96f76672cbdc6ae08b3d7e19f226b2ed3706bf51b3cb1a891cb5', {'key': 'transport.key', 'recipient': 'test', 'recipe': None})
+
+    def test_complete_return_preserves_local_view_and_exact_review(cycle):
+        owner, peer, view_id, exchange_id, options = cycle
+        before = snapshot_view(Workspace(owner.root / "view"))
+        args = returned(cycle)
+        review = view_import.review_import(owner, view_id, **args)
+&gt;       assert review["ok"] and review["action_count"] == 2
+E       assert (False)
+
+src\bamboozle\tests\test_project_exchange.py:97: AssertionError</failure></testcase><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_complete_return_preserves_local_view_and_exact_review[classical-tessera]" time="0.356"><failure message="assert (False)">cycle = (Workspace(root=WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/exchange-first/test_complete_...4667f83747c5779d1a41dbe06354afec', {'key': 'transport.key', 'recipient': 'test', 'recipe': 'chain.cipher-recipe.json'})
+
+    def test_complete_return_preserves_local_view_and_exact_review(cycle):
+        owner, peer, view_id, exchange_id, options = cycle
+        before = snapshot_view(Workspace(owner.root / "view"))
+        args = returned(cycle)
+        review = view_import.review_import(owner, view_id, **args)
+&gt;       assert review["ok"] and review["action_count"] == 2
+E       assert (False)
+
+src\bamboozle\tests\test_project_exchange.py:97: AssertionError</failure></testcase><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_authentication_recipe_origin_and_source_drift[tessera]" time="0.476"><failure message="ValueError: Expected a lowercase SHA-256 digest">cycle = (Workspace(root=WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/exchange-first/test_authentic...dbcc05b8a7e74d149863dea3c6655f12eed0c583afce4066314154', {'key': 'transport.key', 'recipient': 'test', 'recipe': None})
+
+    def test_authentication_recipe_origin_and_source_drift(cycle):
+        owner, peer, view_id, _, options = cycle
+        with pytest.raises(ValueError, match="authentication"):
+            (peer.root / "wrong.key").write_bytes(bytes(32))
+            exchange.open_exchange(
+                peer, "out.bam", "bad", **{**options, "key": "wrong.key"}
+            )
+        assert not (peer.root / "bad").exists()
+        with pytest.raises(ValueError, match="recipient"):
+            exchange.open_exchange(
+                peer, "out.bam", "bad", **{**options, "recipient": "wrong"}
+            )
+        wrong_recipe = None if options["recipe"] else "chain.cipher-recipe.json"
+        with pytest.raises(ValueError, match="recipe"):
+            exchange.open_exchange(
+                peer, "out.bam", "bad", **{**options, "recipe": wrong_recipe}
+            )
+        args = returned(cycle)
+        other = export_view(owner, "policy.json", "other", Dictionary({"task": "stage"}))
+        with pytest.raises(ValueError, match="different view"):
+            view_import.review_import(owner, other["view_id"], **args)
+        reviewed = view_import.review_import(owner, view_id, **args)
+        (owner.root / "main.py").write_bytes(b"CONCURRENT = True\n")
+        assert not view_import.review_import(owner, view_id, **args)["ok"]
+        with pytest.raises(OperationError, match="changed"):
+&gt;           view_import.apply_import(owner, view_id, reviewed["review_sha256"], **args)
+
+src\bamboozle\tests\test_project_exchange.py:140: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\bamboozle\view_import.py:591: in apply_import
+    digest(review_sha256)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+value = None
+
+    def digest(value: Any) -&gt; str:
+        if not isinstance(value, str) or re.fullmatch(r"[0-9a-f]{64}", value) is None:
+&gt;           raise ValueError("Expected a lowercase SHA-256 digest")
+E           ValueError: Expected a lowercase SHA-256 digest
+
+src\bamboozle\project_views.py:74: ValueError</failure></testcase><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_authentication_recipe_origin_and_source_drift[classical-tessera]" time="0.531"><failure message="ValueError: Expected a lowercase SHA-256 digest">cycle = (Workspace(root=WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/exchange-first/test_authentic...e9554236c2ab0d8f652a7ef0817613f2', {'key': 'transport.key', 'recipient': 'test', 'recipe': 'chain.cipher-recipe.json'})
+
+    def test_authentication_recipe_origin_and_source_drift(cycle):
+        owner, peer, view_id, _, options = cycle
+        with pytest.raises(ValueError, match="authentication"):
+            (peer.root / "wrong.key").write_bytes(bytes(32))
+            exchange.open_exchange(
+                peer, "out.bam", "bad", **{**options, "key": "wrong.key"}
+            )
+        assert not (peer.root / "bad").exists()
+        with pytest.raises(ValueError, match="recipient"):
+            exchange.open_exchange(
+                peer, "out.bam", "bad", **{**options, "recipient": "wrong"}
+            )
+        wrong_recipe = None if options["recipe"] else "chain.cipher-recipe.json"
+        with pytest.raises(ValueError, match="recipe"):
+            exchange.open_exchange(
+                peer, "out.bam", "bad", **{**options, "recipe": wrong_recipe}
+            )
+        args = returned(cycle)
+        other = export_view(owner, "policy.json", "other", Dictionary({"task": "stage"}))
+        with pytest.raises(ValueError, match="different view"):
+            view_import.review_import(owner, other["view_id"], **args)
+        reviewed = view_import.review_import(owner, view_id, **args)
+        (owner.root / "main.py").write_bytes(b"CONCURRENT = True\n")
+        assert not view_import.review_import(owner, view_id, **args)["ok"]
+        with pytest.raises(OperationError, match="changed"):
+&gt;           view_import.apply_import(owner, view_id, reviewed["review_sha256"], **args)
+
+src\bamboozle\tests\test_project_exchange.py:140: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\bamboozle\view_import.py:591: in apply_import
+    digest(review_sha256)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+value = None
+
+    def digest(value: Any) -&gt; str:
+        if not isinstance(value, str) or re.fullmatch(r"[0-9a-f]{64}", value) is None:
+&gt;           raise ValueError("Expected a lowercase SHA-256 digest")
+E           ValueError: Expected a lowercase SHA-256 digest
+
+src\bamboozle\project_views.py:74: ValueError</failure></testcase><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_changed_packet_cannot_apply_old_review[tessera]" time="0.379"><failure message="ValueError: Expected a lowercase SHA-256 digest">cycle = (Workspace(root=WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/exchange-first/test_changed_p...e61ef550dee310cab06e786b1e230ad1e8b6f6ae2835cd978669b9', {'key': 'transport.key', 'recipient': 'test', 'recipe': None})
+
+    def test_changed_packet_cannot_apply_old_review(cycle):
+        owner, peer, view_id, exchange_id, options = cycle
+        args = returned(cycle)
+        reviewed = view_import.review_import(owner, view_id, **args)
+        (peer.root / "work/main.py").write_bytes(b"def stage(x):\n    return x * 3\n")
+        exchange.pack_return(peer, exchange_id, "second.bam", **options)
+        (owner.root / "return.bam").write_bytes((peer.root / "second.bam").read_bytes())
+        with pytest.raises(OperationError, match="stale"):
+&gt;           view_import.apply_import(owner, view_id, reviewed["review_sha256"], **args)
+
+src\bamboozle\tests\test_project_exchange.py:151: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\bamboozle\view_import.py:591: in apply_import
+    digest(review_sha256)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+value = None
+
+    def digest(value: Any) -&gt; str:
+        if not isinstance(value, str) or re.fullmatch(r"[0-9a-f]{64}", value) is None:
+&gt;           raise ValueError("Expected a lowercase SHA-256 digest")
+E           ValueError: Expected a lowercase SHA-256 digest
+
+src\bamboozle\project_views.py:74: ValueError</failure></testcase><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_changed_packet_cannot_apply_old_review[classical-tessera]" time="0.415"><failure message="ValueError: Expected a lowercase SHA-256 digest">cycle = (Workspace(root=WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/exchange-first/test_changed_p...7152044e22d86439393f8f6d2caaf4ad', {'key': 'transport.key', 'recipient': 'test', 'recipe': 'chain.cipher-recipe.json'})
+
+    def test_changed_packet_cannot_apply_old_review(cycle):
+        owner, peer, view_id, exchange_id, options = cycle
+        args = returned(cycle)
+        reviewed = view_import.review_import(owner, view_id, **args)
+        (peer.root / "work/main.py").write_bytes(b"def stage(x):\n    return x * 3\n")
+        exchange.pack_return(peer, exchange_id, "second.bam", **options)
+        (owner.root / "return.bam").write_bytes((peer.root / "second.bam").read_bytes())
+        with pytest.raises(OperationError, match="stale"):
+&gt;           view_import.apply_import(owner, view_id, reviewed["review_sha256"], **args)
+
+src\bamboozle\tests\test_project_exchange.py:151: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\bamboozle\view_import.py:591: in apply_import
+    digest(review_sha256)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+value = None
+
+    def digest(value: Any) -&gt; str:
+        if not isinstance(value, str) or re.fullmatch(r"[0-9a-f]{64}", value) is None:
+&gt;           raise ValueError("Expected a lowercase SHA-256 digest")
+E           ValueError: Expected a lowercase SHA-256 digest
+
+src\bamboozle\project_views.py:74: ValueError</failure></testcase><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_explicit_deletion_and_private_return_refusal[tessera]" time="0.433"><failure message="assert False">cycle = (Workspace(root=WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/exchange-first/test_explicit_...e7a6536c998e6caec7c12717887fad47a4b95cc491c85738ee71c5', {'key': 'transport.key', 'recipient': 'test', 'recipe': None})
+
+    def test_explicit_deletion_and_private_return_refusal(cycle):
+        owner, peer, view_id, exchange_id, options = cycle
+        args = returned(cycle)
+        (peer.root / "work/old.py").unlink()
+        exchange.pack_return(peer, exchange_id, "deleted.bam", **options)
+        (owner.root / "return.bam").write_bytes((peer.root / "deleted.bam").read_bytes())
+        assert not view_import.review_import(owner, view_id, **args)["ok"]
+        review = view_import.review_import(owner, view_id, delete_files=["old.py"], **args)
+&gt;       assert review["ok"]
+E       assert False
+
+src\bamboozle\tests\test_project_exchange.py:162: AssertionError</failure></testcase><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_explicit_deletion_and_private_return_refusal[classical-tessera]" time="0.480"><failure message="assert False">cycle = (Workspace(root=WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/exchange-first/test_explicit_...b3e6d01947463b5951a1d129b160e926', {'key': 'transport.key', 'recipient': 'test', 'recipe': 'chain.cipher-recipe.json'})
+
+    def test_explicit_deletion_and_private_return_refusal(cycle):
+        owner, peer, view_id, exchange_id, options = cycle
+        args = returned(cycle)
+        (peer.root / "work/old.py").unlink()
+        exchange.pack_return(peer, exchange_id, "deleted.bam", **options)
+        (owner.root / "return.bam").write_bytes((peer.root / "deleted.bam").read_bytes())
+        assert not view_import.review_import(owner, view_id, **args)["ok"]
+        review = view_import.review_import(owner, view_id, delete_files=["old.py"], **args)
+&gt;       assert review["ok"]
+E       assert False
+
+src\bamboozle\tests\test_project_exchange.py:162: AssertionError</failure></testcase><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_open_recovery_retains_partial_files_and_refuses_conflicts[tessera]" time="0.224" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_open_recovery_retains_partial_files_and_refuses_conflicts[classical-tessera]" time="0.253" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_import_recovery_uses_retained_authenticated_bytes_without_packet_or_key[tessera]" time="0.300"><failure message="ValueError: Expected a lowercase SHA-256 digest">cycle = (Workspace(root=WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/exchange-first/test_import_re...7b324f552fd1b1b43867cf83948596202bc50317165d6041fbca68', {'key': 'transport.key', 'recipient': 'test', 'recipe': None})
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x000001CE0A72F0B0&gt;
+
+    def test_import_recovery_uses_retained_authenticated_bytes_without_packet_or_key(
+        cycle, monkeypatch
+    ):
+        owner, _, view_id, _, _ = cycle
+        args = returned(cycle)
+        reviewed = view_import.review_import(owner, view_id, **args)
+    
+        def fail(path, raw, **kwargs):
+            if path == owner.root / "new.py":
+                raise OSError("injected source publication failure")
+            atomic_write(path, raw, **kwargs)
+    
+        monkeypatch.setattr(view_import, "atomic_write", fail)
+        with pytest.raises(OperationError) as caught:
+&gt;           view_import.apply_import(owner, view_id, reviewed["review_sha256"], **args)
+
+src\bamboozle\tests\test_project_exchange.py:220: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\bamboozle\view_import.py:591: in apply_import
+    digest(review_sha256)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+value = None
+
+    def digest(value: Any) -&gt; str:
+        if not isinstance(value, str) or re.fullmatch(r"[0-9a-f]{64}", value) is None:
+&gt;           raise ValueError("Expected a lowercase SHA-256 digest")
+E           ValueError: Expected a lowercase SHA-256 digest
+
+src\bamboozle\project_views.py:74: ValueError</failure></testcase><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_import_recovery_uses_retained_authenticated_bytes_without_packet_or_key[classical-tessera]" time="0.336"><failure message="ValueError: Expected a lowercase SHA-256 digest">cycle = (Workspace(root=WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/exchange-first/test_import_re...66605987ff700745311f621c52ef9358', {'key': 'transport.key', 'recipient': 'test', 'recipe': 'chain.cipher-recipe.json'})
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x000001CE0A79EE00&gt;
+
+    def test_import_recovery_uses_retained_authenticated_bytes_without_packet_or_key(
+        cycle, monkeypatch
+    ):
+        owner, _, view_id, _, _ = cycle
+        args = returned(cycle)
+        reviewed = view_import.review_import(owner, view_id, **args)
+    
+        def fail(path, raw, **kwargs):
+            if path == owner.root / "new.py":
+                raise OSError("injected source publication failure")
+            atomic_write(path, raw, **kwargs)
+    
+        monkeypatch.setattr(view_import, "atomic_write", fail)
+        with pytest.raises(OperationError) as caught:
+&gt;           view_import.apply_import(owner, view_id, reviewed["review_sha256"], **args)
+
+src\bamboozle\tests\test_project_exchange.py:220: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\bamboozle\view_import.py:591: in apply_import
+    digest(review_sha256)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+value = None
+
+    def digest(value: Any) -&gt; str:
+        if not isinstance(value, str) or re.fullmatch(r"[0-9a-f]{64}", value) is None:
+&gt;           raise ValueError("Expected a lowercase SHA-256 digest")
+E           ValueError: Expected a lowercase SHA-256 digest
+
+src\bamboozle\project_views.py:74: ValueError</failure></testcase><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_malicious_authenticated_paths_rejected_before_publication[../escape]" time="0.010" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_malicious_authenticated_paths_rejected_before_publication[C:/escape]" time="0.010" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_malicious_authenticated_paths_rejected_before_publication[a\\b]" time="0.009" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_malicious_authenticated_paths_rejected_before_publication[AUX.txt]" time="0.010" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_malicious_authenticated_paths_rejected_before_publication[.local/leak]" time="0.009" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_malicious_authenticated_paths_rejected_before_publication[.git/config]" time="0.010" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_malicious_authenticated_paths_rejected_before_publication[leak.key]" time="0.009" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_malicious_authenticated_paths_rejected_before_publication[x.dictionary.json]" time="0.010" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_malicious_authenticated_paths_rejected_before_publication[.env.production]" time="0.009" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_malicious_authenticated_paths_rejected_before_publication[private.pem]" time="0.009" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_frame_integrity_duplicates_bounds_and_trailing_bytes[tessera]" time="0.129" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_frame_integrity_duplicates_bounds_and_trailing_bytes[classical-tessera]" time="0.148" /><testcase classname="src.bamboozle.tests.test_project_exchange" name="test_complete_cli_and_stdio_applications" time="8.179" /></testsuite></testsuites>

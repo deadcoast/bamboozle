@@ -73,9 +73,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--ledger", type=Path)
     parser.add_argument("--strict", action="store_true")
     parser.add_argument(
-        "--format", choices=["text", "markdown", "json"], dest="document_format"
+        "--format", choices=["text", "markdown", "json", "yaml"], dest="document_format"
     )
     parser.add_argument("--json-pointer", action="append")
+    parser.add_argument("--yaml-pointer", action="append")
     parser.add_argument("--root", type=Path, default=Path.cwd())
     args = parser.parse_args(argv)
     try:
@@ -91,7 +92,11 @@ def main(argv: list[str] | None = None) -> int:
                 else args.dictionary,
                 ledger=args.ledger,
                 strict=args.strict,
-                format_rules=format_options(args.document_format, args.json_pointer),
+                format_rules=format_options(
+                    args.document_format,
+                    args.json_pointer,
+                    yaml_pointers=args.yaml_pointer,
+                ),
             ).apply()
             print(json.dumps(report), file=sys.stderr)
             return 0
@@ -107,11 +112,14 @@ def main(argv: list[str] | None = None) -> int:
             else workspace.read(args.input).decode("utf-8")
         )
         translated = DocumentCodec(
-            dictionary, format_options(args.document_format, args.json_pointer)
+            dictionary,
+            format_options(
+                args.document_format, args.json_pointer, yaml_pointers=args.yaml_pointer
+            ),
         ).transform(original, args.mode)
         if translated.context:
             raise ValueError(
-                "This JSON encoding needs a private spelling snapshot; use file-to-file translation to retain its ledger"
+                "This structured encoding needs a private spelling snapshot; use file-to-file translation to retain its ledger"
             )
         converted = translated.text
         if args.output == "-":

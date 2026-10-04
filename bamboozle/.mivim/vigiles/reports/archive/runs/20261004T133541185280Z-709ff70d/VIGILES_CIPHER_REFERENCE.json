@@ -1,0 +1,204 @@
+{
+  "checkpoint": "c53f0bfded51667437fc837cd33ede37745ae9c5",
+  "compiler": "C:\\msys64\\mingw64\\bin\\gcc.exe",
+  "compiler_version": "gcc.exe (Rev11, Built by MSYS2 project) 15.2.0",
+  "conformance": [
+    {
+      "cipher": "caesar",
+      "encoded_hex": "587171787a682c205762796f7821",
+      "exact_inverse": true,
+      "matches_original_c": true
+    },
+    {
+      "cipher": "rot13",
+      "encoded_hex": "4e67676e70782c204d726f656e21",
+      "exact_inverse": true,
+      "matches_original_c": true
+    },
+    {
+      "cipher": "atbash",
+      "encoded_hex": "5a67677a78702c20417679697a21",
+      "exact_inverse": true,
+      "matches_original_c": true
+    },
+    {
+      "cipher": "affine",
+      "encoded_hex": "4968687776632053776672637021",
+      "exact_inverse": true,
+      "matches_original_c": true
+    },
+    {
+      "cipher": "scytale",
+      "encoded_hex": "4144474a4245484b4346494c",
+      "exact_inverse": true,
+      "matches_original_c": true
+    },
+    {
+      "cipher": "vigenere",
+      "encoded_hex": "4c78666f707620656620726e687221",
+      "exact_inverse": true,
+      "matches_original_c": true
+    },
+    {
+      "cipher": "beaufort",
+      "encoded_hex": "436b6d707663207076772070697775206a6f676921",
+      "exact_inverse": true,
+      "matches_original_c": true
+    },
+    {
+      "cipher": "gronsfeld",
+      "encoded_hex": "44757862686e2062782065667a6f21",
+      "exact_inverse": true,
+      "matches_original_c": true
+    },
+    {
+      "cipher": "rail-fence",
+      "encoded_hex": "574543524c5445455244534f45454645414f4341495644454e",
+      "exact_inverse": true,
+      "matches_original_c": true
+    },
+    {
+      "cipher": "columnar-transposition",
+      "encoded_hex": "4232413143334434473745354636",
+      "exact_inverse": true,
+      "matches_original_c": true
+    }
+  ],
+  "created": "2026-10-04T13:22:19.347714Z",
+  "error_dialogs_disabled": true,
+  "originals": {
+    "bamboozle/include/cipher.h": {
+      "git_bytes_sha256": "756c8069624dfbc52089c31df145a02d4b886d7d786ed84fc207d52f8bf1f457",
+      "working_bytes_sha256": "aa557c4570ca5262767865c19a72c998ce0d56c6c8b6f50fd1555676c9bf2655"
+    },
+    "bamboozle/include/ciphers/affine.h": {
+      "git_bytes_sha256": "25313404017b85bc6dffc492c23936c9b385c39f3a44621740520a300246d581",
+      "working_bytes_sha256": "e599d6998f56586d08f7306641deecdbb8d6026f2cce7713c26494ba705cb953"
+    },
+    "bamboozle/include/ciphers/atbash.h": {
+      "git_bytes_sha256": "143f757bd79ae7969f4cd269e0e86aa8d6287bcf9c8105799959b305fa40a998",
+      "working_bytes_sha256": "13046766e47212d1fd8e7a78e8abb8d1a8766e5dc780cdd60d7e712a09c2ae25"
+    },
+    "bamboozle/include/ciphers/beaufort.h": {
+      "git_bytes_sha256": "d250abff8739f87513a78cdcaca9747a5a5aef08b44b9903db5114537d4bc88a",
+      "working_bytes_sha256": "c59f2ad5859d26883b6591b87a374b1eaf62863de6012b342316dd65e08896a6"
+    },
+    "bamboozle/include/ciphers/caesar.h": {
+      "git_bytes_sha256": "ead9e1bceebc6368676f110bc2c8385e0a9890df9bcc14789cf302da490cf606",
+      "working_bytes_sha256": "935609abd842cba158f8b13f1bcac3070019ec854c8b1b9453745051dceab811"
+    },
+    "bamboozle/include/ciphers/columnar_transposition.h": {
+      "git_bytes_sha256": "f153131a174042e621500d5f825524949e787e7edf332b35bc39b9606a179d05",
+      "working_bytes_sha256": "19da69b4a85a102b4ef801206869a2ff49ea999aef1cd8b06bc6ef40abf4dee9"
+    },
+    "bamboozle/include/ciphers/gronsfeld.h": {
+      "git_bytes_sha256": "305073d380b10b33b37c863d782a9aefe40446c447ac03fce5e02d3c94e134af",
+      "working_bytes_sha256": "0fea60a621ca8e36dd04257da2081458e053efd1237950a32d6228b4869699d8"
+    },
+    "bamboozle/include/ciphers/polybius_square.h": {
+      "git_bytes_sha256": "1b640e8b94b5bffa6f41bd79ed8af3fbbb6abfdd1b2cb94b9f335e0b510e9f2f",
+      "working_bytes_sha256": "5984a898309a802368c36d005248e661c7b31532213efbba7535bf611588bd4e"
+    },
+    "bamboozle/include/ciphers/rail_fence.h": {
+      "git_bytes_sha256": "830ded47b498cec866bb1b864452cce59d6c1f00f2aa4004afedecf60abea966",
+      "working_bytes_sha256": "49c7f6f7f2513e99dfff9bdbf6d33934376a43bb2b890138dd220cfa35a9230a"
+    },
+    "bamboozle/include/ciphers/rot13.h": {
+      "git_bytes_sha256": "3814ba8987cdbf6270ef66c79d7e2999780fb176aead06b3228b84acf4b33d2f",
+      "working_bytes_sha256": "65787fb4e27e024a02cdc7e89b03b26028ad38a212cc36643d24f10d61d02710"
+    },
+    "bamboozle/include/ciphers/scytale.h": {
+      "git_bytes_sha256": "3d8cd9a4e4e59bd60cdb633ed093199d109a5cc1de7c1a868d9ac3c0fc7af559",
+      "working_bytes_sha256": "422cd1919f8e3d360f0dfbaa22f44da0ccc22f85cffde5ebf8fcdebd7235de9e"
+    },
+    "bamboozle/include/ciphers/vigenere.h": {
+      "git_bytes_sha256": "58cc558bc9cca14b156f6c4bc733142b830188ccfc1d6a025f81c3174a5f6379",
+      "working_bytes_sha256": "1b5e093d7f0f5b7c5abb0273532b3d9f4c164ecf824fb864724ddf39de53332d"
+    },
+    "bamboozle/include/utils/alpha.h": {
+      "git_bytes_sha256": "565acf67fb6c9937df9c5c542c3a2f68622cd4f5bfb0eea7ebc80b9534b0b9b3",
+      "working_bytes_sha256": "1365299fc4d26a1b14232647e4afa107269428dbb254dff6f1c22d34aba0067b"
+    },
+    "bamboozle/src/cipher.c": {
+      "git_bytes_sha256": "a087e3befc6c2b8752e996e7be6844d72f43f8f90c5e182d2e18d00f0282c9b5",
+      "working_bytes_sha256": "33ff06ffa466170fe197da001621bee114c6027c961885c27ea022b9e2b157d5"
+    },
+    "bamboozle/src/ciphers/affine.c": {
+      "git_bytes_sha256": "812541fa6fa681a70a3426d1e3fcf52ffb7a5f1551289f6470e53a84759a49a0",
+      "working_bytes_sha256": "21dde85fd4a7cd8694754ff9dfa73b88a7c340d4c1182692587966b56b929769"
+    },
+    "bamboozle/src/ciphers/atbash.c": {
+      "git_bytes_sha256": "48a5d0871b264174b5d7d02176ec808c7dcc624edb9c5cf1706ea858b1fc6b9f",
+      "working_bytes_sha256": "ee9387b9e349a6991ae00741f9a52d896fc59677d31651ed93428a05ae6439dc"
+    },
+    "bamboozle/src/ciphers/beaufort.c": {
+      "git_bytes_sha256": "d098783554ee886fb52148b52e519183cd9443ba587f5e5682ebff3d7bd33b44",
+      "working_bytes_sha256": "97ac49e2e9e0ca9baa2990b59edc832ad06bcb5be7d21fc23342069035d5608c"
+    },
+    "bamboozle/src/ciphers/caesar.c": {
+      "git_bytes_sha256": "ee3bc42d1270265b2c5dedfde49ab0c60d0dcc1efb3d6868c0e7eb6035306a31",
+      "working_bytes_sha256": "e86133a23e3a5c075d6124ccc96d075a416f9af99b91ebb65a63f00dc4768e01"
+    },
+    "bamboozle/src/ciphers/columnar_transposition.c": {
+      "git_bytes_sha256": "aed68ba23848b778f6262b364abbe018507cd85b10bf0fafe7d3b265e012b8e0",
+      "working_bytes_sha256": "435a75f3210d120b5c89557ab64ad38ae5a76c1db737c137b316acf7b503d51d"
+    },
+    "bamboozle/src/ciphers/gronsfeld.c": {
+      "git_bytes_sha256": "6a4c4852771b30b625ec1cb886a91f42a6e4eadd20d144200fbb75cafd78b751",
+      "working_bytes_sha256": "490d3a7f3c3f49fe545f381b922eb500735a21c6c24fb0027a34e0644c9daae4"
+    },
+    "bamboozle/src/ciphers/polybius_square.c": {
+      "git_bytes_sha256": "bca6e7ee8a7a619076dd0d750815e06e97c49787f648c60342ded8e6130d1cd2",
+      "working_bytes_sha256": "2fbdf7f5f0adeb9a73b11741e2863104e51eb2830999539265eeac28eed2ac57"
+    },
+    "bamboozle/src/ciphers/rail_fence.c": {
+      "git_bytes_sha256": "dec8390ee9404b52b9aebaafb38c8e1b3ba5eb36872e339843b11ac08fadc99e",
+      "working_bytes_sha256": "662b05d9d90fcdbb498afcdaa4b4e5b36521f6744141a10a39fc77c7d4c59ca8"
+    },
+    "bamboozle/src/ciphers/rot13.c": {
+      "git_bytes_sha256": "52c0a74a4db6c1b7e956a317554740bcade864cb23a1c7e9d8fc07902e11582c",
+      "working_bytes_sha256": "450dcf31f06f93272268d6a1a8aa51a1222df710dc1f080992ef54b6f48fc88e"
+    },
+    "bamboozle/src/ciphers/scytale.c": {
+      "git_bytes_sha256": "36af0f0e28523a9ff7255b9c9c0afe826a8f5bef04d77d586553fbd1c62b24ca",
+      "working_bytes_sha256": "98c0c463c40fe002ae51de6e868051c51629e723c8465e6c28b925b90b647526"
+    },
+    "bamboozle/src/ciphers/vigenere.c": {
+      "git_bytes_sha256": "1b152d055abd2035c02a92e8669ae9a2509019b11cc48644af922711f867fa12",
+      "working_bytes_sha256": "575c19e78d35efc83a4a9c0ad48d52d4490d1cc1deb44d06d11b08304df36b74"
+    },
+    "bamboozle/src/utils/alpha.c": {
+      "git_bytes_sha256": "b39d89ef26346fdcdb1b3544ca7f50533d3e2b8d698a4df9181d1481d11af036",
+      "working_bytes_sha256": "bd04946aedca13da9ef2e4d2f71cfe1f230e071cde83205ddf43b85300147532"
+    }
+  },
+  "polybius_25_coordinates_match": true,
+  "process_local_runtime_path": "C:\\msys64\\mingw64\\bin",
+  "retained_original_defects": [
+    {
+      "c_decoded_hex": "7461696c",
+      "c_encoded_hex": "746c617e697e",
+      "cipher": "scytale",
+      "original_c_roundtrip_exact": false,
+      "source_hex": "7461696c7e"
+    },
+    {
+      "c_decoded_hex": "444154415f5f",
+      "c_encoded_hex": "415f545f4441",
+      "cipher": "columnar-transposition",
+      "original_c_roundtrip_exact": false,
+      "source_hex": "444154415f"
+    },
+    {
+      "c_decoded_hex": "696967203131",
+      "c_encoded_hex": "3234203234203232202020312031",
+      "cipher": "polybius-square",
+      "original_c_roundtrip_exact": false,
+      "source_hex": "4a6967203131"
+    }
+  ],
+  "schema_version": 1,
+  "scope": "Native compiled original C conformance for defined inputs and reproduced data-loss cases; not memory-sanitizer qualification or authentication.",
+  "status": "passed",
+  "work_dir": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\cipher-native-qualified-first"
+}

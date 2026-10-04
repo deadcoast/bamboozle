@@ -1,6 +1,6 @@
 # Bamboozle
 
-Product version: **v0.5.0**. Repository workflow: **vigiles-vandal_0.2**, named
+Product version: **v0.7.0**. Repository workflow: **vigiles-vandal_0.2**, named
 **vandal**. Bamboozle is the original semantic encoder/cipher and reversible
 translator, with separate authenticated encryption/decryption operations.
 Vandal is MIVIM's proprietary agent workflow for operating and developing Bamboozle
@@ -24,6 +24,385 @@ records actual checks, test results, and source hashes. Retained evidence belong
 under [.mivim/vigiles/reports/](.mivim/vigiles/reports/README.md), with latest records
 in `current/` and historical/failed records in `archive/`. Keep only active planning
 and task files at the root alongside normal project and steering files.
+
+## Connect the coding agent directly to the translator
+
+The original `read_safe_file` / `write_safe_file` pair can now use the same
+syntax-aware translators as project views. Start it with an operator-owned
+`source.agent-policy.json`; this uses the existing version-2 file-policy format:
+
+```json
+{
+  "schema_version": 2,
+  "files": {
+    "module.py": {
+      "policy": "translate",
+      "document": {"format": "python", "identifiers": ["task"], "modules": ["module"]}
+    },
+    "config.json": {
+      "policy": "translate",
+      "document": {"format": "json", "pointers": ["/selected"]}
+    },
+    "notes.md": {"policy": "translate", "document": {"format": "markdown"}}
+  },
+  "new_files": {
+    "package": {
+      "policy": "translate",
+      "document": {"format": "python", "identifiers": ["task"], "modules": ["module"]}
+    }
+  }
+}
+```
+
+With a private dictionary containing `{"task":"stage","path":"location"}`,
+reading `module.py` changes the selected `task` identifier while preserving
+`from pathlib import Path`, unselected strings, comments and formatting. A returned
+`stage` definition or import is decoded back to `task`. Selected JSON values and
+Markdown prose follow their existing adapter contracts in those same two tools.
+
+```powershell
+bamboozle --root C:\path\to\project serve-agent --dict mapping.dictionary.json --policy source.agent-policy.json
+# Equivalent standalone entry point:
+scm-mcp --root C:\path\to\project --dict mapping.dictionary.json --policy source.agent-policy.json
+# Repository-specific Vandal configuration:
+uv run --locked python scripts/vandal.py --mode agent --policy source.agent-policy.json
+```
+
+The source-agent MCP exposes five source-development tools. `read_safe_file` returns
+`content`, `source_sha256`, `context_sha256`, `neutral_sha256`, `document_format`
+and neutral `document_rules`. After reconnecting,
+pass both hashes as `expected_sha256` and `expected_context_sha256` to
+`write_safe_file`; this pins the source, dictionary, policy and document selections.
+Within a running server it retains those read hashes. Changed source, policy or
+translation context requires a fresh read; malformed Python is refused before
+source publication. New modules may create nested package directories. Successful
+writes return the new hashes and retain original/decoded bytes and private context.
+
+Use the connected MCP tools to navigate and edit without raw-source access:
+
+| Tool | Operation |
+| --- | --- |
+| `list_safe_files` | Discover files recursively within `directory` (default `.`), excluding private/protected paths and links; show neutral new-file rules. |
+| `search_safe_files` | Find an exact, case-sensitive `query` in encoded documents and return neutral excerpts, locations and edit hashes. |
+| `read_safe_file` | Read the entire neutral document or inclusive `start_line`/`end_line`; all three hashes still bind the full document. |
+| `edit_safe_file` | Apply a batch of exact neutral replacements through the existing decoder, syntax checks and private write history. |
+| `write_safe_file` | Publish a complete neutral file, including a new nested module. |
+
+For example, search for `def stage(`, read its surrounding lines, then submit
+`edits: [{"old_text":"return x + 1","new_text":"return x * 2"}]` to
+`edit_safe_file` with the located `file_path` and all three read/search hashes as
+`expected_sha256`, `expected_context_sha256`, `expected_neutral_sha256`. Do not
+submit an excerpt to `write_safe_file`: that tool replaces the entire file.
+Each edit needs a unique nonempty `old_text`, or an explicit 1-based `occurrence`
+when it repeats. Empty `new_text` deletes the selected text. Every edit refers to
+the same pre-edit neutral snapshot; replacements do not cascade. Overlap,
+ambiguity, stale hashes, unchanged results and invalid syntax are rejected before
+source or history publication. At most 128 replacements apply to one file.
+Search and internal edit validation do not refresh or evict remembered agent reads.
+A rejected stale edit cannot authorize a later implicit write of unseen source.
+
+Listing/search pages use `offset`, `limit` (1–200), `next_offset`, and
+`snapshot_sha256`. Pass that digest as `expected_snapshot` on later pages; changed
+observations require restarting. Search coordinates are 1-based Unicode characters
+with an exclusive `end_column`. `excerpt_column` locates a shortened excerpt.
+An `unavailable` record makes `complete: false`; it is never a negative search
+result. Search uses the selected adapter, so intentionally unselected strings and
+comments retain their literal content just as in normal reads. Private decoder
+diagnostics are withheld from search results. Narrow `directory` or `query` when
+the 20,000-entry, 2,000-file, 64-MiB source-plus-neutral or 10,000-result limit is
+reached. Pages bind observations, not an atomic snapshot of external editors.
+
+Exact file rules take precedence over the longest matching `new_files` prefix.
+Those prefix rules also govern later reads/edits of generated files. Unselected
+paths outside the prefixes, explicit exclusions, dictionaries, keys and policy
+files are unavailable to the agent. `copy` deliberately preserves visible content.
+Fixture substitution still requires a project view. Direct writes publish one file
+at a time; use views for a reviewed multi-file transaction. Unconfigured source-agent
+connections retain the original whole-text behavior, so choose a policy when syntax
+or selected fields must be protected. No format or symbol selection is guessed.
+
+### Run application checks through the source agent
+
+Add `--checks source.agent-checks.json` alongside `--policy` to enable
+`list_safe_checks`, `run_safe_check` and `inspect_safe_check`. Existing connections
+without `--checks` retain their five source-development tools. The operator owns
+the check definitions; the agent selects a check by ID and cannot supply a command,
+shell fragment or extra arguments. For a policy selecting `pipeline/`,
+`workload.json`, `bench.py` and its permitted generated files:
+
+```json
+{
+  "schema_version": 1,
+  "checks": {
+    "application": {
+      "python": ["-m", "pipeline.main", "workload.json", "--capacity", "2"],
+      "directory": ".",
+      "python_paths": ["."],
+      "timeout_seconds": 20,
+      "output_bytes": 8192
+    },
+    "workloads": {
+      "python": ["bench.py"],
+      "directory": ".",
+      "timeout_seconds": 30,
+      "output_bytes": 8192
+    }
+  }
+}
+```
+
+```powershell
+bamboozle --root C:\path\to\project serve-agent --dict mapping.dictionary.json --policy source.agent-policy.json --checks source.agent-checks.json
+# The standalone server and this repository's workflow accept the same check file:
+scm-mcp --root C:\path\to\project --dict mapping.dictionary.json --policy source.agent-policy.json --checks source.agent-checks.json
+uv run --locked python scripts/vandal.py --mode agent --policy source.agent-policy.json --checks source.agent-checks.json
+```
+
+The agent calls `list_safe_checks`, then passes the selected `check_id` and
+`snapshot_sha256` as `expected_snapshot` to `run_safe_check`. The snapshot binds
+the selected source bytes, neutral bytes, dictionary, document policy and check
+configuration. New files and source edits invalidate it. Each invocation prepares
+a fresh translated copy, validates selected Python import relationships, checks
+the source again before execution, and runs from that copy's root. `directory`
+narrows included files; it does not change their relative paths or the working
+directory. Optional `python_paths` defaults to `["."]`; select `["src", "."]`
+for a source layout whose packages live under `src/`. Every configured import
+directory must be present in the snapshot. Third-party dependencies come from the
+server's Python environment; install/configure them as the operator.
+
+Inspect the returned `status`, `returncode`, `stdout`, `stderr`, `capture`,
+`cleanup` and `source_current`. A normal nonzero exit is `failed`; deadlines are
+`timed_out`. Changed source or copied inputs, incomplete pipe capture, runner
+failures and unavailable diagnostics are distinct outcomes and do not count as a
+pass. Captured logs use the encoder's existing matching/case rules to render source
+terms in the working vocabulary, preserving already neutral names. These are
+read-only diagnostics, not editable cipher documents. Fix the source through
+`edit_safe_file`/`write_safe_file`, list checks again, then rerun the new snapshot.
+
+Results survive reconnects. `inspect_safe_check({"run_id":"..."})` verifies the
+retained receipt and reports `matches_current_source`; an old pass is historical
+when source changes. Partial records report `incomplete` and never trigger an
+automatic rerun. Original mappings, intent/results and copied workspaces remain
+private under `.vigiles/cipher/checks/`. Check-created files are not imported into
+source. Failed runs are retained alongside successful ones.
+
+Configure 1–32 checks, 1–300 seconds per invocation, and 256–65,536 retained bytes
+per output stream. Source plus neutral snapshots are limited to 64 MiB and reuse
+the navigation file/entry limits. The runner drains both streams with fixed memory,
+uses a curated environment rather than forwarding operator secrets, and assigns
+Windows checks to a Job Object before project code starts. POSIX uses an owned
+process group. Normal completion, timeout and interruption clean up that ownership;
+cleanup failures are reported. This runs trusted project checks under the server's
+OS account: the copied workspace and process ownership are **not an OS sandbox**.
+
+`scripts/source_agent_smoke.py` exercises the complete application through actual
+stdio: a failing capacity CLI check, source edits/new scheduler and package,
+reconnected historical inspection, then passing application and workload checks.
+The package verifier repeats it from an isolated installed wheel.
+
+`scripts/source_agent_smoke.py --workspace NEW_DIRECTORY` exercises a complete
+dependent application through actual stdio reads, disconnect/reconnect, source edits,
+new modules and a new nested package. It executes the neutral and restored programs,
+including workload/error coverage. The isolated-wheel qualification runs this path
+using the installed product.
+
+## Develop and return a complete encrypted project
+
+Project exchange connects the semantic view, classical recipe and Tessera engines
+through callable product operations. `view-pack` sends all files from an unchanged
+exported view. `exchange-open` authenticates and reverses transport into a new,
+readable receiver workspace. After development, `exchange-return` packages the
+complete edited project, including new modules and missing-file information.
+`view-review --return-packet` decodes that project using the owner's saved mapping,
+Python/document selections and spelling context. `view-apply` imports precisely
+those reviewed bytes. The owner's original neutral view remains unchanged.
+
+| Operator action | CLI | Operator MCP |
+| --- | --- | --- |
+| Package fresh neutral view | `view-pack VIEW_ID -o PACKET --key KEY --recipient LABEL [--recipe RECIPE]` | `pack_project_view` |
+| Authenticate and create receiver workspace | `exchange-open PACKET -o DIRECTORY --key KEY --recipient LABEL [--recipe RECIPE]` | `open_project_exchange` |
+| Get receiver agent context | `exchange-context EXCHANGE_ID` | `project_exchange_context` |
+| Package edited/new receiver files | `exchange-return EXCHANGE_ID -o PACKET --key KEY --recipient LABEL [--recipe RECIPE]` | `pack_project_return` |
+| Decode and review return | `view-review VIEW_ID --return-packet PACKET --key KEY --recipient LABEL [--recipe RECIPE]` | `review_project_view` with the same optional arguments |
+| Import reviewed return | `view-apply VIEW_ID --return-packet PACKET --key KEY --recipient LABEL --review-sha256 SHA [--recipe RECIPE]` | `apply_project_view` with the same optional arguments |
+
+Start with the explicit view policy described under project views below. This
+PowerShell sequence uses two separate local operator roots; provision keys and
+recipes separately from project packets. The receiver agent works only in
+`receiver-operator/work`, which contains the neutral files and public contracts.
+The key, recipe and receiver journal remain outside that directory.
+
+```powershell
+$export = bamboozle view-export view-policy.json --output neutral | ConvertFrom-Json
+bamboozle keygen --key transport.key
+$receiver = Join-Path (Get-Location) 'receiver-operator'
+New-Item -ItemType Directory -Path $receiver
+Copy-Item transport.key (Join-Path $receiver 'transport.key')
+
+bamboozle view-pack $export.view_id -o outbound.bam --key transport.key --recipient development
+Copy-Item outbound.bam (Join-Path $receiver 'outbound.bam')
+$opened = bamboozle --root $receiver exchange-open outbound.bam -o work --key transport.key --recipient development | ConvertFrom-Json
+bamboozle --root $receiver exchange-context $opened.exchange_id
+
+# Develop and execute the complete application in receiver-operator/work.
+bamboozle --root $receiver exchange-return $opened.exchange_id -o return.bam --key transport.key --recipient development
+Copy-Item (Join-Path $receiver 'return.bam') return.bam
+$review = bamboozle view-review $export.view_id --return-packet return.bam --key transport.key --recipient development | ConvertFrom-Json
+$review | ConvertTo-Json -Depth 30
+# Inspect decoded changes, conflicts and returned terminology before application.
+bamboozle view-apply $export.view_id --return-packet return.bam --key transport.key --recipient development --review-sha256 $review.review_sha256
+```
+
+To compose supplied classical methods, add `--recipe transfer.cipher-recipe.json`
+to **each** pack/open/review/apply command in the corresponding direction, using
+the recipe format below. Forward and return may select different recipes or keys;
+each receiving operation must explicitly supply the matching recipe, key and
+recipient. Recipe parameters never enter the packet; its fingerprint is bound
+inside Tessera authentication. Classical transforms are reversible obfuscation;
+AES-GCM supplies confidentiality and integrity. Authentication succeeds before
+classical reversal or path parsing. Omit `--recipe` for authenticated transport
+without classical transformation.
+
+The bounded version-1 project frame is uncompressed and carries exact file bytes,
+portable names, lengths, hashes, immutable public contracts, and the originating
+view/manifest digests. It carries no original dictionary, source snapshots, private
+spelling context, recipe or key. Rejects include wrong keys/recipients/recipes,
+foreign returns, malformed paths, case collisions, private files, changed controls,
+trailing data and oversized input. Payload plus framing and every transformed
+intermediate must fit the 16 MiB Tessera bound; expanding recipes reduce the usable
+project size. File limits match project views (512 source files plus controls).
+Ignored build/cache directories follow the existing view snapshot contract.
+
+Missing source files require explicit `--delete PATH` on review and apply; new
+files still need the originating policy's allowlist. Source drift and changed
+packets invalidate review. Existing outputs are never overwritten. Receiver
+extraction saves a private journal before any project files; after interruption,
+repeat `exchange-open` with the exact inputs/output and `--recover`. It refuses
+changed partial files. Source import retains authenticated neutral and decoded
+snapshots before changing source; inspect `view-status`, then recover with
+`view-apply VIEW_ID --review-sha256 SHA --recover`, omitting packet, credentials
+and deletion arguments. Its completion receipt records the returned packet hash.
+Completed imports require a fresh view for another cycle. These local bindings do
+not establish recipient identity, key lifecycle governance or network replay policy.
+
+For a received exchange inside this repository, Vandal delegates context selection
+with `uv run --locked python scripts/vandal.py --mode exchange --exchange-id ID`.
+Outside this repository, use the product's `exchange-context`. Both select ordinary
+file tools for already neutral source; do not attach `serve-agent` or operator MCP
+to that agent context. This directory separation is not OS-level isolation.
+
+`scripts/exchange_smoke.py --workspace NEW_DIRECTORY` executes the full dependent
+scheduler application in separate source/receiver roots through CLI and real stdio
+MCP. It develops new modules, returns an explicit deletion through a four-stage
+recipe and Tessera, executes restored programs and compares workload/error results.
+The installed-wheel qualifier runs the same workflow outside the checkout and
+checks the implementation's import origin.
+
+## Operate the supplied classical cipher methods
+
+`bamboozle cipher-catalog` describes all supported algorithm variants, exact
+parameter schemas, and the separate semantic and authenticated operations.
+Operator MCP exposes the same data as `cipher_catalog`; Vandal's generated
+`cipher_capabilities` comes from that product service.
+
+The C codex, headers, build files and license supplied in commit
+`c53f0bfded51667437fc837cd33ede37745ae9c5` remain unchanged. That commit contains
+the additions; its parent `834b489` is the pre-addition checkpoint. The packaged
+Python implementations derive their algorithms and registry separation from those
+sources and work without a C compiler. The review records original hashes and
+reproduces defects before introducing explicit lossless variants.
+
+| Cipher ID | Pinned variant | Parameters | Byte contract |
+| --- | --- | --- | --- |
+| `caesar` | `ascii-v1` | `shift`: integer | ASCII letters shift modulo 26; other bytes stay literal |
+| `rot13` | `ascii-v1` | `{}` | Caesar shift 13; reciprocal |
+| `atbash` | `ascii-v1` | `{}` | Alphabet reflection; reciprocal |
+| `affine` | `ascii-v1` | `a`, `b`: integers | `a` must be coprime to 26; normalize before multiplying |
+| `vigenere` | `ascii-v1` | `key`: ASCII letters | Repeat key over letters only; retain case |
+| `beaufort` | `ascii-v1` | `key`: ASCII letters | Key minus input modulo 26; reciprocal |
+| `gronsfeld` | `ascii-v1` | `key`: ASCII digits | Repeat numeric shifts over letters only |
+| `scytale` | `ragged-v1` | `width`: positive integer | Permute complete bytes without padding |
+| `rail-fence` | `zigzag-v1` | `rails`: positive integer | Zigzag permutation with exact inverse |
+| `columnar-transposition` | `ragged-v1` | `key`: printable ASCII excluding space | Stable duplicate-key ordering; no padding |
+| `polybius-square` | `framed5-v1` | `{}` | Lossless case-sensitive 5×5 coordinates and literal byte escapes |
+
+Keys have 1–128 characters. Integers are signed 64-bit values; booleans are
+rejected. Every recipe pins 1–8 steps and their variants. Reversal applies each
+inverse in the opposite order. Input and every intermediate output are bounded
+by the workspace limit (normally 16 MiB); Polybius expansion is checked before
+allocation. Transposition may produce non-UTF-8 bytes; use binary output files.
+
+Classical transforms are **obfuscation, without authentication or confidentiality**.
+They do not replace readable dictionary translation or `seal`/`open`. A wrong
+classical key can produce different valid bytes. Verify against the originating
+receipt for consistency, and use Tessera for authenticated transport.
+
+Create an operator-owned `transfer.cipher-recipe.json`:
+
+```json
+{
+  "schema_version": 1,
+  "steps": [
+    {"cipher": "vigenere", "variant": "ascii-v1", "params": {"key": "LEMON"}},
+    {"cipher": "columnar-transposition", "variant": "ragged-v1", "params": {"key": "BALLOON"}},
+    {"cipher": "polybius-square", "variant": "framed5-v1", "params": {}}
+  ]
+}
+```
+
+For an existing returned source file, review and publish the complete operation:
+
+```powershell
+$preview = bamboozle cipher-transform returned.py --recipe transfer.cipher-recipe.json -o returned.cipher | ConvertFrom-Json
+$preview | Format-List
+bamboozle cipher-transform returned.py --recipe transfer.cipher-recipe.json -o returned.cipher --apply --review-sha256 $preview.review_sha256
+bamboozle cipher-verify returned.cipher
+$reverse = bamboozle cipher-transform returned.cipher --recipe transfer.cipher-recipe.json --reverse -o recovered.py | ConvertFrom-Json
+bamboozle cipher-transform returned.cipher --recipe transfer.cipher-recipe.json --reverse -o recovered.py --apply --review-sha256 $reverse.review_sha256
+bamboozle cipher-verify recovered.py
+```
+
+Previews pin complete input, recipe, result and receipt bytes. They prove the
+inverse before publication and do not write outputs. Application requires the
+reviewed digest and unchanged inputs; existing files are never overwritten.
+Receipts retain the exact recipe privately, verify both output and inverse, and
+report later source/recipe drift separately. They establish consistency, not
+authenticated approval. A partial output is retained: preview again with
+`--recover-metadata`, then apply with that flag and the original reviewed digest.
+Changed retained output or inputs require inspection and a separate destination.
+
+MCP uses `preview_cipher_transform(source, recipe, output, reverse=False,
+recover_metadata=False)`, `apply_preview(plan_id)`, and
+`verify_cipher_transform(source, receipt=None)`. These tools belong to the operator.
+`.cipher-recipe.json` and `.cipher-receipt.json` files are excluded from source-agent
+reads/writes and project views. The public API is `bamboozle.classical.Pipeline`:
+construct from the same recipe, call `transform(bytes)` or `transform(bytes,
+reverse=True)`, and obtain a stable recipe digest through `fingerprint`.
+
+The corrected formats are deliberate: ragged Scytale/Columnar preserve real
+trailing `~`/`_` and original length. Polybius emits exactly three bytes per input
+byte: `l11`–`l55` for lowercase coordinates, `u11`–`u55` for uppercase, and `xhh`
+for lowercase hexadecimal literals outside the 25-letter alphabet, including
+`j`/`J`. It rejects malformed coordinates and alternate encodings of letters.
+It never guesses whether an input uses the lossy original C representation.
+
+The complete application runner below now additionally sends edited neutral
+Python through classical recipes, Tessera encryption/decryption, inverse recipes,
+and reviewed source restoration through both CLI and stdio MCP. It executes the
+transported neutral and restored dependency planner and capacity scheduler.
+
+Native reference qualification is separate and preserves all C inputs:
+
+```powershell
+uv run --locked python scripts/cipher_reference.py --compiler C:/msys64/mingw64/bin/gcc.exe --work-dir .test-tmp/cipher-reference-new
+```
+
+Use an installed GCC-compatible compiler and a new work directory. On Windows,
+the launcher sets a process-local compiler runtime path, disables inherited error
+dialogs, preflights one source, and terminates its process tree on timeout. This
+prevents repeated missing-DLL windows without changing global PATH. The retained
+reference report distinguishes C-compatible vectors from corrected formats;
+it does not claim sanitizer qualification of the untouched C originals.
 
 ## Develop Python programs with protected syntax
 
@@ -100,9 +479,9 @@ decode, strict decode, `verify`, `recover`, `restore-edits --terms translate` an
 `validate-return` retain the originating rules. Operator MCP `preview_file` takes
 `document_format="python"`, `python_identifiers`, `python_modules`, and
 `python_strings`; publication uses `apply_preview`. Python return diagnostics
-report compiler/decoder failures and protected-source changes. Existing direct
-source-agent tools continue to use text mode; Vandal routes Python work to an
-already prepared view without attaching an encoding server to it.
+report compiler/decoder failures and protected-source changes. Direct source-agent
+tools use these same adapters when started with `--policy`. Vandal supports both
+configured direct source I/O and an already prepared view.
 
 The runnable application qualification retains original, neutral and restored
 packages, a dependency-planner CLI, an agent-added capacity scheduler, and a
@@ -428,7 +807,7 @@ Existing supplied fixtures and version-1/2 policies retain their behavior.
 
 Operator MCP exposes `preview_template_fixture` and `validate_template_fixture`;
 its existing project-view tools perform generation, review, application and explicit
-recovery. The source-agent MCP remains its separate two-tool cipher interface.
+recovery. The source-agent MCP remains its separate source-development cipher interface.
 Limits include 256 records, 64 text fields, 128 checks, 32 declared cases, 32 Python
 consumers, 100 displayed diagnostics with complete counts/codes, depth 64 and
 100,000 JSON nodes, plus file/view byte limits. The installed-package qualification
@@ -512,7 +891,7 @@ outside this application directory, use an explicit project path:
 }
 ```
 
-The agent uses these two tools for source I/O:
+The original source I/O pair remains available alongside listing, search and exact edits:
 
 1. `read_safe_file({"file_path": "node.py"})` returns encoded `content`, the source
    hash, and the terminology contract. It does not return the inverse dictionary,
@@ -538,8 +917,9 @@ The per-server write lock and repeated hash checks are not a filesystem transact
 against unrelated processes racing publication. Existing parent directories are
 required. Use the broader `serve` command for the retained operator preview/review,
 migration, verification and audit tools; those operator tools can display domain text.
-These direct agent tools retain whole-term text behavior. For Markdown or selected
-JSON fields, choose an explicitly structured project view below.
+Without `--policy`, these direct agent tools retain whole-term text behavior.
+An operator-owned policy enables Python, Markdown and selected JSON handling
+directly; structured project views remain available for reviewed multi-file work.
 
 The public Python cipher interface is available to metadata pipelines too:
 
@@ -718,7 +1098,7 @@ the status response separately reports current file conflicts and `view_changed`
 
 Operator MCP `serve` exposes the same `export_project_view`, `review_project_view`,
 `apply_project_view`, and `project_view_status` methods. Decoded diffs remain on
-this operator surface; the dedicated `serve-agent` still exposes only its two tools.
+this operator surface; the dedicated `serve-agent` exposes only its five source-development tools.
 
 The view policy accepts UTF-8 text and preserves file paths. It does not rewrite
 filenames/import paths, refactor source identifiers, generate fixtures or infer a

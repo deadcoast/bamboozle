@@ -18,10 +18,14 @@ generates a read-only context with absolute paths and one MCP configuration.
 Use `mcp_config` in the chosen client's configuration. Generation does not register
 or launch a client, alter configuration files, or establish OS isolation.
 
-- `agent`: original source accessed only through `read_safe_file` and
-  `write_safe_file`. These are whole-term text tools, suitable for explicitly
-  selected plain text/code. Preserve case, literal and prefix-escape markers. Re-read changed
-  files or present their prior source hash after reconnecting. Do not mix raw
+- `agent`: discover with `list_safe_files`, search encoded content with
+  `search_safe_files`, read files/ranges with `read_safe_file`, apply exact edits
+  with `edit_safe_file`, and publish whole/new files with `write_safe_file`.
+  Add `--policy source.agent-policy.json` to route selected
+  Python/Markdown/JSON/text files through the product's existing document adapters.
+  Without it, these retain whole-term text behavior. Preserve case, literal and
+  prefix-escape markers. After reconnecting with a policy, submit both prior
+  source and context hashes; re-read changed files. Do not mix raw
   source reads into a neutral agent context.
 - `view --view-id ID`: a previously exported neutral tree. Use ordinary file tools
   directly in the returned workspace, read `BAMBOOZLE_VIEW.md`, and preserve its
@@ -33,7 +37,42 @@ or launch a client, alter configuration files, or establish OS isolation.
 
 ## Run the Bamboozle cycle
 
-For structured work, select exact files with a version-2 project-view policy.
+For direct source work, use an operator-owned `.agent-policy.json` with version-2
+file rules and launch `serve-agent --policy` or Vandal `--mode agent --policy`.
+Keep policy/dictionary inputs private; the agent receives content and opaque hashes.
+New-file directory rules also govern subsequent reads of generated files. Source
+writes create nested package directories after translation and stale-input checks.
+Test the complete dependent application; no view or encrypted packet is required.
+
+List the permitted source paths, search the neutral vocabulary, then read the
+relevant file/range. Use the returned neutral document rules and listing's generated
+directory rules. For targeted edits pass all three source/context/neutral hashes
+and exact old/new text anchors; repeated anchors need a 1-based occurrence. Every
+anchor refers to the same pre-edit document. Never replace a whole file with a
+ranged excerpt. Re-read after stale/ambiguous/overlapping edits are refused.
+Page navigation with the returned snapshot digest and restart on changed observations.
+Unreadable search records mean incomplete coverage. Narrow scope on bounded-scan
+errors. Do not use raw filesystem searches to bypass the cipher or private policy.
+
+For application execution, the operator adds `--checks ...agent-checks.json` with
+an explicit source policy. Vandal forwards this to the product server; it does not
+implement a runner. Use `list_safe_checks`, select its check ID and snapshot hash,
+then call `run_safe_check`. Inspect the actual exit status, neutral diagnostics,
+capture/cleanup flags and source freshness. Correct failures with the normal
+source edit/write tools and obtain a new snapshot before rerunning. Do not change
+private check definitions or invent shell commands through this surface.
+
+After reconnecting, `inspect_safe_check` reads the retained run without executing
+anything. A historical result only describes current code when
+`matches_current_source` is true. Preserve failed/incomplete runs. New checks use
+fresh copies, and check-generated files never import themselves into source.
+Configure explicit neutral `python_paths` for `src/` layouts and provide required
+dependencies through the server environment. Process ownership/output bounds do
+not provide OS sandboxing; operator-selected project checks execute under that
+account. Exercise a failing application check, source correction and passing
+rerun through actual MCP and installed-package qualification.
+
+For reviewed multi-file work, select exact files with a version-2 project-view policy.
 Use `document: {"format":"markdown"}` for Markdown prose or
 `document: {"format":"json","pointers":["/prompt","/tags/0"]}` for selected
 JSON strings under a `translate` rule. Use copy for intentionally visible exact
@@ -66,15 +105,15 @@ The generated Vandal context reports the selected view's actual marker protocol.
 
 ## Author vocabulary in operator context
 
-For syntax-aware Python work use an explicit `python` document rule in a project
-view. Select exact project-owned identifiers, declare project import module paths,
+For syntax-aware Python work use an explicit `python` document rule in a direct
+source-agent policy or project view. Select exact project-owned identifiers, declare project import module paths,
 and select symbolic strings separately. The agent reads neutral selections from
 the generated contract. Preserve external API names and unselected literals;
 resolve collisions, missing providers, reflection or ownership errors rather than
 falling back to global text replacement. The README defines supported semantics.
 Generated fixture consumers use the same selected symbol map. Execute complete
 dependent programs and error/workload cases in both vocabularies before claiming
-the implementation complete. Keep the direct source-agent text tools separate.
+the implementation complete. Unconfigured direct tools retain whole-text semantics.
 
 Use `lexicon-export` to start from the actual selected dictionary/profile, then
 `lexicon-query`/`lexicon-check` to inspect explicit concept forms. Review
@@ -102,7 +141,7 @@ The product validates rules and source bindings; Vandal does not implement a sec
 fixture generator or infer domain semantics.
 
 Use a version-3 view policy with `{"policy":"fixture","rules":"...fixture-rules.json"}`
-and select its Python consumers as copy/text-translate source. In the neutral view,
+and select its Python consumers as copy/text/python-translate source. In the neutral view,
 read TEMPLATE_CONTRACT.md and use the public TEMPLATE_CONTRACT.json validator and
 TEMPLATE_CASES.json corpus. Execute the application against cases; a passing fixture
 validator alone does not prove application behavior. Keep generated controls unchanged
@@ -141,6 +180,52 @@ restored program as well as the neutral result. A validator result cannot establ
 application semantics, external-model acceptance or correct key governance.
 
 ## Keep encryption separate and composable
+
+For complete project exchange, export a fresh scoped view and use operator
+`view-pack` / `pack_project_view` with a `.key`, recipient and optional private
+classical recipe. At the receiver, `exchange-open` / `open_project_exchange`
+authenticates and reverses transport into a new readable workspace. Use product
+`exchange-context`, or repository `scripts/vandal.py --mode exchange --exchange-id
+ID`, to select that workspace with ordinary file tools and no encoder/operator
+connection. Keys, recipes and private journals stay outside the agent directory.
+
+After editing, generating dependent modules and executing the complete neutral
+application, use `exchange-return` / `pack_project_return`. At the source owner,
+pass `return_packet`, `key`, `recipient` and optional `recipe` into the existing
+view review/apply operations (CLI options use hyphens). Inspect decoded diffs and
+all paged diagnostics; keep explicit deletions and the original new-file allowlist.
+Apply the exact reviewed packet, then execute the restored application. The local
+neutral view is preserved. Never copy private inverse dictionaries into a receiver.
+
+Extraction recovery repeats exact `exchange-open` inputs with `--recover`.
+Source import recovery uses retained authenticated snapshots: inspect `view-status`
+and call `view-apply --recover` with the retained review digest, omitting packet,
+key, recipient, recipe and deletion arguments. Preserve partial state and failed
+evidence. New development cycles need fresh views. Local completed-import rejection
+does not close recipient identity, key lifecycle or network replay gates.
+
+Use product `cipher-catalog` or operator MCP `cipher_catalog` to discover exact
+methods and parameter schemas. Vandal contexts include that same product-owned
+catalog. The supplied C originals are pinned at `c53f0bf`; keep their original
+files and provenance intact. Product `classical.Pipeline` provides the qualified
+byte methods; its ragged transpositions and framed Polybius differ deliberately
+from the original lossy formats. Never infer a variant from ciphertext.
+
+Classical recipes belong in private `.cipher-recipe.json` files. Operator
+`cipher-transform` previews a complete forward/reverse pipeline; apply with its
+exact digest, or use `preview_cipher_transform` / `apply_preview`. `cipher-verify`
+and `verify_cipher_transform` check saved receipts and inverse bytes, reporting
+input drift separately. Retain partial outputs and use explicit metadata recovery.
+Do not attach these operator tools to the neutral source-agent connection or feed
+opaque transformed bytes to an agent expected to edit readable source. Reverse
+transport before semantic validation and execute the returned application.
+
+For native method comparisons, use `scripts/cipher_reference.py` with an explicit
+compiler and new scratch directory. Its Windows launcher supplies the compiler's
+runtime directory locally, suppresses inherited error dialogs, preflights one
+source, and bounds execution. Do not bypass it with a batch of direct `gcc.exe`
+invocations: a missing child DLL previously caused cascading desktop dialogs.
+The C originals are method references, not memory-sanitizer-qualified runtime code.
 
 Semantic encode/decode makes readable neutral vocabulary; it does not encrypt.
 For authenticated file confidentiality, the operator uses Bamboozle

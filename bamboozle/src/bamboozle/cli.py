@@ -31,8 +31,13 @@ def _dictionary_arguments(command: argparse.ArgumentParser) -> None:
 def _format_arguments(command: argparse.ArgumentParser) -> None:
     command.add_argument(
         "--format",
-        choices=["text", "markdown", "json", "python"],
+        choices=["text", "markdown", "json", "python", "yaml"],
         dest="document_format",
+    )
+    command.add_argument(
+        "--yaml-pointer",
+        action="append",
+        help="Exact YAML string-value path using / segments and ~0/~1 escapes; include every alias path",
     )
     command.add_argument(
         "--json-pointer",
@@ -91,6 +96,25 @@ def parser() -> argparse.ArgumentParser:
     )
     classical_verify.add_argument("source")
     classical_verify.add_argument("--receipt")
+    for name in ("view-pack", "exchange-open", "exchange-return"):
+        exchange = commands.add_parser(
+            name, help="Authenticated neutral project exchange"
+        )
+        exchange.add_argument(
+            "source", help="View ID, packet path, or received exchange ID"
+        )
+        exchange.add_argument("-o", "--output", required=True)
+        exchange.add_argument("--key", required=True)
+        exchange.add_argument("--recipient", required=True)
+        exchange.add_argument(
+            "--recipe",
+            help="Optional private classical recipe before authenticated encryption",
+        )
+        if name == "exchange-open":
+            exchange.add_argument("--recover", action="store_true")
+    commands.add_parser(
+        "exchange-context", help="Show a completed receiver's neutral agent context"
+    ).add_argument("exchange_id")
     for name in ("encode", "decode", "preview"):
         command = commands.add_parser(name)
         command.add_argument("source")
@@ -184,6 +208,11 @@ def parser() -> argparse.ArgumentParser:
     _dictionary_arguments(export)
     for name in ("view-review", "view-apply", "view-status"):
         command = commands.add_parser(name)
+        if name != "view-status":
+            command.add_argument("--return-packet")
+            command.add_argument("--key")
+            command.add_argument("--recipient")
+            command.add_argument("--recipe")
         command.add_argument("view_id")
         if name != "view-status":
             command.add_argument("--delete", dest="delete_files", action="append")
@@ -219,6 +248,13 @@ def parser() -> argparse.ArgumentParser:
     for name in ("validate", "dictionary-export", "serve", "serve-agent", "doctor"):
         command = commands.add_parser(name)
         _dictionary_arguments(command)
+        if name == "serve-agent":
+            command.add_argument(
+                "--policy", help="Private source-agent document policy"
+            )
+            command.add_argument(
+                "--checks", help="Private named source-agent application checks"
+            )
         if name == "dictionary-export":
             command.add_argument("-o", "--output", required=True)
             command.add_argument("--mapping-version")
@@ -271,6 +307,40 @@ def _emit(report: dict[str, Any], *, compact: bool = False) -> None:
 
 
 def _execute(args: argparse.Namespace, workspace: Workspace) -> dict[str, Any]:
+    if args.command in (
+        "view-pack",
+        "exchange-open",
+        "exchange-return",
+        "exchange-context",
+    ):
+        from bamboozle.project_exchange import (
+            exchange_context,
+            open_exchange,
+            pack_return,
+            pack_view,
+        )
+
+        if args.command == "exchange-context":
+            return exchange_context(workspace, args.exchange_id)
+        if args.command == "exchange-open":
+            return open_exchange(
+                workspace,
+                args.source,
+                args.output,
+                key=args.key,
+                recipient=args.recipient,
+                recipe=args.recipe,
+                recover=args.recover,
+            )
+        pack = pack_view if args.command == "view-pack" else pack_return
+        return pack(
+            workspace,
+            args.source,
+            args.output,
+            key=args.key,
+            recipient=args.recipient,
+            recipe=args.recipe,
+        )
     if args.command in ("cipher-catalog", "cipher-transform", "cipher-verify"):
         from bamboozle.cipher_operations import (
             capabilities,
@@ -400,6 +470,10 @@ def _execute(args: argparse.Namespace, workspace: Workspace) -> dict[str, Any]:
                 validation_path=args.validation_path,
                 validation_offset=args.offset,
                 max_findings=args.max_findings,
+                return_packet=args.return_packet,
+                key=args.key,
+                recipient=args.recipient,
+                recipe=args.recipe,
             )
         if args.command == "view-status":
             return view_status(workspace, args.view_id)
@@ -409,6 +483,10 @@ def _execute(args: argparse.Namespace, workspace: Workspace) -> dict[str, Any]:
             args.review_sha256,
             delete_files=args.delete_files,
             recover=args.recover,
+            return_packet=args.return_packet,
+            key=args.key,
+            recipient=args.recipient,
+            recipe=args.recipe,
         )
     if args.command == "verify-restoration":
         from bamboozle.restoration import verify_restoration
@@ -479,6 +557,7 @@ def _execute(args: argparse.Namespace, workspace: Workspace) -> dict[str, Any]:
                 args.python_identifier,
                 args.python_module,
                 args.python_string,
+                args.yaml_pointer,
             ),
         )
         return preview(plan) if args.command == "preview" else plan.apply()
@@ -504,6 +583,7 @@ def _execute(args: argparse.Namespace, workspace: Workspace) -> dict[str, Any]:
                 args.python_identifier,
                 args.python_module,
                 args.python_string,
+                args.yaml_pointer,
             ),
         )
     if args.command in ("validate", "dictionary-export", "doctor"):
@@ -575,7 +655,11 @@ def main(argv: list[str] | None = None) -> int:
                 from bamboozle.scm_mcp import create_server as agent_server
 
                 server = agent_server(
-                    workspace.root, _mapping(args, workspace), private_paths=private
+                    workspace.root,
+                    _mapping(args, workspace),
+                    private_paths=private,
+                    policy=args.policy,
+                    checks=args.checks,
                 )
             else:
                 from bamboozle.mcp import create_server

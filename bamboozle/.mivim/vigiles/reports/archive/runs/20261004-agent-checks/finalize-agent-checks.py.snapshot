@@ -1,0 +1,111 @@
+"""Record only measured named-check execution and application qualification."""
+import json
+from pathlib import Path
+
+from bamboozle.agent_checks import CHECK_TOOLS, HISTORY
+from bamboozle.agent_development import AGENT_TOOLS
+from bamboozle.evidence import report_destination, write_report
+from bamboozle.utils import atomic_write, sha256, utc_now
+
+root = Path.cwd().resolve()
+verification_path = report_destination(root, "VIGILES_VERIFICATION.json")
+verified = json.loads(verification_path.read_bytes())
+assert verified["status"] == "passed" and verified["package_requested"]
+assert verified["tests"]["tests"] >= 1065
+assert all(verified["tests"][key] == 0 for key in ("failures", "errors", "skipped"))
+assert len(verified["steps"]) == 11 and all(row["returncode"] == 0 for row in verified["steps"])
+for name, fingerprint in verified["source_sha256"].items():
+    assert sha256((root / name).read_bytes()) == fingerprint, name
+log = root / next(row["log"] for row in verified["steps"] if row["name"] == "wheel-smoke")
+smoke = next(json.loads(line) for line in log.read_text(encoding="utf-8").splitlines() if line.startswith('{"status": "passed"'))
+flow = smoke["source_agent_results"]
+assert set(flow["agent_tools"]) == AGENT_TOOLS | CHECK_TOOLS
+assert flow["failed_baseline_check"]["status"] == "failed"
+assert flow["failed_baseline_check"]["returncode"] != 0
+assert not flow["historical_check_after_reconnect"]["matches_current_source"]
+assert flow["stale_check_refused"] and flow["reconnected_before_writes"]
+assert flow["neutral_execution"] == flow["restored_execution"]
+assert flow["neutral_benchmark"] == flow["restored_benchmark"]
+assert flow["restored_benchmark"]["scheduler_executions"] == 300
+assert set(flow["agent_application_checks"]) == {"application", "workloads", "generated-package"}
+source = Path(flow["source_root"])
+for result in [flow["failed_baseline_check"], *flow["agent_application_checks"].values()]:
+    directory = source / HISTORY / result["run_id"]
+    raw = (directory / "result.json").read_bytes()
+    assert sha256(raw) == result["result_sha256"] == (directory / "result.sha256").read_text()
+    receipt = json.loads(raw)
+    assert all(result[key] == value for key, value in receipt.items())
+    assert sha256((directory / "intent.json").read_bytes()) == result["intent_sha256"]
+    assert result["source_current"] and result["cleanup"]["complete"] and result["capture_complete"]
+    assert not (directory / "workspace/mapping.dictionary.json").exists()
+    assert not (directory / "workspace/source.agent-policy.json").exists()
+    assert not (directory / "workspace/source.agent-checks.json").exists()
+for result in flow["agent_application_checks"].values():
+    assert result["status"] == "passed" and result["returncode"] == 0 and not result["modified_inputs"]
+assert json.loads(flow["agent_application_checks"]["workloads"]["stdout"]) == flow["restored_benchmark"]
+for name in ("agent_files_module", "agent_policy_module", "agent_development_module", "agent_checks_module", "check_process_module"):
+    assert Path(flow[name]).is_relative_to(log.parent / "wheel-env")
+artifacts = {}
+for name in verified["required_artifacts"]:
+    assert sha256((root / "dist" / name).read_bytes()) == verified["artifacts"][name]["sha256"]
+    artifacts[name] = verified["artifacts"][name]
+archive = root / ".mivim/vigiles/reports/archive/runs/20261004-agent-checks"
+snapshot = archive / "finalize-agent-checks.py.snapshot"
+if not snapshot.exists():
+    atomic_write(snapshot, Path(__file__).read_bytes())
+report_path = report_destination(root, "VIGILES_AGENT_CHECKS.json")
+report = {
+    "schema_version": 1,
+    "status": "named_agent_checks_source_and_installed_package_verified",
+    "completed": utc_now(),
+    "scope": "Operator-configured Python application checks over fresh neutral source through CLI/standalone MCP/Vandal routing, bounded process ownership, retained diagnostics and real failure/edit/rerun workflow.",
+    "implementation": [
+        "Optional private .agent-checks.json requires explicit source policy; no arbitrary agent-supplied command arguments.",
+        "Catalog/run bind complete scoped source/context/neutral/configuration hashes, including generated files. Source drift before or during checks is distinct from a current pass.",
+        "Shared document translation and Python relationship validation build executable copies without private dictionary/policy/check metadata.",
+        "Python import directories explicitly support flat and src layouts; loader-provided module attributes are recognized by the shared validator.",
+        "Check logs reuse existing encoder matching/case rules while preserving already neutral names. Stream and rendered UTF-8 bounds are retained.",
+        "Curated environment; trusted bootstrap waits for Windows job assignment before project execution. Windows job/POSIX group cleanup, deadlines, noisy pipes and child lifetime are accounted for.",
+        "Persistent intent/result/digest records retain ordinary failures and distinguish incomplete/tampered results; reconnect inspection reports current-source agreement.",
+    ],
+    "verification": verification_path.relative_to(root).as_posix(),
+    "verification_sha256": sha256(verification_path.read_bytes()),
+    "tests": verified["tests"], "focused_tests": 127, "verification_stages_passed": 11,
+    "source_sha256": verified["source_sha256"], "artifacts": artifacts,
+    "installed_application_workflow": flow,
+    "retained_evidence_sha256": {p.name: sha256(p.read_bytes()) for p in archive.iterdir() if p.is_file()},
+    "retained_failures": [
+        "First focused run: 16 passed, one LF-only test assertion failed against correctly preserved Windows CRLF output.",
+        "Second focused run: 31 passed. Third expanded run: 62 passed.",
+        "The src-layout test exposed an existing validator bug: source-file module.__file__ was rejected as undeclared. Retained run has 62 passes and that failure.",
+        "Repaired loader-provided binding validation while keeping unknown/package-only attributes refused. Final focused run passed 127 tests.",
+        "Application qualification deliberately retains the original CLI's nonzero failure on --capacity before the agent implements scheduling and reruns checks.",
+    ],
+    "references": {
+        "windows_jobs": "https://learn.microsoft.com/en-us/windows/win32/procthread/job-objects",
+        "python_loader_attributes": "https://docs.python.org/3.13/reference/import.html#import-related-module-attributes",
+    },
+    "limitations": [
+        "Execution uses trusted project code and the server's Python/dependency environment. Neutral copies and process ownership are not OS filesystem/network isolation.",
+        "This run qualifies Windows Python 3.13; the POSIX process-group implementation requires its separate CI platform execution.",
+        "Source must satisfy its selected document adapters before check preparation. Check-generated outputs are retained and never automatically imported into source.",
+        "Whole-repository completion and external coding-agent acceptance are not implied by the completed check-execution gate.",
+    ],
+}
+write_report(root, report_path, report, replace=report_path.exists())
+status_path = root / "VIGILES_STATUS.json"
+status = json.loads(status_path.read_bytes())
+step = dict(status["next_step"])
+assert step["id"] == "VIG-CORE-AGENT-CHECKS-01"
+step.update(status=report["status"], evidence=[report_path.relative_to(root).as_posix()], qualification={"tests": verified["tests"], "stages": 11, "scope": report["scope"]})
+status["last_completed_step"] = step
+status["core_development_queue"] = [row for row in status["core_development_queue"] if row["id"] != step["id"]]
+next_step = status["core_development_queue"][0]
+assert next_step["id"] == "VIG-CIPHER-YAML-01"
+next_step.update(status="planned", priority="resumed_core_translation")
+next_step.pop("resume_after", None)
+status["next_step"] = next_step
+status["core_acceptance"] = {"status": "not_established", "reason": "Source-agent check execution is now qualified; shelved core YAML translation resumes. No whole-core or external-agent acceptance claim."}
+status["evidence"].update(agent_checks=report_path.relative_to(root).as_posix(), qualification_scope=report["scope"])
+write_report(root, status_path, status, replace=True)
+print(json.dumps({"status": report["status"], "tests": verified["tests"], "stages": 11, "agent_checks_passed": list(flow["agent_application_checks"]), "next_step": next_step["id"]}))

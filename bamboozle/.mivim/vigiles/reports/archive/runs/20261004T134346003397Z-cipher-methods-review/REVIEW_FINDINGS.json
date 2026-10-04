@@ -1,0 +1,227 @@
+{
+  "created": "2026-10-04T13:43:46.090634Z",
+  "historical_0_5_0_compatibility": {
+    "installed_escape_workflow:cli": {
+      "manifest_sha256": "641e6b5dbeab4808a0a4d9a4f41e4afaebfa6c6eb70817ae60f45797b8a16178",
+      "python_strict_ledger_verified": false,
+      "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\escaped-workflow\\cli",
+      "status": {
+        "files": {
+          "batch.py": "applied",
+          "parser.py": "applied",
+          "runner.py": "applied"
+        },
+        "receipt_saved": true,
+        "review_sha256": "24b7ae063bafa90ea8a47d92dba5ecc9bd842208d2336d18f9528ae7aa77bfb9",
+        "schema_version": 1,
+        "status": "complete",
+        "view_changed": false,
+        "view_id": "f3a25199a9194e0ba996142ff917f7a9"
+      },
+      "unchanged": true
+    },
+    "installed_escape_workflow:mcp": {
+      "manifest_sha256": "d6398f3ddf1f7bfecd3ab803b98c4a6d4ce8c62162ec8499e8559e81b9fab12a",
+      "python_strict_ledger_verified": false,
+      "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\escaped-workflow\\mcp",
+      "status": {
+        "files": {
+          "batch.py": "applied",
+          "parser.py": "applied",
+          "runner.py": "applied"
+        },
+        "receipt_saved": true,
+        "review_sha256": "0f5ca4cb7feb9964f80c95b8ca9b529d8e3f398bbcdbd06e8e6d19fff8a1d1d9",
+        "schema_version": 1,
+        "status": "complete",
+        "view_changed": false,
+        "view_id": "04960c83a279413f81fb4b7aa5f32233"
+      },
+      "unchanged": true
+    },
+    "installed_fixture_workflow:cli": {
+      "manifest_sha256": "2032fcf9ef3df8677d825231b6f0ff7b06c31274a8c4860662e426a59a4e355b",
+      "python_strict_ledger_verified": false,
+      "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\generated-fixture-workflow\\cli",
+      "status": {
+        "files": {
+          "src/catalog.py": "applied",
+          "src/renderer.py": "applied",
+          "src/run_catalog.py": "applied",
+          "templates.json": "unchanged"
+        },
+        "receipt_saved": true,
+        "review_sha256": "86d0006c95fb36b860903aca7c3caa78c6b2134d8c68fed9a0519d94257fd325",
+        "schema_version": 1,
+        "status": "complete",
+        "view_changed": false,
+        "view_id": "3e593cd3def640568ebc0ed78d14bb9d"
+      },
+      "unchanged": true
+    },
+    "installed_fixture_workflow:mcp": {
+      "manifest_sha256": "0a008deb3b808a438006ef19d5ab10704de701329f7a3dab1f171b10ae174d63",
+      "python_strict_ledger_verified": false,
+      "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\generated-fixture-workflow\\mcp",
+      "status": {
+        "files": {
+          "src/catalog.py": "applied",
+          "src/renderer.py": "applied",
+          "src/run_catalog.py": "applied",
+          "templates.json": "unchanged"
+        },
+        "receipt_saved": true,
+        "review_sha256": "2cee102bbd8c8352b99451bad72b6eadd7afd43eb4f43288cef26206e1b11b09",
+        "schema_version": 1,
+        "status": "complete",
+        "view_changed": false,
+        "view_id": "2c63f7bccb5e48888c232765b929c0b1"
+      },
+      "unchanged": true
+    },
+    "installed_python_workflow:cli": {
+      "manifest_sha256": "b087ea18d6487ab01d719b6dcc6f89d09a0906be81024da11bc65770863b2c86",
+      "python_strict_ledger_verified": true,
+      "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\python-workflow\\cli",
+      "status": {
+        "files": {
+          "bench.py": "applied",
+          "pipeline/__init__.py": "unchanged",
+          "pipeline/graph.py": "unchanged",
+          "pipeline/main.py": "applied",
+          "pipeline/model.py": "unchanged",
+          "pipeline/timeline.py": "applied",
+          "workload.json": "unchanged"
+        },
+        "receipt_saved": true,
+        "review_sha256": "07e0a58ea8969507deac1356aaccf22a1bbc4a30796ba757ed0d434ec13c371f",
+        "schema_version": 1,
+        "status": "complete",
+        "view_changed": false,
+        "view_id": "d6602e882b4a41c9b9a5b653c1950633"
+      },
+      "unchanged": true
+    },
+    "installed_python_workflow:mcp": {
+      "manifest_sha256": "edc1d489cbadc8a193e309375d91e709ceb576e438bd47ee6fdc41f2998af652",
+      "python_strict_ledger_verified": true,
+      "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\python-workflow\\mcp",
+      "status": {
+        "files": {
+          "bench.py": "applied",
+          "pipeline/__init__.py": "unchanged",
+          "pipeline/graph.py": "unchanged",
+          "pipeline/main.py": "applied",
+          "pipeline/model.py": "unchanged",
+          "pipeline/timeline.py": "applied",
+          "workload.json": "unchanged"
+        },
+        "receipt_saved": true,
+        "review_sha256": "66760abd34f0c7f0114072672452654f8d7661d8db901e2802bf1f289bd070bd",
+        "schema_version": 1,
+        "status": "complete",
+        "view_changed": false,
+        "view_id": "ff680311351c40ce804f0b46cde49e8d"
+      },
+      "unchanged": true
+    },
+    "installed_return_validation_workflow:cli": {
+      "manifest_sha256": "9a5a8ccc50b53a06bebec0359e9ab119c43a3a14918a91439b0119a04d8e28aa",
+      "python_strict_ledger_verified": false,
+      "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\returned-workflow\\cli",
+      "status": {
+        "files": {
+          "data.json": "applied",
+          "guide.md": "applied",
+          "src/batch.py": "applied",
+          "src/core.py": "applied"
+        },
+        "receipt_saved": true,
+        "review_sha256": "91e4fcc51a1b022839c8e522a4e7679f07185c46a3fff19722bd24d0ef0f8a06",
+        "schema_version": 1,
+        "status": "complete",
+        "view_changed": false,
+        "view_id": "7012ce6664db45228bc6e7af31e16932"
+      },
+      "unchanged": true
+    },
+    "installed_return_validation_workflow:mcp": {
+      "manifest_sha256": "fdacdbe60d6eb969e5ebb30ed217a796282f7779adb30fd757118d568a9b8884",
+      "python_strict_ledger_verified": false,
+      "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-w5nhkdnb\\runtime\\returned-workflow\\mcp",
+      "status": {
+        "files": {
+          "data.json": "applied",
+          "guide.md": "applied",
+          "src/batch.py": "applied",
+          "src/core.py": "applied"
+        },
+        "receipt_saved": true,
+        "review_sha256": "1dec8551ee7ca24b4df3048b8206067a1b2bde75a7188dde191bc09cfc074aa9",
+        "schema_version": 1,
+        "status": "complete",
+        "view_changed": false,
+        "view_id": "01eda6b5885b4a0c97df729ea090602d"
+      },
+      "unchanged": true
+    }
+  },
+  "retained_failures": [
+    {
+      "cause": "Launched absolute GCC executable without its bin directory on compiler-child PATH; DLL exists on disk.",
+      "kind": "compiler_launcher",
+      "observed": "User reported repeating cc1.exe System Error dialogs: libmpfr-6.dll was not found. Initial GCC driver build exited 1.",
+      "references": [
+        "https://learn.microsoft.com/en-us/windows/win32/api/errhandlingapi/nf-errhandlingapi-seterrormode",
+        "https://learn.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-search-order"
+      ],
+      "resolution": "Stopped build; verified no remaining compiler/error processes. Guarded script adds process-local runtime PATH, inherits SetErrorMode flags 0x8003, hides child windows, preflights one source and bounds process-tree execution.",
+      "verified": "Corrected preflight and two complete native conformance builds passed. No global PATH or installation was changed."
+    },
+    {
+      "evidence": ".test-tmp/classical-first.xml",
+      "kind": "focused_test_harness",
+      "observed": "62 passed, 3 failed: one incorrect Beaufort expected character; two tests called an MCP tool name on the AgentFiles Python API.",
+      "resolution": "Corrected the independently computed expected vector and called AgentFiles.read; 65 focused tests passed."
+    },
+    {
+      "kind": "static_checks",
+      "observed": "Three qualification-script type errors and one deliberately invalid-input test typing error.",
+      "resolution": "Used platform-aware process cleanup typing, a variable-length command tuple and an explicit test-only cast; both type checkers pass."
+    },
+    {
+      "collection_error": ".test-tmp/cipher-integration-final.xml",
+      "kind": "operator_tool_contract",
+      "observed": "Full regression: 969 passed and one exact operator MCP tool inventory assertion failed.",
+      "passing_evidence": ".test-tmp/cipher-integration-pass.xml",
+      "resolution": "Added the three implemented operator tools; preserved the exact two-tool source-agent contract. A subsequent patch indentation error was corrected; the final focused CLI/MCP/classical/Vandal run passed all 74 cases.",
+      "review": ".mivim/vigiles/reports/archive/runs/20261004T133741259307Z-cipher-tool-contract/REVIEW_FINDINGS.json"
+    }
+  ],
+  "retained_sha256": {
+    "cipher-application-first.log": "f9f7d47a23d87ec98e3c85db9405d6016d244b5a1f9197553543f6aae5960479",
+    "cipher-integration-final.xml": "1a2d3c38ce22123d780c7da15ebdf33e98ebfc4c9f52feadcdcf35b19cace00c",
+    "cipher-integration-pass.xml": "8aa69c84e87824f7b9aadd3c964b4da5d6fe2377426de4840ddc9f9033473a1c",
+    "classical-first.xml": "776766dc9b446c63608e3b9309b94feafa0425e616b62ba44eccc84a99877842",
+    "classical-second.xml": "339eb4d85a3864c78770394d43d7bed111c3f7b563e4119dd67e15787675bf85",
+    "finalize-classical.py.snapshot": "4365605c4f76d28e127cff4710f101dab3df0bda440c0420ad2402d14f205648",
+    "native-build.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-compiler.log": "eca100f7b372a5ce5a9aeb46dc0f68efbf3bc2a0d6f41d8af50fd8d36fd62d9c",
+    "native-defect-0.log": "a79149f0618139e30e869aa789107c55a7015554f375a1262513bec724b57a0c",
+    "native-defect-1.log": "8729fc96edaae77655ce4a05808b02bab2e1d8f7e51cca9b659dc57a817dc0a4",
+    "native-defect-2.log": "e2b338faf3c8f4d09f3b002b31563872e4166b08ef8bf76d6c4f1c8595f17f1e",
+    "native-polybius-coordinates.log": "96eeba7450f90ac110aa4a2114e015591926d4afa19c636163927d6a6b901c64",
+    "native-preflight.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "native-vector-0.log": "221aa85a1dbf15f9205af5a82abbb596d37c02e69d3e3bc1e0305dbee6db0bb1",
+    "native-vector-1.log": "7182046b339acf911f77a33d72fd56040d0dce6333186fbcd8d732f1403ab967",
+    "native-vector-2.log": "17c71a178aed89534eb6f9db95ab1d4693fa483c5ee6a4bdc2682f0142b16528",
+    "native-vector-3.log": "d69938c388c58e163660aec8ab0ceb0138b8ec84ec538a029ecd9ceb4b9147f4",
+    "native-vector-4.log": "f9694b5f24292539a32cfcf01eeac2fafd2e04dfe2ca3d65ef8d830d1c3f08f3",
+    "native-vector-5.log": "b57cacb1eb76fb63c32d4adef71048abed04a74260be5b40dc4908c1b9e1dbcd",
+    "native-vector-6.log": "acd0dd2280f121ae880e471fd60f1621ee27d78eec7503fe7ec43efaff5565e1",
+    "native-vector-7.log": "08c3a14b3726403f83bab01866e95b59588a4bb79a34901c2d9f02db06a3adc1",
+    "native-vector-8.log": "dca4e48903f466e41fc8b2f5c72dbc0b7524d3dc6fed374cf6da91c3e8233eff",
+    "native-vector-9.log": "458532db00d3a0dc5195d8e2a60980e10158a0b8fec164b302fefeb559625297"
+  },
+  "stage": "VIG-CIPHER-METHODS-01"
+}

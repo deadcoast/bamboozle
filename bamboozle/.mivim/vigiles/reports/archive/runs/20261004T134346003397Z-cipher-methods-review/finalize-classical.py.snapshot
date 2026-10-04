@@ -1,0 +1,203 @@
+"""Verify final installed application evidence, original assets and old contexts."""
+import json
+import runpy
+import subprocess
+import xml.etree.ElementTree as ET
+from datetime import UTC, datetime
+from pathlib import Path
+
+from bamboozle import __version__, service
+from bamboozle.cipher_operations import capabilities, verify_transform
+from bamboozle.classical import CHECKPOINT
+from bamboozle.evidence import report_destination, write_report
+from bamboozle.project_views import load_view, manifest_marker_version
+from bamboozle.utils import sha256, utc_now
+from bamboozle.view_import import view_status
+from bamboozle.workspace import Workspace
+
+root = Path.cwd().resolve()
+assert __version__ == '0.6.0'
+verification_path = report_destination(root, 'VIGILES_VERIFICATION.json')
+verification = json.loads(verification_path.read_bytes())
+assert verification['status'] == 'passed'
+assert verification['tests'] == {'tests': 970, 'errors': 0, 'failures': 0, 'skipped': 0}
+assert len(verification['steps']) == 11
+assert all(row['returncode'] == 0 for row in verification['steps'])
+for name, digest in verification['source_sha256'].items():
+    assert sha256((root / name).read_bytes()) == digest, name
+artifacts = {}
+for name in verification['required_artifacts']:
+    assert '0.6.0' in name
+    row = verification['artifacts'][name]
+    assert sha256((root / 'dist' / name).read_bytes()) == row['sha256']
+    artifacts[name] = row
+assert len(artifacts) == 2
+smoke_log = root / next(row['log'] for row in verification['steps'] if row['name'] == 'wheel-smoke')
+records = [json.loads(line) for line in smoke_log.read_text(encoding='utf-8').splitlines() if line.startswith('{"status": "passed"')]
+assert len(records) == 1
+smoke = records[0]
+assert smoke['version'] == __version__
+python_result = smoke['python_results']
+for name in ('source_module', 'project_module', 'classical_module', 'cipher_operations_module'):
+    assert Path(python_result[name]).is_relative_to(smoke_log.parent / 'wheel-env')
+
+
+def hashes(directory):
+    return {path.relative_to(directory).as_posix(): sha256(path.read_bytes())
+            for path in sorted(directory.rglob('*'))
+            if path.is_file() and '__pycache__' not in path.parts and '.key' not in path.name}
+
+
+application_hashes = {}
+for mode, flow in python_result['workflows'].items():
+    selected = Path(flow['root'])
+    workspace = Workspace(selected)
+    assert flow['neutral_baseline'] == flow['original_execution']
+    assert flow['neutral_enhanced'] == flow['restored_execution']
+    assert flow['neutral_benchmark'] == flow['restored_benchmark'] == {
+        'workloads': 100, 'scheduler_executions': 300, 'invalid_workloads': 12,
+        'invalid_capacities': 5, 'protected_literals_preserved': True,
+    }
+    classical = flow['classical_transport']
+    assert classical['exact_return_bytes'] and classical['application_executed_after_transport']
+    assert classical['forward']['metadata_saved'] and classical['reverse']['metadata_saved']
+    assert len(classical['forward']['steps']) == 4
+    for name in ('classical.bin', 'classical-return.py'):
+        assert verify_transform(workspace, name)['status'] == 'verified'
+    assert (selected / 'classical-opened.bin').read_bytes() == (selected / 'classical.bin').read_bytes()
+    assert (selected / 'classical-return.py').read_bytes() == (selected / 'view/pipeline/main.py').read_bytes()
+    assert (selected / 'decrypted.py').read_bytes() == (selected / 'view/pipeline/main.py').read_bytes()
+    assert flow['apply']['receipt_saved'] and not flow['review']['conflicts']
+    assert view_status(workspace, flow['export']['view_id'])['status'] == 'complete'
+    for name in ('pipeline/graph.py', 'pipeline/model.py', 'workload.json'):
+        assert sha256((selected / name).read_bytes()) == flow['original_sha256'][name]
+    application_hashes[mode] = hashes(selected)
+assert set(application_hashes) == {'cli', 'mcp'}
+for item in smoke['fixture_results'].values():
+    assert item['neutral_and_original_catalog_executed'] and item['apply']['receipt_saved']
+for item in smoke['return_results'].values():
+    assert item['neutral_and_restored_programs_executed'] and item['encrypted_edited_bytes_preserved']
+assert smoke['lexicon_results']['neutral_and_restored_statistics_pipeline_executed']
+assert smoke['document_format_results']['bamb5_separate_authenticated_roundtrip']
+assert smoke['document_format_results']['strict_original_bytes_restored']
+assert smoke['document_format_results']['encryption_composition']['decoded_original_bytes_restored']
+
+review_path = report_destination(root, 'VIGILES_CIPHER_REVIEW.json')
+review = json.loads(review_path.read_bytes())
+assert review['checkpoint'] == CHECKPOINT
+for name, original in review['original_assets'].items():
+    assert sha256((root.parent / name).read_bytes()) == original['working_bytes_sha256'], name
+    raw = subprocess.check_output(['git', 'show', CHECKPOINT + ':' + name], cwd=root)
+    assert sha256(raw) == original['git_bytes_sha256']
+native_path = report_destination(root, 'VIGILES_CIPHER_REFERENCE.json')
+native = json.loads(native_path.read_bytes())
+assert native['status'] == 'passed' and len(native['conformance']) == 10
+assert native['polybius_25_coordinates_match']
+assert len(native['retained_original_defects']) == 3
+assert native['error_dialogs_disabled']
+
+prior_path = report_destination(root, 'VIGILES_TRANSLATION_QUALIFICATION.json')
+prior = json.loads(prior_path.read_bytes())
+assert prior['release'] == '0.5.0'
+historical = {}
+for kind in ('installed_python_workflow', 'installed_escape_workflow', 'installed_fixture_workflow', 'installed_return_validation_workflow'):
+    for mode, item in prior[kind].items():
+        selected = Path(item['root'])
+        workspace = Workspace(selected)
+        before = hashes(selected)
+        view_id = item['operator']['review']['view_id'] if kind == 'installed_return_validation_workflow' else item['export']['view_id']
+        status = view_status(workspace, view_id)
+        directory, manifest, _, _, _ = load_view(workspace, view_id)
+        assert status['status'] == 'complete' and status['receipt_saved']
+        assert manifest_marker_version(manifest) == 2
+        if kind == 'installed_python_workflow':
+            ledger = workspace.read('pipeline/.graph_safe.py.scm_ledger.json')
+            decoded = service._restore(workspace.read('pipeline/graph_safe.py'), ledger)
+            assert sha256(decoded) == item['original_sha256']['pipeline/graph.py']
+            assert decoded == workspace.read('strict.py')
+        assert hashes(selected) == before
+        historical[f'{kind}:{mode}'] = {'root': str(selected), 'status': status,
+            'manifest_sha256': sha256((directory / 'manifest.json').read_bytes()),
+            'unchanged': True, 'python_strict_ledger_verified': kind == 'installed_python_workflow'}
+
+context_function = runpy.run_path(str(root / 'scripts/vandal.py'))['context']
+contexts = {mode: context_function(mode) for mode in ('agent', 'operator')}
+for context in contexts.values():
+    assert context['product_version'] == __version__ and context['workflow_version'] == '0.2'
+    assert context['cipher_capabilities'] == capabilities()
+assert capabilities()['source_agent_tools'] == ['read_safe_file', 'write_safe_file']
+focused = ET.parse(root / '.test-tmp/cipher-integration-pass.xml').getroot().find('testsuite')
+assert focused is not None and focused.get('tests') == '74' and focused.get('failures') == focused.get('errors') == '0'
+
+archive = root / '.mivim/vigiles/reports/archive/runs' / (datetime.now(UTC).strftime('%Y%m%dT%H%M%S%fZ') + '-cipher-methods-review')
+archive.mkdir()
+retained = {}
+for name in ('classical-first.xml', 'classical-second.xml', 'cipher-integration-final.xml', 'cipher-integration-pass.xml', 'cipher-application-first.log'):
+    raw = (root / '.test-tmp' / name).read_bytes()
+    (archive / name).write_bytes(raw)
+    retained[name] = sha256(raw)
+for path in sorted(Path(native['work_dir']).glob('*.log')):
+    raw = path.read_bytes()
+    (archive / ('native-' + path.name)).write_bytes(raw)
+    retained['native-' + path.name] = sha256(raw)
+raw = Path(__file__).read_bytes()
+(archive / 'finalize-classical.py.snapshot').write_bytes(raw)
+retained['finalize-classical.py.snapshot'] = sha256(raw)
+write_report(root, archive / 'REVIEW_FINDINGS.json', {
+    'stage': 'VIG-CIPHER-METHODS-01', 'created': utc_now(),
+    'retained_sha256': retained, 'historical_0_5_0_compatibility': historical,
+    'retained_failures': review['retained_failures'],
+})
+scope = 'Local Windows Python 3.13 source and isolated installed v0.6.0 wheel; 11 lossless classical byte methods, explicit pinned recipes, reviewed CLI/operator MCP publication, metadata recovery, saved inverse verification and shared product-owned Vandal capability routing. Complete enhanced neutral and restored applications execute 1200 scheduler cases plus 48 invalid workloads and 20 invalid capacities; their returned source passes a four-stage classical pipeline and authenticated Tessera transport before import. Native GCC 15.2.0 comparison confirms 10 compatible C vectors and all 25 Polybius coordinates, and reproduces three original data-loss defects. All 32 supplied original assets remain unchanged. Classical methods are unauthenticated obfuscation; original C memory-sanitizer coverage, remote CI and external model/host acceptance are not claimed.'
+review.update(status='complete_source_and_local_installed_package', completed=utc_now(),
+              release=__version__, evidence_archive=archive.relative_to(root).as_posix(),
+              tests=verification['tests'], verification_stages_passed=11)
+write_report(root, review_path, review, replace=True)
+destination = report_destination(root, 'VIGILES_CIPHER_QUALIFICATION.json')
+report = {
+    'schema_version': 1, 'created': utc_now(), 'stage': 'VIG-CIPHER-METHODS-01',
+    'release': __version__, 'status': 'complete_source_and_local_installed_package', 'scope': scope,
+    'checkpoint': CHECKPOINT, 'checkpoint_parent': review['checkpoint_parent'],
+    'observed_remote_main': review['current_remote_main_observed'],
+    'tests': verification['tests'], 'verification_stages_passed': 11,
+    'focused_integration_tests': 74, 'binary_corpus_roundtrips': 5709,
+    'source_sha256': verification['source_sha256'], 'artifacts': artifacts,
+    'original_assets': review['original_assets'], 'verification': verification_path.relative_to(root).as_posix(),
+    'native_reference': native_path.relative_to(root).as_posix(), 'native_reference_sha256': sha256(native_path.read_bytes()),
+    'review': review_path.relative_to(root).as_posix(), 'retained_evidence': (archive / 'REVIEW_FINDINGS.json').relative_to(root).as_posix(),
+    'installed_python_and_cipher_workflows': python_result['workflows'],
+    'installed_application_file_sha256': application_hashes,
+    'installed_modules': {name: python_result[name] for name in ('source_module', 'project_module', 'classical_module', 'cipher_operations_module')},
+    'historical_0_5_0_compatibility': historical,
+    'prior_translation_qualification': prior_path.relative_to(root).as_posix(),
+    'prior_translation_qualification_sha256': sha256(prior_path.read_bytes()),
+    'retained_interfaces': {name: smoke[name] for name in ('translation_results', 'agent_cipher_results', 'profanity_results', 'project_view_results', 'document_format_results', 'lexicon_results', 'fixture_results', 'return_results', 'escape_results', 'plan_results', 'diagnostic_results', 'capture_results')},
+    'repository_workflow_contexts': contexts, 'workflow_version': '0.2',
+    'capabilities': capabilities(), 'compiler_dialog_issue_resolved': review['retained_failures'][0],
+    'application_coverage': {'enhanced_applications': 4, 'scheduler_executions': 1200, 'invalid_workloads': 48, 'invalid_capacities': 20},
+}
+write_report(root, destination, report, replace=destination.exists())
+status_path = root / 'VIGILES_STATUS.json'
+status = json.loads(status_path.read_bytes())
+completed = dict(status['next_step'])
+assert completed['id'] == 'VIG-CIPHER-METHODS-01'
+completed.update(status='complete_source_and_local_installed_package', release=__version__,
+                 evidence=[destination.relative_to(root).as_posix(), verification_path.relative_to(root).as_posix(), native_path.relative_to(root).as_posix()],
+                 qualification={'tests_passed':970, 'verification_stages_passed':11, 'scope':scope},
+                 retained_review_failures=(archive / 'REVIEW_FINDINGS.json').relative_to(root).as_posix())
+next_step = next(dict(row) for row in status['core_development_queue'] if row['id'] == 'VIG-CIPHER-YAML-01')
+assert next_step.pop('resume_after') == completed['id']
+next_step['status'] = 'next'
+status['last_completed_step'] = completed
+status['next_step'] = next_step
+status['core_development_queue'] = [next_step, *[row for row in status['core_development_queue'] if row['id'] not in (completed['id'], next_step['id'])]]
+status['release'] = __version__
+status['recorded_on'] = '2026-10-04'
+status['evidence'].update(cipher_qualification=destination.relative_to(root).as_posix(),
+                          cipher_method_review=review_path.relative_to(root).as_posix(),
+                          native_cipher_reference=native_path.relative_to(root).as_posix(), qualification_scope=scope)
+write_report(root, status_path, status, replace=True)
+print(json.dumps({'status':'qualified', 'release':__version__, 'tests':verification['tests'],
+                  'stages':11, 'source_hashes':len(verification['source_sha256']),
+                  'original_assets_unchanged':len(review['original_assets']), 'historical_views':len(historical),
+                  'qualification':destination.relative_to(root).as_posix(), 'next_step':next_step['id']}))

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="17" time="15.876" timestamp="2026-10-04T08:27:58.025238-07:00" hostname="homeone"><testcase classname="src.bamboozle.tests.test_agent_checks" name="test_failing_check_corrected_through_cipher_then_passes_after_reconnect" time="1.295"><failure message="AssertionError: assert 'stage succeeded\r\n' == 'stage succeeded\n'&#10;  &#10;  - stage succeeded&#10;  + stage succeeded&#10;  ?                +">checks = &lt;bamboozle.agent_checks.AgentChecks object at 0x0000021BA3B71550&gt;
+
+    def test_failing_check_corrected_through_cipher_then_passes_after_reconnect(checks):
+        before = checks.files.workspace.read("module.py")
+        reads = dict(checks.files.reads)
+        failed = run_check(checks)
+        assert failed["status"] == "failed", failed
+        assert failed["returncode"] == 1 and failed["source_current"]
+        assert failed["cleanup"]["complete"] and failed["capture_complete"]
+        assert "assert stage(2)" in failed["stderr"] and "task" not in failed["stderr"]
+        assert dict(checks.files.reads) == reads
+        directory = checks.files.workspace.root / HISTORY / failed["run_id"]
+        assert (
+            (directory / "workspace/module.py")
+            .read_bytes()
+            .startswith(b"\xef\xbb\xbfdef stage")
+        )
+        assert not (directory / "workspace/private.txt").exists()
+        assert not (directory / "workspace/source.agent-policy.json").exists()
+        assert checks.files.workspace.read("module.py") == before
+        assert checks.inspect(failed["run_id"])["matches_current_source"]
+        fix_source(checks)
+        assert not checks.inspect(failed["run_id"])["matches_current_source"]
+        restarted = AgentChecks(checks.files, checks.path.name)
+        passed = run_check(restarted)
+        assert passed["status"] == "passed", passed
+&gt;       assert passed["stdout"] == "stage succeeded\n"
+E       AssertionError: assert 'stage succeeded\r\n' == 'stage succeeded\n'
+E         
+E         - stage succeeded
+E         + stage succeeded
+E         ?                +
+
+src\bamboozle\tests\test_agent_checks.py:118: AssertionError</failure></testcase><testcase classname="src.bamboozle.tests.test_agent_checks" name="test_stale_snapshot_and_check_configuration_refuse_execution" time="0.270" /><testcase classname="src.bamboozle.tests.test_agent_checks" name="test_generated_tests_enter_a_fresh_snapshot_and_old_digest_is_refused" time="0.815" /><testcase classname="src.bamboozle.tests.test_agent_checks" name="test_operator_command_schema_is_explicit_and_shell_free[command0]" time="0.021" /><testcase classname="src.bamboozle.tests.test_agent_checks" name="test_operator_command_schema_is_explicit_and_shell_free[command1]" time="0.020" /><testcase classname="src.bamboozle.tests.test_agent_checks" name="test_operator_command_schema_is_explicit_and_shell_free[command2]" time="0.020" /><testcase classname="src.bamboozle.tests.test_agent_checks" name="test_operator_command_schema_is_explicit_and_shell_free[command3]" time="0.022" /><testcase classname="src.bamboozle.tests.test_agent_checks" name="test_operator_command_schema_is_explicit_and_shell_free[command4]" time="0.021" /><testcase classname="src.bamboozle.tests.test_agent_checks" name="test_operator_command_schema_is_explicit_and_shell_free[command5]" time="0.023" /><testcase classname="src.bamboozle.tests.test_agent_checks" name="test_checks_need_explicit_policy_and_private_configuration" time="0.012" /><testcase classname="src.bamboozle.tests.test_agent_checks" name="test_noisy_streams_are_bounded_without_inheriting_operator_secrets" time="0.597" /><testcase classname="src.bamboozle.tests.test_agent_checks" name="test_timeout_and_normal_exit_clean_up_spawned_children[False]" time="4.639" /><testcase classname="src.bamboozle.tests.test_agent_checks" name="test_timeout_and_normal_exit_clean_up_spawned_children[True]" time="3.985" /><testcase classname="src.bamboozle.tests.test_agent_checks" name="test_check_cannot_count_as_pass_after_rewriting_an_input" time="0.549" /><testcase classname="src.bamboozle.tests.test_agent_checks" name="test_retained_receipt_tampering_and_incomplete_records_are_distinct" time="0.488" /><testcase classname="src.bamboozle.tests.test_agent_checks" name="test_real_mcp_check_failure_edit_rerun_and_inspection" time="1.223" /><testcase classname="src.bamboozle.tests.test_agent_checks" name="test_vandal_routes_check_configuration_without_running_code" time="0.106" /></testsuite></testsuites>

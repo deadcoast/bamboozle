@@ -1,21 +1,10 @@
 {
   "authority": ".mivim/vigiles-vandal_0.2.md",
+  "core_acceptance": {
+    "reason": "Source-agent check execution is now qualified; shelved core YAML translation resumes. No whole-core or external-agent acceptance claim.",
+    "status": "not_established"
+  },
   "core_development_queue": [
-    {
-      "checkpoint": "c53f0bfded51667437fc837cd33ede37745ae9c5",
-      "done_criteria": [
-        "Retain original C source/build/license assets and checkpoint hashes as primary method references",
-        "Implement the 11 supplied algorithm families as callable byte-safe versioned product transforms, with explicit incompatibilities for formerly lossy cases",
-        "Expose complete recipes and forward/reverse file operations through existing reviewed publisher; no replacement of semantic dictionary engines or authenticated ciphers",
-        "Keep recipes and receipts private to operator/source boundaries; do not offer classical obfuscation as authenticated confidentiality",
-        "Execute known vectors, original C comparisons, binary/property/error tests, actual CLI/MCP file exchange and dependent application restoration from installed wheel"
-      ],
-      "focus": "Apply supplied C methods to complete lossless cipher operations and product/workflow capability routing",
-      "id": "VIG-CIPHER-METHODS-01",
-      "priority": "user_high",
-      "review_evidence": ".mivim/vigiles/reports/current/VIGILES_CIPHER_REVIEW.json",
-      "status": "implementation_in_progress"
-    },
     {
       "design_source": [
         ".legacy/bamboozle_v0.0.1.md:303-317"
@@ -29,9 +18,9 @@
       ],
       "focus": "Explicit selected YAML string-value translation with protected structure and exact restoration",
       "id": "VIG-CIPHER-YAML-01",
+      "priority": "resumed_core_translation",
       "remaining": "Original design calls for selected YAML string values while protecting keys; no YAML adapter exists.",
-      "resume_after": "VIG-CIPHER-METHODS-01",
-      "status": "shelved_for_user_priority"
+      "status": "planned"
     },
     {
       "done_criteria": [
@@ -58,63 +47,74 @@
   ],
   "development_stage": "vigiles-vandal_0.2",
   "evidence": {
+    "agent_checks": ".mivim/vigiles/reports/current/VIGILES_AGENT_CHECKS.json",
+    "agent_development": ".mivim/vigiles/reports/current/VIGILES_AGENT_DEVELOPMENT.json",
+    "cipher_method_review": ".mivim/vigiles/reports/current/VIGILES_CIPHER_REVIEW.json",
+    "cipher_qualification": ".mivim/vigiles/reports/current/VIGILES_CIPHER_QUALIFICATION.json",
+    "core_agent_repair": ".mivim/vigiles/reports/current/VIGILES_CORE_AGENT_REPAIR.json",
     "current_directory": ".mivim/vigiles/reports/current/",
     "directory_guide": ".mivim/vigiles/reports/README.md",
+    "exchange_qualification": ".mivim/vigiles/reports/current/VIGILES_EXCHANGE_QUALIFICATION.json",
+    "exchange_review": ".mivim/vigiles/reports/current/VIGILES_EXCHANGE_REVIEW.json",
     "historical_status": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_STATUS.json",
     "installed_package_verification": ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json",
+    "native_cipher_reference": ".mivim/vigiles/reports/current/VIGILES_CIPHER_REFERENCE.json",
     "original_record_hashes_and_relocation": ".mivim/vigiles/reports/INDEX.json",
     "prior_release_package_verification": ".mivim/vigiles/reports/archive/runs/20261004T113712000349Z-89a5bcfd/VIGILES_VERIFICATION.json",
     "prior_translation_qualification": ".mivim/vigiles/reports/archive/runs/20261004T114804786162Z-c39a025e/VIGILES_TRANSLATION_QUALIFICATION.json",
-    "qualification_scope": "Local Windows Python 3.13 source and isolated installed v0.5.0 wheel. Explicit Python identifier/string selection, syntax/token protection, project import validation, saved contexts, fixtures and reviewed/restorable views. Complete dependency-planner CLI receives independently authored neutral scheduler and benchmark modules; both CLI and stdio operator MCP paths execute baseline, enhanced neutral and restored applications, with encrypted return composition. The four enhanced applications execute 1200 scheduler cases, 48 invalid workload cases and 20 invalid capacity cases. Historical 0.4.8/0.4.9 saved contexts remain readable without mutation. Exact spelling contracts do not infer arbitrary dynamic Python types; deterministic edits do not qualify external model behavior, remote CI or live host acceptance.",
+    "qualification_scope": "Operator-configured Python application checks over fresh neutral source through CLI/standalone MCP/Vandal routing, bounded process ownership, retained diagnostics and real failure/edit/rerun workflow.",
     "recovery_qualification": ".mivim/vigiles/reports/current/VIGILES_RECOVERY_QUALIFICATION.json",
     "source_verification": ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json",
     "translation_qualification": ".mivim/vigiles/reports/current/VIGILES_TRANSLATION_QUALIFICATION.json"
   },
   "last_completed_step": {
+    "done_criteria": [
+      "Operator-selected check commands and scope; build an executable neutral workspace from the same saved policy/dictionary without private source metadata",
+      "Invoke and inspect checks through the source-agent connection with bounded output, timeout/process cleanup and neutral diagnostics",
+      "Refuse stale source/policy snapshots and preserve actual failing checks as actionable evidence",
+      "Exercise an agent-led failed check, corrective source edit, rerun and restored application through stdio and installed package"
+    ],
+    "evidence": [
+      ".mivim/vigiles/reports/current/VIGILES_AGENT_CHECKS.json"
+    ],
+    "finding": "The source-agent can now discover/read/search/edit/generate source, but its tool surface cannot run or inspect application checks; qualification currently uses an external local runner.",
+    "focus": "Agent-requested application checks in a neutral workspace with bounded diagnostics",
+    "id": "VIG-CORE-AGENT-CHECKS-01",
+    "implementation": [
+      "src/bamboozle/agent_checks.py",
+      "src/bamboozle/check_process.py",
+      "src/bamboozle/scm_mcp.py",
+      "scripts/source_agent_smoke.py"
+    ],
+    "priority": "user_core_development",
+    "qualification": {
+      "scope": "Operator-configured Python application checks over fresh neutral source through CLI/standalone MCP/Vandal routing, bounded process ownership, retained diagnostics and real failure/edit/rerun workflow.",
+      "stages": 11,
+      "tests": {
+        "errors": 0,
+        "failures": 0,
+        "skipped": 0,
+        "tests": 1065
+      }
+    },
+    "status": "named_agent_checks_source_and_installed_package_verified"
+  },
+  "next_step": {
     "design_source": [
       ".legacy/bamboozle_v0.0.1.md:303-317"
     ],
     "done_criteria": [
-      "Define an explicit source-symbol and import/reference contract with token-preserving edits, scope/collision checks and clear handling of dynamic references",
-      "Preserve unselected strings/comments, formatting, BOM/newlines and literal marker syntax; expose deliberate separate translation of selected text content",
-      "Carry adapter context through saved ledgers, structured views, return validation, CLI and operator MCP without broadening source-agent tool authority",
-      "Execute realistic dependent modules before/after neutral edits and restored returns, including imports, shadowed/builtin names, keyword arguments and refused collisions",
-      "Retain historical formats/markers/contexts and qualify source plus isolated installed-package workflows"
+      "Specify exact selected scalar paths and an explicit supported YAML syntax/version contract; reject ambiguous selections before publication",
+      "Preserve unselected keys/values, comments, quoting, tags, anchors/aliases, formatting, BOM and line endings; define alias ownership without implicit edits",
+      "Integrate saved contexts, CLI, operator MCP, view policies and returned-edit validation while keeping translation and encryption separate",
+      "Execute a complete dependent application using translated, edited and restored YAML configuration, including anchors, multiline values, malformed input and drift/recovery",
+      "Retain Python/text/Markdown/JSON behavior and historical contexts; qualify source and isolated installed-package workflows"
     ],
-    "evidence": [
-      ".mivim/vigiles/reports/current/VIGILES_TRANSLATION_QUALIFICATION.json",
-      ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json"
-    ],
-    "focus": "Explicit syntax-aware Python source translation with protected strings/comments and consistent selected identifiers",
-    "id": "VIG-CIPHER-SOURCE-01",
-    "qualification": {
-      "scope": "Local Windows Python 3.13 source and isolated installed v0.5.0 wheel. Explicit Python identifier/string selection, syntax/token protection, project import validation, saved contexts, fixtures and reviewed/restorable views. Complete dependency-planner CLI receives independently authored neutral scheduler and benchmark modules; both CLI and stdio operator MCP paths execute baseline, enhanced neutral and restored applications, with encrypted return composition. The four enhanced applications execute 1200 scheduler cases, 48 invalid workload cases and 20 invalid capacity cases. Historical 0.4.8/0.4.9 saved contexts remain readable without mutation. Exact spelling contracts do not infer arbitrary dynamic Python types; deterministic edits do not qualify external model behavior, remote CI or live host acceptance.",
-      "tests_passed": 905,
-      "verification_stages_passed": 11
-    },
-    "remaining": "Explicit selected YAML values and independent external acceptance gates remain open.",
-    "retained_review_failures": [
-      ".mivim/vigiles/reports/archive/runs/20261004T113416411716Z-python-source-design/REVIEW_FINDINGS.json",
-      ".mivim/vigiles/reports/archive/runs/20261004T113756208060Z-python-verifier-review/REVIEW_FINDINGS.json",
-      ".mivim/vigiles/reports/archive/runs/20261004T114804781125Z-python-compatibility/REVIEW_FINDINGS.json"
-    ],
-    "review_evidence": ".mivim/vigiles/reports/archive/runs/20261004T113416411716Z-python-source-design/REVIEW_FINDINGS.json",
-    "status": "complete_source_and_local_installed_package"
-  },
-  "next_step": {
-    "checkpoint": "c53f0bfded51667437fc837cd33ede37745ae9c5",
-    "done_criteria": [
-      "Retain original C source/build/license assets and checkpoint hashes as primary method references",
-      "Implement the 11 supplied algorithm families as callable byte-safe versioned product transforms, with explicit incompatibilities for formerly lossy cases",
-      "Expose complete recipes and forward/reverse file operations through existing reviewed publisher; no replacement of semantic dictionary engines or authenticated ciphers",
-      "Keep recipes and receipts private to operator/source boundaries; do not offer classical obfuscation as authenticated confidentiality",
-      "Execute known vectors, original C comparisons, binary/property/error tests, actual CLI/MCP file exchange and dependent application restoration from installed wheel"
-    ],
-    "focus": "Apply supplied C methods to complete lossless cipher operations and product/workflow capability routing",
-    "id": "VIG-CIPHER-METHODS-01",
-    "priority": "user_high",
-    "review_evidence": ".mivim/vigiles/reports/current/VIGILES_CIPHER_REVIEW.json",
-    "status": "implementation_in_progress"
+    "focus": "Explicit selected YAML string-value translation with protected structure and exact restoration",
+    "id": "VIG-CIPHER-YAML-01",
+    "priority": "resumed_core_translation",
+    "remaining": "Original design calls for selected YAML string values while protecting keys; no YAML adapter exists.",
+    "status": "planned"
   },
   "open_gates": [
     {
@@ -213,7 +213,7 @@
   "project": "Bamboozle / MIVIM Vigiles",
   "purpose": "Active core development plan and remaining acceptance gates; completed evidence/history belong under .mivim/vigiles/reports/.",
   "recorded_on": "2026-10-04",
-  "release": "0.5.0",
+  "release": "0.7.0",
   "schema_version": 1,
   "workflow": {
     "id": "vigiles-vandal_0.2",

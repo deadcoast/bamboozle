@@ -1,0 +1,37 @@
+{
+  "created": "2026-10-04T14:08:29.224097Z",
+  "retained_initial_failure": {
+    "additional_lint_findings": "Bind nested smoke helper parameter name unambiguously; remove unused fixture variables.",
+    "cause": "Small regression fixture omitted explicit local module selection for its new import; production import validator correctly refused it. Complete CLI and stdio application fixture passed.",
+    "failed": 10,
+    "passed": 15,
+    "path": ".mivim\\vigiles\\reports\\archive\\runs\\20261004-exchange-integration-review"
+  },
+  "review": {
+    "compatibility": "Historical local view plans and receipts keep exact schema bytes; new exchange imports add an explicit exchange digest. Source-agent tool set remains unchanged.",
+    "design": "Bounded uncompressed versioned project frame, strict portable paths, optional explicit classical recipe fingerprint inside mandatory AES-GCM authentication, no inverse mapping in payload; receiver journal before extraction; source imports retain authenticated snapshots before source writes",
+    "gap": "0.6.0 cipher methods compose through manual single-file smoke glue; no product operation carries a complete neutral project to a separate receiver and imports its authenticated multi-file return",
+    "source_authority": [
+      "AGENTS.md",
+      ".mivim/vigiles-vandal_0.2.md",
+      ".vigiles/skills/vigiles-vandal/SKILL.md",
+      "docs/01bamb.md",
+      "docs/03bamb_cipher.md",
+      ".legacy/designlog"
+    ]
+  },
+  "schema_version": 1,
+  "stage": {
+    "done_criteria": [
+      "Product CLI and operator MCP pack an entire explicitly scoped neutral project with optional pinned classical recipe and mandatory Tessera authentication",
+      "Receiver develops in a separate readable workspace; original mappings, spelling context, keys and recipes remain outside it",
+      "Authenticated multi-file return binds to the originating view and reuses decoded review, allowed new files, explicit deletions, source drift protection and retained import recovery",
+      "Exercise complete dependent applications through real CLI and stdio MCP in source and receiver roots, including generated modules and restored behavior",
+      "Qualify failures, source checks and isolated installed package; preserve supplied C originals and historical local view journals"
+    ],
+    "focus": "Connect classical recipes, Tessera and semantic project views into complete multi-workspace application development and source return",
+    "id": "VIG-CIPHER-EXCHANGE-01",
+    "priority": "user_high",
+    "status": "in_development"
+  }
+}

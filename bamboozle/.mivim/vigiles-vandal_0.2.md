@@ -19,9 +19,11 @@ other. Product and workflow versions advance independently.
 | Bamboozle semantic engine | Readable reversible vocabulary, literal/case protection | `CipherEngine`, `DocumentCodec`, `encode` / `decode` |
 | Bamboozle document adapters | Selected prose/JSON values with preserved technical structure | Explicit document rules in CLI, ledger and view policy |
 | Bamboozle project service | Selected neutral view and reviewed, recoverable source return | `view-export`, `view-review`, `view-apply`, `view-status` |
+| Bamboozle project exchange | Complete neutral project transport, receiver context and authenticated return | `view-pack`, `exchange-open`, `exchange-context`, `exchange-return`, returned-packet view review/apply |
 | Bamboozle return validator | Saved-context terminology and protected-structure diagnostics | `validate-return`, `validate_returned_file`, restoration/view review |
 | Bamboozle source agent I/O | Encode reads and decode writes with original backups | Dedicated `serve-agent` / `scm-mcp` |
 | Bamboozle Tessera | Authenticated binary encryption/decryption, AES-256-GCM | Operator `keygen`, `seal`, `open` |
+| Bamboozle classical methods | Explicit reversible byte transforms and composed recipes | `classical.Pipeline`, operator `cipher-transform` / `cipher-verify` |
 | BAMb5 | Deterministic authenticated term tokens, AES-SIV | `workshop.scrape.bamb5` `enc` / `dec` and selected-key JSON operations |
 | Vandal | Choose context, scope work, route tools, develop and verify this repository | Repository skill and `scripts/vandal.py` |
 | Retained supporting services | Audit, plans, inventory, migration, recovery and workshop integration | Existing explicit operator interfaces |
@@ -34,17 +36,69 @@ or the implementation of this workflow.
 
 ## Context and operator boundaries
 
+Product 0.7.0 adds the `exchange` context for an authenticated received project.
+Vandal selects it with `--mode exchange --exchange-id ID` and delegates to the
+product's retained receiver context. It has ordinary file tools, no source encoder
+or operator MCP connection. Source-owner mapping/spelling snapshots never enter
+the receiver workspace. The operator provisions keys/recipes outside agent roots.
+
+Project exchanges use a bounded uncompressed version-1 frame, immutable generated
+controls, portable names and exact byte lengths/digests. Optional classical recipes
+transform the full frame; mandatory Tessera authenticates its version and recipe
+fingerprint before reversal/parsing. Outbound views must match their exported
+snapshot. Returned frames bind to view ID and private manifest digest and enter
+the existing decoded review/import directly. Preserve selected Python syntax,
+format context, fixtures, allowed new files, explicit deletion decisions and source
+drift checks. A changed authenticated packet invalidates the review digest.
+
+Receiver extraction journals precede file creation and require explicit recovery
+with matching packet/destination. Source import journals retain authenticated
+neutral snapshots and decoded output before writes; recovery needs that retained
+journal and reviewed digest, not the original transport credentials. Historical
+local-view journal/receipt bytes remain valid; only exchange plans/receipts include
+`exchange_sha256`. `view-status` reports their retained return source separately
+from the untouched local view. Execute the entire dependent application in both
+receiver and restored source roots through CLI, actual stdio MCP and installed
+package qualification. Local authentication is not recipient lifecycle governance.
+
 The repository skill is
 [`.vigiles/skills/vigiles-vandal/SKILL.md`](../.vigiles/skills/vigiles-vandal/SKILL.md).
 Read it with `AGENTS.md` and the current task in `VIGILES_STATUS.json`. Generate
 the appropriate context with `uv run --locked python scripts/vandal.py --mode ...`:
 
-1. **Original-source agent** (`agent`): only `read_safe_file` and `write_safe_file`.
-   These use whole-term text rules. Reads return neutral content; writes return
+1. **Original-source agent** (`agent`): `list_safe_files`, `search_safe_files`,
+   `read_safe_file`, `edit_safe_file` and `write_safe_file`.
+   These use whole-term text rules unless an operator supplies `--policy` with a
+   private `.agent-policy.json`. Then source reads/search/edits use the shared explicit
+   Python, Markdown, JSON or text adapters. Reads return neutral content; writes return
    hashes/status rather than original-domain content. Existing writes require a
-   prior source hash. The configured dictionary, keys and private history remain
-   outside these tools. Plain source/code must be deliberately suited to those
-   translation rules; do not silently treat this surface as a JSON/Markdown adapter.
+   prior source hash and, for configured writes after reconnecting, the read's
+   context hash. That context binds dictionary, policy, format and source. The
+   configured dictionary, keys, rules and spelling history remain outside these
+   tools. New package directories are created after validation; malformed Python
+   and stale contexts are refused before writing source. Unconfigured text mode
+   does not provide syntax protection. No format or selection is inferred.
+   Discover through the scoped listing, search the encoded vocabulary and use
+   ranged reads when appropriate. Keep all three source/context/neutral hashes
+   for exact edits; never send a partial read as a whole-file replacement. Edit
+   batches select non-overlapping spans in one original neutral snapshot, require
+   explicit occurrence for repeated anchors, and publish through the original
+   decoder/history path. Read document rules and generated-directory rules expose
+   neutral selections only. Page listings/searches under their snapshot digest;
+   unavailable records mean incomplete search. No raw decoder errors enter search
+   results. Existing original filenames remain visible. This is single-file
+   development; multi-file reviewed publication remains the view workflow.
+   With operator-owned `--checks ...agent-checks.json` and an explicit policy,
+   the product adds `list_safe_checks`, `run_safe_check`, `inspect_safe_check`.
+   List the current snapshot, run a named check, correct source using the existing
+   decoder, then list/run again. Commands, import paths, scope and limits are fixed
+   by the operator. Each run uses a fresh neutral copy, checks source/configuration
+   drift and retains failure/success receipts. Inspect historical results after
+   reconnects and compare `matches_current_source`. Diagnostics reuse the semantic
+   encoder's matches without re-encoding already neutral names. The product owns
+   process/output bounds and Windows Job Object/POSIX process-group cleanup;
+   Vandal supplies configuration/routing only. No OS sandbox or hostile-code
+   isolation is implied. Check output files never return to source automatically.
 2. **Neutral project agent** (`view --view-id ID`): ordinary file tools inside the
    exported tree, with no encoder-backed or operator MCP attached. Read the generated
    view contract. The tree is already encoded; double encoding is an error. This
@@ -225,6 +279,58 @@ Tessera packets and BAMb5 `b5_` tokens use different formats and keys. Do not si
 try alternate decoders, rotate keys, or feed opaque ciphertext to semantic adapters.
 Keep workflow metadata and encryption secrets out of the neutral agent tree.
 
+## Supplied cipher methods — product 0.6.0
+
+The supplied C codex is pinned at commit
+`c53f0bfded51667437fc837cd33ede37745ae9c5`; its parent `834b489` precedes those
+additions. Preserve original C, headers, README, license and build-file bytes.
+The review and native comparison reports record provenance and observed defects.
+An original design is a method reference; qualification must establish its actual
+behavior before adopting it into the source-to-return pipeline.
+
+The product's immutable classical registry derives 11 algorithm families from
+that codex. Its callable byte pipeline validates exact parameter schemas and
+pinned variants, bounds input/intermediate expansion, and reverses step order for
+decoding. Normalize affine/shift parameters before arithmetic; require invertible
+affine multipliers. Ragged Scytale and Columnar retain length without stripping
+literal padding characters. Framed Polybius retains case, I/J and every byte with
+canonical coordinate/literal tokens. These corrected formats explicitly differ
+from lossy C formats. The README defines parameter and wire contracts; no format
+inference, fallback decoder or compiler dependency is introduced into the package.
+
+Operator `cipher-transform` and MCP `preview_cipher_transform` prepare the complete
+pipeline through `ReviewedFilePlan`. Prove the inverse, pin input/recipe/result/
+receipt bytes, review the digest, then publish with fresh checks and no clobber.
+Recipe and receipt suffixes are private under the shared agent/view boundary.
+After interrupted publication, retain output and recover only metadata using the
+original digest and unchanged inputs/bytes. `cipher-verify` and
+`verify_cipher_transform` reconstruct the inverse from the saved recipe and report
+current input drift separately. Consistency evidence is not authentication.
+
+Product `cipher-catalog` / `cipher_catalog` describes semantic, classical and
+authenticated operations and exact classical parameter schemas. Vandal contexts
+delegate to this product-owned catalog; the workflow contains no algorithm or
+duplicate registry. Source-agent MCP exposes only its five source-development tools.
+Classical bytes are opaque operator artifacts, not readable neutral vocabulary.
+For confidentiality, explicitly compose with Tessera; reverse/decrypt transport
+before semantic validation and source restoration. Existing dictionaries, saved
+formats/contexts, profanity handling, BAMb5 and authenticated encryption remain
+independently operable.
+
+Native comparison uses `scripts/cipher_reference.py` with an explicit compiler
+and new work directory. Windows compiler children inherit a process-local runtime
+PATH and disabled error dialogs; one-source preflight and bounded process-tree
+termination prevent repeating the observed missing-DLL launch failure. The report
+separates 10 compatible method vectors, all 25 Polybius coordinates and three
+reproduced original data-loss cases. It does not qualify all C memory behavior.
+
+Whole-application qualification composes the cipher pipeline and authenticated
+transport into the Python dependency-planner/scheduler workflow through CLI and
+stdio MCP, then executes the transported neutral and restored programs. Retain
+failed checks and checkpoint hashes alongside source and installed-wheel evidence.
+The user-prioritized method gate temporarily shelves `VIG-CIPHER-YAML-01`;
+resume its exact retained requirements once this gate is qualified.
+
 ## Python source development — product 0.5.0
 
 The explicit Python document adapter implements the original syntax-protection
@@ -253,9 +359,10 @@ execute complete neutral and restored dependent programs with meaningful input,
 error, boundary and workload coverage. The scheduler qualification in
 `scripts/python_smoke.py` retains that full workflow through CLI and stdio MCP.
 
-Direct source-agent tools retain their existing text semantics and two-tool
-authority. Vandal routes syntax-aware Python development to prepared views; no
-double encoding or original/operator connection is introduced into that context.
+Unconfigured direct source-agent tools retain their existing text semantics and source-development
+authority. Vandal routes syntax-aware Python development through an explicit
+source-agent policy or a prepared view. No encoding or operator connection is
+introduced into the already encoded view context.
 Limits, exact selection semantics and actionable refusals are documented in README.
 Keep existing text/Markdown/JSON workflows and historical contexts operational.
 
@@ -283,7 +390,7 @@ the recorded decoder; encryption remains a separate explicit operation.
 Qualify real source and installed-package CLI/MCP paths, including edited/generated
 programs, protected structures, saved dictionary/format context, stale or malformed
 inputs, original-byte restoration, failure recovery and crypto composition. Verify
-the Vandal-generated original-agent configuration exposes only its two source tools;
+the Vandal-generated original-agent configuration exposes only its five source-development tools;
 verify operator configuration separately. Keep Vandal runtime/helper tests distinct
 from product package tests. Local deterministic inputs do not prove external model
 behavior, remote CI, production assets, client registration or host isolation.

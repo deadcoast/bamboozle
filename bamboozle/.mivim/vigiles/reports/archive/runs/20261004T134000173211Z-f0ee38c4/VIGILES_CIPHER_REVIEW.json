@@ -1,0 +1,246 @@
+{
+  "application_evidence": ".test-tmp/cipher-application-first.log",
+  "checkpoint": "c53f0bfded51667437fc837cd33ede37745ae9c5",
+  "checkpoint_meaning": "Original supplied C additions; its parent is the pre-addition checkpoint. Original working files remain unchanged.",
+  "checkpoint_parent": "834b489899abb4d0225af8d9e61c7f8588a78b43",
+  "created": "2026-10-04T13:11:47.933754Z",
+  "current_remote_main_observed": "6d132453118e2e5014d5ac0ef76f74fe456590df",
+  "design": [
+    "Retain original C source/build/license assets and checkpoint hashes as primary method references",
+    "Implement the 11 supplied algorithm families as callable byte-safe versioned product transforms, with explicit incompatibilities for formerly lossy cases",
+    "Expose complete recipes and forward/reverse file operations through existing reviewed publisher; no replacement of semantic dictionary engines or authenticated ciphers",
+    "Keep recipes and receipts private to operator/source boundaries; do not offer classical obfuscation as authenticated confidentiality",
+    "Execute known vectors, original C comparisons, binary/property/error tests, actual CLI/MCP file exchange and dependent application restoration from installed wheel"
+  ],
+  "findings": [
+    {
+      "action": "Length-preserving ragged transposition with exact inverse positions",
+      "id": "C-01",
+      "issue": "Padding removal strips actual trailing tildes; empty/all-padding return can lack terminator",
+      "source": "src/ciphers/scytale.c"
+    },
+    {
+      "action": "Stable duplicate-key order, explicit key validation, no padding, invertible ragged columns",
+      "id": "C-02",
+      "issue": "Undelimited underscore padding loses original length; empty keyword divides by zero; ragged decoder leaves uninitialized bytes",
+      "source": "src/ciphers/columnar_transposition.c"
+    },
+    {
+      "action": "Explicit versioned byte framing for case, I/J and every nonalphabet byte; strict decoder rejects noncanonical tokens",
+      "id": "C-03",
+      "issue": "Case and I/J are merged; literal digits/whitespace are ambiguous; malformed decode can exceed allocated buffer",
+      "source": "src/ciphers/polybius_square.c"
+    },
+    {
+      "action": "Normalize modular parameters before arithmetic; bounded keys and input-linear inverse permutations",
+      "id": "C-04",
+      "issue": "Signed minimum negation, unnormalized multiplication and large rail arithmetic can overflow",
+      "source": "src/ciphers/caesar.c, src/ciphers/affine.c, src/ciphers/rail_fence.c"
+    },
+    {
+      "action": "Packaged immutable capability registry and reviewed bounded file pipeline with explicit versioned recipes, receipts, verify/recovery and no compiler requirement",
+      "id": "C-05",
+      "issue": "Registry separates implementations well, but interactive-only C entry is absent from product CLI/MCP, has no file contracts or provenance",
+      "source": "src/cipher.c, src/main.c"
+    },
+    {
+      "action": "Product-owned capability discovery shared by CLI/operator MCP and Vandal; semantic/classical/authenticated operations distinct",
+      "id": "C-06",
+      "issue": "Workflow lacks routing/capabilities for supplied cipher family",
+      "source": "scripts/vandal.py"
+    }
+  ],
+  "native_comparison_evidence": ".mivim/vigiles/reports/current/VIGILES_CIPHER_REFERENCE.json",
+  "original_assets": {
+    "bamboozle/.clang-format": {
+      "git_blob": "737a7c91607c54bbec3ab654fa313daf547e962c",
+      "git_bytes_sha256": "9be8711697865c93929e6cc957a2fb0806e5c0a88757f506859f7c4c6366520b",
+      "working_bytes_sha256": "0e7a6cab64d4fb138e27d460a4cb779a9a46792a739fcaba3cd69c3a2a25d8e6"
+    },
+    "bamboozle/LICENSE": {
+      "git_blob": "76f36cd87ccb5f70c88f4f7b20c034d6b976121b",
+      "git_bytes_sha256": "9b7246e9cf20caa519681eebde0dcb13ddc2503f46ca75061ed528fc1f7f3872",
+      "working_bytes_sha256": "2b41e397f7c53066d3c49e46a5c775de5806a7b034ef76fc6ccec14884e4db98"
+    },
+    "bamboozle/Makefile": {
+      "git_blob": "eb3b559c0874ad9a1d6cda2244ef09bd1722c24c",
+      "git_bytes_sha256": "498ccc5dcb5fbe49a82547a18090d9f3708f1b390b04f3262f3da078487d99a4",
+      "working_bytes_sha256": "ffc1985aa2486525f7decebd6f40e74aa5c7094319340ce16865303899a52f48"
+    },
+    "bamboozle/include/cipher.h": {
+      "git_blob": "ad9c25496b2c252aab7371b21b680161547bb1c2",
+      "git_bytes_sha256": "756c8069624dfbc52089c31df145a02d4b886d7d786ed84fc207d52f8bf1f457",
+      "working_bytes_sha256": "aa557c4570ca5262767865c19a72c998ce0d56c6c8b6f50fd1555676c9bf2655"
+    },
+    "bamboozle/include/ciphers/affine.h": {
+      "git_blob": "0e75689923afecab74cc3c5f3739c7810c09a6ee",
+      "git_bytes_sha256": "25313404017b85bc6dffc492c23936c9b385c39f3a44621740520a300246d581",
+      "working_bytes_sha256": "e599d6998f56586d08f7306641deecdbb8d6026f2cce7713c26494ba705cb953"
+    },
+    "bamboozle/include/ciphers/atbash.h": {
+      "git_blob": "b5810978d3a2dba5907bdcdf2ed5ba431b3d56dc",
+      "git_bytes_sha256": "143f757bd79ae7969f4cd269e0e86aa8d6287bcf9c8105799959b305fa40a998",
+      "working_bytes_sha256": "13046766e47212d1fd8e7a78e8abb8d1a8766e5dc780cdd60d7e712a09c2ae25"
+    },
+    "bamboozle/include/ciphers/beaufort.h": {
+      "git_blob": "c9c1ebf3f4db5b8042a88287a697e7b05e5ffcae",
+      "git_bytes_sha256": "d250abff8739f87513a78cdcaca9747a5a5aef08b44b9903db5114537d4bc88a",
+      "working_bytes_sha256": "c59f2ad5859d26883b6591b87a374b1eaf62863de6012b342316dd65e08896a6"
+    },
+    "bamboozle/include/ciphers/caesar.h": {
+      "git_blob": "ef35fe12877552d3d3e54b1873941a1cfc68ace1",
+      "git_bytes_sha256": "ead9e1bceebc6368676f110bc2c8385e0a9890df9bcc14789cf302da490cf606",
+      "working_bytes_sha256": "935609abd842cba158f8b13f1bcac3070019ec854c8b1b9453745051dceab811"
+    },
+    "bamboozle/include/ciphers/columnar_transposition.h": {
+      "git_blob": "e3ea662e29d5a50b6b8117377f8e2d1e6b2c9a3c",
+      "git_bytes_sha256": "f153131a174042e621500d5f825524949e787e7edf332b35bc39b9606a179d05",
+      "working_bytes_sha256": "19da69b4a85a102b4ef801206869a2ff49ea999aef1cd8b06bc6ef40abf4dee9"
+    },
+    "bamboozle/include/ciphers/gronsfeld.h": {
+      "git_blob": "cffbf7f7d9e25bdcd86785da12aa7c0916b0d17c",
+      "git_bytes_sha256": "305073d380b10b33b37c863d782a9aefe40446c447ac03fce5e02d3c94e134af",
+      "working_bytes_sha256": "0fea60a621ca8e36dd04257da2081458e053efd1237950a32d6228b4869699d8"
+    },
+    "bamboozle/include/ciphers/polybius_square.h": {
+      "git_blob": "cdff9cb9b8be37bff9141628040b9ea8dfe4590f",
+      "git_bytes_sha256": "1b640e8b94b5bffa6f41bd79ed8af3fbbb6abfdd1b2cb94b9f335e0b510e9f2f",
+      "working_bytes_sha256": "5984a898309a802368c36d005248e661c7b31532213efbba7535bf611588bd4e"
+    },
+    "bamboozle/include/ciphers/rail_fence.h": {
+      "git_blob": "45815b7742b932f196c24cdc8c0df6e1f6fd4883",
+      "git_bytes_sha256": "830ded47b498cec866bb1b864452cce59d6c1f00f2aa4004afedecf60abea966",
+      "working_bytes_sha256": "49c7f6f7f2513e99dfff9bdbf6d33934376a43bb2b890138dd220cfa35a9230a"
+    },
+    "bamboozle/include/ciphers/rot13.h": {
+      "git_blob": "905fb1ba59a00ad2d2c12bdfefa767ee3cdd43cc",
+      "git_bytes_sha256": "3814ba8987cdbf6270ef66c79d7e2999780fb176aead06b3228b84acf4b33d2f",
+      "working_bytes_sha256": "65787fb4e27e024a02cdc7e89b03b26028ad38a212cc36643d24f10d61d02710"
+    },
+    "bamboozle/include/ciphers/scytale.h": {
+      "git_blob": "948a6552545b9221379350294e2125689b97d57c",
+      "git_bytes_sha256": "3d8cd9a4e4e59bd60cdb633ed093199d109a5cc1de7c1a868d9ac3c0fc7af559",
+      "working_bytes_sha256": "422cd1919f8e3d360f0dfbaa22f44da0ccc22f85cffde5ebf8fcdebd7235de9e"
+    },
+    "bamboozle/include/ciphers/vigenere.h": {
+      "git_blob": "bfbfea985a84b0355515509b30f68fd597063819",
+      "git_bytes_sha256": "58cc558bc9cca14b156f6c4bc733142b830188ccfc1d6a025f81c3174a5f6379",
+      "working_bytes_sha256": "1b5e093d7f0f5b7c5abb0273532b3d9f4c164ecf824fb864724ddf39de53332d"
+    },
+    "bamboozle/include/utils/alpha.h": {
+      "git_blob": "bdf297afc2da9d2acd880bd524306e9b85336d23",
+      "git_bytes_sha256": "565acf67fb6c9937df9c5c542c3a2f68622cd4f5bfb0eea7ebc80b9534b0b9b3",
+      "working_bytes_sha256": "1365299fc4d26a1b14232647e4afa107269428dbb254dff6f1c22d34aba0067b"
+    },
+    "bamboozle/justfile": {
+      "git_blob": "82e3a74cc8f7cce8f83dc19994d4c579915d4abd",
+      "git_bytes_sha256": "91329040dfe902a240221a193ccf7814bc6dbd102011e7e5b86b80cb0b28550d",
+      "working_bytes_sha256": "1b8b82a15128ed42f32255e247c708423f8cad584e09e824d68ef3e1eac33d60"
+    },
+    "bamboozle/src/cipher.c": {
+      "git_blob": "5c2305f2b2dcfa999d171dc38890007bf6070acd",
+      "git_bytes_sha256": "a087e3befc6c2b8752e996e7be6844d72f43f8f90c5e182d2e18d00f0282c9b5",
+      "working_bytes_sha256": "33ff06ffa466170fe197da001621bee114c6027c961885c27ea022b9e2b157d5"
+    },
+    "bamboozle/src/ciphers/README.md": {
+      "git_blob": "dc428297ee6d509f010a1cc14bf01430273a766d",
+      "git_bytes_sha256": "e394921961352d63fba70e76bacf3ee159a5520ff94c6ab20590cbecc7268f9b",
+      "working_bytes_sha256": "dcecc532dedfa459b46a0f44b8f52e8b2f4dd6f6146ffd34b08eadabb933abe1"
+    },
+    "bamboozle/src/ciphers/affine.c": {
+      "git_blob": "05c9f959cb3080ac8ea02de6b5695fc193e50f75",
+      "git_bytes_sha256": "812541fa6fa681a70a3426d1e3fcf52ffb7a5f1551289f6470e53a84759a49a0",
+      "working_bytes_sha256": "21dde85fd4a7cd8694754ff9dfa73b88a7c340d4c1182692587966b56b929769"
+    },
+    "bamboozle/src/ciphers/atbash.c": {
+      "git_blob": "47bc96c16db26456903d91c364f4d5b9ca4eda22",
+      "git_bytes_sha256": "48a5d0871b264174b5d7d02176ec808c7dcc624edb9c5cf1706ea858b1fc6b9f",
+      "working_bytes_sha256": "ee9387b9e349a6991ae00741f9a52d896fc59677d31651ed93428a05ae6439dc"
+    },
+    "bamboozle/src/ciphers/beaufort.c": {
+      "git_blob": "458fdea7557285501aa939c058c96fa61de932cd",
+      "git_bytes_sha256": "d098783554ee886fb52148b52e519183cd9443ba587f5e5682ebff3d7bd33b44",
+      "working_bytes_sha256": "97ac49e2e9e0ca9baa2990b59edc832ad06bcb5be7d21fc23342069035d5608c"
+    },
+    "bamboozle/src/ciphers/caesar.c": {
+      "git_blob": "1a8eb790d99cd49ec211a4b13fad10c394244c55",
+      "git_bytes_sha256": "ee3bc42d1270265b2c5dedfde49ab0c60d0dcc1efb3d6868c0e7eb6035306a31",
+      "working_bytes_sha256": "e86133a23e3a5c075d6124ccc96d075a416f9af99b91ebb65a63f00dc4768e01"
+    },
+    "bamboozle/src/ciphers/columnar_transposition.c": {
+      "git_blob": "bd110e45e5741a43bab940eca6b5af3751b88abc",
+      "git_bytes_sha256": "aed68ba23848b778f6262b364abbe018507cd85b10bf0fafe7d3b265e012b8e0",
+      "working_bytes_sha256": "435a75f3210d120b5c89557ab64ad38ae5a76c1db737c137b316acf7b503d51d"
+    },
+    "bamboozle/src/ciphers/gronsfeld.c": {
+      "git_blob": "1e2e1d81889ef546cffa63b8abbcd605fdd3eeeb",
+      "git_bytes_sha256": "6a4c4852771b30b625ec1cb886a91f42a6e4eadd20d144200fbb75cafd78b751",
+      "working_bytes_sha256": "490d3a7f3c3f49fe545f381b922eb500735a21c6c24fb0027a34e0644c9daae4"
+    },
+    "bamboozle/src/ciphers/polybius_square.c": {
+      "git_blob": "9b8f3dcb30242fa0cf408ed601116992fa41ffba",
+      "git_bytes_sha256": "bca6e7ee8a7a619076dd0d750815e06e97c49787f648c60342ded8e6130d1cd2",
+      "working_bytes_sha256": "2fbdf7f5f0adeb9a73b11741e2863104e51eb2830999539265eeac28eed2ac57"
+    },
+    "bamboozle/src/ciphers/rail_fence.c": {
+      "git_blob": "4dc2b2de006515735f7a1d220d441dbdfbcdd4e6",
+      "git_bytes_sha256": "dec8390ee9404b52b9aebaafb38c8e1b3ba5eb36872e339843b11ac08fadc99e",
+      "working_bytes_sha256": "662b05d9d90fcdbb498afcdaa4b4e5b36521f6744141a10a39fc77c7d4c59ca8"
+    },
+    "bamboozle/src/ciphers/rot13.c": {
+      "git_blob": "e365087d3c92249c9687973be4796d3f110c6b62",
+      "git_bytes_sha256": "52c0a74a4db6c1b7e956a317554740bcade864cb23a1c7e9d8fc07902e11582c",
+      "working_bytes_sha256": "450dcf31f06f93272268d6a1a8aa51a1222df710dc1f080992ef54b6f48fc88e"
+    },
+    "bamboozle/src/ciphers/scytale.c": {
+      "git_blob": "9d346f4cec941367aa1aa6fe9b4ca84b8d5b4b51",
+      "git_bytes_sha256": "36af0f0e28523a9ff7255b9c9c0afe826a8f5bef04d77d586553fbd1c62b24ca",
+      "working_bytes_sha256": "98c0c463c40fe002ae51de6e868051c51629e723c8465e6c28b925b90b647526"
+    },
+    "bamboozle/src/ciphers/vigenere.c": {
+      "git_blob": "5152f19c654c958a3abd8131b90aaecaad1ac44c",
+      "git_bytes_sha256": "1b152d055abd2035c02a92e8669ae9a2509019b11cc48644af922711f867fa12",
+      "working_bytes_sha256": "575c19e78d35efc83a4a9c0ad48d52d4490d1cc1deb44d06d11b08304df36b74"
+    },
+    "bamboozle/src/main.c": {
+      "git_blob": "d8a1bd9bcf59624ee614dcba0e36463bd7011ad4",
+      "git_bytes_sha256": "5bc4ba1df91e0a719a4e19b6af59a86cf61a753d1b62e316eb36ec67b91f3ea3",
+      "working_bytes_sha256": "be0f19717769bee405b01e46994cf9c94c52e98e0c2cd5d3248921bc0fd841d6"
+    },
+    "bamboozle/src/utils/alpha.c": {
+      "git_blob": "723580c3678b776497a5633694076a0d4bf406a5",
+      "git_bytes_sha256": "b39d89ef26346fdcdb1b3544ca7f50533d3e2b8d698a4df9181d1481d11af036",
+      "working_bytes_sha256": "bd04946aedca13da9ef2e4d2f71cfe1f230e071cde83205ddf43b85300147532"
+    }
+  },
+  "retained_failures": [
+    {
+      "cause": "Launched absolute GCC executable without its bin directory on compiler-child PATH; DLL exists on disk.",
+      "kind": "compiler_launcher",
+      "observed": "User reported repeating cc1.exe System Error dialogs: libmpfr-6.dll was not found. Initial GCC driver build exited 1.",
+      "references": [
+        "https://learn.microsoft.com/en-us/windows/win32/api/errhandlingapi/nf-errhandlingapi-seterrormode",
+        "https://learn.microsoft.com/en-us/windows/win32/dlls/dynamic-link-library-search-order"
+      ],
+      "resolution": "Stopped build; verified no remaining compiler/error processes. Guarded script adds process-local runtime PATH, inherits SetErrorMode flags 0x8003, hides child windows, preflights one source and bounds process-tree execution.",
+      "verified": "Corrected preflight and two complete native conformance builds passed. No global PATH or installation was changed."
+    },
+    {
+      "evidence": ".test-tmp/classical-first.xml",
+      "kind": "focused_test_harness",
+      "observed": "62 passed, 3 failed: one incorrect Beaufort expected character; two tests called an MCP tool name on the AgentFiles Python API.",
+      "resolution": "Corrected the independently computed expected vector and called AgentFiles.read; 65 focused tests passed."
+    },
+    {
+      "kind": "static_checks",
+      "observed": "Three qualification-script type errors and one deliberately invalid-input test typing error.",
+      "resolution": "Used platform-aware process cleanup typing, a variable-length command tuple and an explicit test-only cast; both type checkers pass."
+    }
+  ],
+  "schema_version": 1,
+  "shelved_task": "VIG-CIPHER-YAML-01",
+  "stage": "VIG-CIPHER-METHODS-01",
+  "status": "implementation_complete_package_qualification_in_progress",
+  "target_release": "0.6.0",
+  "updated": "2026-10-04T13:36:30.824335Z"
+}

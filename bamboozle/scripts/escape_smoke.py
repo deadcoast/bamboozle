@@ -13,6 +13,7 @@ from fastmcp import Client
 from fastmcp.client.transports import StdioTransport
 
 from bamboozle import markers
+from bamboozle.agent_development import AGENT_TOOLS
 from bamboozle.markers import quote_prefixes
 from bamboozle.utils import json_bytes, sha256
 
@@ -281,7 +282,7 @@ def run() -> dict:
                             "review_sha256": review["review_sha256"],
                         },
                     )
-                # A distinct source-agent connection retains precisely its two tools.
+                # A distinct source-agent connection exposes only source-development tools.
                 agent_root = root / "source-agent"
                 agent_root.mkdir()
                 (agent_root / "parser.py").write_bytes(original)
@@ -303,7 +304,7 @@ def run() -> dict:
                 )
                 async with Client(transport) as client:
                     names = sorted(tool.name for tool in await client.list_tools())
-                    if names != ["read_safe_file", "write_safe_file"]:
+                    if set(names) != AGENT_TOOLS:
                         raise RuntimeError("Source-agent capabilities changed")
                     read = await call(
                         client, "read_safe_file", {"file_path": "parser.py"}
