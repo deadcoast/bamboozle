@@ -357,6 +357,9 @@ def contract(
             "JSON translates only the listed exact string-value pointers; keys and other values stay literal.",
             "Keep required selected JSON fields present and strings. New files use their directory's rules.",
             "Private JSON spelling context stays with the operator; do not reconstruct or request it.",
+            "YAML uses exact string-value paths with the same / and ~0/~1 syntax. Keep every selected path present and string-valued.",
+            "Select every alias path that shares a YAML scalar; preserve anchors, tags, keys, comments and unselected data. Merge-owned values cannot be selected.",
+            "YAML spelling context also stays private. Generated YAML files use their directory's saved rules.",
             "",
         ]
     if any("rules" in rule for rule in policy["files"].values()):

@@ -985,6 +985,76 @@ Markdown uses CommonMark, preserves full link labels conservatively, and is limi
 to 1,000,000 characters. JSON is limited to 512 selected pointers, depth 64 and
 100,000 value nodes. Existing file and expansion limits also apply.
 
+### Translate selected YAML values
+
+YAML uses the shared encoder/decoder with exact string-value paths. Select the
+format explicitly; file extensions never select it for you:
+
+```powershell
+uv run --locked bamboozle encode config.yaml --format yaml --yaml-pointer /message --yaml-pointer /items/0 --profile profanity
+uv run --locked bamboozle verify config_safe.yaml
+uv run --locked bamboozle preview config_safe.yaml --reverse
+uv run --locked bamboozle decode config_safe.yaml
+```
+
+Paths use `/` segments, zero-based sequence indices and `~0`/`~1` escaping,
+like JSON pointers. The empty path selects a root string. Each path must exist
+and resolve to a string; there are no wildcard or inferred selections. Operator
+MCP `preview_file` accepts `document_format="yaml"` and `yaml_pointers=[...]`.
+Original `scm-cipher` file conversion also accepts `--yaml-pointer`.
+
+In a version-2 project-view or private `.agent-policy.json`, use this rule for
+an existing file or a generated-file directory:
+
+```json
+{"policy":"translate","document":{"format":"yaml","pointers":["/message","/copy"]}}
+```
+
+For `message: &text 'source words'` followed by `copy: *text`, both paths above
+must be selected. The encoder edits the anchor's one physical scalar and keeps
+the alias token. Collection aliases follow the same rule: every path to an
+affected scalar must be selected. Adding an unselected alias on return is
+refused before publication. This prevents translation from implicitly changing
+unselected values. Keys, aliases, anchor names and tags are never vocabulary.
+
+The supported contract is one YAML 1.2 document, using core-schema scalar types,
+unique string mapping keys, block/flow collections, and plain, single-quoted,
+double-quoted, literal and folded scalar styles. `%YAML 1.2` is accepted;
+other declared versions, multiple documents, duplicate keys/anchors, cyclic or
+undefined aliases and nonstring keys are refused. Unselected custom tags and
+merge syntax remain exact; tagged objects are never constructed. Select only
+ordinary strings or explicit `!!str`/`!` strings. Merge-owned values and values
+also used as keys cannot be translated. Split document streams explicitly.
+The adapter uses PyYAML's syntax scanner/parser with Bamboozle's
+[YAML 1.2 core type rules](https://yaml.org/spec/1.2.2/#103-core-schema), rather
+than PyYAML's default implicit type resolution. Dependent applications must use
+a compatible schema; YAML 1.1 consumers interpret some plain strings differently.
+
+Unselected bytes, BOM, comments, tags, anchors, aliases and line endings remain
+untouched. Selected scalar spellings keep their style where it represents the
+translated value safely; a plain replacement such as `true` is quoted to remain
+a string. Folded text may be reflowed to preserve its decoded value. Private
+context restores unchanged encoded scalars to their exact original spelling,
+including escapes and folding. New/edited values are rendered as valid YAML and
+the complete result is reparsed to verify types, keys, values and alias ownership.
+Limits are 512 selections, 1,000,000 input characters, depth 64, 100,000 nodes or
+expanded alias paths, and the existing file/output byte limits.
+
+Saved ledgers retain these rules and spelling context. `decode --strict`,
+`recover --original ... --format yaml --yaml-pointer ...`, and reviewed
+`restore-edits --terms translate` use those same rules. Streaming refuses to
+discard spelling context that needs a ledger. `validate-return` and view reviews
+report `protected_yaml_changed` for edits to protected content. Those findings
+require operator review; deliberate configuration changes remain possible.
+
+Direct `serve-agent --policy` reads, searches, edits, generated files and named
+application checks all use this adapter. Vandal only selects those interfaces.
+Project views retain private scalar context through reviewed return and partial
+import recovery. Encryption remains an explicit separate operation.
+`scripts/yaml_smoke.py` executes a dependent configuration-driven batch application
+through CLI, operator/source-agent stdio, generated YAML, source drift refusal and
+interrupted-import recovery; installed-package verification runs it too.
+
 ## Develop in a neutral project view
 
 Project views support a complete multi-file development cycle. The authoritative

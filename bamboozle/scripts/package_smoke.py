@@ -2148,7 +2148,9 @@ def main() -> None:
         raise RuntimeError(
             "Source-agent implementation was not imported from the installed wheel"
         )
-    yaml_results = runpy.run_path(str(Path(__file__).with_name("yaml_smoke.py")))["run"]()
+    yaml_results = runpy.run_path(str(Path(__file__).with_name("yaml_smoke.py")))[
+        "run"
+    ]()
     if not Path(yaml_results["yaml_module"]).is_relative_to(Path(sys.prefix)):
         raise RuntimeError("YAML adapter was not imported from the installed wheel")
     print(

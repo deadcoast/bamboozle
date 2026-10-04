@@ -18,9 +18,14 @@
       ],
       "focus": "Explicit selected YAML string-value translation with protected structure and exact restoration",
       "id": "VIG-CIPHER-YAML-01",
+      "implementation": [
+        "src/bamboozle/yaml_source.py",
+        "src/bamboozle/formats.py",
+        "scripts/yaml_smoke.py"
+      ],
       "priority": "resumed_core_translation",
-      "remaining": "Original design calls for selected YAML string values while protecting keys; no YAML adapter exists.",
-      "status": "planned"
+      "remaining": "Full source and isolated installed-package qualification in progress.",
+      "status": "implementation_in_verification"
     },
     {
       "done_criteria": [
@@ -112,9 +117,14 @@
     ],
     "focus": "Explicit selected YAML string-value translation with protected structure and exact restoration",
     "id": "VIG-CIPHER-YAML-01",
+    "implementation": [
+      "src/bamboozle/yaml_source.py",
+      "src/bamboozle/formats.py",
+      "scripts/yaml_smoke.py"
+    ],
     "priority": "resumed_core_translation",
-    "remaining": "Original design calls for selected YAML string values while protecting keys; no YAML adapter exists.",
-    "status": "planned"
+    "remaining": "Full source and isolated installed-package qualification in progress.",
+    "status": "implementation_in_verification"
   },
   "open_gates": [
     {

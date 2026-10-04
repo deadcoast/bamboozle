@@ -22,7 +22,7 @@ or launch a client, alter configuration files, or establish OS isolation.
   `search_safe_files`, read files/ranges with `read_safe_file`, apply exact edits
   with `edit_safe_file`, and publish whole/new files with `write_safe_file`.
   Add `--policy source.agent-policy.json` to route selected
-  Python/Markdown/JSON/text files through the product's existing document adapters.
+  Python/Markdown/JSON/YAML/text files through the product's existing document adapters.
   Without it, these retain whole-term text behavior. Preserve case, literal and
   prefix-escape markers. After reconnecting with a policy, submit both prior
   source and context hashes; re-read changed files. Do not mix raw
@@ -79,6 +79,16 @@ JSON strings under a `translate` rule. Use copy for intentionally visible exact
 content and supplied fixtures when production content must stay local. Do not
 guess a file's format or expose the entire repository by default. The
 [README](../../../README.md) contains executable CLI sequences and policy schemas.
+
+For YAML use `document: {"format":"yaml","pointers":[...]}` in either policy,
+or operator `encode --format yaml --yaml-pointer ...`. Keep all selected paths
+present as strings. If an anchor is shared, select every affected alias value
+path; do not introduce an unselected alias to a translated scalar. Preserve keys,
+tags, comments and anchor/alias names. Merge-owned selections, nonstring keys,
+cycles and document streams are refused under the documented YAML 1.2 contract.
+Original escaped/folded spellings remain in private context. Review
+`protected_yaml_changed` findings for deliberate configuration edits and execute
+the dependent application with both the neutral and restored configuration.
 
 Export with `bamboozle view-export`, generate the view context, complete the agent
 edits and run the relevant checks in that view. Operator `view-review` displays

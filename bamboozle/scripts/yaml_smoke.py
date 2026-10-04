@@ -12,10 +12,13 @@ from pathlib import Path
 from fastmcp import Client
 from fastmcp.client.transports import StdioTransport
 
-from bamboozle import yaml_source
+from bamboozle import view_import, yaml_source
 from bamboozle.dictionary import Dictionary
 from bamboozle.engine import Translator
+from bamboozle.project_views import export_view
+from bamboozle.service import OperationError
 from bamboozle.utils import json_bytes, sha256
+from bamboozle.workspace import Workspace
 
 POINTERS = ["/templates/urgent", "/routes/0/message", "/routes/1/message", "/summary"]
 RULE = {"format": "yaml", "pointers": POINTERS}
@@ -222,7 +225,7 @@ def run(workspace: Path | None = None) -> dict:
     restored = execute(root, "restored.yaml", 8)
     assert json.loads(Translator(MAPPING).reverse(json.dumps(edited))) == restored
 
-    policy = {
+    policy: dict = {
         "schema_version": 2,
         "files": {name: {"policy": "copy"} for name in [*MODULES, "records.json"]},
         "new_files": {"configs": {"policy": "translate", "document": RULE}},
@@ -378,6 +381,53 @@ def run(workspace: Path | None = None) -> dict:
     agent = asyncio.run(asyncio.wait_for(operate(), 120))
     assert execute(root, batches=8) == restored
     assert execute(root, "configs/agent.yaml", 8) == restored
+    workspace_service = Workspace(root)
+    recovery_view = export_view(
+        workspace_service, "policy.json", "recovery-view", MAPPING
+    )
+    recovery_root = root / "recovery-view"
+    changed = (
+        (recovery_root / "config.yaml")
+        .read_bytes()
+        .replace(b"revision: 1", b"revision: 2")
+    )
+    (recovery_root / "config.yaml").write_bytes(changed)
+    (recovery_root / "configs").mkdir()
+    (recovery_root / "configs/recovered.yaml").write_bytes(changed)
+    recovery_review = view_import.review_import(
+        workspace_service, recovery_view["view_id"]
+    )
+    original_write = view_import.atomic_write
+
+    def interrupt(path, data, *, overwrite=False):
+        if path == root / "configs/recovered.yaml":
+            raise OSError(
+                "Injected interruption after the first YAML source publication"
+            )
+        original_write(path, data, overwrite=overwrite)
+
+    view_import.atomic_write = interrupt
+    failure = None
+    try:
+        view_import.apply_import(
+            workspace_service,
+            recovery_view["view_id"],
+            recovery_review["review_sha256"],
+        )
+    except OperationError as exc:
+        failure = exc.report
+        assert failure["output_saved"] and not failure["receipt_saved"]
+    finally:
+        view_import.atomic_write = original_write
+    assert failure is not None
+    recovered = view_import.apply_import(
+        workspace_service,
+        recovery_view["view_id"],
+        recovery_review["review_sha256"],
+        recover=True,
+    )
+    assert recovered["receipt_saved"] and execute(root, batches=8) == restored
+    assert execute(root, "configs/recovered.yaml", 8) == restored
     return {
         "status": "passed",
         "yaml_module": str(Path(yaml_source.__file__).resolve()),
@@ -390,6 +440,8 @@ def run(workspace: Path | None = None) -> dict:
         "drift_refusal": refused,
         "view_applied": applied,
         "agent": agent,
+        "interrupted_import": failure,
+        "recovered_import": recovered,
         "original_sha256": sha256(CONFIG),
         "final_sha256": sha256((root / "config.yaml").read_bytes()),
     }

@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\scripts\yaml_smoke.py", line 400, in <module>
+    print(json.dumps(run(parser.parse_args().root)))
+                     ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ryanf\github\_active\bamboozle\bamboozle\scripts\yaml_smoke.py", line 186, in run
+    assert json.loads(Translator(MAPPING).backward(json.dumps(encoded))) == baseline
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'Translator' object has no attribute 'backward'

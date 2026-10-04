@@ -1,0 +1,40 @@
+import json
+from pathlib import Path
+
+from bamboozle.evidence import report_destination, write_report
+from bamboozle.utils import atomic_write, sha256, utc_now
+
+root = Path.cwd()
+archive = root / '.mivim/vigiles/reports/archive/runs/20261004-yaml-translation'
+archive.mkdir(parents=True, exist_ok=True)
+verified = json.loads(report_destination(root, 'VIGILES_VERIFICATION.json').read_bytes())
+for name in verified['required_artifacts']:
+    raw = (root / 'dist' / name).read_bytes()
+    assert sha256(raw) == verified['artifacts'][name]['sha256']
+    atomic_write(archive / ('prior-' + name), raw)
+for name in ('yaml-first.xml', 'yaml-qualified.xml', 'yaml-header.xml', 'yaml-app-first.log', 'yaml-app-second.log'):
+    atomic_write(archive / name, (root / '.test-tmp' / name).read_bytes())
+atomic_write(archive / 'prepare-yaml-evidence.py.snapshot', Path(__file__).read_bytes())
+status_path = root / 'VIGILES_STATUS.json'
+status = json.loads(status_path.read_bytes())
+assert status['next_step']['id'] == 'VIG-CIPHER-YAML-01'
+for step in [status['next_step'], status['core_development_queue'][0]]:
+    step.update(status='implementation_in_verification', remaining='Full source and isolated installed-package qualification in progress.', implementation=['src/bamboozle/yaml_source.py', 'src/bamboozle/formats.py', 'scripts/yaml_smoke.py'])
+write_report(root, status_path, status, replace=True)
+report = {
+    'schema_version': 1, 'status': 'implementation_in_verification', 'recorded': utc_now(),
+    'task': status['next_step'],
+    'design': {
+        'owner': 'Bamboozle document engine; Vandal only routes existing product interfaces.',
+        'method': 'Bounded YAML parser events and physical scalar tokens; YAML 1.2 core string resolution; explicit graph-wide alias ownership; private original/encoded scalar context; reparse values, types and topology before publication.',
+        'interfaces': ['CLI --format yaml --yaml-pointer', 'operator MCP yaml_pointers', 'source-agent policies, navigation, edits, generated files and checks', 'ledger verification/recovery/restoration', 'project views and returned protected-content diagnostics'],
+        'non_goals': ['No encryption algorithm changes', 'No full YAML language or arbitrary object-constructor claim', 'No native C original changes'],
+        'requirements': status['next_step']['done_criteria'],
+    },
+    'focused': {'first_yaml_tests': 101, 'expanded_regressions': 303, 'latest_yaml_tests': 105},
+    'retained_failures': ['First application smoke used nonexistent Translator.backward; corrected the qualifier to the existing reverse method. No product API was changed to conceal this failure.', 'First lint/type review found four style errors and three optional/type annotations in the new adapter, then JSON policy inference and MCP response narrowing errors in qualification code. Corrected and rechecked.'],
+    'archive': archive.relative_to(root).as_posix(),
+    'references': ['https://yaml.org/spec/1.2.2/#103-core-schema', 'https://pyyaml.org/wiki/PyYAMLDocumentation'],
+}
+write_report(root, report_destination(root, 'VIGILES_YAML_TRANSLATION.json'), report)
+print(json.dumps({'status': report['status'], 'archive': report['archive']}))

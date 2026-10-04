@@ -70,7 +70,7 @@ the appropriate context with `uv run --locked python scripts/vandal.py --mode ..
    `read_safe_file`, `edit_safe_file` and `write_safe_file`.
    These use whole-term text rules unless an operator supplies `--policy` with a
    private `.agent-policy.json`. Then source reads/search/edits use the shared explicit
-   Python, Markdown, JSON or text adapters. Reads return neutral content; writes return
+   Python, Markdown, JSON, YAML or text adapters. Reads return neutral content; writes return
    hashes/status rather than original-domain content. Existing writes require a
    prior source hash and, for configured writes after reconnecting, the read's
    context hash. That context binds dictionary, policy, format and source. The
@@ -168,6 +168,35 @@ the filesystem is not a multi-file transaction against unrelated writers.
 - Keep reads and expansion bounded. Markdown parsing is limited to 1,000,000
   characters; JSON to 512 selected pointers, depth 64 and 100,000 value nodes, plus
   existing file/view limits. Unsupported or incompatible syntax fails explicitly.
+
+## Selected YAML translation
+
+Bamboozle's `yaml_source.py` implements the original selected-string/key-protection
+requirement in `.legacy/bamboozle_v0.0.1.md:303-317`. Vandal routes its shared
+document adapter and supplies no YAML parser or replacement translation engine.
+Rules are `{"format":"yaml","pointers":[...]}`; CLI uses repeated
+`--yaml-pointer`, operator MCP uses `yaml_pointers`. Ledger, restoration, view,
+source-agent and application-check paths consume that same adapter.
+
+The supported syntax/type contract and executable commands are in README's
+"Translate selected YAML values" section. One YAML 1.2 core-schema document,
+unique string keys, explicit string values and bounded alias graphs are required.
+Select every logical path to a shared anchored scalar. Refuse implicit changes
+through omitted aliases, key ownership, merges, cycles and ambiguous keys. Keep
+unselected content and syntax intact; never execute custom tag constructors.
+The operator owns schema compatibility with the consuming application.
+
+Use physical scalar spans and private original/encoded spelling context. Validate
+semantic values and topology after rendering; quote type-changing replacements.
+Exact unchanged restoration retains BOM, line endings and escaped/folded spelling.
+Returned protected changes receive operator diagnostics; malformed selections
+cannot publish. Existing historical text/Markdown/JSON/Python contexts retain
+their behavior and current schema versions.
+
+Qualification runs the full YAML-configured application through CLI, actual
+operator and source-agent stdio, generated configurations, named workload checks,
+drift refusal and partial-import recovery. Repeat this from an isolated installed
+wheel. Preserve failing runs and distinguish this gate from global acceptance.
 
 ## Controlled lexicon contract — product 0.4.6
 
@@ -328,8 +357,8 @@ Whole-application qualification composes the cipher pipeline and authenticated
 transport into the Python dependency-planner/scheduler workflow through CLI and
 stdio MCP, then executes the transported neutral and restored programs. Retain
 failed checks and checkpoint hashes alongside source and installed-wheel evidence.
-The user-prioritized method gate temporarily shelves `VIG-CIPHER-YAML-01`;
-resume its exact retained requirements once this gate is qualified.
+The user-prioritized method gate originally shelved `VIG-CIPHER-YAML-01`.
+Its resumed implementation and qualification are tracked in current status.
 
 ## Python source development — product 0.5.0
 

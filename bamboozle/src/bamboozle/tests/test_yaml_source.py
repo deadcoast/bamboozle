@@ -2,6 +2,8 @@
 
 import asyncio
 import json
+import runpy
+from pathlib import Path
 
 import pytest
 import yaml
@@ -243,6 +245,7 @@ def test_operator_mcp_yaml_rules_survive_ledger_roundtrip(tmp_path):
 
             async def call(name, args):
                 result = await client.call_tool(name, args)
+                assert not result.is_error and result.content[0].type == "text"
                 return json.loads(result.content[0].text)
 
             preview = await call(
@@ -271,3 +274,60 @@ def test_yaml_rule_schema_and_cli_option_ownership():
         format_options("yaml", ["/message"])
     with pytest.raises(ValueError, match="requires"):
         format_options("json", None, yaml_pointers=["/message"])
+
+
+def test_escaped_markers_on_return_are_decoded_as_values_not_yaml_spelling():
+    codec = DocumentCodec(MAPPING, RULES)
+    assert (
+        codec.transform('message: "__SCM_LIT_om\\u0065ga__"', "reverse").text
+        == 'message: "omega"'
+    )
+    for text in ("message: !!str", "message: !!str\n", "message: ''"):
+        assert codec.transform(text).text == text
+
+
+def test_folded_phrase_reflow_keeps_explicit_header_and_comment_spacing():
+    source = "message: >2-  #  alpha stays here\r\n  high\r\n  priority alpha\r\n"
+    result = DocumentCodec(MAPPING, RULES).transform(source)
+    assert result.text.startswith("message: >2-  #  alpha stays here\r\n")
+    assert yaml.safe_load(result.text)["message"] == "fast lane omega"
+
+
+def test_agent_added_alias_cannot_silently_change_an_unselected_value(tmp_path):
+    from bamboozle.agent_files import AgentFiles
+    from bamboozle.agent_policy import AgentPolicy
+    from bamboozle.utils import json_bytes
+
+    policy_path = "source.agent-policy.json"
+    (tmp_path / policy_path).write_bytes(
+        json_bytes(
+            {
+                "schema_version": 2,
+                "files": {
+                    "config.yaml": {"policy": "translate", "document": RULES.document()}
+                },
+                "new_files": {},
+            }
+        )
+    )
+    original = b"message: &message alpha\nid: unchanged\n"
+    (tmp_path / "config.yaml").write_bytes(original)
+    workspace = Workspace(tmp_path)
+    files = AgentFiles(workspace, MAPPING, policy=AgentPolicy(workspace, policy_path))
+    read = files.read("config.yaml")
+    with pytest.raises(ValueError, match="alias"):
+        files.write(
+            "config.yaml",
+            read["content"] + "copy: *message\n",
+            read["source_sha256"],
+            read["context_sha256"],
+        )
+    assert (tmp_path / "config.yaml").read_bytes() == original
+
+
+def test_complete_yaml_application_cli_stdio_views_and_recovery(tmp_path):
+    script = Path(__file__).parents[3] / "scripts/yaml_smoke.py"
+    result = runpy.run_path(str(script))["run"](tmp_path / "yaml-application")
+    assert result["status"] == "passed"
+    assert result["agent"]["check"]["status"] == "passed"
+    assert result["recovered_import"]["receipt_saved"]

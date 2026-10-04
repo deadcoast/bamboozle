@@ -92,6 +92,10 @@ class YamlDocument:
                     item.value = event.value
                     assert event.end_mark is not None
                     item.token = tokens.get(event.end_mark.index)
+                    if item.token is None and item.kind == "string" and not event.value:
+                        item.token = ScalarToken(
+                            "", True, event.end_mark, event.end_mark
+                        )
                 elif isinstance(event, (ev.MappingStartEvent, ev.SequenceStartEvent)):
                     item = Node(
                         "map" if isinstance(event, ev.MappingStartEvent) else "seq",
@@ -260,6 +264,18 @@ def _render(
         rendered = rendered[scalar.start_mark.index : scalar.end_mark.index]
         lines = rendered.splitlines(keepends=True)
         if rendered.startswith(("|", ">")):
+            content_indents = [
+                len(line) - len(line.lstrip(" "))
+                for line in body.splitlines()
+                if line.strip()
+            ]
+            block_indent = min(content_indents, default=indent + 2)
+            preserved = header + "".join(
+                " " * block_indent + line[2:] if line.startswith("  ") else line
+                for line in lines[1:]
+            )
+            if header and _value(preserved, indent) == result:
+                return preserved
             comment = header.partition("#")[2]
             if comment:
                 lines[0] = lines[0].rstrip("\r\n") + " #" + comment
