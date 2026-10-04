@@ -6,21 +6,40 @@ import argparse
 import asyncio
 import json
 import os
+import re
+import runpy
 import subprocess
 import sys
 from pathlib import Path
 from unittest.mock import patch
 
+from cryptography.hazmat.primitives.ciphers.aead import AESSIV
 from fastmcp import Client
 from fastmcp.client.transports import StdioTransport
 
 import bamboozle
-from bamboozle import agent_files, cipher, migration, restoration, scm_mcp
+from bamboozle import (
+    agent_files,
+    cipher,
+    fixture_rules,
+    fixtures,
+    formats,
+    lexicon,
+    migration,
+    project_views,
+    restoration,
+    return_validation,
+    scm_mcp,
+    view_import,
+)
 from bamboozle.dictionary import Dictionary
-from bamboozle.utils import sha256
+from bamboozle.service import OperationError
+from bamboozle.utils import atomic_write, json_bytes, sha256
+from bamboozle.workspace import Workspace
 from workshop import examples, plans, process, recovery
 from workshop import operations as ops
 from workshop.pipeline import run_script
+from workshop.scrape import bamb5
 from workshop.scrape.alias_pass import Taxonomy
 
 
@@ -108,6 +127,8 @@ def smoke_profanity() -> dict:
         raise RuntimeError(
             "Installed profanity scan did not count/bound real vocabulary"
         )
+    if scanned["counts"] != {"f*ck": 1, "for fuck’s sake": 1, "fuck": 2}:
+        raise RuntimeError("Installed CLI JSON corrupted Unicode scan terms in transit")
     cli("encode", "node.py", "--profile", "profanity")
     cli("decode", "node_safe.py", "--strict")
     if (root / "node_safe_ready.py").read_bytes() != original:
@@ -243,6 +264,1071 @@ def smoke_profanity() -> dict:
     }
 
 
+def smoke_project_views() -> dict:
+    """Run complete installed project export/edit/return cycles and retained recovery."""
+    original = b"\xef\xbb\xbfdef fUcK(value):\r\n    return value + 1\r\nassert fUcK(3) == 4\r\n"
+    expected = original.replace(b"value + 1", b"value * 2").replace(b"== 4", b"== 6")
+    production = b'{"prompt":"private authoritative content"}\n'
+    token = cipher.CipherEngine(Dictionary.load()).encode("fUcK")
+
+    def setup(mode: str) -> Path:
+        root = Path(f"view-{mode}-fixture").resolve()
+        (root / "src").mkdir(parents=True)
+        (root / "src/node.py").write_bytes(original)
+        (root / "src/obsolete.py").write_bytes(b"OLD = True\n")
+        (root / "settings.json").write_bytes(b'{"enabled":false}\n')
+        (root / "production.json").write_bytes(production)
+        (root / "fixture.json").write_bytes(b'{"prompt":"neutral fixture"}\n')
+        (root / "private.txt").write_bytes(b"excluded original")
+        (root / ".env").write_bytes(b"UNSELECTED=private")
+        (root / "view-policy.json").write_bytes(
+            json_bytes(
+                {
+                    "schema_version": 1,
+                    "files": {
+                        "src/node.py": {"policy": "translate"},
+                        "src/obsolete.py": {"policy": "copy"},
+                        "settings.json": {"policy": "copy"},
+                        "production.json": {
+                            "policy": "fixture",
+                            "fixture": "fixture.json",
+                        },
+                        "private.txt": {"policy": "exclude"},
+                    },
+                    "new_files": {"src": "translate"},
+                }
+            )
+        )
+        return root
+
+    def cli(root: Path, *args: str) -> dict:
+        result = subprocess.run(
+            [sys.executable, "-m", "bamboozle", "--root", str(root), *args],
+            check=True,
+            capture_output=True,
+            text=True,
+            timeout=30,
+        )
+        return json.loads(result.stdout)
+
+    def edit(root: Path, exported: dict) -> None:
+        view = root / exported["view"]
+        actual = {
+            p.relative_to(view).as_posix() for p in view.rglob("*") if p.is_file()
+        }
+        if actual != {
+            "src/node.py",
+            "src/obsolete.py",
+            "settings.json",
+            "production.json",
+            project_views.CONTRACT,
+        }:
+            raise RuntimeError(
+                "Installed project view includes unselected or private files"
+            )
+        if b"fuck" in (view / "src/node.py").read_bytes().lower():
+            raise RuntimeError("Installed view did not encode source vocabulary")
+        subprocess.run(
+            [sys.executable, str(view / "src/node.py")], check=True, timeout=10
+        )
+        node = view / "src/node.py"
+        node.write_bytes(
+            node.read_bytes()
+            .replace(b"value + 1", b"value * 2")
+            .replace(b"== 4", b"== 6")
+        )
+        (view / "src/generated.py").write_bytes(
+            f"from node import {token}\nassert {token}(5) == 10\n".encode()
+        )
+        (view / "settings.json").write_bytes(b'{"enabled":true}\n')
+        (view / "production.json").write_bytes(b'{"prompt":"agent edited fixture"}\n')
+        (view / "src/obsolete.py").unlink()
+        subprocess.run(
+            [sys.executable, str(view / "src/generated.py")], check=True, timeout=10
+        )
+
+    def checked_review(root: Path, review: dict) -> None:
+        if (
+            not review["ok"]
+            or review["action_count"] != 4
+            or not review["review_sha256"]
+        ):
+            raise RuntimeError("Installed multi-file review failed")
+        if {row["action"] for row in review["changes"]} != {
+            "modify",
+            "create",
+            "delete",
+            "fixture_ignored",
+        }:
+            raise RuntimeError("Installed review omitted a policy/action result")
+        if (root / "src/node.py").read_bytes() != original or (
+            root / "src/generated.py"
+        ).exists():
+            raise RuntimeError("Review changed authoritative source")
+
+    def checked_result(
+        root: Path, exported: dict, reviewed: dict, saved: dict, status: dict
+    ) -> dict:
+        if not saved["receipt_saved"] or status["status"] != "complete":
+            raise RuntimeError("Installed import has no validated completion")
+        if (root / "src/node.py").read_bytes() != expected:
+            raise RuntimeError("Installed project return changed case/BOM/CRLF")
+        if (root / "production.json").read_bytes() != production or (
+            root / "src/obsolete.py"
+        ).exists():
+            raise RuntimeError("Installed fixture/deletion import policy failed")
+        if (root / "settings.json").read_bytes() != b'{"enabled":true}\n':
+            raise RuntimeError("Installed copy policy did not apply exact bytes")
+        subprocess.run(
+            [sys.executable, str(root / "src/generated.py")], check=True, timeout=10
+        )
+        directory, manifest, _, _, _ = project_views.load_view(
+            Workspace(root), exported["view_id"]
+        )
+        if (
+            project_views.blob(
+                Workspace(root),
+                directory,
+                manifest["files"]["src/node.py"]["original_sha256"],
+            )
+            != original
+        ):
+            raise RuntimeError("Installed import lost its private original snapshot")
+        return {
+            "root": str(root),
+            "export": exported,
+            "review_sha256": reviewed["review_sha256"],
+            "action_count": reviewed["action_count"],
+            "applied": saved,
+            "status": status,
+            "encoded_and_restored_dependent_programs_executed": True,
+            "private_original_preserved": True,
+            "fixture_source_preserved": True,
+        }
+
+    root = setup("cli")
+    exported = cli(
+        root, "view-export", "view-policy.json", "--output", ".local/views/task"
+    )
+    edit(root, exported)
+    reviewed = cli(
+        root, "view-review", exported["view_id"], "--delete", "src/obsolete.py"
+    )
+    checked_review(root, reviewed)
+    applied = cli(
+        root,
+        "view-apply",
+        exported["view_id"],
+        "--review-sha256",
+        reviewed["review_sha256"],
+        "--delete",
+        "src/obsolete.py",
+    )
+    cli_result = checked_result(
+        root, exported, reviewed, applied, cli(root, "view-status", exported["view_id"])
+    )
+
+    async def mcp_cycle() -> dict:
+        root = setup("mcp")
+        transport = StdioTransport(
+            command=sys.executable,
+            args=["-m", "bamboozle", "--root", str(root), "serve"],
+            cwd=str(root),
+        )
+        async with Client(transport) as client:
+
+            async def call(name: str, arguments: dict) -> dict:
+                result = await client.call_tool(name, arguments)
+                content = result.content[0]
+                if result.is_error or content.type != "text":
+                    raise RuntimeError(f"Installed project view MCP failed: {name}")
+                return json.loads(content.text)
+
+            exported = await call(
+                "export_project_view",
+                {"config": "view-policy.json", "output": ".local/views/task"},
+            )
+            edit(root, exported)
+            args = {"view_id": exported["view_id"], "delete_files": ["src/obsolete.py"]}
+            reviewed = await call("review_project_view", args)
+            checked_review(root, reviewed)
+            applied = await call(
+                "apply_project_view",
+                {**args, "review_sha256": reviewed["review_sha256"]},
+            )
+            status = await call("project_view_status", {"view_id": exported["view_id"]})
+            return checked_result(root, exported, reviewed, applied, status)
+
+    mcp_result = asyncio.run(asyncio.wait_for(mcp_cycle(), timeout=60))
+    root = setup("recovery")
+    workspace = Workspace(root)
+    exported = cli(
+        root, "view-export", "view-policy.json", "--output", ".local/views/task"
+    )
+    edit(root, exported)
+    reviewed = cli(
+        root, "view-review", exported["view_id"], "--delete", "src/obsolete.py"
+    )
+    checked_review(root, reviewed)
+
+    def interrupt(path: Path, data: bytes, *, overwrite: bool = False) -> None:
+        if path == root / "src/generated.py":
+            raise OSError("Synthetic installed import interruption")
+        atomic_write(path, data, overwrite=overwrite)
+
+    with patch.object(view_import, "atomic_write", interrupt):
+        try:
+            view_import.apply_import(
+                workspace,
+                exported["view_id"],
+                reviewed["review_sha256"],
+                delete_files=["src/obsolete.py"],
+            )
+        except OperationError as exc:
+            partial = exc.report
+        else:
+            raise RuntimeError("Installed fault injection did not interrupt import")
+    pending = cli(root, "view-status", exported["view_id"])
+    if (
+        pending["status"] != "pending"
+        or partial["receipt_saved"]
+        or not partial["output_saved"]
+    ):
+        raise RuntimeError("Installed partial import reported false completion")
+    if (
+        pending["files"]["settings.json"] != "applied"
+        or pending["files"]["src/node.py"] != "pending"
+    ):
+        raise RuntimeError("Installed partial import inspection lost per-file state")
+    applied = cli(
+        root,
+        "view-apply",
+        exported["view_id"],
+        "--review-sha256",
+        reviewed["review_sha256"],
+        "--recover",
+    )
+    recovered = checked_result(
+        root, exported, reviewed, applied, cli(root, "view-status", exported["view_id"])
+    )
+    return {
+        "cli": cli_result,
+        "mcp": mcp_result,
+        "recovery": {**recovered, "partial": partial, "pending": pending},
+    }
+
+
+def smoke_fixtures() -> dict:
+    """Installed CLI/stdio preparation, real catalog development and restored execution."""
+    scenario = runpy.run_path(str(Path(__file__).with_name("fixture_scenario.py")))
+    root = Path("generated-fixture-workflow").resolve()
+    root.mkdir()
+
+    def setup(mode: str) -> Path:
+        selected = root / mode
+        (selected / "src").mkdir(parents=True)
+        (selected / "src/renderer.py").write_text(
+            "def fuck(record, values):\n    return record['prompt'].format_map(values)\n",
+            encoding="utf-8",
+        )
+        (selected / "templates.json").write_bytes(
+            b"\xef\xbb\xbf"
+            + json_bytes(scenario["source_document"]()).replace(b"\n", b"\r\n")
+        )
+        (selected / "templates.fixture-rules.json").write_bytes(
+            json_bytes(scenario["rules_document"]())
+        )
+        Dictionary({"fuck": "assemble"}).save(selected / "mapping.dictionary.json")
+        policy = {
+            "schema_version": 3,
+            "files": {
+                "templates.json": {
+                    "policy": "fixture",
+                    "rules": "templates.fixture-rules.json",
+                },
+                "src/renderer.py": {"policy": "translate"},
+            },
+            "new_files": {"src": "translate"},
+        }
+        (selected / "policy.json").write_bytes(json_bytes(policy))
+        return selected
+
+    def execute(selected: Path, view: Path) -> None:
+        result = subprocess.run(
+            [
+                sys.executable,
+                "-B",
+                "src/run_catalog.py",
+                str(view / fixtures.TEMPLATE_CASES),
+            ],
+            cwd=selected,
+            capture_output=True,
+            text=True,
+            check=True,
+            timeout=20,
+        )
+        if result.stdout.strip() != "catalog-pipeline-ok":
+            raise RuntimeError(
+                "Installed catalog did not finish valid/error/binding checks"
+            )
+
+    def confirm(selected: Path, original: bytes) -> None:
+        view = selected / "neutral"
+        if (selected / "templates.json").read_bytes() != original:
+            raise RuntimeError("Generated fixture replaced production content")
+        if "from renderer import fuck" not in (selected / "src/catalog.py").read_text():
+            raise RuntimeError("Generated dependent catalog code was not decoded")
+        for name in (*fixtures.GENERATED_FILES, "templates.json"):
+            raw = (view / name).read_bytes()
+            if b"PRIVATE_SOURCE" in raw or b"PRIVATE_NOTE" in raw:
+                raise RuntimeError("Prepared fixture controls leaked replaced prose")
+        if any((selected / name).exists() for name in fixtures.GENERATED_FILES):
+            raise RuntimeError("Generated fixture controls entered source import")
+        if "`assemble`" not in (view / fixtures.TEMPLATE_CONTRACT).read_text():
+            raise RuntimeError("Contract did not bind the encoded consumer call path")
+        execute(selected, view)
+
+    selected = setup("cli")
+    original = (selected / "templates.json").read_bytes()
+
+    def cli(*args: str) -> dict:
+        result = subprocess.run(
+            [sys.executable, "-m", "bamboozle", "--root", str(selected), *args],
+            capture_output=True,
+            text=True,
+            check=True,
+            timeout=30,
+        )
+        return json.loads(result.stdout)
+
+    preview = cli(
+        "fixture-preview", "templates.json", "--rules", "templates.fixture-rules.json"
+    )
+    if not preview["ok"] or len(preview["cases"]) != 8:
+        raise RuntimeError("Installed fixture preparation lost checked cases")
+    exported = cli(
+        "view-export",
+        "policy.json",
+        "--output",
+        "neutral",
+        "--dict",
+        "mapping.dictionary.json",
+    )
+    validation = cli(
+        "fixture-validate",
+        "neutral/templates.json",
+        "--contract",
+        "neutral/" + fixtures.TEMPLATE_SCHEMA,
+        "--fixture",
+        "templates.json",
+    )
+    if not validation["ok"]:
+        raise RuntimeError("Installed public fixture validation failed")
+    scenario["write_agent_return"](selected / "neutral")
+    execute(selected / "neutral", selected / "neutral")
+    review = cli("view-review", exported["view_id"])
+    applied = cli(
+        "view-apply", exported["view_id"], "--review-sha256", review["review_sha256"]
+    )
+    confirm(selected, original)
+    cli_result = {
+        "root": str(selected),
+        "preview": preview,
+        "export": exported,
+        "review": review,
+        "apply": applied,
+        "original_sha256": sha256(original),
+        "status": cli("view-status", exported["view_id"]),
+        "neutral_and_original_catalog_executed": True,
+    }
+
+    async def stdio() -> dict:
+        selected = setup("mcp")
+        original = (selected / "templates.json").read_bytes()
+        transport = StdioTransport(
+            command=sys.executable,
+            args=[
+                "-m",
+                "bamboozle",
+                "--root",
+                str(selected),
+                "serve",
+                "--dict",
+                "mapping.dictionary.json",
+            ],
+        )
+        async with Client(transport) as client:
+
+            async def call(name: str, args: dict) -> dict:
+                result = await client.call_tool(name, args)
+                content = result.content[0]
+                if content.type != "text":
+                    raise RuntimeError("Unexpected fixture MCP response")
+                report = json.loads(content.text)
+                if report.get("ok") is False:
+                    raise RuntimeError(f"Fixture MCP operation failed: {report}")
+                return report
+
+            preview = await call(
+                "preview_template_fixture",
+                {"source": "templates.json", "rules": "templates.fixture-rules.json"},
+            )
+            exported = await call(
+                "export_project_view", {"config": "policy.json", "output": "neutral"}
+            )
+            await call(
+                "validate_template_fixture",
+                {
+                    "source": "neutral/templates.json",
+                    "contract": "neutral/" + fixtures.TEMPLATE_SCHEMA,
+                    "fixture": "templates.json",
+                },
+            )
+            scenario["write_agent_return"](selected / "neutral")
+            execute(selected / "neutral", selected / "neutral")
+            review = await call("review_project_view", {"view_id": exported["view_id"]})
+            applied = await call(
+                "apply_project_view",
+                {
+                    "view_id": exported["view_id"],
+                    "review_sha256": review["review_sha256"],
+                },
+            )
+            state = await call("project_view_status", {"view_id": exported["view_id"]})
+        confirm(selected, original)
+        agent = StdioTransport(
+            command=sys.executable,
+            args=[
+                "-m",
+                "bamboozle",
+                "--root",
+                str(selected),
+                "serve-agent",
+                "--dict",
+                "mapping.dictionary.json",
+            ],
+        )
+        async with Client(agent) as client:
+            if {tool.name for tool in await client.list_tools()} != {
+                "read_safe_file",
+                "write_safe_file",
+            }:
+                raise RuntimeError("Fixture operator tools leaked into agent surface")
+            denied = await client.call_tool(
+                "read_safe_file",
+                {"file_path": "templates.fixture-rules.json"},
+                raise_on_error=False,
+            )
+            if not denied.is_error:
+                raise RuntimeError(
+                    "Private fixture rules were exposed to source-agent tools"
+                )
+        return {
+            "root": str(selected),
+            "preview": preview,
+            "export": exported,
+            "review": review,
+            "apply": applied,
+            "status": state,
+            "original_sha256": sha256(original),
+            "neutral_and_original_catalog_executed": True,
+            "source_agent_surface_and_private_rules_verified": True,
+        }
+
+    return {
+        "cli": cli_result,
+        "mcp": asyncio.run(asyncio.wait_for(stdio(), timeout=90)),
+    }
+
+
+def smoke_lexicon() -> dict:
+    """Author real variants, then execute a returned two-module numerical pipeline."""
+    root = Path("lexicon-fixture").resolve()
+    root.mkdir()
+    baseline = Dictionary(
+        {
+            "fuck": "pulse",
+            "fucked": "pulsed",
+            "shit": "residue",
+            "obsolete": "retired_signal",
+        },
+        "stats-1",
+    )
+    baseline.save(root / "base.json")
+    (root / "base.json").write_bytes(
+        b"\xef\xbb\xbf" + (root / "base.json").read_bytes().replace(b"\n", b"\r\n")
+    )
+
+    def cli(*args: str) -> dict:
+        run = subprocess.run(
+            [sys.executable, "-m", "bamboozle", "--root", str(root), *args],
+            capture_output=True,
+            text=True,
+            check=True,
+            timeout=30,
+        )
+        return json.loads(run.stdout)
+
+    original_json = b'{ "prompt": "f\\u0075ck", "id": "fuck" }\r\n'
+    (root / "legacy.json").write_bytes(original_json)
+    cli(
+        "encode",
+        "legacy.json",
+        "--dict",
+        "base.json",
+        "--format",
+        "json",
+        "--json-pointer",
+        "/prompt",
+    )
+    cli(
+        "lexicon-export",
+        "--dict",
+        "base.json",
+        "--mapping-version",
+        "stats-2",
+        "-o",
+        "base.lexicon.json",
+    )
+    entries = cli("lexicon-query", "base.lexicon.json")["entries"]
+    identifiers = {entry["bam"]: entry["id"] for entry in entries}
+    changes = {
+        "schema_version": 1,
+        "mapping_version": "stats-2",
+        "remove": [identifiers["fucked"], identifiers["obsolete"]],
+        "upsert": [
+            {
+                "id": identifiers["fuck"],
+                "kind": "verb",
+                "forms": [
+                    {"bam": "fuck", "boozle": "impulse", "label": "base"},
+                    {"bam": "fucked", "boozle": "impulsed", "label": "past"},
+                    {"bam": "fucking", "boozle": "impulsing", "label": "progressive"},
+                    {"bam": "f*ck", "boozle": "masked_impulse", "label": "spelling"},
+                ],
+            },
+            {
+                "id": "batch",
+                "forms": [{"bam": "clusterfuck", "boozle": "cascade_failure"}],
+            },
+        ],
+    }
+    (root / "update.lexicon-patch.json").write_bytes(json_bytes(changes))
+    arguments = (
+        "lexicon-edit",
+        "base.lexicon.json",
+        "--patch",
+        "update.lexicon-patch.json",
+        "-o",
+        "stats.lexicon.json",
+    )
+    edit = cli(*arguments)
+    cli(*arguments, "--apply", "--review-sha256", edit["review_sha256"])
+    (root / "stats.lexicon.json").write_bytes(
+        b"\xef\xbb\xbf"
+        + (root / "stats.lexicon.json").read_bytes().replace(b"\n", b"\r\n")
+    )
+    arguments = (
+        "lexicon-compile",
+        "stats.lexicon.json",
+        "--base",
+        "base.json",
+        "-o",
+        "stats.dictionary.json",
+    )
+    review = cli(*arguments)
+    if review["change_counts"] != {"added": 3, "changed": 2, "removed": 1}:
+        raise RuntimeError("Installed lexicon comparison lost exact changes")
+    cli(*arguments, "--apply", "--review-sha256", review["review_sha256"])
+    verified = cli("lexicon-verify", "stats.dictionary.json")
+    cli("decode", "legacy_safe.json", "--strict")
+    if (root / "legacy_safe_ready.json").read_bytes() != original_json:
+        raise RuntimeError("New lexicon reinterpreted an existing structured ledger")
+
+    (root / "src").mkdir()
+    original_program = "from dataclasses import dataclass\n\n@dataclass\nclass Shit:\n    count: int = 0\n    mean: float = 0.0\n\n    def fuck(self, value):\n        self.count += 1\n        self.mean += (value - self.mean) / self.count\n"
+    (root / "src/model.py").write_text(original_program, encoding="utf-8")
+    (root / "guide.md").write_text(
+        "# Fuck\n\n`fuck` stays literal.\n", encoding="utf-8"
+    )
+    policy = {
+        "schema_version": 2,
+        "files": {
+            "src/model.py": {"policy": "translate"},
+            "guide.md": {"policy": "translate", "document": {"format": "markdown"}},
+        },
+        "new_files": {"src": "translate"},
+    }
+    (root / "policy.json").write_bytes(json_bytes(policy))
+    exported = cli(
+        "view-export",
+        "policy.json",
+        "--output",
+        "neutral",
+        "--dict",
+        "stats.dictionary.json",
+    )
+    neutral = root / "neutral"
+    if "class Residue" not in (neutral / "src/model.py").read_text():
+        raise RuntimeError("Compiled lexicon was not used by project export")
+    # Representative returned implementation: stable one-pass variance, finite-input
+    # validation, an independently generated batch module and error-path execution.
+    (neutral / "src/model.py").write_text(
+        "from dataclasses import dataclass\nfrom math import isfinite\n\n@dataclass\nclass Residue:\n"
+        "    count: int = 0\n    mean: float = 0.0\n    m2: float = 0.0\n\n"
+        "    def impulse(self, value):\n        if not isfinite(value):\n            raise ValueError('finite samples required')\n"
+        "        self.count += 1\n        delta = value - self.mean\n        self.mean += delta / self.count\n"
+        "        self.m2 += delta * (value - self.mean)\n\n"
+        "    def impulsed(self):\n        if self.count < 2:\n            raise ValueError('two samples required')\n"
+        "        return self.m2 / (self.count - 1)\n",
+        encoding="utf-8",
+    )
+    (neutral / "src/batch.py").write_text(
+        "from math import isclose\nfrom statistics import variance\nfrom model import Residue\n\n"
+        "def cascade_failure(values):\n    state = Residue()\n    for value in values:\n        state.impulse(value)\n"
+        "    return state.count, state.mean, state.impulsed()\n\n"
+        "values = [100000001, 100000002, 100000007, 100000013]\n"
+        "count, mean, sample_variance = cascade_failure(values)\nassert count == 4\nassert mean == sum(values) / 4\n"
+        "assert isclose(sample_variance, variance(values), rel_tol=1e-8)\n"
+        "for invalid in ([], [1.0], [float('nan'), 1.0], [float('inf'), 2.0]):\n"
+        "    try:\n        cascade_failure(invalid)\n    except ValueError:\n        pass\n"
+        "    else:\n        raise AssertionError('invalid batch accepted')\nprint('stats-pipeline-ok')\n",
+        encoding="utf-8",
+    )
+    (neutral / "guide.md").write_text(
+        "# Impulse\n\n`fuck` stays literal.\n\nImpulsing supports variance.\n",
+        encoding="utf-8",
+    )
+
+    def execute(directory: Path) -> None:
+        result = subprocess.run(
+            [sys.executable, "src/batch.py"],
+            cwd=directory,
+            capture_output=True,
+            text=True,
+            check=True,
+            timeout=20,
+            env={**os.environ, "PYTHONDONTWRITEBYTECODE": "1"},
+        )
+        if result.stdout.strip() != "stats-pipeline-ok":
+            raise RuntimeError(
+                "Compiled dictionary program did not finish its assertions"
+            )
+
+    execute(neutral)
+    returned = cli("view-review", exported["view_id"])
+    applied = cli(
+        "view-apply", exported["view_id"], "--review-sha256", returned["review_sha256"]
+    )
+    execute(root)
+    if (
+        "class Shit" not in (root / "src/model.py").read_text()
+        or "def clusterfuck" not in (root / "src/batch.py").read_text()
+        or "Fucking supports variance." not in (root / "guide.md").read_text()
+    ):
+        raise RuntimeError(
+            "Returned generated program/prose did not recover source vocabulary"
+        )
+
+    async def mcp_cycle() -> dict:
+        transport = StdioTransport(
+            command=sys.executable,
+            args=[
+                "-m",
+                "bamboozle",
+                "--root",
+                str(root),
+                "serve",
+                "--dict",
+                "stats.dictionary.json",
+            ],
+        )
+        async with Client(transport) as client:
+
+            async def call(name: str, args: dict) -> dict:
+                result = await client.call_tool(name, args)
+                content = result.content[0]
+                if content.type != "text":
+                    raise RuntimeError("Unexpected lexicon MCP response")
+                return json.loads(content.text)
+
+            await call(
+                "export_dictionary_lexicon",
+                {"output": "mcp.lexicon.json", "mapping_version": "stats-3"},
+            )
+            await call("check_dictionary_lexicon", {"source": "mcp.lexicon.json"})
+            entry = (
+                await call(
+                    "query_dictionary_lexicon",
+                    {"source": "mcp.lexicon.json", "query": "fuck", "side": "bam"},
+                )
+            )["entries"]
+            source_id = next(row["id"] for row in entry if row["bam"] == "fuck")
+            (root / "mcp.lexicon-patch.json").write_bytes(
+                json_bytes(
+                    {
+                        "schema_version": 1,
+                        "mapping_version": "stats-3",
+                        "remove": [],
+                        "upsert": [
+                            {
+                                "id": source_id,
+                                "forms": [{"bam": "fuck", "boozle": "actuate"}],
+                            }
+                        ],
+                    }
+                )
+            )
+            edited = await call(
+                "preview_lexicon_edit",
+                {
+                    "source": "mcp.lexicon.json",
+                    "patch": "mcp.lexicon-patch.json",
+                    "output": "mcp-edited.lexicon.json",
+                },
+            )
+            await call("apply_preview", {"plan_id": edited["plan_id"]})
+            selected = {
+                "source": "mcp-edited.lexicon.json",
+                "output": "mcp.dictionary.json",
+                "base": "stats.dictionary.json",
+            }
+            stale = await call("preview_lexicon_compilation", selected)
+            candidate = root / "mcp-edited.lexicon.json"
+            candidate.write_bytes(candidate.read_bytes() + b" ")
+            refused = await client.call_tool(
+                "apply_preview", {"plan_id": stale["plan_id"]}, raise_on_error=False
+            )
+            if not refused.is_error or (root / "mcp.dictionary.json").exists():
+                raise RuntimeError("Installed MCP accepted a stale compiler review")
+            fresh = await call("preview_lexicon_compilation", selected)
+            await call("apply_preview", {"plan_id": fresh["plan_id"]})
+            receipt = await call(
+                "verify_dictionary_compilation", {"source": "mcp.dictionary.json"}
+            )
+            encoded = await call(
+                "preview_file",
+                {
+                    "source": "legacy.json",
+                    "output": "mcp-safe.json",
+                    "dictionary": "mcp.dictionary.json",
+                    "document_format": "json",
+                    "json_pointers": ["/prompt"],
+                },
+            )
+            await call("apply_preview", {"plan_id": encoded["plan_id"]})
+            (root / "mcp-return.json").write_text(
+                '{ "prompt": "actuate updated", "id": "fuck" }\n', encoding="utf-8"
+            )
+            decoded = await call(
+                "preview_file",
+                {
+                    "source": "mcp-return.json",
+                    "output": "mcp-restored.json",
+                    "reverse": True,
+                    "ledger": ".mcp-safe.json.scm_ledger.json",
+                },
+            )
+            await call("apply_preview", {"plan_id": decoded["plan_id"]})
+            if json.loads((root / "mcp-restored.json").read_bytes()) != {
+                "prompt": "fuck updated",
+                "id": "fuck",
+            }:
+                raise RuntimeError(
+                    "Compiled MCP lexicon failed a structured edited return"
+                )
+        agent_transport = StdioTransport(
+            command=sys.executable,
+            args=[
+                "-m",
+                "bamboozle",
+                "--root",
+                str(root),
+                "serve-agent",
+                "--dict",
+                "mcp.dictionary.json",
+            ],
+        )
+        async with Client(agent_transport) as client:
+            tools = sorted(tool.name for tool in await client.list_tools())
+            if tools != ["read_safe_file", "write_safe_file"]:
+                raise RuntimeError("Compiler leaked into source-agent tool pool")
+            rejected = await client.call_tool(
+                "read_safe_file",
+                {"file_path": "mcp.lexicon.json"},
+                raise_on_error=False,
+            )
+            if not rejected.is_error:
+                raise RuntimeError("Source-agent tool exposed lexicon metadata")
+        return {
+            "verification": receipt,
+            "stale_review_refused": True,
+            "structured_edited_return": True,
+            "source_agent_tools": tools,
+            "private_lexicon_read_refused": True,
+        }
+
+    return {
+        "root": str(root),
+        "review": review,
+        "verification": verified,
+        "view_export": exported,
+        "view_import": applied,
+        "neutral_and_restored_statistics_pipeline_executed": True,
+        "historical_json_bytes_restored": True,
+        "mcp": asyncio.run(asyncio.wait_for(mcp_cycle(), timeout=90)),
+    }
+
+
+def smoke_document_formats() -> dict:
+    """Installed adapters, edited return, mixed views and separate authenticated crypto."""
+    root = Path("document-fixture").resolve()
+    root.mkdir()
+    original = b'\xef\xbb\xbf{\r\n "prompt":"\\u0066uck", "identifier":"fuck", "value":1e+03, "module":"def fuck(x): return x+1"\r\n}\r\n'
+    markdown = b"\xef\xbb\xbf# **fuck**\r\n\r\n`fuck` and https://example.com/fuck stay literal.\r\n\r\n```python\r\ndef fuck(x):\r\n    return x + 1\r\nassert fuck(3) == 4\r\n```\r\n"
+    (root / "template.json").write_bytes(original)
+    (root / "guide.md").write_bytes(markdown)
+
+    def cli(*args: str) -> dict:
+        result = subprocess.run(
+            [sys.executable, "-m", "bamboozle", "--root", str(root), *args],
+            capture_output=True,
+            text=True,
+            check=True,
+            timeout=30,
+        )
+        return json.loads(result.stdout)
+
+    def execute_files(json_path: Path, markdown_path: Path) -> None:
+        document = json.loads(json_path.read_bytes())
+        if document["identifier"] != "fuck" or document["value"] != 1000:
+            raise RuntimeError(
+                "Structured conversion altered unselected identity or numeric fields"
+            )
+        subprocess.run(
+            [sys.executable, "-c", document["module"] + "\nassert fuck(3) == 4"],
+            check=True,
+            timeout=10,
+        )
+        match = re.search(
+            rb"```python\r\n(.*?)```", markdown_path.read_bytes(), re.DOTALL
+        )
+        if match is None:
+            raise RuntimeError("Structured conversion removed a code fence")
+        subprocess.run(
+            [sys.executable, "-c", match.group(1).decode()], check=True, timeout=10
+        )
+
+    encoded_json = cli(
+        "encode",
+        "template.json",
+        "--profile",
+        "profanity",
+        "--format",
+        "json",
+        "--json-pointer",
+        "/prompt",
+    )
+    encoded_markdown = cli(
+        "encode", "guide.md", "--profile", "profanity", "--format", "markdown"
+    )
+    for name in ("template_safe.json", "guide_safe.md"):
+        cli("verify", name)
+        cli("decode", name, "--strict")
+    if (root / "template_safe_ready.json").read_bytes() != original or (
+        root / "guide_safe_ready.md"
+    ).read_bytes() != markdown:
+        raise RuntimeError("Installed structured strict decode lost original bytes")
+    if b"**kinetic_impulse**" not in (root / "guide_safe.md").read_bytes():
+        raise RuntimeError("Installed Markdown emphasis was not translated")
+    execute_files(root / "template_safe.json", root / "guide_safe.md")
+
+    # Encryption is an explicit operator layer around the encoded payload. Its
+    # key stays in this synthetic runtime fixture and is never included in reports.
+    cli("keygen", "--key", "transport.key")
+    sealed = cli(
+        "seal",
+        "template_safe.json",
+        "--key",
+        "transport.key",
+        "--recipient",
+        "fixture-operator",
+        "-o",
+        "packet.bam",
+    )
+    opened = cli(
+        "open",
+        "packet.bam",
+        "--key",
+        "transport.key",
+        "--recipient",
+        "fixture-operator",
+        "-o",
+        "returned.json",
+    )
+    cli(
+        "decode",
+        "returned.json",
+        "--ledger",
+        ".template_safe.json.scm_ledger.json",
+        "--strict",
+    )
+    if (root / "returned_ready.json").read_bytes() != original:
+        raise RuntimeError("Installed encode/encrypt/decrypt/decode composition failed")
+    term_cipher = AESSIV(bytes(range(64)))
+    token = bamb5.encode("fixture-domain-term", term_cipher)
+    if (
+        not token.startswith("b5_")
+        or bamb5.decode(token, term_cipher) != "fixture-domain-term"
+    ):
+        raise RuntimeError(
+            "Installed BAMb5 token cipher did not retain its separate round trip"
+        )
+
+    async def mcp_cycle() -> dict:
+        transport = StdioTransport(
+            command=sys.executable,
+            args=[
+                "-m",
+                "bamboozle",
+                "--root",
+                str(root),
+                "serve",
+                "--profile",
+                "profanity",
+            ],
+            cwd=str(root),
+        )
+        async with Client(transport) as client:
+
+            async def call(name: str, arguments: dict) -> dict:
+                result = await client.call_tool(name, arguments)
+                if result.is_error or result.content[0].type != "text":
+                    raise RuntimeError(f"Installed structured MCP call failed: {name}")
+                return json.loads(result.content[0].text)
+
+            previewed = await call(
+                "preview_file",
+                {
+                    "source": "template.json",
+                    "output": "mcp_safe.json",
+                    "document_format": "json",
+                    "json_pointers": ["/prompt"],
+                },
+            )
+            await call("apply_preview", {"plan_id": previewed["plan_id"]})
+            path = root / "mcp_safe.json"
+            path.write_bytes(
+                path.read_bytes().replace(
+                    b'"kinetic_impulse"', b'"kinetic_impulse updated"'
+                )
+            )
+            reverse = await call(
+                "preview_file",
+                {
+                    "source": "mcp_safe.json",
+                    "output": "mcp_return.json",
+                    "reverse": True,
+                },
+            )
+            saved = await call("apply_preview", {"plan_id": reverse["plan_id"]})
+            if (
+                json.loads((root / "mcp_return.json").read_bytes())["prompt"]
+                != "fuck updated"
+            ):
+                raise RuntimeError(
+                    "Installed structured MCP did not restore edited selected values"
+                )
+            policy = {
+                "schema_version": 2,
+                "files": {
+                    "guide.md": {
+                        "policy": "translate",
+                        "document": {"format": "markdown"},
+                    },
+                    "template.json": {
+                        "policy": "translate",
+                        "document": {"format": "json", "pointers": ["/prompt"]},
+                    },
+                },
+                "new_files": {
+                    "configs": {
+                        "policy": "translate",
+                        "document": {"format": "json", "pointers": ["/prompt"]},
+                    }
+                },
+            }
+            (root / "policy.json").write_bytes(json_bytes(policy))
+            exported = await call(
+                "export_project_view", {"config": "policy.json", "output": "view"}
+            )
+            view = root / "view"
+            guide = view / "guide.md"
+            guide.write_bytes(
+                guide.read_bytes() + b"\r\n**kinetic_impulse** added prose\r\n"
+            )
+            (view / "configs").mkdir()
+            (view / "configs/new.json").write_bytes(
+                b'{"prompt":"kinetic_impulse generated","identifier":"kinetic_impulse"}'
+            )
+            reviewed = await call(
+                "review_project_view", {"view_id": exported["view_id"]}
+            )
+            if not reviewed["ok"] or reviewed["action_count"] != 2:
+                raise RuntimeError("Installed structured project review failed")
+            imported = await call(
+                "apply_project_view",
+                {
+                    "view_id": exported["view_id"],
+                    "review_sha256": reviewed["review_sha256"],
+                },
+            )
+            if (
+                not imported["receipt_saved"]
+                or (root / "template.json").read_bytes() != original
+            ):
+                raise RuntimeError(
+                    "Installed structured view lost exact original JSON context"
+                )
+            if json.loads((root / "configs/new.json").read_bytes()) != {
+                "prompt": "fuck generated",
+                "identifier": "kinetic_impulse",
+            }:
+                raise RuntimeError(
+                    "Installed generated config ignored its selected fields"
+                )
+            if (
+                not (root / "guide.md")
+                .read_bytes()
+                .endswith(b"**fuck** added prose\r\n")
+            ):
+                raise RuntimeError("Installed project did not decode formatted prose")
+            execute_files(root / "template.json", root / "guide.md")
+            return {
+                "edited_return": saved,
+                "export": exported,
+                "review_sha256": reviewed["review_sha256"],
+                "imported": imported,
+                "neutral_and_returned_code_executed": True,
+            }
+
+    mcp = asyncio.run(asyncio.wait_for(mcp_cycle(), timeout=90))
+    return {
+        "root": str(root),
+        "json_encoded": encoded_json,
+        "markdown_encoded": encoded_markdown,
+        "strict_original_bytes_restored": True,
+        "protected_code_executed": True,
+        "encryption_composition": {
+            "sealed": sealed,
+            "opened": opened,
+            "decoded_original_bytes_restored": True,
+        },
+        "bamb5_separate_authenticated_roundtrip": True,
+        "operator_mcp": mcp,
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--prefix", type=Path, required=True)
@@ -260,7 +1346,20 @@ def main() -> None:
         raise RuntimeError(
             "Recovery diagnostics were not loaded from the installed wheel"
         )
-    for module in (restoration, migration, cipher, agent_files, scm_mcp):
+    for module in (
+        restoration,
+        return_validation,
+        migration,
+        cipher,
+        agent_files,
+        scm_mcp,
+        project_views,
+        view_import,
+        formats,
+        lexicon,
+        fixture_rules,
+        fixtures,
+    ):
         if module.__file__ is None or not Path(
             module.__file__
         ).resolve().is_relative_to(args.prefix.resolve()):
@@ -1007,6 +2106,30 @@ def main() -> None:
     ]
     capture_results = smoke_capture()
     profanity_results = smoke_profanity()
+    project_view_results = smoke_project_views()
+    document_format_results = smoke_document_formats()
+    lexicon_results = smoke_lexicon()
+    fixture_results = smoke_fixtures()
+    return_results = runpy.run_path(str(Path(__file__).with_name("return_smoke.py")))[
+        "run"
+    ]()
+    escape_results = runpy.run_path(str(Path(__file__).with_name("escape_smoke.py")))[
+        "run"
+    ]()
+    if not Path(escape_results["marker_module"]).is_relative_to(Path(sys.prefix)):
+        raise RuntimeError(
+            "Marker implementation was not imported from the installed wheel"
+        )
+    python_results = runpy.run_path(str(Path(__file__).with_name("python_smoke.py")))[
+        "run"
+    ]()
+    if any(
+        not Path(python_results[name]).is_relative_to(Path(sys.prefix))
+        for name in ("source_module", "project_module")
+    ):
+        raise RuntimeError(
+            "Python source/project adapters were not imported from the installed wheel"
+        )
     print(
         json.dumps(
             {
@@ -1019,12 +2142,26 @@ def main() -> None:
                 "translation_results": translation_results,
                 "agent_cipher_results": agent_results,
                 "profanity_results": profanity_results,
+                "project_view_results": project_view_results,
+                "document_format_results": document_format_results,
+                "lexicon_results": lexicon_results,
+                "fixture_results": fixture_results,
+                "return_results": return_results,
+                "escape_results": escape_results,
+                "python_results": python_results,
                 "reviewed_plan_recovery": {
                     "operation_id": operation_id,
                     "plan_sha256": prepared["plan_sha256"],
                 },
                 "checks": [
+                    "python_dependency_application_cli_stdio_edits_new_capacity_scheduler_300_workload_runs_neutral_and_restored_and_encrypted_return",
+                    "versioned_prefix_escapes_cli_operator_and_source_agent_stdio_executed_stream_parser_views_and_encrypted_returns",
+                    "saved_context_return_diagnostics_cli_stdio_paged_views_encrypted_edits_and_executed_returned_programs",
+                    "generated_template_fixtures_public_invariant_contracts_cases_and_returned_catalog_execution_cli_stdio",
+                    "operator_lexicon_authoring_compilation_provenance_cli_stdio_structured_edits_and_executed_multi_module_pipeline",
                     "bundled_resources",
+                    "structured_markdown_json_saved_context_cli_stdio_views_executed_code_and_separate_encryption_composition",
+                    "project_view_cli_stdio_scoped_export_reviewed_multi_file_return_and_explicit_recovery",
                     "cli_roundtrip",
                     "original_cipher_cli_and_agent_stdio_encoded_read_decoded_write_executed_program",
                     "normal_agent_edit_and_generated_source_cli_compatibility_and_stdio_execution",

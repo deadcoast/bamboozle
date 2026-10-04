@@ -15,6 +15,26 @@ CASE_PREFIX = "__SCM_CASE_"
 PROFILES = ("default", "profanity")
 
 
+def validate_term(term: Any) -> None:
+    """Shared admission rules for dictionaries and editable lexicon forms."""
+    if not isinstance(term, str) or not term or term != term.strip():
+        raise ValueError(
+            "Terms must be nonempty strings without surrounding whitespace"
+        )
+    if len(term) > 512:
+        raise ValueError("Dictionary terms cannot exceed 512 characters")
+    if term != term.lower() or any(char in term for char in "\r\n\x00"):
+        raise ValueError("Terms must use lowercase text without newlines or NUL")
+    if any(
+        prefix.casefold() in term.casefold() for prefix in (LITERAL_PREFIX, CASE_PREFIX)
+    ):
+        raise ValueError("Terms cannot contain reserved marker prefixes")
+    try:
+        term.encode("utf-8")
+    except UnicodeEncodeError as exc:
+        raise ValueError("Terms must be valid UTF-8 text") from exc
+
+
 class Dictionary(Mapping[str, str]):
     """A one-to-one mapping with an explicit schema and stable content digest."""
 
@@ -30,21 +50,7 @@ class Dictionary(Mapping[str, str]):
         targets: set[str] = set()
         for source, target in copied.items():
             for term in (source, target):
-                if not isinstance(term, str) or not term or term != term.strip():
-                    raise ValueError(
-                        "Terms must be nonempty strings without surrounding whitespace"
-                    )
-                if len(term) > 512:
-                    raise ValueError("Dictionary terms cannot exceed 512 characters")
-                if term != term.lower() or any(char in term for char in "\r\n\x00"):
-                    raise ValueError(
-                        "Terms must use lowercase text without newlines or NUL"
-                    )
-                if any(
-                    prefix.casefold() in term.casefold()
-                    for prefix in (LITERAL_PREFIX, CASE_PREFIX)
-                ):
-                    raise ValueError("Terms cannot contain reserved marker prefixes")
+                validate_term(term)
             folded_source, folded_target = source.casefold(), target.casefold()
             if folded_source in sources or folded_target in targets:
                 raise ValueError("Dictionary sources and targets must each be unique")

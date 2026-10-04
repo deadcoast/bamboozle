@@ -1,0 +1,56 @@
+{
+  "checks": {
+    "boundary_review": {
+      "failures": 1,
+      "passed": 69
+    },
+    "combined": {
+      "failures": 0,
+      "passed": 120
+    },
+    "initial_fixture_tests": {
+      "failures": 0,
+      "passed": 56
+    }
+  },
+  "created": "2026-10-04T09:10:20.044460Z",
+  "design_source": [
+    ".legacy/bamboozle_v0.0.1.md:693-763"
+  ],
+  "findings": [
+    {
+      "finding": "Views supported supplied fixtures but lacked invariant-checked generation and callable processing contracts.",
+      "id": "FIXTURE-GENERATION-01",
+      "implementation": "Shared bounded rule/validation engine, explicit neutral generators, source-bound consumer descriptions, verified case corpus and v3 views with retained private source/rules."
+    },
+    {
+      "finding": "A source rules file shared by two fixtures could change between preparations; the later input hash replaced the earlier pin and export succeeded with mixed rule versions.",
+      "id": "FIXTURE-SNAPSHOT-01",
+      "reproducer": "test_shared_rule_file_cannot_change_between_two_fixture_preparations",
+      "required_fix": "Reject every repeated input read whose bytes differ from its first observed digest, before publication.",
+      "status": "reproduced_before_fix"
+    }
+  ],
+  "fixture": ".test-tmp/fixtures-review/test_shared_rule_file_cannot_c0",
+  "retained_sha256": {
+    "fixtures-first.xml": {
+      "bytes": 9508,
+      "sha256": "2814909feb72aeb0fcb0ea3c01034cc066bc1d332840bd233f4ae08de67440ec"
+    },
+    "fixtures-review.xml": {
+      "bytes": 13128,
+      "sha256": "0df25841c838c0b5e92d6110b4d2ab9b7dda147c6ba86b2d24baebbb44ddec92"
+    },
+    "fixtures-second.xml": {
+      "bytes": 18807,
+      "sha256": "34f6810944f913d7e78c94471099ba6093224d290d229bad764730f15a662005"
+    },
+    "project_views-before-race-fix.py": {
+      "bytes": 29938,
+      "sha256": "12ed560c333897f0736b079b26d80f5374cb3de693915bd255eec1172ea888b0"
+    }
+  },
+  "schema_version": 1,
+  "scope": "Source and local synthetic fixtures only; installed-package qualification remains required.",
+  "stage": "VIG-CIPHER-FIXTURE-01"
+}

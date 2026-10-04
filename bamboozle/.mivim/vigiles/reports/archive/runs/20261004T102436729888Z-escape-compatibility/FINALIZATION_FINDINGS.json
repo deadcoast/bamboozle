@@ -1,0 +1,12 @@
+{
+  "correction": "Read immutable original and encoded blobs from the retained 0.4.8 view, compare protocol-1 regeneration to the exact saved encoded bytes, then verify strict original restoration.",
+  "created": "2026-10-04T10:25:39.282884Z",
+  "final_status": "passed",
+  "finalizer_sha256": "f7616256e0a616f0efb5f9a28e18f48cac8071112a42835c523d79b8b94944a1",
+  "initial_status": "assertion_failed_before_report_publication",
+  "legacy_completed_views_checked": 4,
+  "legacy_ledgers_checked": 4,
+  "observed": "Historical structured fixture regenerated from its edited live guide.md did not match the pre-edit ledger encoded_sha256.",
+  "product_change_required": false,
+  "schema_version": 1
+}

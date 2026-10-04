@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="64" time="3.230" timestamp="2026-10-04T01:24:18.139807-07:00" hostname="homeone"><testcase classname="src.bamboozle.tests.test_lexicon" name="test_explicit_forms_phrases_literals_mixed_case_and_identifier_boundaries" time="0.042" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_export_compiles_entire_shipped_profile_preserving_originals[default-415]" time="0.159" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_export_compiles_entire_shipped_profile_preserving_originals[profanity-310]" time="0.111" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_schema_diagnostics_are_located_and_never_publish[&lt;lambda&gt;-schema0]" time="0.011" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_schema_diagnostics_are_located_and_never_publish[&lt;lambda&gt;-schema1]" time="0.010" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_schema_diagnostics_are_located_and_never_publish[&lt;lambda&gt;-version]" time="0.010" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_schema_diagnostics_are_located_and_never_publish[&lt;lambda&gt;-limit]" time="0.010" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_schema_diagnostics_are_located_and_never_publish[&lt;lambda&gt;-id]" time="0.011" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_schema_diagnostics_are_located_and_never_publish[&lt;lambda&gt;-duplicate_id]" time="0.011" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_schema_diagnostics_are_located_and_never_publish[&lt;lambda&gt;-schema2]" time="0.012" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_schema_diagnostics_are_located_and_never_publish[&lt;lambda&gt;-schema3]" time="0.010" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_schema_diagnostics_are_located_and_never_publish[&lt;lambda&gt;-schema4]" time="0.011" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_schema_diagnostics_are_located_and_never_publish[&lt;lambda&gt;-vocabulary_overlap]" time="0.010" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_schema_diagnostics_are_located_and_never_publish[&lt;lambda&gt;-duplicate_boozle]" time="0.011" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_schema_diagnostics_are_located_and_never_publish[&lt;lambda&gt;-duplicate_bam]" time="0.010" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_schema_diagnostics_are_located_and_never_publish[&lt;lambda&gt;-duplicate_label]" time="0.013" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_schema_diagnostics_are_located_and_never_publish[&lt;lambda&gt;-schema5]" time="0.011" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_dictionary_and_lexicon_share_term_admission[]" time="0.000" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_dictionary_and_lexicon_share_term_admission[ fuck]" time="0.000" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_dictionary_and_lexicon_share_term_admission[fuck ]" time="0.000" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_dictionary_and_lexicon_share_term_admission[FuCk]" time="0.000" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_dictionary_and_lexicon_share_term_admission[fuck\n]" time="0.000" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_dictionary_and_lexicon_share_term_admission[a\x00b]" time="0.000" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_dictionary_and_lexicon_share_term_admission[__scm_lit_pulse__]" time="0.000" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_dictionary_and_lexicon_share_term_admission[__scm_case_a_x__]" time="0.000" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_dictionary_and_lexicon_share_term_admission[xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx]" time="0.000" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_dictionary_and_lexicon_share_term_admission[12]" time="0.000" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_dictionary_and_lexicon_share_term_admission[\ud800]" time="0.001" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_collision_locations_diagnostic_limits_and_total_form_bound" time="0.001" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_unicode_folded_aliases_cannot_collapse_reverse_mapping" time="0.000" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_query_both_vocabularies_pagination_and_stale_pin" time="0.017" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_query_bounds[arguments0]" time="0.002" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_query_bounds[arguments1]" time="0.002" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_query_bounds[arguments2]" time="0.002" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_query_bounds[arguments3]" time="0.002" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_query_bounds[arguments4]" time="0.002" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_query_bounds[arguments5]" time="0.003" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_exact_diff_pages_digest_and_base_staleness" time="0.058" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_review_refuses_stale_inputs_replay_wrong_digest_and_clobber[source]" time="0.014" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_review_refuses_stale_inputs_replay_wrong_digest_and_clobber[digest]" time="0.008" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_review_refuses_stale_inputs_replay_wrong_digest_and_clobber[destination]" time="0.010" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_review_refuses_stale_inputs_replay_wrong_digest_and_clobber[receipt]" time="0.010" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_review_refuses_stale_inputs_replay_wrong_digest_and_clobber[version]" time="0.016" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_review_refuses_stale_inputs_replay_wrong_digest_and_clobber[output_input]" time="0.023" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_interrupted_publication_retains_dictionary_and_explicitly_recovers" time="0.038" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_provenance_reproduces_snapshots_and_separates_later_input_drift" time="0.042" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_modified_artifact_and_receipt_are_not_verified[dictionary]" time="0.031" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_modified_artifact_and_receipt_are_not_verified[lexicon]" time="0.032" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_modified_artifact_and_receipt_are_not_verified[changes]" time="0.029" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_modified_artifact_and_receipt_are_not_verified[snapshot]" time="0.033" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_modified_artifact_and_receipt_are_not_verified[version]" time="0.029" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_reviewed_authoring_upsert_remove_and_patch_staleness" time="0.085" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_invalid_patch_never_writes[&lt;lambda&gt;0]" time="0.015" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_invalid_patch_never_writes[&lt;lambda&gt;1]" time="0.011" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_invalid_patch_never_writes[&lt;lambda&gt;2]" time="0.013" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_invalid_patch_never_writes[&lt;lambda&gt;3]" time="0.011" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_invalid_patch_never_writes[&lt;lambda&gt;4]" time="0.011" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_authoring_and_compiler_artifacts_stay_outside_agent_tools_and_views[source.lexicon.json]" time="0.012"><failure message="AssertionError: Regex pattern did not match.&#10;  Expected regex: 'Private'&#10;  Actual message: 'Unknown file policy'">tmp_path = WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/lexicon-first/test_authoring_and_compiler_ar0')
+name = 'source.lexicon.json'
+
+    @pytest.mark.parametrize(
+        "name",
+        [
+            "source.lexicon.json",
+            "changes.lexicon-patch.json",
+            "runtime.dictionary.json",
+            ".runtime.dictionary.json.lexicon-receipt.json",
+        ],
+    )
+    def test_authoring_and_compiler_artifacts_stay_outside_agent_tools_and_views(
+        tmp_path, name
+    ):
+        (tmp_path / name).write_text("source secret")
+        files_api = AgentFiles(Workspace(tmp_path), Dictionary({"secret": "neutral"}))
+        with pytest.raises(ValueError, match="Private"):
+            files_api.read(name)
+        with pytest.raises(ValueError, match="Private"):
+            files_api.write(name, "replacement")
+        (tmp_path / "policy.json").write_bytes(
+            json_bytes({"schema_version": 1, "files": {name: "copy"}, "new_files": {}})
+        )
+&gt;       with pytest.raises(ValueError, match="Private"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'Private'
+E         Actual message: 'Unknown file policy'
+
+src\bamboozle\tests\test_lexicon.py:494: AssertionError</failure></testcase><testcase classname="src.bamboozle.tests.test_lexicon" name="test_authoring_and_compiler_artifacts_stay_outside_agent_tools_and_views[changes.lexicon-patch.json]" time="0.009"><failure message="AssertionError: Regex pattern did not match.&#10;  Expected regex: 'Private'&#10;  Actual message: 'Unknown file policy'">tmp_path = WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/lexicon-first/test_authoring_and_compiler_ar1')
+name = 'changes.lexicon-patch.json'
+
+    @pytest.mark.parametrize(
+        "name",
+        [
+            "source.lexicon.json",
+            "changes.lexicon-patch.json",
+            "runtime.dictionary.json",
+            ".runtime.dictionary.json.lexicon-receipt.json",
+        ],
+    )
+    def test_authoring_and_compiler_artifacts_stay_outside_agent_tools_and_views(
+        tmp_path, name
+    ):
+        (tmp_path / name).write_text("source secret")
+        files_api = AgentFiles(Workspace(tmp_path), Dictionary({"secret": "neutral"}))
+        with pytest.raises(ValueError, match="Private"):
+            files_api.read(name)
+        with pytest.raises(ValueError, match="Private"):
+            files_api.write(name, "replacement")
+        (tmp_path / "policy.json").write_bytes(
+            json_bytes({"schema_version": 1, "files": {name: "copy"}, "new_files": {}})
+        )
+&gt;       with pytest.raises(ValueError, match="Private"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'Private'
+E         Actual message: 'Unknown file policy'
+
+src\bamboozle\tests\test_lexicon.py:494: AssertionError</failure></testcase><testcase classname="src.bamboozle.tests.test_lexicon" name="test_authoring_and_compiler_artifacts_stay_outside_agent_tools_and_views[runtime.dictionary.json]" time="0.010"><failure message="AssertionError: Regex pattern did not match.&#10;  Expected regex: 'Private'&#10;  Actual message: 'Unknown file policy'">tmp_path = WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/lexicon-first/test_authoring_and_compiler_ar2')
+name = 'runtime.dictionary.json'
+
+    @pytest.mark.parametrize(
+        "name",
+        [
+            "source.lexicon.json",
+            "changes.lexicon-patch.json",
+            "runtime.dictionary.json",
+            ".runtime.dictionary.json.lexicon-receipt.json",
+        ],
+    )
+    def test_authoring_and_compiler_artifacts_stay_outside_agent_tools_and_views(
+        tmp_path, name
+    ):
+        (tmp_path / name).write_text("source secret")
+        files_api = AgentFiles(Workspace(tmp_path), Dictionary({"secret": "neutral"}))
+        with pytest.raises(ValueError, match="Private"):
+            files_api.read(name)
+        with pytest.raises(ValueError, match="Private"):
+            files_api.write(name, "replacement")
+        (tmp_path / "policy.json").write_bytes(
+            json_bytes({"schema_version": 1, "files": {name: "copy"}, "new_files": {}})
+        )
+&gt;       with pytest.raises(ValueError, match="Private"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'Private'
+E         Actual message: 'Unknown file policy'
+
+src\bamboozle\tests\test_lexicon.py:494: AssertionError</failure></testcase><testcase classname="src.bamboozle.tests.test_lexicon" name="test_authoring_and_compiler_artifacts_stay_outside_agent_tools_and_views[.runtime.dictionary.json.lexicon-receipt.json]" time="0.010"><failure message="AssertionError: Regex pattern did not match.&#10;  Expected regex: 'Private'&#10;  Actual message: 'Unknown file policy'">tmp_path = WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/lexicon-first/test_authoring_and_compiler_ar3')
+name = '.runtime.dictionary.json.lexicon-receipt.json'
+
+    @pytest.mark.parametrize(
+        "name",
+        [
+            "source.lexicon.json",
+            "changes.lexicon-patch.json",
+            "runtime.dictionary.json",
+            ".runtime.dictionary.json.lexicon-receipt.json",
+        ],
+    )
+    def test_authoring_and_compiler_artifacts_stay_outside_agent_tools_and_views(
+        tmp_path, name
+    ):
+        (tmp_path / name).write_text("source secret")
+        files_api = AgentFiles(Workspace(tmp_path), Dictionary({"secret": "neutral"}))
+        with pytest.raises(ValueError, match="Private"):
+            files_api.read(name)
+        with pytest.raises(ValueError, match="Private"):
+            files_api.write(name, "replacement")
+        (tmp_path / "policy.json").write_bytes(
+            json_bytes({"schema_version": 1, "files": {name: "copy"}, "new_files": {}})
+        )
+&gt;       with pytest.raises(ValueError, match="Private"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'Private'
+E         Actual message: 'Unknown file policy'
+
+src\bamboozle\tests\test_lexicon.py:494: AssertionError</failure></testcase><testcase classname="src.bamboozle.tests.test_lexicon" name="test_new_dictionary_does_not_reinterpret_saved_document_ledger" time="0.062" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_cli_author_edit_compile_encode_generated_program_decode_execute" time="0.271" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_operator_mcp_author_compile_formatted_agent_return_and_boundary" time="0.381" /></testsuite></testsuites>

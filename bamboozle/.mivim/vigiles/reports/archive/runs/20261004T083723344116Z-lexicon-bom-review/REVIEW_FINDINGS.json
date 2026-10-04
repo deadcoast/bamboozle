@@ -1,0 +1,56 @@
+{
+  "created": "2026-10-04T08:37:23.375859Z",
+  "findings": [
+    {
+      "id": "LEXICON-BOM-01",
+      "impact": "Compilation accepts UTF-8 BOM author/base inputs and retains exact bytes, but provenance verification reparses decoded strings and rejects their BOM.",
+      "reproducer": "lexicon-bom-before.xml: three BOM input combinations",
+      "required_fix": "Reparse retained original UTF-8 bytes; preserve BOM/CRLF and byte hashes."
+    },
+    {
+      "id": "LEXICON-LABEL-01",
+      "impact": "An explicitly null form label was accepted as an absent optional field despite the text-label schema.",
+      "reproducer": "lexicon-bom-before.xml: null label case",
+      "required_fix": "Validate label whenever its field is present."
+    }
+  ],
+  "initial_full_verification": {
+    "interpretation": "Superseded candidate: these later boundary cases were not covered.",
+    "stages_passed": 11,
+    "tests_passed": 624
+  },
+  "regression_tests": {
+    "deselected": 50,
+    "failed": 4,
+    "passed": 14
+  },
+  "retained_files": {
+    "VIGILES_VERIFICATION.json": {
+      "bytes": 38239,
+      "sha256": "665e849bbc1282080c649cb6d450cc8105366eeeec8285d4fa277a27c395dd30"
+    },
+    "bamboozle-0.4.6-py3-none-any.whl": {
+      "bytes": 138125,
+      "sha256": "3f22dbcd6dc0e4cb62f7bb682affd94055f333c18bd35e315d87869a0a425d45"
+    },
+    "bamboozle-0.4.6.tar.gz": {
+      "bytes": 162829,
+      "sha256": "e1853fed900cdb44013636101c4817884f1ddf053be7c2551efad35be0e0479a"
+    },
+    "lexicon-before-fix.py": {
+      "bytes": 23975,
+      "sha256": "7bf55dc8284f242e17662a56f19812437fde5b24f87c340ae88391f115090105"
+    },
+    "lexicon-bom-before.xml": {
+      "bytes": 19013,
+      "sha256": "525dd0d596c3b796ea73d36d567cf575b37f761ce5463440b1e4a08f20fb0d7e"
+    },
+    "lexicon-bom-regression.log": {
+      "bytes": 2130,
+      "sha256": "24920b9fc7c55c47568edb540fd250f9f18e2211e6c39fb372b6434461fea618"
+    }
+  },
+  "schema_version": 1,
+  "stage": "VIG-CIPHER-LEXICON-01",
+  "status": "regressions_reproduced_before_fix"
+}

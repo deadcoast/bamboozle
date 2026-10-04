@@ -1,0 +1,40 @@
+I001 [*] Import block is un-sorted or un-formatted
+  --> scripts\vandal.py:3:1
+   |
+ 1 |   """Repository-bound Vandal workflow context; never a second translation engine."""
+ 2 |
+ 3 | / from __future__ import annotations
+ 4 | |
+ 5 | | import argparse
+ 6 | | import json
+ 7 | | import sys
+ 8 | | import tomllib
+ 9 | | from pathlib import Path
+10 | | from typing import Any
+11 | |
+12 | | from bamboozle import __version__
+13 | | from bamboozle.markers import CURRENT
+14 | | from bamboozle.project_views import (
+15 | |     CONTRACT,
+16 | |     generated_contracts,
+17 | |     document_rules,
+18 | |     load_view,
+19 | |     manifest_marker_version,
+20 | | )
+21 | | from bamboozle.utils import sha256
+22 | | from bamboozle.workspace import Workspace
+   | |_________________________________________^
+23 |
+24 |   ROOT = Path(__file__).resolve().parents[1]
+   |
+help: Organize imports
+   |
+15 |     CONTRACT,
+16 +     document_rules,
+17 |     generated_contracts,
+   -     document_rules,
+18 |     load_view,
+   |
+
+Found 1 error.
+[*] 1 fixable with the `--fix` option.

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="18" time="1.920" timestamp="2026-10-04T01:36:37.987038-07:00" hostname="homeone"><testcase classname="src.bamboozle.tests.test_lexicon" name="test_schema_diagnostics_are_located_and_never_publish[&lt;lambda&gt;-schema0]" time="0.011" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_schema_diagnostics_are_located_and_never_publish[&lt;lambda&gt;-schema1]" time="0.008" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_schema_diagnostics_are_located_and_never_publish[&lt;lambda&gt;-version]" time="0.008" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_schema_diagnostics_are_located_and_never_publish[&lt;lambda&gt;-limit]" time="0.011" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_schema_diagnostics_are_located_and_never_publish[&lt;lambda&gt;-id]" time="0.007" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_schema_diagnostics_are_located_and_never_publish[&lt;lambda&gt;-duplicate_id]" time="0.008" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_schema_diagnostics_are_located_and_never_publish[&lt;lambda&gt;-schema2]" time="0.011" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_schema_diagnostics_are_located_and_never_publish[&lt;lambda&gt;-schema3]" time="0.013" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_schema_diagnostics_are_located_and_never_publish[&lt;lambda&gt;-schema4]" time="0.011" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_schema_diagnostics_are_located_and_never_publish[&lt;lambda&gt;-schema5]" time="0.009"><failure message="assert True is False">tmp_path = WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/lexicon-bom-before/test_schema_diagnostics_are_lo9')
+change = &lt;function &lt;lambda&gt; at 0x000001BFE7A065C0&gt;, code = 'schema'
+
+    @pytest.mark.parametrize(
+        "change,code",
+        [
+            (lambda d: d.update(schema_version=True), "schema"),
+            (lambda d: d.update(extra=True), "schema"),
+            (lambda d: d.update(mapping_version=""), "version"),
+            (lambda d: d.update(concepts={}), "limit"),
+            (lambda d: d["concepts"][0].update(id="bad/id"), "id"),
+            (lambda d: d["concepts"][1].update(id="verb"), "duplicate_id"),
+            (lambda d: d["concepts"][0].update(forms=[]), "schema"),
+            (lambda d: d["concepts"][0].update(kind=12), "schema"),
+            (lambda d: d["concepts"][0].update(note="x" * 2049), "schema"),
+            (lambda d: d["concepts"][0]["forms"][0].update(label=None), "schema"),
+            (
+                lambda d: d["concepts"][0]["forms"][0].update(boozle="fucked"),
+                "vocabulary_overlap",
+            ),
+            (
+                lambda d: d["concepts"][0]["forms"][0].update(boozle="pulsed"),
+                "duplicate_boozle",
+            ),
+            (lambda d: d["concepts"][0]["forms"][0].update(bam="fucked"), "duplicate_bam"),
+            (
+                lambda d: d["concepts"][0]["forms"][0].update(label="past"),
+                "duplicate_label",
+            ),
+            (lambda d: d["concepts"][0]["forms"][0].update(unknown=True), "schema"),
+        ],
+    )
+    def test_schema_diagnostics_are_located_and_never_publish(tmp_path, change, code):
+        doc = document()
+        change(doc)
+        workspace = setup(tmp_path, doc)
+        checked = check_lexicon(workspace, "source.lexicon.json")
+&gt;       assert checked["ok"] is False
+E       assert True is False
+
+src\bamboozle\tests\test_lexicon.py:149: AssertionError</failure></testcase><testcase classname="src.bamboozle.tests.test_lexicon" name="test_schema_diagnostics_are_located_and_never_publish[&lt;lambda&gt;-vocabulary_overlap]" time="0.012" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_schema_diagnostics_are_located_and_never_publish[&lt;lambda&gt;-duplicate_boozle]" time="0.009" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_schema_diagnostics_are_located_and_never_publish[&lt;lambda&gt;-duplicate_bam]" time="0.008" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_schema_diagnostics_are_located_and_never_publish[&lt;lambda&gt;-duplicate_label]" time="0.011" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_schema_diagnostics_are_located_and_never_publish[&lt;lambda&gt;-schema6]" time="0.011" /><testcase classname="src.bamboozle.tests.test_lexicon" name="test_provenance_preserves_and_reparses_utf8_bom_inputs[bom_inputs0]" time="0.055"><failure message="json.decoder.JSONDecodeError: Unexpected UTF-8 BOM (decode using utf-8-sig): line 1 column 1 (char 0)">tmp_path = WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/lexicon-bom-before/test_provenance_preserves_and_0')
+bom_inputs = ('source',)
+
+    @pytest.mark.parametrize("bom_inputs", [("source",), ("base",), ("source", "base")])
+    def test_provenance_preserves_and_reparses_utf8_bom_inputs(tmp_path, bom_inputs):
+        workspace = setup(tmp_path)
+        Dictionary({"fuck": "pulse"}, "bom-baseline").save(tmp_path / "base.json")
+        paths = {"source": tmp_path / "source.lexicon.json", "base": tmp_path / "base.json"}
+        for name in bom_inputs:
+            # Windows-created authoring files can carry a BOM and noncanonical layout.
+            paths[name].write_bytes(
+                b"\xef\xbb\xbf" + paths[name].read_bytes().replace(b"\n", b"\r\n")
+            )
+        original = {name: path.read_bytes() for name, path in paths.items()}
+        compiled = prepare_compile(
+            workspace, "source.lexicon.json", "bom.dictionary.json", base="base.json"
+        )
+        compiled.apply(compiled.review_sha256)
+&gt;       assert verify_compilation(workspace, "bom.dictionary.json")[
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            "current_inputs_unchanged"
+        ]
+
+src\bamboozle\tests\test_lexicon.py:221: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\bamboozle\lexicon.py:623: in verify_compilation
+    parse_json(snapshots[source_name]) != record["lexicon"]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\bamboozle\utils.py:78: in parse_json
+    return json.loads(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+s = '\ufeff{\r\n  "concepts": [\r\n    {\r\n      "forms": [\r\n        {\r\n          "bam": "fuck",\r\n          "boozle...],\r\n      "id": "phrase"\r\n    }\r\n  ],\r\n  "mapping_version": "engineering-2",\r\n  "schema_version": 1\r\n}\r\n'
+cls = None, object_hook = None, parse_float = None, parse_int = None
+parse_constant = &lt;function _invalid_constant at 0x000001BFE7648860&gt;
+object_pairs_hook = &lt;function _unique_pairs at 0x000001BFE76487C0&gt;, kw = {}
+
+    def loads(s, *, cls=None, object_hook=None, parse_float=None,
+            parse_int=None, parse_constant=None, object_pairs_hook=None, **kw):
+        """Deserialize ``s`` (a ``str``, ``bytes`` or ``bytearray`` instance
+        containing a JSON document) to a Python object.
+    
+        ``object_hook`` is an optional function that will be called with the
+        result of any object literal decode (a ``dict``). The return value of
+        ``object_hook`` will be used instead of the ``dict``. This feature
+        can be used to implement custom decoders (e.g. JSON-RPC class hinting).
+    
+        ``object_pairs_hook`` is an optional function that will be called with the
+        result of any object literal decoded with an ordered list of pairs.  The
+        return value of ``object_pairs_hook`` will be used instead of the ``dict``.
+        This feature can be used to implement custom decoders.  If ``object_hook``
+        is also defined, the ``object_pairs_hook`` takes priority.
+    
+        ``parse_float``, if specified, will be called with the string
+        of every JSON float to be decoded. By default this is equivalent to
+        float(num_str). This can be used to use another datatype or parser
+        for JSON floats (e.g. decimal.Decimal).
+    
+        ``parse_int``, if specified, will be called with the string
+        of every JSON int to be decoded. By default this is equivalent to
+        int(num_str). This can be used to use another datatype or parser
+        for JSON integers (e.g. float).
+    
+        ``parse_constant``, if specified, will be called with one of the
+        following strings: -Infinity, Infinity, NaN.
+        This can be used to raise an exception if invalid JSON numbers
+        are encountered.
+    
+        To use a custom ``JSONDecoder`` subclass, specify it with the ``cls``
+        kwarg; otherwise ``JSONDecoder`` is used.
+        """
+        if isinstance(s, str):
+            if s.startswith('\ufeff'):
+&gt;               raise JSONDecodeError("Unexpected UTF-8 BOM (decode using utf-8-sig)",
+                                      s, 0)
+E               json.decoder.JSONDecodeError: Unexpected UTF-8 BOM (decode using utf-8-sig): line 1 column 1 (char 0)
+
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\json\__init__.py:335: JSONDecodeError</failure></testcase><testcase classname="src.bamboozle.tests.test_lexicon" name="test_provenance_preserves_and_reparses_utf8_bom_inputs[bom_inputs1]" time="0.050"><failure message="json.decoder.JSONDecodeError: Unexpected UTF-8 BOM (decode using utf-8-sig): line 1 column 1 (char 0)">tmp_path = WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/lexicon-bom-before/test_provenance_preserves_and_1')
+bom_inputs = ('base',)
+
+    @pytest.mark.parametrize("bom_inputs", [("source",), ("base",), ("source", "base")])
+    def test_provenance_preserves_and_reparses_utf8_bom_inputs(tmp_path, bom_inputs):
+        workspace = setup(tmp_path)
+        Dictionary({"fuck": "pulse"}, "bom-baseline").save(tmp_path / "base.json")
+        paths = {"source": tmp_path / "source.lexicon.json", "base": tmp_path / "base.json"}
+        for name in bom_inputs:
+            # Windows-created authoring files can carry a BOM and noncanonical layout.
+            paths[name].write_bytes(
+                b"\xef\xbb\xbf" + paths[name].read_bytes().replace(b"\n", b"\r\n")
+            )
+        original = {name: path.read_bytes() for name, path in paths.items()}
+        compiled = prepare_compile(
+            workspace, "source.lexicon.json", "bom.dictionary.json", base="base.json"
+        )
+        compiled.apply(compiled.review_sha256)
+&gt;       assert verify_compilation(workspace, "bom.dictionary.json")[
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            "current_inputs_unchanged"
+        ]
+
+src\bamboozle\tests\test_lexicon.py:221: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\bamboozle\lexicon.py:628: in verify_compilation
+    parse_json(snapshots[baseline_name])
+src\bamboozle\utils.py:78: in parse_json
+    return json.loads(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+s = '\ufeff{\r\n  "entries": {\r\n    "fuck": "pulse"\r\n  },\r\n  "mapping_version": "bom-baseline",\r\n  "schema_version": 1\r\n}\r\n'
+cls = None, object_hook = None, parse_float = None, parse_int = None
+parse_constant = &lt;function _invalid_constant at 0x000001BFE7648860&gt;
+object_pairs_hook = &lt;function _unique_pairs at 0x000001BFE76487C0&gt;, kw = {}
+
+    def loads(s, *, cls=None, object_hook=None, parse_float=None,
+            parse_int=None, parse_constant=None, object_pairs_hook=None, **kw):
+        """Deserialize ``s`` (a ``str``, ``bytes`` or ``bytearray`` instance
+        containing a JSON document) to a Python object.
+    
+        ``object_hook`` is an optional function that will be called with the
+        result of any object literal decode (a ``dict``). The return value of
+        ``object_hook`` will be used instead of the ``dict``. This feature
+        can be used to implement custom decoders (e.g. JSON-RPC class hinting).
+    
+        ``object_pairs_hook`` is an optional function that will be called with the
+        result of any object literal decoded with an ordered list of pairs.  The
+        return value of ``object_pairs_hook`` will be used instead of the ``dict``.
+        This feature can be used to implement custom decoders.  If ``object_hook``
+        is also defined, the ``object_pairs_hook`` takes priority.
+    
+        ``parse_float``, if specified, will be called with the string
+        of every JSON float to be decoded. By default this is equivalent to
+        float(num_str). This can be used to use another datatype or parser
+        for JSON floats (e.g. decimal.Decimal).
+    
+        ``parse_int``, if specified, will be called with the string
+        of every JSON int to be decoded. By default this is equivalent to
+        int(num_str). This can be used to use another datatype or parser
+        for JSON integers (e.g. float).
+    
+        ``parse_constant``, if specified, will be called with one of the
+        following strings: -Infinity, Infinity, NaN.
+        This can be used to raise an exception if invalid JSON numbers
+        are encountered.
+    
+        To use a custom ``JSONDecoder`` subclass, specify it with the ``cls``
+        kwarg; otherwise ``JSONDecoder`` is used.
+        """
+        if isinstance(s, str):
+            if s.startswith('\ufeff'):
+&gt;               raise JSONDecodeError("Unexpected UTF-8 BOM (decode using utf-8-sig)",
+                                      s, 0)
+E               json.decoder.JSONDecodeError: Unexpected UTF-8 BOM (decode using utf-8-sig): line 1 column 1 (char 0)
+
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\json\__init__.py:335: JSONDecodeError</failure></testcase><testcase classname="src.bamboozle.tests.test_lexicon" name="test_provenance_preserves_and_reparses_utf8_bom_inputs[bom_inputs2]" time="0.046"><failure message="json.decoder.JSONDecodeError: Unexpected UTF-8 BOM (decode using utf-8-sig): line 1 column 1 (char 0)">tmp_path = WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/lexicon-bom-before/test_provenance_preserves_and_2')
+bom_inputs = ('source', 'base')
+
+    @pytest.mark.parametrize("bom_inputs", [("source",), ("base",), ("source", "base")])
+    def test_provenance_preserves_and_reparses_utf8_bom_inputs(tmp_path, bom_inputs):
+        workspace = setup(tmp_path)
+        Dictionary({"fuck": "pulse"}, "bom-baseline").save(tmp_path / "base.json")
+        paths = {"source": tmp_path / "source.lexicon.json", "base": tmp_path / "base.json"}
+        for name in bom_inputs:
+            # Windows-created authoring files can carry a BOM and noncanonical layout.
+            paths[name].write_bytes(
+                b"\xef\xbb\xbf" + paths[name].read_bytes().replace(b"\n", b"\r\n")
+            )
+        original = {name: path.read_bytes() for name, path in paths.items()}
+        compiled = prepare_compile(
+            workspace, "source.lexicon.json", "bom.dictionary.json", base="base.json"
+        )
+        compiled.apply(compiled.review_sha256)
+&gt;       assert verify_compilation(workspace, "bom.dictionary.json")[
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            "current_inputs_unchanged"
+        ]
+
+src\bamboozle\tests\test_lexicon.py:221: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+src\bamboozle\lexicon.py:623: in verify_compilation
+    parse_json(snapshots[source_name]) != record["lexicon"]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src\bamboozle\utils.py:78: in parse_json
+    return json.loads(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+s = '\ufeff{\r\n  "concepts": [\r\n    {\r\n      "forms": [\r\n        {\r\n          "bam": "fuck",\r\n          "boozle...],\r\n      "id": "phrase"\r\n    }\r\n  ],\r\n  "mapping_version": "engineering-2",\r\n  "schema_version": 1\r\n}\r\n'
+cls = None, object_hook = None, parse_float = None, parse_int = None
+parse_constant = &lt;function _invalid_constant at 0x000001BFE7648860&gt;
+object_pairs_hook = &lt;function _unique_pairs at 0x000001BFE76487C0&gt;, kw = {}
+
+    def loads(s, *, cls=None, object_hook=None, parse_float=None,
+            parse_int=None, parse_constant=None, object_pairs_hook=None, **kw):
+        """Deserialize ``s`` (a ``str``, ``bytes`` or ``bytearray`` instance
+        containing a JSON document) to a Python object.
+    
+        ``object_hook`` is an optional function that will be called with the
+        result of any object literal decode (a ``dict``). The return value of
+        ``object_hook`` will be used instead of the ``dict``. This feature
+        can be used to implement custom decoders (e.g. JSON-RPC class hinting).
+    
+        ``object_pairs_hook`` is an optional function that will be called with the
+        result of any object literal decoded with an ordered list of pairs.  The
+        return value of ``object_pairs_hook`` will be used instead of the ``dict``.
+        This feature can be used to implement custom decoders.  If ``object_hook``
+        is also defined, the ``object_pairs_hook`` takes priority.
+    
+        ``parse_float``, if specified, will be called with the string
+        of every JSON float to be decoded. By default this is equivalent to
+        float(num_str). This can be used to use another datatype or parser
+        for JSON floats (e.g. decimal.Decimal).
+    
+        ``parse_int``, if specified, will be called with the string
+        of every JSON int to be decoded. By default this is equivalent to
+        int(num_str). This can be used to use another datatype or parser
+        for JSON integers (e.g. float).
+    
+        ``parse_constant``, if specified, will be called with one of the
+        following strings: -Infinity, Infinity, NaN.
+        This can be used to raise an exception if invalid JSON numbers
+        are encountered.
+    
+        To use a custom ``JSONDecoder`` subclass, specify it with the ``cls``
+        kwarg; otherwise ``JSONDecoder`` is used.
+        """
+        if isinstance(s, str):
+            if s.startswith('\ufeff'):
+&gt;               raise JSONDecodeError("Unexpected UTF-8 BOM (decode using utf-8-sig)",
+                                      s, 0)
+E               json.decoder.JSONDecodeError: Unexpected UTF-8 BOM (decode using utf-8-sig): line 1 column 1 (char 0)
+
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\json\__init__.py:335: JSONDecodeError</failure></testcase></testsuite></testsuites>

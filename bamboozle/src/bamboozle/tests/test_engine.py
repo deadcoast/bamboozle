@@ -19,9 +19,9 @@ def test_identifier_boundaries_preserved(text):
 
 
 @pytest.mark.parametrize("text", ["__SCM_LIT_beta__", "__scm_lit_broken"])
-def test_ambiguous_input_rejected(text):
+def test_legacy_protocol_rejects_raw_marker_input(text):
     with pytest.raises(ValueError):
-        Translator({"alpha": "beta"}).forward(text)
+        Translator({"alpha": "beta"}, marker_version=1).forward(text)
 
 
 @pytest.mark.parametrize(

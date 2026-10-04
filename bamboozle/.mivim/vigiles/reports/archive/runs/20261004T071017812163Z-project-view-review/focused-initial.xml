@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="49" time="16.881" timestamp="2026-10-03T23:57:12.506829-07:00" hostname="homeone"><testcase classname="src.bamboozle.tests.test_project_views" name="test_export_is_scoped_usable_and_keeps_reverse_data_outside_view" time="0.405" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_multi_file_edit_generation_fixture_and_explicit_deletion_roundtrip" time="0.796" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_stale_review_refuses_all_source_writes[source]" time="0.291" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_stale_review_refuses_all_source_writes[view]" time="0.271" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_stale_review_refuses_all_source_writes[new_destination]" time="0.284" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_stale_review_refuses_all_source_writes[contract]" time="0.259" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unapproved_and_private_new_files_are_conflicts[outside.py]" time="0.212" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unapproved_and_private_new_files_are_conflicts[private.txt]" time="0.208" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unapproved_and_private_new_files_are_conflicts[view-policy.json]" time="0.206" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unapproved_and_private_new_files_are_conflicts[src/.env]" time="0.212" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unapproved_and_private_new_files_are_conflicts[src/key.key]" time="0.202" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unapproved_and_private_new_files_are_conflicts[src/cipher_dict.json]" time="0.203" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unapproved_and_private_new_files_are_conflicts[src/profanity_dict.json]" time="0.206" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unapproved_and_private_new_files_are_conflicts[src/.local/private.py]" time="0.205" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_saved_mapping_and_policy_are_independent_of_later_configuration" time="0.454" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_review_is_read_only_and_no_changes_does_not_consume_view" time="0.334" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_interrupted_import_retains_bytes_and_can_complete_explicitly[import.json]" time="0.576" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_interrupted_import_retains_bytes_and_can_complete_explicitly[settings.json]" time="0.645" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_interrupted_import_retains_bytes_and_can_complete_explicitly[generated.py]" time="0.629" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_interrupted_import_retains_bytes_and_can_complete_explicitly[node.py]" time="0.664" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_interrupted_import_retains_bytes_and_can_complete_explicitly[result.json]" time="0.656" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_post_publication_cleanup_failure_reports_actual_state[import.json]" time="0.643" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_post_publication_cleanup_failure_reports_actual_state[generated.py]" time="0.666" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_post_publication_cleanup_failure_reports_actual_state[result.json]" time="0.546" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_recovery_rejects_conflicting_or_corrupt_state[source]" time="0.566" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_recovery_rejects_conflicting_or_corrupt_state[view]" time="0.535" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_recovery_rejects_conflicting_or_corrupt_state[snapshot]" time="0.412" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_recovery_rejects_conflicting_or_corrupt_state[journal]" time="0.482" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_recovery_rejects_conflicting_or_corrupt_state[digest]" time="0.507" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_source_change_during_publication_withholds_receipt" time="0.392" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_multiple_view_writers_share_one_lock" time="0.211" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unsafe_export_paths_and_private_files_are_refused[../escape]" time="0.007" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unsafe_export_paths_and_private_files_are_refused[a/../b]" time="0.007" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unsafe_export_paths_and_private_files_are_refused[a//b]" time="0.007" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unsafe_export_paths_and_private_files_are_refused[a\\b]" time="0.007" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unsafe_export_paths_and_private_files_are_refused[/absolute]" time="0.007" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unsafe_export_paths_and_private_files_are_refused[nul.py]" time="0.007" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unsafe_export_paths_and_private_files_are_refused[a:stream]" time="0.007" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unsafe_export_paths_and_private_files_are_refused[a.]" time="0.007" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unsafe_export_paths_and_private_files_are_refused[.env]" time="0.023" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unsafe_export_paths_and_private_files_are_refused[cipher_dict.json]" time="0.011" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_policy_rejects_ambiguous_and_unknown_rules" time="0.001" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_export_never_replaces_existing_view_and_requires_selected_files" time="0.182" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_export_failure_preserves_partial_view_and_original" time="0.264" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_limits_and_damaged_case_markers_refuse_import" time="0.220" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unknown_deletion_and_foreign_manifest_are_rejected" time="0.204" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_link_in_view_is_not_followed" time="0.200"><failure message="subprocess.CalledProcessError: Command '['cmd', '/c', 'mklink /J &quot;C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\views-first\\test_link_in_view_is_not_follo0\\.local\\views\\task\\linked&quot; &quot;C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\views-first\\test_link_in_view_is_not_follo0\\src&quot;']' returned non-zero exit status 1.">project = (Workspace(root=WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/views-first/test_link_in_view...ers/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/views-first/test_link_in_view_is_not_follo0/.local/views/task'))
+
+    def test_link_in_view_is_not_followed(project):
+        workspace, exported, view = project
+        target = workspace.root / "private.txt"
+        try:
+&gt;           (view / "src/linked.txt").symlink_to(target)
+
+src\bamboozle\tests\test_project_views.py:456: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/views-first/test_link_in_view_is_not_follo0/.local/views/task/src/linked.txt')
+target = WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/views-first/test_link_in_view_is_not_follo0/private.txt')
+target_is_directory = False
+
+    def symlink_to(self, target, target_is_directory=False):
+        """
+        Make this path a symlink pointing to the target path.
+        Note the order of arguments (link, target) is the reverse of os.symlink.
+        """
+&gt;       os.symlink(target, self, target_is_directory)
+E       OSError: [WinError 1314] A required privilege is not held by the client: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\views-first\\test_link_in_view_is_not_follo0\\private.txt' -&gt; 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\views-first\\test_link_in_view_is_not_follo0\\.local\\views\\task\\src\\linked.txt'
+
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\pathlib\_local.py:789: OSError
+
+During handling of the above exception, another exception occurred:
+
+project = (Workspace(root=WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/views-first/test_link_in_view...ers/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/views-first/test_link_in_view_is_not_follo0/.local/views/task'))
+
+    def test_link_in_view_is_not_followed(project):
+        workspace, exported, view = project
+        target = workspace.root / "private.txt"
+        try:
+            (view / "src/linked.txt").symlink_to(target)
+        except OSError:
+            if os.name != "nt":
+                raise
+            # Windows directory junctions are available without symlink privileges.
+            command = f'mklink /J "{view / "linked"}" "{workspace.root / "src"}"'
+&gt;           subprocess.run(["cmd", "/c", command], check=True, capture_output=True)
+
+src\bamboozle\tests\test_project_views.py:462: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+input = None, capture_output = True, timeout = None, check = True
+popenargs = (['cmd', '/c', 'mklink /J "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\views-first\\test_link_...\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\views-first\\test_link_in_view_is_not_follo0\\src"'],)
+kwargs = {'stdout': -1, 'stderr': -1}
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+    
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+        or pass capture_output=True to capture both.
+    
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output &amp; stderr attributes if those streams
+        were captured.
+    
+        If timeout (seconds) is given and the process takes too long,
+         a TimeoutExpired exception will be raised.
+    
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+    
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+    
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+    
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+    
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+&gt;               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['cmd', '/c', 'mklink /J "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\views-first\\test_link_in_view_is_not_follo0\\.local\\views\\task\\linked" "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\views-first\\test_link_in_view_is_not_follo0\\src"']' returned non-zero exit status 1.
+
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\subprocess.py:577: CalledProcessError</failure></testcase><testcase classname="src.bamboozle.tests.test_project_views" name="test_cli_review_apply_and_status_use_the_same_pipeline" time="0.595" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_operator_mcp_export_review_apply_and_status" time="0.841" /></testsuite></testsuites>

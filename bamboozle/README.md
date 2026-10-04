@@ -1,23 +1,440 @@
-# Bamboozle / Vigiles
+# Bamboozle
 
-Current release: **v0.4.3 (VIGIL3)**. Bamboozle is a semantic encoder/cipher;
-Vigiles provides the agent's translation interface to it. The agent reads source
-through `read_safe_file`, works in the encoded vocabulary, and submits content to
-`write_safe_file`. The cipher restores domain terminology when saving source locally.
+Product version: **v0.5.0**. Repository workflow: **vigiles-vandal_0.2**, named
+**vandal**. Bamboozle is the original semantic encoder/cipher and reversible
+translator, with separate authenticated encryption/decryption operations.
+Vandal is MIVIM's proprietary agent workflow for operating and developing Bamboozle
+in this repository. Agents can work through encoded file I/O or a scoped
+neutral project view; Bamboozle restores the original vocabulary when returning
+edited and newly generated source to the authoritative project.
 
-Vigiles is MIVIM's local middleware for reversible terminology translation,
-authenticated file exchange, and repository integrity checks. The application is
-packaged as `bamboozle`; `vigiles`, `bamboozle`, and `python -m bamboozle` share one CLI.
+Bamboozle's product APIs work independently of the repository workflow. The
+application is packaged as `bamboozle`; `vigiles` remains a compatibility alias for
+`bamboozle` and `python -m bamboozle`. Workflow and package versions are independent.
 The manual file-conversion loop, reviewed restoration, BAMb5 token encryption,
 Tessera exchange, and workshop tools remain available alongside the agent interface.
 
-The native development contract is [.mivim/mivim.vigiles.md](.mivim/mivim.vigiles.md).
+The active workflow is [.mivim/vigiles-vandal_0.2.md](.mivim/vigiles-vandal_0.2.md),
+with its [repository skill](.vigiles/skills/vigiles-vandal/SKILL.md). The previous
+[vigiles-vanilla_0.1 specification](.mivim/vigiles/specs/vigiles-vanilla_0.1.md)
+is preserved byte-for-byte as history.
 [VIGILES_STATUS.json](VIGILES_STATUS.json) holds the active development plan, core
 task queue, and separate external gates. [Verification](.mivim/vigiles/reports/current/VIGILES_VERIFICATION.json)
 records actual checks, test results, and source hashes. Retained evidence belongs
 under [.mivim/vigiles/reports/](.mivim/vigiles/reports/README.md), with latest records
 in `current/` and historical/failed records in `archive/`. Keep only active planning
 and task files at the root alongside normal project and steering files.
+
+## Develop Python programs with protected syntax
+
+Use the explicit `python` document adapter to rename selected project identifiers
+while preserving comments, docstrings, unselected strings, paths, indentation,
+line endings and UTF-8 BOMs. This adapter changes original token spans, checks the
+compiler's syntax/bindings, and verifies exact reverse translation before publication.
+F-string expressions, closures, comprehensions, global/nonlocal declarations,
+pattern bindings, selected members and keyword arguments follow the same spelling
+contract. No substring splitting or inferred snake-case/camel-case mapping occurs.
+
+Each selected identifier needs its own dictionary entry. Selection is an exact,
+case-sensitive **project API spelling contract across scopes**, not type inference.
+Choose names owned by the project. Module paths remain unchanged. Declare exact
+project import paths whose exported symbols also translate; external members stay
+literal, and selected external bindings require an explicit alias. Known external
+module/object attributes and keyword names are protected. Reusing or shadowing an
+external alias where selected members are involved is refused as ambiguous.
+
+An example policy for a package whose selected dictionary maps `task` → `stage`,
+`build` → `assemble`, `run` → `execute`, `weight` → `effort`, and `total` → `sum_cost`:
+
+```json
+{
+  "schema_version": 2,
+  "files": {
+    "pipeline/__init__.py": {"policy": "copy"},
+    "pipeline/model.py": {
+      "policy": "translate",
+      "document": {"format": "python", "identifiers": ["Task", "weight"]}
+    },
+    "pipeline/graph.py": {
+      "policy": "translate",
+      "document": {"format": "python", "identifiers": ["Task", "build", "weight", "total"], "modules": [".model"], "strings": ["build"]}
+    },
+    "pipeline/main.py": {
+      "policy": "translate",
+      "document": {"format": "python", "identifiers": ["build", "run"], "modules": [".graph"]}
+    },
+    "workload.json": {"policy": "copy"}
+  },
+  "new_files": {
+    "pipeline": {"policy": "translate", "document": {"format": "python", "identifiers": ["Task", "build", "run", "weight", "total"], "modules": [".model", ".graph", ".main", ".timeline"]}}
+  }
+}
+```
+
+`strings` separately selects **every complete literal with that exact value**.
+Use it deliberately for `__all__`, `__slots__`, reflective member names, forward
+annotations, keyword dictionaries, or selected literal text. It does not infer
+which identical strings have different meanings. Changed selected literals use a
+canonical Python spelling; the private ledger retains original token spellings
+in occurrence order for exact baseline restoration. Unselected literals remain
+byte-for-byte unchanged. Selected implicit concatenations and native strings that
+collide with selected neutral values are refused. Use one explicit literal token
+and a distinct mapping. Dynamic computed reflection, `eval`/`exec`, namespace-dict
+access and star imports are refused; replace them with explicit references before
+translation. Keyword/builtin targets, magic-method targets, NFKC collisions and
+unbound selected builtin calls also fail before publication.
+
+Export using `view-export POLICY --dict MAPPING --output VIEW`. The public contract
+contains neutral selections; original rules and spelling context stay private.
+Develop with ordinary tools in that view, execute the whole application there,
+then use `view-review` and `view-apply` with the exact reviewed digest. Project
+checks verify that declared import providers exist and bind the requested members
+in both neutral and decoded trees, including new files and explicit deletions.
+They do not execute imports or prove dynamic types/initialization order. Run the
+restored application's complete checks as well. Generated template fixture
+contracts can bind to these Python consumers with the same selected symbol names.
+
+For single files, `encode --format python --python-identifier NAME` accepts repeated
+`--python-identifier`, `--python-module` and `--python-string` selections. Normal
+decode, strict decode, `verify`, `recover`, `restore-edits --terms translate` and
+`validate-return` retain the originating rules. Operator MCP `preview_file` takes
+`document_format="python"`, `python_identifiers`, `python_modules`, and
+`python_strings`; publication uses `apply_preview`. Python return diagnostics
+report compiler/decoder failures and protected-source changes. Existing direct
+source-agent tools continue to use text mode; Vandal routes Python work to an
+already prepared view without attaching an encoding server to it.
+
+The runnable application qualification retains original, neutral and restored
+packages, a dependency-planner CLI, an agent-added capacity scheduler, and a
+separate generated-workload checker:
+
+```powershell
+uv run --locked python scripts/python_smoke.py --workspace .test-tmp/python-workflow-demo
+```
+
+Choose a new workspace each time. This runs complete CLI and stdio MCP workflows,
+300 scheduler executions over 100 DAGs per neutral/restored application, independent
+dependency/capacity assertions, invalid inputs, exact saved-source restoration and
+encrypted return composition. Inspect the retained applications under `cli/` and
+`mcp/`; each final CLI accepts `python -m pipeline.main workload.json --capacity 2`
+from its application directory. These local deterministic edits qualify the
+implementation, not external model behavior. Python parsing is bounded to 1 million
+characters, 200,000 tokens and 100,000 AST nodes; selections are limited to 512
+entries per list, in addition to normal file/project byte limits. UTF-8 is required.
+
+## Validate returned agent work
+
+`validate-return` is a read-only operator check for edited neutral text. It binds
+the retained original to its saved ledger, regenerates the encoded baseline, and
+uses the originating dictionary and document rules. A newer dictionary never
+reinterprets a return. The validator shares the decoder's text/Markdown/selected
+JSON/Python boundaries; code fences and unselected fields/literals are not scanned as prose.
+
+```powershell
+uv run --locked bamboozle encode source.py
+# Complete the agent edits in source_safe.py, preserving protected markers.
+uv run --locked bamboozle validate-return source_safe.py --original source.py
+# For a newly named or decrypted return, select the originating ledger explicitly:
+uv run --locked bamboozle validate-return returned.py --original source.py --ledger .source_safe.py.scm_ledger.json
+```
+
+| Result | Meaning | Operator action |
+| --- | --- | --- |
+| `accepted` | No issue detected within the stated checks | Review the decoded diff and run applicable program tests |
+| `needs_review` | Decodable text has terminology/structure findings, or analysis exceeded its limit | Resolve or deliberately accept the reported intent before reviewed application |
+| `refused` | Invalid document/selected fields, damaged markers, or failed reverse translation | Correct the returned input and repeat the check |
+
+The standalone command exits 0 for accepted, 3 for needs-review/refused, and 1 for
+input/provenance errors. It grants no apply capability and writes no report or
+source file. Operator MCP `validate_returned_file` accepts `source`, `original`,
+optional `ledger`, `offset` and `max_findings`. It is absent from `serve-agent`.
+
+Findings include original-domain evidence and actionable locations:
+
+- Changed-line unmarked targets may be vocabulary or new literals. For example,
+  `assemble` under an explicitly selected `fuck → assemble` mapping will decode
+  to `fuck`; `__SCM_LIT_assemble__` preserves a literal `assemble`.
+- Unlisted suffix forms report candidate declared stems without inventing a
+  mapping. Checks cover finite English suffixes (`s`, `es`, `ed`, `ing`, `er`,
+  `ers`, `est`, `ly`, and common `y`/double-consonant changes) on ASCII words and
+  underscore identifiers. Explicit dictionary forms always take precedence.
+- Source terms in changed neutral text, removed case/literal markers and decreased
+  controlled-term counts identify possible drift. Deletions can be intentional;
+  synonyms, arbitrary misspellings, multiword phrase variants and other languages
+  are not inferred.
+- Markdown technical spans report additions/removals/reordering. JSON reports
+  changed keys, unselected values and container types separately from selected
+  text. JSON locations include the exact pointer, raw token location, and line/
+  column within its decoded string; other offsets are Unicode character positions.
+
+The baseline comparison uses exact line multiplicity within each selected field
+or prose region. A target on a changed line is conservatively reviewable even if
+that term itself was unchanged. `accepted` does not establish intent, equivalent
+meaning, model behavior or program correctness.
+
+`restore-edits` previews include `return_validation` while retaining explicit
+`--terms`/per-position decisions. The diagnostic `decoded_sha256` describes normal
+saved-mapping reversal **before** manual literal decisions; the plan's output hash
+describes the actual chosen restoration. Existing strict failures remain strict.
+
+`view-review` includes diagnostics for existing and new translated files. Advisory
+findings do not suppress its applicable digest; invalid translation or other
+import conflicts still do. The exact review digest binds the source/view/context
+bytes and selected deletions. Diagnostics do not change historical import journals
+or recovery behavior. Complete the decoded review before applying that digest.
+
+Single-file pages contain up to 500 findings (100 by default). Follow `next_offset`
+using `--offset`, checking the same `validation_sha256` on every page. View review
+displays at most 200 findings overall and 100 per file; retrieve remaining pages
+for a particular file with:
+
+```powershell
+uv run --locked bamboozle view-review $viewId --validation-path src/generated.py --offset 100 --max-findings 100
+```
+
+The operator MCP equivalent uses `validation_path`, `validation_offset` and
+`max_findings` on `review_project_view`. Check the same `review_sha256` and each
+file's `validation_sha256` across pages. Totals cover all detected findings even
+when display is truncated. Analysis is bounded to 524,288 combined baseline/return
+characters and 8,192 translated regions, plus existing document byte/parser limits.
+Exceeding analysis bounds gives `needs_review` and `analysis_complete: false`;
+normal decode validity is still checked. Inspect the full diff when incomplete.
+
+For encrypted returns, explicitly `open` the Tessera packet first, then validate
+and restore the decrypted neutral file with its originating ledger. Encryption
+keys, semantic dictionaries, and Vandal workflow configuration retain separate
+roles. Never feed ciphertext to the semantic validator.
+
+## Author and compile an operator lexicon
+
+The compiler groups explicit grammatical forms, phrases and spelling variants
+into concepts, then publishes an ordinary versioned dictionary. Every source
+form needs its own neutral partner. It never guesses stems or collapses synonyms
+into an irreversible mapping. The shipped 415-entry default, 310-entry profanity
+profile and all 110 original mappings remain unchanged.
+
+Start from the actual vocabulary, inspect it, and export a separate working copy:
+
+```powershell
+uv run --locked bamboozle dictionary-export --profile profanity -o base.json
+uv run --locked bamboozle lexicon-export --dict base.json --mapping-version team-2 -o team.lexicon.json
+uv run --locked bamboozle lexicon-query team.lexicon.json --query fuck --side bam --limit 20
+uv run --locked bamboozle lexicon-check team.lexicon.json
+```
+
+The authoring schema has exactly `schema_version: 1`, `mapping_version`, and a
+`concepts` array. Each concept has a stable `id`, optional `kind`/`note`, and one
+or more `forms` containing `bam`, `boozle`, and an optional unique `label`. Export
+creates deterministic IDs from the actual source terms. A concept can contain
+`fuck → impulse`, `fucked → impulsed`, `fucking → impulsing` and
+`f*ck → masked_impulse`; each is explicitly declared and independently reversible.
+Terms follow the runtime dictionary's lowercase, disjoint-vocabulary rules.
+
+Edit that JSON directly, or use a reviewed patch. This executable PowerShell
+sequence adds two engineering terms while retaining the exported vocabulary:
+
+```powershell
+$patch = @{
+    schema_version = 1
+    mapping_version = 'team-2'
+    remove = @()
+    upsert = @(
+        @{ id = 'sensor_failure'; kind = 'state'; forms = @(
+            @{ bam = 'sensor fault'; boozle = 'channel anomaly'; label = 'singular' }
+            @{ bam = 'sensor faults'; boozle = 'channel anomalies'; label = 'plural' }
+        ) }
+    )
+}
+$patch | ConvertTo-Json -Depth 8 | Set-Content -Encoding utf8 changes.lexicon-patch.json
+$edit = uv run --locked bamboozle lexicon-edit team.lexicon.json --patch changes.lexicon-patch.json -o revised.lexicon.json | ConvertFrom-Json
+$edit.diff
+uv run --locked bamboozle lexicon-edit team.lexicon.json --patch changes.lexicon-patch.json -o revised.lexicon.json --apply --review-sha256 $edit.review_sha256
+$review = uv run --locked bamboozle lexicon-compile revised.lexicon.json --base base.json -o team-2.dictionary.json | ConvertFrom-Json
+$review.changes | Format-Table
+uv run --locked bamboozle lexicon-compile revised.lexicon.json --base base.json -o team-2.dictionary.json --apply --review-sha256 $review.review_sha256
+uv run --locked bamboozle lexicon-verify team-2.dictionary.json
+uv run --locked bamboozle encode source.py --dict team-2.dictionary.json
+```
+
+`upsert` replaces a whole concept with the specified ID or adds a new one;
+`remove` names existing IDs. Removing a form means omitting it from its replacement
+concept. Duplicate IDs, remove/upsert overlap and unknown removals are errors.
+Edits publish a new authoring file and receipt. They never rewrite their inputs.
+
+Compilation reviews exact additions, changed partners and removals against
+`--base`. Without a base, all mappings are additions. A base requires a distinct
+mapping version. Change pages are bounded to 200 entries: follow `next_offset`
+using `--offset`, compare the same `review_sha256` on every page, and apply only
+after inspecting all changes. Query pages can pin `lexicon_sha256` with
+`--expected-sha256`; compilation accepts that pin too. `changes_sha256` covers the
+complete ordered change set; pagination does not alter the reviewed artifact.
+An edit's bounded diff reports `diff_complete`; inspect the full input patch and
+candidate if it is false. Invalid candidates return located diagnostics and no
+applicable plan. At most 100 diagnostics are displayed, with a total error count.
+
+The compiled dictionary works with `encode`, `serve-agent --dict`, structured
+conversion, and `view-export --dict`. Existing ledgers/views retain their own
+mapping snapshots, so a new version cannot reinterpret an earlier agent return.
+Publication refuses changed input bytes, an incorrect review digest, existing
+destinations, and replay. The private `.lexicon-receipt.json` sidecar retains exact
+source/base bytes, concept metadata, mapping changes and input hashes.
+`lexicon-verify` reproduces the output from those snapshots and reports current
+input drift separately. These are local consistency checks, not a signed identity.
+
+If publication saves the dictionary but fails before its receipt, retain both
+inputs and the published output. Re-run the same compile preview with
+`--recover-metadata`, inspect its unchanged digest, then apply with that flag and
+the original `--review-sha256`. Recovery refuses altered output or changed inputs.
+The same explicit recovery applies to `lexicon-edit`.
+
+Use the required `.lexicon.json`, `.lexicon-patch.json` and `.dictionary.json`
+suffixes. Those files and receipts are excluded from source-agent I/O and project
+views by the shared private-file guard. Keep other original-domain operator data
+in `.local/` or outside the agent's selected project; filenames are not OS isolation.
+Limits: 10,000 forms/patch operations, 512 characters per term, 128 per authoring
+version, and the workspace's normal byte limits for input/output/provenance.
+
+The **operator MCP** provides `export_dictionary_lexicon`,
+`query_dictionary_lexicon`, `check_dictionary_lexicon`, `preview_lexicon_edit`,
+`preview_lexicon_compilation`, and `verify_dictionary_compilation`. Its preview
+tools return a retained `plan_id` for `apply_preview`. Agent MCP still exposes
+only encoded reads and decoded writes. Neither Vandal nor the source agent owns
+or silently changes the dictionary.
+
+## Generate structurally faithful neutral fixtures
+
+Version-3 project policies can generate JSON template fixtures directly from
+production records. This replaces selected prose while keeping the surrounding
+record structure, optional-field presence, identifiers, variables, role counts,
+constraints and references. The original bytes stay in the authoritative project
+and its private view snapshots. Fixture text is never decoded into production.
+This tests a declared software contract; it does not reproduce scene semantics.
+
+Rules are explicit operator data in a `.fixture-rules.json` file. The supported
+collection is an array of JSON objects selected by `records` (use `""` for a root
+array). Other data pointers are relative to each record, except `document_preserve`.
+Every string value must be selected for replacement or explicitly preserved as
+technical data. Unclassified strings prevent export. Preserve selectors accept
+`*` for array elements; other paths are exact JSON pointers with `~0`/`~1` escapes.
+Unselected keys, numbers, booleans and containers keep their values. Generated JSON
+uses canonical serialization; the production file's BOM/escaping/layout stay private.
+
+For a catalog whose Python consumer is `src/renderer.py:render_template`, this
+complete rule shape validates the declared variables, role count and references:
+
+```json
+{
+  "schema_version": 1,
+  "records": "/templates",
+  "id": "/id",
+  "text": {
+    "/prompt": {
+      "template": "{actor_a} transfers a calibration target to {actor_b} for {duration:.1f} seconds.",
+      "syntax": "format",
+      "optional": false,
+      "variants": {}
+    }
+  },
+  "preserve": ["/id", "/variables/*", "/roles/*", "/role_order/*", "/links/*"],
+  "document_preserve": [],
+  "checks": [
+    {"id": "variables", "kind": "variables", "array": "/variables", "text": "/prompt"},
+    {"id": "roles", "kind": "count", "array": "/roles", "count": "/constraints/participant_count"},
+    {"id": "duration", "kind": "type", "path": "/duration", "type": "number", "required": true, "minimum": 0, "maximum": 60},
+    {"id": "ordered", "kind": "requires", "when": "/constraints/ordered", "equals": true, "then": ["/role_order"]}
+  ],
+  "references": [{"path": "/links", "many": true, "optional": false}],
+  "consumers": [{"path": "src/renderer.py", "symbol": "render_template", "fields": ["/prompt", "/variables"], "purpose": "Interpolate the declared named variables and render a validated template."}],
+  "literal_dependencies": [],
+  "cases": [
+    {"name": "zero_duration", "record": "template_017", "set": {"/duration": 0}, "remove": [], "expect": []},
+    {"name": "missing_duration", "record": "template_017", "set": {}, "remove": ["/duration"], "expect": ["duration"]},
+    {"name": "dangling_reference", "record": "template_017", "set": {"/links": ["missing_template"]}, "remove": [], "expect": ["@reference"]}
+  ]
+}
+```
+
+Use the actual fields/record IDs and Python symbols in your project. Add every
+other intentionally visible string field to `preserve`/`document_preserve` or
+`text`.
+A `text` rule's `variants` maps record IDs to different explicit neutral templates.
+Optional absent fields stay absent. Each replacement must retain the original's
+placeholder multiplicity, conversions (`!s`, `!r`, `!a`), format specifications,
+escaped braces and exact newline sequence. Named fields and nested named format
+specifications are supported; positional, attribute and index field lookups fail
+explicitly. Use `syntax: "none"` for strings the consumer never formats.
+
+Checks are a bounded product rule language, not an implementation of JSON Schema:
+
+| Kind | Behavior |
+| --- | --- |
+| `type` | Exact JSON type and presence; optional numeric `minimum`/`maximum`, string/array/object `min_length`/`max_length`, and typed `enum` choices. Booleans are not integers. |
+| `variables` | Unique declared variable names match named placeholders, including nested format fields. |
+| `count` | An array's length equals its declared integer count. |
+| `requires` | A typed `when` value equal to `equals` requires all fields in `then`. |
+| `references` | Scalar/list IDs must resolve within the selected collection. |
+
+`literal_dependencies` must be explicitly declared. Any nonempty list blocks
+generation: expose literal-dependent behavior as structured fields, or select
+that source through an appropriate visible policy. Bamboozle does not guess
+dependencies from prose. Consumer paths must resolve to actual Python functions
+(including qualified class methods), and their declared fields must occur in the
+records. The engine parses source without executing it. Descriptions are declared
+by the operator; finding a function does not prove all of its behavior.
+
+Preview without writing, then export with a version-3 policy:
+
+```powershell
+uv run --locked bamboozle fixture-preview templates.json --rules templates.fixture-rules.json
+```
+
+```json
+{
+  "schema_version": 3,
+  "files": {
+    "templates.json": {"policy": "fixture", "rules": "templates.fixture-rules.json"},
+    "src/renderer.py": {"policy": "translate"}
+  },
+  "new_files": {"src": "translate", "tests": "copy"}
+}
+```
+
+```powershell
+$view = uv run --locked bamboozle view-export view-policy.json --output agent-view | ConvertFrom-Json
+uv run --locked bamboozle --root agent-view fixture-validate templates.json --contract TEMPLATE_CONTRACT.json
+# Develop and test code directly in agent-view, using its neutral vocabulary.
+$review = uv run --locked bamboozle view-review $view.view_id | ConvertFrom-Json
+$review.changes
+uv run --locked bamboozle view-apply $view.view_id --review-sha256 $review.review_sha256
+```
+
+The view contains `TEMPLATE_CONTRACT.md` (field definitions, checked call paths,
+and case descriptions), `TEMPLATE_CONTRACT.json` (public validation rules), and
+`TEMPLATE_CASES.json` (complete neutral documents and exact expected diagnostic
+codes). Case mutations operate on named records; they may set/remove fields but
+cannot overlap. Generation checks every case's expected outcome before export.
+An empty expected-code list means valid. Run the application against this corpus;
+the fixture validator alone does not prove application behavior. To check a case
+saved under another filename, use `fixture-validate case.json --contract
+TEMPLATE_CONTRACT.json --fixture templates.json`.
+
+Generated controls are immutable and never enter source import. Create separate
+test files for new cases. Edited generated fixtures must still satisfy their saved
+contracts before code can return; their content remains excluded from source writes.
+Production-record drift blocks the return until a fresh view is prepared. Later
+rule-file changes do not reinterpret a saved view. All source, consumer and rule
+reads are pinned during preparation, including shared rules used by multiple files.
+Existing supplied fixtures and version-1/2 policies retain their behavior.
+
+Operator MCP exposes `preview_template_fixture` and `validate_template_fixture`;
+its existing project-view tools perform generation, review, application and explicit
+recovery. The source-agent MCP remains its separate two-tool cipher interface.
+Limits include 256 records, 64 text fields, 128 checks, 32 declared cases, 32 Python
+consumers, 100 displayed diagnostics with complete counts/codes, depth 64 and
+100,000 JSON nodes, plus file/view byte limits. The installed-package qualification
+executes a generated multi-module catalog against valid/error cases and the original
+production-shaped records; its complete synthetic scenario is in
+`scripts/fixture_scenario.py`.
 
 ## Start
 
@@ -30,7 +447,8 @@ uv run --locked vigiles validate
 uv run --locked vigiles --help
 ```
 
-Python 3.13 or later is required. Runtime dependencies are Cryptography and FastMCP;
+Python 3.13 or later is required. Runtime dependencies are Cryptography, FastMCP
+and markdown-it-py;
 linters and tests are in the development dependency group.
 
 All file commands operate inside an existing workspace. Its default is the current
@@ -42,8 +460,33 @@ uv run --locked vigiles --root "C:/path/to/project" preview "example.py"
 
 Paths are relative to that root, or absolute paths contained by it. Parent escapes,
 symlinks, Windows junctions, alternate data streams, and protected repository state
-such as `.git` and `.venv` are rejected. Output parents must already exist.
+such as `.git` and `.venv` are rejected. Ordinary conversion output parents must
+already exist; project views create their selected directory structure.
 Application writes cannot replace the `.mivim` specification.
+
+## Select the Vandal workflow context
+
+From this application's directory:
+
+```powershell
+uv run --locked python scripts/vandal.py --mode agent
+uv run --locked python scripts/vandal.py --mode operator
+# After exporting a view of this repository:
+uv run --locked python scripts/vandal.py --mode view --view-id $viewId
+```
+
+Each command returns one context, its working directory and `mcp_config`. The
+agent configuration starts `bamboozle_source_agent` with only encoded reads and
+decoded writes. The operator configuration starts `bamboozle_operator`, which can
+show original-domain diffs and review/apply changes. The view context attaches no
+encoding MCP: its files are already encoded and use normal agent file tools.
+Keep operator and neutral-agent tool pools separate.
+
+The helper derives absolute paths from this checkout and checks its matching
+Bamboozle environment, specification and skill. It is read-only; copy its
+`mcp_config` into the intended client's settings to register the connection.
+It does not install or launch clients. Vandal is bound to this repository;
+Bamboozle's `--root` product option still supports other project workspaces.
 
 ## Connect the agent to the cipher
 
@@ -61,9 +504,9 @@ outside this application directory, use an explicit project path:
 ```json
 {
   "mcpServers": {
-    "vigiles": {
+    "bamboozle_agent": {
       "command": "uv",
-      "args": ["run", "--project", "C:/path/to/bamboozle/bamboozle", "--locked", "vigiles", "--root", "C:/path/to/project", "serve-agent"]
+      "args": ["run", "--project", "C:/path/to/bamboozle/bamboozle", "--locked", "bamboozle", "--root", "C:/path/to/project", "serve-agent"]
     }
   }
 }
@@ -95,6 +538,8 @@ The per-server write lock and repeated hash checks are not a filesystem transact
 against unrelated processes racing publication. Existing parent directories are
 required. Use the broader `serve` command for the retained operator preview/review,
 migration, verification and audit tools; those operator tools can display domain text.
+These direct agent tools retain whole-term text behavior. For Markdown or selected
+JSON fields, choose an explicitly structured project view below.
 
 The public Python cipher interface is available to metadata pipelines too:
 
@@ -109,6 +554,185 @@ restored_source = cipher.decode(agent_output)
 `process_forward` and `process_reverse` remain available for stream integrations.
 `scm-cipher --mode forward --input source.py --output source_safe.py` and
 `python -m bamboozle.cipher` expose the original flag interface over the shared engine.
+
+## Translate structured documents
+
+Format selection is explicit. Text mode retains the existing cipher behavior.
+Markdown translates prose while protecting code fences, indented/inline code,
+complete links and images, reference definitions, HTML blocks/tags, escapes and
+entities. Bare URLs, email addresses and path-like literals also remain unchanged.
+Emphasis can surround translated prose without breaking literal/case markers.
+
+JSON selects exact string values by pointer and preserves the rest of the original
+file, including keys, spacing and numeric spellings. For example, `/prompt` selects
+the `prompt` value; `/tags/0` selects the first array string. Escape a key's `/` as
+`~1` and `~` as `~0`. Select a root JSON string with the empty pointer `""`.
+Wildcards are not supported; missing or nonstring selections and duplicate keys
+are errors. Select every intended field explicitly.
+
+```powershell
+uv run --locked bamboozle encode guide.md --format markdown
+uv run --locked bamboozle encode template.json --format json --json-pointer /prompt --json-pointer /tags/0
+uv run --locked bamboozle verify template_safe.json
+# After the agent edits the encoded file, review and decode using its saved rules:
+uv run --locked bamboozle preview template_safe.json --reverse
+uv run --locked bamboozle decode template_safe.json
+# A newly named return uses the originating ledger explicitly:
+uv run --locked bamboozle decode returned.json --ledger .template_safe.json.scm_ledger.json
+```
+
+Version-2 ledgers retain the dictionary, document rules and private JSON spelling
+context. An unchanged encoded JSON string token returns to its exact original
+spelling, including Unicode escapes; an edited selected string is serialized with
+standard JSON escaping. Unselected bytes remain untouched. `decode --strict`
+requires unchanged encoding and verifies exact original bytes, including BOM and
+line endings. Explicit format rules must match the saved rules. Existing v1 text
+ledgers continue to decode normally.
+
+`recover --original ... --format ...` rebuilds missing metadata only when that
+original exactly reproduces the encoding. Structured `restore-edits` accepts
+`--terms translate`; original-bound preview/receipt checks remain intact, while
+line-position decisions apply to text-format files. Literal markers express new
+neutral terms intended literally. Original cipher file flags accept the same
+`--format` and repeated `--json-pointer` options. Streams refuse to discard JSON
+spelling context that needs a private ledger; use file-to-file conversion there.
+
+Operator MCP `preview_file` accepts `document_format` and `json_pointers`; reverse
+calls use saved context automatically. The Python API exposes
+`CipherEngine.encode_document(text, FormatRules(...))` and `decode_document`.
+Keep the returned `context` private and pass it when exact restoration is required.
+Markdown uses CommonMark, preserves full link labels conservatively, and is limited
+to 1,000,000 characters. JSON is limited to 512 selected pointers, depth 64 and
+100,000 value nodes. Existing file and expansion limits also apply.
+
+## Develop in a neutral project view
+
+Project views support a complete multi-file development cycle. The authoritative
+project retains its original source, mapping snapshot and import history. The agent
+works in a separate selected tree containing encoded source, copied files, supplied
+neutral fixtures and a generated terminology contract. Unselected files are omitted.
+
+Create `view-policy.json` inside the authoritative project. For a project containing
+`src/node.py`, `settings.json`, `production.json`, and a prepared
+`fixtures/neutral.json`, this policy exposes only the selected content:
+
+```json
+{
+  "schema_version": 1,
+  "files": {
+    "src/node.py": {"policy": "translate"},
+    "settings.json": {"policy": "copy"},
+    "production.json": {"policy": "fixture", "fixture": "fixtures/neutral.json"},
+    "private-notes.txt": {"policy": "exclude"}
+  },
+  "new_files": {"src": "translate", "tests": "copy"}
+}
+```
+
+To mix structured documents, use version 2 and attach `document` rules to each
+translated file and any structured new-file directory. Version-1 policies above
+remain supported unchanged:
+
+```json
+{
+  "schema_version": 2,
+  "files": {
+    "README.md": {"policy": "translate", "document": {"format": "markdown"}},
+    "template.json": {"policy": "translate", "document": {"format": "json", "pointers": ["/prompt"]}},
+    "src/parser.py": {"policy": "copy"}
+  },
+  "new_files": {
+    "docs": {"policy": "translate", "document": {"format": "markdown"}},
+    "templates": {"policy": "translate", "document": {"format": "json", "pointers": ["/prompt"]}},
+    "tests": "copy"
+  }
+}
+```
+
+| Policy | Export | Reviewed return |
+| --- | --- | --- |
+| `translate` | Encode the selected UTF-8 content with the chosen dictionary | Decode edits and new files with the saved mapping |
+| `copy` | Exact selected bytes, visible to the agent | Apply exact edited bytes |
+| `fixture` | Substitute the operator's supplied neutral file | Report changes as `fixture_ignored`; never overwrite production |
+| `exclude` | Omit the named path | Refuse attempts to import it |
+
+`files` lists exact paths; there are no globs. A new file must fall under a
+`new_files` directory; the most specific matching rule wins. `.` explicitly allows
+new files throughout the source root, subject to private-file and selected-path
+protection. Configuration files, selected custom dictionaries, keys, cipher metadata,
+`.env*`, and private state cannot be exported or overwritten through these views.
+
+From this application's directory, set the project path and export to a new view:
+
+```powershell
+$project = 'C:/path/to/project'
+$export = uv run --locked bamboozle --root $project view-export view-policy.json --output .local/views/task | ConvertFrom-Json
+$viewId = $export.view_id
+$agentRoot = Join-Path $project $export.view
+```
+
+The default dictionary includes the expanded profanity vocabulary. Select
+`--profile profanity` for that vocabulary alone, or `--dict mapping.json` for a
+custom dictionary. The exported `BAMBOOZLE_VIEW.md` lists neutral terms, marker
+rules, selected files and new-file scope. It contains no inverse mapping or source
+snapshots. The private manifest and content-addressed backups stay under
+`.local/bamboozle/views/<view_id>/` in the authoritative project.
+
+Start the coding agent with `$agentRoot` as its workspace and let it edit files
+directly. Do not connect `serve-agent` to this already encoded tree: that interface
+is for original source and would encode the view again. Run the project's applicable
+checks in the view, then return to the operator context to inspect decoded changes:
+
+```powershell
+$review = uv run --locked bamboozle --root $project view-review $viewId | ConvertFrom-Json
+$review.changes | Format-List
+$review.conflicts | Format-Table
+# After inspecting the decoded diffs and resolving every conflict:
+uv run --locked bamboozle --root $project view-apply $viewId --review-sha256 $review.review_sha256
+uv run --locked bamboozle --root $project view-status $viewId
+```
+
+Review is read-only. Missing editable files are conflicts until explicitly selected
+with `--delete path/to/file` on **both** review and apply; repeat the flag for each
+deletion. Deleted originals remain in private snapshots. Changed original source,
+existing destinations for new files, changed views/contracts, and private or
+out-of-scope new paths block application. Diffs are bounded; `diff_complete: false`
+means the operator must inspect the retained files to review the entire change.
+Only an exact matching review digest can apply. An unchanged view returns
+`no_changes` without consuming it; a completed import requires a fresh export for
+the next development cycle.
+
+If publication is interrupted, `view-status` reports pending/applied/conflicting
+files. Keep the view and private snapshots intact; resolve external conflicts
+against the retained bytes, then explicitly resume the same import:
+
+```powershell
+uv run --locked bamboozle --root $project view-apply $viewId --review-sha256 $review.review_sha256 --recover
+```
+
+Recovery uses the saved deletion decisions and decoded outputs; omit `--delete`
+when recovering. It never replaces retained intent, invents a fresh review, or
+rolls back earlier files. Completion is recorded only after all outputs and view
+hashes match. `complete` remains a historical receipt if files change later;
+the status response separately reports current file conflicts and `view_changed`.
+
+Operator MCP `serve` exposes the same `export_project_view`, `review_project_view`,
+`apply_project_view`, and `project_view_status` methods. Decoded diffs remain on
+this operator surface; the dedicated `serve-agent` still exposes only its two tools.
+
+The view policy accepts UTF-8 text and preserves file paths. It does not rewrite
+filenames/import paths, refactor source identifiers, generate fixtures or infer a
+schema. Select Markdown/JSON adapters where appropriate; use whole-term text
+translation only where it preserves the selected files' behavior, and explicit
+copies or supplied fixtures elsewhere. Protected or copied content is deliberately
+visible; format protection is not general secret redaction.
+Views have a 512-file limit, 64 MiB aggregate snapshot limits and an 8,192-entry
+traversal limit, plus the workspace's per-file limit. Runtime caches, `.git` and
+`.venv` are ignored during import; links and junctions are refused. A shared lock
+serializes Bamboozle view writers, but unrelated processes can still race files:
+multi-file publication is recoverable, not a filesystem transaction. A neutral
+working directory separates agent context; OS-level isolation requires a separate
+host/account/container policy.
 
 ## Manual translation and restoration
 
@@ -135,6 +759,33 @@ replacement would lose information. Keep both marker types intact in agent edits
 The mask records uppercase character positions; it does not contain the original
 term. These markers require decoder v0.4.3 or later. Damaged markers and lossy
 Unicode case folds fail explicitly.
+
+Starting with v0.4.9, original text can also contain literal marker syntax, including
+incomplete or malformed examples. Marker protocol **2** quotes each original reserved
+prefix as `__SCM_CASE_x_<lowercase UTF-8 hex>__`. For example, the literal prefix
+`__SCM_LIT_` becomes `__SCM_CASE_x_5f5f53434d5f4c49545f__`. The payload can represent
+only a reserved prefix; arbitrary hex payloads and noncanonical spelling are refused.
+Reverse translation restores that prefix once, without interpreting the resulting
+text as another marker. Preserve these escape tokens when editing neutral content.
+
+To introduce a new raw marker example in agent-generated code, quote **only that new
+snippet**, without needing a dictionary:
+
+```python
+from bamboozle.markers import quote_prefixes
+
+snippet = quote_prefixes('example = "__SCM_LIT_unknown__"\n')
+# Insert snippet into the neutral module, or pass it to write_safe_file.
+```
+
+Do not quote an already encoded document or a literal/case marker intended to operate
+as a control token. This protocol is escaping, not encryption. It covers text and
+selected Markdown/JSON regions; protected regions keep their original bytes.
+New ledgers use schema **3** and view manifests schema **2**, each with
+`marker_version: 2`. Historical ledgers (schemas 1/2) and manifests (schema 1) retain
+protocol 1 and reject new escape tokens. Their saved mapping, document rules, original
+bytes, contracts and import journals remain authoritative. Vandal reports the actual
+view protocol; use a fresh export to work with literal marker examples under protocol 2.
 
 UTF-8 BOMs and CR/LF bytes survive file round trips. Each ledger contains the mapping
 snapshot and original/encoded SHA-256 digests. Decode uses that snapshot, so changing
@@ -323,6 +974,8 @@ an exclusive end. It recognizes CRLF, LF, and CR. `--max-matches` bounds returne
 locations (1–10,000, default 1,000); totals remain complete and `matches_complete`
 reports truncation. The operator MCP server exposes the same service as `scan_file`;
 the dedicated agent server continues to expose only encoded reads and decoded writes.
+CLI JSON escapes non-ASCII characters so Windows pipe code-page differences cannot
+corrupt terms; JSON readers recover the original Unicode characters.
 
 Matching is lexical, not a judgment about intent. Ordinary words such as `class`,
 `assignment`, and `Scunthorpe` are not substring matches. Compound identifiers such
@@ -387,6 +1040,22 @@ permissions. Key possession is the trust boundary. Recipient labels are not a
 directory of verified agent identities; key distribution, revocation, and packet
 replay prevention remain integration work. No payload is executed or deployed
 automatically.
+
+To compose authenticated transport with structured semantic translation, retain
+the originating ledger locally and use distinct outputs at each step:
+
+```powershell
+uv run --locked bamboozle encode template.json --format json --json-pointer /prompt
+uv run --locked bamboozle keygen --key transport.key
+uv run --locked bamboozle seal template_safe.json --key transport.key --recipient reviewer -o packet.bam
+uv run --locked bamboozle open packet.bam --key transport.key --recipient reviewer -o returned.json
+uv run --locked bamboozle decode returned.json --ledger .template_safe.json.scm_ledger.json --strict
+```
+
+This sequence proves the unchanged payload round trip. If an agent changes the
+decrypted document, preview its reverse conversion and use ordinary decode rather
+than strict integrity restoration. Encryption and semantic translation remain
+explicit operations with different outputs, keys and responsibilities.
 
 ## Structural watch
 

@@ -1,0 +1,13 @@
+{
+  "action": "Retained failure and reran the complete repository verifier with required uv build access. No test skip or source workaround.",
+  "artifacts_sha256": {
+    "views-third-launcher.log": "1e230d0c901c9bb9b4d0320d4a327e93cd7b53c20c809ea6db2454f12f1e66d8",
+    "views-third.xml": "9e404aa8063bc8bfed0aa432a7357aebe97c4e684d452da2a69371a2fd3fb5f2"
+  },
+  "failure": "Windows batch launcher requested the local 0.4.4 editable rebuild; sandbox blocked the setuptools registry connection (os error 10013).",
+  "gate": "VIG-CORE-VIEW-01",
+  "source_checks": {
+    "failed": 1,
+    "passed": 54
+  }
+}

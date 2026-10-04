@@ -1,4 +1,4 @@
-# Bamboozle / MIVIM Vigiles
+# Bamboozle / MIVIM Vigiles Vandal
 
 ## Scope and authority
 
@@ -7,7 +7,8 @@ commands here; the Git repository and CI workflow are one level above.
 
 Before changing implementation, read:
 
-- `.mivim/mivim.vigiles.md` and the original designs in `docs/`, `.legacy/`, and
+- `.mivim/vigiles-vandal_0.2.md`, `.vigiles/skills/vigiles-vandal/SKILL.md`,
+  and the original designs in `docs/`, `.legacy/`, and
   `../example_project/dev_tools/development_loop.md` for the intended system.
   Versioned contracts record implemented behavior; they do not supersede unmet
   design requirements or authorize narrowing the user's product.
@@ -20,9 +21,17 @@ implementation → verification → specification/evidence update. When asked to
 continue development, start with the current `next_step` rather than repeating a
 completed stage. Keep work within the user's requested scope.
 The user's current direction takes precedence over assistant-written task queues.
-The core is the encoder/cipher with Vigiles as the agent-facing translator. The
+Bamboozle is the original product: its encoder/cipher and reversible translator
+define the development purpose. Vigiles is the agent workflow built to operate
+those features and support their integrity. Develop usable Bamboozle capabilities;
+do not turn the product into a prerequisite or accessory of the agent framework. The
 original SCM contract includes `read_safe_file` (encode before returning content)
 and `write_safe_file` (decode the agent's content before saving local source).
+The active workflow is `vigiles-vandal_0.2`, named `vandal`, for this repository
+only. Its version is independent of the Bamboozle package. The previous
+`vigiles-vanilla_0.1` specification is retained under `.mivim/vigiles/specs/`.
+Keep product engines separate from workflow configuration: Vandal routes existing
+CLI/MCP capabilities and never supplies a replacement encoder or cipher.
 Manual file conversion alone does not establish that agent integration. Keep the
 dedicated `serve-agent` surface distinct from operator tools that display raw diffs.
 Preserve existing functionality while restoring the core source → neutral agent
@@ -45,11 +54,11 @@ failed-run reports, or handoff bundles at either root.
 | Content | Application-relative location |
 | --- | --- |
 | Active stage, next task, open gates, evidence pointers | `VIGILES_STATUS.json` |
-| Vigiles authority | `.mivim/mivim.vigiles.md` |
+| Vandal authority and skill | `.mivim/vigiles-vandal_0.2.md`, `.vigiles/skills/vigiles-vandal/SKILL.md` |
 | Latest development evidence by report type | `.mivim/vigiles/reports/current/` |
 | Completed/superseded/failed records and status snapshots | `.mivim/vigiles/reports/archive/` |
 | Original root-record relocation map and hashes | `.mivim/vigiles/reports/INDEX.json` |
-| Disposable test/build scratch and synthetic runtime workshops | `.test-tmp/`, `.vigiles/`, or explicit scratch paths |
+| Disposable test/build scratch and synthetic runtime workshops | `.test-tmp/`, `.vigiles/` outside tracked `skills/`, or explicit scratch paths |
 
 Preservation means retaining records in the archive, not keeping them at the root.
 Archive exact bytes before replacing current evidence; retain failures and logs.
@@ -65,11 +74,17 @@ a root-level handoff. Do not generate extra tracking documents without a task ne
 | Area | Source |
 | --- | --- |
 | Dictionary validation and reversible translation | `src/bamboozle/dictionary.py`, `engine.py`, `service.py` |
+| Shared Markdown/selected-JSON adapters | `src/bamboozle/formats.py` |
+| Explicit Python token/span translation and project import checks | `src/bamboozle/python_source.py`, `python_project.py` |
+| Generated neutral fixtures and processing contracts | `src/bamboozle/fixture_rules.py`, `fixtures.py` |
+| Repository-only workflow context/MCP configuration | `scripts/vandal.py` |
 | Public encoder/cipher API and agent-mediated source I/O | `src/bamboozle/cipher.py`, `agent_files.py`, `scm_mcp.py` |
 | Confined file access and publication | `src/bamboozle/workspace.py`, `utils.py` |
 | Tessera authenticated exchange and repository audits | `src/bamboozle/tessera.py`, `audit.py` |
 | Main CLI and MCP tools | `src/bamboozle/cli.py`, `mcp.py` |
 | Edited source restoration and historical migration | `src/bamboozle/restoration.py`, `migration.py` |
+| Operator returned-text terminology and structure validation | `src/bamboozle/return_validation.py` |
+| Scoped project views and reviewed multi-file return | `src/bamboozle/project_views.py`, `view_import.py` |
 | Native workshop initialization and journaled operations | `src/workshop/bootstrap.py`, `operations.py` |
 | Read-only recovery conflict diagnostics | `src/workshop/recovery.py`, shared validation in `operations.py` |
 | Durable plans, discovery, and consumer consistency | `src/workshop/plans.py`, `inventory.py`, `snapshot.py` |
@@ -167,6 +182,42 @@ Do not regenerate release evidence or claim a fresh runtime qualification.
   ledgers remain independent. Every added spelling needs its own reversible target.
   Preserve literal and case markers through agent and reviewed-restoration paths.
   Operator scans may display original terms; do not add them to `serve-agent`.
+  Marker protocol 2 quotes literal reserved prefixes once; decode never rescans
+  restored text. New ledger schema 3/view manifest schema 2 pin that protocol.
+  Historical schemas retain protocol 1 and their exact saved contracts/journals.
+- Project views export only explicitly selected copy/translate/fixture files.
+  Keep mapping snapshots and original bytes in authoritative private storage,
+  outside the neutral agent view. Bind import to reviewed source/view bytes;
+  require explicit deletion selection and allowlisted new-file destinations.
+  Publish the retained import before source changes and a completion receipt only
+  after all final checks. Partial imports require explicit recovery, not rollback.
+- Preserve saved document rules alongside dictionary snapshots. Format selection
+  is explicit: Markdown protects technical syntax; JSON selects exact string
+  pointers and retains original spelling context privately. Never translate keys
+  or unselected fields by implicitly falling back to whole-file text processing.
+  Direct source-agent tools remain text-mode; route structured multi-file agent
+  work through version-2 views. Never connect an encoding MCP to an encoded view.
+  Python rules select exact identifiers, project import paths and explicit literal
+  values. Preserve unselected syntax, private spelling context and historical
+  formats. Validate both sides of declared imports and execute whole dependent
+  applications; standalone token assertions cannot establish application behavior.
+- Lexicon authoring and compilation are operator operations. Explicit concept
+  forms compile into the existing Dictionary type; do not infer morphology or
+  merge reverse partners. Publish new versions under reviewed hashes, retain
+  source/base provenance and never reinterpret saved ledgers/views. Keep lexicon,
+  patch, compiled dictionary and receipt suffixes excluded by the shared agent/view
+  private-file guard. Query/diff pagination must not change the reviewed artifact.
+- Generated fixture rules are private operator inputs. Classify all strings,
+  preserve declared placeholder/structural invariants and validate expected cases
+  before v3 view export. Bind every consumer to selected Python source and pin
+  repeated rule/source reads to the same bytes. Keep generated public controls
+  immutable; validate edited fixtures and unchanged production records on return.
+  Fixture data/control files never overwrite production templates during import.
+- Return diagnostics share document regions and saved dictionary/format context.
+  They are operator evidence, never guessed reverse mappings or automatic intent
+  decisions. Preserve strict marker/decoder failures and manual restoration choices.
+  Page findings under unchanged validation/review digests; incomplete analysis is
+  not accepted. Keep diagnostics out of source-agent tools and old journal bytes.
 - Publish journals before asset/control changes and bind completion to journal
   bytes. Retain partial writes and report recovery requirements truthfully.
   Recovery is explicit; do not add automatic rollback, retry, or history deletion.

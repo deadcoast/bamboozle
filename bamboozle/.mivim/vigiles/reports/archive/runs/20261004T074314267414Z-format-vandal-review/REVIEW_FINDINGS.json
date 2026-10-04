@@ -1,0 +1,30 @@
+{
+  "artifacts_sha256": {
+    "formats-first.xml": "80973738b522b2c0ed279055b0c16ffe7cc8e83d7f156ed249676ab87f776dc4",
+    "formats-second.xml": "cc35f0a14d19117090c39c0f058f7234f4162ef5327a3bf17cdd7fca7af206b5"
+  },
+  "findings": [
+    "Initial static review required typed output assembly, schema exception types and explicit regex match narrowing in a code-execution test.",
+    "Underscore emphasis must be parsed separately from identifiers and cipher markers; CommonMark delimiter tracking and marker-only syntax masking were added and exercised.",
+    "JSON original lexical spelling belongs in private context, not in agent-visible markers; unchanged selected tokens restore their exact original bytes.",
+    "Repository workflow and product versions are independent; the archived vanilla workflow remains historical and Vandal owns context/tool selection only."
+  ],
+  "focused_checks": [
+    {
+      "artifact": "formats-first.xml",
+      "failed": 0,
+      "passed": 47
+    },
+    {
+      "artifact": "formats-second.xml",
+      "failed": 0,
+      "passed": 146
+    }
+  ],
+  "gate": "VIG-CIPHER-FORMAT-01",
+  "prior_workflow": {
+    "path": ".mivim/vigiles/specs/vigiles-vanilla_0.1.md",
+    "sha256": "7f9d26b114ca25e747ca86d7f2f98b70ad0c3f8aa5b27d8cc2fefd69cba0861d"
+  },
+  "workflow": "vigiles-vandal_0.2"
+}

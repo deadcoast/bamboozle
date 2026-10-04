@@ -6,13 +6,45 @@ import hashlib
 import json
 import logging
 import os
+import sys
 import tempfile
+from collections.abc import Iterator
+from contextlib import contextmanager
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
 logger = logging.getLogger(__name__)
 MAX_FILE_BYTES = 16 * 1024 * 1024
+
+
+@contextmanager
+def exclusive_lock(path: Path) -> Iterator[None]:
+    """Nonblocking process lock; the OS releases ownership on process exit."""
+    with path.open("a+b") as stream:
+        if path.stat().st_size == 0:
+            stream.write(b"\0")
+            stream.flush()
+        stream.seek(0)
+        try:
+            if sys.platform == "win32":
+                import msvcrt
+
+                msvcrt.locking(stream.fileno(), msvcrt.LK_NBLCK, 1)
+            else:
+                import fcntl
+
+                fcntl.flock(stream.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except OSError as exc:
+            raise OSError("Another Bamboozle view operation is active") from exc
+        try:
+            yield
+        finally:
+            stream.seek(0)
+            if sys.platform == "win32":
+                msvcrt.locking(stream.fileno(), msvcrt.LK_UNLCK, 1)
+            else:
+                fcntl.flock(stream.fileno(), fcntl.LOCK_UN)
 
 
 class PublicationError(OSError):

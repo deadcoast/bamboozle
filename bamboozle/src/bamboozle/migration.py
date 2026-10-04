@@ -18,7 +18,7 @@ class _LegacyV2(Translator):
     """The retained standalone v1/v2 engine treated underscores as separators."""
 
     def __init__(self, mapping: Dictionary, limit: int):
-        super().__init__(mapping, max_output_chars=limit)
+        super().__init__(mapping, max_output_chars=limit, marker_version=1)
         if any(not s.isascii() or not t.isascii() for s, t in mapping.items()):
             raise ValueError("Standalone historical dictionaries require ASCII terms")
         self._literal = re.compile(

@@ -15,6 +15,7 @@ if __package__ in (None, ""):
 from bamboozle.cipher import process_forward, process_reverse
 from bamboozle.dictionary import PROFILES, Dictionary
 from bamboozle.engine import Translator, match_case
+from bamboozle.formats import DocumentCodec, format_options
 from bamboozle.service import prepare
 from bamboozle.utils import atomic_write, json_bytes, parse_json, read_bytes
 from bamboozle.workspace import Workspace
@@ -71,6 +72,10 @@ def main(argv: list[str] | None = None) -> int:
     selection.add_argument("--profile", choices=PROFILES)
     parser.add_argument("--ledger", type=Path)
     parser.add_argument("--strict", action="store_true")
+    parser.add_argument(
+        "--format", choices=["text", "markdown", "json"], dest="document_format"
+    )
+    parser.add_argument("--json-pointer", action="append")
     parser.add_argument("--root", type=Path, default=Path.cwd())
     args = parser.parse_args(argv)
     try:
@@ -86,6 +91,7 @@ def main(argv: list[str] | None = None) -> int:
                 else args.dictionary,
                 ledger=args.ledger,
                 strict=args.strict,
+                format_rules=format_options(args.document_format, args.json_pointer),
             ).apply()
             print(json.dumps(report), file=sys.stderr)
             return 0
@@ -100,7 +106,14 @@ def main(argv: list[str] | None = None) -> int:
             if args.input == "-"
             else workspace.read(args.input).decode("utf-8")
         )
-        converted = Translator(dictionary).transform(original, args.mode).text
+        translated = DocumentCodec(
+            dictionary, format_options(args.document_format, args.json_pointer)
+        ).transform(original, args.mode)
+        if translated.context:
+            raise ValueError(
+                "This JSON encoding needs a private spelling snapshot; use file-to-file translation to retain its ledger"
+            )
+        converted = translated.text
         if args.output == "-":
             sys.stdout.write(converted)
         else:

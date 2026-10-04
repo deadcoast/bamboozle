@@ -217,6 +217,8 @@ def main() -> int:
         ROOT / "README.md",
         ROOT / "AGENTS.md",
         ROOT / ".mivim/mivim.vigiles.md",
+        ROOT / ".mivim/vigiles-vandal_0.2.md",
+        ROOT / ".vigiles/skills/vigiles-vandal/SKILL.md",
         ROOT.parent / ".github/workflows/vigiles.yml",
     ]:
         sources[os.path.relpath(path, ROOT).replace("\\", "/")] = hashlib.sha256(

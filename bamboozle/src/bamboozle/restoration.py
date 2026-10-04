@@ -9,9 +9,16 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-from bamboozle.dictionary import Dictionary
-from bamboozle.engine import Translator
-from bamboozle.service import OperationError, _restore, ledger_path
+from bamboozle.formats import DocumentCodec
+from bamboozle.return_validation import inspect_return
+from bamboozle.service import (
+    OperationError,
+    _ledger_dictionary,
+    _restore,
+    ledger_format,
+    ledger_marker_version,
+    ledger_path,
+)
 from bamboozle.utils import (
     PublicationError,
     atomic_write,
@@ -219,9 +226,19 @@ def prepare_restore(
     record = parse_json(metadata)
     if not isinstance(record, dict):
         raise TypeError("Translation ledger must be an object")
-    mapping = Dictionary.from_document(record.get("dictionary"))
-    translator = Translator(mapping, max_output_chars=workspace.max_bytes)
-    baseline = translator.forward(retained.decode("utf-8")).encode("utf-8")
+    mapping, record = _ledger_dictionary(metadata)
+    rules, context = ledger_format(record)
+    structured = rules.format != "text"
+    if structured and (terms != "translate" or decisions is not None):
+        raise ValueError(
+            "Structured restoration uses its saved field/format policy: select --terms translate and preserve literal markers; line-based decisions apply only to text format"
+        )
+    marker_version = ledger_marker_version(record)
+    codec = DocumentCodec(
+        mapping, rules, limit=workspace.max_bytes, marker_version=marker_version
+    )
+    translator = codec.translator
+    baseline = codec.transform(retained.decode("utf-8")).text.encode("utf-8")
     # Shared strict verification binds original, generated baseline and mapping.
     if _restore(baseline, metadata, workspace.max_bytes) != retained:
         raise ValueError("Supplied original does not match the retained ledger")
@@ -255,15 +272,18 @@ def prepare_restore(
         choices = document["choices"]
     unchanged = Counter(_lines(baseline.decode("utf-8")))
     edited = raw.decode("utf-8")
-    translator.validate_markers(edited)
-    pieces: list[str] = []
+    if not structured:
+        translator.validate_markers(edited)
+    pieces: list[str] = (
+        [codec.transform(edited, "reverse", context=context).text] if structured else []
+    )
     conflicts: list[dict[str, Any]] = []
     conflict_count = 0
     resolved: dict[str, str] = {}
     used: set[str] = set()
     result_size = 0
     pattern = translator._pattern(edited, "reverse")
-    for number, line in enumerate(_lines(edited), 1):
+    for number, line in enumerate([] if structured else _lines(edited), 1):
         known = unchanged[line] > 0
         if known:
             unchanged[line] -= 1
@@ -283,6 +303,8 @@ def prepare_restore(
 
             if match.group("literal") is not None:
                 return bounded(match.group("literal"))
+            if match.groupdict().get("escape_hex") is not None:
+                return bounded(translator.marker_at(match.group(0), 0).decoded)
             if match.group("case_term") is not None:
                 return bounded(translator.reverse(match.group(0)))
             location = f"{number}:{match.start() + 1}"
@@ -356,6 +378,7 @@ def prepare_restore(
         "output": str(destination.relative_to(workspace.root)),
         "output_sha256": sha256(result) if result is not None else None,
         "term_policy": terms,
+        **({"document_rules": rules.document()} if structured else {}),
         "resolved_terms": resolved,
         "provenance": "Local consistency with retained original and ledger; not authenticated authorship",
     }
@@ -364,12 +387,22 @@ def prepare_restore(
         raise ValueError("Restoration receipt exceeds the workspace file limit")
     details = {
         "operation": "restore_edits",
+        "return_validation": inspect_return(
+            raw,
+            mapping,
+            baseline=baseline,
+            rules=rules,
+            context=context,
+            limit=workspace.max_bytes,
+            marker_version=marker_version,
+        ),
         "input": provenance["edited"],
         "original": provenance["original"],
         "edited_sha256": sha256(raw),
         "baseline_encoded_sha256": sha256(baseline),
         "dictionary_sha256": mapping.fingerprint,
         "term_policy": terms,
+        **({"document_rules": rules.document()} if structured else {}),
         "conflict_count": conflict_count,
         "conflicts": conflicts,
         "omitted_conflicts": max(0, conflict_count - len(conflicts)),

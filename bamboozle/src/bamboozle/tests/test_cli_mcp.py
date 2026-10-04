@@ -96,6 +96,14 @@ def test_mcp_preview_apply_verify_and_replay(tmp_path):
             tools = {tool.name: tool for tool in await client.list_tools()}
             assert set(tools) == {
                 "dictionary_status",
+                "preview_template_fixture",
+                "validate_template_fixture",
+                "export_dictionary_lexicon",
+                "check_dictionary_lexicon",
+                "query_dictionary_lexicon",
+                "preview_lexicon_edit",
+                "preview_lexicon_compilation",
+                "verify_dictionary_compilation",
                 "preview_file",
                 "apply_preview",
                 "verify_file",
@@ -103,9 +111,14 @@ def test_mcp_preview_apply_verify_and_replay(tmp_path):
                 "preview_restoration",
                 "preview_migration",
                 "verify_restored_file",
+                "validate_returned_file",
                 "read_safe_file",
                 "write_safe_file",
                 "scan_file",
+                "export_project_view",
+                "review_project_view",
+                "apply_project_view",
+                "project_view_status",
             }
             annotations = tools["preview_file"].annotations
             assert annotations is not None and annotations.read_only_hint

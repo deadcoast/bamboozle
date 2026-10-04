@@ -18,6 +18,40 @@ HISTORY = Path(".vigiles/cipher/changes")
 MAX_READS = 256
 
 
+def source_path(
+    workspace: Workspace, name: str, *, private_paths: set[Path], write: bool = False
+) -> Path:
+    """Shared private-source boundary for agent I/O and project views."""
+    path = workspace.resolve(name, write=write)
+    relative = path.relative_to(workspace.root)
+    if (
+        any(
+            part.casefold() in {".vigiles", ".mivim", ".local"}
+            for part in relative.parts
+        )
+        or path in private_paths
+        or path.name.casefold() in {"cipher_dict.json", "profanity_dict.json"}
+        or path.name.casefold().endswith(
+            (
+                ".key",
+                ".key.bak",
+                ".scm_ledger.json",
+                ".vigiles-restore.json",
+                ".lexicon.json",
+                ".lexicon-patch.json",
+                ".dictionary.json",
+                ".lexicon-receipt.json",
+                ".fixture-rules.json",
+            )
+        )
+        or ".key." in path.name.casefold()
+    ):
+        raise ValueError(
+            "Private cipher metadata and keys are outside agent file access"
+        )
+    return path
+
+
 class AgentFiles:
     """Read through the encoder and write through the decoder, never returning raw source.
 
@@ -41,24 +75,9 @@ class AgentFiles:
         self.lock = threading.RLock()
 
     def _path(self, name: str, *, write: bool = False) -> Path:
-        path = self.workspace.resolve(name, write=write)
-        relative = path.relative_to(self.workspace.root)
-        if (
-            any(
-                part.casefold() in {".vigiles", ".mivim", ".local"}
-                for part in relative.parts
-            )
-            or path in self.private_paths
-            or path.name.casefold() in {"cipher_dict.json", "profanity_dict.json"}
-            or path.name.casefold().endswith(
-                (".key", ".key.bak", ".scm_ledger.json", ".vigiles-restore.json")
-            )
-            or ".key." in path.name.casefold()
-        ):
-            raise ValueError(
-                "Private cipher metadata and keys are outside agent file access"
-            )
-        return path
+        return source_path(
+            self.workspace, name, private_paths=self.private_paths, write=write
+        )
 
     def _remember(self, path: Path, digest: str) -> None:
         self.reads[path] = digest
@@ -81,7 +100,8 @@ class AgentFiles:
                 "content": encoded,
                 "source_sha256": digest,
                 "dictionary_sha256": self.dictionary.fingerprint,
-                "terminology_contract": "Edit or generate code in this vocabulary. Preserve __SCM_LIT_...__ and __SCM_CASE_...__ markers. Submit neutral content to write_safe_file; the cipher restores domain terms locally.",
+                "marker_version": self.cipher.marker_version,
+                "terminology_contract": "Edit or generate code in this vocabulary. Preserve __SCM_LIT_...__, __SCM_CASE_...__, and __SCM_CASE_x_<hex>__ prefix escapes exactly. For newly authored literal marker syntax use bamboozle.markers.quote_prefixes on the raw snippet only; its payload contains only a reserved prefix. Submit neutral content to write_safe_file; the cipher restores domain terms locally.",
             }
 
     def write(
@@ -142,6 +162,7 @@ class AgentFiles:
                 "operation_id": operation_id,
                 "file_path": path.relative_to(self.workspace.root).as_posix(),
                 "dictionary_sha256": self.dictionary.fingerprint,
+                "marker_version": self.cipher.marker_version,
                 "before_sha256": sha256(before) if before is not None else None,
                 "output_sha256": sha256(decoded),
                 "output_bytes": len(decoded),

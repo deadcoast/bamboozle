@@ -1,0 +1,8 @@
+c:\Users\ryanf\github\_active\bamboozle\bamboozle\src\bamboozle\fixtures.py
+  c:\Users\ryanf\github\_active\bamboozle\bamboozle\src\bamboozle\fixtures.py:83:22 - error: No overloads for "join" match the provided arguments (reportCallIssue)
+  c:\Users\ryanf\github\_active\bamboozle\bamboozle\src\bamboozle\fixtures.py:84:17 - error: Argument of type "Generator[str | None, None, None]" cannot be assigned to parameter "iterable" of type "Iterable[str]" in function "join"
+    "Generator[str | None, None, None]" is not assignable to "Iterable[str]"
+      Type parameter "_T_co@Iterable" is covariant, but "str | None" is not a subtype of "str"
+        Type "str | None" is not assignable to type "str"
+          "None" is not assignable to "str" (reportArgumentType)
+2 errors, 0 warnings, 0 informations

@@ -1,0 +1,102 @@
+{
+  "completion_boundary": "Full verifier and isolated installed-wheel application qualification pending; no whole-project or external-model completion claim.",
+  "created": "2026-10-04T11:34:16.452101Z",
+  "design_choices": [
+    "Exact case-sensitive project API spelling selection across scopes, not inferred type resolution or substring rewriting",
+    "Preserve token source spans instead of ast.unparse/tokenize.untokenize reconstruction",
+    "Private per-occurrence string spelling context; literal value selections are explicit and apply to each matching complete token",
+    "Import providers and members validated in complete neutral and decoded view snapshots before source writes",
+    "Retain old text adapters, direct source-agent authority, existing ledgers/views and separate crypto engines"
+  ],
+  "designlog": {
+    "bytes": 133911,
+    "path": ".legacy/designlog",
+    "sha256": "aa305cd960837dea08983ec0f89f61581c79a87e362ace86821bfcc9322b6ee9"
+  },
+  "extracted_requirements": [
+    {
+      "implementation": [
+        "src/bamboozle/python_source.py",
+        "src/bamboozle/formats.py"
+      ],
+      "requirement": "Protect format syntax and identifiers unless explicitly selected",
+      "source": ".legacy/designlog:242"
+    },
+    {
+      "implementation": [
+        "src/bamboozle/python_source.py",
+        "src/bamboozle/dictionary.py",
+        "src/bamboozle/engine.py"
+      ],
+      "requirement": "Explicit one-to-one forms, nonrecursive matching, case preservation and refusal of ambiguity",
+      "source": ".legacy/designlog:546-560"
+    },
+    {
+      "implementation": [
+        "src/bamboozle/python_source.py",
+        "src/bamboozle/service.py",
+        "src/bamboozle/markers.py"
+      ],
+      "requirement": "Literal collision protection and local original spelling context",
+      "source": ".legacy/designlog:561-592"
+    },
+    {
+      "implementation": [
+        "src/bamboozle/python_project.py",
+        "src/bamboozle/project_views.py",
+        "src/bamboozle/view_import.py"
+      ],
+      "requirement": "Review/import with source drift checks and source-span-aware changes",
+      "source": ".legacy/designlog:724-750"
+    },
+    {
+      "implementation": [
+        "src/bamboozle/scm_mcp.py",
+        "scripts/vandal.py",
+        ".vigiles/skills/vigiles-vandal/SKILL.md"
+      ],
+      "requirement": "Encoded source reads and decoded source writes remain distinct from operator operations",
+      "source": ".legacy/designlog:2855-2898"
+    },
+    {
+      "implementation": [
+        "src/bamboozle/fixtures.py",
+        "src/bamboozle/project_views.py"
+      ],
+      "requirement": "Representative fixtures retain processing contracts and actual consumer symbols",
+      "source": ".legacy/designlog:594-660"
+    },
+    {
+      "implementation": [
+        "src/bamboozle/python_source.py",
+        "src/bamboozle/python_project.py"
+      ],
+      "requirement": "Source-code identifiers are an explicit separate refactoring selection",
+      "source": ".legacy/bamboozle_v0.0.1.md:303-317"
+    }
+  ],
+  "retained_sha256": {
+    "python-application-bindings.log": "af0f8a41032b2ce34db3f7c87a5be8dd6302ade030f382181abd0d2be310f0e0",
+    "python-application-first.log": "1e43e795161660628f76f420c7b824c770f9e257fddce91f9e4c5cce6d9959aa",
+    "python-bindings.xml": "7b6b382a3c062e6ab4fc7a18b46652015ecdcec69d094cdfdee98b012cda4240",
+    "python-final-focus.xml": "53ed2cfc70810907c17f48c7e440bb54b63fc84ca4490e4f3f40509eef8362ad",
+    "python-first.xml": "11bb9bd466d5b8dc8fecea0395513a5b71b5b13c224671233fd9b47abd22557a",
+    "python-graph.xml": "6ec512ef91b27a6f12b439c7c8e2cee35bcf8c3cb8e63ac39a990ea95c4db21d",
+    "python-product-first.xml": "cc1fa4699eb100bf934218f3f4eab31090fca701a7138270771d86f0af4f48d3",
+    "python-review.xml": "4ff33da731b4b9dc9b371e83625840082091b187a43c86ad812c96aad9473169",
+    "python-second.xml": "d8f4f20019532bc11e77bf96f2d357fa39ac6dda47d8e3cd644f01981dc1fac9"
+  },
+  "review_findings": [
+    "First focused run: 41 passed and one test harness misuse of ReviewedFilePlan.apply; corrected to submit the exact review digest",
+    "Added guards for external-derived alias reuse where selected members are ambiguous, aliased/passed reflection, selected concatenated literals, non-UTF-8 declarations, NFKC collisions and private/magic target names",
+    "Whole-application qualification uses model, planner, CLI, agent-added scheduler and independent benchmark modules; 300 scheduler executions plus malformed workloads run in each neutral and restored application through both CLI and stdio MCP"
+  ],
+  "schema_version": 1,
+  "stage": "VIG-CIPHER-SOURCE-01",
+  "status": "implementation_complete_qualification_pending",
+  "stdlib_references": [
+    "https://docs.python.org/3.13/library/tokenize.html",
+    "https://docs.python.org/3.13/library/ast.html",
+    "https://docs.python.org/3.13/library/symtable.html"
+  ]
+}

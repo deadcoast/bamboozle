@@ -1,0 +1,219 @@
+{
+  "authority": ".mivim/vigiles-vandal_0.2.md",
+  "core_development_queue": [
+    {
+      "design_source": [
+        ".legacy/bamboozle_v0.0.1.md:319-327",
+        ".legacy/bamboozle_v0.0.1.md:681-691",
+        ".legacy/bamboozle_v0.0.1.md:823-829"
+      ],
+      "done_criteria": [
+        "Inspect edited/new returned text with its originating dictionary, format rules and baseline; retain strict marker failures",
+        "Report located terminology/variant drift and ambiguous literal usage with evidence and explicit limits; heuristic findings must never silently rewrite text",
+        "Expose meaningful protected-structure changes alongside existing restoration/view diffs without blocking deliberate reviewed source changes by inference",
+        "Provide complete CLI and operator MCP validation paths integrated with single-file restoration and scoped view review while keeping reverse terms out of source-agent tools",
+        "Qualify actionable accepted/refused/needs-review outcomes, stale inputs, saved-context compatibility and executed returned code through source and installed-package workflows"
+      ],
+      "focus": "Edited-document terminology and protected-structure validation for returned agent work",
+      "id": "VIG-CIPHER-RETURN-01",
+      "remaining": "Current paths validate markers, exact mappings, selected document structure and generated fixtures. Add bounded operator diagnostics for undeclared inflections, terminology drift and ambiguous newly introduced terms using saved dictionaries/formats and baselines, without guessing reverse mappings.",
+      "status": "next"
+    },
+    {
+      "done_criteria": [
+        "Define and validate explicit local profile rules",
+        "Report actionable structural violations through audit and MCP",
+        "Enforce relevant rules at native operation boundaries with retained evidence"
+      ],
+      "finding": "Current audits report hash drift; the MIVIM role also requires evaluating repository structure against declared rules.",
+      "focus": "Native structural profile enforcement for repository workflows",
+      "id": "VIG-CORE-PROFILE-01",
+      "status": "planned"
+    },
+    {
+      "done_criteria": [
+        "Implement explicit local recipient and key lifecycle semantics",
+        "Exercise isolated recipients, rotation/revocation and replay rejection",
+        "Preserve existing binary exchange and keep keys out of reports"
+      ],
+      "finding": "Current Tessera authenticates key possession and a recipient label but has no native recipient lifecycle or replay record.",
+      "focus": "Recipient registry, key lifecycle and replay-aware Tessera delivery",
+      "id": "VIG-IDENTITY-01",
+      "status": "planned"
+    }
+  ],
+  "development_stage": "vigiles-vandal_0.2",
+  "evidence": {
+    "current_directory": ".mivim/vigiles/reports/current/",
+    "directory_guide": ".mivim/vigiles/reports/README.md",
+    "historical_status": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_STATUS.json",
+    "installed_package_verification": ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json",
+    "original_record_hashes_and_relocation": ".mivim/vigiles/reports/INDEX.json",
+    "prior_release_package_verification": ".mivim/vigiles/reports/archive/runs/20261004T091932214888Z-eacf98ae/VIGILES_VERIFICATION.json",
+    "prior_translation_qualification": ".mivim/vigiles/reports/archive/runs/20261004T092227724345Z-7d43ef1f/VIGILES_TRANSLATION_QUALIFICATION.json",
+    "qualification_scope": "Local Windows Python 3.13 source and isolated installed v0.4.7 wheel. Explicit neutral JSON fixture generation, invariant/case validation, parsed consumer bindings, v3 scoped views and reviewed/recoverable source return; CLI and actual stdio MCP run generated dependent catalog programs against valid/error cases and untouched production-shaped originals. Existing dictionaries, lexicon compilation, format adapters, agent interfaces, encryption and workflow regressions rerun. Synthetic agent edits do not prove external model behavior, remote CI, production acceptance, client registration or OS isolation.",
+    "recovery_qualification": ".mivim/vigiles/reports/current/VIGILES_RECOVERY_QUALIFICATION.json",
+    "source_verification": ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json",
+    "translation_qualification": ".mivim/vigiles/reports/current/VIGILES_TRANSLATION_QUALIFICATION.json"
+  },
+  "last_completed_step": {
+    "design_source": [
+      ".legacy/bamboozle_v0.0.1.md:693-763"
+    ],
+    "done_criteria": [
+      "Define explicit fixture rules preserving required/optional fields, stable IDs, placeholder names and multiplicity, role counts and cross-record references",
+      "Generate usable neutral fixtures and a contract describing selected field definitions, processing paths and declared failure/boundary cases without original prose",
+      "Refuse invariant violations and unresolved literal-prose dependencies before export; report bounded actionable diagnostics",
+      "Integrate CLI and operator MCP fixture preparation into existing project-view policies; fixture text must never overwrite production source",
+      "Exercise neutral-agent dependent source changes and restored source against valid, invalid and boundary fixtures through source and installed-package paths"
+    ],
+    "evidence": [
+      ".mivim/vigiles/reports/current/VIGILES_TRANSLATION_QUALIFICATION.json",
+      ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json"
+    ],
+    "focus": "Schema-faithful neutral template fixtures and generated processing contracts for the coding-agent view",
+    "id": "VIG-CIPHER-FIXTURE-01",
+    "qualification": {
+      "scope": "Local Windows Python 3.13 source and isolated installed v0.4.7 wheel. Explicit neutral JSON fixture generation, invariant/case validation, parsed consumer bindings, v3 scoped views and reviewed/recoverable source return; CLI and actual stdio MCP run generated dependent catalog programs against valid/error cases and untouched production-shaped originals. Existing dictionaries, lexicon compilation, format adapters, agent interfaces, encryption and workflow regressions rerun. Synthetic agent edits do not prove external model behavior, remote CI, production acceptance, client registration or OS isolation.",
+      "tests_passed": 700,
+      "verification_stages_passed": 11
+    },
+    "remaining": "Generated fixture gate completed locally; edited-document terminology validation and independent acceptance gates remain open.",
+    "retained_review_and_race_failure": ".mivim/vigiles/reports/archive/runs/20261004T091020019555Z-fixture-review/REVIEW_FINDINGS.json",
+    "review_evidence": ".mivim/vigiles/reports/archive/runs/20261004T091020019555Z-fixture-review/REVIEW_FINDINGS.json",
+    "status": "complete_source_and_local_installed_package"
+  },
+  "next_step": {
+    "design_source": [
+      ".legacy/bamboozle_v0.0.1.md:319-327",
+      ".legacy/bamboozle_v0.0.1.md:681-691",
+      ".legacy/bamboozle_v0.0.1.md:823-829"
+    ],
+    "done_criteria": [
+      "Inspect edited/new returned text with its originating dictionary, format rules and baseline; retain strict marker failures",
+      "Report located terminology/variant drift and ambiguous literal usage with evidence and explicit limits; heuristic findings must never silently rewrite text",
+      "Expose meaningful protected-structure changes alongside existing restoration/view diffs without blocking deliberate reviewed source changes by inference",
+      "Provide complete CLI and operator MCP validation paths integrated with single-file restoration and scoped view review while keeping reverse terms out of source-agent tools",
+      "Qualify actionable accepted/refused/needs-review outcomes, stale inputs, saved-context compatibility and executed returned code through source and installed-package workflows"
+    ],
+    "focus": "Edited-document terminology and protected-structure validation for returned agent work",
+    "id": "VIG-CIPHER-RETURN-01",
+    "implementation": [
+      "Shared bounded operator return validator using saved mappings and document regions",
+      "Read-only CLI/MCP and paged restoration/view diagnostics without changing old import journals",
+      "Manual term intent and strict decode failures preserved; independent encryption paths retained"
+    ],
+    "remaining": "Current paths validate markers, exact mappings, selected document structure and generated fixtures. Add bounded operator diagnostics for undeclared inflections, terminology drift and ambiguous newly introduced terms using saved dictionaries/formats and baselines, without guessing reverse mappings.",
+    "review_evidence": ".mivim/vigiles/reports/archive/runs/20261004T093752750446Z-return-review/REVIEW_FINDINGS.json",
+    "status": "source_implemented_qualification_in_progress"
+  },
+  "open_gates": [
+    {
+      "completed_stage": "Native operations, prepared plans, inventory, read-only recovery diagnostics, explicit recovery, and both MCP interfaces are locally qualified with synthetic assets and an installed v0.3.5 wheel.",
+      "dependencies": [
+        "Real candidate and completed evaluation evidence",
+        "Operator-selected production workshop",
+        "Live consumer acceptance criteria"
+      ],
+      "done_criteria": [
+        "Native promotion, quarantine, and audit fixtures pass (complete)",
+        "Interrupted publication recovery demonstrated before live writes (complete)",
+        "Real candidate accepted in an operator-selected production workspace (open)"
+      ],
+      "evidence": [
+        "src/workshop/scrape/promote.py",
+        "src/workshop/scrape/audit_matrix.py",
+        "src/workshop/tests/test_operations.py",
+        ".mivim/vigiles/reports/current/VIGILES_PIPELINE_QUALIFICATION.json",
+        ".mivim/vigiles/reports/current/VIGILES_PIPELINE_READINESS.json",
+        ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json",
+        ".mivim/vigiles/reports/current/VIGILES_PLAN_QUALIFICATION.json",
+        ".mivim/vigiles/reports/current/VIGILES_RECOVERY_QUALIFICATION.json"
+      ],
+      "id": "VIG-DEPLOY-01",
+      "impact": "Native file operations are locally qualified with synthetic assets; no live LoRA or ComfyUI acceptance is claimed.",
+      "next_action": "Evaluate a real candidate, retain its validation evidence, select a production workshop, and review/prepare/apply the exact plan before live consumer acceptance.",
+      "owner_role": "Workshop integration owner",
+      "priority": "P1",
+      "remaining_dependency": "Production model evaluation and live target selection remain separate from fixture qualification.",
+      "status": "native_fixture_qualified_live_acceptance_open"
+    },
+    {
+      "dependencies": [
+        "Approved recipient trust model",
+        "Key custody and distribution design",
+        "Replay policy"
+      ],
+      "done_criteria": [
+        "Isolated recipient tests",
+        "Rotation and revocation tests",
+        "Approved and tested replay policy",
+        "No key material in reports or source"
+      ],
+      "id": "VIG-IDENTITY-01",
+      "impact": "Tessera proves key possession and recipient-label integrity, not independently verified identity or freshness.",
+      "next_action": "Define recipient identities and key issuance, rotation, revocation, and replay semantics before cross-agent production exchange.",
+      "owner_role": "MIVIM security and agent integration owner",
+      "priority": "P1",
+      "status": "open"
+    },
+    {
+      "dependencies": [
+        "Committed and submitted revision",
+        "Enabled GitHub Actions"
+      ],
+      "done_criteria": [
+        "Windows Python 3.13 passes",
+        "Windows Python 3.14 passes",
+        "Linux Python 3.13 passes",
+        "Linux Python 3.14 passes",
+        "Run URLs and revision recorded"
+      ],
+      "evidence": [
+        "../.github/workflows/vigiles.yml"
+      ],
+      "id": "VIG-CI-01",
+      "impact": "Local Windows results do not prove Linux or Python 3.14 compatibility.",
+      "next_action": "Run the supplied workflow for the submitted revision and retain all four job results.",
+      "owner_role": "Repository maintainer",
+      "priority": "P1",
+      "status": "open"
+    },
+    {
+      "dependencies": [
+        "Explicit target host and account",
+        "Filesystem ACL policy",
+        "Resource and lifecycle policy"
+      ],
+      "done_criteria": [
+        "Operator-selected deployment recorded",
+        "Least-privilege ACLs verified",
+        "Bounded resource policy tested",
+        "Start, stop, and uninstall verified"
+      ],
+      "id": "VIG-HOST-01",
+      "impact": "No installed background service, process-tree lifecycle policy, or OS-level isolation has been qualified.",
+      "next_action": "Select whether a managed service is needed, then qualify start/stop/uninstall and least-privilege operation on that host.",
+      "owner_role": "Deployment operator",
+      "priority": "P2",
+      "status": "open"
+    }
+  ],
+  "preservation_direction": "Retain existing services; integrate them around the operational core pipeline. Assistant-written contracts and task queues cannot retire original user design requirements.",
+  "product_direction": "Bamboozle encoder/cipher/translator is the original application. Vigiles is its supporting agent workflow; core usable product capabilities take priority over peripheral agent framework expansion.",
+  "project": "Bamboozle / MIVIM Vigiles",
+  "purpose": "Active core development plan and remaining acceptance gates; completed evidence/history belong under .mivim/vigiles/reports/.",
+  "recorded_on": "2026-10-04",
+  "release": "0.4.7",
+  "schema_version": 1,
+  "workflow": {
+    "id": "vigiles-vandal_0.2",
+    "previous_specification": ".mivim/vigiles/specs/vigiles-vanilla_0.1.md",
+    "product_version_independent": true,
+    "scope": "This MIVIM Bamboozle repository only",
+    "skill": ".vigiles/skills/vigiles-vandal/SKILL.md",
+    "specification": ".mivim/vigiles-vandal_0.2.md",
+    "status": "repository_spec_skill_and_generated_stdio_contexts_qualified",
+    "version": "0.2"
+  }
+}

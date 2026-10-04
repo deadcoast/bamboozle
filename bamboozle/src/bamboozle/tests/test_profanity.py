@@ -2,6 +2,7 @@
 
 import asyncio
 import json
+import os
 import subprocess
 import sys
 from importlib.resources import files
@@ -135,8 +136,10 @@ def test_case_marker_is_source_free_and_survives_generated_code(translator):
 def test_damaged_case_markers_fail_explicitly(translator, text):
     with pytest.raises(ValueError, match="[Cc]ase marker"):
         translator.reverse(text)
+    encoded = translator.forward(text)
+    assert translator.reverse(encoded) == text
     with pytest.raises(ValueError, match="reserved"):
-        translator.forward(text)
+        Translator(translator.dictionary, marker_version=1).forward(text)
 
 
 def test_case_mask_cannot_select_punctuation_or_lossy_unicode():
@@ -254,6 +257,32 @@ def test_old_mapping_ledger_still_verifies_after_default_expansion(tmp_path):
     assert verify(workspace, "source_safe.txt")["status"] == "verified"
     decoded = prepare(workspace, "source_safe.txt", mode="reverse", strict=True)
     assert decoded.result == original
+
+
+def test_cli_json_preserves_unicode_through_legacy_windows_pipe_decoding(tmp_path):
+    (tmp_path / "input.txt").write_text("for fuck’s sake", encoding="utf-8")
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "bamboozle",
+            "--root",
+            str(tmp_path),
+            "scan",
+            "input.txt",
+            "--profile",
+            "profanity",
+        ],
+        capture_output=True,
+        text=True,
+        encoding="cp1252",
+        check=True,
+        timeout=10,
+        env={**os.environ, "PYTHONIOENCODING": "utf-8"},
+    )
+    report = json.loads(result.stdout)
+    assert report["counts"] == {"for fuck’s sake": 1}
+    assert report["matches"][0]["term"] == "for fuck’s sake"
 
 
 def test_mixed_case_agent_edit_and_generated_dependent_module_execute(tmp_path):

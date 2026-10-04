@@ -1,0 +1,43 @@
+{
+  "created": "2026-10-04T09:37:52.766253Z",
+  "files_sha256": {
+    "return-first.xml": "9de661b55d2ba8bca59ccadc1d39ac2901dd18e721eea26fdaa68bac00c0a67f",
+    "return-review.xml": "214c1b3182076da02bff601e9d40c4db6f2f51544745983e2c87edad45aa1cc6",
+    "return-second.xml": "d85fab74b712c9b0d93a443a967641dddb89b9180cf628e5382db0697f32a73e",
+    "return_validation.py": "b41f59dc21ae427f71882133a835b766a3caf44e95403fa4e5383b7ea5635df5"
+  },
+  "focused_review": {
+    "failed": 2,
+    "passed": 69,
+    "tests": 71
+  },
+  "integration_before_review": {
+    "evidence": "return-second.xml",
+    "failures": 0,
+    "tests": 212
+  },
+  "observations": [
+    {
+      "correction": "Use existing supported plain translate policy syntax; product policy validation unchanged.",
+      "evidence": "return-first.xml",
+      "finding": "First focused test setup used an invalid v2 new-file rule; existing policy validation correctly refused it.",
+      "id": "RETURN-SETUP-01",
+      "result": "64 passed, 5 setup errors"
+    },
+    {
+      "correction": "Match suffix candidates against entire ASCII word/underscore identifiers without splitting identifier boundaries.",
+      "evidence": "return-review.xml",
+      "finding": "ASCII word suffix hints omitted underscore identifiers used by the bundled neutral dictionary.",
+      "id": "RETURN-REVIEW-01"
+    },
+    {
+      "correction": "Use ASCII-escaped canonical comparison signatures while preserving actual source/return bytes.",
+      "evidence": "return-review.xml",
+      "finding": "Protected JSON comparison attempted UTF-8 serialization of an escaped surrogate in an unselected value, causing validation to raise.",
+      "id": "RETURN-REVIEW-02"
+    }
+  ],
+  "schema_version": 1,
+  "stage": "VIG-CIPHER-RETURN-01",
+  "status": "review_findings_before_correction"
+}

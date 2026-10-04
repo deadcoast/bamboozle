@@ -9,6 +9,14 @@ from dataclasses import dataclass
 from typing import Any, Literal
 
 from bamboozle.dictionary import CASE_PREFIX, LITERAL_PREFIX, Dictionary
+from bamboozle.markers import (
+    CURRENT,
+    ESCAPE,
+    LEGACY,
+    quote_prefix,
+    unquote_prefix,
+    validate_version,
+)
 from bamboozle.utils import MAX_FILE_BYTES
 
 Mode = Literal["forward", "reverse"]
@@ -19,6 +27,16 @@ class Translation:
     text: str
     substitutions: int
     literals: int
+    escapes: int = 0
+
+
+@dataclass(frozen=True)
+class Marker:
+    start: int
+    end: int
+    kind: str
+    decoded: str
+    term: str | None = None
 
 
 def match_case(original: str, target: str) -> str:
@@ -51,10 +69,12 @@ class Translator:
         dictionary: Dictionary | Mapping[str, str],
         *,
         max_output_chars: int = MAX_FILE_BYTES,
+        marker_version: int = CURRENT,
     ):
         if max_output_chars <= 0:
             raise ValueError("Translation limit must be positive")
         self.max_output_chars = max_output_chars
+        self.marker_version = validate_version(marker_version)
         self.dictionary = (
             dictionary if isinstance(dictionary, Dictionary) else Dictionary(dictionary)
         )
@@ -134,21 +154,47 @@ class Translator:
                 result.append(char)
         return "".join(result)
 
+    def marker_at(self, text: str, start: int) -> Marker:
+        """Decode one validated marker; callers must advance past its whole span."""
+        if (
+            self.marker_version == CURRENT
+            and (escaped := ESCAPE.match(text, start)) is not None
+        ):
+            return Marker(
+                start, escaped.end(), "escape", unquote_prefix(escaped.group())
+            )
+        literal = self._literal.match(text, start)
+        if literal is not None:
+            return Marker(start, literal.end(), "literal", literal.group("literal"))
+        case = self._case.match(text, start)
+        if case is not None:
+            return Marker(
+                start,
+                case.end(),
+                "case",
+                self._decode_case(case),
+                case.group("case_term"),
+            )
+        prefix = self._prefix.match(text, start)
+        if (
+            prefix is not None
+            and prefix.group().casefold() == LITERAL_PREFIX.casefold()
+        ):
+            line = len(re.findall(r"\r\n|\r|\n", text[:start])) + 1
+            raise ValueError(f"Damaged literal marker at line {line}")
+        raise ValueError("Damaged or unrecognized case marker or prefix escape")
+
     def validate_markers(self, text: str, mode: Mode = "reverse") -> None:
-        for prefix in self._prefix.finditer(text):
-            if mode == "forward":
+        if mode == "forward":
+            if self.marker_version == LEGACY and self._prefix.search(text):
                 raise ValueError(
                     "Input already contains reserved literal or case markers"
                 )
-            if prefix.group(0).casefold() == LITERAL_PREFIX.casefold():
-                if self._literal.match(text, prefix.start()) is None:
-                    line = len(re.findall(r"\r\n|\r|\n", text[: prefix.start()])) + 1
-                    raise ValueError(f"Damaged literal marker at line {line}")
-            else:
-                marker = self._case.match(text, prefix.start())
-                if marker is None:
-                    raise ValueError("Damaged or unrecognized case marker")
-                self._decode_case(marker)
+            return
+        position = 0
+        while (prefix := self._prefix.search(text, position)) is not None:
+            marker = self.marker_at(text, prefix.start())
+            position = marker.end if self.marker_version == CURRENT else prefix.end()
 
     def _pattern(self, text: str, mode: Mode) -> re.Pattern[str]:
         # re's \w omits combining marks that continue Python identifiers.
@@ -167,6 +213,10 @@ class Translator:
         pattern = "(?<!" + boundary + ")(" + self._terms[mode] + ")(?!" + boundary + ")"
         if mode == "reverse":
             pattern = self._literal.pattern + "|" + self._case.pattern + "|" + pattern
+            if self.marker_version == CURRENT:
+                pattern = ESCAPE.pattern + "|" + pattern
+        elif self.marker_version == CURRENT:
+            pattern = "(?P<raw_prefix>" + self._prefix.pattern + ")|" + pattern
         compiled = re.compile(pattern, re.IGNORECASE)
         self._patterns[key] = compiled
         if len(self._patterns) > 32:
@@ -183,8 +233,12 @@ class Translator:
         newline = re.compile(r"\r\n|\r|\n")
         line, line_start, position = 1, 0, 0
         counts: Counter[str] = Counter()
+        escaped_prefixes = 0
         matches: list[dict[str, Any]] = []
         for match in self._pattern(text, "forward").finditer(text):
+            if match.groupdict().get("raw_prefix") is not None:
+                escaped_prefixes += 1
+                continue
             term = match.group(0)
             folded = term.casefold()
             if folded in self._reverse:
@@ -218,6 +272,8 @@ class Translator:
             "matches_complete": total <= max_matches,
             "dictionary_sha256": self.dictionary.fingerprint,
             "mapping_version": self.dictionary.version,
+            "marker_version": self.marker_version,
+            "escaped_prefixes": escaped_prefixes,
         }
 
     def _transform(self, text: str, mode: Mode) -> Translation:
@@ -225,7 +281,7 @@ class Translator:
         if length > self.max_output_chars:
             raise ValueError("Translation exceeds the configured size limit")
         self.validate_markers(text, mode)
-        substitutions = literals = 0
+        substitutions = literals = escapes = 0
 
         def bounded(replacement: str, original: str) -> str:
             nonlocal length
@@ -235,8 +291,14 @@ class Translator:
             return replacement
 
         def replace(match: re.Match[str]) -> str:
-            nonlocal substitutions, literals
+            nonlocal substitutions, literals, escapes
             original = match.group(0)
+            if mode == "forward" and match.groupdict().get("raw_prefix") is not None:
+                escapes += 1
+                return bounded(quote_prefix(original), original)
+            if mode == "reverse" and match.groupdict().get("escape_hex") is not None:
+                escapes += 1
+                return bounded(unquote_prefix(original), original)
             if mode == "reverse" and match.groupdict().get("case_term") is not None:
                 substitutions += 1
                 return bounded(self._decode_case(match), original)
@@ -263,7 +325,7 @@ class Translator:
             return bounded(match_case(original, mapping[folded]), original)
 
         result = self._pattern(text, mode).sub(replace, text)
-        return Translation(result, substitutions, literals)
+        return Translation(result, substitutions, literals, escapes)
 
     def transform(self, text: str, mode: Mode = "forward") -> Translation:
         if mode not in ("forward", "reverse"):

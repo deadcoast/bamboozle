@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="1.567" timestamp="2026-10-04T00:59:35.097020-07:00" hostname="homeone"><testcase classname="src.bamboozle.tests.test_document_formats" name="test_markdown_inline_code_cannot_cross_paragraph_boundaries" time="0.056"><failure message="AssertionError: assert '`alpha\n\nalpha`\n' == '`omega\n\nomega`\n'&#10;  &#10;  - `omega&#10;  + `alpha&#10;    &#10;  - omega`&#10;  + alpha`">def test_markdown_inline_code_cannot_cross_paragraph_boundaries():
+        codec = DocumentCodec(MAPPING, MARKDOWN)
+&gt;       assert codec.transform("`alpha\n\nalpha`\n").text == "`omega\n\nomega`\n"
+E       AssertionError: assert '`alpha\n\nalpha`\n' == '`omega\n\nomega`\n'
+E         
+E         - `omega
+E         + `alpha
+E           
+E         - omega`
+E         + alpha`
+
+src\bamboozle\tests\test_document_formats.py:89: AssertionError</failure></testcase></testsuite></testsuites>

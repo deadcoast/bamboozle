@@ -13,7 +13,8 @@ __pycache__/
 build/
 dist/
 *.egg-info/
-.vigiles/
+.vigiles/*
+!.vigiles/skills/
 *.key
 *.key.*.bak
 .*.scm_ledger.json

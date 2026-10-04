@@ -14,8 +14,20 @@ from fastmcp import FastMCP
 from bamboozle.agent_files import AgentFiles
 from bamboozle.audit import audit
 from bamboozle.dictionary import Dictionary
+from bamboozle.fixtures import FixtureError, preview_fixture, validate_fixture
+from bamboozle.formats import format_options
+from bamboozle.lexicon import (
+    check_lexicon,
+    export_lexicon,
+    prepare_compile,
+    prepare_edit,
+    query_lexicon,
+    verify_compilation,
+)
 from bamboozle.migration import prepare_migration
+from bamboozle.project_views import export_view
 from bamboozle.restoration import ReviewedFilePlan, prepare_restore, verify_restoration
+from bamboozle.return_validation import validate_return
 from bamboozle.scm_mcp import register_tools
 from bamboozle.service import (
     ConversionPlan,
@@ -26,6 +38,8 @@ from bamboozle.service import (
     scan,
     verify,
 )
+from bamboozle.utils import parse_json
+from bamboozle.view_import import apply_import, review_import, view_status
 from bamboozle.workspace import Workspace
 
 PLAN_TTL = 600
@@ -40,7 +54,10 @@ def create_server(
 ) -> FastMCP:
     workspace = Workspace(root)
     mapping = dictionary if dictionary is not None else Dictionary.load()
-    server = FastMCP("vigiles")
+    server = FastMCP(
+        "bamboozle_operator",
+        instructions="Operator interface for Bamboozle. Previews, return validation and reviews may show original-domain text. Select explicit document rules for Markdown or JSON; saved ledgers/views retain them. Inspect returned-file terminology/structure findings with validate_returned_file or review_project_view; page all findings under unchanged digests. Diagnostics do not decide intent or grant application authority. Keep this connection separate from a neutral agent's tools. Review before applying; inspect and explicitly recover partial imports.",
+    )
     register_tools(server, AgentFiles(workspace, mapping, private_paths=private_paths))
     plans: OrderedDict[str, tuple[float, ConversionPlan | ReviewedFilePlan, bool]] = (
         OrderedDict()
@@ -78,6 +95,157 @@ def create_server(
         }
 
     @server.tool(annotations={"readOnlyHint": True})
+    def preview_template_fixture(source: str, rules: str) -> dict[str, Any]:
+        """Operator: generate neutral records and validate contracts/cases before v3 view export."""
+        return preview_fixture(workspace, source, rules)
+
+    @server.tool(annotations={"readOnlyHint": True})
+    def validate_template_fixture(
+        source: str, contract: str, fixture: str | None = None
+    ) -> dict[str, Any]:
+        """Check prepared records using the public contract without changing any file."""
+        return validate_fixture(workspace, source, contract, fixture=fixture)
+
+    @server.tool(annotations={"readOnlyHint": False, "destructiveHint": False})
+    def export_dictionary_lexicon(
+        output: str, mapping_version: str, dictionary: str | None = None
+    ) -> dict[str, Any]:
+        """Operator only: export all real mappings as editable concepts in a new .lexicon.json."""
+        selected = (
+            Dictionary.from_document(parse_json(workspace.read(dictionary)))
+            if dictionary
+            else mapping
+        )
+        return export_lexicon(workspace, selected, output, mapping_version)
+
+    @server.tool(annotations={"readOnlyHint": True})
+    def check_dictionary_lexicon(source: str) -> dict[str, Any]:
+        """Locate schema errors and source/neutral collisions without writing files."""
+        return check_lexicon(workspace, source)
+
+    @server.tool(annotations={"readOnlyHint": True})
+    def query_dictionary_lexicon(
+        source: str,
+        query: str = "",
+        side: str = "both",
+        offset: int = 0,
+        limit: int = 50,
+        expected_sha256: str | None = None,
+    ) -> dict[str, Any]:
+        """Operator only: inspect source/neutral forms; pin lexicon_sha256 for pagination."""
+        return query_lexicon(
+            workspace,
+            source,
+            query=query,
+            side=side,
+            offset=offset,
+            limit=limit,
+            expected_sha256=expected_sha256,
+        )
+
+    @server.tool(annotations={"readOnlyHint": True})
+    def preview_lexicon_edit(
+        source: str, patch: str, output: str, recover_metadata: bool = False
+    ) -> dict[str, Any]:
+        """Review explicit concept upserts/removals into a new lexicon; use apply_preview."""
+        plan = prepare_edit(
+            workspace, source, patch, output, recover_metadata=recover_metadata
+        )
+        return retain(plan, plan.report(), recover_metadata)
+
+    @server.tool(annotations={"readOnlyHint": True})
+    def preview_lexicon_compilation(
+        source: str,
+        output: str,
+        base: str | None = None,
+        offset: int = 0,
+        limit: int = 100,
+        expected_sha256: str | None = None,
+        recover_metadata: bool = False,
+    ) -> dict[str, Any]:
+        """Review exact added/changed/removed mappings and new versioned dictionary.
+
+        Inspect every change page with the same review_sha256. apply_preview publishes
+        that complete artifact plus provenance; source-agent MCP never has this tool.
+        """
+        plan = prepare_compile(
+            workspace,
+            source,
+            output,
+            base=base,
+            offset=offset,
+            limit=limit,
+            expected_sha256=expected_sha256,
+            recover_metadata=recover_metadata,
+        )
+        return retain(plan, plan.report(), recover_metadata)
+
+    @server.tool(annotations={"readOnlyHint": True})
+    def verify_dictionary_compilation(source: str) -> dict[str, Any]:
+        """Reproduce a compiled dictionary from retained provenance; report live input drift."""
+        return verify_compilation(workspace, source)
+
+    @server.tool(annotations={"readOnlyHint": False, "destructiveHint": False})
+    def export_project_view(config: str, output: str) -> dict[str, Any]:
+        """Export explicitly selected files into a new neutral development view.
+
+        Originals and reverse mappings remain private in the authoritative project.
+        """
+        try:
+            return export_view(
+                workspace, config, output, mapping, private_paths=private_paths
+            )
+        except OperationError as exc:
+            return {**exc.report, "ok": False}
+        except FixtureError as exc:
+            return exc.report
+
+    @server.tool(annotations={"readOnlyHint": True})
+    def review_project_view(
+        view_id: str,
+        delete_files: list[str] | None = None,
+        validation_path: str | None = None,
+        validation_offset: int = 0,
+        max_findings: int = 100,
+    ) -> dict[str, Any]:
+        """Review decoded multi-file changes; missing files need explicit deletion selection."""
+        return review_import(
+            workspace,
+            view_id,
+            delete_files=delete_files,
+            validation_path=validation_path,
+            validation_offset=validation_offset,
+            max_findings=max_findings,
+        )
+
+    @server.tool(annotations={"readOnlyHint": True})
+    def project_view_status(view_id: str) -> dict[str, Any]:
+        """Inspect view/import state and conflicts without changing source."""
+        return view_status(workspace, view_id)
+
+    @server.tool(annotations={"readOnlyHint": False, "destructiveHint": True})
+    def apply_project_view(
+        view_id: str,
+        review_sha256: str,
+        delete_files: list[str] | None = None,
+        recover: bool = False,
+    ) -> dict[str, Any]:
+        """Apply exact reviewed source edits or resume a retained import explicitly.
+
+        Backs up originals privately; refuses stale inputs and unreviewed deletions.
+        """
+        try:
+            return apply_import(
+                workspace,
+                view_id,
+                review_sha256,
+                delete_files=delete_files,
+                recover=recover,
+            )
+        except OperationError as exc:
+            return {**exc.report, "ok": False}
+
+    @server.tool(annotations={"readOnlyHint": True})
     def scan_file(source: str, max_matches: int = 1000) -> dict[str, Any]:
         """Inspect dictionary coverage with term counts and character locations; no writes.
 
@@ -93,6 +261,11 @@ def create_server(
         ledger: str | None = None,
         strict: bool = False,
         dictionary: str | None = None,
+        document_format: str | None = None,
+        json_pointers: list[str] | None = None,
+        python_identifiers: list[str] | None = None,
+        python_modules: list[str] | None = None,
+        python_strings: list[str] | None = None,
     ) -> dict[str, Any]:
         """Preview source or agent output. Reverse uses its saved mapping when present.
 
@@ -114,8 +287,33 @@ def create_server(
             dictionary=selected,
             ledger=ledger,
             strict=strict,
+            format_rules=format_options(
+                document_format,
+                json_pointers,
+                python_identifiers,
+                python_modules,
+                python_strings,
+            ),
         )
         return retain(plan, preview(plan))
+
+    @server.tool(annotations={"readOnlyHint": True})
+    def validate_returned_file(
+        source: str,
+        original: str,
+        ledger: str | None = None,
+        offset: int = 0,
+        max_findings: int = 100,
+    ) -> dict[str, Any]:
+        """Operator-only terminology/structure diagnostics bound to saved context; never rewrites text or grants apply authority."""
+        return validate_return(
+            workspace,
+            source,
+            original,
+            ledger=ledger,
+            offset=offset,
+            max_findings=max_findings,
+        )
 
     @server.tool(annotations={"readOnlyHint": True})
     def preview_restoration(

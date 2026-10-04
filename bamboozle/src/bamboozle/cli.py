@@ -1,4 +1,4 @@
-"""Terminal entry point for the Vigiles middleware framework."""
+"""Bamboozle product CLI; the vigiles command remains a compatibility alias."""
 
 from __future__ import annotations
 
@@ -12,6 +12,8 @@ from typing import Any
 from bamboozle import __version__
 from bamboozle import audit as watch
 from bamboozle.dictionary import PROFILES, Dictionary
+from bamboozle.fixtures import FixtureError
+from bamboozle.formats import format_options
 from bamboozle.service import OperationError, prepare, preview, recover, scan, verify
 from bamboozle.tessera import create_key, seal, unseal
 from bamboozle.utils import PublicationError, atomic_write, read_bytes
@@ -26,13 +28,41 @@ def _dictionary_arguments(command: argparse.ArgumentParser) -> None:
     )
 
 
+def _format_arguments(command: argparse.ArgumentParser) -> None:
+    command.add_argument(
+        "--format",
+        choices=["text", "markdown", "json", "python"],
+        dest="document_format",
+    )
+    command.add_argument(
+        "--json-pointer",
+        action="append",
+        help="Exact JSON string-value pointer; repeat for each selected field",
+    )
+    command.add_argument(
+        "--python-identifier",
+        action="append",
+        help="Exact project identifier spelling; repeat for each selected dictionary entry",
+    )
+    command.add_argument(
+        "--python-module",
+        action="append",
+        help="Exact project import path whose selected exported members also translate",
+    )
+    command.add_argument(
+        "--python-string",
+        action="append",
+        help="Exact Python string value selected separately, including symbolic references",
+    )
+
+
 def parser() -> argparse.ArgumentParser:
     result = argparse.ArgumentParser(
-        prog="vigiles",
+        prog="bamboozle",
         description="Local translation, authenticated packets, and repository audits.",
     )
     result.add_argument(
-        "--version", action="version", version=f"Vigiles / Bamboozle {__version__}"
+        "--version", action="version", version=f"Bamboozle {__version__}"
     )
     result.add_argument(
         "--root",
@@ -46,6 +76,7 @@ def parser() -> argparse.ArgumentParser:
         command.add_argument("source")
         command.add_argument("-o", "--output")
         _dictionary_arguments(command)
+        _format_arguments(command)
         if name != "encode":
             command.add_argument(
                 "--ledger", help="Saved mapping for a returned agent file"
@@ -58,6 +89,66 @@ def parser() -> argparse.ArgumentParser:
         if name == "preview":
             command.add_argument("--reverse", action="store_true")
     commands.add_parser("verify").add_argument("source")
+    validate_return = commands.add_parser(
+        "validate-return",
+        help="Inspect edited neutral text with its original ledger and format rules",
+    )
+    validate_return.add_argument("source")
+    validate_return.add_argument("--original", required=True)
+    validate_return.add_argument("--ledger")
+    validate_return.add_argument("--offset", type=int, default=0)
+    validate_return.add_argument("--max-findings", type=int, default=100)
+    fixture_preview = commands.add_parser(
+        "fixture-preview",
+        help="Generate and check neutral template data without writing files",
+    )
+    fixture_preview.add_argument("source")
+    fixture_preview.add_argument("--rules", required=True)
+    fixture_validate = commands.add_parser(
+        "fixture-validate",
+        help="Validate a record collection against a public prepared fixture contract",
+    )
+    fixture_validate.add_argument("source")
+    fixture_validate.add_argument("--contract", required=True)
+    fixture_validate.add_argument(
+        "--fixture",
+        help="Original fixture name when checking a differently named case document",
+    )
+    lexicon_export = commands.add_parser(
+        "lexicon-export", help="Export real mappings into an editable operator lexicon"
+    )
+    _dictionary_arguments(lexicon_export)
+    lexicon_export.add_argument("-o", "--output", required=True)
+    lexicon_export.add_argument("--mapping-version", required=True)
+    for name in (
+        "lexicon-check",
+        "lexicon-query",
+        "lexicon-verify",
+        "lexicon-edit",
+        "lexicon-compile",
+    ):
+        command = commands.add_parser(name)
+        command.add_argument("source")
+        if name in ("lexicon-query", "lexicon-compile"):
+            command.add_argument("--offset", type=int, default=0)
+            command.add_argument("--limit", type=int, default=100)
+            command.add_argument("--expected-sha256")
+        if name == "lexicon-query":
+            command.add_argument("--query", default="")
+            command.add_argument(
+                "--side", choices=["bam", "boozle", "both"], default="both"
+            )
+        if name in ("lexicon-edit", "lexicon-compile"):
+            command.add_argument("-o", "--output", required=True)
+            command.add_argument("--apply", action="store_true")
+            command.add_argument("--review-sha256")
+            command.add_argument("--recover-metadata", action="store_true")
+        if name == "lexicon-edit":
+            command.add_argument("--patch", required=True)
+        if name == "lexicon-compile":
+            command.add_argument(
+                "--base", help="Existing dictionary to compare and pin during review"
+            )
     inspection = commands.add_parser(
         "scan", help="Inspect dictionary matches without writing files"
     )
@@ -65,6 +156,24 @@ def parser() -> argparse.ArgumentParser:
     inspection.add_argument("--max-matches", type=int, default=1000)
     _dictionary_arguments(inspection)
     commands.add_parser("verify-restoration").add_argument("source")
+    export = commands.add_parser(
+        "view-export", help="Build a scoped Bamboozle development view"
+    )
+    export.add_argument("config")
+    export.add_argument("--output", required=True)
+    _dictionary_arguments(export)
+    for name in ("view-review", "view-apply", "view-status"):
+        command = commands.add_parser(name)
+        command.add_argument("view_id")
+        if name != "view-status":
+            command.add_argument("--delete", dest="delete_files", action="append")
+        if name == "view-review":
+            command.add_argument("--validation-path")
+            command.add_argument("--offset", type=int, default=0)
+            command.add_argument("--max-findings", type=int, default=100)
+        if name == "view-apply":
+            command.add_argument("--review-sha256", required=True)
+            command.add_argument("--recover", action="store_true")
     for name in ("restore-edits", "migrate-ledger"):
         command = commands.add_parser(name)
         command.add_argument("source")
@@ -85,6 +194,7 @@ def parser() -> argparse.ArgumentParser:
     restore.add_argument("source")
     restore.add_argument("--original", required=True)
     _dictionary_arguments(restore)
+    _format_arguments(restore)
     restore.add_argument("--apply", action="store_true")
     for name in ("validate", "dictionary-export", "serve", "serve-agent", "doctor"):
         command = commands.add_parser(name)
@@ -130,13 +240,126 @@ def _mapping(args: argparse.Namespace, workspace: Workspace) -> Dictionary:
 def _emit(report: dict[str, Any], *, compact: bool = False) -> None:
     print(
         json.dumps(
-            report, ensure_ascii=False, indent=None if compact else 2, allow_nan=False
+            # ASCII JSON preserves Unicode values across Windows pipe code pages.
+            report,
+            ensure_ascii=True,
+            indent=None if compact else 2,
+            allow_nan=False,
         ),
         flush=True,
     )
 
 
 def _execute(args: argparse.Namespace, workspace: Workspace) -> dict[str, Any]:
+    if args.command == "validate-return":
+        from bamboozle.return_validation import validate_return
+
+        return validate_return(
+            workspace,
+            args.source,
+            args.original,
+            ledger=args.ledger,
+            offset=args.offset,
+            max_findings=args.max_findings,
+        )
+    if args.command in ("fixture-preview", "fixture-validate"):
+        from bamboozle.fixtures import preview_fixture, validate_fixture
+
+        return (
+            preview_fixture(workspace, args.source, args.rules)
+            if args.command == "fixture-preview"
+            else validate_fixture(
+                workspace, args.source, args.contract, fixture=args.fixture
+            )
+        )
+    if args.command.startswith("lexicon-"):
+        from bamboozle.lexicon import (
+            check_lexicon,
+            export_lexicon,
+            prepare_compile,
+            prepare_edit,
+            query_lexicon,
+            verify_compilation,
+        )
+
+        if args.command == "lexicon-export":
+            return export_lexicon(
+                workspace, _mapping(args, workspace), args.output, args.mapping_version
+            )
+        if args.command == "lexicon-check":
+            return check_lexicon(workspace, args.source)
+        if args.command == "lexicon-verify":
+            return verify_compilation(workspace, args.source)
+        if args.command == "lexicon-query":
+            return query_lexicon(
+                workspace,
+                args.source,
+                query=args.query,
+                side=args.side,
+                offset=args.offset,
+                limit=args.limit,
+                expected_sha256=args.expected_sha256,
+            )
+        if bool(args.apply) != bool(args.review_sha256):
+            raise ValueError(
+                "--apply requires --review-sha256 from a successful preview"
+            )
+        compiled = (
+            prepare_edit(
+                workspace,
+                args.source,
+                args.patch,
+                args.output,
+                recover_metadata=args.recover_metadata,
+            )
+            if args.command == "lexicon-edit"
+            else prepare_compile(
+                workspace,
+                args.source,
+                args.output,
+                base=args.base,
+                offset=args.offset,
+                limit=args.limit,
+                expected_sha256=args.expected_sha256,
+                recover_metadata=args.recover_metadata,
+            )
+        )
+        return (
+            compiled.apply(args.review_sha256, recover_metadata=args.recover_metadata)
+            if args.apply
+            else compiled.report()
+        )
+    if args.command.startswith("view-"):
+        from bamboozle.project_views import export_view
+        from bamboozle.view_import import apply_import, review_import, view_status
+
+        if args.command == "view-export":
+            private = (workspace.resolve(args.dictionary),) if args.dictionary else ()
+            return export_view(
+                workspace,
+                args.config,
+                args.output,
+                _mapping(args, workspace),
+                private_paths=private,
+            )
+        if args.command == "view-review":
+            return review_import(
+                workspace,
+                args.view_id,
+                delete_files=args.delete_files,
+                validation_path=args.validation_path,
+                validation_offset=args.offset,
+                max_findings=args.max_findings,
+            )
+        if args.command == "view-status":
+            return view_status(workspace, args.view_id)
+        return apply_import(
+            workspace,
+            args.view_id,
+            args.review_sha256,
+            delete_files=args.delete_files,
+            recover=args.recover,
+        )
     if args.command == "verify-restoration":
         from bamboozle.restoration import verify_restoration
 
@@ -200,6 +423,13 @@ def _execute(args: argparse.Namespace, workspace: Workspace) -> dict[str, Any]:
             dictionary=_mapping(args, workspace) if args.profile else args.dictionary,
             ledger=getattr(args, "ledger", None),
             strict=getattr(args, "strict", False),
+            format_rules=format_options(
+                args.document_format,
+                args.json_pointer,
+                args.python_identifier,
+                args.python_module,
+                args.python_string,
+            ),
         )
         return preview(plan) if args.command == "preview" else plan.apply()
     if args.command == "scan":
@@ -218,6 +448,13 @@ def _execute(args: argparse.Namespace, workspace: Workspace) -> dict[str, Any]:
             args.original,
             _mapping(args, workspace),
             apply=args.apply,
+            format_rules=format_options(
+                args.document_format,
+                args.json_pointer,
+                args.python_identifier,
+                args.python_module,
+                args.python_string,
+            ),
         )
     if args.command in ("validate", "dictionary-export", "doctor"):
         dictionary = _mapping(args, workspace)
@@ -318,6 +555,9 @@ def main(argv: list[str] | None = None) -> int:
     except OperationError as exc:
         _emit(exc.report)
         return 1
+    except FixtureError as exc:
+        _emit(exc.report)
+        return 3
     except (OSError, ValueError, TypeError) as exc:
         _emit(
             {

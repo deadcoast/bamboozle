@@ -1,0 +1,34 @@
+{
+  "completion_boundary": "Full source/installed-package qualification remains pending.",
+  "created": "2026-10-04T10:08:05.195340Z",
+  "design": [
+    "Marker protocol 2 uses __SCM_CASE_x_<lowercase UTF-8 hex>__ inside the already reserved CASE namespace; x is never a valid legacy case mask",
+    "Payload can only encode a recognized reserved prefix, preserving case; arbitrary payloads and noncanonical token spelling fail",
+    "Encoding and decoding each use one pass; complete valid marker spans are skipped so overlapping closing underscores cannot synthesize a second token",
+    "New ledgers are schema 3 and new view manifests schema 2, both explicitly pin marker_version 2; prior schemas retain marker version 1",
+    "Existing import journal/receipt bytes do not change; direct agent interfaces remain only read_safe_file and write_safe_file"
+  ],
+  "files_sha256": {
+    "escape-first.xml": "8a175f1fd4e054ad102fa08ff3c99a1331539532d9a2defc26dcb5391c2e12d3",
+    "escape-integration-first.xml": "cb5779b253ffa2904e3001941fc942e2bf0233e1b8224e7ab6e37b9517011373"
+  },
+  "first_escape_tests": {
+    "passed": 60,
+    "tests": 60
+  },
+  "first_integration": {
+    "explanation": "Two prior tests required all forward encoding to reject raw syntax; now explicitly retain that assertion for legacy protocol 1. One prior test required new ledgers to be schema 2; now checks schema 3 and the explicit marker pin. Reverse corruption checks were not weakened.",
+    "failed": 3,
+    "passed": 175,
+    "tests": 178
+  },
+  "original_gap": {
+    "design_source": ".legacy/bamboozle_v0.0.1.md:280-298",
+    "input": "Original literal syntax: __SCM_LIT_assemble__",
+    "observed": "Input already contains reserved literal or case markers",
+    "status": "unmet_design_requirement"
+  },
+  "schema_version": 1,
+  "stage": "VIG-CIPHER-ESCAPE-01",
+  "status": "implementation_and_qualification_in_progress"
+}

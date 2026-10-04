@@ -19,7 +19,8 @@ def register_tools(server: FastMCP, files: AgentFiles) -> None:
     def read_safe_file(file_path: str) -> dict[str, Any]:
         """Read source through the semantic encoder. Returns neutral content, never raw source.
 
-        Use this for source reads; preserve literal/case markers and the translated vocabulary.
+        Preserve literal/case/prefix-escape markers and the translated vocabulary.
+        Protocol 2 quotes raw marker examples; quote_prefixes handles new raw snippets.
         Keep source_sha256 for an existing-file write after a server reconnect.
         """
         return files.read(file_path)
@@ -50,12 +51,16 @@ def create_server(
 ) -> FastMCP:
     mapping = dictionary if dictionary is not None else Dictionary.load()
     server = FastMCP(
-        "semantic_cipher_middleware",
+        "bamboozle_source_agent",
         instructions=(
             "You work through the Bamboozle semantic cipher. Read project source with read_safe_file; "
             "it encodes domain terminology into the working vocabulary. Submit edits and newly generated "
             "source through write_safe_file; it decodes that vocabulary locally. Preserve __SCM_LIT_...__ and __SCM_CASE_...__ "
-            "markers and do not rename mapped terms. Never request private dictionaries, keys or history."
+            "markers, including protocol-2 prefix escapes, and do not rename mapped terms. "
+            "Use bamboozle.markers.quote_prefixes only on newly authored raw marker snippets, never on already encoded content. "
+            "Never request private dictionaries, keys or history. "
+            "These tools use whole-term text translation. For field-selected JSON or Markdown structure protection, "
+            "use an operator-prepared structured project view and edit that view directly without this encoder connection."
         ),
     )
     register_tools(

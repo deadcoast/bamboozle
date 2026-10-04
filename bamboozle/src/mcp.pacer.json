@@ -1,8 +1,8 @@
 {
     "mcpServers": {
-      "vigiles": {
+      "bamboozle_agent": {
         "command": "uv",
-        "args": ["run", "--locked", "vigiles", "--root", ".", "serve-agent"]
+        "args": ["run", "--locked", "bamboozle", "--root", ".", "serve-agent"]
       }
     }
   }

@@ -13,6 +13,7 @@ from typing import Any
 
 from bamboozle.dictionary import Dictionary
 from bamboozle.engine import Translator, match_case
+from bamboozle.formats import DocumentCodec, DocumentTranslation, FormatRules
 from bamboozle.utils import atomic_write, json_bytes, parse_json, read_bytes
 
 __all__ = [
@@ -45,6 +46,29 @@ class CipherEngine(Translator):
 
     def decode(self, text: str) -> str:
         return self.reverse(text)
+
+    def encode_document(self, text: str, rules: FormatRules) -> DocumentTranslation:
+        """Encode structured content; retain returned context privately for exact restoration."""
+        return DocumentCodec(
+            self.dictionary,
+            rules,
+            limit=self.max_output_chars,
+            marker_version=self.marker_version,
+        ).transform(text)
+
+    def decode_document(
+        self, text: str, rules: FormatRules, *, context: dict[str, Any] | None = None
+    ) -> str:
+        return (
+            DocumentCodec(
+                self.dictionary,
+                rules,
+                limit=self.max_output_chars,
+                marker_version=self.marker_version,
+            )
+            .transform(text, "reverse", context=context)
+            .text
+        )
 
 
 def process_forward(

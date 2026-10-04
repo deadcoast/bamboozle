@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="55" time="23.584" timestamp="2026-10-04T00:10:20.043383-07:00" hostname="homeone"><testcase classname="src.bamboozle.tests.test_project_views" name="test_export_is_scoped_usable_and_keeps_reverse_data_outside_view" time="0.428" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_multi_file_edit_generation_fixture_and_explicit_deletion_roundtrip" time="0.856" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_stale_review_refuses_all_source_writes[source]" time="0.295" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_stale_review_refuses_all_source_writes[view]" time="0.281" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_stale_review_refuses_all_source_writes[new_destination]" time="0.315" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_stale_review_refuses_all_source_writes[contract]" time="0.346" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unapproved_and_private_new_files_are_conflicts[outside.py]" time="0.237" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unapproved_and_private_new_files_are_conflicts[private.txt]" time="0.226" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unapproved_and_private_new_files_are_conflicts[view-policy.json]" time="0.233" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unapproved_and_private_new_files_are_conflicts[src/.env]" time="0.221" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unapproved_and_private_new_files_are_conflicts[src/key.key]" time="0.234" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unapproved_and_private_new_files_are_conflicts[src/cipher_dict.json]" time="0.223" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unapproved_and_private_new_files_are_conflicts[src/profanity_dict.json]" time="0.228" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unapproved_and_private_new_files_are_conflicts[src/.local/private.py]" time="0.233" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_saved_mapping_and_policy_are_independent_of_later_configuration" time="0.544" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_saved_custom_mapping_and_literal_targets_survive_later_edits" time="0.210" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_review_is_read_only_and_no_changes_does_not_consume_view" time="0.417" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_interrupted_import_retains_bytes_and_can_complete_explicitly[import.json]" time="0.659" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_interrupted_import_retains_bytes_and_can_complete_explicitly[settings.json]" time="0.793" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_interrupted_import_retains_bytes_and_can_complete_explicitly[generated.py]" time="0.685" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_interrupted_import_retains_bytes_and_can_complete_explicitly[node.py]" time="0.763" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_interrupted_import_retains_bytes_and_can_complete_explicitly[result.json]" time="0.713" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_post_publication_cleanup_failure_reports_actual_state[import.json]" time="0.685" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_post_publication_cleanup_failure_reports_actual_state[generated.py]" time="0.725" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_post_publication_cleanup_failure_reports_actual_state[result.json]" time="0.598" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_recovery_rejects_conflicting_or_corrupt_state[source]" time="0.572" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_recovery_rejects_conflicting_or_corrupt_state[view]" time="0.551" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_recovery_rejects_conflicting_or_corrupt_state[snapshot]" time="0.423" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_recovery_rejects_conflicting_or_corrupt_state[journal]" time="0.522" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_recovery_rejects_conflicting_or_corrupt_state[digest]" time="0.535" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_source_change_during_publication_withholds_receipt" time="0.391" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_multiple_view_writers_share_one_lock" time="0.217" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unsafe_export_paths_and_private_files_are_refused[../escape]" time="0.009" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unsafe_export_paths_and_private_files_are_refused[a/../b]" time="0.009" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unsafe_export_paths_and_private_files_are_refused[a//b]" time="0.005" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unsafe_export_paths_and_private_files_are_refused[a\\b]" time="0.006" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unsafe_export_paths_and_private_files_are_refused[/absolute]" time="0.010" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unsafe_export_paths_and_private_files_are_refused[nul.py]" time="0.009" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unsafe_export_paths_and_private_files_are_refused[a:stream]" time="0.005" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unsafe_export_paths_and_private_files_are_refused[a.]" time="0.007" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unsafe_export_paths_and_private_files_are_refused[.env]" time="0.021" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unsafe_export_paths_and_private_files_are_refused[cipher_dict.json]" time="0.010" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_policy_rejects_ambiguous_and_unknown_rules" time="0.001" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_export_never_replaces_existing_view_and_requires_selected_files" time="0.180" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_export_failure_preserves_partial_view_and_original" time="0.245" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_limits_and_damaged_case_markers_refuse_import" time="0.221" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_unknown_deletion_and_foreign_manifest_are_rejected" time="0.208" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_link_in_view_is_not_followed" time="0.206" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_cli_review_apply_and_status_use_the_same_pipeline" time="0.633" /><testcase classname="src.bamboozle.tests.test_project_views" name="test_operator_mcp_export_review_apply_and_status" time="0.871" /><testcase classname="src.bamboozle.tests.test_cli_mcp" name="test_installed_cli_runs_from_another_directory" time="1.353" /><testcase classname="src.bamboozle.tests.test_cli_mcp" name="test_cli_audit_exit_code_and_bounded_watch" time="0.032" /><testcase classname="src.bamboozle.tests.test_cli_mcp" name="test_mcp_preview_apply_verify_and_replay" time="0.124" /><testcase classname="src.bamboozle.tests.test_cli_mcp" name="test_mcp_refuses_stale_preview_and_expired_capability" time="0.081" /><testcase classname="src.bamboozle.tests.test_cli_mcp" name="test_batch_launchers_use_the_installed_cli" time="3.567"><failure message="subprocess.CalledProcessError: Command '['cmd', '/c', 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\src\\ENCRYPT_FOR_AGENT.bat', 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\views-third\\test_batch_launchers_use_the_i0\\batch sample.txt']' returned non-zero exit status 1.">tmp_path = WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/views-third/test_batch_launchers_use_the_i0')
+
+    @pytest.mark.skipif(os.name != "nt", reason="Windows batch launchers")
+    def test_batch_launchers_use_the_installed_cli(tmp_path):
+        source = Path(__file__).resolve().parents[2]
+        term = next(iter(Dictionary.load()))
+        original = (term + "\r\n").encode("utf-8")
+        path = tmp_path / "batch sample.txt"
+        path.write_bytes(original)
+        environment = dict(
+            os.environ,
+            UV_CACHE_DIR=os.environ.get("UV_CACHE_DIR", str(source.parent / ".uv-cache")),
+        )
+        for name, input_name in [
+            ("ENCRYPT_FOR_AGENT.bat", "batch sample.txt"),
+            ("DECRYPT_FROM_AGENT.bat", "batch sample_safe.txt"),
+        ]:
+&gt;           subprocess.run(
+                ["cmd", "/c", str(source / name), str(tmp_path / input_name)],
+                cwd=tmp_path,
+                capture_output=True,
+                text=True,
+                check=True,
+                timeout=30,
+                env=environment,
+            )
+
+src\bamboozle\tests\test_cli_mcp.py:179: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+input = None, capture_output = True, timeout = 30, check = True
+popenargs = (['cmd', '/c', 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\src\\ENCRYPT_FOR_AGENT.bat', 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\views-third\\test_batch_launchers_use_the_i0\\batch sample.txt'],)
+kwargs = {'cwd': WindowsPath('C:/Users/ryanf/github/_active/bamboozle/bamboozle/.test-tmp/views-third/test_batch_launchers_use_...rogram Files\\AMD\\RyzenMaster\\', 'AMDRMSDKPATH': 'C:\\Program Files\\AMD\\RyzenMasterSDK\\', ...}, 'stdout': -1, ...}
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+    
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+        or pass capture_output=True to capture both.
+    
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output &amp; stderr attributes if those streams
+        were captured.
+    
+        If timeout (seconds) is given and the process takes too long,
+         a TimeoutExpired exception will be raised.
+    
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+    
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+    
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+    
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+    
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+&gt;               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['cmd', '/c', 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\src\\ENCRYPT_FOR_AGENT.bat', 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\views-third\\test_batch_launchers_use_the_i0\\batch sample.txt']' returned non-zero exit status 1.
+
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\subprocess.py:577: CalledProcessError</failure></testcase></testsuite></testsuites>

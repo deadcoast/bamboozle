@@ -1,0 +1,374 @@
+{
+  "artifacts": {
+    "bamboozle-0.2.0-py3-none-any.whl": {
+      "bytes": 41294,
+      "sha256": "636098ace809f137f2ea509d3b0687014680047e2ec0a6b84cbcaf77787373cb"
+    },
+    "bamboozle-0.2.0.tar.gz": {
+      "bytes": 37180,
+      "sha256": "1a64f18bdabd39da10453ae6d1ea20e283d27603458fe0274e2f7b1242ed9d5f"
+    },
+    "bamboozle-0.2.1-py3-none-any.whl": {
+      "bytes": 44924,
+      "sha256": "4abf19a24715149150aa0e0f6c8bfad5c29ec47b5e14c28b22f38268c25a0930"
+    },
+    "bamboozle-0.2.1.tar.gz": {
+      "bytes": 42234,
+      "sha256": "94a941ddb9b8ca7bdf413270041c3b7f85a13e27206f9837601162eb1ed375e7"
+    },
+    "bamboozle-0.3.0-py3-none-any.whl": {
+      "bytes": 56688,
+      "sha256": "acd1b086edf742102bb5218ec43aef8a226a51492853d24326cda0e0545dab06"
+    },
+    "bamboozle-0.3.0.tar.gz": {
+      "bytes": 53082,
+      "sha256": "213d2e2c33024d92f633b7d518c8b9b8aad0f67dcd3aad240b3d40191e64c7bd"
+    },
+    "bamboozle-0.3.1-py3-none-any.whl": {
+      "bytes": 59717,
+      "sha256": "32b19a406e0501ae0657ff478ea9816a388dbe050dea0df1afd7a8dd176f96a4"
+    },
+    "bamboozle-0.3.1.tar.gz": {
+      "bytes": 56478,
+      "sha256": "4599929f52e168ee74a55fe71de80608238cf5acf9a1b101193481957ba1413b"
+    },
+    "bamboozle-0.3.2-py3-none-any.whl": {
+      "bytes": 62563,
+      "sha256": "8d19b9a14385946fdd6b84030293dddf5a0b0730f5937d0a7ce33fe4f68f36b7"
+    },
+    "bamboozle-0.3.2.tar.gz": {
+      "bytes": 59957,
+      "sha256": "678bab7dabc446e4a4070f16b8db307492c6bc80e3d2548c9eeef7f1b2e77fe0"
+    },
+    "bamboozle-0.3.3-py3-none-any.whl": {
+      "bytes": 67844,
+      "sha256": "d622818717e58d42e6dfa904f28a634a1a7f9a33a4ef6c129e5284042886134d"
+    },
+    "bamboozle-0.3.3.tar.gz": {
+      "bytes": 65603,
+      "sha256": "92de30a81a6efe60c935179698e7cf4b44db98791e9c1d46620604b29c349426"
+    },
+    "bamboozle-0.3.4-py3-none-any.whl": {
+      "bytes": 72601,
+      "sha256": "f2d1303925e47f891e76f0f523fa8489ad6b68439088d3d02d6a20d7bb89161d"
+    },
+    "bamboozle-0.3.4.tar.gz": {
+      "bytes": 71206,
+      "sha256": "409802f10030a80211b0993413108072266de596b3a82326c3b0e30e80c1ff51"
+    },
+    "bamboozle-0.3.5-py3-none-any.whl": {
+      "bytes": 81159,
+      "sha256": "87ca679edf0dacb93bdbc35025ed9f6b5e17eb5761dd3d2c65f3ae517f4953b8"
+    },
+    "bamboozle-0.3.5.tar.gz": {
+      "bytes": 90440,
+      "sha256": "f5d9e8d751abbfaf4ca7fffd1016a9088bc4bef6bc28ad8a498f8ed607f03c62"
+    },
+    "bamboozle-0.4.0-py3-none-any.whl": {
+      "bytes": 91798,
+      "sha256": "e34ae2f264dac5a638570c6de754cca56065c0383bbe7a4c6cc0f844bdb3aa6a"
+    },
+    "bamboozle-0.4.0.tar.gz": {
+      "bytes": 102755,
+      "sha256": "e8a43a8550fd7065243d815e141e83c68ef0e25867cea127f1868ace86b46b21"
+    },
+    "bamboozle-0.4.1-py3-none-any.whl": {
+      "bytes": 93951,
+      "sha256": "acb93d09d68cd43555798726cee960219d5662e0f43de6efe74634c93b888830"
+    },
+    "bamboozle-0.4.1.tar.gz": {
+      "bytes": 106620,
+      "sha256": "50426007a077c022a1f4fce424e6678580b8ae541cb4325ccfed8f7dd5740de6"
+    },
+    "bamboozle-0.4.2-py3-none-any.whl": {
+      "bytes": 100261,
+      "sha256": "3441c97d3c7cd5cc2e69b44b12626ab7056b17606b7b932981381a65e5120ea5"
+    },
+    "bamboozle-0.4.2.tar.gz": {
+      "bytes": 113592,
+      "sha256": "91bd300ec0b12c57a3b42fb1f1f77dd685101c7ad7c0110d475e20a4dd5484b8"
+    },
+    "bamboozle-0.4.3-py3-none-any.whl": {
+      "bytes": 106629,
+      "sha256": "0858fadf3b177213be01a366a38f5d0a7537649f26dcc4ccbd6e091f4a95951e"
+    },
+    "bamboozle-0.4.3.tar.gz": {
+      "bytes": 122705,
+      "sha256": "87a93d84daf55122996deb5e109cb87b67c5cbb8401fef7aee554c8b8ad6c493"
+    },
+    "bamboozle-0.4.4-py3-none-any.whl": {
+      "bytes": 119912,
+      "sha256": "5f107a3f5b850422bcd2d29c5d311605cbfa57b8bcec338ebdd04e08c03bef94"
+    },
+    "bamboozle-0.4.4.tar.gz": {
+      "bytes": 138599,
+      "sha256": "158272a5b500b7b236576d3f7043dbb6f4c7d8a4e0dda6ba5156eed0565224f6"
+    },
+    "bamboozle-0.4.5-py3-none-any.whl": {
+      "bytes": 128748,
+      "sha256": "be26e3f5ec2a350622c83e030ada79f0c6fcc539697f2ee83329faccb6697816"
+    },
+    "bamboozle-0.4.5.tar.gz": {
+      "bytes": 150592,
+      "sha256": "f4930ebf91128096adc25d8914e900b5e99325597feedce55775e66519fb4a97"
+    },
+    "bamboozle-0.4.6-py3-none-any.whl": {
+      "bytes": 138153,
+      "sha256": "b9ca6f39f12591dc0d31e72f7f5ea7fd9333341e5522d09b86a852e3ee750142"
+    },
+    "bamboozle-0.4.6.tar.gz": {
+      "bytes": 162813,
+      "sha256": "330b7352b0963e1400679d0aac3710462523348e410835c0a00c379321d59600"
+    },
+    "bamboozle-0.4.7-py3-none-any.whl": {
+      "bytes": 153588,
+      "sha256": "0781b9caaae192ca4ccd229adc2c437d2d9987414b0443f9fe6385e582a9ee83"
+    },
+    "bamboozle-0.4.7.tar.gz": {
+      "bytes": 182025,
+      "sha256": "91a9765069c7a256a456dd67d148e9a80b504fff46934a6e3983b6f54e305f18"
+    },
+    "bamboozle-0.4.8-py3-none-any.whl": {
+      "bytes": 162958,
+      "sha256": "3474722e6f9b0097e51f95898dab44b10c1a44d9310869a6b3c53fefc36028dc"
+    },
+    "bamboozle-0.4.8.tar.gz": {
+      "bytes": 194183,
+      "sha256": "c5969d9b6aee27e0ebce27257c165516a80950f0c258cefd98f2e800932773f6"
+    },
+    "bamboozle-0.4.9-py3-none-any.whl": {
+      "bytes": 166533,
+      "sha256": "fd07f9f4c6d0c974e0e14ed9ddc7b52a69f220389739bf5181371a2b4153f9db"
+    },
+    "bamboozle-0.4.9.tar.gz": {
+      "bytes": 198666,
+      "sha256": "2b5eda5f4644d4fad091da8ffce7bd935e21d48bed0c432d85bbc77041d4b99b"
+    }
+  },
+  "created": "2026-10-04T11:37:11.947108+00:00",
+  "package_requested": true,
+  "platform": "Windows-11-10.0.26200-SP0",
+  "python": "3.13.9 (main, Oct 14 2025, 21:22:32) [MSC v.1944 64 bit (AMD64)]",
+  "required_artifacts": [
+    "bamboozle-0.5.0-py3-none-any.whl",
+    "bamboozle-0.5.0.tar.gz"
+  ],
+  "required_artifacts_verified": false,
+  "schema_version": 1,
+  "source_sha256": {
+    "../.github/workflows/vigiles.yml": "c979966ae8e8007ab070626c578fcc4acb45ebbe43e5de8257f3207907f543d1",
+    ".mivim/mivim.vigiles.md": "723f86a1f5b3b1764df072fb3f54715648cf5c4ac586f487d0d69615a4854edf",
+    ".mivim/vigiles-vandal_0.2.md": "e86b88a7c7fbcf8457a576dd7f9e0358bebeeb67301ecf55c1d786e50c666dce",
+    ".vigiles/skills/vigiles-vandal/SKILL.md": "69132da70ae1d993e2a6b42bb7196cd97f8dcb2982a0f540f77962a60387faf5",
+    "AGENTS.md": "3a0db469c99806d75478711933f4098f70d570c34ab9b6b95296590aa04e5adb",
+    "README.md": "5ac072d4a1d48e750a93966441ac115c102434c5ddd44e2f712096a17795ee05",
+    "pyproject.toml": "bd416a5765b8727a743f0d076d638a67c013476746fcb9e4595e4215f9e6d1f1",
+    "scripts/escape_smoke.py": "8b7a015f63603eb18215f9a4ad63dc40c958046ff629578e50ca7c8989bc5354",
+    "scripts/fixture_scenario.py": "c52d19f89fe97d50aa6556906ae5384a5b93fc2f4dee5d62f582bdb6a8e0f720",
+    "scripts/package_smoke.py": "13573ca90cd71a6f63a8ca22b0a0f14b9eaaeebd47cab933f2cbd691fb83cb95",
+    "scripts/python_scenario.py": "9c32ccbe75cd16db38a5b5fd3e57d8773228d03067d6779ed581bb663dc0a464",
+    "scripts/python_smoke.py": "ff570bffdc6792b746c0558845757e88cc8c45796201529e4a0e73e7dad025b7",
+    "scripts/qualify_inventory.py": "8d274f0af7ba16570a0cd4731b242dcdeeb60100d31ed323050c6b034a7c9d31",
+    "scripts/qualify_pipeline.py": "a41c6401b7e863e060be2ebe2f10d92e8c2a9b5863fbec5deec1fa9e3aa7a272",
+    "scripts/qualify_plans.py": "2298acce5330789283e07c6701ec131c838899fa4f7573627d227af1904f831b",
+    "scripts/qualify_recovery.py": "3aa8d60c972ceebd38b770a90ea4f25487b3fcc95bee69d9ac84ee29e20dac40",
+    "scripts/return_smoke.py": "692580789f39f8e8ee6fa2cee465d0a4c0ba079c42d851bf1d42ef1818d2cb17",
+    "scripts/vandal.py": "30117fc79cd48f1df40ad9bb33cdeb0a9071a8329d75a4dc33119c595f703cf3",
+    "scripts/verify.py": "0b196c6046773c1261a28c0390789bda29662dfacf74ad073898f15dd9aeab3f",
+    "src/DECRYPT_FROM_AGENT.bat": "25ec45eff2279dfd24d09b6f76dfb6c702e724dd5b9d2aad28b602fa2aee65dd",
+    "src/ENCRYPT_FOR_AGENT.bat": "b261f32d499395b46f864a8658f6741ff0b4fc9d35b93d6ac173b5efda05b186",
+    "src/bamboozle/__init__.py": "3bdd33adea5d58cdf309590ba3fe022599a006e32d3faedb10dd7dd6041afbd3",
+    "src/bamboozle/__main__.py": "c4e635a2015428e750f8e441975d34352b4386f23cdf596a2d7e87a8f2da2ca9",
+    "src/bamboozle/agent_files.py": "11e36f83c9878f218c734a80c7cf632f51a1c10b92960d069325359b65bc251e",
+    "src/bamboozle/audit.py": "419f33a4c597987d65329d8c4887ee2cba0f2723c1bb75a222c583f4e4e256eb",
+    "src/bamboozle/audit_matrix.py": "0da01520a1f6b3c821b49833bf030a4d94be1885689c012affa4259bfc6317db",
+    "src/bamboozle/cipher.py": "fa9e7c494be930fd9c1cb384159636e8ff382b672d2211887a423712592780ec",
+    "src/bamboozle/cipher_dict.json": "b49059d73a0965ea7bd0b790ef0a92cb86cada3898a203b8d5e3dce4d85b5dfe",
+    "src/bamboozle/cli.py": "066aab42cc5e4e9f116dd1a2fa135fc783ab9638a746fe89c00b5ca6bf2063dc",
+    "src/bamboozle/dictionary.py": "641ad855668ee467051d4be6ef355953a7d626f89c055d5e25625faa4c39b1a3",
+    "src/bamboozle/engine.py": "ec778b2d91f5c7d68553799515cf49f5183600ac1c27c04b1c70f9c41886536e",
+    "src/bamboozle/evidence.py": "29656ca8fe9b04e286abebc552db9952c219265b29d27eb0938bff02e8be6533",
+    "src/bamboozle/fixture_rules.py": "f47b1c312494f8a7b3904029d486c249befb6cfc30557a3a603ab13a45e5af01",
+    "src/bamboozle/fixtures.py": "f0c6f694e184d98cd70bb7a234bab896e225146fda47b14e1c12067e067455ff",
+    "src/bamboozle/formats.py": "da0a7e4a70b1381f6ce975405cb314020d4f5d51636d4e1f153179bc8051b4ec",
+    "src/bamboozle/lexicon.py": "2ad6abe41f30bc412582f3429511c5609bcd66f01f1353a593d0e3932e013414",
+    "src/bamboozle/markers.py": "90aa5605cad069839886bd89d4a23ff0d86a42c852440a8f4a2626b27816c2dd",
+    "src/bamboozle/mcp.py": "f1b4b70245cae82c07846e37677cb5efd854ea9051f3b8e6b7a977bd038d37ae",
+    "src/bamboozle/migration.py": "ecfbec20e43f84f6a77685e397f0ed4e99b74e9161d50207b244254b67c87ff3",
+    "src/bamboozle/profanity_dict.json": "34f54a88062e12b0ba8353d9d59914144478cc11fc4f698beb7ad0b1fbdee35f",
+    "src/bamboozle/project_views.py": "fe48049a6c312df40f0a3b59e400562d991f18e5307e705d279521cc98c6051f",
+    "src/bamboozle/python_project.py": "3175d01175f3a09810a537fbe4dee8d145d027911675df277fbf594508aa699a",
+    "src/bamboozle/python_source.py": "1c43d3c5511716df8fc4a13491610507b5db00580e28b508813f9948b6f378fc",
+    "src/bamboozle/restoration.py": "56f55ee1e23fb01add72086cb1928e0979987bec7d46839bb0a512039e8655eb",
+    "src/bamboozle/return_validation.py": "1c46eb7728c58d53196c7e47ac92a46ea1821b6eb02420ad8d8577770941ea5f",
+    "src/bamboozle/scm_mcp.py": "1be35fa4f3756757e15ea43b2a1e04721ba2520cd6b65c1307207938f29d0d65",
+    "src/bamboozle/service.py": "32bec9d8331938e628f3a0d626f18f807f76d4afe54f7b6ff6378a38e2d550bc",
+    "src/bamboozle/tessera.py": "155ae5d87e8b8f615998819ff84d1768118bcc0e377eee2b034023bb95c35548",
+    "src/bamboozle/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/bamboozle/tests/test_agent_files.py": "00eee33fec9843b69562ba017bdd415fc526a7c563f053e53fa78c29b5ca5899",
+    "src/bamboozle/tests/test_agent_pipeline.py": "afd63fd8c7973d5f559541b07bf47ba53dcf405f8caa9729b0f34311211cd73a",
+    "src/bamboozle/tests/test_audit_matrix.py": "96edd1911b986e665251d2f3ff0f53fc0cab298ba7e451a58c10de403f228583",
+    "src/bamboozle/tests/test_cli_mcp.py": "e699702de5ee45e15df67eeef537c132a4fd2a383a783b381b51bc23988e24ea",
+    "src/bamboozle/tests/test_dictionary.py": "76d227c98312d0663f7c6953926160a21575788d008c1681e94a766e34adacff",
+    "src/bamboozle/tests/test_document_formats.py": "809668df9dda0d0e26ba8fa324087ebcfb4b7b25c2a323c42a6b78a41972e4fb",
+    "src/bamboozle/tests/test_engine.py": "939f62f9d50911ec6216999ba2902d58566ba112160b64744570a944a5782be7",
+    "src/bamboozle/tests/test_evidence.py": "25a844bab9b50a60da54a38a35b10e2b3720381832722f157cfed1f68c9b5c7c",
+    "src/bamboozle/tests/test_fixtures.py": "500fa57884ea12a6695e40ceee2e50d6bccb96668a106544babc4ff5e6c061f7",
+    "src/bamboozle/tests/test_lexicon.py": "836a75bb934ad63dff1e3578ced94bc55fbde26c930a72ee34016dab728aaf06",
+    "src/bamboozle/tests/test_marker_escapes.py": "d2e64950e5fa0f675291f8d176db661155bfd4adf060af49add6da029e87afe0",
+    "src/bamboozle/tests/test_migration.py": "3cbc0ec97dbe8955b46055a94f42d966c7b1d8c6ce2113090f606eb674b5f458",
+    "src/bamboozle/tests/test_profanity.py": "fff62b70ba30c6ba1a945efc82a71f874a05f78c4750422f2f53c1e31c5d14c3",
+    "src/bamboozle/tests/test_project_views.py": "935605cbdeee9a7b31a8ac42b25496724cfed50466b60b694db440c7e65a52cc",
+    "src/bamboozle/tests/test_python_source.py": "628d6663d9589e84d5db8a7aa1ba9b079a2ab16ad4d95a3cb77523e2d5dfc112",
+    "src/bamboozle/tests/test_restoration.py": "14efdb3310c9f62196bef02d41efcb006498b806fc04665ddb267865903d7a7e",
+    "src/bamboozle/tests/test_return_validation.py": "86bdc0c482f61486a3abc22b727b905b597d714a73a31e82d6e8cfe74a6753fb",
+    "src/bamboozle/tests/test_service.py": "f6287db50f6cd36516a163cec67352b8652dc56cedcee6a8be6159e92d3bed2e",
+    "src/bamboozle/tests/test_tessera.py": "afa6862454d6b533f5c9aee097dbdd199f414098cd7545b1c81a21a4fb270058",
+    "src/bamboozle/tests/test_translate.py": "bd8e0c52dbc2e6cef600529dc158e6218290705468a2d424279c80216e7de7de",
+    "src/bamboozle/tests/test_vandal.py": "808288154d6287c6f02251d0f6226a5196884e4f160e87f7b886bd7ac0f0d48a",
+    "src/bamboozle/tests/test_workspace_audit.py": "5840cb16f21d7779245752ad2891b6099cd91befa5f75840e9a54d0b89596ed6",
+    "src/bamboozle/translate.py": "fe17813b0a0f8bd2dd404725db399871d36bb6cc993218e423b9227a69411358",
+    "src/bamboozle/utils.py": "1a0d5b1d3aa0e5d02755e3cd919bb7c2f09a65b5dc10a3cb376d194e577703a3",
+    "src/bamboozle/view_import.py": "b796a3acab683f45bd6d2f32bdacc65834766f75a70af19f54e959c702d357ce",
+    "src/bamboozle/workspace.py": "31ae24e8968baea412e32b4af949dce56d302fa7db36a48a0a22b9b70dd9517e",
+    "src/mcp.pacer.json": "785068f7f003a19ee82c2fe94c1dc62d2dc82f908f50cd5a49a9430bfa17522c",
+    "src/workshop/__init__.py": "94f960d9ab834f1b3df0983716d0f1974c8c4ee5937045f97c80cc18f105e3ad",
+    "src/workshop/bootstrap.py": "62dc7b1d081d0d5554eece0c533a579195472937548f07bc600e1425f22c4dda",
+    "src/workshop/config.py": "dd00ce30a84847a0e7d6638e407d4c4c28448e7ca0c26c4e398b2d593418a1fc",
+    "src/workshop/examples.py": "4b519d10b869289d7233d4d9f180cbfc000cd1d813f7b6375d5e5f0a6a1226b8",
+    "src/workshop/inventory.py": "46408e4f59d037ef229c207841e57bd1db871b7c7a18f3d6cd8350f8c904bded",
+    "src/workshop/mcp/__init__.py": "a33f06325c956490689ea4a3ab4cbcd05ae78339c315dd47107fbf3cd97f97f1",
+    "src/workshop/mcp/taxonomy.json": "fbb674a35398c11c534a720a2c7551028c95bbcd18d5d942614a5e732b422a30",
+    "src/workshop/mcp/tests/fixtures/pipeline_contract.py": "666894193e235e3016ddec1f02f23a5782dcd45d5300044c9bcf2e523cc4ea29",
+    "src/workshop/mcp/tests/test_pipeline.py": "11e2ab0b170d62f59679c14793d9277d5ce6982d8c6e718b18348b1ad1742c7f",
+    "src/workshop/mcp/tests/test_process_capture.py": "942aba28892a816600ad97f3a0eaa52c00d66a9c5012bffe71458ab412a6d4aa",
+    "src/workshop/mcp/tests/test_workshop_mcp.py": "2bc32f07410fecf65673d296ff0927465089efab2f7d5366deba6342776a35c7",
+    "src/workshop/mcp/workshop_mcp.py": "2f58e8232e403e6b31ec6be914a5f22d9c254d9541a69e140ccdc4adf13eb7e8",
+    "src/workshop/operations.py": "3baf08fc3d20a87bd6fe82a362e144f81dc8f74de9611eb7dc273d2dc612eb57",
+    "src/workshop/pipeline.py": "05c5914a4f4aacd72daf104cd168aec2b17559c54d903dcf609a470f0b8bea13",
+    "src/workshop/plans.py": "b514060dea3b83d0fd6be50a6bf58170dde9110968b60ae05b3c89103c68046b",
+    "src/workshop/process.py": "f183a2e6fea7712357053bcbdd095d74f69dd91ea31af325c9bc80bbf05b0f81",
+    "src/workshop/recovery.py": "90c879800f1f521eba9ab39fa90897ffd1fdc22c93ccbbab8ae36012ad87e5cc",
+    "src/workshop/scrape/__init__.py": "f94e068724419232fc3861b067ea6e068dd8fc32d2aa3eab09cbc298f88f3d2c",
+    "src/workshop/scrape/_lookup_index.json": "a55d8623c0b607f018b8074c2173fc22843c501d9991a58d77760f830adb905c",
+    "src/workshop/scrape/alias_pass.py": "496e9d1b41bad0746c2e6d7a84635df144f41566a4e67b80f96863503d365061",
+    "src/workshop/scrape/audit_matrix.py": "3bb1e175f7e849f84681d8802f3f94f01c76b0c42848ea6341a4d598dc716d85",
+    "src/workshop/scrape/bamb5.py": "09bd174907105eca8634597a77e1378cd93ab200a04a1e7d9e1b628ca3817df4",
+    "src/workshop/scrape/lookup.py": "1b00dd116b8b7e2764ac3e4ba1c379cd5ffd5cc65a9ebc1abc35267877489dc5",
+    "src/workshop/scrape/promote.py": "d12f7a1d1a4d2849a8b748fc976ec894699459666590722962b0b820ac259616",
+    "src/workshop/scrape/taxonomy.json": "ba9e29c6c062f43e0d633f6c0bae19b44ecce3722e0e27c230b1421e8f737052",
+    "src/workshop/scrape/tests/test_alias_pass.py": "50f88b3c00da8909ecda133e5137c4df71296be7a4dde36e8b46132b375eb41b",
+    "src/workshop/scrape/tests/test_bamb5.py": "756d08b17bbd1dbe7623a1151201d3cf6a698583d381494bcaecc524f47b6574",
+    "src/workshop/scrape/tests/test_configuration.py": "b9b22f9d8997fad4eec88cf40cd3e0cd0ec00210b16d56abedf37ce33a1eaeb6",
+    "src/workshop/scrape/tests/test_lookup.py": "33cda79a49e6940e22a096c7d5a7c98539540b3382fd3442202214b237025616",
+    "src/workshop/snapshot.py": "4341e14480efbb0db91c7276a4ae445774ce541f647f96b2bdb9e43407dca65d",
+    "src/workshop/tests/test_inventory.py": "12136fa9ce9a6ccd6c814a94bb1cb47db3ffdc7d1325c6263b200a4b0f9305a5",
+    "src/workshop/tests/test_operations.py": "170c68072342d8ce72c6b7930cc5c0ab6d84bec7f508953f804a1e0c1af5558b",
+    "src/workshop/tests/test_plans.py": "df02df963ddf1ba6f6a879f05dbdee694fb1a59391b34ba4e5ffb96f80578870",
+    "src/workshop/tests/test_recovery_diagnostics.py": "0d2fe68b9fce33251e836a1466e18846016f9d093040066b1e19162bca7833ec",
+    "src/workshop/tests/test_snapshot.py": "3a1186ecaefb5ecf1704c111028e711502f5de69b1cfb5d415062cd518c5d168",
+    "uv.lock": "1b5a8df73fae82b918f3fb882b3d114206d22b55ede5e91e66c5a4b58a81b2f1"
+  },
+  "status": "failed",
+  "steps": [
+    {
+      "command": [
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "check",
+        "."
+      ],
+      "log": ".test-tmp\\verify-0rep2e9j\\ruff.log",
+      "name": "ruff",
+      "output": "I001 [*] Import block is un-sorted or un-formatted\n  --> scripts\\vandal.py:3:1\n   |\n 1 |   \"\"\"Repository-bound Vandal workflow context; never a second translation engine.\"\"\"\n 2 |\n 3 | / from __future__ import annotations\n 4 | |\n 5 | | import argparse\n 6 | | import json\n 7 | | import sys\n 8 | | import tomllib\n 9 | | from pathlib import Path\n10 | | from typing import Any\n11 | |\n12 | | from bamboozle import __version__\n13 | | from bamboozle.markers import CURRENT\n14 | | from bamboozle.project_views import (\n15 | |     CONTRACT,\n16 | |     generated_contracts,\n17 | |     document_rules,\n18 | |     load_view,\n19 | |     manifest_marker_version,\n20 | | )\n21 | | from bamboozle.utils import sha256\n22 | | from bamboozle.workspace import Workspace\n   | |_________________________________________^\n23 |\n24 |   ROOT = Path(__file__).resolve().parents[1]\n   |\nhelp: Organize imports\n   |\n15 |     CONTRACT,\n16 +     document_rules,\n17 |     generated_contracts,\n   -     document_rules,\n18 |     load_view,\n   |\n\nFound 1 error.\n[*] 1 fixable with the `--fix` option.\n",
+      "returncode": 1,
+      "seconds": 0.133
+    },
+    {
+      "command": [
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "src",
+        "scripts"
+      ],
+      "log": ".test-tmp\\verify-0rep2e9j\\format.log",
+      "name": "format",
+      "output": "96 files already formatted\n",
+      "returncode": 0,
+      "seconds": 0.117
+    },
+    {
+      "command": [
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.venv\\Scripts\\python.exe",
+        "-m",
+        "mypy",
+        "src",
+        "scripts"
+      ],
+      "log": ".test-tmp\\verify-0rep2e9j\\mypy.log",
+      "name": "mypy",
+      "output": "Success: no issues found in 96 source files\n",
+      "returncode": 0,
+      "seconds": 0.692
+    },
+    {
+      "command": [
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pyright",
+        "src",
+        "scripts"
+      ],
+      "log": ".test-tmp\\verify-0rep2e9j\\pyright.log",
+      "name": "pyright",
+      "output": "c:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\src\\bamboozle\\fixtures.py\n  c:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\src\\bamboozle\\fixtures.py:83:22 - error: No overloads for \"join\" match the provided arguments (reportCallIssue)\n  c:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\src\\bamboozle\\fixtures.py:84:17 - error: Argument of type \"Generator[str | None, None, None]\" cannot be assigned to parameter \"iterable\" of type \"Iterable[str]\" in function \"join\"\n    \"Generator[str | None, None, None]\" is not assignable to \"Iterable[str]\"\n      Type parameter \"_T_co@Iterable\" is covariant, but \"str | None\" is not a subtype of \"str\"\n        Type \"str | None\" is not assignable to type \"str\"\n          \"None\" is not assignable to \"str\" (reportArgumentType)\n2 errors, 0 warnings, 0 informations\n",
+      "returncode": 1,
+      "seconds": 3.827
+    },
+    {
+      "command": [
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "-q",
+        "--tb=short",
+        "-p",
+        "no:cacheprovider",
+        "--basetemp",
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-fixtures-q2qa71ry\\pytest",
+        "--junitxml",
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-0rep2e9j\\pytest.xml"
+      ],
+      "log": ".test-tmp\\verify-0rep2e9j\\pytest.log",
+      "name": "pytest",
+      "output": "........................................................................ [  7%]\n........................................................................ [ 15%]\n........................................................................ [ 23%]\n........................................................................ [ 31%]\n........................................................................ [ 39%]\n........................................................................ [ 47%]\n........................................................................ [ 55%]\n........................................................................ [ 63%]\n........................................................................ [ 71%]\n........................................................................ [ 79%]\n........................................................................ [ 87%]\n........................................................................ [ 95%]\n.........................................                                [100%]\n905 passed in 102.52s (0:01:42)\n",
+      "returncode": 0,
+      "seconds": 103.051
+    },
+    {
+      "command": [
+        "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.venv\\Scripts\\python.exe",
+        "-m",
+        "compileall",
+        "-q",
+        "src",
+        "scripts"
+      ],
+      "log": ".test-tmp\\verify-0rep2e9j\\compile.log",
+      "name": "compile",
+      "output": "",
+      "returncode": 0,
+      "seconds": 0.172
+    }
+  ],
+  "tests": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests": 905
+  }
+}

@@ -1,0 +1,190 @@
+{
+  "authority": ".mivim/mivim.vigiles.md",
+  "core_development_queue": [
+    {
+      "done_criteria": [
+        "The agent view contains selected usable source and its terminology contract",
+        "Private reverse mapping and original snapshots are absent from the agent view",
+        "Changed, added, deleted, and conflicting files have explicit import behavior",
+        "Review and application are bound to exact selected source/view bytes",
+        "A multi-file edit runs correctly after reviewed import; partial failures retain recoverable evidence"
+      ],
+      "focus": "Scoped agent development views and reviewed multi-file import",
+      "id": "VIG-CORE-VIEW-01",
+      "status": "next"
+    },
+    {
+      "done_criteria": [
+        "Define and validate explicit local profile rules",
+        "Report actionable structural violations through audit and MCP",
+        "Enforce relevant rules at native operation boundaries with retained evidence"
+      ],
+      "finding": "Current audits report hash drift; the MIVIM role also requires evaluating repository structure against declared rules.",
+      "focus": "Native structural profile enforcement for repository workflows",
+      "id": "VIG-CORE-PROFILE-01",
+      "status": "planned"
+    },
+    {
+      "done_criteria": [
+        "Implement explicit local recipient and key lifecycle semantics",
+        "Exercise isolated recipients, rotation/revocation and replay rejection",
+        "Preserve existing binary exchange and keep keys out of reports"
+      ],
+      "finding": "Current Tessera authenticates key possession and a recipient label but has no native recipient lifecycle or replay record.",
+      "focus": "Recipient registry, key lifecycle and replay-aware Tessera delivery",
+      "id": "VIG-IDENTITY-01",
+      "status": "planned"
+    }
+  ],
+  "development_stage": "VIGIL3",
+  "evidence": {
+    "current_directory": ".mivim/vigiles/reports/current/",
+    "directory_guide": ".mivim/vigiles/reports/README.md",
+    "historical_status": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_STATUS.json",
+    "installed_package_verification": ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json",
+    "original_record_hashes_and_relocation": ".mivim/vigiles/reports/INDEX.json",
+    "prior_release_package_verification": ".mivim/vigiles/reports/archive/runs/20261004T062342503489Z-99d5688d/VIGILES_VERIFICATION.json",
+    "prior_translation_qualification": ".mivim/vigiles/reports/archive/runs/20261004T062606948497Z-1bb0a795/VIGILES_TRANSLATION_QUALIFICATION.json",
+    "qualification_scope": "Local Windows Python 3.13 source and isolated installed package. Expanded reversible dictionary, profiles, case markers, bounded scans, retained conversion/review/migration and real stdio agent edits/generated dependent source execution. Deterministic agent input; no external model or remote-platform acceptance claim.",
+    "recovery_qualification": ".mivim/vigiles/reports/current/VIGILES_RECOVERY_QUALIFICATION.json",
+    "source_verification": ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json",
+    "translation_qualification": ".mivim/vigiles/reports/current/VIGILES_TRANSLATION_QUALIFICATION.json"
+  },
+  "last_completed_step": {
+    "done_criteria": [
+      "Preserve all 110 original mappings and add a shipped versioned profanity profile with unique reversible variants",
+      "Round-trip every bundled term and native literal across supported case forms",
+      "Preserve word and Unicode identifier boundaries and reject malformed markers",
+      "Expose profile selection and bounded read-only scans through the real CLI and operator MCP",
+      "Execute decoded edited and generated source through an installed agent server using real profanity vocabulary"
+    ],
+    "evidence": [
+      ".mivim/vigiles/reports/current/VIGILES_TRANSLATION_QUALIFICATION.json",
+      ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json"
+    ],
+    "focus": "Expand profanity coverage, reversible case handling, profile selection, and read-only coverage inspection in the operational cipher.",
+    "id": "VIG-CIPHER-FILTER-01",
+    "qualification": {
+      "scope": "Local Windows Python 3.13 source and isolated installed package. Expanded reversible dictionary, profiles, case markers, bounded scans, retained conversion/review/migration and real stdio agent edits/generated dependent source execution. Deterministic agent input; no external model or remote-platform acceptance claim.",
+      "tests_passed": 448,
+      "verification_stages_passed": 11
+    },
+    "retained_initial_checks": ".mivim/vigiles/reports/archive/runs/20261004T062123618334Z-profanity-review/INITIAL_CHECKS.json",
+    "status": "complete_source_and_local_installed_package"
+  },
+  "next_step": {
+    "design_source": [
+      ".legacy/bamboozle_v0.0.1.md",
+      ".mivim/mivim.vigiles.md"
+    ],
+    "done_criteria": [
+      "The agent view contains selected usable source and its terminology contract",
+      "Private reverse mapping and original snapshots are absent from the agent view",
+      "Changed, added, deleted, and conflicting files have explicit import behavior",
+      "Review and application are bound to exact selected source/view bytes",
+      "A multi-file edit runs correctly after reviewed import; partial failures retain recoverable evidence"
+    ],
+    "focus": "Scoped agent development views and reviewed multi-file import",
+    "id": "VIG-CORE-VIEW-01",
+    "remaining": "Implement scoped multi-file agent development views and reviewed import around the operational cipher tools, preserving private reverse metadata and existing services.",
+    "status": "next"
+  },
+  "open_gates": [
+    {
+      "completed_stage": "Native operations, prepared plans, inventory, read-only recovery diagnostics, explicit recovery, and both MCP interfaces are locally qualified with synthetic assets and an installed v0.3.5 wheel.",
+      "dependencies": [
+        "Real candidate and completed evaluation evidence",
+        "Operator-selected production workshop",
+        "Live consumer acceptance criteria"
+      ],
+      "done_criteria": [
+        "Native promotion, quarantine, and audit fixtures pass (complete)",
+        "Interrupted publication recovery demonstrated before live writes (complete)",
+        "Real candidate accepted in an operator-selected production workspace (open)"
+      ],
+      "evidence": [
+        "src/workshop/scrape/promote.py",
+        "src/workshop/scrape/audit_matrix.py",
+        "src/workshop/tests/test_operations.py",
+        ".mivim/vigiles/reports/current/VIGILES_PIPELINE_QUALIFICATION.json",
+        ".mivim/vigiles/reports/current/VIGILES_PIPELINE_READINESS.json",
+        ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json",
+        ".mivim/vigiles/reports/current/VIGILES_PLAN_QUALIFICATION.json",
+        ".mivim/vigiles/reports/current/VIGILES_RECOVERY_QUALIFICATION.json"
+      ],
+      "id": "VIG-DEPLOY-01",
+      "impact": "Native file operations are locally qualified with synthetic assets; no live LoRA or ComfyUI acceptance is claimed.",
+      "next_action": "Evaluate a real candidate, retain its validation evidence, select a production workshop, and review/prepare/apply the exact plan before live consumer acceptance.",
+      "owner_role": "Workshop integration owner",
+      "priority": "P1",
+      "remaining_dependency": "Production model evaluation and live target selection remain separate from fixture qualification.",
+      "status": "native_fixture_qualified_live_acceptance_open"
+    },
+    {
+      "dependencies": [
+        "Approved recipient trust model",
+        "Key custody and distribution design",
+        "Replay policy"
+      ],
+      "done_criteria": [
+        "Isolated recipient tests",
+        "Rotation and revocation tests",
+        "Approved and tested replay policy",
+        "No key material in reports or source"
+      ],
+      "id": "VIG-IDENTITY-01",
+      "impact": "Tessera proves key possession and recipient-label integrity, not independently verified identity or freshness.",
+      "next_action": "Define recipient identities and key issuance, rotation, revocation, and replay semantics before cross-agent production exchange.",
+      "owner_role": "MIVIM security and agent integration owner",
+      "priority": "P1",
+      "status": "open"
+    },
+    {
+      "dependencies": [
+        "Committed and submitted revision",
+        "Enabled GitHub Actions"
+      ],
+      "done_criteria": [
+        "Windows Python 3.13 passes",
+        "Windows Python 3.14 passes",
+        "Linux Python 3.13 passes",
+        "Linux Python 3.14 passes",
+        "Run URLs and revision recorded"
+      ],
+      "evidence": [
+        "../.github/workflows/vigiles.yml"
+      ],
+      "id": "VIG-CI-01",
+      "impact": "Local Windows results do not prove Linux or Python 3.14 compatibility.",
+      "next_action": "Run the supplied workflow for the submitted revision and retain all four job results.",
+      "owner_role": "Repository maintainer",
+      "priority": "P1",
+      "status": "open"
+    },
+    {
+      "dependencies": [
+        "Explicit target host and account",
+        "Filesystem ACL policy",
+        "Resource and lifecycle policy"
+      ],
+      "done_criteria": [
+        "Operator-selected deployment recorded",
+        "Least-privilege ACLs verified",
+        "Bounded resource policy tested",
+        "Start, stop, and uninstall verified"
+      ],
+      "id": "VIG-HOST-01",
+      "impact": "No installed background service, process-tree lifecycle policy, or OS-level isolation has been qualified.",
+      "next_action": "Select whether a managed service is needed, then qualify start/stop/uninstall and least-privilege operation on that host.",
+      "owner_role": "Deployment operator",
+      "priority": "P2",
+      "status": "open"
+    }
+  ],
+  "preservation_direction": "Retain existing services; integrate them around the operational core pipeline. Assistant-written contracts and task queues cannot retire original user design requirements.",
+  "project": "Bamboozle / MIVIM Vigiles",
+  "purpose": "Active core development plan and remaining acceptance gates; completed evidence/history belong under .mivim/vigiles/reports/.",
+  "recorded_on": "2026-10-04",
+  "release": "0.4.3",
+  "schema_version": 1
+}

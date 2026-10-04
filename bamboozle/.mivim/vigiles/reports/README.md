@@ -7,7 +7,7 @@ active planning/task files alongside ordinary project files. Its
 | Latest record | Scope |
 | --- | --- |
 | [Verification](current/VIGILES_VERIFICATION.json) | Check results and source digests; `package_requested` distinguishes source checks from package qualification |
-| [Translation workflow qualification](current/VIGILES_TRANSLATION_QUALIFICATION.json) | Installed cipher-mediated agent reads and writes, executed edited/generated modules, private backups and stale-write rejection; retained CLI conversion, reviewed restoration and ledger migration |
+| [Translation workflow qualification](current/VIGILES_TRANSLATION_QUALIFICATION.json) | Saved-context return diagnostics and paged reviews; encrypted edited payloads and restored dependent programs; generated neutral fixtures, public invariant contracts, checked cases and decoded catalog execution; operator lexicon authoring/compilation and provenance; Markdown/selected-JSON adapters; scoped views and reviewed return/recovery; distinct Vandal operator/agent MCP configurations; installed translation/encryption composition and retained conversion/restoration/migration regressions |
 | [Pipeline qualification](current/VIGILES_PIPELINE_QUALIFICATION.json) | Synthetic native operation and recovery evidence |
 | [Plan qualification](current/VIGILES_PLAN_QUALIFICATION.json) | Exact-plan CLI application and recovery evidence |
 | [Inventory qualification](current/VIGILES_INVENTORY_QUALIFICATION.json) | Bounded discovery and damaged-record visibility |
@@ -42,6 +42,9 @@ Keep active status concise. Do not create root report backups, versioned status
 dumps, or additional handoff files at the root. Logs and package/fixture artifacts
 stay at their recorded locations; this relocation does not discard them.
 
-`.mivim/` is retained specification/development evidence. The separate `.vigiles/`
-directory is ignored local runtime/fixture storage and may contain keys. Do not
-copy runtime keys or real model assets into retained reports.
+`.mivim/` is retained specification/development evidence. `.vigiles/skills/` is
+tracked repository workflow instruction source; other `.vigiles/` paths remain
+ignored local runtime/fixture storage and may contain keys. Do not copy runtime
+keys or real model assets into retained reports. The archived vanilla specification
+under `../specs/` retains its original bytes; active Vandal authority is
+`../../vigiles-vandal_0.2.md`.

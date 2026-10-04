@@ -1,0 +1,40 @@
+{
+  "checks": {
+    "focused_combined": {
+      "failed": 0,
+      "passed": 176
+    },
+    "focused_initial": {
+      "failed": 4,
+      "passed": 60
+    },
+    "source_stdio_and_pipeline_smoke": ".test-tmp/lexicon-smoke-source/smoke.json"
+  },
+  "created": "2026-10-04T08:31:50.696324Z",
+  "design_authority": [
+    ".legacy/bamboozle_v0.0.1.md:608-694",
+    "docs/01bamb.md",
+    ".mivim/vigiles-vandal_0.2.md"
+  ],
+  "findings": [
+    {
+      "finding": "No operator concept authoring, form compiler, dictionary change review or compilation provenance existed.",
+      "resolution": "Added product lexicon service using shared dictionary admission, runtime matcher, reviewed publication and private-file guard; thin CLI/operator MCP routes; existing dictionary artifacts and mapping snapshots preserved."
+    },
+    {
+      "finding": "Initial focused test run: 60 passed, 4 failed. New view boundary tests used string policies instead of required policy objects.",
+      "resolution": "Corrected test fixtures to exercise private-file rejection through valid view policies; no runtime policy weakening."
+    },
+    {
+      "finding": "Initial type/lint review found import ordering and optional-value annotations in new code/tests.",
+      "resolution": "Corrected imports, path initialization and explicit optional/content guards; ruff, mypy and pyright pass."
+    }
+  ],
+  "retained_sha256": {
+    "lexicon-first.xml": "cb0c514c0397f6fee706c9b2920df518be5453c3a4fac40a1fe8b7a3c01f1aa9",
+    "lexicon-second.xml": "b582f32225151c3e335a4e70a61f7e5c953953a8f7b5e44d77621ad78ffb1191"
+  },
+  "schema_version": 1,
+  "scope": "Source/local synthetic fixtures only; installed-package verification follows independently.",
+  "stage": "VIG-CIPHER-LEXICON-01"
+}

@@ -1,0 +1,15 @@
+{
+  "snapshots": [
+    {
+      "sha256": "30117fc79cd48f1df40ad9bb33cdeb0a9071a8329d75a4dc33119c595f703cf3",
+      "retained": "vandal.py.snapshot",
+      "original": "vandal.py"
+    },
+    {
+      "sha256": "f0c6f694e184d98cd70bb7a234bab896e225146fda47b14e1c12067e067455ff",
+      "retained": "fixtures.py.snapshot",
+      "original": "fixtures.py"
+    }
+  ],
+  "reason": "Preserve exact pre-fix source bytes as evidence without collecting snapshots as active Python source"
+}

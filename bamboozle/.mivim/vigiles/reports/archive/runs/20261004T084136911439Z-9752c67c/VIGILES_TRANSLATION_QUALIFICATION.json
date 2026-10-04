@@ -1,0 +1,1193 @@
+{
+  "agent_fixture": ".test-tmp/verify-1z0pu61e/runtime/cipher-agent",
+  "agent_fixture_file_sha256": {
+    ".vigiles/cipher/changes/5760ce6dc46b4d8186eefd831827ad4c/decoded.bin": "61305fb51edc042daad152102e9d15b5df988d744a55e984d0ed2c4c2a343728",
+    ".vigiles/cipher/changes/5760ce6dc46b4d8186eefd831827ad4c/intent.json": "b09c0f941db06fd2aa0a48034437e069087a6a126440baf8c5029e1c527b9a89",
+    ".vigiles/cipher/changes/5760ce6dc46b4d8186eefd831827ad4c/original.bin": "d93c8b613564debdc94f573375c355128bacb7427b88ea531acd02d7842bb967",
+    ".vigiles/cipher/changes/5760ce6dc46b4d8186eefd831827ad4c/result.json": "9491f8c03a0c15945d531c35fca8b20fb0d73139ff0a45af871f94a2f41e9b68",
+    ".vigiles/cipher/changes/c6f93cc39d3240c791af1957e0c59371/decoded.bin": "336d5e6c491a90df43f493acb572d3b1a586443e8bd71e0ac44b23f3680d0a46",
+    ".vigiles/cipher/changes/c6f93cc39d3240c791af1957e0c59371/intent.json": "0d92a8b5f65ef7da3da8a667813e8a07f29131d5bca193b09de76442bb134b5a",
+    ".vigiles/cipher/changes/c6f93cc39d3240c791af1957e0c59371/result.json": "c9527ac0c3aba5d6bc3d974d362e270de42684f4455423bf42e7b233244cff0b",
+    "generated.py": "336d5e6c491a90df43f493acb572d3b1a586443e8bd71e0ac44b23f3680d0a46",
+    "mapping.json": "de9dc6c7ace2745f4c673937f5cf5cf45408207a932d171850945c9ed502fa6e",
+    "node.py": "a550678c61ee90e6526b25c8cb74a82ae13dbc3e66be0013baaf4f376acb0fe2"
+  },
+  "agent_fixture_final_state": "node.py retains a deliberate operator comment appended after successful decoded publication and two-module execution. The stale agent write was refused. decoded.bin retains the pre-comment restored source; original.bin retains the exact pre-edit source.",
+  "agent_interface_tests": "src/bamboozle/tests/test_agent_files.py",
+  "artifacts": {
+    "bamboozle-0.4.5-py3-none-any.whl": {
+      "bytes": 128748,
+      "sha256": "be26e3f5ec2a350622c83e030ada79f0c6fcc539697f2ee83329faccb6697816"
+    },
+    "bamboozle-0.4.5.tar.gz": {
+      "bytes": 150592,
+      "sha256": "f4930ebf91128096adc25d8914e900b5e99325597feedce55775e66519fb4a97"
+    }
+  },
+  "created": "2026-10-04T08:05:58.807680Z",
+  "design_source": [
+    "581d9dc:bamboozle/dev_tools/cipher.py",
+    "581d9dc:bamboozle/dev_tools/scm_mcp.py",
+    "581d9dc:bamboozle/OVERVIEW.md",
+    ".mivim/mivim.vigiles.md",
+    ".legacy/bamboozle_v0.0.2.md:358-367",
+    "../example_project/dev_tools/development_loop.md:5-24",
+    ".legacy/bamboozle_v0.0.1.md:423-589",
+    ".legacy/bamboozle_v0.0.1.md:800-885",
+    ".legacy/bamboozle_v0.0.1.md:304-326",
+    ".mivim/vigiles-vandal_0.2.md"
+  ],
+  "document_format_fixture_file_sha256": {
+    ".guide_safe.md.scm_ledger.json": "271dd20fb80c3ca07d03595dd1e1c79c835b8047c040005da4de01c0f88f22cb",
+    ".local/bamboozle/view.lock": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
+    ".local/bamboozle/views/539afa124e014d2f82ba6ecf085ed736/blobs/0f539c6ffe35a4ec136f1cf40656fd391af8d9ac0e4ba160698fcdbdbbfd0939.bin": "0f539c6ffe35a4ec136f1cf40656fd391af8d9ac0e4ba160698fcdbdbbfd0939",
+    ".local/bamboozle/views/539afa124e014d2f82ba6ecf085ed736/blobs/109bdabf3b7733a3c6ba60c31f7c461800a0ed335232044e68d1d0f16b1bb1e5.bin": "109bdabf3b7733a3c6ba60c31f7c461800a0ed335232044e68d1d0f16b1bb1e5",
+    ".local/bamboozle/views/539afa124e014d2f82ba6ecf085ed736/blobs/2736808c2ca7cdbf61ea3ddf31f4394a11b32f0bc528de7b20d614c66050e9c6.bin": "2736808c2ca7cdbf61ea3ddf31f4394a11b32f0bc528de7b20d614c66050e9c6",
+    ".local/bamboozle/views/539afa124e014d2f82ba6ecf085ed736/blobs/43fd2ed98dac763d5498366a8bd806f0b895788b35cc855a02141822eb8745eb.bin": "43fd2ed98dac763d5498366a8bd806f0b895788b35cc855a02141822eb8745eb",
+    ".local/bamboozle/views/539afa124e014d2f82ba6ecf085ed736/blobs/b2b283f159e3a5b4719fb18751c96a4f31ca851118efc51abd4c0ccf03427597.bin": "b2b283f159e3a5b4719fb18751c96a4f31ca851118efc51abd4c0ccf03427597",
+    ".local/bamboozle/views/539afa124e014d2f82ba6ecf085ed736/blobs/cce15a469bf345fd941a43cb8809ade018e9ec9a959eb97bdc3422fa37a6042d.bin": "cce15a469bf345fd941a43cb8809ade018e9ec9a959eb97bdc3422fa37a6042d",
+    ".local/bamboozle/views/539afa124e014d2f82ba6ecf085ed736/blobs/d2eccb474690aa099139239612923251c49a1b84f5e794fbcd0d0b936e51fb7d.bin": "d2eccb474690aa099139239612923251c49a1b84f5e794fbcd0d0b936e51fb7d",
+    ".local/bamboozle/views/539afa124e014d2f82ba6ecf085ed736/blobs/f86f608880a38bded4725a94c63c43d4e586a5fbe3e6787e6bb23900a9790b4e.bin": "f86f608880a38bded4725a94c63c43d4e586a5fbe3e6787e6bb23900a9790b4e",
+    ".local/bamboozle/views/539afa124e014d2f82ba6ecf085ed736/blobs/fe847797e7cac1a6bb60f960310548ce47a86f77f8d734774e1f96fb4854dc99.bin": "fe847797e7cac1a6bb60f960310548ce47a86f77f8d734774e1f96fb4854dc99",
+    ".local/bamboozle/views/539afa124e014d2f82ba6ecf085ed736/import.json": "48e8c3283b341a55b64704590c456f84ca7cfba27e52ef7f2c4654825a9bd9a9",
+    ".local/bamboozle/views/539afa124e014d2f82ba6ecf085ed736/manifest.json": "2f323270a26d95a65bf2c2266512cfaff12b357989e2c859fd11c7ee2a1c0992",
+    ".local/bamboozle/views/539afa124e014d2f82ba6ecf085ed736/result.json": "4d092e5df5d869221e5a7b36ca6c04fbcf0f7d148483ce30ecd24d6a4e6ec81b",
+    ".mcp_safe.json.scm_ledger.json": "cc34a831fe0b064e502178ff10d6b8c930e5ea33248f70b739173cd1f0121b89",
+    ".template_safe.json.scm_ledger.json": "1ce1a58d362a1769821017900935dfbb67b9c94ebf659a5dec7e28f9fdf09c8e",
+    "configs/new.json": "cce15a469bf345fd941a43cb8809ade018e9ec9a959eb97bdc3422fa37a6042d",
+    "guide.md": "2736808c2ca7cdbf61ea3ddf31f4394a11b32f0bc528de7b20d614c66050e9c6",
+    "guide_safe.md": "f86f608880a38bded4725a94c63c43d4e586a5fbe3e6787e6bb23900a9790b4e",
+    "guide_safe_ready.md": "0f539c6ffe35a4ec136f1cf40656fd391af8d9ac0e4ba160698fcdbdbbfd0939",
+    "mcp_return.json": "58d10095244dc913e82c5fab6bd682a7a64f81eb3e2bee356502cb909620f62e",
+    "mcp_safe.json": "15e9228d62dc62b509dbb914a71fd28c16427108673539b52ba1084cf2ef500b",
+    "packet.bam": "02be4fc95a072cacc693d84fb5d407e3a0d984ea55e331165af4565eabf21184",
+    "policy.json": "95bab522e3cfc9388168cfdb729642b7b1153e583d6f158ad9f928e04a24854b",
+    "returned.json": "43fd2ed98dac763d5498366a8bd806f0b895788b35cc855a02141822eb8745eb",
+    "returned_ready.json": "109bdabf3b7733a3c6ba60c31f7c461800a0ed335232044e68d1d0f16b1bb1e5",
+    "template.json": "109bdabf3b7733a3c6ba60c31f7c461800a0ed335232044e68d1d0f16b1bb1e5",
+    "template_safe.json": "43fd2ed98dac763d5498366a8bd806f0b895788b35cc855a02141822eb8745eb",
+    "template_safe_ready.json": "109bdabf3b7733a3c6ba60c31f7c461800a0ed335232044e68d1d0f16b1bb1e5",
+    "view/BAMBOOZLE_VIEW.md": "d2eccb474690aa099139239612923251c49a1b84f5e794fbcd0d0b936e51fb7d",
+    "view/configs/new.json": "fe847797e7cac1a6bb60f960310548ce47a86f77f8d734774e1f96fb4854dc99",
+    "view/guide.md": "b2b283f159e3a5b4719fb18751c96a4f31ca851118efc51abd4c0ccf03427597",
+    "view/template.json": "43fd2ed98dac763d5498366a8bd806f0b895788b35cc855a02141822eb8745eb"
+  },
+  "document_format_test_count": 57,
+  "document_format_tests": "src/bamboozle/tests/test_document_formats.py",
+  "gate": "VIG-CIPHER-FORMAT-01",
+  "installed_agent_cipher": {
+    "agent_received_encoded_content_only": true,
+    "edited": {
+      "backup_saved": true,
+      "before_sha256": "d93c8b613564debdc94f573375c355128bacb7427b88ea531acd02d7842bb967",
+      "dictionary_sha256": "5e4a3e5c8493f6f23e688bab3107a12668e409b4f40969241a3b36182446158a",
+      "file_path": "node.py",
+      "history": ".vigiles/cipher/changes/5760ce6dc46b4d8186eefd831827ad4c",
+      "operation_id": "5760ce6dc46b4d8186eefd831827ad4c",
+      "output_bytes": 77,
+      "output_saved": true,
+      "output_sha256": "61305fb51edc042daad152102e9d15b5df988d744a55e984d0ed2c4c2a343728",
+      "receipt_saved": true,
+      "schema_version": 1,
+      "status": "saved"
+    },
+    "generated": {
+      "backup_saved": false,
+      "before_sha256": null,
+      "dictionary_sha256": "5e4a3e5c8493f6f23e688bab3107a12668e409b4f40969241a3b36182446158a",
+      "file_path": "generated.py",
+      "history": ".vigiles/cipher/changes/c6f93cc39d3240c791af1957e0c59371",
+      "operation_id": "c6f93cc39d3240c791af1957e0c59371",
+      "output_bytes": 44,
+      "output_saved": true,
+      "output_sha256": "336d5e6c491a90df43f493acb572d3b1a586443e8bd71e0ac44b23f3680d0a46",
+      "receipt_saved": true,
+      "schema_version": 1,
+      "status": "saved"
+    },
+    "prior_source_sha256": "d93c8b613564debdc94f573375c355128bacb7427b88ea531acd02d7842bb967",
+    "private_mapping_and_history_refused": true,
+    "restored_two_module_program_executed": true,
+    "stale_write_refused": true
+  },
+  "installed_document_format_workflow": {
+    "bamb5_separate_authenticated_roundtrip": true,
+    "encryption_composition": {
+      "decoded_original_bytes_restored": true,
+      "opened": {
+        "output": "returned.json",
+        "output_bytes": 110,
+        "output_saved": true,
+        "recipient": "fixture-operator",
+        "schema_version": 1,
+        "status": "opened"
+      },
+      "sealed": {
+        "output": "packet.bam",
+        "output_bytes": 339,
+        "output_saved": true,
+        "recipient": "fixture-operator",
+        "schema_version": 1,
+        "status": "sealed"
+      }
+    },
+    "json_encoded": {
+      "dictionary_sha256": "fc05c1668b14cdb66315c79a47c7e25fd5033e9bd312dcc9d67abc885507c3ff",
+      "document_rules": {
+        "format": "json",
+        "pointers": [
+          "/prompt"
+        ]
+      },
+      "input": "template.json",
+      "input_sha256": "109bdabf3b7733a3c6ba60c31f7c461800a0ed335232044e68d1d0f16b1bb1e5",
+      "ledger_input": null,
+      "ledger_saved": true,
+      "literals": 0,
+      "mapping_source": "supplied_dictionary",
+      "mode": "forward",
+      "output": "template_safe.json",
+      "output_bytes": 110,
+      "output_saved": true,
+      "output_sha256": "43fd2ed98dac763d5498366a8bd806f0b895788b35cc855a02141822eb8745eb",
+      "schema_version": 1,
+      "status": "saved",
+      "strict": false,
+      "substitutions": 1
+    },
+    "markdown_encoded": {
+      "dictionary_sha256": "fc05c1668b14cdb66315c79a47c7e25fd5033e9bd312dcc9d67abc885507c3ff",
+      "document_rules": {
+        "format": "markdown"
+      },
+      "input": "guide.md",
+      "input_sha256": "0f539c6ffe35a4ec136f1cf40656fd391af8d9ac0e4ba160698fcdbdbbfd0939",
+      "ledger_input": null,
+      "ledger_saved": true,
+      "literals": 0,
+      "mapping_source": "supplied_dictionary",
+      "mode": "forward",
+      "output": "guide_safe.md",
+      "output_bytes": 150,
+      "output_saved": true,
+      "output_sha256": "f86f608880a38bded4725a94c63c43d4e586a5fbe3e6787e6bb23900a9790b4e",
+      "schema_version": 1,
+      "status": "saved",
+      "strict": false,
+      "substitutions": 1
+    },
+    "operator_mcp": {
+      "edited_return": {
+        "dictionary_sha256": "fc05c1668b14cdb66315c79a47c7e25fd5033e9bd312dcc9d67abc885507c3ff",
+        "document_rules": {
+          "format": "json",
+          "pointers": [
+            "/prompt"
+          ]
+        },
+        "input": "mcp_safe.json",
+        "input_sha256": "15e9228d62dc62b509dbb914a71fd28c16427108673539b52ba1084cf2ef500b",
+        "ledger_input": ".mcp_safe.json.scm_ledger.json",
+        "ledger_saved": false,
+        "literals": 0,
+        "mapping_source": "saved_ledger",
+        "mode": "reverse",
+        "output": "mcp_return.json",
+        "output_bytes": 107,
+        "output_saved": true,
+        "output_sha256": "58d10095244dc913e82c5fab6bd682a7a64f81eb3e2bee356502cb909620f62e",
+        "schema_version": 1,
+        "status": "saved",
+        "strict": false,
+        "substitutions": 1
+      },
+      "export": {
+        "excluded_files": [],
+        "files_exported": 3,
+        "manifest_saved": true,
+        "manifest_sha256": "2f323270a26d95a65bf2c2266512cfaff12b357989e2c859fd11c7ee2a1c0992",
+        "private_state": ".local/bamboozle/views/539afa124e014d2f82ba6ecf085ed736",
+        "schema_version": 1,
+        "selected_source_files": 2,
+        "status": "exported",
+        "unselected_files": "omitted",
+        "view": "view",
+        "view_id": "539afa124e014d2f82ba6ecf085ed736"
+      },
+      "imported": {
+        "applied_files": [
+          "configs/new.json",
+          "guide.md"
+        ],
+        "journal_saved": true,
+        "output_saved": true,
+        "receipt_saved": true,
+        "review_sha256": "2179e2f5bcbd5fbe75e8e3c456899af1c14ca67ff44664ec848aff0936be18be",
+        "schema_version": 1,
+        "status": "applied",
+        "view_id": "539afa124e014d2f82ba6ecf085ed736"
+      },
+      "neutral_and_returned_code_executed": true,
+      "review_sha256": "2179e2f5bcbd5fbe75e8e3c456899af1c14ca67ff44664ec848aff0936be18be"
+    },
+    "protected_code_executed": true,
+    "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-1z0pu61e\\runtime\\document-fixture",
+    "strict_original_bytes_restored": true
+  },
+  "installed_package": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-1z0pu61e\\wheel-env\\Lib\\site-packages\\bamboozle\\__init__.py",
+  "installed_profanity_workflow": {
+    "agent": {
+      "dependent_program_executed": true,
+      "edited": {
+        "backup_saved": true,
+        "before_sha256": "8ca69da6a15f5024780707caefe851dbc299d767e50631fd3152e1e57cee2cad",
+        "dictionary_sha256": "fc05c1668b14cdb66315c79a47c7e25fd5033e9bd312dcc9d67abc885507c3ff",
+        "file_path": "node.py",
+        "history": ".vigiles/cipher/changes/e594dc30648a48389e68328644a3b0e1",
+        "operation_id": "e594dc30648a48389e68328644a3b0e1",
+        "output_bytes": 91,
+        "output_saved": true,
+        "output_sha256": "6ccddda71463068967620d883f4dae58bd8f279b8cab44e2ba786a5019b66c92",
+        "receipt_saved": true,
+        "schema_version": 1,
+        "status": "saved"
+      },
+      "generated": {
+        "backup_saved": false,
+        "before_sha256": null,
+        "dictionary_sha256": "fc05c1668b14cdb66315c79a47c7e25fd5033e9bd312dcc9d67abc885507c3ff",
+        "file_path": "generated.py",
+        "history": ".vigiles/cipher/changes/f28ab036d7c34af9837206a94880556a",
+        "operation_id": "f28ab036d7c34af9837206a94880556a",
+        "output_bytes": 43,
+        "output_saved": true,
+        "output_sha256": "430bde8060c3d9f880072fcd1dccca79907473f239700db6fc1cba935f295efb",
+        "receipt_saved": true,
+        "schema_version": 1,
+        "status": "saved"
+      }
+    },
+    "cipher_stream_exact_roundtrip": true,
+    "cli_exact_roundtrip": true,
+    "default_entries": 415,
+    "mapping_version": "profanity-1",
+    "profile": "profanity",
+    "profile_entries": 310,
+    "scan": {
+      "counts": {
+        "f*ck": 1,
+        "for fuck’s sake": 1,
+        "fuck": 2
+      },
+      "dictionary_sha256": "fc05c1668b14cdb66315c79a47c7e25fd5033e9bd312dcc9d67abc885507c3ff",
+      "input": "node.py",
+      "input_bytes": 91,
+      "input_sha256": "8ca69da6a15f5024780707caefe851dbc299d767e50631fd3152e1e57cee2cad",
+      "mapping_version": "profanity-1",
+      "matched_terms": 4,
+      "matches": [
+        {
+          "column": 4,
+          "end": 7,
+          "line": 1,
+          "replacement": "impulse_star_variant",
+          "source_term": "f*ck",
+          "start": 3,
+          "term": "f*ck"
+        },
+        {
+          "column": 10,
+          "end": 24,
+          "line": 1,
+          "replacement": "impulse_exasperation_curly_phrase",
+          "source_term": "for fuck’s sake",
+          "start": 9,
+          "term": "for fuck’s sake"
+        }
+      ],
+      "matches_complete": false,
+      "output_saved": false,
+      "schema_version": 1,
+      "status": "scanned"
+    }
+  },
+  "installed_project_view_workflow": {
+    "cli": {
+      "action_count": 4,
+      "applied": {
+        "applied_files": [
+          "settings.json",
+          "src/generated.py",
+          "src/node.py",
+          "src/obsolete.py"
+        ],
+        "journal_saved": true,
+        "output_saved": true,
+        "receipt_saved": true,
+        "review_sha256": "c436c3f9d76efefe1c4fbbbb5cf1642be9bd50b2f79f66db612ef811870778b1",
+        "schema_version": 1,
+        "status": "applied",
+        "view_id": "07b73d49597e4b72a7fdbc8cdcc0e453"
+      },
+      "encoded_and_restored_dependent_programs_executed": true,
+      "export": {
+        "excluded_files": [
+          "private.txt"
+        ],
+        "files_exported": 5,
+        "manifest_saved": true,
+        "manifest_sha256": "edb36721b5f6f4c675737eaf0c1223b2e25eef601bde4cc16612fa2e0934dabd",
+        "private_state": ".local/bamboozle/views/07b73d49597e4b72a7fdbc8cdcc0e453",
+        "schema_version": 1,
+        "selected_source_files": 4,
+        "status": "exported",
+        "unselected_files": "omitted",
+        "view": ".local/views/task",
+        "view_id": "07b73d49597e4b72a7fdbc8cdcc0e453"
+      },
+      "fixture_source_preserved": true,
+      "private_original_preserved": true,
+      "review_sha256": "c436c3f9d76efefe1c4fbbbb5cf1642be9bd50b2f79f66db612ef811870778b1",
+      "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-1z0pu61e\\runtime\\view-cli-fixture",
+      "status": {
+        "files": {
+          "settings.json": "applied",
+          "src/generated.py": "applied",
+          "src/node.py": "applied",
+          "src/obsolete.py": "applied"
+        },
+        "receipt_saved": true,
+        "review_sha256": "c436c3f9d76efefe1c4fbbbb5cf1642be9bd50b2f79f66db612ef811870778b1",
+        "schema_version": 1,
+        "status": "complete",
+        "view_changed": false,
+        "view_id": "07b73d49597e4b72a7fdbc8cdcc0e453"
+      }
+    },
+    "mcp": {
+      "action_count": 4,
+      "applied": {
+        "applied_files": [
+          "settings.json",
+          "src/generated.py",
+          "src/node.py",
+          "src/obsolete.py"
+        ],
+        "journal_saved": true,
+        "output_saved": true,
+        "receipt_saved": true,
+        "review_sha256": "18330a038fdc2fffd833f83634d761929dcdba4ce4febe651451d3ac16e12f2d",
+        "schema_version": 1,
+        "status": "applied",
+        "view_id": "d4924fcc3f5b48c5b48692f9dfa28c24"
+      },
+      "encoded_and_restored_dependent_programs_executed": true,
+      "export": {
+        "excluded_files": [
+          "private.txt"
+        ],
+        "files_exported": 5,
+        "manifest_saved": true,
+        "manifest_sha256": "12e38491f3166f6f7ffbe1f8cb10f7f77daf33fa2fa5f85292e5f260753c881d",
+        "private_state": ".local/bamboozle/views/d4924fcc3f5b48c5b48692f9dfa28c24",
+        "schema_version": 1,
+        "selected_source_files": 4,
+        "status": "exported",
+        "unselected_files": "omitted",
+        "view": ".local/views/task",
+        "view_id": "d4924fcc3f5b48c5b48692f9dfa28c24"
+      },
+      "fixture_source_preserved": true,
+      "private_original_preserved": true,
+      "review_sha256": "18330a038fdc2fffd833f83634d761929dcdba4ce4febe651451d3ac16e12f2d",
+      "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-1z0pu61e\\runtime\\view-mcp-fixture",
+      "status": {
+        "files": {
+          "settings.json": "applied",
+          "src/generated.py": "applied",
+          "src/node.py": "applied",
+          "src/obsolete.py": "applied"
+        },
+        "receipt_saved": true,
+        "review_sha256": "18330a038fdc2fffd833f83634d761929dcdba4ce4febe651451d3ac16e12f2d",
+        "schema_version": 1,
+        "status": "complete",
+        "view_changed": false,
+        "view_id": "d4924fcc3f5b48c5b48692f9dfa28c24"
+      }
+    },
+    "recovery": {
+      "action_count": 4,
+      "applied": {
+        "applied_files": [
+          "settings.json",
+          "src/generated.py",
+          "src/node.py",
+          "src/obsolete.py"
+        ],
+        "journal_saved": true,
+        "output_saved": true,
+        "receipt_saved": true,
+        "review_sha256": "b14518296a38adc6f5dbd54b70c54c4081ab17a2d2e4ab16c0e9864ba9ebd12f",
+        "schema_version": 1,
+        "status": "recovered",
+        "view_id": "9b01e71d8ae64e41a58ea0c425ba44b1"
+      },
+      "encoded_and_restored_dependent_programs_executed": true,
+      "export": {
+        "excluded_files": [
+          "private.txt"
+        ],
+        "files_exported": 5,
+        "manifest_saved": true,
+        "manifest_sha256": "ea3a41e46844c6a6827e041736e4960a3d3cd588f9033475db9fba8afea1f475",
+        "private_state": ".local/bamboozle/views/9b01e71d8ae64e41a58ea0c425ba44b1",
+        "schema_version": 1,
+        "selected_source_files": 4,
+        "status": "exported",
+        "unselected_files": "omitted",
+        "view": ".local/views/task",
+        "view_id": "9b01e71d8ae64e41a58ea0c425ba44b1"
+      },
+      "fixture_source_preserved": true,
+      "partial": {
+        "applied_files": [
+          "settings.json"
+        ],
+        "error": "Synthetic installed import interruption",
+        "files": {
+          "settings.json": "applied",
+          "src/generated.py": "pending",
+          "src/node.py": "pending",
+          "src/obsolete.py": "pending"
+        },
+        "journal_saved": true,
+        "output_saved": true,
+        "receipt_saved": false,
+        "review_sha256": "b14518296a38adc6f5dbd54b70c54c4081ab17a2d2e4ab16c0e9864ba9ebd12f",
+        "schema_version": 1,
+        "status": "error",
+        "view_id": "9b01e71d8ae64e41a58ea0c425ba44b1"
+      },
+      "pending": {
+        "files": {
+          "settings.json": "applied",
+          "src/generated.py": "pending",
+          "src/node.py": "pending",
+          "src/obsolete.py": "pending"
+        },
+        "receipt_saved": false,
+        "review_sha256": "b14518296a38adc6f5dbd54b70c54c4081ab17a2d2e4ab16c0e9864ba9ebd12f",
+        "schema_version": 1,
+        "status": "pending",
+        "view_changed": false,
+        "view_id": "9b01e71d8ae64e41a58ea0c425ba44b1"
+      },
+      "private_original_preserved": true,
+      "review_sha256": "b14518296a38adc6f5dbd54b70c54c4081ab17a2d2e4ab16c0e9864ba9ebd12f",
+      "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-1z0pu61e\\runtime\\view-recovery-fixture",
+      "status": {
+        "files": {
+          "settings.json": "applied",
+          "src/generated.py": "applied",
+          "src/node.py": "applied",
+          "src/obsolete.py": "applied"
+        },
+        "receipt_saved": true,
+        "review_sha256": "b14518296a38adc6f5dbd54b70c54c4081ab17a2d2e4ab16c0e9864ba9ebd12f",
+        "schema_version": 1,
+        "status": "complete",
+        "view_changed": false,
+        "view_id": "9b01e71d8ae64e41a58ea0c425ba44b1"
+      }
+    }
+  },
+  "installed_workflow": {
+    "cli_conflict_count": 1,
+    "cli_restoration": {
+      "input_count": 3,
+      "output_sha256": "61305fb51edc042daad152102e9d15b5df988d744a55e984d0ed2c4c2a343728",
+      "provenance": "local_consistency",
+      "receipt_sha256": "220b156b4c7035b5c28aff24b6d61604ab971b5185dbf1f098ee421876e4f4ea",
+      "schema_version": 1,
+      "status": "verified"
+    },
+    "cli_review_sha256": "1427d9e908457b8c870c914971f7afcad3b5d5762a4e42e461b0ddc28792df22",
+    "legacy_migration": {
+      "dictionary_sha256": "5e4a3e5c8493f6f23e688bab3107a12668e409b4f40969241a3b36182446158a",
+      "encoding_changed": false,
+      "historical_encoded_sha256": "9fcb3976ea836cdb532f05bef6d90d4c2d87b85be29dcb4e3999f8da32815366",
+      "historical_newlines_normalized": true,
+      "historical_profile": "global-ledger",
+      "metadata": ".old-encoded_migrated.txt.scm_ledger.json",
+      "metadata_saved": true,
+      "next_action": "Review the new native encoding before using it for edits; historical files and ledger remain unchanged",
+      "ok": true,
+      "operation": "migrate_ledger",
+      "original_sha256": "45e0e83f40b35d69bf3a66dbd6dd841c91bc43f9a5ffe7f8b65539252801a660",
+      "output": "old-encoded_migrated.txt",
+      "output_bytes": 23,
+      "output_saved": true,
+      "output_sha256": "9fcb3976ea836cdb532f05bef6d90d4c2d87b85be29dcb4e3999f8da32815366",
+      "review_sha256": "d630f366a9af75002e80b52d1d9b1e0c7c46bb372d6d40deb997a0b3334f0580",
+      "schema_version": 1,
+      "status": "saved"
+    },
+    "mcp": {
+      "migration": {
+        "encoded_sha256": "9fcb3976ea836cdb532f05bef6d90d4c2d87b85be29dcb4e3999f8da32815366",
+        "input": "old-mcp-migrated.txt",
+        "original_sha256": "45e0e83f40b35d69bf3a66dbd6dd841c91bc43f9a5ffe7f8b65539252801a660",
+        "schema_version": 1,
+        "status": "verified"
+      },
+      "normal_programs_executed": 3,
+      "normal_returns": [
+        {
+          "dictionary_sha256": "5e4a3e5c8493f6f23e688bab3107a12668e409b4f40969241a3b36182446158a",
+          "document_rules": {
+            "format": "text"
+          },
+          "input": "agent-original_safe.py",
+          "input_sha256": "9b367f461f027cde9fdf1d394afce34a55837195da9dc04651d2b3e326585c07",
+          "ledger_input": ".agent-original_safe.py.scm_ledger.json",
+          "ledger_saved": false,
+          "literals": 1,
+          "mapping_source": "saved_ledger",
+          "mode": "reverse",
+          "output": "agent-mcp-normal-edit.py",
+          "output_bytes": 77,
+          "output_saved": true,
+          "output_sha256": "61305fb51edc042daad152102e9d15b5df988d744a55e984d0ed2c4c2a343728",
+          "schema_version": 1,
+          "status": "saved",
+          "strict": false,
+          "substitutions": 2
+        },
+        {
+          "dictionary_sha256": "5e4a3e5c8493f6f23e688bab3107a12668e409b4f40969241a3b36182446158a",
+          "document_rules": {
+            "format": "text"
+          },
+          "input": "AGENT_fix.py",
+          "input_sha256": "b42540a0c07f024f47bc5f029a8dd3366790d5c06bb1619b1f32d34c0a4c6644",
+          "ledger_input": ".agent-original_safe.py.scm_ledger.json",
+          "ledger_saved": false,
+          "literals": 1,
+          "mapping_source": "saved_ledger",
+          "mode": "reverse",
+          "output": "agent-mcp-generated.py",
+          "output_bytes": 82,
+          "output_saved": true,
+          "output_sha256": "e8690e97f2d1b603dc8c7f50e6de93827a0df50ec47f70e2eb91c256d84426d2",
+          "schema_version": 1,
+          "status": "saved",
+          "strict": false,
+          "substitutions": 2
+        },
+        {
+          "dictionary_sha256": "5e4a3e5c8493f6f23e688bab3107a12668e409b4f40969241a3b36182446158a",
+          "document_rules": {
+            "format": "text"
+          },
+          "input": "AGENT_fix.py",
+          "input_sha256": "b42540a0c07f024f47bc5f029a8dd3366790d5c06bb1619b1f32d34c0a4c6644",
+          "ledger_input": null,
+          "ledger_saved": false,
+          "literals": 1,
+          "mapping_source": "dictionary_file",
+          "mode": "reverse",
+          "output": "agent-mcp-dictionary.py",
+          "output_bytes": 82,
+          "output_saved": true,
+          "output_sha256": "e8690e97f2d1b603dc8c7f50e6de93827a0df50ec47f70e2eb91c256d84426d2",
+          "schema_version": 1,
+          "status": "saved",
+          "strict": false,
+          "substitutions": 2
+        }
+      ],
+      "replay_refused": true,
+      "restoration": {
+        "input_count": 3,
+        "output_sha256": "61305fb51edc042daad152102e9d15b5df988d744a55e984d0ed2c4c2a343728",
+        "provenance": "local_consistency",
+        "receipt_sha256": "dafea58600f9e93080c215f7f8cf1ce77c8158362c08827a125b8b401c8deae7",
+        "schema_version": 1,
+        "status": "verified"
+      },
+      "restored_python_executed": true
+    },
+    "normal_pipeline": {
+      "compatibility": {
+        "dictionary_sha256": "5e4a3e5c8493f6f23e688bab3107a12668e409b4f40969241a3b36182446158a",
+        "document_rules": {
+          "format": "text"
+        },
+        "input": "AGENT_fix.py",
+        "input_sha256": "b42540a0c07f024f47bc5f029a8dd3366790d5c06bb1619b1f32d34c0a4c6644",
+        "ledger_input": null,
+        "ledger_saved": false,
+        "literals": 1,
+        "mapping_source": "dictionary_file",
+        "mode": "reverse",
+        "output": "agent-compat.py",
+        "output_bytes": 82,
+        "output_saved": true,
+        "output_sha256": "e8690e97f2d1b603dc8c7f50e6de93827a0df50ec47f70e2eb91c256d84426d2",
+        "schema_version": 1,
+        "status": "saved",
+        "strict": false,
+        "substitutions": 2
+      },
+      "edited": {
+        "dictionary_sha256": "5e4a3e5c8493f6f23e688bab3107a12668e409b4f40969241a3b36182446158a",
+        "document_rules": {
+          "format": "text"
+        },
+        "input": "agent-original_safe.py",
+        "input_sha256": "9b367f461f027cde9fdf1d394afce34a55837195da9dc04651d2b3e326585c07",
+        "ledger_input": ".agent-original_safe.py.scm_ledger.json",
+        "ledger_saved": false,
+        "literals": 1,
+        "mapping_source": "saved_ledger",
+        "mode": "reverse",
+        "output": "agent-normal-edit.py",
+        "output_bytes": 77,
+        "output_saved": true,
+        "output_sha256": "61305fb51edc042daad152102e9d15b5df988d744a55e984d0ed2c4c2a343728",
+        "schema_version": 1,
+        "status": "saved",
+        "strict": false,
+        "substitutions": 2
+      },
+      "generated": {
+        "dictionary_sha256": "5e4a3e5c8493f6f23e688bab3107a12668e409b4f40969241a3b36182446158a",
+        "document_rules": {
+          "format": "text"
+        },
+        "input": "AGENT_fix.py",
+        "input_sha256": "b42540a0c07f024f47bc5f029a8dd3366790d5c06bb1619b1f32d34c0a4c6644",
+        "ledger_input": ".agent-original_safe.py.scm_ledger.json",
+        "ledger_saved": false,
+        "literals": 1,
+        "mapping_source": "saved_ledger",
+        "mode": "reverse",
+        "output": "AGENT_fix_ready.py",
+        "output_bytes": 82,
+        "output_saved": true,
+        "output_sha256": "e8690e97f2d1b603dc8c7f50e6de93827a0df50ec47f70e2eb91c256d84426d2",
+        "schema_version": 1,
+        "status": "saved",
+        "strict": false,
+        "substitutions": 2
+      },
+      "restored_programs_executed": 3,
+      "strict_edit_refused": true
+    },
+    "restored_python_executed": true,
+    "retained_inputs_unchanged": true
+  },
+  "limits": [
+    "Terminology substitution is not encryption, general secret redaction or OS isolation.",
+    "Per-file operations require existing parent directories; reads are bounded and remembered hashes are limited to 256 paths.",
+    "The configured mapping is fixed for the server lifetime; reconnects require a new read or the earlier source hash.",
+    "Hash rechecks and the server lock do not provide atomic compare-and-swap against unrelated racing writers.",
+    "Profanity matches are lexical and limited to the selected vocabulary; they do not infer intent, stem words, or normalize arbitrary disguises/languages.",
+    "Operator scan output contains matched original terms and is not exposed by the dedicated agent server.",
+    "Case markers require v0.4.3+; old saved dictionaries and literal markers remain supported.",
+    "Project export creates selected directory structure; the separate direct agent file interface still requires existing parents.",
+    "Project snapshots and original/reverse mappings remain private outside the view, but a view directory is context separation rather than OS isolation.",
+    "Imports are recoverable multi-file publications, not atomic transactions against unrelated writers. Explicit recovery requires unchanged retained view bytes and compatible source state.",
+    "A completed view is consumed; later source/view drift is reported separately from its historical completion receipt.",
+    "No external agent/model acceptance, remote CI, host isolation or whole-project completeness is claimed.",
+    "Markdown uses CommonMark with conservative full-link protection; Markdown parsing is bounded to 1000000 characters. Additional dialects/source-code refactoring are not claimed.",
+    "JSON translates only explicit exact string-value pointers. Changed selected tokens may normalize JSON escaping; unchanged selected tokens use private context for exact original spelling. Unselected bytes stay unchanged.",
+    "Document rules require product 0.4.5 for new v2 ledgers/policies; old v1 ledgers/views remain supported and retained 0.4.4 view receipts were inspected read-only with the new code.",
+    "The direct source-agent MCP retains whole-term text behavior; Vandal routes mixed structured work through version-2 neutral project views.",
+    "Vandal 0.2 is a repository-specific workflow, independently versioned from Bamboozle 0.4.5. Its helper generates configurations and does not install, register or launch clients.",
+    "Syntax protection is not secret redaction. Supplied fixtures, explicit copied content, OS isolation, model behavior, schema generation and broader language adapters remain separate responsibilities."
+  ],
+  "log": ".test-tmp/verify-1z0pu61e/wheel-smoke.log",
+  "log_sha256": "62d0e08fc2521059e0fd9e4d731b2448c9822684b4eda0affbfd814dc409da1d",
+  "normal_pipeline_tests": "src/bamboozle/tests/test_agent_pipeline.py",
+  "preserved_capabilities": [
+    "Explicit strict decode and verify",
+    "Reviewed original-bound restoration with decisions, receipts and metadata recovery",
+    "Earlier ledger migration",
+    "Tessera authenticated exchange",
+    "Audit and workshop plans, inventory and recovery"
+  ],
+  "profanity_fixture": ".test-tmp/verify-1z0pu61e/runtime/profanity-fixture",
+  "profanity_fixture_file_sha256": {
+    ".node_safe.py.scm_ledger.json": "eede61427e1159e6fbcc346791e42a97cb72da22fb5206353ae936b2d0da8f16",
+    ".vigiles/cipher/changes/e594dc30648a48389e68328644a3b0e1/decoded.bin": "6ccddda71463068967620d883f4dae58bd8f279b8cab44e2ba786a5019b66c92",
+    ".vigiles/cipher/changes/e594dc30648a48389e68328644a3b0e1/intent.json": "695f89f256cb6594566d7d09ad2c45394ccaa61f3f48b70f870c835fa8825253",
+    ".vigiles/cipher/changes/e594dc30648a48389e68328644a3b0e1/original.bin": "8ca69da6a15f5024780707caefe851dbc299d767e50631fd3152e1e57cee2cad",
+    ".vigiles/cipher/changes/e594dc30648a48389e68328644a3b0e1/result.json": "2530c338c0ce35be180cde8eed7a6e6e4df6b997906727fe78618dca0d680134",
+    ".vigiles/cipher/changes/f28ab036d7c34af9837206a94880556a/decoded.bin": "430bde8060c3d9f880072fcd1dccca79907473f239700db6fc1cba935f295efb",
+    ".vigiles/cipher/changes/f28ab036d7c34af9837206a94880556a/intent.json": "6468477af4604716ff9ffd3c537c467972e999d6e36e860016d7b7a5afe661e3",
+    ".vigiles/cipher/changes/f28ab036d7c34af9837206a94880556a/result.json": "1eb3831db63d9899d868bd43ecb972b18c0cdd727c6e6aadbf1b6619d770b66f",
+    "generated.py": "430bde8060c3d9f880072fcd1dccca79907473f239700db6fc1cba935f295efb",
+    "node.py": "6ccddda71463068967620d883f4dae58bd8f279b8cab44e2ba786a5019b66c92",
+    "node_safe.py": "72abcc5d4ba0fd40b0450efbeb7e3ba437d086608a5999c7aab7279aba3f709a",
+    "node_safe_ready.py": "8ca69da6a15f5024780707caefe851dbc299d767e50631fd3152e1e57cee2cad"
+  },
+  "profanity_tests": "src/bamboozle/tests/test_profanity.py",
+  "project_view_fixture_file_sha256": {
+    "cli": {
+      ".env": "d85508234ce8245aa799a421db54cc004b07d71a33f30029c4dd21b82a33fa96",
+      ".local/bamboozle/view.lock": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
+      ".local/bamboozle/views/07b73d49597e4b72a7fdbc8cdcc0e453/blobs/08e60b49bbb74a11a6954531e0377e9a3115fda9a175fb840912f70ccdadd3bc.bin": "08e60b49bbb74a11a6954531e0377e9a3115fda9a175fb840912f70ccdadd3bc",
+      ".local/bamboozle/views/07b73d49597e4b72a7fdbc8cdcc0e453/blobs/379e8d1a2ebbcec402f97f0dc2b32339cfcd9ea72c8730d27f8064785e4d3827.bin": "379e8d1a2ebbcec402f97f0dc2b32339cfcd9ea72c8730d27f8064785e4d3827",
+      ".local/bamboozle/views/07b73d49597e4b72a7fdbc8cdcc0e453/blobs/430bde8060c3d9f880072fcd1dccca79907473f239700db6fc1cba935f295efb.bin": "430bde8060c3d9f880072fcd1dccca79907473f239700db6fc1cba935f295efb",
+      ".local/bamboozle/views/07b73d49597e4b72a7fdbc8cdcc0e453/blobs/4dc340756a50808a9bf21e5ff2848a738e5f3e49fb5e2e1aa71e864b023a0d01.bin": "4dc340756a50808a9bf21e5ff2848a738e5f3e49fb5e2e1aa71e864b023a0d01",
+      ".local/bamboozle/views/07b73d49597e4b72a7fdbc8cdcc0e453/blobs/5350f5a530386d022538471c9b3f8ffb114179e6828479509deac7e0883dfd9b.bin": "5350f5a530386d022538471c9b3f8ffb114179e6828479509deac7e0883dfd9b",
+      ".local/bamboozle/views/07b73d49597e4b72a7fdbc8cdcc0e453/blobs/63322b3a3fe7698a889ae0843b77277ceb31eaabfdf169f067b8e091878eebb0.bin": "63322b3a3fe7698a889ae0843b77277ceb31eaabfdf169f067b8e091878eebb0",
+      ".local/bamboozle/views/07b73d49597e4b72a7fdbc8cdcc0e453/blobs/7187d1e8e2a4d61b1dc5dfedb22d703a462df21470e0c145365b20fb3ed467c3.bin": "7187d1e8e2a4d61b1dc5dfedb22d703a462df21470e0c145365b20fb3ed467c3",
+      ".local/bamboozle/views/07b73d49597e4b72a7fdbc8cdcc0e453/blobs/901075708e3c95924ac2a4e826f1dfff919724b218bafec33c77ec9a08c3c6b4.bin": "901075708e3c95924ac2a4e826f1dfff919724b218bafec33c77ec9a08c3c6b4",
+      ".local/bamboozle/views/07b73d49597e4b72a7fdbc8cdcc0e453/blobs/9f1dd3bfc1d6b3483294523048d3a2ea818f6d37b02174980f1318609c88d080.bin": "9f1dd3bfc1d6b3483294523048d3a2ea818f6d37b02174980f1318609c88d080",
+      ".local/bamboozle/views/07b73d49597e4b72a7fdbc8cdcc0e453/blobs/a050ef06ea542b8fd8781f1e945f9adcd03c7ae5190719e66ba826e2059fce12.bin": "a050ef06ea542b8fd8781f1e945f9adcd03c7ae5190719e66ba826e2059fce12",
+      ".local/bamboozle/views/07b73d49597e4b72a7fdbc8cdcc0e453/blobs/ad8f745413c5b8ab8db71eeae09378116708a789fe0d6b165efe65e3ad6c3176.bin": "ad8f745413c5b8ab8db71eeae09378116708a789fe0d6b165efe65e3ad6c3176",
+      ".local/bamboozle/views/07b73d49597e4b72a7fdbc8cdcc0e453/blobs/b3774cbc89f283d40c53c957a85edb6b7d16fe173d60fdfae94cdb7f0e25bb07.bin": "b3774cbc89f283d40c53c957a85edb6b7d16fe173d60fdfae94cdb7f0e25bb07",
+      ".local/bamboozle/views/07b73d49597e4b72a7fdbc8cdcc0e453/blobs/e6ff74ee667c4629fff8b65fc9331dccb44532c50eafd2bc91e1ffe8db9d8154.bin": "e6ff74ee667c4629fff8b65fc9331dccb44532c50eafd2bc91e1ffe8db9d8154",
+      ".local/bamboozle/views/07b73d49597e4b72a7fdbc8cdcc0e453/import.json": "e40a2f7672848060c5c0d8a44b42046515d3a82f48f474d04db68d869e222096",
+      ".local/bamboozle/views/07b73d49597e4b72a7fdbc8cdcc0e453/manifest.json": "edb36721b5f6f4c675737eaf0c1223b2e25eef601bde4cc16612fa2e0934dabd",
+      ".local/bamboozle/views/07b73d49597e4b72a7fdbc8cdcc0e453/result.json": "4c8277f41b5cdafee9a4b43e107cfcaef7e6507163cd16fadb6a4bcbd1d75fe8",
+      ".local/views/task/BAMBOOZLE_VIEW.md": "5350f5a530386d022538471c9b3f8ffb114179e6828479509deac7e0883dfd9b",
+      ".local/views/task/production.json": "e6ff74ee667c4629fff8b65fc9331dccb44532c50eafd2bc91e1ffe8db9d8154",
+      ".local/views/task/settings.json": "a050ef06ea542b8fd8781f1e945f9adcd03c7ae5190719e66ba826e2059fce12",
+      ".local/views/task/src/generated.py": "08e60b49bbb74a11a6954531e0377e9a3115fda9a175fb840912f70ccdadd3bc",
+      ".local/views/task/src/node.py": "b3774cbc89f283d40c53c957a85edb6b7d16fe173d60fdfae94cdb7f0e25bb07",
+      "fixture.json": "ad8f745413c5b8ab8db71eeae09378116708a789fe0d6b165efe65e3ad6c3176",
+      "private.txt": "9acc3859274cdfd7e0562e03bfb5ab7443464f0aa1b4d1851f5a220697a84ad7",
+      "production.json": "4dc340756a50808a9bf21e5ff2848a738e5f3e49fb5e2e1aa71e864b023a0d01",
+      "settings.json": "a050ef06ea542b8fd8781f1e945f9adcd03c7ae5190719e66ba826e2059fce12",
+      "src/generated.py": "430bde8060c3d9f880072fcd1dccca79907473f239700db6fc1cba935f295efb",
+      "src/node.py": "379e8d1a2ebbcec402f97f0dc2b32339cfcd9ea72c8730d27f8064785e4d3827",
+      "view-policy.json": "a4a7021e285528119d879d4d876552a580a5f9d7aaac10c4f23db7ae1f6dce9d"
+    },
+    "mcp": {
+      ".env": "d85508234ce8245aa799a421db54cc004b07d71a33f30029c4dd21b82a33fa96",
+      ".local/bamboozle/view.lock": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
+      ".local/bamboozle/views/d4924fcc3f5b48c5b48692f9dfa28c24/blobs/08e60b49bbb74a11a6954531e0377e9a3115fda9a175fb840912f70ccdadd3bc.bin": "08e60b49bbb74a11a6954531e0377e9a3115fda9a175fb840912f70ccdadd3bc",
+      ".local/bamboozle/views/d4924fcc3f5b48c5b48692f9dfa28c24/blobs/379e8d1a2ebbcec402f97f0dc2b32339cfcd9ea72c8730d27f8064785e4d3827.bin": "379e8d1a2ebbcec402f97f0dc2b32339cfcd9ea72c8730d27f8064785e4d3827",
+      ".local/bamboozle/views/d4924fcc3f5b48c5b48692f9dfa28c24/blobs/430bde8060c3d9f880072fcd1dccca79907473f239700db6fc1cba935f295efb.bin": "430bde8060c3d9f880072fcd1dccca79907473f239700db6fc1cba935f295efb",
+      ".local/bamboozle/views/d4924fcc3f5b48c5b48692f9dfa28c24/blobs/4dc340756a50808a9bf21e5ff2848a738e5f3e49fb5e2e1aa71e864b023a0d01.bin": "4dc340756a50808a9bf21e5ff2848a738e5f3e49fb5e2e1aa71e864b023a0d01",
+      ".local/bamboozle/views/d4924fcc3f5b48c5b48692f9dfa28c24/blobs/63322b3a3fe7698a889ae0843b77277ceb31eaabfdf169f067b8e091878eebb0.bin": "63322b3a3fe7698a889ae0843b77277ceb31eaabfdf169f067b8e091878eebb0",
+      ".local/bamboozle/views/d4924fcc3f5b48c5b48692f9dfa28c24/blobs/7187d1e8e2a4d61b1dc5dfedb22d703a462df21470e0c145365b20fb3ed467c3.bin": "7187d1e8e2a4d61b1dc5dfedb22d703a462df21470e0c145365b20fb3ed467c3",
+      ".local/bamboozle/views/d4924fcc3f5b48c5b48692f9dfa28c24/blobs/901075708e3c95924ac2a4e826f1dfff919724b218bafec33c77ec9a08c3c6b4.bin": "901075708e3c95924ac2a4e826f1dfff919724b218bafec33c77ec9a08c3c6b4",
+      ".local/bamboozle/views/d4924fcc3f5b48c5b48692f9dfa28c24/blobs/9f1dd3bfc1d6b3483294523048d3a2ea818f6d37b02174980f1318609c88d080.bin": "9f1dd3bfc1d6b3483294523048d3a2ea818f6d37b02174980f1318609c88d080",
+      ".local/bamboozle/views/d4924fcc3f5b48c5b48692f9dfa28c24/blobs/a050ef06ea542b8fd8781f1e945f9adcd03c7ae5190719e66ba826e2059fce12.bin": "a050ef06ea542b8fd8781f1e945f9adcd03c7ae5190719e66ba826e2059fce12",
+      ".local/bamboozle/views/d4924fcc3f5b48c5b48692f9dfa28c24/blobs/ad8f745413c5b8ab8db71eeae09378116708a789fe0d6b165efe65e3ad6c3176.bin": "ad8f745413c5b8ab8db71eeae09378116708a789fe0d6b165efe65e3ad6c3176",
+      ".local/bamboozle/views/d4924fcc3f5b48c5b48692f9dfa28c24/blobs/b3774cbc89f283d40c53c957a85edb6b7d16fe173d60fdfae94cdb7f0e25bb07.bin": "b3774cbc89f283d40c53c957a85edb6b7d16fe173d60fdfae94cdb7f0e25bb07",
+      ".local/bamboozle/views/d4924fcc3f5b48c5b48692f9dfa28c24/blobs/e3bfc8ccf53777d6b534591399acf36d825c8415f7e11a5f09f2fee4e97112c9.bin": "e3bfc8ccf53777d6b534591399acf36d825c8415f7e11a5f09f2fee4e97112c9",
+      ".local/bamboozle/views/d4924fcc3f5b48c5b48692f9dfa28c24/blobs/e6ff74ee667c4629fff8b65fc9331dccb44532c50eafd2bc91e1ffe8db9d8154.bin": "e6ff74ee667c4629fff8b65fc9331dccb44532c50eafd2bc91e1ffe8db9d8154",
+      ".local/bamboozle/views/d4924fcc3f5b48c5b48692f9dfa28c24/import.json": "26925e4c64708e42bc47a27c940d6d5d61d8e4638fdfb05dd84ab4ad8d35ee0c",
+      ".local/bamboozle/views/d4924fcc3f5b48c5b48692f9dfa28c24/manifest.json": "12e38491f3166f6f7ffbe1f8cb10f7f77daf33fa2fa5f85292e5f260753c881d",
+      ".local/bamboozle/views/d4924fcc3f5b48c5b48692f9dfa28c24/result.json": "0c7cc595b295e985e1725adc27837bc28bf7cf4c57f279157055c123064611ad",
+      ".local/views/task/BAMBOOZLE_VIEW.md": "e3bfc8ccf53777d6b534591399acf36d825c8415f7e11a5f09f2fee4e97112c9",
+      ".local/views/task/production.json": "e6ff74ee667c4629fff8b65fc9331dccb44532c50eafd2bc91e1ffe8db9d8154",
+      ".local/views/task/settings.json": "a050ef06ea542b8fd8781f1e945f9adcd03c7ae5190719e66ba826e2059fce12",
+      ".local/views/task/src/generated.py": "08e60b49bbb74a11a6954531e0377e9a3115fda9a175fb840912f70ccdadd3bc",
+      ".local/views/task/src/node.py": "b3774cbc89f283d40c53c957a85edb6b7d16fe173d60fdfae94cdb7f0e25bb07",
+      "fixture.json": "ad8f745413c5b8ab8db71eeae09378116708a789fe0d6b165efe65e3ad6c3176",
+      "private.txt": "9acc3859274cdfd7e0562e03bfb5ab7443464f0aa1b4d1851f5a220697a84ad7",
+      "production.json": "4dc340756a50808a9bf21e5ff2848a738e5f3e49fb5e2e1aa71e864b023a0d01",
+      "settings.json": "a050ef06ea542b8fd8781f1e945f9adcd03c7ae5190719e66ba826e2059fce12",
+      "src/generated.py": "430bde8060c3d9f880072fcd1dccca79907473f239700db6fc1cba935f295efb",
+      "src/node.py": "379e8d1a2ebbcec402f97f0dc2b32339cfcd9ea72c8730d27f8064785e4d3827",
+      "view-policy.json": "a4a7021e285528119d879d4d876552a580a5f9d7aaac10c4f23db7ae1f6dce9d"
+    },
+    "recovery": {
+      ".env": "d85508234ce8245aa799a421db54cc004b07d71a33f30029c4dd21b82a33fa96",
+      ".local/bamboozle/view.lock": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
+      ".local/bamboozle/views/9b01e71d8ae64e41a58ea0c425ba44b1/blobs/08e60b49bbb74a11a6954531e0377e9a3115fda9a175fb840912f70ccdadd3bc.bin": "08e60b49bbb74a11a6954531e0377e9a3115fda9a175fb840912f70ccdadd3bc",
+      ".local/bamboozle/views/9b01e71d8ae64e41a58ea0c425ba44b1/blobs/379e8d1a2ebbcec402f97f0dc2b32339cfcd9ea72c8730d27f8064785e4d3827.bin": "379e8d1a2ebbcec402f97f0dc2b32339cfcd9ea72c8730d27f8064785e4d3827",
+      ".local/bamboozle/views/9b01e71d8ae64e41a58ea0c425ba44b1/blobs/3d940f6a797f8efc952ced9a58e0019273dd73d07bb93caf3f4469ca7d186f11.bin": "3d940f6a797f8efc952ced9a58e0019273dd73d07bb93caf3f4469ca7d186f11",
+      ".local/bamboozle/views/9b01e71d8ae64e41a58ea0c425ba44b1/blobs/430bde8060c3d9f880072fcd1dccca79907473f239700db6fc1cba935f295efb.bin": "430bde8060c3d9f880072fcd1dccca79907473f239700db6fc1cba935f295efb",
+      ".local/bamboozle/views/9b01e71d8ae64e41a58ea0c425ba44b1/blobs/4dc340756a50808a9bf21e5ff2848a738e5f3e49fb5e2e1aa71e864b023a0d01.bin": "4dc340756a50808a9bf21e5ff2848a738e5f3e49fb5e2e1aa71e864b023a0d01",
+      ".local/bamboozle/views/9b01e71d8ae64e41a58ea0c425ba44b1/blobs/63322b3a3fe7698a889ae0843b77277ceb31eaabfdf169f067b8e091878eebb0.bin": "63322b3a3fe7698a889ae0843b77277ceb31eaabfdf169f067b8e091878eebb0",
+      ".local/bamboozle/views/9b01e71d8ae64e41a58ea0c425ba44b1/blobs/7187d1e8e2a4d61b1dc5dfedb22d703a462df21470e0c145365b20fb3ed467c3.bin": "7187d1e8e2a4d61b1dc5dfedb22d703a462df21470e0c145365b20fb3ed467c3",
+      ".local/bamboozle/views/9b01e71d8ae64e41a58ea0c425ba44b1/blobs/901075708e3c95924ac2a4e826f1dfff919724b218bafec33c77ec9a08c3c6b4.bin": "901075708e3c95924ac2a4e826f1dfff919724b218bafec33c77ec9a08c3c6b4",
+      ".local/bamboozle/views/9b01e71d8ae64e41a58ea0c425ba44b1/blobs/9f1dd3bfc1d6b3483294523048d3a2ea818f6d37b02174980f1318609c88d080.bin": "9f1dd3bfc1d6b3483294523048d3a2ea818f6d37b02174980f1318609c88d080",
+      ".local/bamboozle/views/9b01e71d8ae64e41a58ea0c425ba44b1/blobs/a050ef06ea542b8fd8781f1e945f9adcd03c7ae5190719e66ba826e2059fce12.bin": "a050ef06ea542b8fd8781f1e945f9adcd03c7ae5190719e66ba826e2059fce12",
+      ".local/bamboozle/views/9b01e71d8ae64e41a58ea0c425ba44b1/blobs/ad8f745413c5b8ab8db71eeae09378116708a789fe0d6b165efe65e3ad6c3176.bin": "ad8f745413c5b8ab8db71eeae09378116708a789fe0d6b165efe65e3ad6c3176",
+      ".local/bamboozle/views/9b01e71d8ae64e41a58ea0c425ba44b1/blobs/b3774cbc89f283d40c53c957a85edb6b7d16fe173d60fdfae94cdb7f0e25bb07.bin": "b3774cbc89f283d40c53c957a85edb6b7d16fe173d60fdfae94cdb7f0e25bb07",
+      ".local/bamboozle/views/9b01e71d8ae64e41a58ea0c425ba44b1/blobs/e6ff74ee667c4629fff8b65fc9331dccb44532c50eafd2bc91e1ffe8db9d8154.bin": "e6ff74ee667c4629fff8b65fc9331dccb44532c50eafd2bc91e1ffe8db9d8154",
+      ".local/bamboozle/views/9b01e71d8ae64e41a58ea0c425ba44b1/import.json": "3e323bc36faa0fa06b74ae77f243dfabdf95915b7de330509f4628f6bb6cf5f4",
+      ".local/bamboozle/views/9b01e71d8ae64e41a58ea0c425ba44b1/manifest.json": "ea3a41e46844c6a6827e041736e4960a3d3cd588f9033475db9fba8afea1f475",
+      ".local/bamboozle/views/9b01e71d8ae64e41a58ea0c425ba44b1/result.json": "ca1755f9e7eeb5c4a51f2d09c60fb00c3f0a4f7d66b18313e35a6d9ce3d97e6f",
+      ".local/views/task/BAMBOOZLE_VIEW.md": "3d940f6a797f8efc952ced9a58e0019273dd73d07bb93caf3f4469ca7d186f11",
+      ".local/views/task/production.json": "e6ff74ee667c4629fff8b65fc9331dccb44532c50eafd2bc91e1ffe8db9d8154",
+      ".local/views/task/settings.json": "a050ef06ea542b8fd8781f1e945f9adcd03c7ae5190719e66ba826e2059fce12",
+      ".local/views/task/src/generated.py": "08e60b49bbb74a11a6954531e0377e9a3115fda9a175fb840912f70ccdadd3bc",
+      ".local/views/task/src/node.py": "b3774cbc89f283d40c53c957a85edb6b7d16fe173d60fdfae94cdb7f0e25bb07",
+      "fixture.json": "ad8f745413c5b8ab8db71eeae09378116708a789fe0d6b165efe65e3ad6c3176",
+      "private.txt": "9acc3859274cdfd7e0562e03bfb5ab7443464f0aa1b4d1851f5a220697a84ad7",
+      "production.json": "4dc340756a50808a9bf21e5ff2848a738e5f3e49fb5e2e1aa71e864b023a0d01",
+      "settings.json": "a050ef06ea542b8fd8781f1e945f9adcd03c7ae5190719e66ba826e2059fce12",
+      "src/generated.py": "430bde8060c3d9f880072fcd1dccca79907473f239700db6fc1cba935f295efb",
+      "src/node.py": "379e8d1a2ebbcec402f97f0dc2b32339cfcd9ea72c8730d27f8064785e4d3827",
+      "view-policy.json": "a4a7021e285528119d879d4d876552a580a5f9d7aaac10c4f23db7ae1f6dce9d"
+    }
+  },
+  "project_view_tests": "src/bamboozle/tests/test_project_views.py",
+  "release": "0.4.5",
+  "remaining_core_work": [
+    "Controlled lexicon authoring, comparison and compilation for the existing reversible cipher",
+    "Schema-faithful generated fixtures and field-specific fixture return policy",
+    "Returned-prose vocabulary drift diagnostics",
+    "Supporting structural profiles and recipient lifecycle after core translation needs"
+  ],
+  "retained_failed_checks": [
+    ".mivim/vigiles/reports/archive/runs/20261004T044809147249Z-normal-pipeline/INITIAL_CHECKS.json",
+    ".mivim/vigiles/reports/archive/runs/20261004T045337177012Z-1a0b4bf0/VIGILES_VERIFICATION.json",
+    ".mivim/vigiles/reports/archive/runs/20261004T053828816316Z-cipher-agent-review/INITIAL_CHECKS.json",
+    ".mivim/vigiles/reports/archive/runs/20261004T062123618334Z-profanity-review/INITIAL_CHECKS.json",
+    ".mivim/vigiles/reports/archive/runs/20261004T062924331463Z-profanity-unicode/REVIEW_FINDINGS.json",
+    ".mivim/vigiles/reports/archive/runs/20261004T071017812163Z-project-view-review/REVIEW_FINDINGS.json",
+    ".mivim/vigiles/reports/archive/runs/20261004T071220083351Z-view-build-access/REVIEW_FINDINGS.json",
+    ".mivim/vigiles/reports/archive/runs/20261004T074314267414Z-format-vandal-review/REVIEW_FINDINGS.json",
+    ".mivim/vigiles/reports/archive/runs/20261004T080050858220Z-markdown-block-boundary/REVIEW_FINDINGS.json"
+  ],
+  "retained_file_sha256": {
+    ".agent-mcp-restored.py.vigiles-restore.json": "dafea58600f9e93080c215f7f8cf1ce77c8158362c08827a125b8b401c8deae7",
+    ".agent-original_safe.py.scm_ledger.json": "f3384825753c5ecf702ada724c301d0cfdc89caab241c0fb65b534ccd4aa701b",
+    ".agent-restored.py.vigiles-restore.json": "220b156b4c7035b5c28aff24b6d61604ab971b5185dbf1f098ee421876e4f4ea",
+    ".old-encoded_migrated.txt.scm_ledger.json": "863a139cf9bd20b5b05d902ca02c3bac591ab73f28eef4f09379f54ebb3e02c5",
+    "AGENT_fix.py": "b42540a0c07f024f47bc5f029a8dd3366790d5c06bb1619b1f32d34c0a4c6644",
+    "AGENT_fix_ready.py": "e8690e97f2d1b603dc8c7f50e6de93827a0df50ec47f70e2eb91c256d84426d2",
+    "agent-compat.py": "e8690e97f2d1b603dc8c7f50e6de93827a0df50ec47f70e2eb91c256d84426d2",
+    "agent-mcp-dictionary.py": "e8690e97f2d1b603dc8c7f50e6de93827a0df50ec47f70e2eb91c256d84426d2",
+    "agent-mcp-generated.py": "e8690e97f2d1b603dc8c7f50e6de93827a0df50ec47f70e2eb91c256d84426d2",
+    "agent-mcp-normal-edit.py": "61305fb51edc042daad152102e9d15b5df988d744a55e984d0ed2c4c2a343728",
+    "agent-mcp-restored.py": "61305fb51edc042daad152102e9d15b5df988d744a55e984d0ed2c4c2a343728",
+    "agent-normal-edit.py": "61305fb51edc042daad152102e9d15b5df988d744a55e984d0ed2c4c2a343728",
+    "agent-original.py": "d93c8b613564debdc94f573375c355128bacb7427b88ea531acd02d7842bb967",
+    "agent-original_safe.py": "9b367f461f027cde9fdf1d394afce34a55837195da9dc04651d2b3e326585c07",
+    "agent-restored.py": "61305fb51edc042daad152102e9d15b5df988d744a55e984d0ed2c4c2a343728",
+    "mapping.json": "de9dc6c7ace2745f4c673937f5cf5cf45408207a932d171850945c9ed502fa6e",
+    "old-encoded.txt": "9fcb3976ea836cdb532f05bef6d90d4c2d87b85be29dcb4e3999f8da32815366",
+    "old-encoded_migrated.txt": "9fcb3976ea836cdb532f05bef6d90d4c2d87b85be29dcb4e3999f8da32815366",
+    "old-ledger.json": "3287a7e394d70f04e19f825bf18b0ba0ad8c8e060bd7595f34e5354fb7208f2e",
+    "old-original.txt": "45e0e83f40b35d69bf3a66dbd6dd841c91bc43f9a5ffe7f8b65539252801a660"
+  },
+  "retained_fixture": ".test-tmp/verify-1z0pu61e/runtime",
+  "retained_v044_view_compatibility": {
+    "cli": {
+      "inspection_release": "0.4.5",
+      "read_only": true,
+      "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-s2oko4hq\\runtime\\view-cli-fixture",
+      "source_release": "0.4.4",
+      "status": {
+        "files": {
+          "settings.json": "applied",
+          "src/generated.py": "applied",
+          "src/node.py": "applied",
+          "src/obsolete.py": "applied"
+        },
+        "receipt_saved": true,
+        "review_sha256": "85883a5d60ac7005087e36008b20c19b5b3ec9ab75bd4aee08309afb8e582bfe",
+        "schema_version": 1,
+        "status": "complete",
+        "view_changed": false,
+        "view_id": "92eb76af6b914301a4cc7b196d8f6e4f"
+      },
+      "view_id": "92eb76af6b914301a4cc7b196d8f6e4f"
+    },
+    "mcp": {
+      "inspection_release": "0.4.5",
+      "read_only": true,
+      "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-s2oko4hq\\runtime\\view-mcp-fixture",
+      "source_release": "0.4.4",
+      "status": {
+        "files": {
+          "settings.json": "applied",
+          "src/generated.py": "applied",
+          "src/node.py": "applied",
+          "src/obsolete.py": "applied"
+        },
+        "receipt_saved": true,
+        "review_sha256": "ef2657afa4ce2b654cb0ba0bc45f094bca4fba96043a85089bd803e298046d44",
+        "schema_version": 1,
+        "status": "complete",
+        "view_changed": false,
+        "view_id": "4598ad83cd324d02ba218f07fadc98b9"
+      },
+      "view_id": "4598ad83cd324d02ba218f07fadc98b9"
+    },
+    "recovery": {
+      "inspection_release": "0.4.5",
+      "read_only": true,
+      "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-s2oko4hq\\runtime\\view-recovery-fixture",
+      "source_release": "0.4.4",
+      "status": {
+        "files": {
+          "settings.json": "applied",
+          "src/generated.py": "applied",
+          "src/node.py": "applied",
+          "src/obsolete.py": "applied"
+        },
+        "receipt_saved": true,
+        "review_sha256": "6cba8fdbaf7064729f8a86c9c5a739c30fc7ec293825152eb13db8e7a1fd45a0",
+        "schema_version": 1,
+        "status": "complete",
+        "view_changed": false,
+        "view_id": "1255a9b55ea14f888ac2c6934ea55523"
+      },
+      "view_id": "1255a9b55ea14f888ac2c6934ea55523"
+    }
+  },
+  "schema_version": 1,
+  "scope": "Local Windows Python 3.13 source and isolated installed package. Explicit Markdown/JSON adapters, private lexical context, saved-rule decode/recovery, structured project views and returned code execution through CLI/actual stdio MCP; separate semantic/encrypt/decrypt composition and BAMb5 token round trip. Repository-only Vandal context/skill and actual generated agent/operator stdio connections qualified separately from the product wheel. No external model, client registration, remote CI or production acceptance claim.",
+  "source_sha256": {
+    "../.github/workflows/vigiles.yml": "c979966ae8e8007ab070626c578fcc4acb45ebbe43e5de8257f3207907f543d1",
+    ".mivim/mivim.vigiles.md": "723f86a1f5b3b1764df072fb3f54715648cf5c4ac586f487d0d69615a4854edf",
+    ".mivim/vigiles-vandal_0.2.md": "53fc1cae0f77b7b1e837ae9bcf6495d0c9a2593d10f7e93a4f189d2e2329d74f",
+    ".vigiles/skills/vigiles-vandal/SKILL.md": "c1478cbc37607bdc287ae069b17c9db1f1f08f4b53cb9bfa7af824c95eea4c2b",
+    "AGENTS.md": "0b098bb6cc37c13801d7db00c998aa95460e61a872c93da3f68f88fbb3f18275",
+    "README.md": "3a16c5de06ae2231c65c54bf2fe08834e9e07c3e56399d47ff6c62ae00c6b66e",
+    "pyproject.toml": "920cee46e1640385fed381305c4af289a7a820ba75b85b7974caa8538d87b070",
+    "scripts/package_smoke.py": "9cd3e23470504caee31b7e153dec84cc7e1ad49c96649b6d925ca46cbe0f9382",
+    "scripts/qualify_inventory.py": "8d274f0af7ba16570a0cd4731b242dcdeeb60100d31ed323050c6b034a7c9d31",
+    "scripts/qualify_pipeline.py": "a41c6401b7e863e060be2ebe2f10d92e8c2a9b5863fbec5deec1fa9e3aa7a272",
+    "scripts/qualify_plans.py": "2298acce5330789283e07c6701ec131c838899fa4f7573627d227af1904f831b",
+    "scripts/qualify_recovery.py": "3aa8d60c972ceebd38b770a90ea4f25487b3fcc95bee69d9ac84ee29e20dac40",
+    "scripts/vandal.py": "39d05d27c5614fcc13fcca0e7e5314dc6064b0f3cb1d5fd5b80c39a2166c0768",
+    "scripts/verify.py": "0b196c6046773c1261a28c0390789bda29662dfacf74ad073898f15dd9aeab3f",
+    "src/DECRYPT_FROM_AGENT.bat": "25ec45eff2279dfd24d09b6f76dfb6c702e724dd5b9d2aad28b602fa2aee65dd",
+    "src/ENCRYPT_FOR_AGENT.bat": "b261f32d499395b46f864a8658f6741ff0b4fc9d35b93d6ac173b5efda05b186",
+    "src/bamboozle/__init__.py": "ae8330d13903905a03a080b2e0088458ef66e221271692bf066cc07752e4f984",
+    "src/bamboozle/__main__.py": "c4e635a2015428e750f8e441975d34352b4386f23cdf596a2d7e87a8f2da2ca9",
+    "src/bamboozle/agent_files.py": "6c522ebeebfebf93d58e5d9e9c5ab6f9ec1f570b0e6ffd6e4906dbddc41a99f7",
+    "src/bamboozle/audit.py": "419f33a4c597987d65329d8c4887ee2cba0f2723c1bb75a222c583f4e4e256eb",
+    "src/bamboozle/audit_matrix.py": "0da01520a1f6b3c821b49833bf030a4d94be1885689c012affa4259bfc6317db",
+    "src/bamboozle/cipher.py": "8cdb19557d7456305f36e0ccaf2f8187d673d55a2707c4ab591b845c82df067d",
+    "src/bamboozle/cipher_dict.json": "b49059d73a0965ea7bd0b790ef0a92cb86cada3898a203b8d5e3dce4d85b5dfe",
+    "src/bamboozle/cli.py": "60cb5fb6598ac157ed1f79e894c3ac3354fbc2e534fb53cbfd9f277f05e9f6c0",
+    "src/bamboozle/dictionary.py": "422463313fec068b090390a30dbc01e949b75da6da7a1e310ae386b52eb100a2",
+    "src/bamboozle/engine.py": "26f043705b3e342777be03521c285bd55a98b073c7e9f69f92559ae10565b409",
+    "src/bamboozle/evidence.py": "29656ca8fe9b04e286abebc552db9952c219265b29d27eb0938bff02e8be6533",
+    "src/bamboozle/formats.py": "49a4586166c2bf4372b318098a5ff28f510eb68dfcb2430a3b6e9fd19bdd732a",
+    "src/bamboozle/mcp.py": "7afa560463a1590d1d10d682c0bf2f91ecb69dbbbc4036fad078425bdb521ee8",
+    "src/bamboozle/migration.py": "0b0f5be2eea97cb18e95486a49e2dc3f1b050ed2b356448e2a05fd74ffff6c7c",
+    "src/bamboozle/profanity_dict.json": "34f54a88062e12b0ba8353d9d59914144478cc11fc4f698beb7ad0b1fbdee35f",
+    "src/bamboozle/project_views.py": "bfceb106575cbc348f93fef859b55cc30815cc831650f99f9ff543b8cfe0f435",
+    "src/bamboozle/restoration.py": "b17325e9b5bcaf817e9c91c0ee126ad19567c707886aa675bc2483cb9a4bbecc",
+    "src/bamboozle/scm_mcp.py": "561633a36c9935d6cb44a4d0c2c691fb62ccce991b87d6f82e38b33cb1a5aacb",
+    "src/bamboozle/service.py": "f5ac16c528719c3c3245d5f4f3d9da4ddadb2052053ee3f78f2d5e628644d43f",
+    "src/bamboozle/tessera.py": "155ae5d87e8b8f615998819ff84d1768118bcc0e377eee2b034023bb95c35548",
+    "src/bamboozle/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/bamboozle/tests/test_agent_files.py": "00eee33fec9843b69562ba017bdd415fc526a7c563f053e53fa78c29b5ca5899",
+    "src/bamboozle/tests/test_agent_pipeline.py": "afd63fd8c7973d5f559541b07bf47ba53dcf405f8caa9729b0f34311211cd73a",
+    "src/bamboozle/tests/test_audit_matrix.py": "96edd1911b986e665251d2f3ff0f53fc0cab298ba7e451a58c10de403f228583",
+    "src/bamboozle/tests/test_cli_mcp.py": "2689dc5ed37601e7d9d15807455908810196740ef2419b2557a52a6b1ce215c1",
+    "src/bamboozle/tests/test_dictionary.py": "76d227c98312d0663f7c6953926160a21575788d008c1681e94a766e34adacff",
+    "src/bamboozle/tests/test_document_formats.py": "b12bcb5ef41fa9470263c2f8d5d4c02405d68c5f235f426c32b8d3dc4f797900",
+    "src/bamboozle/tests/test_engine.py": "cfa413235896339756d2f0311b643875fb69c6d21390018ffdb6e4e96bffe26f",
+    "src/bamboozle/tests/test_evidence.py": "25a844bab9b50a60da54a38a35b10e2b3720381832722f157cfed1f68c9b5c7c",
+    "src/bamboozle/tests/test_migration.py": "3cbc0ec97dbe8955b46055a94f42d966c7b1d8c6ce2113090f606eb674b5f458",
+    "src/bamboozle/tests/test_profanity.py": "757353e3ef94fefb6233edc99b484bf9ac7e6a20981f7cf741de5e2b120728aa",
+    "src/bamboozle/tests/test_project_views.py": "935605cbdeee9a7b31a8ac42b25496724cfed50466b60b694db440c7e65a52cc",
+    "src/bamboozle/tests/test_restoration.py": "14efdb3310c9f62196bef02d41efcb006498b806fc04665ddb267865903d7a7e",
+    "src/bamboozle/tests/test_service.py": "f6287db50f6cd36516a163cec67352b8652dc56cedcee6a8be6159e92d3bed2e",
+    "src/bamboozle/tests/test_tessera.py": "afa6862454d6b533f5c9aee097dbdd199f414098cd7545b1c81a21a4fb270058",
+    "src/bamboozle/tests/test_translate.py": "bd8e0c52dbc2e6cef600529dc158e6218290705468a2d424279c80216e7de7de",
+    "src/bamboozle/tests/test_vandal.py": "9fd804b40c70102c117e8dea4fdb5e2d1ca1d6672462ace5dddc147b5bb9a991",
+    "src/bamboozle/tests/test_workspace_audit.py": "5840cb16f21d7779245752ad2891b6099cd91befa5f75840e9a54d0b89596ed6",
+    "src/bamboozle/translate.py": "fe17813b0a0f8bd2dd404725db399871d36bb6cc993218e423b9227a69411358",
+    "src/bamboozle/utils.py": "1a0d5b1d3aa0e5d02755e3cd919bb7c2f09a65b5dc10a3cb376d194e577703a3",
+    "src/bamboozle/view_import.py": "93ce33f579cb8415eb012c36b13ebccefef997bc62a02f2750e57e355c561045",
+    "src/bamboozle/workspace.py": "31ae24e8968baea412e32b4af949dce56d302fa7db36a48a0a22b9b70dd9517e",
+    "src/mcp.pacer.json": "785068f7f003a19ee82c2fe94c1dc62d2dc82f908f50cd5a49a9430bfa17522c",
+    "src/workshop/__init__.py": "94f960d9ab834f1b3df0983716d0f1974c8c4ee5937045f97c80cc18f105e3ad",
+    "src/workshop/bootstrap.py": "62dc7b1d081d0d5554eece0c533a579195472937548f07bc600e1425f22c4dda",
+    "src/workshop/config.py": "dd00ce30a84847a0e7d6638e407d4c4c28448e7ca0c26c4e398b2d593418a1fc",
+    "src/workshop/examples.py": "4b519d10b869289d7233d4d9f180cbfc000cd1d813f7b6375d5e5f0a6a1226b8",
+    "src/workshop/inventory.py": "46408e4f59d037ef229c207841e57bd1db871b7c7a18f3d6cd8350f8c904bded",
+    "src/workshop/mcp/__init__.py": "a33f06325c956490689ea4a3ab4cbcd05ae78339c315dd47107fbf3cd97f97f1",
+    "src/workshop/mcp/taxonomy.json": "fbb674a35398c11c534a720a2c7551028c95bbcd18d5d942614a5e732b422a30",
+    "src/workshop/mcp/tests/fixtures/pipeline_contract.py": "666894193e235e3016ddec1f02f23a5782dcd45d5300044c9bcf2e523cc4ea29",
+    "src/workshop/mcp/tests/test_pipeline.py": "11e2ab0b170d62f59679c14793d9277d5ce6982d8c6e718b18348b1ad1742c7f",
+    "src/workshop/mcp/tests/test_process_capture.py": "942aba28892a816600ad97f3a0eaa52c00d66a9c5012bffe71458ab412a6d4aa",
+    "src/workshop/mcp/tests/test_workshop_mcp.py": "2bc32f07410fecf65673d296ff0927465089efab2f7d5366deba6342776a35c7",
+    "src/workshop/mcp/workshop_mcp.py": "2f58e8232e403e6b31ec6be914a5f22d9c254d9541a69e140ccdc4adf13eb7e8",
+    "src/workshop/operations.py": "3baf08fc3d20a87bd6fe82a362e144f81dc8f74de9611eb7dc273d2dc612eb57",
+    "src/workshop/pipeline.py": "05c5914a4f4aacd72daf104cd168aec2b17559c54d903dcf609a470f0b8bea13",
+    "src/workshop/plans.py": "b514060dea3b83d0fd6be50a6bf58170dde9110968b60ae05b3c89103c68046b",
+    "src/workshop/process.py": "f183a2e6fea7712357053bcbdd095d74f69dd91ea31af325c9bc80bbf05b0f81",
+    "src/workshop/recovery.py": "90c879800f1f521eba9ab39fa90897ffd1fdc22c93ccbbab8ae36012ad87e5cc",
+    "src/workshop/scrape/__init__.py": "f94e068724419232fc3861b067ea6e068dd8fc32d2aa3eab09cbc298f88f3d2c",
+    "src/workshop/scrape/_lookup_index.json": "a55d8623c0b607f018b8074c2173fc22843c501d9991a58d77760f830adb905c",
+    "src/workshop/scrape/alias_pass.py": "496e9d1b41bad0746c2e6d7a84635df144f41566a4e67b80f96863503d365061",
+    "src/workshop/scrape/audit_matrix.py": "3bb1e175f7e849f84681d8802f3f94f01c76b0c42848ea6341a4d598dc716d85",
+    "src/workshop/scrape/bamb5.py": "09bd174907105eca8634597a77e1378cd93ab200a04a1e7d9e1b628ca3817df4",
+    "src/workshop/scrape/lookup.py": "1b00dd116b8b7e2764ac3e4ba1c379cd5ffd5cc65a9ebc1abc35267877489dc5",
+    "src/workshop/scrape/promote.py": "d12f7a1d1a4d2849a8b748fc976ec894699459666590722962b0b820ac259616",
+    "src/workshop/scrape/taxonomy.json": "ba9e29c6c062f43e0d633f6c0bae19b44ecce3722e0e27c230b1421e8f737052",
+    "src/workshop/scrape/tests/test_alias_pass.py": "50f88b3c00da8909ecda133e5137c4df71296be7a4dde36e8b46132b375eb41b",
+    "src/workshop/scrape/tests/test_bamb5.py": "756d08b17bbd1dbe7623a1151201d3cf6a698583d381494bcaecc524f47b6574",
+    "src/workshop/scrape/tests/test_configuration.py": "b9b22f9d8997fad4eec88cf40cd3e0cd0ec00210b16d56abedf37ce33a1eaeb6",
+    "src/workshop/scrape/tests/test_lookup.py": "33cda79a49e6940e22a096c7d5a7c98539540b3382fd3442202214b237025616",
+    "src/workshop/snapshot.py": "4341e14480efbb0db91c7276a4ae445774ce541f647f96b2bdb9e43407dca65d",
+    "src/workshop/tests/test_inventory.py": "12136fa9ce9a6ccd6c814a94bb1cb47db3ffdc7d1325c6263b200a4b0f9305a5",
+    "src/workshop/tests/test_operations.py": "170c68072342d8ce72c6b7930cc5c0ab6d84bec7f508953f804a1e0c1af5558b",
+    "src/workshop/tests/test_plans.py": "df02df963ddf1ba6f6a879f05dbdee694fb1a59391b34ba4e5ffb96f80578870",
+    "src/workshop/tests/test_recovery_diagnostics.py": "0d2fe68b9fce33251e836a1466e18846016f9d093040066b1e19162bca7833ec",
+    "src/workshop/tests/test_snapshot.py": "3a1186ecaefb5ecf1704c111028e711502f5de69b1cfb5d415062cd518c5d168",
+    "uv.lock": "1ece00533afa327542f37f689f13d23879ad0589940a8d8188b4041203de26c4"
+  },
+  "source_tests": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests": 560
+  },
+  "status": "passed",
+  "tests": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests": 560
+  },
+  "unicode_cli_findings_verified": true,
+  "verification": ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json",
+  "verification_sha256": "ca1ef5ca06aab60f9838f7709c7318eb726d17e1a3e7d6ac3e141616b918999f",
+  "verification_stages_passed": 11,
+  "vocabulary": {
+    "default": {
+      "entries": 415,
+      "sha256": "a3693a13af5bbc5f621b075712d2465415573bcd2a824a26abbee86bcc8716d5",
+      "version": "2"
+    },
+    "identical_overlapping_entries": 5,
+    "new_marker_minimum_decoder_version": "0.4.3",
+    "original_mappings_preserved": 110,
+    "per_profile_entry_forms_exercised": [
+      "source lowercase",
+      "source uppercase",
+      "source title case",
+      "source sentence case",
+      "source mixed case",
+      "target lowercase literal",
+      "target uppercase literal",
+      "target title case literal"
+    ],
+    "profanity": {
+      "entries": 310,
+      "sha256": "fc05c1668b14cdb66315c79a47c7e25fd5033e9bd312dcc9d67abc885507c3ff",
+      "version": "profanity-1"
+    }
+  },
+  "workflow": {
+    "client_registered": false,
+    "contexts": {
+      "agent": {
+        "configuration_written": false,
+        "instructions": "Original-source agent context: use read_safe_file/write_safe_file for plain-text/code translation. They use whole-term text rules. Route Markdown/field-selected JSON work through an operator-created structured project view; do not use raw source file tools alongside this cipher interface.",
+        "mcp_config": {
+          "mcpServers": {
+            "bamboozle_agent": {
+              "args": [
+                "-m",
+                "bamboozle",
+                "--root",
+                "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle",
+                "serve-agent"
+              ],
+              "command": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.venv\\Scripts\\python.exe"
+            }
+          }
+        },
+        "mode": "agent",
+        "product": "bamboozle",
+        "product_version": "0.4.5",
+        "repository": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle",
+        "skill": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.vigiles\\skills\\vigiles-vandal\\SKILL.md",
+        "skill_sha256": "c1478cbc37607bdc287ae069b17c9db1f1f08f4b53cb9bfa7af824c95eea4c2b",
+        "specification": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.mivim\\vigiles-vandal_0.2.md",
+        "specification_sha256": "53fc1cae0f77b7b1e837ae9bcf6495d0c9a2593d10f7e93a4f189d2e2329d74f",
+        "workflow": "vigiles-vandal_0.2",
+        "workflow_version": "0.2",
+        "workspace": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle"
+      },
+      "operator": {
+        "configuration_written": false,
+        "instructions": "Operator context: inspect original-domain diffs, choose dictionaries/document rules, export views, review/apply imports, and recover retained operations. Keep this MCP configuration out of the neutral agent's tool pool. Encryption/decryption are separate explicit CLI operations.",
+        "mcp_config": {
+          "mcpServers": {
+            "bamboozle_operator": {
+              "args": [
+                "-m",
+                "bamboozle",
+                "--root",
+                "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle",
+                "serve"
+              ],
+              "command": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.venv\\Scripts\\python.exe"
+            }
+          }
+        },
+        "mode": "operator",
+        "product": "bamboozle",
+        "product_version": "0.4.5",
+        "repository": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle",
+        "skill": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.vigiles\\skills\\vigiles-vandal\\SKILL.md",
+        "skill_sha256": "c1478cbc37607bdc287ae069b17c9db1f1f08f4b53cb9bfa7af824c95eea4c2b",
+        "specification": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.mivim\\vigiles-vandal_0.2.md",
+        "specification_sha256": "53fc1cae0f77b7b1e837ae9bcf6495d0c9a2593d10f7e93a4f189d2e2329d74f",
+        "workflow": "vigiles-vandal_0.2",
+        "workflow_version": "0.2",
+        "workspace": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle"
+      }
+    },
+    "prior_specification_sha256": "7f9d26b114ca25e747ca86d7f2f98b70ad0c3f8aa5b27d8cc2fefd69cba0861d",
+    "references_checked": [
+      {
+        "document": ".mivim/vigiles-vandal_0.2.md",
+        "target": "vigiles/specs/vigiles-vanilla_0.1.md"
+      },
+      {
+        "document": ".mivim/vigiles-vandal_0.2.md",
+        "target": "../.vigiles/skills/vigiles-vandal/SKILL.md"
+      },
+      {
+        "document": ".mivim/mivim.vigiles.md",
+        "target": "vigiles-vandal_0.2.md"
+      },
+      {
+        "document": ".mivim/mivim.vigiles.md",
+        "target": "../.vigiles/skills/vigiles-vandal/SKILL.md"
+      },
+      {
+        "document": ".mivim/mivim.vigiles.md",
+        "target": "vigiles/specs/vigiles-vanilla_0.1.md"
+      },
+      {
+        "document": ".mivim/mivim.vigiles.md",
+        "target": "../VIGILES_STATUS.json"
+      },
+      {
+        "document": ".mivim/mivim.vigiles.md",
+        "target": "vigiles/reports/README.md"
+      },
+      {
+        "document": ".vigiles/skills/vigiles-vandal/SKILL.md",
+        "target": "../../../.mivim/vigiles-vandal_0.2.md"
+      },
+      {
+        "document": ".vigiles/skills/vigiles-vandal/SKILL.md",
+        "target": "../../../VIGILES_STATUS.json"
+      },
+      {
+        "document": ".vigiles/skills/vigiles-vandal/SKILL.md",
+        "target": "../../../README.md"
+      }
+    ],
+    "status": "passed",
+    "workflow": "vigiles-vandal_0.2"
+  },
+  "workflow_test_count": 4,
+  "workflow_tests": "src/bamboozle/tests/test_vandal.py"
+}

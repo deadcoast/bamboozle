@@ -1,0 +1,32 @@
+{
+  "findings": [
+    {
+      "correction": "Use separate cmd/mklink arguments, matching the established workspace junction test",
+      "issue": "Windows junction fixture creation passed a shell command as a quoted single argument"
+    },
+    {
+      "correction": "Combined context managers and explicit report/plan narrowing; ruff, mypy and pyright passed",
+      "issue": "Initial static review found nested context formatting and optional plan/report type inference defects"
+    },
+    {
+      "correction": "Report unchanged separately from pending/applied/conflict",
+      "issue": "Status displayed unchanged baseline files as pending actions"
+    },
+    {
+      "correction": "Include neutral targets only and literal marker construction rules; retain inverse mapping privately",
+      "issue": "Generated contract did not provide neutral vocabulary or actionable literal marker syntax"
+    }
+  ],
+  "focused_followup": {
+    "failed": 0,
+    "log": ".test-tmp/views-second.xml",
+    "passed": 49
+  },
+  "gate": "VIG-CORE-VIEW-01",
+  "initial_log": ".test-tmp/views-first.xml",
+  "initial_log_sha256": "cac2c257c64e0b0f24a4dfb9fdf984384b6ab7385397a3aff930a642d7678ca0",
+  "initial_result": {
+    "failed": 1,
+    "passed": 48
+  }
+}

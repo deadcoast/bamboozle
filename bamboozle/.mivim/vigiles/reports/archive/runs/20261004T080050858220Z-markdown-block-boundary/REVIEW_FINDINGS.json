@@ -1,0 +1,22 @@
+{
+  "correction": "Discover inline spans separately for each CommonMark inline block, using original-source offsets. Keep code spans inside list/quote/paragraph boundaries.",
+  "finding": "Whole-document inline parsing incorrectly treated backticks in separate CommonMark paragraphs as one code span, silently omitting selected prose from translation.",
+  "gate": "VIG-CIPHER-FORMAT-01",
+  "initial_full_verification": "Passed its then-current 559 tests and 11 stages before this missing regression was identified; retained candidate artifacts are superseded, not final qualification.",
+  "initial_regression": {
+    "artifact": "format-boundary-before.xml",
+    "deselected": 56,
+    "failed": 1
+  },
+  "reproduction": {
+    "observed": "`alpha\n\nalpha`\n",
+    "required": "`omega\n\nomega`\n",
+    "source": "`alpha\n\nalpha`\n"
+  },
+  "retained_sha256": {
+    "VIGILES_VERIFICATION.json": "be7dd1cd17f80635726d40ec7fc5f4edc043044ad7990e268d7a2f38c6a3e08d",
+    "bamboozle-0.4.5-py3-none-any.whl": "8e08797abb236f7ac2e7101c8d056c1654768a6d25301172e09e38729005d3a6",
+    "bamboozle-0.4.5.tar.gz": "62973f6a50ced390872ec08379a593df11fa13e27affe4015aeb52ab0381f9b5",
+    "format-boundary-before.xml": "9dc34cfacb67fa405f4c167748b401a1e3784ffc587a804186797442bbb6f611"
+  }
+}

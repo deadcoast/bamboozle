@@ -1,0 +1,2017 @@
+{
+  "artifacts": {
+    "bamboozle-0.4.7-py3-none-any.whl": {
+      "bytes": 153588,
+      "sha256": "0781b9caaae192ca4ccd229adc2c437d2d9987414b0443f9fe6385e582a9ee83"
+    },
+    "bamboozle-0.4.7.tar.gz": {
+      "bytes": 182025,
+      "sha256": "91a9765069c7a256a456dd67d148e9a80b504fff46934a6e3983b6f54e305f18"
+    }
+  },
+  "created": "2026-10-04T09:22:27.720932Z",
+  "default_dictionary_entries": 415,
+  "focused_final_tests": {
+    "failures": 0,
+    "path": ".test-tmp/fixtures-final-focused.xml",
+    "sha256": "e8b06f528a18bf11dc9aa0d1d548b2f0ddbb1bb6ade2e90ded93480c959777cc",
+    "tests": 72
+  },
+  "installed_document_format_workflow": {
+    "bamb5_separate_authenticated_roundtrip": true,
+    "encryption_composition": {
+      "decoded_original_bytes_restored": true,
+      "opened": {
+        "output": "returned.json",
+        "output_bytes": 110,
+        "output_saved": true,
+        "recipient": "fixture-operator",
+        "schema_version": 1,
+        "status": "opened"
+      },
+      "sealed": {
+        "output": "packet.bam",
+        "output_bytes": 339,
+        "output_saved": true,
+        "recipient": "fixture-operator",
+        "schema_version": 1,
+        "status": "sealed"
+      }
+    },
+    "json_encoded": {
+      "dictionary_sha256": "fc05c1668b14cdb66315c79a47c7e25fd5033e9bd312dcc9d67abc885507c3ff",
+      "document_rules": {
+        "format": "json",
+        "pointers": [
+          "/prompt"
+        ]
+      },
+      "input": "template.json",
+      "input_sha256": "109bdabf3b7733a3c6ba60c31f7c461800a0ed335232044e68d1d0f16b1bb1e5",
+      "ledger_input": null,
+      "ledger_saved": true,
+      "literals": 0,
+      "mapping_source": "supplied_dictionary",
+      "mode": "forward",
+      "output": "template_safe.json",
+      "output_bytes": 110,
+      "output_saved": true,
+      "output_sha256": "43fd2ed98dac763d5498366a8bd806f0b895788b35cc855a02141822eb8745eb",
+      "schema_version": 1,
+      "status": "saved",
+      "strict": false,
+      "substitutions": 1
+    },
+    "markdown_encoded": {
+      "dictionary_sha256": "fc05c1668b14cdb66315c79a47c7e25fd5033e9bd312dcc9d67abc885507c3ff",
+      "document_rules": {
+        "format": "markdown"
+      },
+      "input": "guide.md",
+      "input_sha256": "0f539c6ffe35a4ec136f1cf40656fd391af8d9ac0e4ba160698fcdbdbbfd0939",
+      "ledger_input": null,
+      "ledger_saved": true,
+      "literals": 0,
+      "mapping_source": "supplied_dictionary",
+      "mode": "forward",
+      "output": "guide_safe.md",
+      "output_bytes": 150,
+      "output_saved": true,
+      "output_sha256": "f86f608880a38bded4725a94c63c43d4e586a5fbe3e6787e6bb23900a9790b4e",
+      "schema_version": 1,
+      "status": "saved",
+      "strict": false,
+      "substitutions": 1
+    },
+    "operator_mcp": {
+      "edited_return": {
+        "dictionary_sha256": "fc05c1668b14cdb66315c79a47c7e25fd5033e9bd312dcc9d67abc885507c3ff",
+        "document_rules": {
+          "format": "json",
+          "pointers": [
+            "/prompt"
+          ]
+        },
+        "input": "mcp_safe.json",
+        "input_sha256": "15e9228d62dc62b509dbb914a71fd28c16427108673539b52ba1084cf2ef500b",
+        "ledger_input": ".mcp_safe.json.scm_ledger.json",
+        "ledger_saved": false,
+        "literals": 0,
+        "mapping_source": "saved_ledger",
+        "mode": "reverse",
+        "output": "mcp_return.json",
+        "output_bytes": 107,
+        "output_saved": true,
+        "output_sha256": "58d10095244dc913e82c5fab6bd682a7a64f81eb3e2bee356502cb909620f62e",
+        "schema_version": 1,
+        "status": "saved",
+        "strict": false,
+        "substitutions": 1
+      },
+      "export": {
+        "excluded_files": [],
+        "files_exported": 3,
+        "manifest_saved": true,
+        "manifest_sha256": "63c15e2fa17af81960a5327a8124791f03d45a303bb06ea137a16d6139e8e209",
+        "private_state": ".local/bamboozle/views/b295d0a00a9c4819bee82ed1086d8fd8",
+        "schema_version": 1,
+        "selected_source_files": 2,
+        "status": "exported",
+        "unselected_files": "omitted",
+        "view": "view",
+        "view_id": "b295d0a00a9c4819bee82ed1086d8fd8"
+      },
+      "imported": {
+        "applied_files": [
+          "configs/new.json",
+          "guide.md"
+        ],
+        "journal_saved": true,
+        "output_saved": true,
+        "receipt_saved": true,
+        "review_sha256": "4704bd941a4d890adae1e9eb313e220b739459d7a2578a706332a640dfbcc31b",
+        "schema_version": 1,
+        "status": "applied",
+        "view_id": "b295d0a00a9c4819bee82ed1086d8fd8"
+      },
+      "neutral_and_returned_code_executed": true,
+      "review_sha256": "4704bd941a4d890adae1e9eb313e220b739459d7a2578a706332a640dfbcc31b"
+    },
+    "protected_code_executed": true,
+    "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-ohpd_q0r\\runtime\\document-fixture",
+    "strict_original_bytes_restored": true
+  },
+  "installed_fixture_file_sha256": {
+    "cli": {
+      ".local/bamboozle/view.lock": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
+      ".local/bamboozle/views/6cb26d5fcae84e059f7c357e0ec71e1c/blobs/03d2c2d11b96a37a48aa3f44624c1735bc783279299c1b5cdf3782a28177b76d.bin": "03d2c2d11b96a37a48aa3f44624c1735bc783279299c1b5cdf3782a28177b76d",
+      ".local/bamboozle/views/6cb26d5fcae84e059f7c357e0ec71e1c/blobs/0c1c6d9e19c915d026a5dd39f477564fd8fa9fa24d58dc6a602436aa3c060a14.bin": "0c1c6d9e19c915d026a5dd39f477564fd8fa9fa24d58dc6a602436aa3c060a14",
+      ".local/bamboozle/views/6cb26d5fcae84e059f7c357e0ec71e1c/blobs/16fdc061ab0c2f8ac6d813cc9ca471dc722c5b7bba5c72f69a3531c355ab04e3.bin": "16fdc061ab0c2f8ac6d813cc9ca471dc722c5b7bba5c72f69a3531c355ab04e3",
+      ".local/bamboozle/views/6cb26d5fcae84e059f7c357e0ec71e1c/blobs/1cc5190899b3beb4278549e3e9bc2b3fafffd880e44f32e6cd978840fe220ef6.bin": "1cc5190899b3beb4278549e3e9bc2b3fafffd880e44f32e6cd978840fe220ef6",
+      ".local/bamboozle/views/6cb26d5fcae84e059f7c357e0ec71e1c/blobs/209b39ed8c62ba94d9b76abe959bf44033335cb89d972b51df712ba31e897209.bin": "209b39ed8c62ba94d9b76abe959bf44033335cb89d972b51df712ba31e897209",
+      ".local/bamboozle/views/6cb26d5fcae84e059f7c357e0ec71e1c/blobs/25df93d6223d4f9909b6b64e9a48988aea3ce97dcd9573c534d80ea5396ac27f.bin": "25df93d6223d4f9909b6b64e9a48988aea3ce97dcd9573c534d80ea5396ac27f",
+      ".local/bamboozle/views/6cb26d5fcae84e059f7c357e0ec71e1c/blobs/404fc10ccf4f5dd72953a732f6f331ca184f07c560e0180a460069fb782b31a2.bin": "404fc10ccf4f5dd72953a732f6f331ca184f07c560e0180a460069fb782b31a2",
+      ".local/bamboozle/views/6cb26d5fcae84e059f7c357e0ec71e1c/blobs/61af502b9ed7f66e455b3d052501684169f61c9f661c505fd98887a1fad3a94a.bin": "61af502b9ed7f66e455b3d052501684169f61c9f661c505fd98887a1fad3a94a",
+      ".local/bamboozle/views/6cb26d5fcae84e059f7c357e0ec71e1c/blobs/7aa8644c9282c5306af0e9a851a158402cb7dea4ffe23cf792ac5aa599b8bf32.bin": "7aa8644c9282c5306af0e9a851a158402cb7dea4ffe23cf792ac5aa599b8bf32",
+      ".local/bamboozle/views/6cb26d5fcae84e059f7c357e0ec71e1c/blobs/a0ba77b1ca942212c4a3786deff7f2f302362cb273ef15dba653dc76c8a1334b.bin": "a0ba77b1ca942212c4a3786deff7f2f302362cb273ef15dba653dc76c8a1334b",
+      ".local/bamboozle/views/6cb26d5fcae84e059f7c357e0ec71e1c/blobs/ac584d207e659a28410db8b7cb4d5cdf7f74808b363873ef97e51f7231747678.bin": "ac584d207e659a28410db8b7cb4d5cdf7f74808b363873ef97e51f7231747678",
+      ".local/bamboozle/views/6cb26d5fcae84e059f7c357e0ec71e1c/blobs/ba7b9877b314a87c188671b6004bc423dd7300974609fe8b8c98d28feccebb40.bin": "ba7b9877b314a87c188671b6004bc423dd7300974609fe8b8c98d28feccebb40",
+      ".local/bamboozle/views/6cb26d5fcae84e059f7c357e0ec71e1c/blobs/ce8d8a5e7e4c4a9ffbbd071af5629c56212a2e2760b7e9524a6e19c2206ae633.bin": "ce8d8a5e7e4c4a9ffbbd071af5629c56212a2e2760b7e9524a6e19c2206ae633",
+      ".local/bamboozle/views/6cb26d5fcae84e059f7c357e0ec71e1c/blobs/d90feb13cd99677ed3e2a567e2581f25b8a471551542ed58582fd45e3de58bfa.bin": "d90feb13cd99677ed3e2a567e2581f25b8a471551542ed58582fd45e3de58bfa",
+      ".local/bamboozle/views/6cb26d5fcae84e059f7c357e0ec71e1c/import.json": "77cab69b5fd64d89e1f9481530e58f2055653835748e2530a34e0a102ecfbef7",
+      ".local/bamboozle/views/6cb26d5fcae84e059f7c357e0ec71e1c/manifest.json": "795c36e4dca2596c96e6b55ed82b45d1abc2e5b2cf8d7abd5ba39187ce261570",
+      ".local/bamboozle/views/6cb26d5fcae84e059f7c357e0ec71e1c/result.json": "3cdbbc9fae613c170d75935b40f83a9550f33d9f7273edbff2f812b126c0aea9",
+      "mapping.dictionary.json": "3b4e57e2e14290c077405735dbeb75dc9109ba288bd5bd75d89f30667606562e",
+      "neutral/BAMBOOZLE_VIEW.md": "404fc10ccf4f5dd72953a732f6f331ca184f07c560e0180a460069fb782b31a2",
+      "neutral/TEMPLATE_CASES.json": "d90feb13cd99677ed3e2a567e2581f25b8a471551542ed58582fd45e3de58bfa",
+      "neutral/TEMPLATE_CONTRACT.json": "ce8d8a5e7e4c4a9ffbbd071af5629c56212a2e2760b7e9524a6e19c2206ae633",
+      "neutral/TEMPLATE_CONTRACT.md": "03d2c2d11b96a37a48aa3f44624c1735bc783279299c1b5cdf3782a28177b76d",
+      "neutral/src/catalog.py": "25df93d6223d4f9909b6b64e9a48988aea3ce97dcd9573c534d80ea5396ac27f",
+      "neutral/src/renderer.py": "ac584d207e659a28410db8b7cb4d5cdf7f74808b363873ef97e51f7231747678",
+      "neutral/src/run_catalog.py": "ba7b9877b314a87c188671b6004bc423dd7300974609fe8b8c98d28feccebb40",
+      "neutral/templates.json": "a0ba77b1ca942212c4a3786deff7f2f302362cb273ef15dba653dc76c8a1334b",
+      "policy.json": "62606ecce5f13c819e1852dfb10b2f464b6206d437541bf57975fb2067127d4b",
+      "src/catalog.py": "209b39ed8c62ba94d9b76abe959bf44033335cb89d972b51df712ba31e897209",
+      "src/renderer.py": "61af502b9ed7f66e455b3d052501684169f61c9f661c505fd98887a1fad3a94a",
+      "src/run_catalog.py": "ba7b9877b314a87c188671b6004bc423dd7300974609fe8b8c98d28feccebb40",
+      "templates.fixture-rules.json": "7aa8644c9282c5306af0e9a851a158402cb7dea4ffe23cf792ac5aa599b8bf32",
+      "templates.json": "0c1c6d9e19c915d026a5dd39f477564fd8fa9fa24d58dc6a602436aa3c060a14"
+    },
+    "mcp": {
+      ".local/bamboozle/view.lock": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
+      ".local/bamboozle/views/4db39f61c09143a6ae8d715900f3d092/blobs/03d2c2d11b96a37a48aa3f44624c1735bc783279299c1b5cdf3782a28177b76d.bin": "03d2c2d11b96a37a48aa3f44624c1735bc783279299c1b5cdf3782a28177b76d",
+      ".local/bamboozle/views/4db39f61c09143a6ae8d715900f3d092/blobs/0c1c6d9e19c915d026a5dd39f477564fd8fa9fa24d58dc6a602436aa3c060a14.bin": "0c1c6d9e19c915d026a5dd39f477564fd8fa9fa24d58dc6a602436aa3c060a14",
+      ".local/bamboozle/views/4db39f61c09143a6ae8d715900f3d092/blobs/16fdc061ab0c2f8ac6d813cc9ca471dc722c5b7bba5c72f69a3531c355ab04e3.bin": "16fdc061ab0c2f8ac6d813cc9ca471dc722c5b7bba5c72f69a3531c355ab04e3",
+      ".local/bamboozle/views/4db39f61c09143a6ae8d715900f3d092/blobs/1cc5190899b3beb4278549e3e9bc2b3fafffd880e44f32e6cd978840fe220ef6.bin": "1cc5190899b3beb4278549e3e9bc2b3fafffd880e44f32e6cd978840fe220ef6",
+      ".local/bamboozle/views/4db39f61c09143a6ae8d715900f3d092/blobs/209b39ed8c62ba94d9b76abe959bf44033335cb89d972b51df712ba31e897209.bin": "209b39ed8c62ba94d9b76abe959bf44033335cb89d972b51df712ba31e897209",
+      ".local/bamboozle/views/4db39f61c09143a6ae8d715900f3d092/blobs/25df93d6223d4f9909b6b64e9a48988aea3ce97dcd9573c534d80ea5396ac27f.bin": "25df93d6223d4f9909b6b64e9a48988aea3ce97dcd9573c534d80ea5396ac27f",
+      ".local/bamboozle/views/4db39f61c09143a6ae8d715900f3d092/blobs/4c6bac8f6bee273254fef564f0cbc01268d587939f4458020ed31fe7edfaab3a.bin": "4c6bac8f6bee273254fef564f0cbc01268d587939f4458020ed31fe7edfaab3a",
+      ".local/bamboozle/views/4db39f61c09143a6ae8d715900f3d092/blobs/61af502b9ed7f66e455b3d052501684169f61c9f661c505fd98887a1fad3a94a.bin": "61af502b9ed7f66e455b3d052501684169f61c9f661c505fd98887a1fad3a94a",
+      ".local/bamboozle/views/4db39f61c09143a6ae8d715900f3d092/blobs/7aa8644c9282c5306af0e9a851a158402cb7dea4ffe23cf792ac5aa599b8bf32.bin": "7aa8644c9282c5306af0e9a851a158402cb7dea4ffe23cf792ac5aa599b8bf32",
+      ".local/bamboozle/views/4db39f61c09143a6ae8d715900f3d092/blobs/a0ba77b1ca942212c4a3786deff7f2f302362cb273ef15dba653dc76c8a1334b.bin": "a0ba77b1ca942212c4a3786deff7f2f302362cb273ef15dba653dc76c8a1334b",
+      ".local/bamboozle/views/4db39f61c09143a6ae8d715900f3d092/blobs/ac584d207e659a28410db8b7cb4d5cdf7f74808b363873ef97e51f7231747678.bin": "ac584d207e659a28410db8b7cb4d5cdf7f74808b363873ef97e51f7231747678",
+      ".local/bamboozle/views/4db39f61c09143a6ae8d715900f3d092/blobs/ba7b9877b314a87c188671b6004bc423dd7300974609fe8b8c98d28feccebb40.bin": "ba7b9877b314a87c188671b6004bc423dd7300974609fe8b8c98d28feccebb40",
+      ".local/bamboozle/views/4db39f61c09143a6ae8d715900f3d092/blobs/ce8d8a5e7e4c4a9ffbbd071af5629c56212a2e2760b7e9524a6e19c2206ae633.bin": "ce8d8a5e7e4c4a9ffbbd071af5629c56212a2e2760b7e9524a6e19c2206ae633",
+      ".local/bamboozle/views/4db39f61c09143a6ae8d715900f3d092/blobs/d90feb13cd99677ed3e2a567e2581f25b8a471551542ed58582fd45e3de58bfa.bin": "d90feb13cd99677ed3e2a567e2581f25b8a471551542ed58582fd45e3de58bfa",
+      ".local/bamboozle/views/4db39f61c09143a6ae8d715900f3d092/import.json": "b82f3dbe25f618b9fc837e36d7f2a3a488414dc5599d592fd19698bc63f5911a",
+      ".local/bamboozle/views/4db39f61c09143a6ae8d715900f3d092/manifest.json": "9b92f92a2174acd4be6334713005697baad7f241bef9e88fc659a9ae735e85b9",
+      ".local/bamboozle/views/4db39f61c09143a6ae8d715900f3d092/result.json": "b9ba5b88953be9a1d1daa2686d4db0f507d98a385df5fae0cdec5f7a2b5ee77d",
+      "mapping.dictionary.json": "3b4e57e2e14290c077405735dbeb75dc9109ba288bd5bd75d89f30667606562e",
+      "neutral/BAMBOOZLE_VIEW.md": "4c6bac8f6bee273254fef564f0cbc01268d587939f4458020ed31fe7edfaab3a",
+      "neutral/TEMPLATE_CASES.json": "d90feb13cd99677ed3e2a567e2581f25b8a471551542ed58582fd45e3de58bfa",
+      "neutral/TEMPLATE_CONTRACT.json": "ce8d8a5e7e4c4a9ffbbd071af5629c56212a2e2760b7e9524a6e19c2206ae633",
+      "neutral/TEMPLATE_CONTRACT.md": "03d2c2d11b96a37a48aa3f44624c1735bc783279299c1b5cdf3782a28177b76d",
+      "neutral/src/catalog.py": "25df93d6223d4f9909b6b64e9a48988aea3ce97dcd9573c534d80ea5396ac27f",
+      "neutral/src/renderer.py": "ac584d207e659a28410db8b7cb4d5cdf7f74808b363873ef97e51f7231747678",
+      "neutral/src/run_catalog.py": "ba7b9877b314a87c188671b6004bc423dd7300974609fe8b8c98d28feccebb40",
+      "neutral/templates.json": "a0ba77b1ca942212c4a3786deff7f2f302362cb273ef15dba653dc76c8a1334b",
+      "policy.json": "62606ecce5f13c819e1852dfb10b2f464b6206d437541bf57975fb2067127d4b",
+      "src/catalog.py": "209b39ed8c62ba94d9b76abe959bf44033335cb89d972b51df712ba31e897209",
+      "src/renderer.py": "61af502b9ed7f66e455b3d052501684169f61c9f661c505fd98887a1fad3a94a",
+      "src/run_catalog.py": "ba7b9877b314a87c188671b6004bc423dd7300974609fe8b8c98d28feccebb40",
+      "templates.fixture-rules.json": "7aa8644c9282c5306af0e9a851a158402cb7dea4ffe23cf792ac5aa599b8bf32",
+      "templates.json": "0c1c6d9e19c915d026a5dd39f477564fd8fa9fa24d58dc6a602436aa3c060a14"
+    }
+  },
+  "installed_fixture_workflow": {
+    "cli": {
+      "apply": {
+        "applied_files": [
+          "src/catalog.py",
+          "src/renderer.py",
+          "src/run_catalog.py"
+        ],
+        "journal_saved": true,
+        "output_saved": true,
+        "receipt_saved": true,
+        "review_sha256": "d9adab3c07471fec5a4e0755199d909adb8b66e8436efe2a3a00451f23742344",
+        "schema_version": 1,
+        "status": "applied",
+        "view_id": "6cb26d5fcae84e059f7c357e0ec71e1c"
+      },
+      "export": {
+        "excluded_files": [],
+        "files_exported": 6,
+        "manifest_saved": true,
+        "manifest_sha256": "795c36e4dca2596c96e6b55ed82b45d1abc2e5b2cf8d7abd5ba39187ce261570",
+        "private_state": ".local/bamboozle/views/6cb26d5fcae84e059f7c357e0ec71e1c",
+        "schema_version": 1,
+        "selected_source_files": 2,
+        "status": "exported",
+        "unselected_files": "omitted",
+        "view": "neutral",
+        "view_id": "6cb26d5fcae84e059f7c357e0ec71e1c"
+      },
+      "neutral_and_original_catalog_executed": true,
+      "original_sha256": "0c1c6d9e19c915d026a5dd39f477564fd8fa9fa24d58dc6a602436aa3c060a14",
+      "preview": {
+        "cases": [
+          {
+            "expect": [],
+            "name": "baseline"
+          },
+          {
+            "expect": [],
+            "name": "zero_duration"
+          },
+          {
+            "expect": [
+              "duration"
+            ],
+            "name": "missing_duration"
+          },
+          {
+            "expect": [
+              "variables"
+            ],
+            "name": "wrong_variables"
+          },
+          {
+            "expect": [
+              "roles"
+            ],
+            "name": "role_count"
+          },
+          {
+            "expect": [
+              "ordered"
+            ],
+            "name": "ordered_roles"
+          },
+          {
+            "expect": [
+              "@reference"
+            ],
+            "name": "dangling_reference"
+          },
+          {
+            "expect": [
+              "version"
+            ],
+            "name": "boolean_version"
+          }
+        ],
+        "contract_complete": true,
+        "contract_preview": "# Template processing contract\n\nThese neutral records preserve declared software invariants, not production scene semantics.\nFixture edits and cases must never replace production template text.\nGenerated contract/case files must remain unchanged; create separate test files for new cases.\n\nValidate a fixture with `bamboozle fixture-validate PATH --contract TEMPLATE_CONTRACT.json`.\n`TEMPLATE_CASES.json` supplies complete documents and expected invariant codes; an empty list means valid.\nConsumer symbols and field responsibilities are operator-declared and checked against parsed Python source, not inferred behavior.\n\n## templates.json\n\nRecords: `/templates`; stable ID: `/id`.\n\n### Field definitions and checks\n\n```json\n{\n  \"checks\": [\n    {\n      \"id\": \"version\",\n      \"kind\": \"type\",\n      \"minimum\": 1,\n      \"path\": \"/version\",\n      \"required\": true,\n      \"type\": \"integer\"\n    },\n    {\n      \"id\": \"duration\",\n      \"kind\": \"type\",\n      \"maximum\": 60,\n      \"minimum\": 0,\n      \"path\": \"/duration\",\n      \"required\": true,\n      \"type\": \"number\"\n    },\n    {\n      \"array\": \"/roles\",\n      \"count\": \"/constraints/participant_count\",\n      \"id\": \"roles\",\n      \"kind\": \"count\"\n    },\n    {\n      \"array\": \"/variables\",\n      \"id\": \"variables\",\n      \"kind\": \"variables\",\n      \"text\": \"/prompt\"\n    },\n    {\n      \"equals\": true,\n      \"id\": \"ordered\",\n      \"kind\": \"requires\",\n      \"then\": [\n        \"/role_order\"\n      ],\n      \"when\": \"/constraints/ordered\"\n    },\n    {\n      \"enum\": [\n        \"calibration\",\n        \"inspection\"\n      ],\n      \"id\": \"category\",\n      \"kind\": \"type\",\n      \"min_length\": 1,\n      \"path\": \"/category\",\n      \"required\": true,\n      \"type\": \"string\"\n    }\n  ],\n  \"document_preserve\": [\n    \"/label\"\n  ],\n  \"preserve\": [\n    \"/id\",\n    \"/category\",\n    \"/variables/*\",\n    \"/roles/*\",\n    \"/role_order/*\",\n    \"/links/*\"\n  ],\n  \"references\": [\n    {\n      \"many\": true,\n      \"optional\": false,\n      \"path\": \"/links\"\n    }\n  ],\n  \"text\": {\n    \"/notes\": {\n      \"optional\": true,\n      \"syntax\": \"none\",\n      \"template\": \"Use the calibration bench.\",\n      \"variants\": {}\n    },\n    \"/prompt\": {\n      \"optional\": false,\n      \"syntax\": \"format\",\n      \"template\": \"Operator {actor_a} transfers a calibration probe to {actor_b!s} for {duration:.1f} seconds at {{station}}.\\nConfirm {actor_a}.\",\n      \"variants\": {}\n    }\n  }\n}\n```\n\n### Processing call paths\n\n- `src/renderer.py:1` / `fuck`: Interpolate each record's named variables with its declared format specifiers. Fields: [\n  \"/prompt\",\n  \"/variables\"\n]\n\n### Verified cases\n\n- `baseline`: valid\n- `zero_duration`: valid\n- `missing_duration`: duration\n- `wrong_variables`: variables\n- `role_count`: roles\n- `ordered_roles`: ordered\n- `dangling_reference`: @reference\n- `boolean_version`: version\n",
+        "fixture_preview": "{\n  \"label\": \"calibration catalog\",\n  \"templates\": [\n    {\n      \"category\": \"calibration\",\n      \"constraints\": {\n        \"ordered\": true,\n        \"participant_count\": 2\n      },\n      \"duration\": 2.5,\n      \"id\": \"template_017\",\n      \"links\": [\n        \"template_018\"\n      ],\n      \"prompt\": \"Operator {actor_a} transfers a calibration probe to {actor_b!s} for {duration:.1f} seconds at {{station}}.\\nConfirm {actor_a}.\",\n      \"role_order\": [\n        \"actor_a\",\n        \"actor_b\"\n      ],\n      \"roles\": [\n        \"actor_a\",\n        \"actor_b\"\n      ],\n      \"variables\": [\n        \"actor_a\",\n        \"actor_b\",\n        \"duration\"\n      ],\n      \"version\": 1\n    },\n    {\n      \"category\": \"calibration\",\n      \"constraints\": {\n        \"ordered\": true,\n        \"participant_count\": 2\n      },\n      \"duration\": 2.5,\n      \"id\": \"template_018\",\n      \"links\": [],\n      \"notes\": \"Use the calibration bench.\",\n      \"prompt\": \"Operator {actor_a} transfers a calibration probe to {actor_b!s} for {duration:.1f} seconds at {{station}}.\\nConfirm {actor_a}.\",\n      \"role_order\": [\n        \"actor_a\",\n        \"actor_b\"\n      ],\n      \"roles\": [\n        \"actor_a\",\n        \"actor_b\"\n      ],\n      \"variables\": [\n        \"actor_a\",\n        \"actor_b\",\n        \"duration\"\n      ],\n      \"version\": 1\n    }\n  ]\n}\n",
+        "fixture_sha256": "a0ba77b1ca942212c4a3786deff7f2f302362cb273ef15dba653dc76c8a1334b",
+        "generation_sha256": "c6c21b624b51bc5f4ff237e74f0274e2caa85cf1eda80c40e51f02cf7e3063bb",
+        "inputs": {
+          "src/renderer.py": "16fdc061ab0c2f8ac6d813cc9ca471dc722c5b7bba5c72f69a3531c355ab04e3",
+          "templates.fixture-rules.json": "7aa8644c9282c5306af0e9a851a158402cb7dea4ffe23cf792ac5aa599b8bf32",
+          "templates.json": "0c1c6d9e19c915d026a5dd39f477564fd8fa9fa24d58dc6a602436aa3c060a14"
+        },
+        "ok": true,
+        "output_saved": false,
+        "preview_complete": true,
+        "status": "preview"
+      },
+      "review": {
+        "action_count": 3,
+        "changes": [
+          {
+            "action": "create",
+            "before_sha256": null,
+            "diff": "--- retained-original\n+++ restored-edits\n@@ -0,0 +1,52 @@\n+from math import isfinite\r\n+from string import Formatter\r\n+from renderer import fuck\r\n+\r\n+class CatalogError(ValueError):\r\n+    def __init__(self, codes):\r\n+        self.codes = sorted(set(codes))\r\n+        super().__init__(\", \".join(self.codes))\r\n+\r\n+def compile_catalog(document, values):\r\n+    records = document.get(\"templates\")\r\n+    if not isinstance(records, list) or not records:\r\n+        raise CatalogError([\"@records\"])\r\n+    ids = [record.get(\"id\") for record in records]\r\n+    if any(not isinstance(value, str) or not value for value in ids) or len(set(ids)) != len(ids):\r\n+        raise CatalogError([\"@id\"])\r\n+    errors = []\r\n+    for record in records:\r\n+        version = record.get(\"version\")\r\n+        if type(version) is not int or version < 1:\r\n+            errors.append(\"version\")\r\n+        duration = record.get(\"duration\")\r\n+        if type(duration) not in (int, float) or not isfinite(duration) or not 0 <= duration <= 60:\r\n+            errors.append(\"duration\")\r\n+        constraints = record.get(\"constraints\", {})\r\n+        roles = record.get(\"roles\")\r\n+        if not isinstance(roles, list) or type(constraints.get(\"participant_count\")) is not int or len(roles) != constraints[\"participant_count\"]:\r\n+            errors.append(\"roles\")\r\n+        if constraints.get(\"ordered\") is True and \"role_order\" not in record:\r\n+            errors.append(\"ordered\")\r\n+        if record.get(\"category\") not in (\"calibration\", \"inspection\"):\r\n+            errors.append(\"category\")\r\n+        declared = record.get(\"variables\")\r\n+        try:\r\n+            fields = {field for _, field, _, _ in Formatter().parse(record[\"prompt\"]) if field is not None}\r\n+            if not isinstance(declared, list) or any(not isinstance(value, str) for value in declared) or len(set(declared)) != len(declared) or set(declared) != fields:\r\n+                errors.append(\"variables\")\r\n+        except (KeyError, ValueError, TypeError):\r\n+            errors.append(\"variables\")\r\n+        links = record.get(\"links\")\r\n+        if not isinstance(links, list) or any(link not in ids for link in links):\r\n+            errors.append(\"@reference\")\r\n+    if errors:\r\n+        raise CatalogError(errors)\r\n+    result = []\r\n+    for record in records:\r\n+        bindings = {**values, \"duration\": record[\"duration\"]}\r\n+        missing = set(record[\"variables\"]) - bindings.keys()\r\n+        if missing:\r\n+            raise CatalogError([\"bindings\"])\r\n+        result.append({\"id\": record[\"id\"], \"text\": fuck(record, bindings), \"links\": record[\"links\"]})\r\n+    return result\r\n",
+            "diff_complete": true,
+            "output_bytes": 2517,
+            "output_sha256": "209b39ed8c62ba94d9b76abe959bf44033335cb89d972b51df712ba31e897209",
+            "path": "src/catalog.py",
+            "policy": "translate"
+          },
+          {
+            "action": "modify",
+            "before_sha256": "16fdc061ab0c2f8ac6d813cc9ca471dc722c5b7bba5c72f69a3531c355ab04e3",
+            "diff": "--- retained-original\n+++ restored-edits\n@@ -1,2 +1,2 @@\n def fuck(record, values):\r\n-    return record['prompt'].format_map(values)\r\n+    return record[\"prompt\"].format_map(values)\r\n",
+            "diff_complete": true,
+            "output_bytes": 75,
+            "output_sha256": "61af502b9ed7f66e455b3d052501684169f61c9f661c505fd98887a1fad3a94a",
+            "path": "src/renderer.py",
+            "policy": "translate"
+          },
+          {
+            "action": "create",
+            "before_sha256": null,
+            "diff": "--- retained-original\n+++ restored-edits\n@@ -0,0 +1,27 @@\n+import json\r\n+import sys\r\n+from pathlib import Path\r\n+from catalog import CatalogError, compile_catalog\r\n+\r\n+cases = json.loads(Path(sys.argv[1]).read_bytes())[\"fixtures\"][\"templates.json\"]\r\n+bindings = {\"actor_a\": \"Ada\", \"actor_b\": \"Lin\"}\r\n+for case in cases:\r\n+    try:\r\n+        result = compile_catalog(case[\"document\"], bindings)\r\n+    except CatalogError as error:\r\n+        assert error.codes == case[\"expect\"], (case[\"name\"], error.codes, case[\"expect\"])\r\n+    else:\r\n+        assert not case[\"expect\"], case[\"name\"]\r\n+        assert [row[\"id\"] for row in result] == [\"template_017\", \"template_018\"]\r\n+        assert result[0][\"text\"].count(\"Ada\") == 2\r\n+        assert \"Lin\" in result[0][\"text\"] and \"{station}\" in result[0][\"text\"]\r\n+        assert result[0][\"links\"] == [\"template_018\"]\r\n+production = json.loads(Path(\"templates.json\").read_bytes())\r\n+assert len(compile_catalog(production, bindings)) == 2\r\n+try:\r\n+    compile_catalog(production, {\"actor_a\": \"Ada\"})\r\n+except CatalogError as error:\r\n+    assert error.codes == [\"bindings\"]\r\n+else:\r\n+    raise AssertionError(\"Missing runtime binding accepted\")\r\n+print(\"catalog-pipeline-ok\")\r\n",
+            "diff_complete": true,
+            "output_bytes": 1129,
+            "output_sha256": "ba7b9877b314a87c188671b6004bc423dd7300974609fe8b8c98d28feccebb40",
+            "path": "src/run_catalog.py",
+            "policy": "translate"
+          }
+        ],
+        "conflicts": [],
+        "ok": true,
+        "output_saved": false,
+        "review_sha256": "d9adab3c07471fec5a4e0755199d909adb8b66e8436efe2a3a00451f23742344",
+        "schema_version": 1,
+        "status": "review",
+        "view_id": "6cb26d5fcae84e059f7c357e0ec71e1c"
+      },
+      "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-ohpd_q0r\\runtime\\generated-fixture-workflow\\cli",
+      "status": {
+        "files": {
+          "src/catalog.py": "applied",
+          "src/renderer.py": "applied",
+          "src/run_catalog.py": "applied",
+          "templates.json": "unchanged"
+        },
+        "receipt_saved": true,
+        "review_sha256": "d9adab3c07471fec5a4e0755199d909adb8b66e8436efe2a3a00451f23742344",
+        "schema_version": 1,
+        "status": "complete",
+        "view_changed": false,
+        "view_id": "6cb26d5fcae84e059f7c357e0ec71e1c"
+      }
+    },
+    "mcp": {
+      "apply": {
+        "applied_files": [
+          "src/catalog.py",
+          "src/renderer.py",
+          "src/run_catalog.py"
+        ],
+        "journal_saved": true,
+        "output_saved": true,
+        "receipt_saved": true,
+        "review_sha256": "797c0bd54b74a0094b1c829bca3481890d0cf3fc361b1b23ef6bd4993dc8d385",
+        "schema_version": 1,
+        "status": "applied",
+        "view_id": "4db39f61c09143a6ae8d715900f3d092"
+      },
+      "export": {
+        "excluded_files": [],
+        "files_exported": 6,
+        "manifest_saved": true,
+        "manifest_sha256": "9b92f92a2174acd4be6334713005697baad7f241bef9e88fc659a9ae735e85b9",
+        "private_state": ".local/bamboozle/views/4db39f61c09143a6ae8d715900f3d092",
+        "schema_version": 1,
+        "selected_source_files": 2,
+        "status": "exported",
+        "unselected_files": "omitted",
+        "view": "neutral",
+        "view_id": "4db39f61c09143a6ae8d715900f3d092"
+      },
+      "neutral_and_original_catalog_executed": true,
+      "original_sha256": "0c1c6d9e19c915d026a5dd39f477564fd8fa9fa24d58dc6a602436aa3c060a14",
+      "preview": {
+        "cases": [
+          {
+            "expect": [],
+            "name": "baseline"
+          },
+          {
+            "expect": [],
+            "name": "zero_duration"
+          },
+          {
+            "expect": [
+              "duration"
+            ],
+            "name": "missing_duration"
+          },
+          {
+            "expect": [
+              "variables"
+            ],
+            "name": "wrong_variables"
+          },
+          {
+            "expect": [
+              "roles"
+            ],
+            "name": "role_count"
+          },
+          {
+            "expect": [
+              "ordered"
+            ],
+            "name": "ordered_roles"
+          },
+          {
+            "expect": [
+              "@reference"
+            ],
+            "name": "dangling_reference"
+          },
+          {
+            "expect": [
+              "version"
+            ],
+            "name": "boolean_version"
+          }
+        ],
+        "contract_complete": true,
+        "contract_preview": "# Template processing contract\n\nThese neutral records preserve declared software invariants, not production scene semantics.\nFixture edits and cases must never replace production template text.\nGenerated contract/case files must remain unchanged; create separate test files for new cases.\n\nValidate a fixture with `bamboozle fixture-validate PATH --contract TEMPLATE_CONTRACT.json`.\n`TEMPLATE_CASES.json` supplies complete documents and expected invariant codes; an empty list means valid.\nConsumer symbols and field responsibilities are operator-declared and checked against parsed Python source, not inferred behavior.\n\n## templates.json\n\nRecords: `/templates`; stable ID: `/id`.\n\n### Field definitions and checks\n\n```json\n{\n  \"checks\": [\n    {\n      \"id\": \"version\",\n      \"kind\": \"type\",\n      \"minimum\": 1,\n      \"path\": \"/version\",\n      \"required\": true,\n      \"type\": \"integer\"\n    },\n    {\n      \"id\": \"duration\",\n      \"kind\": \"type\",\n      \"maximum\": 60,\n      \"minimum\": 0,\n      \"path\": \"/duration\",\n      \"required\": true,\n      \"type\": \"number\"\n    },\n    {\n      \"array\": \"/roles\",\n      \"count\": \"/constraints/participant_count\",\n      \"id\": \"roles\",\n      \"kind\": \"count\"\n    },\n    {\n      \"array\": \"/variables\",\n      \"id\": \"variables\",\n      \"kind\": \"variables\",\n      \"text\": \"/prompt\"\n    },\n    {\n      \"equals\": true,\n      \"id\": \"ordered\",\n      \"kind\": \"requires\",\n      \"then\": [\n        \"/role_order\"\n      ],\n      \"when\": \"/constraints/ordered\"\n    },\n    {\n      \"enum\": [\n        \"calibration\",\n        \"inspection\"\n      ],\n      \"id\": \"category\",\n      \"kind\": \"type\",\n      \"min_length\": 1,\n      \"path\": \"/category\",\n      \"required\": true,\n      \"type\": \"string\"\n    }\n  ],\n  \"document_preserve\": [\n    \"/label\"\n  ],\n  \"preserve\": [\n    \"/id\",\n    \"/category\",\n    \"/variables/*\",\n    \"/roles/*\",\n    \"/role_order/*\",\n    \"/links/*\"\n  ],\n  \"references\": [\n    {\n      \"many\": true,\n      \"optional\": false,\n      \"path\": \"/links\"\n    }\n  ],\n  \"text\": {\n    \"/notes\": {\n      \"optional\": true,\n      \"syntax\": \"none\",\n      \"template\": \"Use the calibration bench.\",\n      \"variants\": {}\n    },\n    \"/prompt\": {\n      \"optional\": false,\n      \"syntax\": \"format\",\n      \"template\": \"Operator {actor_a} transfers a calibration probe to {actor_b!s} for {duration:.1f} seconds at {{station}}.\\nConfirm {actor_a}.\",\n      \"variants\": {}\n    }\n  }\n}\n```\n\n### Processing call paths\n\n- `src/renderer.py:1` / `fuck`: Interpolate each record's named variables with its declared format specifiers. Fields: [\n  \"/prompt\",\n  \"/variables\"\n]\n\n### Verified cases\n\n- `baseline`: valid\n- `zero_duration`: valid\n- `missing_duration`: duration\n- `wrong_variables`: variables\n- `role_count`: roles\n- `ordered_roles`: ordered\n- `dangling_reference`: @reference\n- `boolean_version`: version\n",
+        "fixture_preview": "{\n  \"label\": \"calibration catalog\",\n  \"templates\": [\n    {\n      \"category\": \"calibration\",\n      \"constraints\": {\n        \"ordered\": true,\n        \"participant_count\": 2\n      },\n      \"duration\": 2.5,\n      \"id\": \"template_017\",\n      \"links\": [\n        \"template_018\"\n      ],\n      \"prompt\": \"Operator {actor_a} transfers a calibration probe to {actor_b!s} for {duration:.1f} seconds at {{station}}.\\nConfirm {actor_a}.\",\n      \"role_order\": [\n        \"actor_a\",\n        \"actor_b\"\n      ],\n      \"roles\": [\n        \"actor_a\",\n        \"actor_b\"\n      ],\n      \"variables\": [\n        \"actor_a\",\n        \"actor_b\",\n        \"duration\"\n      ],\n      \"version\": 1\n    },\n    {\n      \"category\": \"calibration\",\n      \"constraints\": {\n        \"ordered\": true,\n        \"participant_count\": 2\n      },\n      \"duration\": 2.5,\n      \"id\": \"template_018\",\n      \"links\": [],\n      \"notes\": \"Use the calibration bench.\",\n      \"prompt\": \"Operator {actor_a} transfers a calibration probe to {actor_b!s} for {duration:.1f} seconds at {{station}}.\\nConfirm {actor_a}.\",\n      \"role_order\": [\n        \"actor_a\",\n        \"actor_b\"\n      ],\n      \"roles\": [\n        \"actor_a\",\n        \"actor_b\"\n      ],\n      \"variables\": [\n        \"actor_a\",\n        \"actor_b\",\n        \"duration\"\n      ],\n      \"version\": 1\n    }\n  ]\n}\n",
+        "fixture_sha256": "a0ba77b1ca942212c4a3786deff7f2f302362cb273ef15dba653dc76c8a1334b",
+        "generation_sha256": "c6c21b624b51bc5f4ff237e74f0274e2caa85cf1eda80c40e51f02cf7e3063bb",
+        "inputs": {
+          "src/renderer.py": "16fdc061ab0c2f8ac6d813cc9ca471dc722c5b7bba5c72f69a3531c355ab04e3",
+          "templates.fixture-rules.json": "7aa8644c9282c5306af0e9a851a158402cb7dea4ffe23cf792ac5aa599b8bf32",
+          "templates.json": "0c1c6d9e19c915d026a5dd39f477564fd8fa9fa24d58dc6a602436aa3c060a14"
+        },
+        "ok": true,
+        "output_saved": false,
+        "preview_complete": true,
+        "status": "preview"
+      },
+      "review": {
+        "action_count": 3,
+        "changes": [
+          {
+            "action": "create",
+            "before_sha256": null,
+            "diff": "--- retained-original\n+++ restored-edits\n@@ -0,0 +1,52 @@\n+from math import isfinite\r\n+from string import Formatter\r\n+from renderer import fuck\r\n+\r\n+class CatalogError(ValueError):\r\n+    def __init__(self, codes):\r\n+        self.codes = sorted(set(codes))\r\n+        super().__init__(\", \".join(self.codes))\r\n+\r\n+def compile_catalog(document, values):\r\n+    records = document.get(\"templates\")\r\n+    if not isinstance(records, list) or not records:\r\n+        raise CatalogError([\"@records\"])\r\n+    ids = [record.get(\"id\") for record in records]\r\n+    if any(not isinstance(value, str) or not value for value in ids) or len(set(ids)) != len(ids):\r\n+        raise CatalogError([\"@id\"])\r\n+    errors = []\r\n+    for record in records:\r\n+        version = record.get(\"version\")\r\n+        if type(version) is not int or version < 1:\r\n+            errors.append(\"version\")\r\n+        duration = record.get(\"duration\")\r\n+        if type(duration) not in (int, float) or not isfinite(duration) or not 0 <= duration <= 60:\r\n+            errors.append(\"duration\")\r\n+        constraints = record.get(\"constraints\", {})\r\n+        roles = record.get(\"roles\")\r\n+        if not isinstance(roles, list) or type(constraints.get(\"participant_count\")) is not int or len(roles) != constraints[\"participant_count\"]:\r\n+            errors.append(\"roles\")\r\n+        if constraints.get(\"ordered\") is True and \"role_order\" not in record:\r\n+            errors.append(\"ordered\")\r\n+        if record.get(\"category\") not in (\"calibration\", \"inspection\"):\r\n+            errors.append(\"category\")\r\n+        declared = record.get(\"variables\")\r\n+        try:\r\n+            fields = {field for _, field, _, _ in Formatter().parse(record[\"prompt\"]) if field is not None}\r\n+            if not isinstance(declared, list) or any(not isinstance(value, str) for value in declared) or len(set(declared)) != len(declared) or set(declared) != fields:\r\n+                errors.append(\"variables\")\r\n+        except (KeyError, ValueError, TypeError):\r\n+            errors.append(\"variables\")\r\n+        links = record.get(\"links\")\r\n+        if not isinstance(links, list) or any(link not in ids for link in links):\r\n+            errors.append(\"@reference\")\r\n+    if errors:\r\n+        raise CatalogError(errors)\r\n+    result = []\r\n+    for record in records:\r\n+        bindings = {**values, \"duration\": record[\"duration\"]}\r\n+        missing = set(record[\"variables\"]) - bindings.keys()\r\n+        if missing:\r\n+            raise CatalogError([\"bindings\"])\r\n+        result.append({\"id\": record[\"id\"], \"text\": fuck(record, bindings), \"links\": record[\"links\"]})\r\n+    return result\r\n",
+            "diff_complete": true,
+            "output_bytes": 2517,
+            "output_sha256": "209b39ed8c62ba94d9b76abe959bf44033335cb89d972b51df712ba31e897209",
+            "path": "src/catalog.py",
+            "policy": "translate"
+          },
+          {
+            "action": "modify",
+            "before_sha256": "16fdc061ab0c2f8ac6d813cc9ca471dc722c5b7bba5c72f69a3531c355ab04e3",
+            "diff": "--- retained-original\n+++ restored-edits\n@@ -1,2 +1,2 @@\n def fuck(record, values):\r\n-    return record['prompt'].format_map(values)\r\n+    return record[\"prompt\"].format_map(values)\r\n",
+            "diff_complete": true,
+            "output_bytes": 75,
+            "output_sha256": "61af502b9ed7f66e455b3d052501684169f61c9f661c505fd98887a1fad3a94a",
+            "path": "src/renderer.py",
+            "policy": "translate"
+          },
+          {
+            "action": "create",
+            "before_sha256": null,
+            "diff": "--- retained-original\n+++ restored-edits\n@@ -0,0 +1,27 @@\n+import json\r\n+import sys\r\n+from pathlib import Path\r\n+from catalog import CatalogError, compile_catalog\r\n+\r\n+cases = json.loads(Path(sys.argv[1]).read_bytes())[\"fixtures\"][\"templates.json\"]\r\n+bindings = {\"actor_a\": \"Ada\", \"actor_b\": \"Lin\"}\r\n+for case in cases:\r\n+    try:\r\n+        result = compile_catalog(case[\"document\"], bindings)\r\n+    except CatalogError as error:\r\n+        assert error.codes == case[\"expect\"], (case[\"name\"], error.codes, case[\"expect\"])\r\n+    else:\r\n+        assert not case[\"expect\"], case[\"name\"]\r\n+        assert [row[\"id\"] for row in result] == [\"template_017\", \"template_018\"]\r\n+        assert result[0][\"text\"].count(\"Ada\") == 2\r\n+        assert \"Lin\" in result[0][\"text\"] and \"{station}\" in result[0][\"text\"]\r\n+        assert result[0][\"links\"] == [\"template_018\"]\r\n+production = json.loads(Path(\"templates.json\").read_bytes())\r\n+assert len(compile_catalog(production, bindings)) == 2\r\n+try:\r\n+    compile_catalog(production, {\"actor_a\": \"Ada\"})\r\n+except CatalogError as error:\r\n+    assert error.codes == [\"bindings\"]\r\n+else:\r\n+    raise AssertionError(\"Missing runtime binding accepted\")\r\n+print(\"catalog-pipeline-ok\")\r\n",
+            "diff_complete": true,
+            "output_bytes": 1129,
+            "output_sha256": "ba7b9877b314a87c188671b6004bc423dd7300974609fe8b8c98d28feccebb40",
+            "path": "src/run_catalog.py",
+            "policy": "translate"
+          }
+        ],
+        "conflicts": [],
+        "ok": true,
+        "output_saved": false,
+        "review_sha256": "797c0bd54b74a0094b1c829bca3481890d0cf3fc361b1b23ef6bd4993dc8d385",
+        "schema_version": 1,
+        "status": "review",
+        "view_id": "4db39f61c09143a6ae8d715900f3d092"
+      },
+      "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-ohpd_q0r\\runtime\\generated-fixture-workflow\\mcp",
+      "source_agent_surface_and_private_rules_verified": true,
+      "status": {
+        "files": {
+          "src/catalog.py": "applied",
+          "src/renderer.py": "applied",
+          "src/run_catalog.py": "applied",
+          "templates.json": "unchanged"
+        },
+        "receipt_saved": true,
+        "review_sha256": "797c0bd54b74a0094b1c829bca3481890d0cf3fc361b1b23ef6bd4993dc8d385",
+        "schema_version": 1,
+        "status": "complete",
+        "view_changed": false,
+        "view_id": "4db39f61c09143a6ae8d715900f3d092"
+      }
+    }
+  },
+  "installed_lexicon_workflow": {
+    "historical_json_bytes_restored": true,
+    "mcp": {
+      "private_lexicon_read_refused": true,
+      "source_agent_tools": [
+        "read_safe_file",
+        "write_safe_file"
+      ],
+      "stale_review_refused": true,
+      "structured_edited_return": true,
+      "verification": {
+        "current_inputs_unchanged": true,
+        "dictionary_sha256": "ca6fb9c9a51f5ef0f7f8c2ad9d2cce4ed898531617798c9c5d71da62f39cb635",
+        "forms": 6,
+        "inputs": [
+          {
+            "path": "mcp-edited.lexicon.json",
+            "state": "unchanged"
+          },
+          {
+            "path": "stats.dictionary.json",
+            "state": "unchanged"
+          }
+        ],
+        "mapping_version": "stats-3",
+        "ok": true,
+        "status": "verified"
+      }
+    },
+    "neutral_and_restored_statistics_pipeline_executed": true,
+    "review": {
+      "base_dictionary_sha256": "6c4bbb1c4da361f4c05f7da4983c03bd5f42e5420613ca2c901db225ed3d31a2",
+      "change_count": 6,
+      "change_counts": {
+        "added": 3,
+        "changed": 2,
+        "removed": 1
+      },
+      "changes": [
+        {
+          "after": "cascade_failure",
+          "before": null,
+          "change": "added",
+          "source": "clusterfuck"
+        },
+        {
+          "after": "masked_impulse",
+          "before": null,
+          "change": "added",
+          "source": "f*ck"
+        },
+        {
+          "after": "impulse",
+          "before": "pulse",
+          "change": "changed",
+          "source": "fuck"
+        },
+        {
+          "after": "impulsed",
+          "before": "pulsed",
+          "change": "changed",
+          "source": "fucked"
+        },
+        {
+          "after": "impulsing",
+          "before": null,
+          "change": "added",
+          "source": "fucking"
+        },
+        {
+          "after": null,
+          "before": "retired_signal",
+          "change": "removed",
+          "source": "obsolete"
+        }
+      ],
+      "changes_complete": true,
+      "changes_sha256": "916bc9d6e82897608039d2c2af1b50442281562a947999873fed45687d9b3b2a",
+      "diagnostics": [],
+      "diagnostics_complete": true,
+      "dictionary_sha256": "758df71d890b32038ab615e7175cce7d727a8ea8d68a6e64392d331171b0e5d6",
+      "error_count": 0,
+      "forms": 6,
+      "mapping_version": "stats-2",
+      "metadata": ".stats.dictionary.json.lexicon-receipt.json",
+      "metadata_saved": false,
+      "next_offset": null,
+      "offset": 0,
+      "ok": true,
+      "operation": "compile_lexicon",
+      "output": "stats.dictionary.json",
+      "output_bytes": 245,
+      "output_saved": false,
+      "output_sha256": "758df71d890b32038ab615e7175cce7d727a8ea8d68a6e64392d331171b0e5d6",
+      "review_sha256": "24f6439a4cd28e75bc2db2a9e85099b08ad2b1f936d80970b6ba4602e85a7551",
+      "schema_version": 1,
+      "status": "preview"
+    },
+    "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-ohpd_q0r\\runtime\\lexicon-fixture",
+    "verification": {
+      "current_inputs_unchanged": true,
+      "dictionary_sha256": "758df71d890b32038ab615e7175cce7d727a8ea8d68a6e64392d331171b0e5d6",
+      "forms": 6,
+      "inputs": [
+        {
+          "path": "base.json",
+          "state": "unchanged"
+        },
+        {
+          "path": "stats.lexicon.json",
+          "state": "unchanged"
+        }
+      ],
+      "mapping_version": "stats-2",
+      "ok": true,
+      "status": "verified"
+    },
+    "view_export": {
+      "excluded_files": [],
+      "files_exported": 3,
+      "manifest_saved": true,
+      "manifest_sha256": "f8cb0ad75eeee28972ef32e3a5f92c63cc327c7f99ec66771c7cb64e54190b42",
+      "private_state": ".local/bamboozle/views/422df9c689c34039a185f949be5a427e",
+      "schema_version": 1,
+      "selected_source_files": 2,
+      "status": "exported",
+      "unselected_files": "omitted",
+      "view": "neutral",
+      "view_id": "422df9c689c34039a185f949be5a427e"
+    },
+    "view_import": {
+      "applied_files": [
+        "guide.md",
+        "src/batch.py",
+        "src/model.py"
+      ],
+      "journal_saved": true,
+      "output_saved": true,
+      "receipt_saved": true,
+      "review_sha256": "53d849e7929776e1f4e72203cafd006aff381e3854294ded56cce6d1daa7a300",
+      "schema_version": 1,
+      "status": "applied",
+      "view_id": "422df9c689c34039a185f949be5a427e"
+    }
+  },
+  "installed_profanity_workflow": {
+    "agent": {
+      "dependent_program_executed": true,
+      "edited": {
+        "backup_saved": true,
+        "before_sha256": "8ca69da6a15f5024780707caefe851dbc299d767e50631fd3152e1e57cee2cad",
+        "dictionary_sha256": "fc05c1668b14cdb66315c79a47c7e25fd5033e9bd312dcc9d67abc885507c3ff",
+        "file_path": "node.py",
+        "history": ".vigiles/cipher/changes/e3745caa749c4743b61b7ceb6e4b360a",
+        "operation_id": "e3745caa749c4743b61b7ceb6e4b360a",
+        "output_bytes": 91,
+        "output_saved": true,
+        "output_sha256": "6ccddda71463068967620d883f4dae58bd8f279b8cab44e2ba786a5019b66c92",
+        "receipt_saved": true,
+        "schema_version": 1,
+        "status": "saved"
+      },
+      "generated": {
+        "backup_saved": false,
+        "before_sha256": null,
+        "dictionary_sha256": "fc05c1668b14cdb66315c79a47c7e25fd5033e9bd312dcc9d67abc885507c3ff",
+        "file_path": "generated.py",
+        "history": ".vigiles/cipher/changes/9e946fb035ad4664bbf9fe2a0a4a2ffc",
+        "operation_id": "9e946fb035ad4664bbf9fe2a0a4a2ffc",
+        "output_bytes": 43,
+        "output_saved": true,
+        "output_sha256": "430bde8060c3d9f880072fcd1dccca79907473f239700db6fc1cba935f295efb",
+        "receipt_saved": true,
+        "schema_version": 1,
+        "status": "saved"
+      }
+    },
+    "cipher_stream_exact_roundtrip": true,
+    "cli_exact_roundtrip": true,
+    "default_entries": 415,
+    "mapping_version": "profanity-1",
+    "profile": "profanity",
+    "profile_entries": 310,
+    "scan": {
+      "counts": {
+        "f*ck": 1,
+        "for fuck’s sake": 1,
+        "fuck": 2
+      },
+      "dictionary_sha256": "fc05c1668b14cdb66315c79a47c7e25fd5033e9bd312dcc9d67abc885507c3ff",
+      "input": "node.py",
+      "input_bytes": 91,
+      "input_sha256": "8ca69da6a15f5024780707caefe851dbc299d767e50631fd3152e1e57cee2cad",
+      "mapping_version": "profanity-1",
+      "matched_terms": 4,
+      "matches": [
+        {
+          "column": 4,
+          "end": 7,
+          "line": 1,
+          "replacement": "impulse_star_variant",
+          "source_term": "f*ck",
+          "start": 3,
+          "term": "f*ck"
+        },
+        {
+          "column": 10,
+          "end": 24,
+          "line": 1,
+          "replacement": "impulse_exasperation_curly_phrase",
+          "source_term": "for fuck’s sake",
+          "start": 9,
+          "term": "for fuck’s sake"
+        }
+      ],
+      "matches_complete": false,
+      "output_saved": false,
+      "schema_version": 1,
+      "status": "scanned"
+    }
+  },
+  "installed_project_view_workflow": {
+    "cli": {
+      "action_count": 4,
+      "applied": {
+        "applied_files": [
+          "settings.json",
+          "src/generated.py",
+          "src/node.py",
+          "src/obsolete.py"
+        ],
+        "journal_saved": true,
+        "output_saved": true,
+        "receipt_saved": true,
+        "review_sha256": "e8926b6915dfb2860b3f28c345e5f186fdc73fb54d3061d470efbffe11590f64",
+        "schema_version": 1,
+        "status": "applied",
+        "view_id": "04a5651954394758b9128312606252d8"
+      },
+      "encoded_and_restored_dependent_programs_executed": true,
+      "export": {
+        "excluded_files": [
+          "private.txt"
+        ],
+        "files_exported": 5,
+        "manifest_saved": true,
+        "manifest_sha256": "3a8fbf56f0adcc942714f37e880c17b852092dd726503bb3a2f931fa7c642434",
+        "private_state": ".local/bamboozle/views/04a5651954394758b9128312606252d8",
+        "schema_version": 1,
+        "selected_source_files": 4,
+        "status": "exported",
+        "unselected_files": "omitted",
+        "view": ".local/views/task",
+        "view_id": "04a5651954394758b9128312606252d8"
+      },
+      "fixture_source_preserved": true,
+      "private_original_preserved": true,
+      "review_sha256": "e8926b6915dfb2860b3f28c345e5f186fdc73fb54d3061d470efbffe11590f64",
+      "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-ohpd_q0r\\runtime\\view-cli-fixture",
+      "status": {
+        "files": {
+          "settings.json": "applied",
+          "src/generated.py": "applied",
+          "src/node.py": "applied",
+          "src/obsolete.py": "applied"
+        },
+        "receipt_saved": true,
+        "review_sha256": "e8926b6915dfb2860b3f28c345e5f186fdc73fb54d3061d470efbffe11590f64",
+        "schema_version": 1,
+        "status": "complete",
+        "view_changed": false,
+        "view_id": "04a5651954394758b9128312606252d8"
+      }
+    },
+    "mcp": {
+      "action_count": 4,
+      "applied": {
+        "applied_files": [
+          "settings.json",
+          "src/generated.py",
+          "src/node.py",
+          "src/obsolete.py"
+        ],
+        "journal_saved": true,
+        "output_saved": true,
+        "receipt_saved": true,
+        "review_sha256": "eec5acce6accb3cb3dfed8d6bbb6a26e980edd9c4a08082afcb920d4579a21b6",
+        "schema_version": 1,
+        "status": "applied",
+        "view_id": "895eb877d22e4e2a9ed472efcef42d2a"
+      },
+      "encoded_and_restored_dependent_programs_executed": true,
+      "export": {
+        "excluded_files": [
+          "private.txt"
+        ],
+        "files_exported": 5,
+        "manifest_saved": true,
+        "manifest_sha256": "db57a56e5e4882ac1ce0743d18017fd97d7eea4d75ee755b683bf268578f89a5",
+        "private_state": ".local/bamboozle/views/895eb877d22e4e2a9ed472efcef42d2a",
+        "schema_version": 1,
+        "selected_source_files": 4,
+        "status": "exported",
+        "unselected_files": "omitted",
+        "view": ".local/views/task",
+        "view_id": "895eb877d22e4e2a9ed472efcef42d2a"
+      },
+      "fixture_source_preserved": true,
+      "private_original_preserved": true,
+      "review_sha256": "eec5acce6accb3cb3dfed8d6bbb6a26e980edd9c4a08082afcb920d4579a21b6",
+      "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-ohpd_q0r\\runtime\\view-mcp-fixture",
+      "status": {
+        "files": {
+          "settings.json": "applied",
+          "src/generated.py": "applied",
+          "src/node.py": "applied",
+          "src/obsolete.py": "applied"
+        },
+        "receipt_saved": true,
+        "review_sha256": "eec5acce6accb3cb3dfed8d6bbb6a26e980edd9c4a08082afcb920d4579a21b6",
+        "schema_version": 1,
+        "status": "complete",
+        "view_changed": false,
+        "view_id": "895eb877d22e4e2a9ed472efcef42d2a"
+      }
+    },
+    "recovery": {
+      "action_count": 4,
+      "applied": {
+        "applied_files": [
+          "settings.json",
+          "src/generated.py",
+          "src/node.py",
+          "src/obsolete.py"
+        ],
+        "journal_saved": true,
+        "output_saved": true,
+        "receipt_saved": true,
+        "review_sha256": "0f4d4b7f914549a505b1222ddd5dfb789f1e2f47436239b7a11250784d937f5d",
+        "schema_version": 1,
+        "status": "recovered",
+        "view_id": "59e6898846a44503836dd8532686685c"
+      },
+      "encoded_and_restored_dependent_programs_executed": true,
+      "export": {
+        "excluded_files": [
+          "private.txt"
+        ],
+        "files_exported": 5,
+        "manifest_saved": true,
+        "manifest_sha256": "c5a7f48b2bbb59976c75f705b7b429e3b1d42209948c21a7ef92bd495bc70d13",
+        "private_state": ".local/bamboozle/views/59e6898846a44503836dd8532686685c",
+        "schema_version": 1,
+        "selected_source_files": 4,
+        "status": "exported",
+        "unselected_files": "omitted",
+        "view": ".local/views/task",
+        "view_id": "59e6898846a44503836dd8532686685c"
+      },
+      "fixture_source_preserved": true,
+      "partial": {
+        "applied_files": [
+          "settings.json"
+        ],
+        "error": "Synthetic installed import interruption",
+        "files": {
+          "settings.json": "applied",
+          "src/generated.py": "pending",
+          "src/node.py": "pending",
+          "src/obsolete.py": "pending"
+        },
+        "journal_saved": true,
+        "output_saved": true,
+        "receipt_saved": false,
+        "review_sha256": "0f4d4b7f914549a505b1222ddd5dfb789f1e2f47436239b7a11250784d937f5d",
+        "schema_version": 1,
+        "status": "error",
+        "view_id": "59e6898846a44503836dd8532686685c"
+      },
+      "pending": {
+        "files": {
+          "settings.json": "applied",
+          "src/generated.py": "pending",
+          "src/node.py": "pending",
+          "src/obsolete.py": "pending"
+        },
+        "receipt_saved": false,
+        "review_sha256": "0f4d4b7f914549a505b1222ddd5dfb789f1e2f47436239b7a11250784d937f5d",
+        "schema_version": 1,
+        "status": "pending",
+        "view_changed": false,
+        "view_id": "59e6898846a44503836dd8532686685c"
+      },
+      "private_original_preserved": true,
+      "review_sha256": "0f4d4b7f914549a505b1222ddd5dfb789f1e2f47436239b7a11250784d937f5d",
+      "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-ohpd_q0r\\runtime\\view-recovery-fixture",
+      "status": {
+        "files": {
+          "settings.json": "applied",
+          "src/generated.py": "applied",
+          "src/node.py": "applied",
+          "src/obsolete.py": "applied"
+        },
+        "receipt_saved": true,
+        "review_sha256": "0f4d4b7f914549a505b1222ddd5dfb789f1e2f47436239b7a11250784d937f5d",
+        "schema_version": 1,
+        "status": "complete",
+        "view_changed": false,
+        "view_id": "59e6898846a44503836dd8532686685c"
+      }
+    }
+  },
+  "limits": [
+    "Explicit bounded rule language, not general JSON Schema or inferred domain semantics",
+    "Consumer declarations bind to parsed Python functions; arbitrary implementation behavior is not inferred",
+    "Only declared neutral templates and explicit case mutations are generated",
+    "Copied technical strings and selected source remain intentionally visible",
+    "Public fixture validation does not replace application/runtime tests",
+    "Local consistency and workspace guards do not provide signed identity or OS isolation"
+  ],
+  "next_core_gate": "VIG-CIPHER-RETURN-01",
+  "original_mappings_preserved": 110,
+  "product_workflow_boundary": {
+    "client_registered": false,
+    "product": "0.4.7",
+    "source_agent_tools": [
+      "read_safe_file",
+      "write_safe_file"
+    ],
+    "workflow": "vigiles-vandal_0.2",
+    "workflow_version": "0.2"
+  },
+  "profanity_dictionary_entries": 310,
+  "release": "0.4.7",
+  "repository_workflow_contexts": {
+    "agent": {
+      "configuration_written": false,
+      "instructions": "Original-source agent context: use read_safe_file/write_safe_file for plain-text/code translation. They use whole-term text rules. Route Markdown/field-selected JSON work through an operator-created structured project view; do not use raw source file tools alongside this cipher interface.",
+      "mcp_config": {
+        "mcpServers": {
+          "bamboozle_agent": {
+            "args": [
+              "-m",
+              "bamboozle",
+              "--root",
+              "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle",
+              "serve-agent"
+            ],
+            "command": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.venv\\Scripts\\python.exe"
+          }
+        }
+      },
+      "mode": "agent",
+      "product": "bamboozle",
+      "product_version": "0.4.7",
+      "repository": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle",
+      "skill": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.vigiles\\skills\\vigiles-vandal\\SKILL.md",
+      "skill_sha256": "1212bf14226457721f1f1826ed741819fb7e385963605d901b48b1e4181970ad",
+      "specification": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.mivim\\vigiles-vandal_0.2.md",
+      "specification_sha256": "0e0bcdf2fc899d703a22c700296f31aa53c15826498d3bee69bdaea143c5e180",
+      "workflow": "vigiles-vandal_0.2",
+      "workflow_version": "0.2",
+      "workspace": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle"
+    },
+    "operator": {
+      "configuration_written": false,
+      "instructions": "Operator context: inspect original-domain diffs, choose dictionaries/document rules, export views, review/apply imports, and recover retained operations. Keep this MCP configuration out of the neutral agent's tool pool. Encryption/decryption are separate explicit CLI operations.",
+      "mcp_config": {
+        "mcpServers": {
+          "bamboozle_operator": {
+            "args": [
+              "-m",
+              "bamboozle",
+              "--root",
+              "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle",
+              "serve"
+            ],
+            "command": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.venv\\Scripts\\python.exe"
+          }
+        }
+      },
+      "mode": "operator",
+      "product": "bamboozle",
+      "product_version": "0.4.7",
+      "repository": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle",
+      "skill": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.vigiles\\skills\\vigiles-vandal\\SKILL.md",
+      "skill_sha256": "1212bf14226457721f1f1826ed741819fb7e385963605d901b48b1e4181970ad",
+      "specification": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.mivim\\vigiles-vandal_0.2.md",
+      "specification_sha256": "0e0bcdf2fc899d703a22c700296f31aa53c15826498d3bee69bdaea143c5e180",
+      "workflow": "vigiles-vandal_0.2",
+      "workflow_version": "0.2",
+      "workspace": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle"
+    }
+  },
+  "retained_interfaces": {
+    "agent_cipher_results": {
+      "agent_received_encoded_content_only": true,
+      "edited": {
+        "backup_saved": true,
+        "before_sha256": "d93c8b613564debdc94f573375c355128bacb7427b88ea531acd02d7842bb967",
+        "dictionary_sha256": "5e4a3e5c8493f6f23e688bab3107a12668e409b4f40969241a3b36182446158a",
+        "file_path": "node.py",
+        "history": ".vigiles/cipher/changes/83787a9868fa4b2398156f877caeb1a9",
+        "operation_id": "83787a9868fa4b2398156f877caeb1a9",
+        "output_bytes": 77,
+        "output_saved": true,
+        "output_sha256": "61305fb51edc042daad152102e9d15b5df988d744a55e984d0ed2c4c2a343728",
+        "receipt_saved": true,
+        "schema_version": 1,
+        "status": "saved"
+      },
+      "generated": {
+        "backup_saved": false,
+        "before_sha256": null,
+        "dictionary_sha256": "5e4a3e5c8493f6f23e688bab3107a12668e409b4f40969241a3b36182446158a",
+        "file_path": "generated.py",
+        "history": ".vigiles/cipher/changes/551d50b1fa6744f2b7e405bf95aad2ac",
+        "operation_id": "551d50b1fa6744f2b7e405bf95aad2ac",
+        "output_bytes": 44,
+        "output_saved": true,
+        "output_sha256": "336d5e6c491a90df43f493acb572d3b1a586443e8bd71e0ac44b23f3680d0a46",
+        "receipt_saved": true,
+        "schema_version": 1,
+        "status": "saved"
+      },
+      "prior_source_sha256": "d93c8b613564debdc94f573375c355128bacb7427b88ea531acd02d7842bb967",
+      "private_mapping_and_history_refused": true,
+      "restored_two_module_program_executed": true,
+      "stale_write_refused": true
+    },
+    "capture_results": [
+      {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 4194311,
+            "bytes_retained": 4000,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 4194311,
+            "bytes_retained": 8000,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "mode": "success",
+        "returncode": 0,
+        "status": "completed"
+      },
+      {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 4194311,
+            "bytes_retained": 4000,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 4194311,
+            "bytes_retained": 8000,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "mode": "failure",
+        "returncode": 9,
+        "status": "failed"
+      },
+      {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 4194311,
+            "bytes_retained": 4000,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 4194311,
+            "bytes_retained": 8000,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "mode": "timeout",
+        "returncode": 124,
+        "status": "timed_out"
+      }
+    ],
+    "diagnostic_results": [
+      {
+        "expected": "recoverable",
+        "module": "workshop.mcp.workshop_mcp",
+        "read_only": true,
+        "report": {
+          "action": "promote",
+          "asset_bytes_hashed": 112,
+          "assets": [
+            {
+              "expected_sha256": "7800f4671dcc5fdc942ce6e186fce8c124bc1c77a3a297bb59a2e45f4cefe059",
+              "observed_sha256": "7800f4671dcc5fdc942ce6e186fce8c124bc1c77a3a297bb59a2e45f4cefe059",
+              "path": "candidates/ExampleB.bin",
+              "role": "source",
+              "state": "matching"
+            },
+            {
+              "expected_sha256": "7800f4671dcc5fdc942ce6e186fce8c124bc1c77a3a297bb59a2e45f4cefe059",
+              "observed_sha256": "7800f4671dcc5fdc942ce6e186fce8c124bc1c77a3a297bb59a2e45f4cefe059",
+              "path": "prod/model-ExampleB.bin",
+              "role": "destination",
+              "state": "matching"
+            }
+          ],
+          "controls": [
+            {
+              "after_sha256": "9fd0b0734e16e2e3afc136b1167c5102550c6a12f597419c44f2c8446f216adc",
+              "before_sha256": "394231068230487d0e5b678b5d9784ca35f9d7a2b57ee0a55485c74cde0f1127",
+              "observed_sha256": "9fd0b0734e16e2e3afc136b1167c5102550c6a12f597419c44f2c8446f216adc",
+              "path": "scrape/_lora_manifest.json",
+              "state": "matching"
+            },
+            {
+              "after_sha256": "1dcb95a6fffd8c23517ff9e72ccca9ca9d089d400c6153fe43307a270b2fa3c5",
+              "before_sha256": "b2e82beb28f7175cd08d2767c54b4819ceb8bd3b7054ac862b3cdbbe62009c1b",
+              "observed_sha256": "b2e82beb28f7175cd08d2767c54b4819ceb8bd3b7054ac862b3cdbbe62009c1b",
+              "path": "scrape/_lora_ledger.csv",
+              "state": "pending"
+            },
+            {
+              "after_sha256": "e201cdfae9fbe3627d59fb728bdce3d75d7e12b535f113238a92145b9dbad3b2",
+              "before_sha256": "13c6c5b670026155319e0439c91fa93c5145cd596a53e0250c9533b7516b3080",
+              "observed_sha256": "13c6c5b670026155319e0439c91fa93c5145cd596a53e0250c9533b7516b3080",
+              "path": "scrape/_pipeline_status.json",
+              "state": "pending"
+            }
+          ],
+          "current_state_checked": true,
+          "inputs": [
+            {
+              "expected_sha256": "9fc0857d84f290de1c8181d31c3ddb2fc29d3bdefc00aaabaa6373a126209d9d",
+              "observed_sha256": "9fc0857d84f290de1c8181d31c3ddb2fc29d3bdefc00aaabaa6373a126209d9d",
+              "path": "candidates/ExampleB.json",
+              "state": "matching"
+            },
+            {
+              "expected_sha256": "38965f01389ccdeca33f245453facbef556f6e41c89aaa5d5c848869b00c9b50",
+              "observed_sha256": "38965f01389ccdeca33f245453facbef556f6e41c89aaa5d5c848869b00c9b50",
+              "path": "candidates/ExampleB.validation.json",
+              "state": "matching"
+            },
+            {
+              "expected_sha256": "f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587",
+              "observed_sha256": "f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587",
+              "path": "scrape/_compatibility_matrix.json",
+              "state": "matching"
+            }
+          ],
+          "inspection_complete": true,
+          "metadata_bytes_read": 18710,
+          "next_action": "Review these observations, then explicitly run --recover with this operation ID. Recovery rechecks state under the writer lock; this report reserves nothing.",
+          "operation_id": "e3c7b2702cbf48438b56787e3498d90d",
+          "read_only": true,
+          "records": {
+            "cancellation": {
+              "error": "Required file is missing",
+              "state": "absent"
+            },
+            "completion": {
+              "error": "Required file is missing",
+              "state": "absent"
+            },
+            "journal": {
+              "sha256": "66e6755ba0484ec19584e2315bf1d0f15bbc102252be8aaf1debdcc0f7f43a0d",
+              "state": "valid"
+            },
+            "prepared_plan": {
+              "sha256": "66e6755ba0484ec19584e2315bf1d0f15bbc102252be8aaf1debdcc0f7f43a0d",
+              "state": "valid"
+            },
+            "workshop": {
+              "state": "valid"
+            }
+          },
+          "recovery_ready": true,
+          "schema_version": 1,
+          "status": "recoverable",
+          "transactions": {
+            "blockers": [],
+            "blocking_count": 0,
+            "omitted_blockers": 0,
+            "state": "clear"
+          },
+          "writer_lock_checked": false
+        }
+      },
+      {
+        "expected": "recoverable",
+        "module": "workshop.scrape.bamb5",
+        "read_only": true,
+        "report": {
+          "action": "promote",
+          "asset_bytes_hashed": 112,
+          "assets": [
+            {
+              "expected_sha256": "7800f4671dcc5fdc942ce6e186fce8c124bc1c77a3a297bb59a2e45f4cefe059",
+              "observed_sha256": "7800f4671dcc5fdc942ce6e186fce8c124bc1c77a3a297bb59a2e45f4cefe059",
+              "path": "candidates/ExampleB.bin",
+              "role": "source",
+              "state": "matching"
+            },
+            {
+              "expected_sha256": "7800f4671dcc5fdc942ce6e186fce8c124bc1c77a3a297bb59a2e45f4cefe059",
+              "observed_sha256": "7800f4671dcc5fdc942ce6e186fce8c124bc1c77a3a297bb59a2e45f4cefe059",
+              "path": "prod/model-ExampleB.bin",
+              "role": "destination",
+              "state": "matching"
+            }
+          ],
+          "controls": [
+            {
+              "after_sha256": "9fd0b0734e16e2e3afc136b1167c5102550c6a12f597419c44f2c8446f216adc",
+              "before_sha256": "394231068230487d0e5b678b5d9784ca35f9d7a2b57ee0a55485c74cde0f1127",
+              "observed_sha256": "9fd0b0734e16e2e3afc136b1167c5102550c6a12f597419c44f2c8446f216adc",
+              "path": "scrape/_lora_manifest.json",
+              "state": "matching"
+            },
+            {
+              "after_sha256": "1dcb95a6fffd8c23517ff9e72ccca9ca9d089d400c6153fe43307a270b2fa3c5",
+              "before_sha256": "b2e82beb28f7175cd08d2767c54b4819ceb8bd3b7054ac862b3cdbbe62009c1b",
+              "observed_sha256": "b2e82beb28f7175cd08d2767c54b4819ceb8bd3b7054ac862b3cdbbe62009c1b",
+              "path": "scrape/_lora_ledger.csv",
+              "state": "pending"
+            },
+            {
+              "after_sha256": "e201cdfae9fbe3627d59fb728bdce3d75d7e12b535f113238a92145b9dbad3b2",
+              "before_sha256": "13c6c5b670026155319e0439c91fa93c5145cd596a53e0250c9533b7516b3080",
+              "observed_sha256": "13c6c5b670026155319e0439c91fa93c5145cd596a53e0250c9533b7516b3080",
+              "path": "scrape/_pipeline_status.json",
+              "state": "pending"
+            }
+          ],
+          "current_state_checked": true,
+          "inputs": [
+            {
+              "expected_sha256": "9fc0857d84f290de1c8181d31c3ddb2fc29d3bdefc00aaabaa6373a126209d9d",
+              "observed_sha256": "9fc0857d84f290de1c8181d31c3ddb2fc29d3bdefc00aaabaa6373a126209d9d",
+              "path": "candidates/ExampleB.json",
+              "state": "matching"
+            },
+            {
+              "expected_sha256": "38965f01389ccdeca33f245453facbef556f6e41c89aaa5d5c848869b00c9b50",
+              "observed_sha256": "38965f01389ccdeca33f245453facbef556f6e41c89aaa5d5c848869b00c9b50",
+              "path": "candidates/ExampleB.validation.json",
+              "state": "matching"
+            },
+            {
+              "expected_sha256": "f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587",
+              "observed_sha256": "f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587",
+              "path": "scrape/_compatibility_matrix.json",
+              "state": "matching"
+            }
+          ],
+          "inspection_complete": true,
+          "metadata_bytes_read": 18710,
+          "next_action": "Review these observations, then explicitly run --recover with this operation ID. Recovery rechecks state under the writer lock; this report reserves nothing.",
+          "operation_id": "e3c7b2702cbf48438b56787e3498d90d",
+          "read_only": true,
+          "records": {
+            "cancellation": {
+              "error": "Required file is missing",
+              "state": "absent"
+            },
+            "completion": {
+              "error": "Required file is missing",
+              "state": "absent"
+            },
+            "journal": {
+              "sha256": "66e6755ba0484ec19584e2315bf1d0f15bbc102252be8aaf1debdcc0f7f43a0d",
+              "state": "valid"
+            },
+            "prepared_plan": {
+              "sha256": "66e6755ba0484ec19584e2315bf1d0f15bbc102252be8aaf1debdcc0f7f43a0d",
+              "state": "valid"
+            },
+            "workshop": {
+              "state": "valid"
+            }
+          },
+          "recovery_ready": true,
+          "schema_version": 1,
+          "status": "recoverable",
+          "transactions": {
+            "blockers": [],
+            "blocking_count": 0,
+            "omitted_blockers": 0,
+            "state": "clear"
+          },
+          "writer_lock_checked": false
+        }
+      },
+      {
+        "expected": "conflict",
+        "module": "workshop.mcp.workshop_mcp",
+        "read_only": true,
+        "report": {
+          "action": "promote",
+          "asset_bytes_hashed": 85,
+          "assets": [
+            {
+              "expected_sha256": "7800f4671dcc5fdc942ce6e186fce8c124bc1c77a3a297bb59a2e45f4cefe059",
+              "observed_sha256": "7800f4671dcc5fdc942ce6e186fce8c124bc1c77a3a297bb59a2e45f4cefe059",
+              "path": "candidates/ExampleB.bin",
+              "role": "source",
+              "state": "matching"
+            },
+            {
+              "expected_sha256": "7800f4671dcc5fdc942ce6e186fce8c124bc1c77a3a297bb59a2e45f4cefe059",
+              "observed_sha256": "5be42cb007ae0216805bc2ce4767779e4c76a0edc4eea04e334afc59fbd57acd",
+              "path": "prod/model-ExampleB.bin",
+              "role": "destination",
+              "state": "conflict"
+            }
+          ],
+          "controls": [
+            {
+              "after_sha256": "9fd0b0734e16e2e3afc136b1167c5102550c6a12f597419c44f2c8446f216adc",
+              "before_sha256": "394231068230487d0e5b678b5d9784ca35f9d7a2b57ee0a55485c74cde0f1127",
+              "observed_sha256": "9fd0b0734e16e2e3afc136b1167c5102550c6a12f597419c44f2c8446f216adc",
+              "path": "scrape/_lora_manifest.json",
+              "state": "matching"
+            },
+            {
+              "after_sha256": "1dcb95a6fffd8c23517ff9e72ccca9ca9d089d400c6153fe43307a270b2fa3c5",
+              "before_sha256": "b2e82beb28f7175cd08d2767c54b4819ceb8bd3b7054ac862b3cdbbe62009c1b",
+              "observed_sha256": "5be42cb007ae0216805bc2ce4767779e4c76a0edc4eea04e334afc59fbd57acd",
+              "path": "scrape/_lora_ledger.csv",
+              "state": "conflict"
+            },
+            {
+              "after_sha256": "e201cdfae9fbe3627d59fb728bdce3d75d7e12b535f113238a92145b9dbad3b2",
+              "before_sha256": "13c6c5b670026155319e0439c91fa93c5145cd596a53e0250c9533b7516b3080",
+              "observed_sha256": "13c6c5b670026155319e0439c91fa93c5145cd596a53e0250c9533b7516b3080",
+              "path": "scrape/_pipeline_status.json",
+              "state": "pending"
+            }
+          ],
+          "current_state_checked": true,
+          "inputs": [
+            {
+              "expected_sha256": "9fc0857d84f290de1c8181d31c3ddb2fc29d3bdefc00aaabaa6373a126209d9d",
+              "observed_sha256": "9fc0857d84f290de1c8181d31c3ddb2fc29d3bdefc00aaabaa6373a126209d9d",
+              "path": "candidates/ExampleB.json",
+              "state": "matching"
+            },
+            {
+              "expected_sha256": "38965f01389ccdeca33f245453facbef556f6e41c89aaa5d5c848869b00c9b50",
+              "observed_sha256": "38965f01389ccdeca33f245453facbef556f6e41c89aaa5d5c848869b00c9b50",
+              "path": "candidates/ExampleB.validation.json",
+              "state": "matching"
+            },
+            {
+              "expected_sha256": "f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587",
+              "observed_sha256": "f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587",
+              "path": "scrape/_compatibility_matrix.json",
+              "state": "matching"
+            }
+          ],
+          "inspection_complete": true,
+          "metadata_bytes_read": 18310,
+          "next_action": "Inspect every conflicting path and blocking operation against the retained journal. Preserve changed files; resolve their provenance before explicit recovery.",
+          "operation_id": "e3c7b2702cbf48438b56787e3498d90d",
+          "read_only": true,
+          "records": {
+            "cancellation": {
+              "error": "Required file is missing",
+              "state": "absent"
+            },
+            "completion": {
+              "error": "Required file is missing",
+              "state": "absent"
+            },
+            "journal": {
+              "sha256": "66e6755ba0484ec19584e2315bf1d0f15bbc102252be8aaf1debdcc0f7f43a0d",
+              "state": "valid"
+            },
+            "prepared_plan": {
+              "sha256": "66e6755ba0484ec19584e2315bf1d0f15bbc102252be8aaf1debdcc0f7f43a0d",
+              "state": "valid"
+            },
+            "workshop": {
+              "state": "valid"
+            }
+          },
+          "recovery_ready": false,
+          "schema_version": 1,
+          "status": "conflict",
+          "transactions": {
+            "blockers": [],
+            "blocking_count": 0,
+            "omitted_blockers": 0,
+            "state": "clear"
+          },
+          "writer_lock_checked": false
+        }
+      },
+      {
+        "expected": "conflict",
+        "module": "workshop.scrape.bamb5",
+        "read_only": true,
+        "report": {
+          "action": "promote",
+          "asset_bytes_hashed": 85,
+          "assets": [
+            {
+              "expected_sha256": "7800f4671dcc5fdc942ce6e186fce8c124bc1c77a3a297bb59a2e45f4cefe059",
+              "observed_sha256": "7800f4671dcc5fdc942ce6e186fce8c124bc1c77a3a297bb59a2e45f4cefe059",
+              "path": "candidates/ExampleB.bin",
+              "role": "source",
+              "state": "matching"
+            },
+            {
+              "expected_sha256": "7800f4671dcc5fdc942ce6e186fce8c124bc1c77a3a297bb59a2e45f4cefe059",
+              "observed_sha256": "5be42cb007ae0216805bc2ce4767779e4c76a0edc4eea04e334afc59fbd57acd",
+              "path": "prod/model-ExampleB.bin",
+              "role": "destination",
+              "state": "conflict"
+            }
+          ],
+          "controls": [
+            {
+              "after_sha256": "9fd0b0734e16e2e3afc136b1167c5102550c6a12f597419c44f2c8446f216adc",
+              "before_sha256": "394231068230487d0e5b678b5d9784ca35f9d7a2b57ee0a55485c74cde0f1127",
+              "observed_sha256": "9fd0b0734e16e2e3afc136b1167c5102550c6a12f597419c44f2c8446f216adc",
+              "path": "scrape/_lora_manifest.json",
+              "state": "matching"
+            },
+            {
+              "after_sha256": "1dcb95a6fffd8c23517ff9e72ccca9ca9d089d400c6153fe43307a270b2fa3c5",
+              "before_sha256": "b2e82beb28f7175cd08d2767c54b4819ceb8bd3b7054ac862b3cdbbe62009c1b",
+              "observed_sha256": "5be42cb007ae0216805bc2ce4767779e4c76a0edc4eea04e334afc59fbd57acd",
+              "path": "scrape/_lora_ledger.csv",
+              "state": "conflict"
+            },
+            {
+              "after_sha256": "e201cdfae9fbe3627d59fb728bdce3d75d7e12b535f113238a92145b9dbad3b2",
+              "before_sha256": "13c6c5b670026155319e0439c91fa93c5145cd596a53e0250c9533b7516b3080",
+              "observed_sha256": "13c6c5b670026155319e0439c91fa93c5145cd596a53e0250c9533b7516b3080",
+              "path": "scrape/_pipeline_status.json",
+              "state": "pending"
+            }
+          ],
+          "current_state_checked": true,
+          "inputs": [
+            {
+              "expected_sha256": "9fc0857d84f290de1c8181d31c3ddb2fc29d3bdefc00aaabaa6373a126209d9d",
+              "observed_sha256": "9fc0857d84f290de1c8181d31c3ddb2fc29d3bdefc00aaabaa6373a126209d9d",
+              "path": "candidates/ExampleB.json",
+              "state": "matching"
+            },
+            {
+              "expected_sha256": "38965f01389ccdeca33f245453facbef556f6e41c89aaa5d5c848869b00c9b50",
+              "observed_sha256": "38965f01389ccdeca33f245453facbef556f6e41c89aaa5d5c848869b00c9b50",
+              "path": "candidates/ExampleB.validation.json",
+              "state": "matching"
+            },
+            {
+              "expected_sha256": "f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587",
+              "observed_sha256": "f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587",
+              "path": "scrape/_compatibility_matrix.json",
+              "state": "matching"
+            }
+          ],
+          "inspection_complete": true,
+          "metadata_bytes_read": 18310,
+          "next_action": "Inspect every conflicting path and blocking operation against the retained journal. Preserve changed files; resolve their provenance before explicit recovery.",
+          "operation_id": "e3c7b2702cbf48438b56787e3498d90d",
+          "read_only": true,
+          "records": {
+            "cancellation": {
+              "error": "Required file is missing",
+              "state": "absent"
+            },
+            "completion": {
+              "error": "Required file is missing",
+              "state": "absent"
+            },
+            "journal": {
+              "sha256": "66e6755ba0484ec19584e2315bf1d0f15bbc102252be8aaf1debdcc0f7f43a0d",
+              "state": "valid"
+            },
+            "prepared_plan": {
+              "sha256": "66e6755ba0484ec19584e2315bf1d0f15bbc102252be8aaf1debdcc0f7f43a0d",
+              "state": "valid"
+            },
+            "workshop": {
+              "state": "valid"
+            }
+          },
+          "recovery_ready": false,
+          "schema_version": 1,
+          "status": "conflict",
+          "transactions": {
+            "blockers": [],
+            "blocking_count": 0,
+            "omitted_blockers": 0,
+            "state": "clear"
+          },
+          "writer_lock_checked": false
+        }
+      },
+      {
+        "expected": "already_completed",
+        "module": "workshop.mcp.workshop_mcp",
+        "read_only": true,
+        "report": {
+          "action": "promote",
+          "asset_bytes_hashed": 0,
+          "assets": [],
+          "controls": [],
+          "current_state_checked": false,
+          "inputs": [],
+          "inspection_complete": true,
+          "metadata_bytes_read": 8260,
+          "next_action": "No recovery needed. Completion binds the retained journal; current files may belong to later operations.",
+          "operation_id": "e3c7b2702cbf48438b56787e3498d90d",
+          "read_only": true,
+          "records": {
+            "cancellation": {
+              "error": "Required file is missing",
+              "state": "absent"
+            },
+            "completion": {
+              "sha256": "4d98a6e2c1394d00b14266b589b2cb358f1a11503db3a3ba0ca784d23a282bc4",
+              "state": "valid"
+            },
+            "journal": {
+              "sha256": "66e6755ba0484ec19584e2315bf1d0f15bbc102252be8aaf1debdcc0f7f43a0d",
+              "state": "valid"
+            },
+            "prepared_plan": {
+              "sha256": "66e6755ba0484ec19584e2315bf1d0f15bbc102252be8aaf1debdcc0f7f43a0d",
+              "state": "valid"
+            },
+            "workshop": {
+              "state": "valid"
+            }
+          },
+          "recovery_ready": false,
+          "schema_version": 1,
+          "status": "already_completed",
+          "writer_lock_checked": false
+        }
+      },
+      {
+        "expected": "already_completed",
+        "module": "workshop.scrape.bamb5",
+        "read_only": true,
+        "report": {
+          "action": "promote",
+          "asset_bytes_hashed": 0,
+          "assets": [],
+          "controls": [],
+          "current_state_checked": false,
+          "inputs": [],
+          "inspection_complete": true,
+          "metadata_bytes_read": 8260,
+          "next_action": "No recovery needed. Completion binds the retained journal; current files may belong to later operations.",
+          "operation_id": "e3c7b2702cbf48438b56787e3498d90d",
+          "read_only": true,
+          "records": {
+            "cancellation": {
+              "error": "Required file is missing",
+              "state": "absent"
+            },
+            "completion": {
+              "sha256": "4d98a6e2c1394d00b14266b589b2cb358f1a11503db3a3ba0ca784d23a282bc4",
+              "state": "valid"
+            },
+            "journal": {
+              "sha256": "66e6755ba0484ec19584e2315bf1d0f15bbc102252be8aaf1debdcc0f7f43a0d",
+              "state": "valid"
+            },
+            "prepared_plan": {
+              "sha256": "66e6755ba0484ec19584e2315bf1d0f15bbc102252be8aaf1debdcc0f7f43a0d",
+              "state": "valid"
+            },
+            "workshop": {
+              "state": "valid"
+            }
+          },
+          "recovery_ready": false,
+          "schema_version": 1,
+          "status": "already_completed",
+          "writer_lock_checked": false
+        }
+      }
+    ],
+    "plan_results": [
+      {
+        "cancelled": {
+          "operation_id": "74b7a0eaebf6453d8f3dfbcd5a2c84bf",
+          "plan_sha256": "7295f7736e6e4725af7aac7cff2c371b39be8c018e15c5f215d2213bb935bfee",
+          "status": "cancelled"
+        },
+        "inventory": {
+          "pages": 4,
+          "read_only": true,
+          "records": 7,
+          "states": [
+            "applied",
+            "cancelled",
+            "corrupt",
+            "prepared",
+            "stale"
+          ]
+        },
+        "module": "workshop.mcp.workshop_mcp",
+        "promotion": {
+          "action": "promote",
+          "journal_sha256": "efd2591e7d1aca0d05f2cbc8144b271c971162fa0344d7562470191cf7d89d31",
+          "lora": "ExampleC",
+          "model_qualified": false,
+          "operation_id": "fc6b2557a7cc40e0a76f454c81103e1c",
+          "schema_version": 1,
+          "status": "saved"
+        },
+        "quarantine": {
+          "action": "quarantine",
+          "journal_sha256": "5e7ab4081ce80d4abd4941366e3dadf6f672e00e1cfc3d63e66095dda6e477b7",
+          "lora": "ExampleC",
+          "model_qualified": false,
+          "operation_id": "fc2d6ccb2efd47b89860aa1d58e4da7e",
+          "schema_version": 1,
+          "status": "saved"
+        },
+        "status": "passed"
+      },
+      {
+        "cancelled": {
+          "operation_id": "526b5873159b4c3eb6fc74cafbb682ff",
+          "plan_sha256": "906920d48388280c97209dacd479cc84f00b2756a3859352feeab6005165586f",
+          "status": "cancelled"
+        },
+        "inventory": {
+          "pages": 6,
+          "read_only": true,
+          "records": 12,
+          "states": [
+            "applied",
+            "cancelled",
+            "corrupt",
+            "prepared",
+            "stale"
+          ]
+        },
+        "module": "workshop.scrape.bamb5",
+        "promotion": {
+          "action": "promote",
+          "journal_sha256": "aeaea3a3eb2fb0ca13acb62c41450a9b5c4eb0069c09c1f19b49aa2e6881bd9f",
+          "lora": "ExampleC",
+          "model_qualified": false,
+          "operation_id": "285caf9ab4c44448b8d63d3c79207b95",
+          "schema_version": 1,
+          "status": "saved"
+        },
+        "quarantine": {
+          "action": "quarantine",
+          "journal_sha256": "862e4cc0e9c680ff1cd47e896c3c70ebad05b0663a855ff765a3d711c3fe6073",
+          "lora": "ExampleC",
+          "model_qualified": false,
+          "operation_id": "3ba46f95dc134626909b705a08bc8357",
+          "schema_version": 1,
+          "status": "saved"
+        },
+        "status": "passed"
+      }
+    ],
+    "translation_results": {
+      "cli_conflict_count": 1,
+      "cli_restoration": {
+        "input_count": 3,
+        "output_sha256": "61305fb51edc042daad152102e9d15b5df988d744a55e984d0ed2c4c2a343728",
+        "provenance": "local_consistency",
+        "receipt_sha256": "2cea1732f04bf5f35e2ee06e7a879912bbd2836bdd04f95803da8d8fa8e15ca6",
+        "schema_version": 1,
+        "status": "verified"
+      },
+      "cli_review_sha256": "05e9fb925127f2205e9559b5d70043e2a13d9f32838503cc7eb400f1a9e803a1",
+      "legacy_migration": {
+        "dictionary_sha256": "5e4a3e5c8493f6f23e688bab3107a12668e409b4f40969241a3b36182446158a",
+        "encoding_changed": false,
+        "historical_encoded_sha256": "9fcb3976ea836cdb532f05bef6d90d4c2d87b85be29dcb4e3999f8da32815366",
+        "historical_newlines_normalized": true,
+        "historical_profile": "global-ledger",
+        "metadata": ".old-encoded_migrated.txt.scm_ledger.json",
+        "metadata_saved": true,
+        "next_action": "Review the new native encoding before using it for edits; historical files and ledger remain unchanged",
+        "ok": true,
+        "operation": "migrate_ledger",
+        "original_sha256": "45e0e83f40b35d69bf3a66dbd6dd841c91bc43f9a5ffe7f8b65539252801a660",
+        "output": "old-encoded_migrated.txt",
+        "output_bytes": 23,
+        "output_saved": true,
+        "output_sha256": "9fcb3976ea836cdb532f05bef6d90d4c2d87b85be29dcb4e3999f8da32815366",
+        "review_sha256": "3ba2dc41d2c7df61cfea500838e5d609997332027c790bee6f4a6cf770fabbf4",
+        "schema_version": 1,
+        "status": "saved"
+      },
+      "mcp": {
+        "migration": {
+          "encoded_sha256": "9fcb3976ea836cdb532f05bef6d90d4c2d87b85be29dcb4e3999f8da32815366",
+          "input": "old-mcp-migrated.txt",
+          "original_sha256": "45e0e83f40b35d69bf3a66dbd6dd841c91bc43f9a5ffe7f8b65539252801a660",
+          "schema_version": 1,
+          "status": "verified"
+        },
+        "normal_programs_executed": 3,
+        "normal_returns": [
+          {
+            "dictionary_sha256": "5e4a3e5c8493f6f23e688bab3107a12668e409b4f40969241a3b36182446158a",
+            "document_rules": {
+              "format": "text"
+            },
+            "input": "agent-original_safe.py",
+            "input_sha256": "9b367f461f027cde9fdf1d394afce34a55837195da9dc04651d2b3e326585c07",
+            "ledger_input": ".agent-original_safe.py.scm_ledger.json",
+            "ledger_saved": false,
+            "literals": 1,
+            "mapping_source": "saved_ledger",
+            "mode": "reverse",
+            "output": "agent-mcp-normal-edit.py",
+            "output_bytes": 77,
+            "output_saved": true,
+            "output_sha256": "61305fb51edc042daad152102e9d15b5df988d744a55e984d0ed2c4c2a343728",
+            "schema_version": 1,
+            "status": "saved",
+            "strict": false,
+            "substitutions": 2
+          },
+          {
+            "dictionary_sha256": "5e4a3e5c8493f6f23e688bab3107a12668e409b4f40969241a3b36182446158a",
+            "document_rules": {
+              "format": "text"
+            },
+            "input": "AGENT_fix.py",
+            "input_sha256": "b42540a0c07f024f47bc5f029a8dd3366790d5c06bb1619b1f32d34c0a4c6644",
+            "ledger_input": ".agent-original_safe.py.scm_ledger.json",
+            "ledger_saved": false,
+            "literals": 1,
+            "mapping_source": "saved_ledger",
+            "mode": "reverse",
+            "output": "agent-mcp-generated.py",
+            "output_bytes": 82,
+            "output_saved": true,
+            "output_sha256": "e8690e97f2d1b603dc8c7f50e6de93827a0df50ec47f70e2eb91c256d84426d2",
+            "schema_version": 1,
+            "status": "saved",
+            "strict": false,
+            "substitutions": 2
+          },
+          {
+            "dictionary_sha256": "5e4a3e5c8493f6f23e688bab3107a12668e409b4f40969241a3b36182446158a",
+            "document_rules": {
+              "format": "text"
+            },
+            "input": "AGENT_fix.py",
+            "input_sha256": "b42540a0c07f024f47bc5f029a8dd3366790d5c06bb1619b1f32d34c0a4c6644",
+            "ledger_input": null,
+            "ledger_saved": false,
+            "literals": 1,
+            "mapping_source": "dictionary_file",
+            "mode": "reverse",
+            "output": "agent-mcp-dictionary.py",
+            "output_bytes": 82,
+            "output_saved": true,
+            "output_sha256": "e8690e97f2d1b603dc8c7f50e6de93827a0df50ec47f70e2eb91c256d84426d2",
+            "schema_version": 1,
+            "status": "saved",
+            "strict": false,
+            "substitutions": 2
+          }
+        ],
+        "replay_refused": true,
+        "restoration": {
+          "input_count": 3,
+          "output_sha256": "61305fb51edc042daad152102e9d15b5df988d744a55e984d0ed2c4c2a343728",
+          "provenance": "local_consistency",
+          "receipt_sha256": "c35bc9fd7d0ffbfa0ce09c3eb6387958199d16b84ee3cb1242f7a767d5e93c72",
+          "schema_version": 1,
+          "status": "verified"
+        },
+        "restored_python_executed": true
+      },
+      "normal_pipeline": {
+        "compatibility": {
+          "dictionary_sha256": "5e4a3e5c8493f6f23e688bab3107a12668e409b4f40969241a3b36182446158a",
+          "document_rules": {
+            "format": "text"
+          },
+          "input": "AGENT_fix.py",
+          "input_sha256": "b42540a0c07f024f47bc5f029a8dd3366790d5c06bb1619b1f32d34c0a4c6644",
+          "ledger_input": null,
+          "ledger_saved": false,
+          "literals": 1,
+          "mapping_source": "dictionary_file",
+          "mode": "reverse",
+          "output": "agent-compat.py",
+          "output_bytes": 82,
+          "output_saved": true,
+          "output_sha256": "e8690e97f2d1b603dc8c7f50e6de93827a0df50ec47f70e2eb91c256d84426d2",
+          "schema_version": 1,
+          "status": "saved",
+          "strict": false,
+          "substitutions": 2
+        },
+        "edited": {
+          "dictionary_sha256": "5e4a3e5c8493f6f23e688bab3107a12668e409b4f40969241a3b36182446158a",
+          "document_rules": {
+            "format": "text"
+          },
+          "input": "agent-original_safe.py",
+          "input_sha256": "9b367f461f027cde9fdf1d394afce34a55837195da9dc04651d2b3e326585c07",
+          "ledger_input": ".agent-original_safe.py.scm_ledger.json",
+          "ledger_saved": false,
+          "literals": 1,
+          "mapping_source": "saved_ledger",
+          "mode": "reverse",
+          "output": "agent-normal-edit.py",
+          "output_bytes": 77,
+          "output_saved": true,
+          "output_sha256": "61305fb51edc042daad152102e9d15b5df988d744a55e984d0ed2c4c2a343728",
+          "schema_version": 1,
+          "status": "saved",
+          "strict": false,
+          "substitutions": 2
+        },
+        "generated": {
+          "dictionary_sha256": "5e4a3e5c8493f6f23e688bab3107a12668e409b4f40969241a3b36182446158a",
+          "document_rules": {
+            "format": "text"
+          },
+          "input": "AGENT_fix.py",
+          "input_sha256": "b42540a0c07f024f47bc5f029a8dd3366790d5c06bb1619b1f32d34c0a4c6644",
+          "ledger_input": ".agent-original_safe.py.scm_ledger.json",
+          "ledger_saved": false,
+          "literals": 1,
+          "mapping_source": "saved_ledger",
+          "mode": "reverse",
+          "output": "AGENT_fix_ready.py",
+          "output_bytes": 82,
+          "output_saved": true,
+          "output_sha256": "e8690e97f2d1b603dc8c7f50e6de93827a0df50ec47f70e2eb91c256d84426d2",
+          "schema_version": 1,
+          "status": "saved",
+          "strict": false,
+          "substitutions": 2
+        },
+        "restored_programs_executed": 3,
+        "strict_edit_refused": true
+      },
+      "restored_python_executed": true,
+      "retained_inputs_unchanged": true
+    }
+  },
+  "retained_review_and_race_failure": ".mivim/vigiles/reports/archive/runs/20261004T091020019555Z-fixture-review/REVIEW_FINDINGS.json",
+  "schema_version": 1,
+  "scope": "Local Windows Python 3.13 source and isolated installed v0.4.7 wheel. Explicit neutral JSON fixture generation, invariant/case validation, parsed consumer bindings, v3 scoped views and reviewed/recoverable source return; CLI and actual stdio MCP run generated dependent catalog programs against valid/error cases and untouched production-shaped originals. Existing dictionaries, lexicon compilation, format adapters, agent interfaces, encryption and workflow regressions rerun. Synthetic agent edits do not prove external model behavior, remote CI, production acceptance, client registration or OS isolation.",
+  "source_sha256": {
+    "../.github/workflows/vigiles.yml": "c979966ae8e8007ab070626c578fcc4acb45ebbe43e5de8257f3207907f543d1",
+    ".mivim/mivim.vigiles.md": "723f86a1f5b3b1764df072fb3f54715648cf5c4ac586f487d0d69615a4854edf",
+    ".mivim/vigiles-vandal_0.2.md": "0e0bcdf2fc899d703a22c700296f31aa53c15826498d3bee69bdaea143c5e180",
+    ".vigiles/skills/vigiles-vandal/SKILL.md": "1212bf14226457721f1f1826ed741819fb7e385963605d901b48b1e4181970ad",
+    "AGENTS.md": "b93a85553027fbfdb8c927cfb056f90677aa6c969f9988e825ab1494e98cbe2c",
+    "README.md": "c5f8e65fa8411a43d3833842426ea4f3004de271091eb069533189d86beae2f9",
+    "pyproject.toml": "6f543a480d748a931afd67bb9d7a490013dd0a9f71a74fdd62caf3fdf74fea2e",
+    "scripts/fixture_scenario.py": "c52d19f89fe97d50aa6556906ae5384a5b93fc2f4dee5d62f582bdb6a8e0f720",
+    "scripts/package_smoke.py": "2d5d7011d7803794366a079e1d9bb6e8d149ba4333f61b7629d7fcf27dbd7520",
+    "scripts/qualify_inventory.py": "8d274f0af7ba16570a0cd4731b242dcdeeb60100d31ed323050c6b034a7c9d31",
+    "scripts/qualify_pipeline.py": "a41c6401b7e863e060be2ebe2f10d92e8c2a9b5863fbec5deec1fa9e3aa7a272",
+    "scripts/qualify_plans.py": "2298acce5330789283e07c6701ec131c838899fa4f7573627d227af1904f831b",
+    "scripts/qualify_recovery.py": "3aa8d60c972ceebd38b770a90ea4f25487b3fcc95bee69d9ac84ee29e20dac40",
+    "scripts/vandal.py": "b08612c91d1ed175a6446c7698d6ba8addb457f766236fd688d200c55d571644",
+    "scripts/verify.py": "0b196c6046773c1261a28c0390789bda29662dfacf74ad073898f15dd9aeab3f",
+    "src/DECRYPT_FROM_AGENT.bat": "25ec45eff2279dfd24d09b6f76dfb6c702e724dd5b9d2aad28b602fa2aee65dd",
+    "src/ENCRYPT_FOR_AGENT.bat": "b261f32d499395b46f864a8658f6741ff0b4fc9d35b93d6ac173b5efda05b186",
+    "src/bamboozle/__init__.py": "2dc2b633cfa3223ed12ad62e9d3c6731ce211676c201b80d7c73d57e2ef9cb59",
+    "src/bamboozle/__main__.py": "c4e635a2015428e750f8e441975d34352b4386f23cdf596a2d7e87a8f2da2ca9",
+    "src/bamboozle/agent_files.py": "d30eb3bb23eb4f7cab37e41b58da10150c2867df216758e0b235df8e3be8272c",
+    "src/bamboozle/audit.py": "419f33a4c597987d65329d8c4887ee2cba0f2723c1bb75a222c583f4e4e256eb",
+    "src/bamboozle/audit_matrix.py": "0da01520a1f6b3c821b49833bf030a4d94be1885689c012affa4259bfc6317db",
+    "src/bamboozle/cipher.py": "8cdb19557d7456305f36e0ccaf2f8187d673d55a2707c4ab591b845c82df067d",
+    "src/bamboozle/cipher_dict.json": "b49059d73a0965ea7bd0b790ef0a92cb86cada3898a203b8d5e3dce4d85b5dfe",
+    "src/bamboozle/cli.py": "1ce32f61fe2191a37b86db0dc132b1f428f6358e8854d2b02dbe6e01bb19168c",
+    "src/bamboozle/dictionary.py": "641ad855668ee467051d4be6ef355953a7d626f89c055d5e25625faa4c39b1a3",
+    "src/bamboozle/engine.py": "26f043705b3e342777be03521c285bd55a98b073c7e9f69f92559ae10565b409",
+    "src/bamboozle/evidence.py": "29656ca8fe9b04e286abebc552db9952c219265b29d27eb0938bff02e8be6533",
+    "src/bamboozle/fixture_rules.py": "f47b1c312494f8a7b3904029d486c249befb6cfc30557a3a603ab13a45e5af01",
+    "src/bamboozle/fixtures.py": "0fd6595959d31857c89be87d29d2ad8368e1ae1d9cc22345248dbe292d83fd35",
+    "src/bamboozle/formats.py": "49a4586166c2bf4372b318098a5ff28f510eb68dfcb2430a3b6e9fd19bdd732a",
+    "src/bamboozle/lexicon.py": "2ad6abe41f30bc412582f3429511c5609bcd66f01f1353a593d0e3932e013414",
+    "src/bamboozle/mcp.py": "c363e4dd2ecd86582a20102e2988c41e2aae4c10f0ad026164e6944eff70966b",
+    "src/bamboozle/migration.py": "0b0f5be2eea97cb18e95486a49e2dc3f1b050ed2b356448e2a05fd74ffff6c7c",
+    "src/bamboozle/profanity_dict.json": "34f54a88062e12b0ba8353d9d59914144478cc11fc4f698beb7ad0b1fbdee35f",
+    "src/bamboozle/project_views.py": "74a40e0ba0536414500b3ac9938c5c732b8f55ec0ed257bf941cdb6bb880d859",
+    "src/bamboozle/restoration.py": "b17325e9b5bcaf817e9c91c0ee126ad19567c707886aa675bc2483cb9a4bbecc",
+    "src/bamboozle/scm_mcp.py": "561633a36c9935d6cb44a4d0c2c691fb62ccce991b87d6f82e38b33cb1a5aacb",
+    "src/bamboozle/service.py": "f5ac16c528719c3c3245d5f4f3d9da4ddadb2052053ee3f78f2d5e628644d43f",
+    "src/bamboozle/tessera.py": "155ae5d87e8b8f615998819ff84d1768118bcc0e377eee2b034023bb95c35548",
+    "src/bamboozle/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/bamboozle/tests/test_agent_files.py": "00eee33fec9843b69562ba017bdd415fc526a7c563f053e53fa78c29b5ca5899",
+    "src/bamboozle/tests/test_agent_pipeline.py": "afd63fd8c7973d5f559541b07bf47ba53dcf405f8caa9729b0f34311211cd73a",
+    "src/bamboozle/tests/test_audit_matrix.py": "96edd1911b986e665251d2f3ff0f53fc0cab298ba7e451a58c10de403f228583",
+    "src/bamboozle/tests/test_cli_mcp.py": "61cf95e4323604b5f400f60ba9c3035e5d7f13f65ce21bfcea231dbb5bd3e785",
+    "src/bamboozle/tests/test_dictionary.py": "76d227c98312d0663f7c6953926160a21575788d008c1681e94a766e34adacff",
+    "src/bamboozle/tests/test_document_formats.py": "b12bcb5ef41fa9470263c2f8d5d4c02405d68c5f235f426c32b8d3dc4f797900",
+    "src/bamboozle/tests/test_engine.py": "cfa413235896339756d2f0311b643875fb69c6d21390018ffdb6e4e96bffe26f",
+    "src/bamboozle/tests/test_evidence.py": "25a844bab9b50a60da54a38a35b10e2b3720381832722f157cfed1f68c9b5c7c",
+    "src/bamboozle/tests/test_fixtures.py": "500fa57884ea12a6695e40ceee2e50d6bccb96668a106544babc4ff5e6c061f7",
+    "src/bamboozle/tests/test_lexicon.py": "836a75bb934ad63dff1e3578ced94bc55fbde26c930a72ee34016dab728aaf06",
+    "src/bamboozle/tests/test_migration.py": "3cbc0ec97dbe8955b46055a94f42d966c7b1d8c6ce2113090f606eb674b5f458",
+    "src/bamboozle/tests/test_profanity.py": "757353e3ef94fefb6233edc99b484bf9ac7e6a20981f7cf741de5e2b120728aa",
+    "src/bamboozle/tests/test_project_views.py": "935605cbdeee9a7b31a8ac42b25496724cfed50466b60b694db440c7e65a52cc",
+    "src/bamboozle/tests/test_restoration.py": "14efdb3310c9f62196bef02d41efcb006498b806fc04665ddb267865903d7a7e",
+    "src/bamboozle/tests/test_service.py": "f6287db50f6cd36516a163cec67352b8652dc56cedcee6a8be6159e92d3bed2e",
+    "src/bamboozle/tests/test_tessera.py": "afa6862454d6b533f5c9aee097dbdd199f414098cd7545b1c81a21a4fb270058",
+    "src/bamboozle/tests/test_translate.py": "bd8e0c52dbc2e6cef600529dc158e6218290705468a2d424279c80216e7de7de",
+    "src/bamboozle/tests/test_vandal.py": "9fd804b40c70102c117e8dea4fdb5e2d1ca1d6672462ace5dddc147b5bb9a991",
+    "src/bamboozle/tests/test_workspace_audit.py": "5840cb16f21d7779245752ad2891b6099cd91befa5f75840e9a54d0b89596ed6",
+    "src/bamboozle/translate.py": "fe17813b0a0f8bd2dd404725db399871d36bb6cc993218e423b9227a69411358",
+    "src/bamboozle/utils.py": "1a0d5b1d3aa0e5d02755e3cd919bb7c2f09a65b5dc10a3cb376d194e577703a3",
+    "src/bamboozle/view_import.py": "fdf259f00a3a0cb6d762d35c043bb8ad40b3f7d2178d8817b355c300ed26815d",
+    "src/bamboozle/workspace.py": "31ae24e8968baea412e32b4af949dce56d302fa7db36a48a0a22b9b70dd9517e",
+    "src/mcp.pacer.json": "785068f7f003a19ee82c2fe94c1dc62d2dc82f908f50cd5a49a9430bfa17522c",
+    "src/workshop/__init__.py": "94f960d9ab834f1b3df0983716d0f1974c8c4ee5937045f97c80cc18f105e3ad",
+    "src/workshop/bootstrap.py": "62dc7b1d081d0d5554eece0c533a579195472937548f07bc600e1425f22c4dda",
+    "src/workshop/config.py": "dd00ce30a84847a0e7d6638e407d4c4c28448e7ca0c26c4e398b2d593418a1fc",
+    "src/workshop/examples.py": "4b519d10b869289d7233d4d9f180cbfc000cd1d813f7b6375d5e5f0a6a1226b8",
+    "src/workshop/inventory.py": "46408e4f59d037ef229c207841e57bd1db871b7c7a18f3d6cd8350f8c904bded",
+    "src/workshop/mcp/__init__.py": "a33f06325c956490689ea4a3ab4cbcd05ae78339c315dd47107fbf3cd97f97f1",
+    "src/workshop/mcp/taxonomy.json": "fbb674a35398c11c534a720a2c7551028c95bbcd18d5d942614a5e732b422a30",
+    "src/workshop/mcp/tests/fixtures/pipeline_contract.py": "666894193e235e3016ddec1f02f23a5782dcd45d5300044c9bcf2e523cc4ea29",
+    "src/workshop/mcp/tests/test_pipeline.py": "11e2ab0b170d62f59679c14793d9277d5ce6982d8c6e718b18348b1ad1742c7f",
+    "src/workshop/mcp/tests/test_process_capture.py": "942aba28892a816600ad97f3a0eaa52c00d66a9c5012bffe71458ab412a6d4aa",
+    "src/workshop/mcp/tests/test_workshop_mcp.py": "2bc32f07410fecf65673d296ff0927465089efab2f7d5366deba6342776a35c7",
+    "src/workshop/mcp/workshop_mcp.py": "2f58e8232e403e6b31ec6be914a5f22d9c254d9541a69e140ccdc4adf13eb7e8",
+    "src/workshop/operations.py": "3baf08fc3d20a87bd6fe82a362e144f81dc8f74de9611eb7dc273d2dc612eb57",
+    "src/workshop/pipeline.py": "05c5914a4f4aacd72daf104cd168aec2b17559c54d903dcf609a470f0b8bea13",
+    "src/workshop/plans.py": "b514060dea3b83d0fd6be50a6bf58170dde9110968b60ae05b3c89103c68046b",
+    "src/workshop/process.py": "f183a2e6fea7712357053bcbdd095d74f69dd91ea31af325c9bc80bbf05b0f81",
+    "src/workshop/recovery.py": "90c879800f1f521eba9ab39fa90897ffd1fdc22c93ccbbab8ae36012ad87e5cc",
+    "src/workshop/scrape/__init__.py": "f94e068724419232fc3861b067ea6e068dd8fc32d2aa3eab09cbc298f88f3d2c",
+    "src/workshop/scrape/_lookup_index.json": "a55d8623c0b607f018b8074c2173fc22843c501d9991a58d77760f830adb905c",
+    "src/workshop/scrape/alias_pass.py": "496e9d1b41bad0746c2e6d7a84635df144f41566a4e67b80f96863503d365061",
+    "src/workshop/scrape/audit_matrix.py": "3bb1e175f7e849f84681d8802f3f94f01c76b0c42848ea6341a4d598dc716d85",
+    "src/workshop/scrape/bamb5.py": "09bd174907105eca8634597a77e1378cd93ab200a04a1e7d9e1b628ca3817df4",
+    "src/workshop/scrape/lookup.py": "1b00dd116b8b7e2764ac3e4ba1c379cd5ffd5cc65a9ebc1abc35267877489dc5",
+    "src/workshop/scrape/promote.py": "d12f7a1d1a4d2849a8b748fc976ec894699459666590722962b0b820ac259616",
+    "src/workshop/scrape/taxonomy.json": "ba9e29c6c062f43e0d633f6c0bae19b44ecce3722e0e27c230b1421e8f737052",
+    "src/workshop/scrape/tests/test_alias_pass.py": "50f88b3c00da8909ecda133e5137c4df71296be7a4dde36e8b46132b375eb41b",
+    "src/workshop/scrape/tests/test_bamb5.py": "756d08b17bbd1dbe7623a1151201d3cf6a698583d381494bcaecc524f47b6574",
+    "src/workshop/scrape/tests/test_configuration.py": "b9b22f9d8997fad4eec88cf40cd3e0cd0ec00210b16d56abedf37ce33a1eaeb6",
+    "src/workshop/scrape/tests/test_lookup.py": "33cda79a49e6940e22a096c7d5a7c98539540b3382fd3442202214b237025616",
+    "src/workshop/snapshot.py": "4341e14480efbb0db91c7276a4ae445774ce541f647f96b2bdb9e43407dca65d",
+    "src/workshop/tests/test_inventory.py": "12136fa9ce9a6ccd6c814a94bb1cb47db3ffdc7d1325c6263b200a4b0f9305a5",
+    "src/workshop/tests/test_operations.py": "170c68072342d8ce72c6b7930cc5c0ab6d84bec7f508953f804a1e0c1af5558b",
+    "src/workshop/tests/test_plans.py": "df02df963ddf1ba6f6a879f05dbdee694fb1a59391b34ba4e5ffb96f80578870",
+    "src/workshop/tests/test_recovery_diagnostics.py": "0d2fe68b9fce33251e836a1466e18846016f9d093040066b1e19162bca7833ec",
+    "src/workshop/tests/test_snapshot.py": "3a1186ecaefb5ecf1704c111028e711502f5de69b1cfb5d415062cd518c5d168",
+    "uv.lock": "f37d589707cc22f6d3a009638f460e18738cdbe1115aabc60eac4731945109da"
+  },
+  "stage": "VIG-CIPHER-FIXTURE-01",
+  "status": "complete_source_and_local_installed_package",
+  "tests": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests": 700
+  },
+  "verification": ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json",
+  "verification_stages_passed": 11
+}

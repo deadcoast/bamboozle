@@ -1,0 +1,2 @@
+# Archived workflow specifications retain their exact original bytes.
+*.md -text

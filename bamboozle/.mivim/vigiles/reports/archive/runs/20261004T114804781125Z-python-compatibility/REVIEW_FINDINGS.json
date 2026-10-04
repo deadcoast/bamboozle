@@ -1,0 +1,323 @@
+{
+  "created": "2026-10-04T11:48:04.782216Z",
+  "historical_compatibility": {
+    "ledgers": {
+      "0.4.8:guide": {
+        "encoded_sha256": "f86f608880a38bded4725a94c63c43d4e586a5fbe3e6787e6bb23900a9790b4e",
+        "ledger_sha256": "0788475829c472755f23717b70a16c8cf2ea2e3f50c0167e8842beea083db55f",
+        "marker_version": 1,
+        "schema_version": 2,
+        "strict_original_bytes_restored": true
+      },
+      "0.4.8:installed_return_validation_workflow:cli": {
+        "ledger_sha256": "a0d7a329739cbf6bbf1083cef6b478242ee5ee7f329a48a85f3a65fb0815eb79",
+        "marker_version": 1,
+        "schema_version": 1,
+        "strict_original_bytes_restored": true,
+        "validation": {
+          "analysis_complete": true,
+          "baseline_available": true,
+          "baseline_encoded_sha256": "fb1090e8833500c6b631f31371ec52a05e54461afc1ff7f694e7efc2fa687c71",
+          "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+          "counts": {},
+          "decodable": true,
+          "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+          "decoded_sha256": "6b2869f1c24f5116b991f13f5337179b82277c83fa41a6e417dab114972d3af5",
+          "dictionary_sha256": "3b4e57e2e14290c077405735dbeb75dc9109ba288bd5bd75d89f30667606562e",
+          "document_byte_limit": 16777216,
+          "document_rules": {
+            "format": "text"
+          },
+          "edited_sha256": "fb1090e8833500c6b631f31371ec52a05e54461afc1ff7f694e7efc2fa687c71",
+          "finding_count": 0,
+          "findings": [],
+          "findings_complete": true,
+          "input": "baseline.py",
+          "inputs": {
+            ".source_safe.py.scm_ledger.json": "a0d7a329739cbf6bbf1083cef6b478242ee5ee7f329a48a85f3a65fb0815eb79",
+            "baseline.py": "fb1090e8833500c6b631f31371ec52a05e54461afc1ff7f694e7efc2fa687c71",
+            "source.py": "6b2869f1c24f5116b991f13f5337179b82277c83fa41a6e417dab114972d3af5"
+          },
+          "ledger": ".source_safe.py.scm_ledger.json",
+          "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+          "marker_version": 1,
+          "next_offset": null,
+          "offset": 0,
+          "ok": true,
+          "operation": "validate_return",
+          "original": "source.py",
+          "output_saved": false,
+          "schema_version": 1,
+          "status": "accepted",
+          "validation_sha256": "adc09b9abe1dbc3e7ed9e6c44d901e898c0330bdb81e4b526ad88abd80fec86c",
+          "validator_version": "2"
+        }
+      },
+      "0.4.8:installed_return_validation_workflow:mcp": {
+        "ledger_sha256": "3943a333fe1f5b4db5dacd635402a94fc48f802dee0f072c79c6c48a3ad92375",
+        "marker_version": 1,
+        "schema_version": 1,
+        "strict_original_bytes_restored": true,
+        "validation": {
+          "analysis_complete": true,
+          "baseline_available": true,
+          "baseline_encoded_sha256": "fb1090e8833500c6b631f31371ec52a05e54461afc1ff7f694e7efc2fa687c71",
+          "context_sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+          "counts": {},
+          "decodable": true,
+          "decode_policy": "saved_mapping_reserved_targets_before_manual_intent_decisions",
+          "decoded_sha256": "6b2869f1c24f5116b991f13f5337179b82277c83fa41a6e417dab114972d3af5",
+          "dictionary_sha256": "3b4e57e2e14290c077405735dbeb75dc9109ba288bd5bd75d89f30667606562e",
+          "document_byte_limit": 16777216,
+          "document_rules": {
+            "format": "text"
+          },
+          "edited_sha256": "fb1090e8833500c6b631f31371ec52a05e54461afc1ff7f694e7efc2fa687c71",
+          "finding_count": 0,
+          "findings": [],
+          "findings_complete": true,
+          "input": "baseline.py",
+          "inputs": {
+            ".source_safe.py.scm_ledger.json": "3943a333fe1f5b4db5dacd635402a94fc48f802dee0f072c79c6c48a3ad92375",
+            "baseline.py": "fb1090e8833500c6b631f31371ec52a05e54461afc1ff7f694e7efc2fa687c71",
+            "source.py": "6b2869f1c24f5116b991f13f5337179b82277c83fa41a6e417dab114972d3af5"
+          },
+          "ledger": ".source_safe.py.scm_ledger.json",
+          "limits": "Diagnostics are operator evidence, not inferred intent or semantic correctness. Changed-line target words can be vocabulary or literals. Missing terms/markers may be intentional deletion. Variant hints cover simple ASCII word suffixes and underscore identifiers only; synonyms, arbitrary spelling changes, multiword phrase variants and other languages are not inferred. Protected-content changes require review, not automatic rejection.",
+          "marker_version": 1,
+          "next_offset": null,
+          "offset": 0,
+          "ok": true,
+          "operation": "validate_return",
+          "original": "source.py",
+          "output_saved": false,
+          "schema_version": 1,
+          "status": "accepted",
+          "validation_sha256": "adc09b9abe1dbc3e7ed9e6c44d901e898c0330bdb81e4b526ad88abd80fec86c",
+          "validator_version": "2"
+        }
+      },
+      "0.4.8:template": {
+        "encoded_sha256": "43fd2ed98dac763d5498366a8bd806f0b895788b35cc855a02141822eb8745eb",
+        "ledger_sha256": "7b9f381c624bb549d75576ffd4cd12f254c23e4c513be048b14d51de79eaf820",
+        "marker_version": 1,
+        "schema_version": 2,
+        "strict_original_bytes_restored": true
+      },
+      "0.4.9:cli": {
+        "ledger_sha256": "7b45cb3d0fe9129859d93b8b563ac12d481cd9e98b167faff9a3cb134e4948be",
+        "marker_version": 2,
+        "original_sha256": "7b8f31a1cd8792c82642bc72036acc09ce1dfebacd8b6d3012a6da10e49fcb61",
+        "schema_version": 3,
+        "strict_original_bytes_restored": true
+      },
+      "0.4.9:mcp": {
+        "ledger_sha256": "3fa5b48dc23f29a0696e9769c196ed9a3b8be9b04a93c30a2368eda517621d43",
+        "marker_version": 2,
+        "original_sha256": "7b8f31a1cd8792c82642bc72036acc09ce1dfebacd8b6d3012a6da10e49fcb61",
+        "schema_version": 3,
+        "strict_original_bytes_restored": true
+      }
+    },
+    "views": {
+      "0.4.8:installed_fixture_workflow:cli": {
+        "manifest_sha256": "813fcb60fea3be35c0d597f03dcd2ff3cf3dee520a8abeaa4564b1f13e2ec05e",
+        "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-xa52wz2g\\runtime\\generated-fixture-workflow\\cli",
+        "status": {
+          "files": {
+            "src/catalog.py": "applied",
+            "src/renderer.py": "applied",
+            "src/run_catalog.py": "applied",
+            "templates.json": "unchanged"
+          },
+          "receipt_saved": true,
+          "review_sha256": "d0fb28429ea41ee117ea0c428466e23eb71189b5d9feba543f0a08bb2f937f35",
+          "schema_version": 1,
+          "status": "complete",
+          "view_changed": false,
+          "view_id": "e43bc0bf4e19451ca9dcb4faa2efa75e"
+        },
+        "unchanged": true
+      },
+      "0.4.8:installed_fixture_workflow:mcp": {
+        "manifest_sha256": "8e9d6abf05b4196578f5ff447311b87e23b1910b0b7fd4e9acc27ecfedf39710",
+        "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-xa52wz2g\\runtime\\generated-fixture-workflow\\mcp",
+        "status": {
+          "files": {
+            "src/catalog.py": "applied",
+            "src/renderer.py": "applied",
+            "src/run_catalog.py": "applied",
+            "templates.json": "unchanged"
+          },
+          "receipt_saved": true,
+          "review_sha256": "5bda67f33f223101536ea813979ef445fdf284335c3eecd8526f6f4b8e940650",
+          "schema_version": 1,
+          "status": "complete",
+          "view_changed": false,
+          "view_id": "9aa2656ce2f84715b4e440f02835de61"
+        },
+        "unchanged": true
+      },
+      "0.4.8:installed_return_validation_workflow:cli": {
+        "manifest_sha256": "ce3c9f3b78616e76b74bfd195936b8e4d90525a96f7786d325c77f356dc2a9f7",
+        "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-xa52wz2g\\runtime\\returned-workflow\\cli",
+        "status": {
+          "files": {
+            "data.json": "applied",
+            "guide.md": "applied",
+            "src/batch.py": "applied",
+            "src/core.py": "applied"
+          },
+          "receipt_saved": true,
+          "review_sha256": "2c936fb5b933271904e292d434302a44688e0d0364ab4516d52edb4bf829b77f",
+          "schema_version": 1,
+          "status": "complete",
+          "view_changed": false,
+          "view_id": "24796595421040ca8c519842834d7a23"
+        },
+        "unchanged": true
+      },
+      "0.4.8:installed_return_validation_workflow:mcp": {
+        "manifest_sha256": "4b2b92cc11adcf78d09d9e3dfbc5f8cf05afcc3e64f73a3cdb9b6ab5118ce546",
+        "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-xa52wz2g\\runtime\\returned-workflow\\mcp",
+        "status": {
+          "files": {
+            "data.json": "applied",
+            "guide.md": "applied",
+            "src/batch.py": "applied",
+            "src/core.py": "applied"
+          },
+          "receipt_saved": true,
+          "review_sha256": "be3ce6e728672947969424ae50486cc5d6665ab17ab08dbb0d2ab7ef75a56f7a",
+          "schema_version": 1,
+          "status": "complete",
+          "view_changed": false,
+          "view_id": "fc7985e69c0f4ba2b552cc0ab6444ef9"
+        },
+        "unchanged": true
+      },
+      "0.4.9:installed_escape_workflow:cli": {
+        "manifest_sha256": "73344ec980804ec8a7b156c9da2f00a7a683b6707d892264983e6aad3f4a3214",
+        "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-4bqdnj3m\\runtime\\escaped-workflow\\cli",
+        "status": {
+          "files": {
+            "batch.py": "applied",
+            "parser.py": "applied",
+            "runner.py": "applied"
+          },
+          "receipt_saved": true,
+          "review_sha256": "bca223ae8391d1a37a3d0910c45c84fa60902e382df72521d1a8c5cbd4cc398e",
+          "schema_version": 1,
+          "status": "complete",
+          "view_changed": false,
+          "view_id": "e1f3f7b184f94ad6867055223a528a8e"
+        },
+        "unchanged": true
+      },
+      "0.4.9:installed_escape_workflow:mcp": {
+        "manifest_sha256": "569cd0c014ebad090164295e9b07b089ec1d9152858927c0d8e0ce033b644406",
+        "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-4bqdnj3m\\runtime\\escaped-workflow\\mcp",
+        "status": {
+          "files": {
+            "batch.py": "applied",
+            "parser.py": "applied",
+            "runner.py": "applied"
+          },
+          "receipt_saved": true,
+          "review_sha256": "f988d107630edc66062331539abc6e6f98c6167053cc181b3be9479873a3a055",
+          "schema_version": 1,
+          "status": "complete",
+          "view_changed": false,
+          "view_id": "e93f7d71e819430ca815223186087112"
+        },
+        "unchanged": true
+      },
+      "0.4.9:installed_fixture_workflow:cli": {
+        "manifest_sha256": "1d8bb5d507473a5eb34b05b5d38554eeedf98da31c1fe0a4d419e74fab5210a0",
+        "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-4bqdnj3m\\runtime\\generated-fixture-workflow\\cli",
+        "status": {
+          "files": {
+            "src/catalog.py": "applied",
+            "src/renderer.py": "applied",
+            "src/run_catalog.py": "applied",
+            "templates.json": "unchanged"
+          },
+          "receipt_saved": true,
+          "review_sha256": "87160bedaecea3e67fbda5017b2a4faee809c8b3aa5b837cd963f2892f2dc746",
+          "schema_version": 1,
+          "status": "complete",
+          "view_changed": false,
+          "view_id": "34df9f7dd2cd41c782d9c497b02aa725"
+        },
+        "unchanged": true
+      },
+      "0.4.9:installed_fixture_workflow:mcp": {
+        "manifest_sha256": "23084984b156d88d86c2bd9278dd55f35a6e9fee60009313666f1afa563969bf",
+        "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-4bqdnj3m\\runtime\\generated-fixture-workflow\\mcp",
+        "status": {
+          "files": {
+            "src/catalog.py": "applied",
+            "src/renderer.py": "applied",
+            "src/run_catalog.py": "applied",
+            "templates.json": "unchanged"
+          },
+          "receipt_saved": true,
+          "review_sha256": "67ad388172bf4c08556e9b405720464008d381425dd5510b9293b72d70160e5a",
+          "schema_version": 1,
+          "status": "complete",
+          "view_changed": false,
+          "view_id": "da55820f9ccf4e57834d3fc83810634c"
+        },
+        "unchanged": true
+      },
+      "0.4.9:installed_return_validation_workflow:cli": {
+        "manifest_sha256": "c1492598f9a2b488b04c43092453b41be5b1aecaa587d4595d78506338ef713e",
+        "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-4bqdnj3m\\runtime\\returned-workflow\\cli",
+        "status": {
+          "files": {
+            "data.json": "applied",
+            "guide.md": "applied",
+            "src/batch.py": "applied",
+            "src/core.py": "applied"
+          },
+          "receipt_saved": true,
+          "review_sha256": "8eb472eac02270da7b136fb86652c7a718dff87c390dc1d60dfe034a37ce0afa",
+          "schema_version": 1,
+          "status": "complete",
+          "view_changed": false,
+          "view_id": "f1805f1ad2454b8d847aa201f5dea59e"
+        },
+        "unchanged": true
+      },
+      "0.4.9:installed_return_validation_workflow:mcp": {
+        "manifest_sha256": "c36f579d9d1ac2222df785ce0ec09d0eaf2aa1800e3b8b1c2795ea3aa4f19f95",
+        "root": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-4bqdnj3m\\runtime\\returned-workflow\\mcp",
+        "status": {
+          "files": {
+            "data.json": "applied",
+            "guide.md": "applied",
+            "src/batch.py": "applied",
+            "src/core.py": "applied"
+          },
+          "receipt_saved": true,
+          "review_sha256": "e193789402bfe1554b1acbfcbe0f8838cb6d08dd856bf5ccac495ec882314b06",
+          "schema_version": 1,
+          "status": "complete",
+          "view_changed": false,
+          "view_id": "81eec3ed7c0f444785cd3a5dc5e99f4b"
+        },
+        "unchanged": true
+      }
+    }
+  },
+  "qualification_script_sha256": "1f10e9e82d2fb231fb6a7790505d07789fe6f086b08d5eaa769e3a9dd0c81921",
+  "retained_findings": [
+    "Source gate and whole installed applications pass after correcting fixture bridge typing and Vandal import ordering.",
+    "The initial full verifier passed 905 tests but failed lint and type checking; its exact report, logs and pre-fix sources are retained.",
+    "Pre-fix source snapshots use .snapshot extensions so evidence is preserved without being collected as active Python modules.",
+    "Previous 0.4.8 and 0.4.9 completed views and schema 1/2/3 ledgers reconstruct without modifying retained artifacts."
+  ],
+  "schema_version": 1,
+  "stage": "VIG-CIPHER-SOURCE-01",
+  "status": "verified"
+}

@@ -1,0 +1,12 @@
+   Building bamboozle @ file:///C:/Users/ryanf/github/_active/bamboozle/bamboozle
+  Ã— Failed to build `bamboozle @
+  â”‚ file:///C:/Users/ryanf/github/_active/bamboozle/bamboozle`
+  â”œâ”€â–¶ Failed to resolve requirements from `build-system.requires`
+  â”œâ”€â–¶ No solution found when resolving: `setuptools>=68`
+  â”œâ”€â–¶ Failed to fetch: `https://pypi.org/simple/setuptools/`
+  â”œâ”€â–¶ Request failed after 3 retries
+  â”œâ”€â–¶ error sending request for url (https://pypi.org/simple/setuptools/)
+  â”œâ”€â–¶ client error (Connect)
+  â”œâ”€â–¶ tcp connect error
+  â•°â”€â–¶ An attempt was made to access a socket in a way forbidden by its access
+      permissions. (os error 10013)

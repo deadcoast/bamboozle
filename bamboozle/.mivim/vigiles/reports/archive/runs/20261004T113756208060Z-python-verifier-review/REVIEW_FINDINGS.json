@@ -1,0 +1,28 @@
+{
+  "completion_boundary": "Runtime/package smoke passing does not qualify a source tree with failed lint/type checks.",
+  "corrections": [
+    "Sort Vandal helper imports",
+    "Narrow the optional identifier map and annotate the validated callable symbol before joining its mapped parts"
+  ],
+  "created": "2026-10-04T11:37:56.218030Z",
+  "failed_stages": [
+    "ruff",
+    "pyright"
+  ],
+  "files_sha256": {
+    "VIGILES_VERIFICATION.json": "58f07173c57b92cc5a593dc4e303c54bf0ebaea4e73e04ee69f9b3aac610c384",
+    "fixtures.py": "f0c6f694e184d98cd70bb7a234bab896e225146fda47b14e1c12067e067455ff",
+    "pyright.log": "b8be912ef98ea75098c6c0d5083220b0ff2c91de85ae70e31712550bb9812a7b",
+    "ruff.log": "d50e955115b3faed831b015652ecffea9bd64f7ee0eb3466328a01ec7099a2dd",
+    "vandal.py": "30117fc79cd48f1df40ad9bb33cdeb0a9071a8329d75a4dc33119c595f703cf3"
+  },
+  "schema_version": 1,
+  "stage": "VIG-CIPHER-SOURCE-01",
+  "status": "failed_qualification_retained_before_correction",
+  "tests": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests": 905
+  }
+}

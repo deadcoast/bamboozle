@@ -1,0 +1,14 @@
+{
+  "correction": "Emit ASCII-safe CLI JSON and assert exact Unicode term content in both the installed smoke and a legacy-code-page regression test.",
+  "expected_term": "for fuck’s sake",
+  "finding": "Scan counts retained the curly apostrophe internally, but a legacy Windows code-page pipe consumer decoded the UTF-8 JSON into mojibake.",
+  "focused_regression": {
+    "failed": 0,
+    "passed": 35,
+    "xml": ".test-tmp/profanity-unicode.xml"
+  },
+  "observed_term": "for fuckâ€™s sake",
+  "source_roundtrip_affected": false,
+  "status": "final_evidence_review_found_transport_defect",
+  "verification": ".test-tmp/verify-3pt06g9i/wheel-smoke.log"
+}
