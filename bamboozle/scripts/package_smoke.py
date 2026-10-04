@@ -2125,7 +2125,12 @@ def main() -> None:
     ]()
     if any(
         not Path(python_results[name]).is_relative_to(Path(sys.prefix))
-        for name in ("source_module", "project_module")
+        for name in (
+            "source_module",
+            "project_module",
+            "classical_module",
+            "cipher_operations_module",
+        )
     ):
         raise RuntimeError(
             "Python source/project adapters were not imported from the installed wheel"
@@ -2154,6 +2159,7 @@ def main() -> None:
                     "plan_sha256": prepared["plan_sha256"],
                 },
                 "checks": [
+                    "classical_recipe_review_cli_stdio_lossless_ragged_and_framed_algorithms_authenticated_transport_returned_application_execution",
                     "python_dependency_application_cli_stdio_edits_new_capacity_scheduler_300_workload_runs_neutral_and_restored_and_encrypted_return",
                     "versioned_prefix_escapes_cli_operator_and_source_agent_stdio_executed_stream_parser_views_and_encrypted_returns",
                     "saved_context_return_diagnostics_cli_stdio_paged_views_encrypted_edits_and_executed_returned_programs",

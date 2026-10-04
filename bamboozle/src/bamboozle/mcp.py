@@ -13,6 +13,11 @@ from fastmcp import FastMCP
 
 from bamboozle.agent_files import AgentFiles
 from bamboozle.audit import audit
+from bamboozle.cipher_operations import (
+    capabilities,
+    prepare_transform,
+    verify_transform,
+)
 from bamboozle.dictionary import Dictionary
 from bamboozle.fixtures import FixtureError, preview_fixture, validate_fixture
 from bamboozle.formats import format_options
@@ -84,6 +89,41 @@ def create_server(
                 plans.popitem(last=False)
             plans[token] = (now, plan, recover_metadata)
         return {**report, "plan_id": token, "expires_in_seconds": PLAN_TTL}
+
+    @server.tool(annotations={"readOnlyHint": True})
+    def cipher_catalog() -> dict[str, Any]:
+        """Discover exact classical variants and separate semantic/authenticated operations."""
+        return capabilities()
+
+    @server.tool(annotations={"readOnlyHint": True})
+    def preview_cipher_transform(
+        source: str,
+        recipe: str,
+        output: str,
+        reverse: bool = False,
+        recover_metadata: bool = False,
+    ) -> dict[str, Any]:
+        """Operator: review a private .cipher-recipe.json on bytes; use apply_preview.
+
+        Classical obfuscation is not confidentiality. Decrypt/reverse transport
+        before returning source for semantic validation or application execution.
+        """
+        plan = prepare_transform(
+            workspace,
+            source,
+            recipe,
+            output,
+            reverse=reverse,
+            recover_metadata=recover_metadata,
+        )
+        return retain(plan, plan.report(), recover_metadata)
+
+    @server.tool(annotations={"readOnlyHint": True})
+    def verify_cipher_transform(
+        source: str, receipt: str | None = None
+    ) -> dict[str, Any]:
+        """Verify bytes and exact inverse against the private retained cipher receipt."""
+        return verify_transform(workspace, source, receipt=receipt)
 
     @server.tool(annotations={"readOnlyHint": True})
     def dictionary_status() -> dict[str, Any]:

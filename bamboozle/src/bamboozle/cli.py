@@ -71,6 +71,26 @@ def parser() -> argparse.ArgumentParser:
         help="Existing workspace directory (default: current directory)",
     )
     commands = result.add_subparsers(dest="command", required=True)
+    commands.add_parser(
+        "cipher-catalog",
+        help="Discover semantic, classical and authenticated cipher capabilities",
+    )
+    classical = commands.add_parser(
+        "cipher-transform",
+        help="Review/apply an explicit lossless classical byte recipe",
+    )
+    classical.add_argument("source")
+    classical.add_argument("--recipe", required=True)
+    classical.add_argument("-o", "--output", required=True)
+    classical.add_argument("--reverse", action="store_true")
+    classical.add_argument("--apply", action="store_true")
+    classical.add_argument("--review-sha256")
+    classical.add_argument("--recover-metadata", action="store_true")
+    classical_verify = commands.add_parser(
+        "cipher-verify", help="Verify cipher bytes and inverse using a saved receipt"
+    )
+    classical_verify.add_argument("source")
+    classical_verify.add_argument("--receipt")
     for name in ("encode", "decode", "preview"):
         command = commands.add_parser(name)
         command.add_argument("source")
@@ -251,6 +271,36 @@ def _emit(report: dict[str, Any], *, compact: bool = False) -> None:
 
 
 def _execute(args: argparse.Namespace, workspace: Workspace) -> dict[str, Any]:
+    if args.command in ("cipher-catalog", "cipher-transform", "cipher-verify"):
+        from bamboozle.cipher_operations import (
+            capabilities,
+            prepare_transform,
+            verify_transform,
+        )
+
+        if args.command == "cipher-catalog":
+            return capabilities()
+        if args.command == "cipher-verify":
+            return verify_transform(workspace, args.source, receipt=args.receipt)
+        if bool(args.apply) != bool(args.review_sha256):
+            raise ValueError(
+                "--apply requires --review-sha256 from a successful preview"
+            )
+        cipher_plan = prepare_transform(
+            workspace,
+            args.source,
+            args.recipe,
+            args.output,
+            reverse=args.reverse,
+            recover_metadata=args.recover_metadata,
+        )
+        return (
+            cipher_plan.apply(
+                args.review_sha256, recover_metadata=args.recover_metadata
+            )
+            if args.apply
+            else cipher_plan.report()
+        )
     if args.command == "validate-return":
         from bamboozle.return_validation import validate_return
 

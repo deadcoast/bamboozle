@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any
 
 from bamboozle import __version__
+from bamboozle.cipher_operations import capabilities
 from bamboozle.markers import CURRENT
 from bamboozle.project_views import (
     CONTRACT,
@@ -56,6 +57,7 @@ def context(mode: str, view_id: str | None = None) -> dict[str, Any]:
         "specification_sha256": sha256((ROOT / SPEC).read_bytes()),
         "skill_sha256": sha256((ROOT / SKILL).read_bytes()),
         "configuration_written": False,
+        "cipher_capabilities": capabilities(),
     }
     if mode == "view":
         assert view_id is not None

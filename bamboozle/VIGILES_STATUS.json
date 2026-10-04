@@ -2,6 +2,21 @@
   "authority": ".mivim/vigiles-vandal_0.2.md",
   "core_development_queue": [
     {
+      "checkpoint": "c53f0bfded51667437fc837cd33ede37745ae9c5",
+      "done_criteria": [
+        "Retain original C source/build/license assets and checkpoint hashes as primary method references",
+        "Implement the 11 supplied algorithm families as callable byte-safe versioned product transforms, with explicit incompatibilities for formerly lossy cases",
+        "Expose complete recipes and forward/reverse file operations through existing reviewed publisher; no replacement of semantic dictionary engines or authenticated ciphers",
+        "Keep recipes and receipts private to operator/source boundaries; do not offer classical obfuscation as authenticated confidentiality",
+        "Execute known vectors, original C comparisons, binary/property/error tests, actual CLI/MCP file exchange and dependent application restoration from installed wheel"
+      ],
+      "focus": "Apply supplied C methods to complete lossless cipher operations and product/workflow capability routing",
+      "id": "VIG-CIPHER-METHODS-01",
+      "priority": "user_high",
+      "review_evidence": ".mivim/vigiles/reports/current/VIGILES_CIPHER_REVIEW.json",
+      "status": "implementation_in_progress"
+    },
+    {
       "design_source": [
         ".legacy/bamboozle_v0.0.1.md:303-317"
       ],
@@ -15,7 +30,8 @@
       "focus": "Explicit selected YAML string-value translation with protected structure and exact restoration",
       "id": "VIG-CIPHER-YAML-01",
       "remaining": "Original design calls for selected YAML string values while protecting keys; no YAML adapter exists.",
-      "status": "next"
+      "resume_after": "VIG-CIPHER-METHODS-01",
+      "status": "shelved_for_user_priority"
     },
     {
       "done_criteria": [
@@ -86,20 +102,19 @@
     "status": "complete_source_and_local_installed_package"
   },
   "next_step": {
-    "design_source": [
-      ".legacy/bamboozle_v0.0.1.md:303-317"
-    ],
+    "checkpoint": "c53f0bfded51667437fc837cd33ede37745ae9c5",
     "done_criteria": [
-      "Specify exact selected scalar paths and an explicit supported YAML syntax/version contract; reject ambiguous selections before publication",
-      "Preserve unselected keys/values, comments, quoting, tags, anchors/aliases, formatting, BOM and line endings; define alias ownership without implicit edits",
-      "Integrate saved contexts, CLI, operator MCP, view policies and returned-edit validation while keeping translation and encryption separate",
-      "Execute a complete dependent application using translated, edited and restored YAML configuration, including anchors, multiline values, malformed input and drift/recovery",
-      "Retain Python/text/Markdown/JSON behavior and historical contexts; qualify source and isolated installed-package workflows"
+      "Retain original C source/build/license assets and checkpoint hashes as primary method references",
+      "Implement the 11 supplied algorithm families as callable byte-safe versioned product transforms, with explicit incompatibilities for formerly lossy cases",
+      "Expose complete recipes and forward/reverse file operations through existing reviewed publisher; no replacement of semantic dictionary engines or authenticated ciphers",
+      "Keep recipes and receipts private to operator/source boundaries; do not offer classical obfuscation as authenticated confidentiality",
+      "Execute known vectors, original C comparisons, binary/property/error tests, actual CLI/MCP file exchange and dependent application restoration from installed wheel"
     ],
-    "focus": "Explicit selected YAML string-value translation with protected structure and exact restoration",
-    "id": "VIG-CIPHER-YAML-01",
-    "remaining": "Original design calls for selected YAML string values while protecting keys; no YAML adapter exists.",
-    "status": "next"
+    "focus": "Apply supplied C methods to complete lossless cipher operations and product/workflow capability routing",
+    "id": "VIG-CIPHER-METHODS-01",
+    "priority": "user_high",
+    "review_evidence": ".mivim/vigiles/reports/current/VIGILES_CIPHER_REVIEW.json",
+    "status": "implementation_in_progress"
   },
   "open_gates": [
     {

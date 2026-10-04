@@ -13,7 +13,7 @@ from pathlib import Path
 from fastmcp import Client
 from fastmcp.client.transports import StdioTransport
 
-from bamboozle import python_project, python_source
+from bamboozle import cipher_operations, classical, python_project, python_source
 from bamboozle.utils import json_bytes, sha256
 
 
@@ -72,6 +72,35 @@ def run(workspace: Path | None = None) -> dict:
         root.mkdir()
         originals = scenario["originals"](root)
         (root / "mapping.dictionary.json").write_bytes(json_bytes(dictionary))
+        (root / "transfer.cipher-recipe.json").write_bytes(
+            json_bytes(
+                {
+                    "schema_version": 1,
+                    "steps": [
+                        {
+                            "cipher": "vigenere",
+                            "variant": "ascii-v1",
+                            "params": {"key": "LEMON"},
+                        },
+                        {
+                            "cipher": "columnar-transposition",
+                            "variant": "ragged-v1",
+                            "params": {"key": "BALLOON"},
+                        },
+                        {
+                            "cipher": "polybius-square",
+                            "variant": "framed5-v1",
+                            "params": {},
+                        },
+                        {
+                            "cipher": "rail-fence",
+                            "variant": "zigzag-v1",
+                            "params": {"rails": 5},
+                        },
+                    ],
+                }
+            )
+        )
         policy = {
             "schema_version": 2,
             "files": {
@@ -160,6 +189,51 @@ def run(workspace: Path | None = None) -> dict:
                 "neutral_benchmark": neutral_bench,
             }
 
+        def encrypt_classical(cli=cli) -> None:
+            cli(
+                "seal",
+                "classical.bin",
+                "--key",
+                "transport.key",
+                "--recipient",
+                "operator",
+                "-o",
+                "cipher-return.bam",
+            )
+            cli(
+                "open",
+                "cipher-return.bam",
+                "--key",
+                "transport.key",
+                "--recipient",
+                "operator",
+                "-o",
+                "classical-opened.bin",
+            )
+
+        def accept_classical(
+            flow: dict, forward: dict, reverse: dict, verified: dict, root: Path = root
+        ) -> None:
+            returned = (root / "classical-return.py").read_bytes()
+            view_source = root / "view/pipeline/main.py"
+            if returned != view_source.read_bytes() or verified["status"] != "verified":
+                raise RuntimeError(
+                    "Classical/encrypted transport changed the complete returned program"
+                )
+            # The actual decrypted/reversed bytes enter the reviewed view import.
+            view_source.write_bytes(returned)
+            if application(root / "view", enhanced=True) != flow["neutral_enhanced"]:
+                raise RuntimeError(
+                    "Transported neutral application failed its executable contract"
+                )
+            flow["classical_transport"] = {
+                "forward": forward,
+                "reverse": reverse,
+                "verified": verified,
+                "exact_return_bytes": True,
+                "application_executed_after_transport": True,
+            }
+
         if mode == "cli":
             exported = cli(
                 "view-export",
@@ -170,6 +244,34 @@ def run(workspace: Path | None = None) -> dict:
                 "mapping.dictionary.json",
             )
             flow = edit_and_check(exported)
+            command: tuple[str, ...] = (
+                "cipher-transform",
+                "view/pipeline/main.py",
+                "--recipe",
+                "transfer.cipher-recipe.json",
+                "-o",
+                "classical.bin",
+            )
+            preview = cli(*command)
+            forward = cli(
+                *command, "--apply", "--review-sha256", preview["review_sha256"]
+            )
+            encrypt_classical()
+            command = (
+                "cipher-transform",
+                "classical-opened.bin",
+                "--recipe",
+                "transfer.cipher-recipe.json",
+                "--reverse",
+                "-o",
+                "classical-return.py",
+            )
+            preview = cli(*command)
+            reverse = cli(
+                *command, "--apply", "--review-sha256", preview["review_sha256"]
+            )
+            verified = cli("cipher-verify", "classical-return.py")
+            accept_classical(flow, forward, reverse, verified)
             review = cli("view-review", exported["view_id"])
             applied = cli(
                 "view-apply",
@@ -180,7 +282,10 @@ def run(workspace: Path | None = None) -> dict:
         else:
 
             async def operate(
-                root: Path = root, edit_and_check=edit_and_check
+                root: Path = root,
+                edit_and_check=edit_and_check,
+                encrypt_classical=encrypt_classical,
+                accept_classical=accept_classical,
             ) -> tuple[dict, dict, dict]:
                 transport = StdioTransport(
                     command=sys.executable,
@@ -230,6 +335,39 @@ def run(workspace: Path | None = None) -> dict:
                         {"config": "policy.json", "output": "view"},
                     )
                     flow = edit_and_check(exported)
+                    catalog = await call("cipher_catalog", {})
+                    if len(catalog["classical"]["ciphers"]) != 11:
+                        raise RuntimeError(
+                            "Operator did not expose all supplied cipher families"
+                        )
+                    preview = await call(
+                        "preview_cipher_transform",
+                        {
+                            "source": "view/pipeline/main.py",
+                            "recipe": "transfer.cipher-recipe.json",
+                            "output": "classical.bin",
+                        },
+                    )
+                    forward = await call(
+                        "apply_preview", {"plan_id": preview["plan_id"]}
+                    )
+                    encrypt_classical()
+                    preview = await call(
+                        "preview_cipher_transform",
+                        {
+                            "source": "classical-opened.bin",
+                            "recipe": "transfer.cipher-recipe.json",
+                            "output": "classical-return.py",
+                            "reverse": True,
+                        },
+                    )
+                    reverse = await call(
+                        "apply_preview", {"plan_id": preview["plan_id"]}
+                    )
+                    verified = await call(
+                        "verify_cipher_transform", {"source": "classical-return.py"}
+                    )
+                    accept_classical(flow, forward, reverse, verified)
                     review = await call(
                         "review_project_view", {"view_id": exported["view_id"]}
                     )
@@ -276,6 +414,8 @@ def run(workspace: Path | None = None) -> dict:
         "workflows": results,
         "source_module": str(Path(python_source.__file__).resolve()),
         "project_module": str(Path(python_project.__file__).resolve()),
+        "classical_module": str(Path(classical.__file__).resolve()),
+        "cipher_operations_module": str(Path(cipher_operations.__file__).resolve()),
     }
 
 

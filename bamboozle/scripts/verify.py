@@ -200,12 +200,12 @@ def main() -> int:
             if not check(name, command, runtime if name == "wheel-smoke" else ROOT):
                 break
     sources = {}
-    for directory in ("src", "scripts"):
+    for directory in ("src", "scripts", "include"):
         for path in sorted((ROOT / directory).rglob("*")):
             if (
                 path.is_file()
                 and "__pycache__" not in path.parts
-                and path.suffix in {".py", ".json", ".bat"}
+                and path.suffix in {".py", ".json", ".bat", ".c", ".h"}
             ):
                 sources[path.relative_to(ROOT).as_posix()] = hashlib.sha256(
                     path.read_bytes()
@@ -216,6 +216,11 @@ def main() -> int:
         ROOT / "uv.lock",
         ROOT / "README.md",
         ROOT / "AGENTS.md",
+        ROOT / "src/ciphers/README.md",
+        ROOT / ".clang-format",
+        ROOT / "Makefile",
+        ROOT / "justfile",
+        ROOT / "LICENSE",
         ROOT / ".mivim/mivim.vigiles.md",
         ROOT / ".mivim/vigiles-vandal_0.2.md",
         ROOT / ".vigiles/skills/vigiles-vandal/SKILL.md",

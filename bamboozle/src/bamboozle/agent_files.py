@@ -42,6 +42,8 @@ def source_path(
                 ".dictionary.json",
                 ".lexicon-receipt.json",
                 ".fixture-rules.json",
+                ".cipher-recipe.json",
+                ".cipher-receipt.json",
             )
         )
         or ".key." in path.name.casefold()
