@@ -78,6 +78,7 @@ a root-level handoff. Do not generate extra tracking documents without a task ne
 | Authenticated complete-project transport and receiver context/recovery | `src/bamboozle/project_exchange.py`, `scripts/exchange_smoke.py` |
 | Original C cipher references and guarded comparison qualifier | `src/ciphers/`, `include/`, `scripts/cipher_reference.py` |
 | Shared Markdown/selected-JSON adapters | `src/bamboozle/formats.py` |
+| Selected YAML spans, alias ownership and retained scalar spellings | `src/bamboozle/yaml_source.py`, `scripts/yaml_smoke.py` |
 | Explicit Python token/span translation and project import checks | `src/bamboozle/python_source.py`, `python_project.py` |
 | Generated neutral fixtures and processing contracts | `src/bamboozle/fixture_rules.py`, `fixtures.py` |
 | Repository-only workflow context/MCP configuration | `scripts/vandal.py` |
@@ -164,6 +165,13 @@ Do not regenerate release evidence or claim a fresh runtime qualification.
   unsupported native flags.
 
 ## Invariants to preserve
+
+- YAML selection belongs to the shared document engine. Require every alias value
+  path affected by a physical scalar; never implicitly edit unselected alias/key/
+  merge owners. Parse events without executing tags, preserve unselected bytes,
+  and reparse rendered values/types/topology. Keep original scalar spellings
+  private. Verify the complete dependent application and explicit import recovery
+  through source and installed-package interfaces when changing this adapter.
 
 - Project exchange composes the existing semantic, classical and Tessera engines.
   Only neutral files/public controls leave source-owner storage. Authenticate before
