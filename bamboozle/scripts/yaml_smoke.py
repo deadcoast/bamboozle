@@ -143,6 +143,7 @@ def run(workspace: Path | None = None) -> dict:
             capture_output=True,
             text=True,
             timeout=30,
+            check=False,
         )
         if result.returncode != code:
             raise RuntimeError(
@@ -183,7 +184,7 @@ def run(workspace: Path | None = None) -> dict:
         *selection,
     )
     encoded = execute(root, "config_safe.yaml")
-    assert json.loads(Translator(MAPPING).backward(json.dumps(encoded))) == baseline
+    assert json.loads(Translator(MAPPING).reverse(json.dumps(encoded))) == baseline
     cli("decode", "config_safe.yaml", "--strict", "-o", "exact.yaml")
     assert (root / "exact.yaml").read_bytes() == CONFIG
     # Strict decode retains the saved ledger; missing-metadata recovery is tested
@@ -219,7 +220,7 @@ def run(workspace: Path | None = None) -> dict:
         review["review_sha256"],
     )
     restored = execute(root, "restored.yaml", 8)
-    assert json.loads(Translator(MAPPING).backward(json.dumps(edited))) == restored
+    assert json.loads(Translator(MAPPING).reverse(json.dumps(edited))) == restored
 
     policy = {
         "schema_version": 2,
