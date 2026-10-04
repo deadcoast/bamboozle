@@ -21,6 +21,24 @@ from bamboozle.evidence import report_destination, write_report
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def artifact_inventory(directory: Path) -> dict[str, dict[str, Any]]:
+    """Keep unreadable historical artifacts visible without losing check results."""
+    artifacts: dict[str, dict[str, Any]] = {}
+    for path in sorted(directory.glob("bamboozle-*")):
+        try:
+            if path.is_file():
+                artifacts[path.name] = {
+                    "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+                    "bytes": path.stat().st_size,
+                }
+        except OSError as exc:
+            artifacts[path.name] = {
+                "status": "unavailable",
+                "error": f"{type(exc).__name__}: {exc}",
+            }
+    return artifacts
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -204,14 +222,18 @@ def main() -> int:
         sources[os.path.relpath(path, ROOT).replace("\\", "/")] = hashlib.sha256(
             path.read_bytes()
         ).hexdigest()
-    artifacts = {
-        path.name: {
-            "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
-            "bytes": path.stat().st_size,
-        }
-        for path in sorted((ROOT / "dist").glob("bamboozle-*"))
-        if path.is_file()
-    }
+    artifacts = artifact_inventory(ROOT / "dist")
+    version = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))[
+        "project"
+    ]["version"]
+    required_artifacts = (
+        [f"bamboozle-{version}-py3-none-any.whl", f"bamboozle-{version}.tar.gz"]
+        if args.package
+        else []
+    )
+    artifacts_verified = all(
+        "sha256" in artifacts.get(name, {}) for name in required_artifacts
+    )
     if (run / "pytest.xml").exists():
         for suite in ET.parse(run / "pytest.xml").getroot().iter("testsuite"):
             for name in ("tests", "failures", "errors", "skipped"):
@@ -220,7 +242,7 @@ def main() -> int:
         "schema_version": 1,
         "created": datetime.now(UTC).isoformat(),
         "status": "passed"
-        if all(step["returncode"] == 0 for step in steps)
+        if artifacts_verified and all(step["returncode"] == 0 for step in steps)
         else "failed",
         "python": sys.version,
         "platform": platform.platform(),
@@ -229,6 +251,8 @@ def main() -> int:
         "steps": steps,
         "source_sha256": sources,
         "artifacts": artifacts,
+        "required_artifacts": required_artifacts,
+        "required_artifacts_verified": artifacts_verified,
     }
     previous = write_report(ROOT, args.report, report, replace=replace_report)
     if previous:

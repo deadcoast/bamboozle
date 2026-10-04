@@ -1,0 +1,1085 @@
+{
+  "cases": [
+    {
+      "case": "promotion",
+      "final_file_sha256": {
+        "_vigiles_workshop.json": "48188c0170697ed4cbf424a23f642140e92731287ba7bc324c4ac825241e45f9",
+        "candidates/ExampleA.bin": "085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0",
+        "candidates/ExampleA.json": "5d8622bbaa1e3d16d90cf602d7c0cb8affb99d9a246807acd567fabfeca1753f",
+        "candidates/ExampleA.validation.json": "2d7f3beedda48b3e3f01ab58cf10be101d498f38d70f6e37c87ec28cda50d833",
+        "prod/model-ExampleA.bin": "085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0",
+        "scrape/.vigiles.lock": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
+        "scrape/_compatibility_matrix.json": "f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587",
+        "scrape/_lora_ledger.csv": "57f3dee0c765f501dfa06addf47e264a84e6f43ee8c50f419d730c2af951f0a7",
+        "scrape/_lora_manifest.json": "a1410953ca4b5b7183f693af51e43b58c56857edd8c5cc31d46642ffc376a208",
+        "scrape/_pipeline_status.json": "f62210e0629f572bd1362bfac2d4577b208943190031f0bceb6883c495a90845",
+        "scrape/audit_matrix.py": "a7d54c001e50073622429210c3a39981dba7838758439893ea5c8f691a400923",
+        "scrape/prepared/2b650eb3520f45dc9ba012ddb75602c4.json": "06e1c09465f11c4448dadc95b0ee9de63be4da9d7941df282331ddd18be03d67",
+        "scrape/promote.py": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "scrape/taxonomy.json": "ba9e29c6c062f43e0d633f6c0bae19b44ecce3722e0e27c230b1421e8f737052",
+        "scrape/transactions/2b650eb3520f45dc9ba012ddb75602c4.done.json": "c462d702b55299d087b9438db243dfc648d8562e364128136da7b994129f92a6",
+        "scrape/transactions/2b650eb3520f45dc9ba012ddb75602c4.json": "06e1c09465f11c4448dadc95b0ee9de63be4da9d7941df282331ddd18be03d67"
+      },
+      "observed_status": "recoverable",
+      "operation_id": "2b650eb3520f45dc9ba012ddb75602c4",
+      "read_only": true
+    },
+    {
+      "case": "quarantine",
+      "final_file_sha256": {
+        "_vigiles_workshop.json": "48188c0170697ed4cbf424a23f642140e92731287ba7bc324c4ac825241e45f9",
+        "candidates/ExampleA.bin": "085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0",
+        "candidates/ExampleA.json": "5d8622bbaa1e3d16d90cf602d7c0cb8affb99d9a246807acd567fabfeca1753f",
+        "candidates/ExampleA.validation.json": "2d7f3beedda48b3e3f01ab58cf10be101d498f38d70f6e37c87ec28cda50d833",
+        "quarantine/bd07cea7a7e248efae994b38d51ee45d/model-ExampleA.bin": "085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0",
+        "scrape/.vigiles.lock": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
+        "scrape/_compatibility_matrix.json": "f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587",
+        "scrape/_lora_ledger.csv": "cd80e66c698f97d61ebdcb18b1035a74d05244da342c2dbd4f17624d59a2b98b",
+        "scrape/_lora_manifest.json": "394231068230487d0e5b678b5d9784ca35f9d7a2b57ee0a55485c74cde0f1127",
+        "scrape/_pipeline_status.json": "4f9ff543328a7d03e3f8ac4040e6dcd05e15836fc6448e51e2f0ecbd0c8fd033",
+        "scrape/audit_matrix.py": "a7d54c001e50073622429210c3a39981dba7838758439893ea5c8f691a400923",
+        "scrape/prepared/19bd3842116346f88227aabbb7ddd957.json": "41a1d35cc9e7832744660b6b6454b54899c32d7aa7cf36527181234fb4969d60",
+        "scrape/promote.py": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "scrape/taxonomy.json": "ba9e29c6c062f43e0d633f6c0bae19b44ecce3722e0e27c230b1421e8f737052",
+        "scrape/transactions/19bd3842116346f88227aabbb7ddd957.done.json": "e4846d39759e06adcb7dd64201b29930041d038912434570acb098b8e051c30f",
+        "scrape/transactions/19bd3842116346f88227aabbb7ddd957.json": "41a1d35cc9e7832744660b6b6454b54899c32d7aa7cf36527181234fb4969d60",
+        "scrape/transactions/61b106a52ab04465aca6c5f25d1474bc.done.json": "31e531f8039c1eefa5fb71ec48e33a7b9b4b07900ec93ea824d21edd7f3f4537",
+        "scrape/transactions/61b106a52ab04465aca6c5f25d1474bc.json": "147673794153a434f0d684313d110e99e77ede37d285601206555b2997d8dfaa"
+      },
+      "observed_status": "recoverable",
+      "operation_id": "19bd3842116346f88227aabbb7ddd957",
+      "read_only": true
+    },
+    {
+      "case": "audit",
+      "final_file_sha256": {
+        "_vigiles_workshop.json": "48188c0170697ed4cbf424a23f642140e92731287ba7bc324c4ac825241e45f9",
+        "candidates/ExampleA.bin": "085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0",
+        "candidates/ExampleA.json": "5d8622bbaa1e3d16d90cf602d7c0cb8affb99d9a246807acd567fabfeca1753f",
+        "candidates/ExampleA.validation.json": "2d7f3beedda48b3e3f01ab58cf10be101d498f38d70f6e37c87ec28cda50d833",
+        "prod/model-ExampleA.bin": "085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0",
+        "scrape/.vigiles.lock": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
+        "scrape/_compatibility_matrix.json": "f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587",
+        "scrape/_lora_ledger.csv": "dc909c9cd54e5f43dd380fbc5aa1d065fa6b1c268b90514c2e898e061782a089",
+        "scrape/_lora_manifest.json": "a1410953ca4b5b7183f693af51e43b58c56857edd8c5cc31d46642ffc376a208",
+        "scrape/_pipeline_status.json": "d9b93ceabfbf0299f59dabb16855b0a521697cfa5f6734e3bfa4eeea2cb32f1f",
+        "scrape/audit_matrix.py": "a7d54c001e50073622429210c3a39981dba7838758439893ea5c8f691a400923",
+        "scrape/promote.py": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "scrape/taxonomy.json": "ba9e29c6c062f43e0d633f6c0bae19b44ecce3722e0e27c230b1421e8f737052",
+        "scrape/transactions/1c5a93b37a964525ae6f01654c6507dd.done.json": "275bccc22035156364aecf03be5b58d91ab54d4ae0e1278cc54af7f0b55cce27",
+        "scrape/transactions/1c5a93b37a964525ae6f01654c6507dd.json": "e09b2e82f35e4dc4c0e4bdef3e1296adbce00ddae133f676ca473a74a8a1d9eb",
+        "scrape/transactions/d2c019b691a14b09b5c1578ff13652df.done.json": "6caf99f5316a2bad860b93f67df975adcadaf7f4f7f7632dc4c3814240bddfe1",
+        "scrape/transactions/d2c019b691a14b09b5c1578ff13652df.json": "8eb050a9d012b60e9af2fefcf87e7bb212ab4ecfce435dde6e90353028ae39bb"
+      },
+      "observed_status": "recoverable",
+      "operation_id": "1c5a93b37a964525ae6f01654c6507dd",
+      "read_only": true
+    },
+    {
+      "case": "conflict",
+      "final_file_sha256": {
+        "_vigiles_workshop.json": "48188c0170697ed4cbf424a23f642140e92731287ba7bc324c4ac825241e45f9",
+        "candidates/ExampleA.bin": "085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0",
+        "candidates/ExampleA.json": "5d8622bbaa1e3d16d90cf602d7c0cb8affb99d9a246807acd567fabfeca1753f",
+        "candidates/ExampleA.validation.json": "2d7f3beedda48b3e3f01ab58cf10be101d498f38d70f6e37c87ec28cda50d833",
+        "prod/model-ExampleA.bin": "f0b7de000bf700157cbf22812f92507dcf3c6d05c039e80203ef76bc5cadc193",
+        "scrape/.vigiles.lock": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
+        "scrape/_compatibility_matrix.json": "f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587",
+        "scrape/_lora_ledger.csv": "f0b7de000bf700157cbf22812f92507dcf3c6d05c039e80203ef76bc5cadc193",
+        "scrape/_lora_manifest.json": "a1410953ca4b5b7183f693af51e43b58c56857edd8c5cc31d46642ffc376a208",
+        "scrape/_pipeline_status.json": "b7de5854f22c7684b0be6cd82e5530f4557aef11625743d55a9612ce40ce99f8",
+        "scrape/audit_matrix.py": "a7d54c001e50073622429210c3a39981dba7838758439893ea5c8f691a400923",
+        "scrape/prepared/8fbbea81208040a486c9ab018ea06d7f.json": "7852916c7bd8a1183525c90d2767617d464ad091cad29955f3c613330eb62bf0",
+        "scrape/promote.py": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "scrape/taxonomy.json": "ba9e29c6c062f43e0d633f6c0bae19b44ecce3722e0e27c230b1421e8f737052",
+        "scrape/transactions/8fbbea81208040a486c9ab018ea06d7f.json": "7852916c7bd8a1183525c90d2767617d464ad091cad29955f3c613330eb62bf0"
+      },
+      "observed_status": "conflict",
+      "operation_id": "8fbbea81208040a486c9ab018ea06d7f",
+      "read_only": true
+    },
+    {
+      "case": "corrupt",
+      "final_file_sha256": {
+        "_vigiles_workshop.json": "48188c0170697ed4cbf424a23f642140e92731287ba7bc324c4ac825241e45f9",
+        "candidates/ExampleA.bin": "085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0",
+        "candidates/ExampleA.json": "5d8622bbaa1e3d16d90cf602d7c0cb8affb99d9a246807acd567fabfeca1753f",
+        "candidates/ExampleA.validation.json": "2d7f3beedda48b3e3f01ab58cf10be101d498f38d70f6e37c87ec28cda50d833",
+        "prod/model-ExampleA.bin": "085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0",
+        "scrape/.vigiles.lock": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
+        "scrape/_compatibility_matrix.json": "f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587",
+        "scrape/_lora_ledger.csv": "066e16c4471c1987e9182fa3ee21c1611618987e204b320b6b369eeeb2b08fdc",
+        "scrape/_lora_manifest.json": "a1410953ca4b5b7183f693af51e43b58c56857edd8c5cc31d46642ffc376a208",
+        "scrape/_pipeline_status.json": "b7de5854f22c7684b0be6cd82e5530f4557aef11625743d55a9612ce40ce99f8",
+        "scrape/audit_matrix.py": "a7d54c001e50073622429210c3a39981dba7838758439893ea5c8f691a400923",
+        "scrape/prepared/9af3c031c63b4e058fbd3d7bae728fac.json": "c31a2bf38c7574905d2cf91862ebd91e72bcb6afbada1f2c0e520016d255e347",
+        "scrape/promote.py": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "scrape/taxonomy.json": "ba9e29c6c062f43e0d633f6c0bae19b44ecce3722e0e27c230b1421e8f737052",
+        "scrape/transactions/9af3c031c63b4e058fbd3d7bae728fac.json": "88787b966b8682dca1d5a402d3cbab1ed0403bf74b0f9c9792d4bbd6c4591483"
+      },
+      "observed_status": "corrupt",
+      "operation_id": "9af3c031c63b4e058fbd3d7bae728fac",
+      "read_only": true
+    }
+  ],
+  "checks": [
+    {
+      "arguments": [
+        "--diagnose-recovery",
+        "2b650eb3520f45dc9ba012ddb75602c4"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 3784,
+            "bytes_retained": 3784,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 86876,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"schema_version\": 1,\r\n  \"operation_id\": \"2b650eb3520f45dc9ba012ddb75602c4\",\r\n  \"status\": \"recoverable\",\r\n  \"read_only\": true,\r\n  \"recovery_ready\": true,\r\n  \"inspection_complete\": true,\r\n  \"current_state_checked\": true,\r\n  \"writer_lock_checked\": false,\r\n  \"records\": {\r\n    \"workshop\": {\r\n      \"state\": \"valid\"\r\n    },\r\n    \"journal\": {\r\n      \"state\": \"valid\",\r\n      \"sha256\": \"06e1c09465f11c4448dadc95b0ee9de63be4da9d7941df282331ddd18be03d67\"\r\n    },\r\n    \"prepared_plan\": {\r\n      \"state\": \"valid\",\r\n      \"sha256\": \"06e1c09465f11c4448dadc95b0ee9de63be4da9d7941df282331ddd18be03d67\"\r\n    },\r\n    \"completion\": {\r\n      \"state\": \"absent\",\r\n      \"error\": \"Required file is missing\"\r\n    },\r\n    \"cancellation\": {\r\n      \"state\": \"absent\",\r\n      \"error\": \"Required file is missing\"\r\n    }\r\n  },\r\n  \"inputs\": [\r\n    {\r\n      \"path\": \"candidates/ExampleA.json\",\r\n      \"expected_sha256\": \"5d8622bbaa1e3d16d90cf602d7c0cb8affb99d9a246807acd567fabfeca1753f\",\r\n      \"state\": \"matching\",\r\n      \"observed_sha256\": \"5d8622bbaa1e3d16d90cf602d7c0cb8affb99d9a246807acd567fabfeca1753f\"\r\n    },\r\n    {\r\n      \"path\": \"candidates/ExampleA.validation.json\",\r\n      \"expected_sha256\": \"2d7f3beedda48b3e3f01ab58cf10be101d498f38d70f6e37c87ec28cda50d833\",\r\n      \"state\": \"matching\",\r\n      \"observed_sha256\": \"2d7f3beedda48b3e3f01ab58cf10be101d498f38d70f6e37c87ec28cda50d833\"\r\n    },\r\n    {\r\n      \"path\": \"scrape/_compatibility_matrix.json\",\r\n      \"expected_sha256\": \"f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587\",\r\n      \"state\": \"matching\",\r\n      \"observed_sha256\": \"f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587\"\r\n    }\r\n  ],\r\n  \"controls\": [\r\n    {\r\n      \"path\": \"scrape/_lora_manifest.json\",\r\n      \"before_sha256\": \"394231068230487d0e5b678b5d9784ca35f9d7a2b57ee0a55485c74cde0f1127\",\r\n      \"after_sha256\": \"a1410953ca4b5b7183f693af51e43b58c56857edd8c5cc31d46642ffc376a208\",\r\n      \"state\": \"matching\",\r\n      \"observed_sha256\": \"a1410953ca4b5b7183f693af51e43b58c56857edd8c5cc31d46642ffc376a208\"\r\n    },\r\n    {\r\n      \"path\": \"scrape/_lora_ledger.csv\",\r\n      \"before_sha256\": \"066e16c4471c1987e9182fa3ee21c1611618987e204b320b6b369eeeb2b08fdc\",\r\n      \"after_sha256\": \"57f3dee0c765f501dfa06addf47e264a84e6f43ee8c50f419d730c2af951f0a7\",\r\n      \"state\": \"pending\",\r\n      \"observed_sha256\": \"066e16c4471c1987e9182fa3ee21c1611618987e204b320b6b369eeeb2b08fdc\"\r\n    },\r\n    {\r\n      \"path\": \"scrape/_pipeline_status.json\",\r\n      \"before_sha256\": \"b7de5854f22c7684b0be6cd82e5530f4557aef11625743d55a9612ce40ce99f8\",\r\n      \"after_sha256\": \"f62210e0629f572bd1362bfac2d4577b208943190031f0bceb6883c495a90845\",\r\n      \"state\": \"pending\",\r\n      \"observed_sha256\": \"b7de5854f22c7684b0be6cd82e5530f4557aef11625743d55a9612ce40ce99f8\"\r\n    }\r\n  ],\r\n  \"assets\": [\r\n    {\r\n      \"role\": \"source\",\r\n      \"path\": \"candidates/ExampleA.bin\",\r\n      \"expected_sha256\": \"085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0\",\r\n      \"state\": \"matching\",\r\n      \"observed_sha256\": \"085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0\"\r\n    },\r\n    {\r\n      \"role\": \"destination\",\r\n      \"path\": \"prod/model-ExampleA.bin\",\r\n      \"expected_sha256\": \"085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0\",\r\n      \"state\": \"matching\",\r\n      \"observed_sha256\": \"085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0\"\r\n    }\r\n  ],\r\n  \"action\": \"promote\",\r\n  \"transactions\": {\r\n    \"state\": \"clear\",\r\n    \"blocking_count\": 0,\r\n    \"blockers\": [],\r\n    \"omitted_blockers\": 0\r\n  },\r\n  \"metadata_bytes_read\": 6767,\r\n  \"asset_bytes_hashed\": 112,\r\n  \"next_action\": \"Review these observations, then explicitly run --recover with this operation ID. Recovery rechecks state under the writer lock; this report reserves nothing.\"\r\n}\r\n",
+        "stdout_truncated": false
+      },
+      "workshop": "promotion"
+    },
+    {
+      "arguments": [
+        "--recover",
+        "2b650eb3520f45dc9ba012ddb75602c4",
+        "--dry-run"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 93,
+            "bytes_retained": 93,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 54448,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"status\": \"recovery_preview\",\r\n  \"operation_id\": \"2b650eb3520f45dc9ba012ddb75602c4\"\r\n}\r\n",
+        "stdout_truncated": false
+      },
+      "workshop": "promotion"
+    },
+    {
+      "arguments": [
+        "--recover",
+        "2b650eb3520f45dc9ba012ddb75602c4"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 271,
+            "bytes_retained": 271,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 45184,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"schema_version\": 1,\r\n  \"status\": \"saved\",\r\n  \"operation_id\": \"2b650eb3520f45dc9ba012ddb75602c4\",\r\n  \"action\": \"promote\",\r\n  \"lora\": \"ExampleA\",\r\n  \"model_qualified\": false,\r\n  \"journal_sha256\": \"06e1c09465f11c4448dadc95b0ee9de63be4da9d7941df282331ddd18be03d67\"\r\n}\r\n",
+        "stdout_truncated": false
+      },
+      "workshop": "promotion"
+    },
+    {
+      "arguments": [
+        "--diagnose-recovery",
+        "2b650eb3520f45dc9ba012ddb75602c4"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 1117,
+            "bytes_retained": 1117,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 55732,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"schema_version\": 1,\r\n  \"operation_id\": \"2b650eb3520f45dc9ba012ddb75602c4\",\r\n  \"status\": \"already_completed\",\r\n  \"read_only\": true,\r\n  \"recovery_ready\": false,\r\n  \"inspection_complete\": true,\r\n  \"current_state_checked\": false,\r\n  \"writer_lock_checked\": false,\r\n  \"records\": {\r\n    \"workshop\": {\r\n      \"state\": \"valid\"\r\n    },\r\n    \"journal\": {\r\n      \"state\": \"valid\",\r\n      \"sha256\": \"06e1c09465f11c4448dadc95b0ee9de63be4da9d7941df282331ddd18be03d67\"\r\n    },\r\n    \"prepared_plan\": {\r\n      \"state\": \"valid\",\r\n      \"sha256\": \"06e1c09465f11c4448dadc95b0ee9de63be4da9d7941df282331ddd18be03d67\"\r\n    },\r\n    \"completion\": {\r\n      \"state\": \"valid\",\r\n      \"sha256\": \"c462d702b55299d087b9438db243dfc648d8562e364128136da7b994129f92a6\"\r\n    },\r\n    \"cancellation\": {\r\n      \"state\": \"absent\",\r\n      \"error\": \"Required file is missing\"\r\n    }\r\n  },\r\n  \"inputs\": [],\r\n  \"controls\": [],\r\n  \"assets\": [],\r\n  \"action\": \"promote\",\r\n  \"metadata_bytes_read\": 5900,\r\n  \"asset_bytes_hashed\": 0,\r\n  \"next_action\": \"No recovery needed. Completion binds the retained journal; current files may belong to later operations.\"\r\n}\r\n",
+        "stdout_truncated": false
+      },
+      "workshop": "promotion"
+    },
+    {
+      "arguments": [
+        "--recover",
+        "2b650eb3520f45dc9ba012ddb75602c4"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 94,
+            "bytes_retained": 94,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 24156,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"status\": \"already_completed\",\r\n  \"operation_id\": \"2b650eb3520f45dc9ba012ddb75602c4\"\r\n}\r\n",
+        "stdout_truncated": false
+      },
+      "workshop": "promotion"
+    },
+    {
+      "arguments": [
+        "--candidate",
+        "candidates/ExampleA.json"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 271,
+            "bytes_retained": 271,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 85632,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"schema_version\": 1,\r\n  \"status\": \"saved\",\r\n  \"operation_id\": \"61b106a52ab04465aca6c5f25d1474bc\",\r\n  \"action\": \"promote\",\r\n  \"lora\": \"ExampleA\",\r\n  \"model_qualified\": false,\r\n  \"journal_sha256\": \"147673794153a434f0d684313d110e99e77ede37d285601206555b2997d8dfaa\"\r\n}\r\n",
+        "stdout_truncated": false
+      },
+      "workshop": "quarantine"
+    },
+    {
+      "arguments": [
+        "--diagnose-recovery",
+        "19bd3842116346f88227aabbb7ddd957"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 3294,
+            "bytes_retained": 3294,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 68808,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"schema_version\": 1,\r\n  \"operation_id\": \"19bd3842116346f88227aabbb7ddd957\",\r\n  \"status\": \"recoverable\",\r\n  \"read_only\": true,\r\n  \"recovery_ready\": true,\r\n  \"inspection_complete\": true,\r\n  \"current_state_checked\": true,\r\n  \"writer_lock_checked\": false,\r\n  \"records\": {\r\n    \"workshop\": {\r\n      \"state\": \"valid\"\r\n    },\r\n    \"journal\": {\r\n      \"state\": \"valid\",\r\n      \"sha256\": \"41a1d35cc9e7832744660b6b6454b54899c32d7aa7cf36527181234fb4969d60\"\r\n    },\r\n    \"prepared_plan\": {\r\n      \"state\": \"valid\",\r\n      \"sha256\": \"41a1d35cc9e7832744660b6b6454b54899c32d7aa7cf36527181234fb4969d60\"\r\n    },\r\n    \"completion\": {\r\n      \"state\": \"absent\",\r\n      \"error\": \"Required file is missing\"\r\n    },\r\n    \"cancellation\": {\r\n      \"state\": \"absent\",\r\n      \"error\": \"Required file is missing\"\r\n    }\r\n  },\r\n  \"inputs\": [],\r\n  \"controls\": [\r\n    {\r\n      \"path\": \"scrape/_lora_manifest.json\",\r\n      \"before_sha256\": \"a1410953ca4b5b7183f693af51e43b58c56857edd8c5cc31d46642ffc376a208\",\r\n      \"after_sha256\": \"394231068230487d0e5b678b5d9784ca35f9d7a2b57ee0a55485c74cde0f1127\",\r\n      \"state\": \"matching\",\r\n      \"observed_sha256\": \"394231068230487d0e5b678b5d9784ca35f9d7a2b57ee0a55485c74cde0f1127\"\r\n    },\r\n    {\r\n      \"path\": \"scrape/_compatibility_matrix.json\",\r\n      \"before_sha256\": \"f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587\",\r\n      \"after_sha256\": \"f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587\",\r\n      \"state\": \"matching\",\r\n      \"observed_sha256\": \"f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587\"\r\n    },\r\n    {\r\n      \"path\": \"scrape/_lora_ledger.csv\",\r\n      \"before_sha256\": \"dc94b6336ef7df0b501873d60785cc13800ad028ca187423d496ed057459af19\",\r\n      \"after_sha256\": \"cd80e66c698f97d61ebdcb18b1035a74d05244da342c2dbd4f17624d59a2b98b\",\r\n      \"state\": \"matching\",\r\n      \"observed_sha256\": \"cd80e66c698f97d61ebdcb18b1035a74d05244da342c2dbd4f17624d59a2b98b\"\r\n    },\r\n    {\r\n      \"path\": \"scrape/_pipeline_status.json\",\r\n      \"before_sha256\": \"551a123b937ad4968fe3e3bfe97c99e1eee79f0c945e566177b4a97249ffd41d\",\r\n      \"after_sha256\": \"4f9ff543328a7d03e3f8ac4040e6dcd05e15836fc6448e51e2f0ecbd0c8fd033\",\r\n      \"state\": \"matching\",\r\n      \"observed_sha256\": \"4f9ff543328a7d03e3f8ac4040e6dcd05e15836fc6448e51e2f0ecbd0c8fd033\"\r\n    }\r\n  ],\r\n  \"assets\": [\r\n    {\r\n      \"role\": \"source\",\r\n      \"path\": \"prod/model-ExampleA.bin\",\r\n      \"expected_sha256\": \"085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0\",\r\n      \"state\": \"removed\",\r\n      \"observed_sha256\": null\r\n    },\r\n    {\r\n      \"role\": \"destination\",\r\n      \"path\": \"quarantine/bd07cea7a7e248efae994b38d51ee45d/model-ExampleA.bin\",\r\n      \"expected_sha256\": \"085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0\",\r\n      \"state\": \"matching\",\r\n      \"observed_sha256\": \"085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0\"\r\n    }\r\n  ],\r\n  \"action\": \"quarantine\",\r\n  \"transactions\": {\r\n    \"state\": \"clear\",\r\n    \"blocking_count\": 0,\r\n    \"blockers\": [],\r\n    \"omitted_blockers\": 0\r\n  },\r\n  \"metadata_bytes_read\": 10511,\r\n  \"asset_bytes_hashed\": 56,\r\n  \"next_action\": \"Review these observations, then explicitly run --recover with this operation ID. Recovery rechecks state under the writer lock; this report reserves nothing.\"\r\n}\r\n",
+        "stdout_truncated": false
+      },
+      "workshop": "quarantine"
+    },
+    {
+      "arguments": [
+        "--recover",
+        "19bd3842116346f88227aabbb7ddd957",
+        "--dry-run"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 93,
+            "bytes_retained": 93,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 80780,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"status\": \"recovery_preview\",\r\n  \"operation_id\": \"19bd3842116346f88227aabbb7ddd957\"\r\n}\r\n",
+        "stdout_truncated": false
+      },
+      "workshop": "quarantine"
+    },
+    {
+      "arguments": [
+        "--recover",
+        "19bd3842116346f88227aabbb7ddd957"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 274,
+            "bytes_retained": 274,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 41088,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"schema_version\": 1,\r\n  \"status\": \"saved\",\r\n  \"operation_id\": \"19bd3842116346f88227aabbb7ddd957\",\r\n  \"action\": \"quarantine\",\r\n  \"lora\": \"ExampleA\",\r\n  \"model_qualified\": false,\r\n  \"journal_sha256\": \"41a1d35cc9e7832744660b6b6454b54899c32d7aa7cf36527181234fb4969d60\"\r\n}\r\n",
+        "stdout_truncated": false
+      },
+      "workshop": "quarantine"
+    },
+    {
+      "arguments": [
+        "--diagnose-recovery",
+        "19bd3842116346f88227aabbb7ddd957"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 1120,
+            "bytes_retained": 1120,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 87700,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"schema_version\": 1,\r\n  \"operation_id\": \"19bd3842116346f88227aabbb7ddd957\",\r\n  \"status\": \"already_completed\",\r\n  \"read_only\": true,\r\n  \"recovery_ready\": false,\r\n  \"inspection_complete\": true,\r\n  \"current_state_checked\": false,\r\n  \"writer_lock_checked\": false,\r\n  \"records\": {\r\n    \"workshop\": {\r\n      \"state\": \"valid\"\r\n    },\r\n    \"journal\": {\r\n      \"state\": \"valid\",\r\n      \"sha256\": \"41a1d35cc9e7832744660b6b6454b54899c32d7aa7cf36527181234fb4969d60\"\r\n    },\r\n    \"prepared_plan\": {\r\n      \"state\": \"valid\",\r\n      \"sha256\": \"41a1d35cc9e7832744660b6b6454b54899c32d7aa7cf36527181234fb4969d60\"\r\n    },\r\n    \"completion\": {\r\n      \"state\": \"valid\",\r\n      \"sha256\": \"e4846d39759e06adcb7dd64201b29930041d038912434570acb098b8e051c30f\"\r\n    },\r\n    \"cancellation\": {\r\n      \"state\": \"absent\",\r\n      \"error\": \"Required file is missing\"\r\n    }\r\n  },\r\n  \"inputs\": [],\r\n  \"controls\": [],\r\n  \"assets\": [],\r\n  \"action\": \"quarantine\",\r\n  \"metadata_bytes_read\": 7253,\r\n  \"asset_bytes_hashed\": 0,\r\n  \"next_action\": \"No recovery needed. Completion binds the retained journal; current files may belong to later operations.\"\r\n}\r\n",
+        "stdout_truncated": false
+      },
+      "workshop": "quarantine"
+    },
+    {
+      "arguments": [
+        "--recover",
+        "19bd3842116346f88227aabbb7ddd957"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 94,
+            "bytes_retained": 94,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 60836,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"status\": \"already_completed\",\r\n  \"operation_id\": \"19bd3842116346f88227aabbb7ddd957\"\r\n}\r\n",
+        "stdout_truncated": false
+      },
+      "workshop": "quarantine"
+    },
+    {
+      "arguments": [
+        "--candidate",
+        "candidates/ExampleA.json"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 271,
+            "bytes_retained": 271,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 41208,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"schema_version\": 1,\r\n  \"status\": \"saved\",\r\n  \"operation_id\": \"d2c019b691a14b09b5c1578ff13652df\",\r\n  \"action\": \"promote\",\r\n  \"lora\": \"ExampleA\",\r\n  \"model_qualified\": false,\r\n  \"journal_sha256\": \"8eb050a9d012b60e9af2fefcf87e7bb212ab4ecfce435dde6e90353028ae39bb\"\r\n}\r\n",
+        "stdout_truncated": false
+      },
+      "workshop": "audit"
+    },
+    {
+      "arguments": [
+        "--diagnose-recovery",
+        "1c5a93b37a964525ae6f01654c6507dd"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 2850,
+            "bytes_retained": 2850,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 22604,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"schema_version\": 1,\r\n  \"operation_id\": \"1c5a93b37a964525ae6f01654c6507dd\",\r\n  \"status\": \"recoverable\",\r\n  \"read_only\": true,\r\n  \"recovery_ready\": true,\r\n  \"inspection_complete\": true,\r\n  \"current_state_checked\": true,\r\n  \"writer_lock_checked\": false,\r\n  \"records\": {\r\n    \"workshop\": {\r\n      \"state\": \"valid\"\r\n    },\r\n    \"journal\": {\r\n      \"state\": \"valid\",\r\n      \"sha256\": \"e09b2e82f35e4dc4c0e4bdef3e1296adbce00ddae133f676ca473a74a8a1d9eb\"\r\n    },\r\n    \"prepared_plan\": {\r\n      \"state\": \"absent\",\r\n      \"error\": \"Required file is missing\"\r\n    },\r\n    \"completion\": {\r\n      \"state\": \"absent\",\r\n      \"error\": \"Required file is missing\"\r\n    },\r\n    \"cancellation\": {\r\n      \"state\": \"absent\",\r\n      \"error\": \"Required file is missing\"\r\n    }\r\n  },\r\n  \"inputs\": [\r\n    {\r\n      \"path\": \"scrape/_lora_manifest.json\",\r\n      \"expected_sha256\": \"a1410953ca4b5b7183f693af51e43b58c56857edd8c5cc31d46642ffc376a208\",\r\n      \"state\": \"matching\",\r\n      \"observed_sha256\": \"a1410953ca4b5b7183f693af51e43b58c56857edd8c5cc31d46642ffc376a208\"\r\n    },\r\n    {\r\n      \"path\": \"scrape/taxonomy.json\",\r\n      \"expected_sha256\": \"ba9e29c6c062f43e0d633f6c0bae19b44ecce3722e0e27c230b1421e8f737052\",\r\n      \"state\": \"matching\",\r\n      \"observed_sha256\": \"ba9e29c6c062f43e0d633f6c0bae19b44ecce3722e0e27c230b1421e8f737052\"\r\n    }\r\n  ],\r\n  \"controls\": [\r\n    {\r\n      \"path\": \"scrape/_compatibility_matrix.json\",\r\n      \"before_sha256\": \"f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587\",\r\n      \"after_sha256\": \"f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587\",\r\n      \"state\": \"matching\",\r\n      \"observed_sha256\": \"f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587\"\r\n    },\r\n    {\r\n      \"path\": \"scrape/_lora_ledger.csv\",\r\n      \"before_sha256\": \"78aab554fe71c6b8f3896527dc3cfe176d67e10a4d09c67e5b71c40b64297be0\",\r\n      \"after_sha256\": \"dc909c9cd54e5f43dd380fbc5aa1d065fa6b1c268b90514c2e898e061782a089\",\r\n      \"state\": \"pending\",\r\n      \"observed_sha256\": \"78aab554fe71c6b8f3896527dc3cfe176d67e10a4d09c67e5b71c40b64297be0\"\r\n    },\r\n    {\r\n      \"path\": \"scrape/_pipeline_status.json\",\r\n      \"before_sha256\": \"128e463c23cf3742d7f26654e35e9150d38e526cc1dd350e17284248f8e89e74\",\r\n      \"after_sha256\": \"d9b93ceabfbf0299f59dabb16855b0a521697cfa5f6734e3bfa4eeea2cb32f1f\",\r\n      \"state\": \"pending\",\r\n      \"observed_sha256\": \"128e463c23cf3742d7f26654e35e9150d38e526cc1dd350e17284248f8e89e74\"\r\n    }\r\n  ],\r\n  \"assets\": [],\r\n  \"action\": \"audit\",\r\n  \"transactions\": {\r\n    \"state\": \"clear\",\r\n    \"blocking_count\": 0,\r\n    \"blockers\": [],\r\n    \"omitted_blockers\": 0\r\n  },\r\n  \"metadata_bytes_read\": 6364,\r\n  \"asset_bytes_hashed\": 0,\r\n  \"next_action\": \"Review these observations, then explicitly run --recover with this operation ID. Recovery rechecks state under the writer lock; this report reserves nothing.\"\r\n}\r\n",
+        "stdout_truncated": false
+      },
+      "workshop": "audit"
+    },
+    {
+      "arguments": [
+        "--recover",
+        "1c5a93b37a964525ae6f01654c6507dd",
+        "--dry-run"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 93,
+            "bytes_retained": 93,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 17712,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"status\": \"recovery_preview\",\r\n  \"operation_id\": \"1c5a93b37a964525ae6f01654c6507dd\"\r\n}\r\n",
+        "stdout_truncated": false
+      },
+      "workshop": "audit"
+    },
+    {
+      "arguments": [
+        "--recover",
+        "1c5a93b37a964525ae6f01654c6507dd"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 261,
+            "bytes_retained": 261,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 45460,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"schema_version\": 1,\r\n  \"status\": \"saved\",\r\n  \"operation_id\": \"1c5a93b37a964525ae6f01654c6507dd\",\r\n  \"action\": \"audit\",\r\n  \"lora\": \"\",\r\n  \"model_qualified\": false,\r\n  \"journal_sha256\": \"e09b2e82f35e4dc4c0e4bdef3e1296adbce00ddae133f676ca473a74a8a1d9eb\"\r\n}\r\n",
+        "stdout_truncated": false
+      },
+      "workshop": "audit"
+    },
+    {
+      "arguments": [
+        "--diagnose-recovery",
+        "1c5a93b37a964525ae6f01654c6507dd"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 1075,
+            "bytes_retained": 1075,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 89108,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"schema_version\": 1,\r\n  \"operation_id\": \"1c5a93b37a964525ae6f01654c6507dd\",\r\n  \"status\": \"already_completed\",\r\n  \"read_only\": true,\r\n  \"recovery_ready\": false,\r\n  \"inspection_complete\": true,\r\n  \"current_state_checked\": false,\r\n  \"writer_lock_checked\": false,\r\n  \"records\": {\r\n    \"workshop\": {\r\n      \"state\": \"valid\"\r\n    },\r\n    \"journal\": {\r\n      \"state\": \"valid\",\r\n      \"sha256\": \"e09b2e82f35e4dc4c0e4bdef3e1296adbce00ddae133f676ca473a74a8a1d9eb\"\r\n    },\r\n    \"prepared_plan\": {\r\n      \"state\": \"absent\",\r\n      \"error\": \"Required file is missing\"\r\n    },\r\n    \"completion\": {\r\n      \"state\": \"valid\",\r\n      \"sha256\": \"275bccc22035156364aecf03be5b58d91ab54d4ae0e1278cc54af7f0b55cce27\"\r\n    },\r\n    \"cancellation\": {\r\n      \"state\": \"absent\",\r\n      \"error\": \"Required file is missing\"\r\n    }\r\n  },\r\n  \"inputs\": [],\r\n  \"controls\": [],\r\n  \"assets\": [],\r\n  \"action\": \"audit\",\r\n  \"metadata_bytes_read\": 2493,\r\n  \"asset_bytes_hashed\": 0,\r\n  \"next_action\": \"No recovery needed. Completion binds the retained journal; current files may belong to later operations.\"\r\n}\r\n",
+        "stdout_truncated": false
+      },
+      "workshop": "audit"
+    },
+    {
+      "arguments": [
+        "--recover",
+        "1c5a93b37a964525ae6f01654c6507dd"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 94,
+            "bytes_retained": 94,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 82260,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"status\": \"already_completed\",\r\n  \"operation_id\": \"1c5a93b37a964525ae6f01654c6507dd\"\r\n}\r\n",
+        "stdout_truncated": false
+      },
+      "workshop": "audit"
+    },
+    {
+      "arguments": [
+        "--diagnose-recovery",
+        "8fbbea81208040a486c9ab018ea06d7f"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 3783,
+            "bytes_retained": 3783,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 11320,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"schema_version\": 1,\r\n  \"operation_id\": \"8fbbea81208040a486c9ab018ea06d7f\",\r\n  \"status\": \"conflict\",\r\n  \"read_only\": true,\r\n  \"recovery_ready\": false,\r\n  \"inspection_complete\": true,\r\n  \"current_state_checked\": true,\r\n  \"writer_lock_checked\": false,\r\n  \"records\": {\r\n    \"workshop\": {\r\n      \"state\": \"valid\"\r\n    },\r\n    \"journal\": {\r\n      \"state\": \"valid\",\r\n      \"sha256\": \"7852916c7bd8a1183525c90d2767617d464ad091cad29955f3c613330eb62bf0\"\r\n    },\r\n    \"prepared_plan\": {\r\n      \"state\": \"valid\",\r\n      \"sha256\": \"7852916c7bd8a1183525c90d2767617d464ad091cad29955f3c613330eb62bf0\"\r\n    },\r\n    \"completion\": {\r\n      \"state\": \"absent\",\r\n      \"error\": \"Required file is missing\"\r\n    },\r\n    \"cancellation\": {\r\n      \"state\": \"absent\",\r\n      \"error\": \"Required file is missing\"\r\n    }\r\n  },\r\n  \"inputs\": [\r\n    {\r\n      \"path\": \"candidates/ExampleA.json\",\r\n      \"expected_sha256\": \"5d8622bbaa1e3d16d90cf602d7c0cb8affb99d9a246807acd567fabfeca1753f\",\r\n      \"state\": \"matching\",\r\n      \"observed_sha256\": \"5d8622bbaa1e3d16d90cf602d7c0cb8affb99d9a246807acd567fabfeca1753f\"\r\n    },\r\n    {\r\n      \"path\": \"candidates/ExampleA.validation.json\",\r\n      \"expected_sha256\": \"2d7f3beedda48b3e3f01ab58cf10be101d498f38d70f6e37c87ec28cda50d833\",\r\n      \"state\": \"matching\",\r\n      \"observed_sha256\": \"2d7f3beedda48b3e3f01ab58cf10be101d498f38d70f6e37c87ec28cda50d833\"\r\n    },\r\n    {\r\n      \"path\": \"scrape/_compatibility_matrix.json\",\r\n      \"expected_sha256\": \"f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587\",\r\n      \"state\": \"matching\",\r\n      \"observed_sha256\": \"f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587\"\r\n    }\r\n  ],\r\n  \"controls\": [\r\n    {\r\n      \"path\": \"scrape/_lora_manifest.json\",\r\n      \"before_sha256\": \"394231068230487d0e5b678b5d9784ca35f9d7a2b57ee0a55485c74cde0f1127\",\r\n      \"after_sha256\": \"a1410953ca4b5b7183f693af51e43b58c56857edd8c5cc31d46642ffc376a208\",\r\n      \"state\": \"matching\",\r\n      \"observed_sha256\": \"a1410953ca4b5b7183f693af51e43b58c56857edd8c5cc31d46642ffc376a208\"\r\n    },\r\n    {\r\n      \"path\": \"scrape/_lora_ledger.csv\",\r\n      \"before_sha256\": \"066e16c4471c1987e9182fa3ee21c1611618987e204b320b6b369eeeb2b08fdc\",\r\n      \"after_sha256\": \"be7f6aaedd1d665558235b7ae5ca47aa1fbed120facfab902e476f76b1c5ad47\",\r\n      \"state\": \"conflict\",\r\n      \"observed_sha256\": \"f0b7de000bf700157cbf22812f92507dcf3c6d05c039e80203ef76bc5cadc193\"\r\n    },\r\n    {\r\n      \"path\": \"scrape/_pipeline_status.json\",\r\n      \"before_sha256\": \"b7de5854f22c7684b0be6cd82e5530f4557aef11625743d55a9612ce40ce99f8\",\r\n      \"after_sha256\": \"f3963b8ab28916f873e80d7f26e8c05682b61c6deb64c59fd23e0d652b2b843f\",\r\n      \"state\": \"pending\",\r\n      \"observed_sha256\": \"b7de5854f22c7684b0be6cd82e5530f4557aef11625743d55a9612ce40ce99f8\"\r\n    }\r\n  ],\r\n  \"assets\": [\r\n    {\r\n      \"role\": \"source\",\r\n      \"path\": \"candidates/ExampleA.bin\",\r\n      \"expected_sha256\": \"085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0\",\r\n      \"state\": \"matching\",\r\n      \"observed_sha256\": \"085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0\"\r\n    },\r\n    {\r\n      \"role\": \"destination\",\r\n      \"path\": \"prod/model-ExampleA.bin\",\r\n      \"expected_sha256\": \"085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0\",\r\n      \"state\": \"conflict\",\r\n      \"observed_sha256\": \"f0b7de000bf700157cbf22812f92507dcf3c6d05c039e80203ef76bc5cadc193\"\r\n    }\r\n  ],\r\n  \"action\": \"promote\",\r\n  \"transactions\": {\r\n    \"state\": \"clear\",\r\n    \"blocking_count\": 0,\r\n    \"blockers\": [],\r\n    \"omitted_blockers\": 0\r\n  },\r\n  \"metadata_bytes_read\": 6753,\r\n  \"asset_bytes_hashed\": 92,\r\n  \"next_action\": \"Inspect every conflicting path and blocking operation against the retained journal. Preserve changed files; resolve their provenance before explicit recovery.\"\r\n}\r\n",
+        "stdout_truncated": false
+      },
+      "workshop": "conflict"
+    },
+    {
+      "arguments": [
+        "--recover",
+        "8fbbea81208040a486c9ab018ea06d7f"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 79,
+            "bytes_retained": 79,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 1,
+        "deployment_qualified": false,
+        "next_action": "Inspect capture diagnostics, external outputs, and its ledger before retrying; the adapter neither rolls back files nor proves publication success.",
+        "pid": 85404,
+        "retry_performed": false,
+        "returncode": 1,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "failed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\"status\": \"error\", \"error\": \"Control file changed: scrape/_lora_ledger.csv\"}\r\n",
+        "stdout_truncated": false
+      },
+      "workshop": "conflict"
+    },
+    {
+      "arguments": [
+        "--diagnose-recovery",
+        "9af3c031c63b4e058fbd3d7bae728fac"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 3846,
+            "bytes_retained": 3846,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 0,
+        "deployment_qualified": false,
+        "pid": 65632,
+        "retry_performed": false,
+        "returncode": 0,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "completed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\r\n  \"schema_version\": 1,\r\n  \"operation_id\": \"9af3c031c63b4e058fbd3d7bae728fac\",\r\n  \"status\": \"corrupt\",\r\n  \"read_only\": true,\r\n  \"recovery_ready\": false,\r\n  \"inspection_complete\": true,\r\n  \"current_state_checked\": true,\r\n  \"writer_lock_checked\": false,\r\n  \"records\": {\r\n    \"workshop\": {\r\n      \"state\": \"valid\"\r\n    },\r\n    \"journal\": {\r\n      \"state\": \"valid\",\r\n      \"sha256\": \"88787b966b8682dca1d5a402d3cbab1ed0403bf74b0f9c9792d4bbd6c4591483\"\r\n    },\r\n    \"prepared_plan\": {\r\n      \"state\": \"corrupt\",\r\n      \"sha256\": \"c31a2bf38c7574905d2cf91862ebd91e72bcb6afbada1f2c0e520016d255e347\",\r\n      \"error\": \"Expecting property name enclosed in double quotes: line 1 column 2 (char 1)\"\r\n    },\r\n    \"completion\": {\r\n      \"state\": \"absent\",\r\n      \"error\": \"Required file is missing\"\r\n    },\r\n    \"cancellation\": {\r\n      \"state\": \"absent\",\r\n      \"error\": \"Required file is missing\"\r\n    }\r\n  },\r\n  \"inputs\": [\r\n    {\r\n      \"path\": \"candidates/ExampleA.json\",\r\n      \"expected_sha256\": \"5d8622bbaa1e3d16d90cf602d7c0cb8affb99d9a246807acd567fabfeca1753f\",\r\n      \"state\": \"matching\",\r\n      \"observed_sha256\": \"5d8622bbaa1e3d16d90cf602d7c0cb8affb99d9a246807acd567fabfeca1753f\"\r\n    },\r\n    {\r\n      \"path\": \"candidates/ExampleA.validation.json\",\r\n      \"expected_sha256\": \"2d7f3beedda48b3e3f01ab58cf10be101d498f38d70f6e37c87ec28cda50d833\",\r\n      \"state\": \"matching\",\r\n      \"observed_sha256\": \"2d7f3beedda48b3e3f01ab58cf10be101d498f38d70f6e37c87ec28cda50d833\"\r\n    },\r\n    {\r\n      \"path\": \"scrape/_compatibility_matrix.json\",\r\n      \"expected_sha256\": \"f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587\",\r\n      \"state\": \"matching\",\r\n      \"observed_sha256\": \"f12c12b20948392e54636768242079d944379c58f34a72f05682bfd0c21ac587\"\r\n    }\r\n  ],\r\n  \"controls\": [\r\n    {\r\n      \"path\": \"scrape/_lora_manifest.json\",\r\n      \"before_sha256\": \"394231068230487d0e5b678b5d9784ca35f9d7a2b57ee0a55485c74cde0f1127\",\r\n      \"after_sha256\": \"a1410953ca4b5b7183f693af51e43b58c56857edd8c5cc31d46642ffc376a208\",\r\n      \"state\": \"matching\",\r\n      \"observed_sha256\": \"a1410953ca4b5b7183f693af51e43b58c56857edd8c5cc31d46642ffc376a208\"\r\n    },\r\n    {\r\n      \"path\": \"scrape/_lora_ledger.csv\",\r\n      \"before_sha256\": \"066e16c4471c1987e9182fa3ee21c1611618987e204b320b6b369eeeb2b08fdc\",\r\n      \"after_sha256\": \"73b9f2b4335ea133471a1033fb10a9f962c1badb2701092b1ea95edb44b1aaa7\",\r\n      \"state\": \"pending\",\r\n      \"observed_sha256\": \"066e16c4471c1987e9182fa3ee21c1611618987e204b320b6b369eeeb2b08fdc\"\r\n    },\r\n    {\r\n      \"path\": \"scrape/_pipeline_status.json\",\r\n      \"before_sha256\": \"b7de5854f22c7684b0be6cd82e5530f4557aef11625743d55a9612ce40ce99f8\",\r\n      \"after_sha256\": \"5894612ac8d471ba9b416f8128b6e1a156c9730fcd9c7965311395c73f1c6ce1\",\r\n      \"state\": \"pending\",\r\n      \"observed_sha256\": \"b7de5854f22c7684b0be6cd82e5530f4557aef11625743d55a9612ce40ce99f8\"\r\n    }\r\n  ],\r\n  \"assets\": [\r\n    {\r\n      \"role\": \"source\",\r\n      \"path\": \"candidates/ExampleA.bin\",\r\n      \"expected_sha256\": \"085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0\",\r\n      \"state\": \"matching\",\r\n      \"observed_sha256\": \"085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0\"\r\n    },\r\n    {\r\n      \"role\": \"destination\",\r\n      \"path\": \"prod/model-ExampleA.bin\",\r\n      \"expected_sha256\": \"085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0\",\r\n      \"state\": \"matching\",\r\n      \"observed_sha256\": \"085c2428dab5877de34b166b870856e5635620344a118f0378c1016586152ef0\"\r\n    }\r\n  ],\r\n  \"action\": \"promote\",\r\n  \"transactions\": {\r\n    \"state\": \"clear\",\r\n    \"blocking_count\": 0,\r\n    \"blockers\": [],\r\n    \"omitted_blockers\": 0\r\n  },\r\n  \"metadata_bytes_read\": 3990,\r\n  \"asset_bytes_hashed\": 112,\r\n  \"next_action\": \"Preserve the damaged records. Compare them with trusted retained evidence; explicit recovery will not repair or replace them.\"\r\n}\r\n",
+        "stdout_truncated": false
+      },
+      "workshop": "corrupt"
+    },
+    {
+      "arguments": [
+        "--recover",
+        "9af3c031c63b4e058fbd3d7bae728fac"
+      ],
+      "execution": {
+        "capture": {
+          "complete": true,
+          "drain_grace_seconds": 1.0,
+          "errors": [],
+          "mode": "bounded_byte_tails",
+          "read_chunk_bytes": 65536,
+          "stderr": {
+            "bytes_read": 0,
+            "bytes_retained": 0,
+            "eof": true,
+            "limit_bytes": 4000
+          },
+          "stdout": {
+            "bytes_read": 109,
+            "bytes_retained": 109,
+            "eof": true,
+            "limit_bytes": 8000
+          },
+          "stop_grace_seconds": 2.0
+        },
+        "child_exited": true,
+        "child_returncode": 1,
+        "deployment_qualified": false,
+        "next_action": "Inspect capture diagnostics, external outputs, and its ledger before retrying; the adapter neither rolls back files nor proves publication success.",
+        "pid": 64660,
+        "retry_performed": false,
+        "returncode": 1,
+        "schema_version": 1,
+        "script": "promote.py",
+        "script_sha256": "cccd38dfc34d7fad1ee10201957c55e71cbba568f7dc7fa84bea039026cfabd6",
+        "side_effects_possible": true,
+        "started": true,
+        "status": "failed",
+        "stderr": "",
+        "stderr_truncated": false,
+        "stdout": "{\"status\": \"error\", \"error\": \"Expecting property name enclosed in double quotes: line 1 column 2 (char 1)\"}\r\n",
+        "stdout_truncated": false
+      },
+      "workshop": "corrupt"
+    }
+  ],
+  "conflict_and_corrupt_fixtures_retained": true,
+  "created": "2026-10-03T23:47:34.849579Z",
+  "fixture_only": true,
+  "production_model_qualified": false,
+  "schema_version": 1,
+  "status": "passed",
+  "version": "0.3.5",
+  "workshop": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.vigiles\\recovery-v0.3.5-97bf73384ae14ea5b3db02c8c5844001"
+}

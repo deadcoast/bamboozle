@@ -1,0 +1,155 @@
+{
+  "schema_version": 1,
+  "project": "Bamboozle / MIVIM Vigiles",
+  "release": "0.3.4",
+  "development_stage": "VIGIL3",
+  "recorded_on": "2026-10-03",
+  "authority": ".mivim/mivim.vigiles.md",
+  "purpose": "Active planning and open gates only; detailed evidence and completed history are retained under .mivim/vigiles/reports/.",
+  "last_completed_step": {
+    "id": "VIGIL3-OPS-04",
+    "status": "complete_for_implementation_and_fixture_qualification",
+    "focus": "Native prepared-plan inventory and discovery",
+    "evidence": ".mivim/vigiles/reports/current/VIGILES_INVENTORY_QUALIFICATION.json",
+    "historical_status": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_STATUS.json"
+  },
+  "next_step": {
+    "id": "VIGIL3-OPS-05",
+    "status": "ready_for_review_and_design",
+    "focus": "Native recovery conflict diagnostics",
+    "finding": "Inventory identifies pending or damaged operations, but recovery stops at the first mismatch and leaves operators to manually compare journal before/after images and asset state.",
+    "target": [
+      "src/workshop/operations.py",
+      "src/workshop/scrape/promote.py",
+      "src/workshop/mcp/workshop_mcp.py"
+    ],
+    "done_criteria": [
+      "Bounded read-only diagnostic report for a selected native operation, showing matching, pending and conflicting control/asset state.",
+      "Retained plan/journal/completion corruption is distinguished from recoverable interruption.",
+      "CLI and both MCP interfaces expose diagnostics without mutating or silently retrying the operation.",
+      "Regression and installed-package evidence; explicit existing recovery remains required."
+    ],
+    "boundaries": [
+      "No automatic repair, rollback, history deletion or replacement of changed files.",
+      "Live deployment, remote CI and process-tree isolation remain open."
+    ]
+  },
+  "open_gates": [
+    {
+      "id": "VIG-DEPLOY-01",
+      "priority": "P1",
+      "status": "native_fixture_qualified_live_acceptance_open",
+      "owner_role": "Workshop integration owner",
+      "impact": "Native file operations are locally qualified with synthetic assets; no live LoRA or ComfyUI acceptance is claimed.",
+      "dependencies": [
+        "Real candidate and completed evaluation evidence",
+        "Operator-selected production workshop",
+        "Live consumer acceptance criteria"
+      ],
+      "next_action": "Evaluate a real candidate, retain its validation evidence, select a production workshop, and review/prepare/apply the exact plan before live consumer acceptance.",
+      "done_criteria": [
+        "Native promotion, quarantine, and audit fixtures pass (complete)",
+        "Interrupted publication recovery demonstrated before live writes (complete)",
+        "Real candidate accepted in an operator-selected production workspace (open)"
+      ],
+      "completed_stage": "Native implementations, representative workspace, dry-run verification, and failure recovery are supplied and locally qualified.",
+      "remaining_dependency": "Production model evaluation and live target selection remain separate from fixture qualification.",
+      "evidence": [
+        "src/workshop/scrape/promote.py",
+        "src/workshop/scrape/audit_matrix.py",
+        "src/workshop/tests/test_operations.py",
+        ".mivim/vigiles/reports/current/VIGILES_PIPELINE_QUALIFICATION.json",
+        ".mivim/vigiles/reports/current/VIGILES_PIPELINE_READINESS.json",
+        ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json",
+        ".mivim/vigiles/reports/current/VIGILES_PLAN_QUALIFICATION.json"
+      ]
+    },
+    {
+      "id": "VIG-IDENTITY-01",
+      "priority": "P1",
+      "status": "open",
+      "owner_role": "MIVIM security and agent integration owner",
+      "impact": "Tessera proves key possession and recipient-label integrity, not independently verified identity or freshness.",
+      "dependencies": [
+        "Approved recipient trust model",
+        "Key custody and distribution design",
+        "Replay policy"
+      ],
+      "next_action": "Define recipient identities and key issuance, rotation, revocation, and replay semantics before cross-agent production exchange.",
+      "done_criteria": [
+        "Isolated recipient tests",
+        "Rotation and revocation tests",
+        "Approved and tested replay policy",
+        "No key material in reports or source"
+      ]
+    },
+    {
+      "id": "VIG-CI-01",
+      "priority": "P1",
+      "status": "open",
+      "owner_role": "Repository maintainer",
+      "impact": "Local Windows results do not prove Linux or Python 3.14 compatibility.",
+      "dependencies": [
+        "Committed and submitted revision",
+        "Enabled GitHub Actions"
+      ],
+      "next_action": "Run the supplied workflow for the submitted revision and retain all four job results.",
+      "done_criteria": [
+        "Windows Python 3.13 passes",
+        "Windows Python 3.14 passes",
+        "Linux Python 3.13 passes",
+        "Linux Python 3.14 passes",
+        "Run URLs and revision recorded"
+      ],
+      "evidence": [
+        "../.github/workflows/vigiles.yml"
+      ]
+    },
+    {
+      "id": "VIG-RESTORE-01",
+      "priority": "P2",
+      "status": "open",
+      "owner_role": "Translation contract owner",
+      "impact": "Native strict restore refuses edited encoded content and historical global-ledger formats.",
+      "dependencies": [
+        "Historical fixtures",
+        "Approved conflict and migration behavior"
+      ],
+      "next_action": "Design an explicit migration and edited-file restoration format preserving source provenance and reporting conflicts.",
+      "done_criteria": [
+        "No silent information loss",
+        "Migration and recovery fixtures pass",
+        "Ambiguous edits produce actionable conflicts",
+        "Strict restore remains available"
+      ]
+    },
+    {
+      "id": "VIG-HOST-01",
+      "priority": "P2",
+      "status": "open",
+      "owner_role": "Deployment operator",
+      "impact": "No installed background service, process-tree lifecycle policy, or OS-level isolation has been qualified.",
+      "dependencies": [
+        "Explicit target host and account",
+        "Filesystem ACL policy",
+        "Resource and lifecycle policy"
+      ],
+      "next_action": "Select whether a managed service is needed, then qualify start/stop/uninstall and least-privilege operation on that host.",
+      "done_criteria": [
+        "Operator-selected deployment recorded",
+        "Least-privilege ACLs verified",
+        "Bounded resource policy tested",
+        "Start, stop, and uninstall verified"
+      ]
+    }
+  ],
+  "evidence": {
+    "directory_guide": ".mivim/vigiles/reports/README.md",
+    "current_directory": ".mivim/vigiles/reports/current/",
+    "source_verification": ".mivim/vigiles/reports/current/VIGILES_VERIFICATION.json",
+    "prior_release_package_verification": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_VERIFICATION.json",
+    "historical_status": ".mivim/vigiles/reports/archive/legacy-layout/VIGILES_STATUS.json",
+    "original_record_hashes_and_relocation": ".mivim/vigiles/reports/INDEX.json",
+    "qualification_scope": "Each report applies to its recorded sources, time and checks. Prior release package evidence does not qualify subsequent edits. Live deployment and remote/host acceptance remain open."
+  }
+}

@@ -1,8 +1,9 @@
 # Bamboozle / Vigiles
 
-Current release: **v0.3.4 (VIGIL3)**. Discover retained native plans through a
-bounded, read-only inventory in the CLI and both workshop MCP interfaces. Exact
-reviewed-plan application, consumer snapshots, and bounded capture remain available.
+Current release: **v0.3.5 (VIGIL3)**. Diagnose interrupted native operations before
+explicit recovery, with bounded reports of retained evidence and every relevant
+input, control, and asset state. The CLI and both workshop MCP interfaces provide
+diagnostics alongside plan discovery, reviewed application, and consumer snapshots.
 
 Vigiles is MIVIM's local middleware for reversible terminology translation,
 authenticated file exchange, and repository integrity checks. The application is
@@ -348,6 +349,73 @@ expose `recover_pipeline`, `quarantine_lora(..., dry_run=True)`, and
 `run_audit(..., apply=True)`. Promotion defaults to preview; the existing quarantine
 tool retains its explicit-action default, so request `dry_run=True` for a preview.
 
+### Diagnose an interrupted native operation
+
+Use the operation ID returned by a failed publication, `--status`, or plan
+inventory. Select the same workshop that owns the retained journal:
+
+```powershell
+uv run --locked python -m workshop.scrape.promote --root "D:/your-workshop" --diagnose-recovery <operation-id>
+# After reviewing a recoverable diagnosis, preview and explicitly resume:
+uv run --locked python -m workshop.scrape.promote --root "D:/your-workshop" --recover <operation-id> --dry-run
+uv run --locked python -m workshop.scrape.promote --root "D:/your-workshop" --recover <operation-id>
+```
+
+Both workshop MCP servers expose `diagnose_recovery(operation_id)`. A successful
+diagnostic invocation returns exit code zero even when it finds conflicts; inspect
+the report's `status` and `recovery_ready`, not just the subprocess return code.
+Invalid arguments or an unavailable workshop root return the normal command error.
+
+| Diagnostic status | Meaning and next action |
+| --- | --- |
+| `recoverable` | All observed recovery preconditions match and no other journal blocks recovery. Review the report, then use explicit recovery. |
+| `conflict` | Changed/missing required files or other pending/damaged operations block recovery. Inspect every listed path and blocker, preserving changed bytes. |
+| `corrupt` | Selected retained evidence has invalid structure, mismatched images/digests, a missing required reviewed plan, or conflicting cancellation/completion records. Preserve it and compare with trusted evidence. |
+| `unavailable` | Access, regular-file, read, catalog, or response limits prevented a complete diagnosis. Resolve the stated limitation before retrying explicitly. |
+| `changing` | Observed files or transaction membership changed during inspection. Wait for publication to stop, then explicitly inspect again. |
+| `already_completed` | Valid retained completion evidence exists. No recovery is needed; current files may reflect later operations. |
+| `not_started` / `cancelled` | A retained plan has no journal. Review an unused plan with `--show-plan`; preserve cancelled plans without applying them. |
+| `not_found` | Check the operation ID and selected workshop. |
+
+Reports contain paths, digests and states, never control-file bodies or key bytes.
+`inputs` must be `matching`. A control is `pending` when it matches its before-image,
+`matching` when it already matches its after-image, or `conflict` otherwise. Asset
+rows compare streamed content hashes: `pending` destination means a copy remains;
+`removed` source means a quarantine copy is valid and production removal already
+occurred. All relevant mismatches are collected instead of stopping at the first.
+
+Diagnostics create no locks, directories, caches, files, or repairs. Reads of
+partial state are confined to this diagnostic surface; normal consumers still
+reject pending publication. Each report reads at most 64 MiB of metadata, with a
+16 MiB per-file cap, scans at most 10,000 transaction entries per scan, and hashes
+at most two assets of 8 GiB each with a fixed-size buffer. It rechecks observed file
+identities, sizes and modification times, including missing records. Reports fit
+6,000 ASCII JSON bytes. If full details cannot fit, an explicit `unavailable`
+response reports the required size and withholds readiness; output is never
+silently truncated. Other-operation blocker examples are limited to five, with
+total and omitted counts reported.
+
+`recovery_ready` describes observed preconditions. `writer_lock_checked: false`
+means it is not a reservation or permission to write. Recovery rechecks under the
+native writer lock. Hostile changes that preserve observed file metadata remain
+outside application isolation. Completed operations are checked as historical
+records without comparing their old images against newer live files.
+
+Recovery and diagnosis share journal structure validation: action-specific control
+writes, valid images and digests, required fields, and at most 16 input
+preconditions. A conflicting cancellation marker blocks explicit recovery too.
+Genuine journals generated by prior native releases remain supported.
+
+```powershell
+uv run --locked python scripts/qualify_recovery.py --workshop ".vigiles/new-recovery-qualification"
+```
+
+[Recovery qualification](.mivim/vigiles/reports/current/VIGILES_RECOVERY_QUALIFICATION.json)
+records real CLI diagnostics and explicit recovery for promotion, quarantine, and
+audit. Separate conflict and corruption workshops remain deliberately damaged for
+inspection. Installed-wheel verification also exercises both real MCP stdio
+servers before recovery, with multiple conflicts, and after completion.
+
 ### Prepare, review, and apply the same native plan
 
 Preparation writes a plan under `scrape/prepared` and takes the native writer lock;
@@ -404,7 +472,7 @@ uv run --locked python scripts/qualify_plans.py --workshop ".vigiles/new-plan-qu
 [Plan qualification](.mivim/vigiles/reports/current/VIGILES_PLAN_QUALIFICATION.json)
 records actual CLI preparation, stale rejection,
 controlled interrupted application, exact-byte recovery, replay rejection, and
-quarantine/cancellation using synthetic assets at `.vigiles/plans-v0.3.4`.
+quarantine/cancellation using synthetic assets at `.vigiles/plans-v0.3.5`.
 
 ### Discover retained plans
 
@@ -463,7 +531,7 @@ uv run --locked python scripts/qualify_inventory.py --workshop ".vigiles/new-inv
 [Inventory qualification](.mivim/vigiles/reports/current/VIGILES_INVENTORY_QUALIFICATION.json)
 records real CLI paging, damaged-record
 visibility, cursor invalidation, and discovery during interrupted publication.
-Its synthetic workspace, `.vigiles/inventory-v0.3.4-final`, deliberately retains a
+Its synthetic workspace, `.vigiles/inventory-v0.3.5`, deliberately retains a
 corrupt plan fixture as evidence; use the separate pipeline fixture for normal work.
 
 Reproduce qualification with explicitly synthetic byte assets in a new directory:
@@ -476,8 +544,8 @@ The qualifiers require new or empty workshops and use managed current/archive
 report storage by default. An explicit `--report` must name a new nested JSON path.
 The pipeline qualifier exercises the actual scripts, injects a controlled ledger
 failure, and recovers through the CLI. This
-checkout's current target is `.vigiles/workshop-v0.3.4`; prior targets remain
-at `.vigiles/workshop` and the `.vigiles/workshop-v0.3.1` through `v0.3.3` paths. See
+checkout's current target is `.vigiles/workshop-v0.3.5`; prior targets remain
+at `.vigiles/workshop` and the `.vigiles/workshop-v0.3.1` through `v0.3.4` paths. See
 [Pipeline qualification](.mivim/vigiles/reports/current/VIGILES_PIPELINE_QUALIFICATION.json)
 for representative manifest/matrix data and
 execution evidence. Fixture success does not establish live LoRA/ComfyUI acceptance.
@@ -506,6 +574,9 @@ MCP stdio child process. Results and source digests go to
 `.mivim/vigiles/reports/current/VIGILES_VERIFICATION.json`; detailed logs remain in a
 unique `.test-tmp/verify-*` directory. Omit `--package` for source-only checks; the
 report records which scope ran. A source-only pass does not refresh package evidence.
+Unreadable historical distribution files remain listed as unavailable; they do
+not prevent check results from being retained. Package qualification requires
+readable wheel and sdist hashes for the current version as well as passing checks.
 
 Before a default report is replaced, its exact previous bytes are retained under
 `.mivim/vigiles/reports/archive/runs/<run-id>/`. Failed results are retained too;

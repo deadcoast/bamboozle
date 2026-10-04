@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "status": "failed",
+  "package_qualification_completed": false,
+  "tests": {
+    "tests": 320,
+    "passed": 318,
+    "failures": 2
+  },
+  "checks_passed": [
+    "ruff",
+    "format",
+    "mypy",
+    "pyright",
+    "compile"
+  ],
+  "failures": [
+    "Windows launcher could not sync changed editable version because sandbox network denied setuptools index access",
+    "Recovery qualifier source hash collection used monkeypatched output root and failed before report preservation"
+  ],
+  "finalization_error": "PermissionError reading historical dist/bamboozle-0.2.0-py3-none-any.whl prevented original verifier report publication",
+  "retained_logs": {
+    "compile.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original": ".test-tmp\\verify-kirgkhi9\\compile.log"
+    },
+    "format.log": {
+      "sha256": "c9c509eccd97ef773a7b18e58413a70a3f1b52c1ce02018b081b5363df536825",
+      "original": ".test-tmp\\verify-kirgkhi9\\format.log"
+    },
+    "mypy.log": {
+      "sha256": "1ae1a89d54d420cace381d4367eb85674ac10663afe0766641917ac6d36ebbd0",
+      "original": ".test-tmp\\verify-kirgkhi9\\mypy.log"
+    },
+    "pyright.log": {
+      "sha256": "c584b21ee012de391dc2799d5455db619d3fefbb192ab07ea4ba83fb0d704c14",
+      "original": ".test-tmp\\verify-kirgkhi9\\pyright.log"
+    },
+    "pytest.log": {
+      "sha256": "bd0b3a4f7a8acdd8391e15fc35861d658530aaa61792d2bfadb2cc85679a0640",
+      "original": ".test-tmp\\verify-kirgkhi9\\pytest.log"
+    },
+    "pytest.xml": {
+      "sha256": "aedc9bd78b81f6a990bebd968364d2888ae4a467b13b170c0a3c301a9d87ed63",
+      "original": ".test-tmp\\verify-kirgkhi9\\pytest.xml"
+    },
+    "ruff.log": {
+      "sha256": "a4443afdcfb6d7363adb285762515ccf7cf50473b1a05c20c1a50f6bed4d26b0",
+      "original": ".test-tmp\\verify-kirgkhi9\\ruff.log"
+    }
+  },
+  "reconstructed_from_retained_logs": true
+}

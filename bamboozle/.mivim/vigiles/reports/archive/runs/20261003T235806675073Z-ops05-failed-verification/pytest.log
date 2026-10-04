@@ -1,0 +1,30 @@
+......F............................................F.................... [ 22%]
+........................................................................ [ 45%]
+........................................................................ [ 67%]
+........................................................................ [ 90%]
+................................                                         [100%]
+================================== FAILURES ===================================
+_________________ test_batch_launchers_use_the_installed_cli __________________
+src\bamboozle\tests\test_cli_mcp.py:169: in test_batch_launchers_use_the_installed_cli
+    subprocess.run(
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\subprocess.py:577: in run
+    raise CalledProcessError(retcode, process.args,
+E   subprocess.CalledProcessError: Command '['cmd', '/c', 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\src\\ENCRYPT_FOR_AGENT.bat', 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-fixtures-02cq6g0w\\pytest\\test_batch_launchers_use_the_i0\\batch sample.txt']' returned non-zero exit status 1.
+_ test_qualifier_default_keeps_failure_when_next_run_passes[qualify_recovery-VIGILES_RECOVERY_QUALIFICATION.json] _
+src\bamboozle\tests\test_evidence.py:122: in test_qualifier_default_keeps_failure_when_next_run_passes
+    assert module.main() == 1
+           ^^^^^^^^^^^^^
+scripts\qualify_recovery.py:176: in main
+    name: sha256((project / name).read_bytes())
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\pathlib\_abc.py:625: in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Roaming\uv\python\cpython-3.13.9-windows-x86_64-none\Lib\pathlib\_local.py:537: in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.test-tmp\\verify-fixtures-02cq6g0w\\pytest\\test_qualifier_default_keeps_f3\\project\\scripts\\qualify_recovery.py'
+=========================== short test summary info ===========================
+FAILED src/bamboozle/tests/test_cli_mcp.py::test_batch_launchers_use_the_installed_cli
+FAILED src/bamboozle/tests/test_evidence.py::test_qualifier_default_keeps_failure_when_next_run_passes[qualify_recovery-VIGILES_RECOVERY_QUALIFICATION.json]
+2 failed, 318 passed in 70.36s (0:01:10)

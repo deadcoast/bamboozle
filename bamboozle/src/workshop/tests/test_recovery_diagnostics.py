@@ -155,7 +155,18 @@ def test_all_conflicts_are_reported_without_exposing_file_bodies(native, monkeyp
 
 @pytest.mark.parametrize(
     "damage",
-    ["json", "array", "missing_write", "before_digest", "asset", "inputs", "action"],
+    [
+        "json",
+        "array",
+        "missing_write",
+        "before_digest",
+        "asset",
+        "inputs",
+        "action",
+        "lora",
+        "created",
+        "reason",
+    ],
 )
 def test_corrupt_journal_is_not_a_recoverable_interruption(native, monkeypatch, damage):
     operation_id = interrupt(native, monkeypatch, prepared=False)
@@ -171,6 +182,8 @@ def test_corrupt_journal_is_not_a_recoverable_interruption(native, monkeypatch, 
         plan["inputs"] = {ops.MATRIX: "invalid"}
     elif damage == "action":
         plan["action"] = []
+    elif damage in {"lora", "created", "reason"}:
+        del plan[damage]
     journal.write_bytes(
         b"{" if damage == "json" else b"[]" if damage == "array" else json_bytes(plan)
     )
@@ -349,3 +362,72 @@ def test_diagnostic_cli_rejects_ambiguous_options(native, args):
     with pytest.raises(SystemExit) as error:
         promote.main(["--diagnose-recovery", "0" * 32, *args], root=native)
     assert error.value.code == 2
+
+
+@pytest.mark.parametrize("kind", ["directory", "access", "escape"])
+def test_unreadable_or_unsafe_paths_never_authorize_recovery(native, monkeypatch, kind):
+    operation_id = interrupt(native, monkeypatch, prepared=False)
+    if kind == "directory":
+        path = native / ops.LEDGER
+        path.unlink()
+        path.mkdir()
+    elif kind == "access":
+        read = recovery._Reader.read
+
+        def denied(self, name):
+            if str(name) == ops.LEDGER:
+                raise PermissionError("Controlled inaccessible ledger")
+            return read(self, name)
+
+        monkeypatch.setattr(recovery._Reader, "read", denied)
+    else:
+        path = native / f"scrape/transactions/{operation_id}.json"
+        document = json.loads(path.read_bytes())
+        document["asset"]["source"] = "../outside.bin"
+        path.write_bytes(json_bytes(document))
+    report = inspect(native, operation_id)
+    assert report["status"] == "unavailable" and not report["recovery_ready"]
+
+
+def test_completed_journal_still_requires_valid_structure(native):
+    saved = ops.promote(native, "candidates/ExampleA.json", dry_run=False)
+    operation_id = saved["operation_id"]
+    path = native / f"scrape/transactions/{operation_id}.json"
+    document = json.loads(path.read_bytes())
+    del document["lora"]
+    raw = json_bytes(document)
+    path.write_bytes(raw)
+    saved["journal_sha256"] = sha256(raw)
+    path.with_suffix(".done.json").write_bytes(json_bytes(saved))
+    report = inspect(native, operation_id)
+    assert report["status"] == "corrupt"
+    with pytest.raises(ValueError, match="Unsupported"):
+        ops.recover(native, operation_id, dry_run=False)
+
+
+def test_long_paths_cannot_silently_truncate_a_report(native, monkeypatch):
+    operation_id = interrupt(native, monkeypatch, prepared=False)
+    path = native / f"scrape/transactions/{operation_id}.json"
+    document = json.loads(path.read_bytes())
+    document["inputs"]["candidates/" + "界" * 1000 + ".json"] = "0" * 64
+    path.write_bytes(json_bytes(document))
+    report = inspect(native, operation_id)
+    assert report["status"] == "unavailable"
+    assert report["required_response_bytes"] > report["response_limit_bytes"]
+    assert not report["inspection_complete"] and not report["recovery_ready"]
+
+
+def test_metadata_budget_includes_marker_and_allows_exact_boundary(native, monkeypatch):
+    marker = native / "_vigiles_workshop.json"
+    monkeypatch.setattr(recovery, "MAX_METADATA_BYTES", marker.stat().st_size)
+    report = inspect(native, "0" * 32)
+    assert report["status"] == "not_found"
+    assert report["metadata_bytes_read"] == marker.stat().st_size
+
+
+@pytest.mark.parametrize("operation_id", ["../x", "X" * 32, "0" * 31, "0" * 33])
+def test_invalid_operation_ids_are_rejected_before_file_access(native, operation_id):
+    before = files(native)
+    with pytest.raises(ValueError, match="Invalid operation ID"):
+        ops.diagnose_recovery(native, operation_id)
+    assert files(native) == before

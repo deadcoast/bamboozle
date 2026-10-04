@@ -1,0 +1,9 @@
+{
+  "finding": "Windows stat and fstat differed in st_ctime_ns for unchanged files. Initial identity comparison incorrectly marked stable inputs as changing.",
+  "log": ".test-tmp\\ops05-diagnostics-d6f0efc951934413843a13f8ebd60e04\\pytest.log",
+  "phase": "initial_diagnostic_tests",
+  "resolution": "Compare device, inode, mode, size and modification time; retain mutation regressions and rerun qualification.",
+  "status": "failed",
+  "tests_failed": 40,
+  "tests_passed": 9
+}

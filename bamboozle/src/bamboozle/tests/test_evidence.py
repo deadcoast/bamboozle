@@ -15,7 +15,35 @@ QUALIFIERS = {
     "qualify_pipeline": "VIGILES_PIPELINE_QUALIFICATION.json",
     "qualify_plans": "VIGILES_PLAN_QUALIFICATION.json",
     "qualify_inventory": "VIGILES_INVENTORY_QUALIFICATION.json",
+    "qualify_recovery": "VIGILES_RECOVERY_QUALIFICATION.json",
 }
+
+
+def test_verifier_retains_unreadable_artifacts(tmp_path, monkeypatch):
+    spec = importlib.util.spec_from_file_location(
+        "verify", PROJECT / "scripts/verify.py"
+    )
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    unavailable = tmp_path / "bamboozle-old.whl"
+    unavailable.write_bytes(b"retained historical artifact")
+    readable = tmp_path / "bamboozle-current.whl"
+    readable.write_bytes(b"current artifact")
+    original = Path.read_bytes
+
+    def read(path):
+        if path == unavailable:
+            raise PermissionError("controlled inaccessible historical artifact")
+        return original(path)
+
+    monkeypatch.setattr(Path, "read_bytes", read)
+    artifacts = module.artifact_inventory(tmp_path)
+    assert artifacts[unavailable.name]["status"] == "unavailable"
+    assert "PermissionError" in artifacts[unavailable.name]["error"]
+    assert "sha256" not in artifacts[unavailable.name]
+    assert artifacts[readable.name]["bytes"] == len(b"current artifact")
+    assert original(unavailable) == b"retained historical artifact"
 
 
 def test_default_replacement_archives_exact_failed_bytes(tmp_path):

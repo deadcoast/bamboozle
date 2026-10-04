@@ -93,7 +93,9 @@ def main() -> None:
     if not Path(plans.__file__).resolve().is_relative_to(args.prefix.resolve()):
         raise RuntimeError("Prepared plans were not loaded from the installed wheel")
     if not Path(recovery.__file__).resolve().is_relative_to(args.prefix.resolve()):
-        raise RuntimeError("Recovery diagnostics were not loaded from the installed wheel")
+        raise RuntimeError(
+            "Recovery diagnostics were not loaded from the installed wheel"
+        )
     mapping = Dictionary.load()
     if len(mapping) != 110 or not Taxonomy.load().canon_cat:
         raise RuntimeError("Packaged dictionary or taxonomy resource is missing")
@@ -193,22 +195,43 @@ def main() -> None:
                 cwd=str(Path.cwd()),
                 env={"VIGILES_WORKSHOP_ROOT": str(workshop.absolute())},
             )
-            before = {str(p): sha256(p.read_bytes()) for p in workshop.rglob("*") if p.is_file()}
+            before = {
+                str(p): sha256(p.read_bytes())
+                for p in workshop.rglob("*")
+                if p.is_file()
+            }
             async with Client(transport) as client:
-                result = await client.call_tool("diagnose_recovery", {"operation_id": operation_id})
+                result = await client.call_tool(
+                    "diagnose_recovery", {"operation_id": operation_id}
+                )
                 content = result.content[0]
                 if result.is_error or content.type != "text":
                     raise RuntimeError("Installed recovery diagnostic tool failed")
                 execution = json.loads(content.text)
                 if execution["returncode"] != 0 or execution["stdout_truncated"]:
-                    raise RuntimeError(f"Installed diagnostic output failed: {execution}")
+                    raise RuntimeError(
+                        f"Installed diagnostic output failed: {execution}"
+                    )
                 report = json.loads(execution["stdout"])
-                if report["status"] != expected or report["recovery_ready"] != (expected == "recoverable"):
+                if report["status"] != expected or report["recovery_ready"] != (
+                    expected == "recoverable"
+                ):
                     raise RuntimeError(f"Installed diagnostic state mismatch: {report}")
-                after = {str(p): sha256(p.read_bytes()) for p in workshop.rglob("*") if p.is_file()}
+                after = {
+                    str(p): sha256(p.read_bytes())
+                    for p in workshop.rglob("*")
+                    if p.is_file()
+                }
                 if before != after:
                     raise RuntimeError("Installed diagnostics changed workshop files")
-                diagnostic_results.append({"module": module, "expected": expected, "report": report, "read_only": True})
+                diagnostic_results.append(
+                    {
+                        "module": module,
+                        "expected": expected,
+                        "report": report,
+                        "read_only": True,
+                    }
+                )
 
     asyncio.run(asyncio.wait_for(smoke_diagnostics("recoverable"), timeout=60))
     # Controlled fixture edits prove that both installed interfaces expose all

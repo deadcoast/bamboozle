@@ -53,6 +53,7 @@ a root-level handoff. Do not generate extra tracking documents without a task ne
 | Tessera authenticated exchange and repository audits | `src/bamboozle/tessera.py`, `audit.py` |
 | Main CLI and MCP tools | `src/bamboozle/cli.py`, `mcp.py` |
 | Native workshop initialization and journaled operations | `src/workshop/bootstrap.py`, `operations.py` |
+| Read-only recovery conflict diagnostics | `src/workshop/recovery.py`, shared validation in `operations.py` |
 | Durable plans, discovery, and consumer consistency | `src/workshop/plans.py`, `inventory.py`, `snapshot.py` |
 | External pipeline adapter and bounded output capture | `src/workshop/pipeline.py`, `process.py` |
 | Native script entry points | `src/workshop/scrape/promote.py`, `audit_matrix.py` |
@@ -111,8 +112,9 @@ Do not regenerate release evidence or claim a fresh runtime qualification.
   `VIGILES_WORKSHOP_PYTHON` selects the adapter interpreter; configuration lives in
   `src/workshop/config.py`. Never hardcode a developer's workshop path.
 - Use synthetic fixtures from `workshop.examples`. The qualifiers
-  `scripts/qualify_pipeline.py`, `scripts/qualify_plans.py`, and
-  `scripts/qualify_inventory.py` require new or empty workshop paths. Omit `--report`
+  `scripts/qualify_pipeline.py`, `scripts/qualify_plans.py`,
+  `scripts/qualify_inventory.py`, and `scripts/qualify_recovery.py` require new or
+  empty workshop paths. Omit `--report`
   for managed current/archive storage, or select a new explicit nested report path.
   Existing fixtures may intentionally contain corruption; preserve them.
 - `python -m workshop.mcp.workshop_mcp` starts the primary stdio server.
@@ -137,6 +139,10 @@ Do not regenerate release evidence or claim a fresh runtime qualification.
   plans and retain cancellation evidence.
 - Native consumers must use the snapshot boundary. Do not expose partial
   publication or rebuild an index from pending state.
+- Recovery diagnostics may inspect partial state only to produce bounded, read-only
+  evidence. Share retained-journal validation with recovery, report all relevant
+  conflicts, withhold readiness on incomplete/changing observations, and keep
+  completed journals distinct from the current files of later operations.
 - Inventory is read-only and checks metadata, not model hashes or global apply
   readiness. Preserve bounded responses/reads, cursor invalidation, and visibility
   of corrupt, unavailable, and changing records. Inspection/apply retains full

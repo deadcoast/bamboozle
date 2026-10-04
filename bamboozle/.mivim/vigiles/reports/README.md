@@ -10,6 +10,7 @@ active planning/task files alongside ordinary project files. Its
 | [Pipeline qualification](current/VIGILES_PIPELINE_QUALIFICATION.json) | Synthetic native operation and recovery evidence |
 | [Plan qualification](current/VIGILES_PLAN_QUALIFICATION.json) | Exact-plan CLI application and recovery evidence |
 | [Inventory qualification](current/VIGILES_INVENTORY_QUALIFICATION.json) | Bounded discovery and damaged-record visibility |
+| [Recovery qualification](current/VIGILES_RECOVERY_QUALIFICATION.json) | Read-only conflict diagnostics, real explicit recovery, and retained damaged fixtures |
 | [Pipeline readiness](current/VIGILES_PIPELINE_READINESS.json) | Local dependency inspection |
 | [Capture qualification](current/VIGILES_CAPTURE_QUALIFICATION.json) | Bounded subprocess capture evidence |
 
@@ -17,7 +18,7 @@ active planning/task files alongside ordinary project files. Its
 subsequent edit. Check creation time, source digests, scope, and result. Old release
 records do not prove new code or live deployment.
 
-The verifier and three qualification scripts write to `current/` by default. Before
+The verifier and four qualification scripts write to `current/` by default. Before
 replacement they preserve the previous exact bytes in
 `archive/runs/<UTC-timestamp-unique-id>/`. Failed records receive the same retention
 as passing ones. If archival fails, the current record is not replaced. An explicit

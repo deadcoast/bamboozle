@@ -35,16 +35,16 @@
       "name": "native_workshop",
       "ok": true,
       "pending_operations": [],
-      "version": "0.3.4"
+      "version": "0.3.5"
     }
   ],
-  "created": "2026-10-03T21:41:08.166296Z",
+  "created": "2026-10-03T23:59:56.794556Z",
   "deployment_qualified": false,
   "executed_scripts": false,
   "gate": "VIG-DEPLOY-01",
   "next_action": "Review script behavior and qualify dry-run, publication, and recovery against isolated copies before any live operation.",
   "ok": true,
   "schema_version": 1,
-  "scrape": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.vigiles\\workshop-v0.3.4\\scrape",
+  "scrape": "C:\\Users\\ryanf\\github\\_active\\bamboozle\\bamboozle\\.vigiles\\workshop-v0.3.5\\scrape",
   "status": "ready_for_review"
 }

@@ -73,7 +73,7 @@ class _Reader(Workspace):
         if path in self.cached:
             return self.cached[path]
         remaining = MAX_METADATA_BYTES - self.counts[0]
-        if info.st_size > self.max_bytes or info.st_size >= remaining:
+        if info.st_size > self.max_bytes or info.st_size > remaining or remaining == 0:
             raise _LimitExceeded(
                 "Metadata read limit reached; no recovery readiness established"
             )
